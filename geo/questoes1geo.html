@@ -1,0 +1,1178 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simulado IFMG - História do Pensamento Geográfico I</title>
+  <style>
+    /* ==========================================================================
+       Design System & Ergonomia Visual (Fundo Claro / Alto Conforto de Leitura)
+       ========================================================================== */
+    :root {
+      --bg-page: #f8f9fa;
+      --bg-card: #ffffff;
+      --bg-card-subtle: #f3f4f6;
+      --text-main: #212529;
+      --text-muted: #596172;
+      --text-heading: #0f172a;
+      
+      --brand-primary: #1e3a8a;
+      --brand-primary-hover: #172554;
+      --brand-light: #eff6ff;
+      --brand-border: #bfdbfe;
+
+      --success-bg: #f0fdf4;
+      --success-border: #86efac;
+      --success-text: #166534;
+      --success-badge: #15803d;
+
+      --error-bg: #fef2f2;
+      --error-border: #fca5a5;
+      --error-text: #991b1b;
+      --error-badge: #b91c1c;
+
+      --neutral-border: #e2e8f0;
+      --neutral-border-strong: #cbd5e1;
+
+      --font-ui: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      --font-body: "Georgia", "Cambria", "Times New Roman", serif;
+      --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      
+      --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+      --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.07), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+      --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -4px rgba(0, 0, 0, 0.04);
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 14px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-page);
+      color: var(--text-main);
+      font-family: var(--font-body);
+      font-size: 1.08rem;
+      line-height: 1.78;
+      letter-spacing: 0.005em;
+      text-rendering: optimizeLegibility;
+      -webkit-font-smoothing: antialiased;
+      padding-bottom: 90px;
+    }
+
+    /* Container Principal */
+    .container {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 24px 20px;
+    }
+
+    /* Cabeçalho da Prova */
+    .exam-header {
+      background-color: var(--bg-card);
+      border: 1px solid var(--neutral-border);
+      border-radius: var(--radius-lg);
+      padding: 32px 28px;
+      margin-bottom: 24px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .exam-badge {
+      display: inline-block;
+      font-family: var(--font-ui);
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      background-color: var(--brand-light);
+      color: var(--brand-primary);
+      padding: 5px 12px;
+      border-radius: 9999px;
+      margin-bottom: 12px;
+      border: 1px solid var(--brand-border);
+    }
+
+    .exam-title {
+      font-family: var(--font-ui);
+      font-size: 1.55rem;
+      font-weight: 800;
+      color: var(--text-heading);
+      line-height: 1.35;
+      margin-bottom: 10px;
+    }
+
+    .exam-subtitle {
+      font-family: var(--font-ui);
+      font-size: 0.96rem;
+      color: var(--text-muted);
+      line-height: 1.55;
+    }
+
+    /* Barra Fixa de Progresso e Ações */
+    .sticky-toolbar {
+      position: sticky;
+      top: 12px;
+      z-index: 50;
+      background: rgba(255, 255, 255, 0.94);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border: 1px solid var(--neutral-border);
+      border-radius: var(--radius-md);
+      padding: 12px 20px;
+      margin-bottom: 28px;
+      box-shadow: var(--shadow-md);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      font-family: var(--font-ui);
+    }
+
+    .progress-info {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      flex: 1;
+    }
+
+    .progress-text {
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--text-heading);
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .progress-bar-bg {
+      width: 100%;
+      height: 8px;
+      background-color: var(--neutral-border);
+      border-radius: 9999px;
+      overflow: hidden;
+    }
+
+    .progress-bar-fill {
+      height: 100%;
+      width: 0%;
+      background-color: var(--brand-primary);
+      transition: width 0.3s ease;
+      border-radius: 9999px;
+    }
+
+    .toolbar-actions {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    /* Botões */
+    .btn {
+      font-family: var(--font-ui);
+      font-size: 0.9rem;
+      font-weight: 600;
+      padding: 9px 18px;
+      border-radius: var(--radius-sm);
+      border: none;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: all 0.2s ease;
+      text-decoration: none;
+    }
+
+    .btn-primary {
+      background-color: var(--brand-primary);
+      color: #ffffff;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .btn-primary:hover {
+      background-color: var(--brand-primary-hover);
+      box-shadow: var(--shadow-md);
+    }
+
+    .btn-secondary {
+      background-color: #ffffff;
+      color: var(--text-main);
+      border: 1px solid var(--neutral-border-strong);
+    }
+
+    .btn-secondary:hover {
+      background-color: var(--bg-card-subtle);
+      border-color: #94a3b8;
+    }
+
+    /* Quadro de Resultados (Exibido pós-finalização) */
+    .results-card {
+      display: none;
+      background-color: var(--bg-card);
+      border: 2px solid var(--brand-primary);
+      border-radius: var(--radius-lg);
+      padding: 30px;
+      margin-bottom: 30px;
+      box-shadow: var(--shadow-lg);
+      animation: fadeIn 0.4s ease-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .results-header {
+      font-family: var(--font-ui);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      border-bottom: 1px solid var(--neutral-border);
+      padding-bottom: 20px;
+      margin-bottom: 20px;
+    }
+
+    .results-score-box {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .score-circle {
+      width: 68px;
+      height: 68px;
+      border-radius: 50%;
+      background: var(--brand-light);
+      border: 3px solid var(--brand-primary);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      color: var(--brand-primary);
+      line-height: 1;
+    }
+
+    .score-circle .big {
+      font-size: 1.55rem;
+    }
+
+    .score-circle .small {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+    }
+
+    .score-details h3 {
+      font-size: 1.25rem;
+      color: var(--text-heading);
+      margin-bottom: 4px;
+    }
+
+    .score-details p {
+      font-size: 0.92rem;
+      color: var(--text-muted);
+    }
+
+    .results-filters {
+      font-family: var(--font-ui);
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .filter-chip {
+      font-size: 0.82rem;
+      font-weight: 600;
+      padding: 6px 14px;
+      border-radius: 9999px;
+      border: 1px solid var(--neutral-border);
+      background: #ffffff;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .filter-chip.active {
+      background: var(--brand-primary);
+      color: #ffffff;
+      border-color: var(--brand-primary);
+    }
+
+    /* Card de Cada Questão */
+    .question-card {
+      background-color: var(--bg-card);
+      border: 1px solid var(--neutral-border);
+      border-radius: var(--radius-lg);
+      padding: 32px 30px;
+      margin-bottom: 28px;
+      box-shadow: var(--shadow-sm);
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+      position: relative;
+    }
+
+    .question-card:focus-within {
+      border-color: #93c5fd;
+    }
+
+    .question-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 16px;
+      font-family: var(--font-ui);
+    }
+
+    .question-num-tag {
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--brand-primary);
+      background-color: var(--brand-light);
+      padding: 4px 10px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--brand-border);
+    }
+
+    .question-status-tag {
+      font-size: 0.82rem;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 9999px;
+      display: none;
+    }
+
+    .question-status-tag.correct {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background-color: var(--success-bg);
+      color: var(--success-text);
+      border: 1px solid var(--success-border);
+    }
+
+    .question-status-tag.incorrect {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background-color: var(--error-bg);
+      color: var(--error-text);
+      border: 1px solid var(--error-border);
+    }
+
+    .question-status-tag.unanswered {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background-color: #fef9c3;
+      color: #854d0e;
+      border: 1px solid #fde047;
+    }
+
+    /* Enunciado da Questão */
+    .question-prompt {
+      color: var(--text-main);
+      margin-bottom: 22px;
+      white-space: pre-line;
+    }
+
+    .question-prompt p {
+      margin-bottom: 14px;
+    }
+
+    .question-prompt strong {
+      color: var(--text-heading);
+    }
+
+    .question-prompt em {
+      font-style: italic;
+    }
+
+    /* Lista e Colunas formatadas */
+    .prompt-block {
+      background-color: #fbfbf9;
+      border-left: 3px solid var(--brand-border);
+      padding: 14px 18px;
+      margin: 16px 0;
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+      font-size: 1.02rem;
+    }
+
+    .prompt-block p {
+      margin-bottom: 8px;
+    }
+
+    .prompt-block p:last-child {
+      margin-bottom: 0;
+    }
+
+    /* Alternativas */
+    .options-group {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 20px;
+      font-family: var(--font-ui);
+    }
+
+    .option-label {
+      position: relative;
+      display: flex;
+      align-items: flex-start;
+      padding: 14px 16px;
+      border: 1px solid var(--neutral-border);
+      border-radius: var(--radius-md);
+      background-color: #ffffff;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      user-select: none;
+    }
+
+    .option-label:hover {
+      background-color: #f8fafc;
+      border-color: #cbd5e1;
+    }
+
+    .option-input {
+      position: absolute;
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .option-indicator {
+      flex-shrink: 0;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      border: 1.5px solid #94a3b8;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      margin-right: 14px;
+      margin-top: 1px;
+      background-color: #ffffff;
+      transition: all 0.2s;
+    }
+
+    .option-input:checked + .option-indicator {
+      border-color: var(--brand-primary);
+      background-color: var(--brand-primary);
+      color: #ffffff;
+    }
+
+    .option-label.selected {
+      background-color: #f0f7ff;
+      border-color: #93c5fd;
+    }
+
+    .option-text {
+      font-family: var(--font-body);
+      font-size: 1.04rem;
+      line-height: 1.6;
+      color: var(--text-main);
+      padding-top: 2px;
+    }
+
+    /* Estados de Feedback Pós-Correção nas Alternativas */
+    .option-label.feedback-correct {
+      background-color: var(--success-bg) !important;
+      border-color: var(--success-border) !important;
+    }
+
+    .option-label.feedback-correct .option-indicator {
+      background-color: var(--success-badge) !important;
+      border-color: var(--success-badge) !important;
+      color: #ffffff !important;
+    }
+
+    .option-label.feedback-wrong-selection {
+      background-color: var(--error-bg) !important;
+      border-color: var(--error-border) !important;
+    }
+
+    .option-label.feedback-wrong-selection .option-indicator {
+      background-color: var(--error-badge) !important;
+      border-color: var(--error-badge) !important;
+      color: #ffffff !important;
+    }
+
+    /* Caixa de Resolução Comentada */
+    .resolution-wrapper {
+      display: none;
+      margin-top: 24px;
+      border-top: 1px dashed var(--neutral-border-strong);
+      padding-top: 20px;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .resolution-box {
+      background-color: #f8fafc;
+      border-left: 4px solid var(--brand-primary);
+      border-radius: 0 var(--radius-md) var(--radius-md) 0;
+      padding: 20px 22px;
+    }
+
+    .resolution-header {
+      font-family: var(--font-ui);
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--brand-primary);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .resolution-body {
+      font-size: 1.02rem;
+      line-height: 1.74;
+      color: #334155;
+    }
+
+    .resolution-body p {
+      margin-bottom: 12px;
+    }
+
+    .resolution-body p:last-child {
+      margin-bottom: 0;
+    }
+
+    .resolution-body strong {
+      color: var(--text-heading);
+    }
+
+    /* Modal de Confirmação Suave (Sem alert()) */
+    .custom-modal-backdrop {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(15, 23, 42, 0.45);
+      backdrop-filter: blur(4px);
+      z-index: 100;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+    }
+
+    .custom-modal {
+      background: #ffffff;
+      max-width: 480px;
+      width: 100%;
+      border-radius: var(--radius-lg);
+      padding: 28px;
+      box-shadow: var(--shadow-lg);
+      font-family: var(--font-ui);
+    }
+
+    .custom-modal h4 {
+      font-size: 1.2rem;
+      color: var(--text-heading);
+      margin-bottom: 10px;
+    }
+
+    .custom-modal p {
+      font-size: 0.96rem;
+      color: var(--text-muted);
+      line-height: 1.55;
+      margin-bottom: 22px;
+    }
+
+    .custom-modal-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 12px;
+    }
+
+    /* Responsividade */
+    @media (max-width: 640px) {
+      .container {
+        padding: 14px 12px;
+      }
+      .exam-header {
+        padding: 22px 18px;
+      }
+      .exam-title {
+        font-size: 1.3rem;
+      }
+      .question-card {
+        padding: 22px 16px;
+      }
+      .sticky-toolbar {
+        padding: 10px 14px;
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .toolbar-actions {
+        justify-content: space-between;
+      }
+      .results-header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <!-- Cabeçalho Institucional -->
+    <header class="exam-header">
+      <span class="exam-badge">Concurso Magistério EBTT • IFMG</span>
+      <h1 class="exam-title">História do Pensamento Geográfico I: As Matrizes Clássicas</h1>
+      <p class="exam-subtitle">
+        Caderno de Prova Objetiva interativo com 10 questões originais, gabarito e resolução comentada fundamentada em Moreira (2008), Godoy (2010) e Haesbaert et al. (2012).
+      </p>
+    </header>
+
+    <!-- Barra de Controle e Progresso -->
+    <nav class="sticky-toolbar" id="toolbar">
+      <div class="progress-info">
+        <div class="progress-text">
+          <span>Progresso do Simulado</span>
+          <span id="progressCount">0 de 10 respondidas</span>
+        </div>
+        <div class="progress-bar-bg">
+          <div class="progress-bar-fill" id="progressBar"></div>
+        </div>
+      </div>
+      <div class="toolbar-actions">
+        <button class="btn btn-primary" id="btnFinish" type="button">
+          Finalizar e Corrigir
+        </button>
+        <button class="btn btn-secondary" id="btnReset" type="button" style="display: none;">
+          Refazer Simulado
+        </button>
+      </div>
+    </nav>
+
+    <!-- Quadro de Resultados Pós-Correção -->
+    <section class="results-card" id="resultsSection" aria-live="polite">
+      <div class="results-header">
+        <div class="results-score-box">
+          <div class="score-circle">
+            <span class="big" id="scoreNumber">0</span>
+            <span class="small">/ 10</span>
+          </div>
+          <div class="score-details">
+            <h3 id="scoreTitle">Resultado da Avaliação</h3>
+            <p id="scoreSummary">Você acertou 0% da prova.</p>
+          </div>
+        </div>
+        <div class="results-filters">
+          <button class="filter-chip active" data-filter="all" type="button">Todas (10)</button>
+          <button class="filter-chip" data-filter="correct" type="button">Apenas Acertos (<span id="countCorrect">0</span>)</button>
+          <button class="filter-chip" data-filter="incorrect" type="button">Apenas Erros (<span id="countIncorrect">0</span>)</button>
+        </div>
+      </div>
+      <p style="font-family: var(--font-ui); font-size: 0.92rem; color: var(--text-muted); margin-bottom: 0;">
+        Role a página para analisar sua marcação ao lado da resposta oficial e ler a resolução detalhada de cada questão.
+      </p>
+    </section>
+
+    <!-- Lista Dinâmica de Questões -->
+    <main id="quizContainer">
+      <!-- Injetado dinamicamente via JavaScript -->
+    </main>
+  </div>
+
+  <!-- Modal Customizado para Confirmação de Envio Incompleto -->
+  <div class="custom-modal-backdrop" id="warningModal">
+    <div class="custom-modal">
+      <h4>Questões Não Respondidas</h4>
+      <p id="warningModalText">Você ainda possui questões em branco. Deseja realmente finalizar o simulado e visualizar o gabarito agora?</p>
+      <div class="custom-modal-actions">
+        <button class="btn btn-secondary" id="btnModalCancel" type="button">Continuar Respondendo</button>
+        <button class="btn btn-primary" id="btnModalConfirm" type="button">Sim, Corrigir Agora</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    /* ==========================================================================
+       Banco de Dados com as 10 Questões e Resoluções Integrais do Documento
+       ========================================================================== */
+    const quizData = [
+      {
+        id: 1,
+        title: "Questão 01",
+        theme: "Contexto geopolítico e expansão imperialista na Alemanha e na França",
+        promptHtml: `<p>A institucionalização universitária da Geografia na Europa ao longo da segunda metade do século XIX não derivou de uma evolução estritamente endógena do saber acadêmico, mas esteve organicamente articulada às transformações materiais e políticas trazidas pela consolidação dos Estados-nação, pelo desenvolvimento técnico-industrial e pela partilha colonial imperialista. Conforme analisam Ruy Moreira (2008) e Paulo Roberto Teixeira de Godoy (2010), a constituição das matrizes clássicas alemã e francesa corporificou demandas geopolíticas e ideológicas singulares de suas respectivas formações socioespaciais de origem.</p>
+        <p>A respeito do contexto histórico e político de institucionalização das matrizes clássicas da Geografia no século XIX, assinale a alternativa correta:</p>`,
+        options: {
+          A: "A Geografia alemã emergiu tardiamente em relação à francesa devido à inexistência de pretensões coloniais germânicas, tendo suas diretrizes curriculares orientadas pelos ideais cosmopolitas e pacifistas legados por Alexander von Humboldt e Paul Vidal de La Blache.",
+          B: "O processo de unificação prussiano sob hegemonia de Bismarck (1871) e o imperativo de consolidação territorial impuseram ao pensamento geográfico germânico a formulação de um arcabouço conceitual capaz de fundamentar a soberania e a projeção do Estado Imperial, papel desempenhado pela vertente ratzeliana, ao passo que a Terceira República Francesa (pós-Guerra Franco-Prussiana) demandou da escola vidaliana a reconstrução da coesão cívica e da identidade nacional por meio do ensino público e acadêmico.",
+          C: "A fundação da escola francesa de Geografia, sob a liderança de Paul Vidal de La Blache, absteve-se de qualquer diálogo com o projeto colonialista francês na África e no Sudeste Asiático, mantendo sua produção restrita às monografias idílicas do campesinato e rejeitando a dimensão geopolítica do Estado.",
+          D: "As matrizes alemã e francesa estruturaram-se sob idêntica filiação positivista-lógica e estrito cartesianismo, fundamentando suas investigações na física social mecanicista e recusando de modo inflexível analogias biológicas ou noções evolucionistas.",
+          E: "A institucionalização acadêmica na Alemanha prescindiu da tutela estatal e das cátedras universitárias oficiais, florescendo com exclusividade em agremiações mercantis privadas e entidades filantrópicas destituídas de vínculos com a burocracia governamental."
+        },
+        answer: "B",
+        resolution: `<p><strong>A alternativa correta é a B.</strong> O processo de institucionalização acadêmica da Geografia na Europa ao longo da segunda metade do século XIX esteve organicamente vinculado à agenda política de consolidação dos Estados-nação e à disputa territorial imperialista. Na Alemanha, após a vitória militar na Guerra Franco-Prussiana e a consequente unificação nacional sob a batuta de Bismarck em 1871, havia uma premência imediata de legitimar o novo Estado imperial unificado perante as potências europeias e justificar sua expansão territorial e colonial. Coube à matriz ratzeliana articular cientificamente as noções de povo, solo e Estado para embasar essa necessidade geopolítica. Em contrapartida, a França da Terceira República, abalada pela derrota militar de 1870 e pela consequente perda dos territórios da Alsácia-Lorena, deparou-se com o desafio de reconstruir sua unidade moral e cívica. Vidal de La Blache e seus seguidores assumiram a tarefa de conceber uma Geografia escolar e universitária que inventariasse as riquezas regionais e promovesse a coesão nacional diante das ameaças externas.</p>
+        <p>As demais opções sustentam anacronismos e imprecisões conceituais. A alternativa A erra ao afirmar que a Geografia alemã institucionalizou-se de maneira tardia, pois o ambiente acadêmico prussiano foi pioneiro na criação sistemática de cátedras universitárias de Geografia a partir da década de 1870, ao mesmo tempo em que comete equívoco grosseiro ao associar Vidal de La Blache à matriz alemã. A alternativa C é insustentável porque Vidal de La Blache esteve ativamente engajado na formulação de reflexões geopolíticas sobre a expansão colonial francesa na África e na Indochina, mantendo laços estreitos com a administração da Terceira República. A alternativa D desconsidera a filiação filosófica de cada vertente: a escola alemã fundamentou-se no historicismo e no organicismo romântico e darwinista, enquanto a escola francesa inspirou-se no possibilismo, no neokantismo de Charles Renouvier e na historiografia de cunho empírico. Por fim, a alternativa E incorre em erro histórico ao dissociar a institucionalização acadêmica germânica do investimento direto e deliberado do Ministério da Educação da Prússia na criação de postos acadêmicos oficiais.</p>`
+      },
+      {
+        id: 2,
+        title: "Questão 02",
+        theme: "Determinismo Geográfico, Espaço Vital e Causalidade em Friedrich Ratzel",
+        promptHtml: `<p>Em obras como <em>Anthropogeographie</em> (1882/1891) e <em>Politische Geographie</em> (1897), Friedrich Ratzel lançou as bases da Antropogeografia e da Geografia Política moderna. Receptivo às correntes naturalistas e evolucionistas de seu tempo, Ratzel formulou o conceito de espaço vital (<em>Lebensraum</em>), comumente interpretado de maneira reducionista por abordagens mecanicistas.</p>
+        <p>Com base nas análises epistemológicas de Moreira (2008) e Godoy (2010) acerca da causalidade natural e da relação sociedade-espaço em Ratzel, analise as afirmativas a seguir:</p>
+        <div class="prompt-block">
+          <p><strong>I.</strong> O conceito de espaço vital (<em>Lebensraum</em>) traduz a relação de equilíbrio quantitativo e qualitativo entre a extensão física do território, com seus recursos materiais disponíveis, e a capacidade demográfica, técnica e cultural de fixação e desenvolvimento de uma sociedade constituída sob a forma de Estado.</p>
+          <p><strong>II.</strong> Ratzel elabora uma concepção organicista em que o Estado é assimilado a um organismo territorial imperfeito, cuja estabilidade biopolítica depende de sua fixação perpétua às propriedades do solo (<em>Boden</em>), de modo que o crescimento territorial reflete o progresso técnico e cultural do povo (<em>Volk</em>).</p>
+          <p><strong>III.</strong> A antropogeografia ratzeliana reduz as relações humanas a um fatalismo fisiográfico inflexível, afirmando que o relevo e o clima operam como causas absolutas e imutáveis que anulam a dimensão histórica, negando relevância aos fluxos migratórios e às transmissões técnicas.</p>
+          <p><strong>IV.</strong> A ampliação espacial de um organismo político sobre fronteiras vizinhas é interpretada por Ratzel como decorrência do desenvolvimento civilizacional e da luta por sobrevivência evolutiva, conferindo suporte teórico às reivindicações de expansão imperial da Alemanha na virada do século XIX para o século XX.</p>
+        </div>
+        <p>Estão corretas as afirmativas:</p>`,
+        options: {
+          A: "I, II e IV, apenas.",
+          B: "I, II e III, apenas.",
+          C: "II e III, apenas.",
+          D: "III e IV, apenas.",
+          E: "I, II, III e IV."
+        },
+        answer: "A",
+        resolution: `<p><strong>A alternativa correta é a A.</strong> Estão corretas as proposições I, II e IV. Em Friedrich Ratzel, o espaço vital (<em>Lebensraum</em>) expressa a medida de território e os recursos naturais indispensáveis à subsistência, segurança e reprodução de um povo organizado sob a forma estatal. A concepção de Estado em Ratzel possui um teor biológico evidente: o Estado é entendido como um organismo territorial cujas forças derivam da conexão material permanente com o solo (<em>Boden</em>), de sorte que a pujança cultural e técnica de uma civilização reflete-se na necessidade de ampliação das suas fronteiras. Esse corpus teórico forneceu o alicerce conceitual para a expansão territorial alemã no contexto geopolítico do final do século XIX.</p>
+        <p>A afirmativa III é falsa. As leituras de Ruy Moreira (2008), Paulo Roberto Teixeira de Godoy (2010) e Antonio Carlos Robert Moraes demonstram que rotular Ratzel como um determinista vulgar e mecanicista constitui um reducionismo. Ratzel jamais desconsiderou a historicidade e a iniciativa humana. No segundo tomo de sua <em>Anthropogeographie</em> (1891), o autor tratou em profundidade a mobilidade espacial, os fluxos migratórios, os intercâmbios culturais e as técnicas, demonstrando que diferentes formações civilizacionais estabelecem relações qualitativamente distintas com as mesmas bases biogeográficas. A presença da afirmativa III invalida as alternativas B, C, D e E.</p>`
+      },
+      {
+        id: 3,
+        title: "Questão 03",
+        theme: "Possibilismo Geográfico e o conceito de Gênero de Vida em Vidal de La Blache",
+        promptHtml: `<p>No horizonte de consolidação do possibilismo francês, Paul Vidal de La Blache redefiniu a compreensão do meio geográfico, estabelecendo uma alternativa teórica ao ambientalismo mecanicista do século XIX. Em sua perspectiva, o ambiente não dita de forma inexorável os destinos das comunidades, constituindo um conjunto dialético de possibilidades e resistências cuja mobilização depende da contingência histórica e das técnicas disponíveis ao grupo social.</p>
+        <p>À luz dos estudos de Haesbaert, Pereira e Ribeiro (2012) e Moreira (2008), o conceito vidaliano de <strong>gênero de vida</strong> (<em>genre de vie</em>) define-se como:</p>`,
+        options: {
+          A: "A determinação biológica estrita do ecossistema sobre o temperamento psicológico das populações, circunscrevendo o desenvolvimento cultural à adaptação fisiológica involuntária aos rigores climáticos.",
+          B: "A integração duradoura de práticas técnicas, hábitos materiais, costumes, ferramentas e tradições historicamente forjadas que conferem a um grupo humano os meios para interagir com o meio natural, extrair o sustento e esculpir a fisionomia da paisagem regional.",
+          C: "Um arranjo espacial abstrato puramente subordinado às redes financeiras globais e aos fluxos do grande capital, desprovido de sedimentação cultural local ou de vínculos ecológicos com o território.",
+          D: "Uma formulação empírica aplicável unicamente à modernidade metropolitana, orientada a explicar a dissolução das sociedades agrárias pela imposição da divisão taylorista do trabalho.",
+          E: "Um método matemático de mensuração que estabelece correlações estatísticas invariáveis entre o índice pluviométrico de uma bacia hidrográfica e a taxa média de natalidade dos agrupamentos nativos."
+        },
+        answer: "B",
+        resolution: `<p><strong>A alternativa correta é a B.</strong> Paul Vidal de La Blache concebeu o <em>gênero de vida</em> (<em>genre de vie</em>) como o elo de mediação entre as comunidades humanas e a natureza circundante. O conceito define-se como o conjunto compósito e secular de costumes, técnicas, saberes práticos, instrumentos materiais e convenções sociais consolidadas historicamente que garantem a sobrevivência biológica de um grupo humano e conferem sentido à sua organização espacial. É por meio do gênero de vida que as coletividades transformam o meio físico, imprimindo na paisagem fisionomias particulares e originando os <em>pays</em> rurais característicos.</p>
+        <p>As alternativas remanescentes incorrem em distorções epistemológicas. A alternativa A expõe a lógica do determinismo climático absoluto, diametralmente contrária à proposta possibilista vidaliana. A alternativa C projeta categorias contemporâneas de desterritorialização e fluxos informacionais financeiros, que não faziam parte das análises clássicas de Vidal de La Blache voltadas às comunidades concretas. A alternativa D formula uma assertiva equivocada, pois o gênero de vida foi desenvolvido por Vidal tomando como paradigma os agregados agrários e tradicionais; inclusive, Vidal entendia a grande concentração urbana industrial como um fator desagregador dos gêneros de vida milenares. A alternativa E introduz preceitos da física social e da quantificação estatística neopositivista, estranhos ao método descritivo e compreensivo da escola regional francesa.</p>`
+      },
+      {
+        id: 4,
+        title: "Questão 04",
+        theme: "Oposição epistemológica e metodológica entre Ratzel e Vidal de La Blache",
+        promptHtml: `<p>A controvérsia paradigmática entre a escola geográfica alemã e a escola francesa gerou uma clássica dicotomia historiográfica entre o determinismo geográfico e o possibilismo geográfico. Todavia, pesquisas contemporâneas demonstram que as distinções entre Ratzel e Vidal de La Blache assentam-se em orientações metodológicas e concepções filosóficas estruturadas.</p>
+        <p>A respeito da oposição epistemológica e metodológica entre Friedrich Ratzel e Paul Vidal de La Blache, assinale a opção correta:</p>`,
+        options: {
+          A: "Ratzel operou sob a premissa de um sujeito social inerte perante as forças telúricas, enquanto Vidal de La Blache desconsiderou a base física, confinando a Geografia ao exame documental da historiografia clássica e da linguística românica.",
+          B: "Ratzel priorizou uma orientação nomotética assentada nas ciências naturais e na ecologia, buscando leis gerais e causalidades entre as condições físicas do solo e o desenvolvimento sociopolítico, enquanto Vidal de La Blache sustentou uma abordagem predominantemente idiográfica, valorizando a contingência histórica, a singularidade das unidades regionais (pays) e a iniciativa humana como agente transformador da natureza.",
+          C: "Ambos os teóricos repudiaram formulações biológicas evolucionistas, embasando seus esquemas metodológicos na física mecanicista galileana e nos teoremas da probabilidade estatística.",
+          D: "Vidal de La Blache fundou sua teoria na oposição direta e sistemática a Ratzel, rejeitando categoricamente qualquer menção ao substrato físico do solo e condenando o emprego de analogias morfológicas no estudo dos Estados modernos.",
+          E: "O método ratzeliano ocupava-se exclusivamente de microestudos agrários isolados, enquanto a abordagem vidaliana circunscrevia-se à modelagem geométrica das estratégias navais hegemônicas no cenário intercontinental."
+        },
+        answer: "B",
+        resolution: `<p><strong>A alternativa correta é a B.</strong> A cisão paradigmática fundamental entre Friedrich Ratzel e Paul Vidal de La Blache localiza-se na escolha de seus objetivos epistêmicos e metodológicos. A escola alemã ratzeliana, herdeira da tradição das ciências biológicas e da biogeografia, adotou um viés prioritariamente nomotético, preocupado em identificar relações de causa e efeito, regularidades e leis gerais que explicassem a fixação das sociedades e o comportamento expansivo do Estado a partir do solo. Em contrapartida, Vidal de La Blache, ancorado na ciência histórica e no idealismo flexível, imprimiu à matriz francesa um perfil marcadamente idiográfico, no qual o foco recai sobre a singularidade irredutível das paisagens e a contingência histórica das decisões humanas, compreendendo o meio ambiente não como um agente determinante, mas como um manancial de possibilidades.</p>
+        <p>As outras opções exibem contradições conceituais flagrantes. A alternativa A erra ao imputar a Ratzel uma visão de total passividade humana e ao afirmar falsamente que Vidal de La Blache baniu os elementos biogeográficos de seus estudos, uma vez que o substrato geológico e climático permaneceu indispensável em toda a sua obra. A alternativa C está errada porque ambos os autores utilizaram profusamente conceitos biológicos, como organismo, adaptação e ecologia. A alternativa D falseia a postura de Vidal de La Blache: conforme demonstram Haesbaert et al. (2012), Vidal dialogou com a produção ratzeliana, dedicou artigos aos seus livros e incorporou várias de suas premissas territoriais à análise da Terceira República. A alternativa E inverte os escopos espaciais de análise, descaracterizando tanto a abrangência da Antropogeografia alemã quanto a escala regional francesa.</p>`
+      },
+      {
+        id: 5,
+        title: "Questão 05",
+        theme: "Método Regional, Corologia e Diferenciação de Áreas em Richard Hartshorne",
+        promptHtml: `<p>Nas primeiras décadas do século XX, a busca por firmar o caráter unitário da disciplina e consolidar seu estatuto epistemológico levou à sistematização do Método Regional. Nos Estados Unidos, coube a Richard Hartshorne conferir formulação canônica a essa perspectiva na obra <em>The Nature of Geography</em> (1939).</p>
+        <p>Considerando os alicerces teóricos da corologia, a influência neokantiana herdada de Alfred Hettner e as análises de Godoy (2010) e Moreira (2008), assinale a afirmativa correta sobre a <strong>diferenciação de áreas</strong>:</p>`,
+        options: {
+          A: "Hartshorne definiu a Geografia como disciplina orientada a edificar leis geométricas nomotéticas sobre o transporte e o atrito da distância em espaços isotrópicos abstratos.",
+          B: "Apoiado na classificação kantiana das ciências, Hartshorne postula que a Geografia é uma disciplina eminentemente corológica, cujo objeto é a integração de fenômenos heterogêneos variáveis no espaço, cumprindo a tarefa de descrever e interpretar o caráter diversificado da superfície terrestre por meio da diferenciação de áreas (areal differentiation).",
+          C: "O modelo hartshorniano baseou-se na dialética materialista, interpretando a diferenciação espacial como decorrência pura e exclusiva da divisão internacional do trabalho e dos antagonismos entre capital e trabalho assalariado.",
+          D: "Para Hartshorne, o método regional consiste na aplicação direta das teorias organicistas de Ratzel, concebendo as regiões como entidades vivas que nascem, metabolizam nutrientes e travam disputas de espaço vital.",
+          E: "A diferenciação de áreas presume a uniformidade natural da superfície do planeta, demonstrando que o trabalho do geógrafo deve ater-se a inventários homogêneos e universais."
+        },
+        answer: "B",
+        resolution: `<p><strong>A alternativa correta é a B.</strong> Em <em>The Nature of Geography</em> (1939), Richard Hartshorne buscou formalizar o Método Regional na Geografia anglo-saxônica apoiando-se expressamente na vertente corológica formulada pelo geógrafo alemão Alfred Hettner, a qual remonta à classificação kantiana do conhecimento científico. Kant distinguia as ciências que classificam objetos conforme suas espécies (ciências sistemáticas), aquelas que estudam eventos no tempo (história) e aquelas que tratam de fenômenos coordenados no espaço (geografia). Para Hartshorne, a Geografia é uma disciplina corológica de integração, cujo objetivo metodológico consiste em registrar, relacionar e interpretar as interconexões de fenômenos heterogêneos que coexistem na superfície do globo, definindo o caráter variável das diferentes parcelas da Terra por meio da diferenciação de áreas (<em>areal differentiation</em>).</p>
+        <p>As demais alternativas contêm equívocos categóricos. A alternativa A caracteriza a revolução teorético-quantitativa e espacial, vertente nomotética neopositivista que atacou frontalmente o modelo regional de Hartshorne a partir do célebre artigo de Fred K. Schaefer em 1953. A alternativa C é conceitualmente falsa, pois a matriz corológica de Hartshorne assenta-se no criticismo neokantiano e rejeita terminantemente o método dialético e a teoria das lutas de classes. A alternativa D é descabida, dado que Hartshorne expurgou explicitamente o determinismo ambiental e as analogias organicistas ratzelianas, tratando as regiões como constructos classificatórios de integração funcional. A alternativa E contradiz o postulado nuclear de Hartshorne, segundo o qual a heterogeneidade da superfície planetária é a condição lógica fundamental para a própria existência da disciplina geográfica.</p>`
+      },
+      {
+        id: 6,
+        title: "Questão 06",
+        theme: "Reavaliação historiográfica de Paul Vidal de La Blache segundo Haesbaert et al. (2012)",
+        promptHtml: `<p>Em <em>Vidal, Vidais: textos de Geografia Humana, Regional e Política</em> (2012), obra organizada por Rogério Haesbaert, Sérgio Nunes Pereira e Guilherme Ribeiro, textos clássicos do pensador francês foram reunidos e cotejados à luz de novos referenciais historiográficos.</p>
+        <p>A respeito da interpretação crítica do pensamento de Vidal de La Blache veiculada por Haesbaert et al. (2012), assinale a afirmativa correta:</p>`,
+        options: {
+          A: "Os autores corroboram a interpretação de que a obra vidaliana pautou-se por um tradicionalismo arcaizante, inteiramente alheio às transformações introduzidas pelas ferrovias, pelas aglomerações urbanas e pela circulação globalizada.",
+          B: "Os organizadores demonstram que Vidal de La Blache desenvolveu uma densa reflexão sobre o território, o Estado e as redes técnicas modernas — patente em La France de l’Est e em suas análises sobre Friedrich Ratzel —, superando o estereótipo de uma polarização inconciliável entre o pensamento geográfico francês e as problemáticas políticas da escola alemã.",
+          C: "O estudo conclui que Vidal de La Blache foi o verdadeiro mentor do determinismo climático contemporâneo, propondo a primazia biológica inata dos povos europeus na gestão dos territórios equatoriais.",
+          D: "Haesbaert et al. (2012) revelam que a categoria de gênero de vida foi atribuída erroneamente a Vidal de La Blache, tendo sido cunhada décadas após sua morte pela corrente teorético-quantitativa norte-americana.",
+          E: "Os ensaios ressaltam que Vidal rompeu em definitivo com os valores da Terceira República Francesa para aderir à vertente libertária e à militância comunista internacional."
+        },
+        answer: "B",
+        resolution: `<p><strong>A alternativa correta é a B.</strong> A coletânea <em>Vidal, Vidais</em> (2012), organizada por Rogério Haesbaert, Sérgio Nunes Pereira e Guilherme Ribeiro, executa uma revisão historiográfica essencial, desconstruindo a imagem simplificadora de Paul Vidal de La Blache como um autor circunscrito a descrições nostálgicas da vida camponesa. Os autores resgatam a amplitude dos textos vidalianos dedicados à Geografia Política e à geopolítica do início do século XX, ressaltando o estudo <em>La France de l’Est</em> (1917) e suas resenhas sobre as teses de Friedrich Ratzel. Nesses trabalhos, Vidal debate com rigor o papel das vias férreas, a industrialização da bacia renana, as estratégias de fronteira e a mobilização territorial pelo Estado moderno, demonstrando que a suposta oposição absoluta entre a Geografia francesa e o pensamento político alemão configurou um mito historiográfico construído por autores posteriores.</p>
+        <p>As alternativas A, C, D e E formulam interpretações inadequadas. A alternativa A erra ao reiterar o estereótipo que o livro busca desmistificar. A alternativa C não encontra respaldo na epistemologia vidaliana, que rejeitou o determinismo ambiental absoluto e nunca perfilhou preceitos de supremacia biológica inata. A alternativa D é falsa, já que a noção de gênero de vida é um pilar formulado por Vidal de La Blache, como atestam os ensaios traduzidos na própria obra. A alternativa E apresenta fabulação histórica: Vidal de La Blache foi um intelectual alinhado ao projeto educacional da Terceira República Francesa, enquanto quem abraçou o ideário anarquista e rompeu com o oficialismo acadêmico francês foi Élisée Reclus.</p>`
+      },
+      {
+        id: 7,
+        title: "Questão 07",
+        theme: "Antropogeografia, Causalidade Natural e a tríade Povo-Solo-Estado em Ratzel",
+        promptHtml: `<p>No volume inicial da <em>Anthropogeographie</em> (1882), Friedrich Ratzel centrou-se na análise das relações causais entre a natureza e os povos, enquanto no tomo subsequente (1891) expandiu seu escopo investigativo para a distribuição demográfica, as correntes migratórias e a historicidade das civilizações. Em <em>O pensamento geográfico brasileiro: as matrizes clássicas originárias</em> (2008), Ruy Moreira examina com profundidade esse legado.</p>
+        <p>Acerca dos fundamentos metodológicos da Antropogeografia ratzeliana, é correto afirmar:</p>`,
+        options: {
+          A: "Ratzel desqualificou o dinamismo cultural e o papel das técnicas produtivas, sustentando um determinismo fatalista em que o meio biofísico molda compulsoriamente o comportamento moral do ser humano, aniquilando qualquer faculdade inventiva.",
+          B: "A causalidade natural formulada por Ratzel preconiza a inércia dos grupamentos sociais, julgando as migrações fenômenos anômalos e desprezíveis na composição dos territórios habitados.",
+          C: "Articulando dialeticamente as categorias de povo (Volk), solo (Boden) e Estado, Ratzel postula que as sociedades humanas encontram-se inscritas no metabolismo vivo da biosfera, de modo que o domínio territorial e os recursos do solo perfazem bases materiais essenciais para a perpetuação histórica e a vitalidade cultural dos grupos.",
+          D: "Ratzel advogou a cisão intransponível entre os ramos físico e humano da Geografia, defendendo a expulsão das categorias políticas do corpus geográfico para delegá-las à sociologia positiva francesa.",
+          E: "A perspectiva de Ratzel advoga que populações instaladas sob um mesmo domínio climático compartilham inevitavelmente a mesma organização partidária e crenças místicas equivalentes, independentemente do tempo histórico."
+        },
+        answer: "C",
+        resolution: `<p><strong>A alternativa correta é a C.</strong> Em <em>O pensamento geográfico brasileiro: as matrizes clássicas originárias</em> (2008), Ruy Moreira explora a arquitetura do pensamento de Friedrich Ratzel, ressaltando que o autor fundou uma Antropogeografia assentada no vínculo inseparável entre o povo (<em>Volk</em>), o solo (<em>Boden</em>) e a conformação do Estado. Na ótica ratzeliana, a sociedade humana não se aparta da natureza biofísica; ao contrário, inscreve-se como elemento ativo do ecúmeno planetário. O território e os recursos materiais oferecidos pela superfície da Terra operam como condições bioecológicas indispensáveis para a conservação, a alimentação e o revigoramento das forças sociopolíticas.</p>
+        <p>As outras opções trazem afirmações incompatíveis com a teoria de Ratzel. A alternativa A imputa um fatalismo extremo e infundado ao autor, que tratava a técnica produtiva e bélica como fator de superação dos limites naturais. A alternativa B é falsa, haja vista que Ratzel dedicou boa parte de seus estudos ao papel civilizador dos fluxos migratórios e das rotas de circulação. A alternativa D comete anacronismo ao propor a exclusão da dimensão política, quando foi exatamente Ratzel quem conferiu dignidade acadêmica e centralidade ao estudo do Estado na Geografia. A alternativa E deturpa o pensamento ratzeliano, pois o autor sustentava que povos providos de instrumentos técnicos distintos reagem de forma diferenciada aos mesmos estímulos climáticos.</p>`
+      },
+      {
+        id: 8,
+        title: "Questão 08",
+        theme: "Ontologia e Metodologia da Região: Vidal de La Blache vs. Richard Hartshorne",
+        promptHtml: `<p>O conceito de Região configurou um dos mais representativos alicerces de estruturação disciplinar ao longo da fase clássica da Geografia. Todavia, sua acepção ontológica e metodológica experimentou distinções marcantes entre o modelo empírico-historicista francês e a formulação neokantiana anglo-americana.</p>
+        <p>A respeito da distinção do Método Regional entre Paul Vidal de La Blache e Richard Hartshorne, é correto afirmar:</p>`,
+        options: {
+          A: "Vidal de La Blache concebia a região como uma ficção conceitual formulada pelo analista no gabinete, enquanto Hartshorne a qualificava como um organismo biológico concreto, vivo e independente da mente humana.",
+          B: "Em ambos os paradigmas, o procedimento regional prescinde do inventário de particularidades empíricas, recorrendo à formulação de axiomas cibernéticos e autômatos celulares de modelagem territorial.",
+          C: "Enquanto na perspectiva vidaliana a região (sintetizada no pays) possui existência real e histórica, sedimentada pela articulação secular entre um gênero de vida comunitário e a paisagem biogeográfica, em Hartshorne a região consiste em um instrumento lógico-classificatório, construído pelo pesquisador a partir da integração intelectual de traços heterogêneos variáveis no espaço.",
+          D: "Richard Hartshorne fundamentou suas pesquisas regionais em relatos descritivos de caráter poético, recusando critérios de precisão semântica ou rigor classificatório.",
+          E: "Para Vidal de La Blache, a investigação regional restringia-se ao cálculo do custo de transporte e à álgebra locacional, descartando dados da geomorfologia, da pedologia ou da botânica."
+        },
+        answer: "C",
+        resolution: `<p><strong>A alternativa correta é a C.</strong> A divergência metodológica em torno da categoria de região revela a pluralidade epistemológica da Geografia Clássica. Para Paul Vidal de La Blache e seus discípulos, a região é um fato concreto e historicizado, cuja existência material corporifica-se nas unidades tradicionais (<em>pays</em>) em decorrência da moldagem ininterrupta de um gênero de vida com as potencialidades do substrato físico ao longo de séculos de sedimentação cultural. Em contrapartida, para Richard Hartshorne, informado pelo criticismo neokantiano, a região não é uma entidade fenomênica substantiva que possui existência independente do observador, mas um artefato lógico-metodológico concebido pelo geógrafo com o propósito ordenatório de sintetizar a complexidade da superfície da Terra por meio de critérios de homogeneidade ou funcionalidade relativa.</p>
+        <p>As demais assertivas mostram inconsistências evidentes. A alternativa A inverteu totalmente as premissas epistemológicas dos autores, imputando a visão ficcional a Vidal e a ontologia orgânica a Hartshorne. A alternativa B projeta indevidamente recursos analíticos contemporâneos da cibernética e de autômatos celulares, absolutamente inexistentes no horizonte dos autores clássicos. A alternativa D distorce a abordagem de Hartshorne, que se destacou precisamente pela defesa de uma linguagem conceitual unívoca, rigorosa e desprovida de licenciosidades literárias. Por sua vez, a alternativa E contraria o método vidaliano, que reputava as investigações morfológicas, pedológicas e geológicas como os alicerces primeiros sobre os quais se estruturavam as dinâmicas humanas.</p>`
+      },
+      {
+        id: 9,
+        title: "Questão 09",
+        theme: "As categorias fundantes da Geografia Clássica: Arranjo, Técnica e Paisagem (Moreira, 2008)",
+        promptHtml: `<p>Em sua análise sobre as linhagens formadoras da ciência espacial, Ruy Moreira (2008) aponta que a Geografia Clássica instaurou uma leitura paradigmática do mundo alicerçada em uma tríade analítica basilar: localização/arranjo, técnica e paisagem, conectadas pelo metabolismo entre sociedade e natureza.</p>
+        <p>Com base nas formulações de Moreira (2008) sobre o método e o discurso da Geografia Clássica, assinale a opção correta:</p>`,
+        options: {
+          A: "A técnica é interpretada na epistemologia clássica como um fator residual neutro, destituído de força mediadora na composição dos gêneros de vida e na transformação do meio natural.",
+          B: "O procedimento basilar da leitura geográfica clássica compreende a localização primária dos fenômenos na superfície terrestre, a apreensão da rede de sua distribuição no formato de um arranjo espacial e a contemplação sintética desse arranjo fisionômico sob a categoria de paisagem, sendo a técnica o elo operatório que viabiliza a ação organizadora humana.",
+          C: "A categoria paisagem foi descartada pelos fundadores da Geografia Moderna como uma ilusão subjetiva desprovida de rigor descritivo e incapaz de expressar as relações ecológicas.",
+          D: "As forças de produção e os circuitos de circulação espacial são julgados por Moreira irrelevantes para a compreensão das mutações morfológicas da paisagem socialmente moldada.",
+          E: "A matriz clássica originária postulou a incompatibilidade intrínseca entre os estudos do meio físico e a dinâmica das sociedades humanas, declarando a inviabilidade de um horizonte de síntese disciplinar."
+        },
+        answer: "B",
+        resolution: `<p><strong>A alternativa correta é a B.</strong> Segundo a tese formulada por Ruy Moreira em <em>O pensamento geográfico brasileiro: as matrizes clássicas originárias</em> (2008), o olhar geográfico estruturou-se em torno de um procedimento epistemológico articulado. O geógrafo clássico primeiramente localiza os fenômenos na crosta terrestre; ao identificar a distribuição e a correlação mútua dessas ocorrências pontuais no espaço, constrói uma teia sistemática que conforma um arranjo. A fisionomia visível e morfológica resultante da materialização desse arranjo manifesta-se sob a categoria de paisagem. Nesse circuito contínuo de produção espacial, a técnica representa a mediação operativa insubstituível da agência humana, o canal pelo qual a sociedade intervém no metabolismo socionatural e remodela a natureza originária.</p>
+        <p>As proposições restantes desviam-se das análises de Moreira. A alternativa A erra ao afirmar que a técnica era vista como fator residual, quando ela atua como elo de transfiguração material do meio geográfico em espaço socialmente organizado. A alternativa C é refutada pelo fato de a paisagem constituir o ponto de partida visual e sintético das investigações em todas as matrizes clássicas. A alternativa D ignora as reflexões de Moreira sobre a centralidade das esferas da produção e da circulação na gênese e na evolução dinâmica das configurações territoriais. A alternativa E desconsidera a meta integradora dos clássicos, cuja aspiração maior residiu precisamente na construção de uma síntese abrangente entre o reino natural e a esfera das práticas sociais humanas.</p>`
+      },
+      {
+        id: 10,
+        title: "Questão 10",
+        theme: "Articulação conceitual entre termos-chave fundadores da Geografia Clássica",
+        promptHtml: `<p>Os termos-chave da Geografia Clássica constituem parâmetros axiais para identificar as correntes epistemológicas que fundaram a disciplina acadêmica moderna. Associe as categorias conceituais (Coluna 1) com seus respectivos fundamentos teóricos (Coluna 2):</p>
+        <div class="prompt-block">
+          <p><strong>Coluna 1</strong><br>
+          1. Espaço Vital (<em>Lebensraum</em>)<br>
+          2. Gênero de Vida (<em>Genre de vie</em>)<br>
+          3. Diferenciação de Áreas (<em>Areal differentiation</em>)<br>
+          4. Meio Geográfico</p>
+          <p><strong>Coluna 2</strong><br>
+          ( &nbsp; ) Acervo integrado de técnicas, usos produtivos, instrumentos e padrões consuetudinários cristalizados no tempo, por intermédio dos quais um grupo social retira o sustento do ambiente e instaura um equilíbrio dinâmico com a paisagem.<br>
+          ( &nbsp; ) Conjunto concreto e relacional de forças físico-químicas e biológicas com as quais a humanidade interage, interpretado ora como matriz de condicionamentos no determinismo, ora como leque de possibilidades e resistências no possibilismo.<br>
+          ( &nbsp; ) Princípio metodológico corológico de base neokantiana que preconiza que o fim primordial da análise geográfica é descrever, relacionar e interpretar a variabilidade espacial dos complexos integrados de fenômenos na superfície da Terra.<br>
+          ( &nbsp; ) Categoria que sintetiza as necessidades biopolíticas e biogeográficas de território e recursos de que uma dada sociedade organizada sob a forma de Estado carece para garantir sua soberania, crescimento e vitalidade histórica.</p>
+        </div>
+        <p>A sequência correta de preenchimento dos parênteses, de cima para baixo, é:</p>`,
+        options: {
+          A: "2 – 4 – 3 – 1",
+          B: "1 – 3 – 4 – 2",
+          C: "3 – 2 – 1 – 4",
+          D: "2 – 1 – 3 – 4",
+          E: "4 – 2 – 3 – 1"
+        },
+        answer: "A",
+        resolution: `<p><strong>A alternativa correta é a A.</strong> A associação conceitual fundamenta-se nas categorias epistemológicas consolidadas na história da disciplina:</p>
+        <p>A primeira definição corresponde ao <strong>Gênero de Vida (2)</strong>, formulado por Paul Vidal de La Blache para caracterizar o conjunto articulado de saberes, costumes materiais e técnicas ancestrais que dão sustentação à existência social de um grupo e consolidam o equilíbrio regional com o meio biogeográfico.</p>
+        <p>A segunda definição expressa o <strong>Meio Geográfico (4)</strong>, entendido como a totalidade envolvente dos elementos naturais físicos e biológicos com os quais o homem convive, concebido ora de modo determinista como causa constrangedora direta, ora de forma possibilista como campo aberto de alternativas.</p>
+        <p>A terceira definição reporta-se à <strong>Diferenciação de Áreas (3)</strong>, princípio metodológico defendido por Alfred Hettner e Richard Hartshorne, segundo o qual a tarefa da Geografia é compreender o caráter heterogêneo da superfície terrestre por meio da síntese de fenômenos interligados espacialmente.</p>
+        <p>A quarta definição sintetiza o <strong>Espaço Vital (1)</strong>, conceito ratzeliano que correlaciona a extensão territorial e os recursos materiais do solo às exigências vitais e geopolíticas de desenvolvimento, defesa e expansão de uma comunidade organizada sob a égide do Estado.</p>
+        <p>Dessa conformação resulta a sequência ordinal <strong>2 – 4 – 3 – 1</strong>, o que valida unicamente a alternativa A e descarta as alternativas B, C, D e E.</p>`
+      }
+    ];
+
+    /* ==========================================================================
+       Estado do Aplicativo
+       ========================================================================== */
+    const userAnswers = {};
+    let isSubmitted = false;
+
+    // Referências DOM
+    const quizContainer = document.getElementById("quizContainer");
+    const progressCount = document.getElementById("progressCount");
+    const progressBar = document.getElementById("progressBar");
+    const btnFinish = document.getElementById("btnFinish");
+    const btnReset = document.getElementById("btnReset");
+    const resultsSection = document.getElementById("resultsSection");
+    const scoreNumber = document.getElementById("scoreNumber");
+    const scoreTitle = document.getElementById("scoreTitle");
+    const scoreSummary = document.getElementById("scoreSummary");
+    const countCorrect = document.getElementById("countCorrect");
+    const countIncorrect = document.getElementById("countIncorrect");
+    const warningModal = document.getElementById("warningModal");
+    const btnModalCancel = document.getElementById("btnModalCancel");
+    const btnModalConfirm = document.getElementById("btnModalConfirm");
+    const filterChips = document.querySelectorAll(".filter-chip");
+
+    /* ==========================================================================
+       Renderização Inicial do Simulado
+       ========================================================================== */
+    function renderQuiz() {
+      quizContainer.innerHTML = "";
+      quizData.forEach((q) => {
+        const card = document.createElement("article");
+        card.className = "question-card";
+        card.id = `card-q${q.id}`;
+        card.setAttribute("data-id", q.id);
+
+        let optionsHtml = "";
+        for (const [letter, text] of Object.entries(q.options)) {
+          optionsHtml += `
+            <label class="option-label" id="label-q${q.id}-${letter}">
+              <input type="radio" name="question-${q.id}" value="${letter}" class="option-input" data-qid="${q.id}">
+              <span class="option-indicator">${letter}</span>
+              <span class="option-text">${letter}) ${text}</span>
+            </label>
+          `;
+        }
+
+        card.innerHTML = `
+          <div class="question-header">
+            <span class="question-num-tag">${q.title}</span>
+            <span class="question-status-tag" id="status-tag-${q.id}"></span>
+          </div>
+          <div class="question-prompt">
+            ${q.promptHtml}
+          </div>
+          <div class="options-group">
+            ${optionsHtml}
+          </div>
+          <div class="resolution-wrapper" id="resolution-${q.id}">
+            <div class="resolution-box">
+              <div class="resolution-header">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                  <polyline points="14 2 14 8 20 8"></polyline>
+                  <line x1="16" y1="13" x2="8" y2="13"></line>
+                  <line x1="16" y1="17" x2="8" y2="17"></line>
+                  <polyline points="10 9 9 9 8 9"></polyline>
+                </svg>
+                Gabarito Oficial e Resolução Comentada
+              </div>
+              <div class="resolution-body">
+                ${q.resolution}
+              </div>
+            </div>
+          </div>
+        `;
+
+        quizContainer.appendChild(card);
+      });
+
+      attachOptionListeners();
+      updateProgressBar();
+    }
+
+    /* ==========================================================================
+       Manipulação de Seleção de Respostas
+       ========================================================================== */
+    function attachOptionListeners() {
+      const inputs = document.querySelectorAll(".option-input");
+      inputs.forEach(input => {
+        input.addEventListener("change", (e) => {
+          if (isSubmitted) return;
+
+          const qId = parseInt(e.target.getAttribute("data-qid"));
+          const selectedLetter = e.target.value;
+          userAnswers[qId] = selectedLetter;
+
+          // Atualiza classes visuais das opções da questão
+          const labels = document.querySelectorAll(`[id^="label-q${qId}-"]`);
+          labels.forEach(l => l.classList.remove("selected"));
+
+          const activeLabel = document.getElementById(`label-q${qId}-${selectedLetter}`);
+          if (activeLabel) activeLabel.classList.add("selected");
+
+          updateProgressBar();
+        });
+      });
+    }
+
+    function updateProgressBar() {
+      const total = quizData.length;
+      const answered = Object.keys(userAnswers).length;
+      const percentage = Math.round((answered / total) * 100);
+
+      progressCount.textContent = `${answered} de ${total} respondidas`;
+      progressBar.style.width = `${percentage}%`;
+    }
+
+    /* ==========================================================================
+       Processo de Finalização e Correção
+       ========================================================================== */
+    btnFinish.addEventListener("click", () => {
+      if (isSubmitted) return;
+
+      const answeredCount = Object.keys(userAnswers).length;
+      if (answeredCount < quizData.length) {
+        const remaining = quizData.length - answeredCount;
+        document.getElementById("warningModalText").textContent = 
+          `Você ainda possui ${remaining} questão(ões) sem resposta. Deseja realmente finalizar e consultar o gabarito oficial agora?`;
+        warningModal.style.display = "flex";
+      } else {
+        submitQuiz();
+      }
+    });
+
+    btnModalCancel.addEventListener("click", () => {
+      warningModal.style.display = "none";
+    });
+
+    btnModalConfirm.addEventListener("click", () => {
+      warningModal.style.display = "none";
+      submitQuiz();
+    });
+
+    function submitQuiz() {
+      isSubmitted = true;
+
+      // Desabilita seleção nas alternativas
+      const inputs = document.querySelectorAll(".option-input");
+      inputs.forEach(i => i.disabled = true);
+
+      let correctTally = 0;
+
+      quizData.forEach(q => {
+        const userChoice = userAnswers[q.id];
+        const isCorrect = userChoice === q.answer;
+        const statusTag = document.getElementById(`status-tag-${q.id}`);
+        const resolutionEl = document.getElementById(`resolution-${q.id}`);
+        const cardEl = document.getElementById(`card-q${q.id}`);
+
+        if (isCorrect) {
+          correctTally++;
+          cardEl.setAttribute("data-status", "correct");
+          statusTag.className = "question-status-tag correct";
+          statusTag.innerHTML = `
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            Você acertou (Gabarito: ${q.answer})
+          `;
+        } else if (userChoice) {
+          cardEl.setAttribute("data-status", "incorrect");
+          statusTag.className = "question-status-tag incorrect";
+          statusTag.innerHTML = `
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+            Você marcou ${userChoice} (Gabarito: ${q.answer})
+          `;
+        } else {
+          cardEl.setAttribute("data-status", "incorrect");
+          statusTag.className = "question-status-tag unanswered";
+          statusTag.innerHTML = `Em branco (Gabarito: ${q.answer})`;
+        }
+
+        // Destaque visual nas alternativas
+        for (const letter of Object.keys(q.options)) {
+          const label = document.getElementById(`label-q${q.id}-${letter}`);
+          if (letter === q.answer) {
+            label.classList.add("feedback-correct");
+          } else if (letter === userChoice && !isCorrect) {
+            label.classList.add("feedback-wrong-selection");
+          }
+        }
+
+        // Torna a resolução visível
+        resolutionEl.style.display = "block";
+      });
+
+      // Atualiza Quadro de Resultados Superior
+      const total = quizData.length;
+      const incorrectTally = total - correctTally;
+      const percent = Math.round((correctTally / total) * 100);
+
+      scoreNumber.textContent = correctTally;
+      countCorrect.textContent = correctTally;
+      countIncorrect.textContent = incorrectTally;
+
+      scoreSummary.textContent = `Aproveitamento de ${percent}% da prova (${correctTally} acertos e ${incorrectTally} erros).`;
+
+      if (percent >= 80) {
+        scoreTitle.textContent = "Excelente Desempenho! Alto Rendimento";
+      } else if (percent >= 60) {
+        scoreTitle.textContent = "Bom Desempenho! Foco na Revisão dos Detalhes";
+      } else {
+        scoreTitle.textContent = "Revisão Necessária das Matrizes Clássicas";
+      }
+
+      resultsSection.style.display = "block";
+      btnFinish.style.display = "none";
+      btnReset.style.display = "inline-flex";
+
+      // Scroll suave até o resultado
+      resultsSection.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+
+    /* ==========================================================================
+       Filtros de Exibição Pós-Correção
+       ========================================================================== */
+    filterChips.forEach(chip => {
+      chip.addEventListener("click", () => {
+        filterChips.forEach(c => c.classList.remove("active"));
+        chip.classList.add("active");
+
+        const filter = chip.getAttribute("data-filter");
+        const cards = document.querySelectorAll(".question-card");
+
+        cards.forEach(card => {
+          const status = card.getAttribute("data-status");
+          if (filter === "all") {
+            card.style.display = "block";
+          } else if (filter === "correct" && status === "correct") {
+            card.style.display = "block";
+          } else if (filter === "incorrect" && status === "incorrect") {
+            card.style.display = "block";
+          } else {
+            card.style.display = "none";
+          }
+        });
+      });
+    });
+
+    /* ==========================================================================
+       Reiniciar Simulado
+       ========================================================================== */
+    btnReset.addEventListener("click", () => {
+      // Limpa dados de resposta e reinicia estado
+      for (const key in userAnswers) {
+        delete userAnswers[key];
+      }
+      isSubmitted = false;
+
+      resultsSection.style.display = "none";
+      btnFinish.style.display = "inline-flex";
+      btnReset.style.display = "none";
+
+      filterChips.forEach(c => c.classList.remove("active"));
+      document.querySelector('[data-filter="all"]').classList.add("active");
+
+      renderQuiz();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+
+    // Inicialização ao carregar a página
+    window.addEventListener("DOMContentLoaded", () => {
+      renderQuiz();
+    });
+  </script>
+</body>
+</html>
