@@ -1,0 +1,914 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simulado IFMG - CF/88 (Arts. 37 e 38)</title>
+  <style>
+    :root {
+      --bg-page: #f8f9fa;
+      --bg-card: #ffffff;
+      --text-main: #232b35;
+      --text-muted: #556270;
+      --border-color: #dbe2ea;
+      --border-subtle: #edf1f5;
+      
+      --brand-green: #15803d;
+      --brand-green-light: #ecfdf5;
+      --brand-green-border: #86efac;
+      
+      --correct-bg: #e6f4ea;
+      --correct-border: #34a853;
+      --correct-text: #137333;
+      
+      --wrong-bg: #fce8e6;
+      --wrong-border: #ea4335;
+      --wrong-text: #c5221f;
+      
+      --neutral-badge: #eef2f6;
+      --shadow-sm: 0 2px 4px rgba(15, 23, 42, 0.04);
+      --shadow-md: 0 4px 14px rgba(15, 23, 42, 0.07);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-page);
+      color: var(--text-main);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      line-height: 1.7;
+      font-size: 16px;
+      -webkit-font-smoothing: antialiased;
+      padding-bottom: 80px;
+    }
+
+    /* Container de Leitura Otimizado */
+    .container {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 24px 20px;
+    }
+
+    /* Cabeçalho Institucional */
+    header.exam-header {
+      background-color: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 28px 32px;
+      margin-bottom: 28px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .header-badge {
+      display: inline-block;
+      background-color: var(--brand-green-light);
+      color: var(--brand-green);
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 6px;
+      margin-bottom: 12px;
+      border: 1px solid var(--brand-green-border);
+    }
+
+    h1.exam-title {
+      font-size: 24px;
+      font-weight: 800;
+      color: var(--text-main);
+      line-height: 1.35;
+      margin-bottom: 10px;
+    }
+
+    p.exam-meta {
+      font-size: 15px;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    /* Barra de Progresso Flutuante/Fixa no Topo */
+    .progress-bar-container {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background-color: rgba(255, 255, 255, 0.96);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border-color);
+      padding: 12px 20px;
+      margin: 0 -20px 24px -20px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
+    }
+
+    .progress-inner {
+      max-width: 860px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .progress-track {
+      flex: 1;
+      height: 8px;
+      background-color: var(--border-subtle);
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      width: 0%;
+      background-color: var(--brand-green);
+      transition: width 0.3s ease;
+    }
+
+    .progress-text {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-muted);
+      white-space: nowrap;
+    }
+
+    /* Cartão da Questão */
+    .question-card {
+      background-color: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 28px 30px;
+      margin-bottom: 28px;
+      box-shadow: var(--shadow-sm);
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .question-card:hover {
+      border-color: #cbd5e1;
+    }
+
+    .question-card.answered {
+      border-left: 4px solid var(--brand-green);
+    }
+
+    .question-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .question-number {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--brand-green);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .question-reference {
+      font-size: 13px;
+      color: var(--text-muted);
+      background-color: var(--neutral-badge);
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-weight: 500;
+    }
+
+    .question-stem {
+      font-size: 16.5px;
+      color: var(--text-main);
+      margin-bottom: 20px;
+      line-height: 1.75;
+      text-align: justify;
+    }
+
+    .question-stem p {
+      margin-bottom: 12px;
+    }
+
+    .question-stem p:last-child {
+      margin-bottom: 0;
+    }
+
+    /* Alternativas */
+    .options-group {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .option-label {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      padding: 13px 18px;
+      background-color: #fbfcfd;
+      border: 1.5px solid var(--border-color);
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 15.5px;
+      line-height: 1.6;
+      transition: all 0.2s ease;
+      user-select: none;
+    }
+
+    .option-label:hover {
+      background-color: #f1f5f9;
+      border-color: #94a3b8;
+    }
+
+    .option-input {
+      margin-top: 5px;
+      accent-color: var(--brand-green);
+      cursor: pointer;
+      width: 17px;
+      height: 17px;
+      flex-shrink: 0;
+    }
+
+    .option-text-wrapper {
+      flex: 1;
+    }
+
+    .option-letter {
+      font-weight: 700;
+      margin-right: 6px;
+      color: var(--text-main);
+    }
+
+    /* Estilos de Gabarito pós-finalização */
+    .option-label.is-correct {
+      background-color: var(--correct-bg) !important;
+      border-color: var(--correct-border) !important;
+      color: var(--correct-text) !important;
+      font-weight: 600;
+    }
+
+    .option-label.is-wrong {
+      background-color: var(--wrong-bg) !important;
+      border-color: var(--wrong-border) !important;
+      color: var(--wrong-text) !important;
+    }
+
+    .option-label.is-user-selected {
+      box-shadow: 0 0 0 2px var(--brand-green);
+    }
+
+    /* Caixa de Resolução Comentada */
+    .resolution-box {
+      display: none;
+      margin-top: 24px;
+      padding: 22px 24px;
+      background-color: #f8fafc;
+      border-radius: 8px;
+      border-left: 4px solid var(--brand-green);
+      border-top: 1px solid var(--border-subtle);
+      border-right: 1px solid var(--border-subtle);
+      border-bottom: 1px solid var(--border-subtle);
+      font-size: 15px;
+      line-height: 1.75;
+      color: var(--text-main);
+    }
+
+    .resolution-title {
+      font-size: 14.5px;
+      font-weight: 800;
+      color: var(--brand-green);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .resolution-text {
+      text-align: justify;
+    }
+
+    /* Ações e Botão de Finalizar */
+    .actions-section {
+      text-align: center;
+      margin: 40px 0;
+    }
+
+    .btn-submit {
+      background-color: var(--brand-green);
+      color: #ffffff;
+      font-size: 16px;
+      font-weight: 700;
+      padding: 16px 36px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(21, 128, 61, 0.25);
+      transition: background-color 0.2s, transform 0.1s;
+    }
+
+    .btn-submit:hover {
+      background-color: #166534;
+    }
+
+    .btn-submit:active {
+      transform: scale(0.98);
+    }
+
+    .btn-reset {
+      background-color: #ffffff;
+      color: var(--text-muted);
+      font-size: 15px;
+      font-weight: 600;
+      padding: 14px 28px;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      cursor: pointer;
+      margin-left: 12px;
+      transition: background-color 0.2s;
+    }
+
+    .btn-reset:hover {
+      background-color: #f1f5f9;
+      color: var(--text-main);
+    }
+
+    /* Seção de Resultados */
+    .results-section {
+      display: none;
+      background-color: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 36px;
+      margin-top: 36px;
+      box-shadow: var(--shadow-md);
+      animation: fadeIn 0.4s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .results-header {
+      text-align: center;
+      margin-bottom: 28px;
+    }
+
+    .results-title {
+      font-size: 24px;
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+
+    .score-circle {
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      background-color: var(--brand-green-light);
+      border: 3px solid var(--brand-green);
+      margin: 16px 0;
+    }
+
+    .score-number {
+      font-size: 38px;
+      font-weight: 900;
+      color: var(--brand-green);
+      line-height: 1;
+    }
+
+    .score-label {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      margin-top: 4px;
+    }
+
+    .performance-feedback {
+      font-size: 16px;
+      color: var(--text-muted);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    /* Tabela de Gabarito Geral */
+    .summary-table-wrapper {
+      margin-top: 28px;
+      overflow-x: auto;
+    }
+
+    .summary-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14.5px;
+      text-align: left;
+    }
+
+    .summary-table th, .summary-table td {
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .summary-table th {
+      background-color: #f8fafc;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    .status-badge {
+      display: inline-block;
+      padding: 3px 8px;
+      border-radius: 4px;
+      font-weight: 700;
+      font-size: 12px;
+      text-transform: uppercase;
+    }
+
+    .status-badge.acerto {
+      background-color: var(--correct-bg);
+      color: var(--correct-text);
+    }
+
+    .status-badge.erro {
+      background-color: var(--wrong-bg);
+      color: var(--wrong-text);
+    }
+
+    .status-badge.em-branco {
+      background-color: var(--neutral-badge);
+      color: var(--text-muted);
+    }
+
+    /* Alerta visual se faltarem itens */
+    .unanswered-alert {
+      color: #b45309;
+      font-size: 14px;
+      font-weight: 600;
+      margin-top: 10px;
+      display: none;
+    }
+
+    @media (max-width: 640px) {
+      .container {
+        padding: 16px 12px;
+      }
+      header.exam-header {
+        padding: 20px;
+      }
+      .question-card {
+        padding: 20px 16px;
+      }
+      .results-section {
+        padding: 20px 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+
+    <!-- Cabeçalho -->
+    <header class="exam-header">
+      <span class="header-badge">Simulado Oficial • Padrão IFMG</span>
+      <h1 class="exam-title">Direito Constitucional: Administração Pública (Arts. 37 e 38 da CF/88)</h1>
+      <p class="exam-meta">
+        Avaliação temática voltada aos princípios republicanos (LIMPE), investidura em concurso público, regras de acumulação de cargos, teto remuneratório, responsabilidade civil do Estado e mandato eletivo.
+      </p>
+    </header>
+
+    <!-- Barra de Progresso em Tempo Real -->
+    <div class="progress-bar-container">
+      <div class="progress-inner">
+        <div class="progress-track">
+          <div class="progress-fill" id="progressFill"></div>
+        </div>
+        <div class="progress-text" id="progressText">0 de 10 respondidas</div>
+      </div>
+    </div>
+
+    <!-- Container Dinâmico das Questões -->
+    <main id="quizContainer"></main>
+
+    <!-- Barra de Ações -->
+    <section class="actions-section">
+      <button class="btn-submit" id="btnSubmit" onclick="submitExam()">Finalizar Simulado e Ver Resultados</button>
+      <button class="btn-reset" id="btnReset" onclick="resetExam()" style="display: none;">Refazer Simulado</button>
+      <div class="unanswered-alert" id="unansweredAlert">
+        Atenção: Você ainda possui questões não respondidas. Deseja finalizar mesmo assim? Clique novamente no botão acima para confirmar.
+      </div>
+    </section>
+
+    <!-- Painel de Resultados Geral e Resoluções -->
+    <section class="results-section" id="resultsSection">
+      <div class="results-header">
+        <h2 class="results-title">Desempenho Geral do Simulado</h2>
+        <div class="score-circle">
+          <span class="score-number" id="scoreValue">0</span>
+          <span class="score-label" id="scoreFraction">de 10 Acertos</span>
+        </div>
+        <p class="performance-feedback" id="feedbackText"></p>
+      </div>
+
+      <!-- Tabela Sintética de Correção -->
+      <h3 style="font-size: 18px; margin-bottom: 12px; font-weight: 700;">Gabarito Sintético e Comparativo</h3>
+      <div class="summary-table-wrapper">
+        <table class="summary-table">
+          <thead>
+            <tr>
+              <th>Questão</th>
+              <th>Sua Escolha</th>
+              <th>Gabarito Oficial</th>
+              <th>Situação</th>
+              <th>Dispositivo Constitucional</th>
+            </tr>
+          </thead>
+          <tbody id="summaryTableBody">
+            <!-- Preenchido via JavaScript -->
+          </tbody>
+        </table>
+      </div>
+
+      <p style="margin-top: 24px; font-size: 14.5px; color: var(--text-muted); text-align: center;">
+        * O detalhamento e a resolução fundamentada de cada questão encontram-se liberados logo abaixo de cada item no corpo da página acima.
+      </p>
+    </section>
+
+  </div>
+
+  <script>
+    // Banco completo de questões e resoluções do documento
+    const examData = [
+      {
+        id: 1,
+        ref: "Art. 37, caput, e § 1º, da CF/88",
+        stem: `<p>No que concerne aos princípios constitucionais fundamentais que regem a Administração Pública direta e indireta, previstos de forma expressa ou implícita no texto da Constituição da República Federativa do Brasil de 1988, analise as afirmativas a seguir:</p>
+               <p><strong>I.</strong> O princípio da impessoalidade veda taxativamente que constem nomes, símbolos ou imagens que caracterizem promoção pessoal de autoridades ou servidores públicos em publicidade de atos, programas, obras, serviços e campanhas dos órgãos públicos.<br>
+               <strong>II.</strong> O princípio da moralidade administrativa impõe que a conduta do agente público não se restrinja à fria observância da lei formal, exigindo necessária conformidade com os postulados éticos da boa-fé objetiva, lealdade e probidade funcional.<br>
+               <strong>III.</strong> O princípio da publicidade ostenta caráter absoluto no sistema constitucional brasileiro, não subsistindo quaisquer hipóteses de restrição ao acesso às informações públicas, independentemente de envolverem a intimidade pessoal ou a segurança da sociedade e do Estado.<br>
+               <strong>IV.</strong> O princípio da eficiência, expressamente introduzido no rol do <em>caput</em> do art. 37 pela Emenda Constitucional nº 19/1998, orienta a gestão pública rumo à otimização de recursos, celeridade processual e obtenção de resultados materiais efetivos na prestação dos serviços.</p>
+               <p>Estão <strong>CORRETAS</strong> as afirmativas:</p>`,
+        options: [
+          { letter: "A", text: "I e III, apenas." },
+          { letter: "B", II: true, text: "II e III, apenas." },
+          { letter: "C", text: "I, II e IV, apenas." },
+          { letter: "D", text: "II, III e IV, apenas." },
+          { letter: "E", text: "I, II, III e IV." }
+        ],
+        correctAnswer: "C",
+        resolution: "A alternativa correta é a letra C (afirmativas I, II e IV, apenas). O exame das proposições revela a subsunção precisa das afirmativas I, II e IV ao ordenamento constitucional pátrio. A afirmativa I traduz a inteligência do art. 37, § 1º, da Constituição Federal, o qual consagra que a publicidade governamental deve possuir finalidade precipuamente educativa, informativa ou de orientação social, proscrevendo qualquer traço de promoção pessoal mediante inserção de nomes, símbolos ou imagens associados ao administrador. A afirmativa II espelha a construção doutrinária e jurisprudencial assente em torno do princípio da moralidade administrativa (caput do art. 37), que condiciona a validade dos atos não unicamente ao cumprimento mecânico da legalidade estrita, mas à submissão a cânones de honestidade, ética, lealdade institucional e boa-fé objetiva no trato da coisa pública. A afirmativa IV contempla com rigor histórico a inserção do princípio da eficiência no texto da Carta Magna pela Emenda Constitucional nº 19/1998 (Reforma Administrativa), impondo à máquina administrativa padrões gerenciais de produtividade, celeridade e racionalidade econômica. Em sentido diametralmente oposto, a afirmativa III revela-se errônea ao atribuir peso absoluto à publicidade administrativa; a própria Lei Fundamental, em salvaguarda da intimidade e de imperativos de segurança nacional e da sociedade (art. 5º, X e XXXIII), prevê exceções em que o sigilo administrativo se faz cogente e plenamente legítimo."
+      },
+      {
+        id: 2,
+        ref: "Art. 37, inciso III, da CF/88",
+        stem: `<p>A investidura em cargo ou emprego público depende de aprovação prévia em concurso público de provas ou de provas e títulos, segundo a natureza e a complexidade do cargo ou emprego, na forma prevista em lei, ressalvadas as nomeações para cargo em comissão declarado em lei de livre nomeação e exoneração. No que tange às normas constitucionais reguladoras dos certames públicos, assinale a alternativa <strong>CORRETA</strong>:</p>`,
+        options: [
+          { letter: "A", text: "O prazo de validade do concurso público será de dois anos fixos e improrrogáveis, devendo o respectivo ato de homologação coincidir obrigatoriamente com o encerramento do exercício financeiro." },
+          { letter: "B", text: "O prazo de validade do concurso público será de até dois anos, prorrogável uma vez, por igual período." },
+          { letter: "C", text: "A Constituição da República fixa o percentual inegociável de dez por cento dos cargos e empregos públicos para as pessoas portadoras de deficiência, vedando às instâncias legislativas a adoção de percentuais distintos." },
+          { letter: "D", text: "Durante o prazo improrrogável estabelecido no edital de convocação, os candidatos aprovados em certame público anterior não possuem qualquer prioridade sobre novos concursados para assumir a carreira estatal." },
+          { letter: "E", text: "Os cargos, empregos e funções públicas destinam-se com exclusividade aos cidadãos brasileiros natos, vedado peremptoriamente o ingresso de cidadãos estrangeiros nas instituições públicas da Federação." }
+        ],
+        correctAnswer: "B",
+        resolution: "A alternativa correta é a letra B. A norma esculpida no art. 37, inciso III, da Constituição Federal dispõe de forma taxativa que o prazo de validade do concurso público será de até dois anos, prorrogável uma vez, por igual período. O emprego deliberado do termo 'até' confere discricionariedade ao administrador para fixar períodos inferiores no edital (a exemplo de seis meses ou um ano), vinculando a prorrogação subsequente a uma extensão estritamente idêntica àquela inicialmente estipulada. O erro da alternativa A consiste em presumir a inflexibilidade do prazo em dois anos e impor sua vinculação ao encerramento do exercício orçamentário. A alternativa C incorre em manifesto desacerto ao pretender que a Constituição tenha estabelecido um percentual rígido de dez por cento (o art. 37, VIII, remete a fixação à lei ordinária). A alternativa D contraria o inciso IV do art. 37, que confere prioridade de convocação aos aprovados em certame antecedente. Por fim, a alternativa E confronta o art. 37, I, que garante o acesso a cargos públicos também aos estrangeiros, na forma da lei."
+      },
+      {
+        id: 3,
+        ref: "Art. 37, inciso XVI, alínea 'a', da CF/88",
+        stem: `<p>Em consonância com as normas que balizam a acumulação remunerada de cargos públicos, a Constituição Federal estatui como regra geral a vedação funcional, assegurando ressalvas estritas quando houver comprovada compatibilidade de horários. Considerando os preceitos constitucionais vigentes e a disciplina voltada ao exercício da docência, assinale a alternativa <strong>CORRETA</strong>:</p>`,
+        options: [
+          { letter: "A", text: "É constitucionalmente permitida a acumulação de dois cargos públicos de professor, condicionada à compatibilidade de horários e à observância imperativa do teto remuneratório constitucional." },
+          { letter: "B", text: "A acumulação remunerada de um cargo docente com outro cargo de provimento efetivo dispensa a demonstração da compatibilidade de jornadas sempre que a soma da carga de trabalho for inferior a quarenta horas semanais." },
+          { letter: "C", text: "A permissão constitucional comporta a acumulação concomitante de até três cargos públicos, desde que dois deles sejam privativos da saúde e o terceiro corresponda a cargo de docência no ensino técnico." },
+          { letter: "D", text: "O ocupante de cargo técnico ou científico vinculado à Administração Pública federal encontra-se juridicamente impedido de exercer o magistério público em qualquer ente da Federação." },
+          { letter: "E", text: "A simples compatibilidade horária legitima a acumulação cumulativa de dois cargos públicos estritamente administrativos de apoio operacional perante o mesmo ente federativo." }
+        ],
+        correctAnswer: "A",
+        resolution: "A alternativa correta é a letra A. A Constituição Federal estabeleceu a vedação da acumulação remunerada como princípio protetor da dedicação exclusiva do servidor, tolerando exceções expressas e restritivas. A alínea 'a' do inciso XVI do art. 37 chancela a licitude da cumulação de dois cargos de professor, desde que demonstrada a efetiva compatibilidade de horários entre as jornadas de trabalho e observado o limite do teto remuneratório geral estabelecido no inciso XI do mesmo preceito. A alternativa B é incorreta porque a compatibilidade de horários é requisito intransponível e nunca dispensável. A alternativa C é falsa, pois não existe permissivo para acumulação tríplice. A alternativa D erra ao desconsiderar a expressa autorização constitucional de acumular cargo de professor com outro técnico ou científico. A alternativa E é nula, visto que cargos puramente administrativos de apoio não constam do rol taxativo de exceções do art. 37, XVI."
+      },
+      {
+        id: 4,
+        ref: "Art. 37, incisos XVI e XVII, da CF/88",
+        stem: `<p>O art. 37 da Constituição da República Federativa do Brasil impõe limites à acumulação remunerada de postos funcionais na máquina estatal visando preservar a dedicação funcional e a regularidade do serviço. Quanto à abrangência subjetiva e objetiva da proibição de acumulação e ao regime dos proventos de inatividade, assinale a alternativa <strong>INCORRETA</strong>:</p>`,
+        options: [
+          { letter: "A", text: "A proibição de acumular alcança indistintamente cargos, empregos e funções públicas no cenário da Administração direta e indireta." },
+          { letter: "B", text: "A restrição constitucional vincula autarquias, fundações públicas mantidas pelo Poder Público, empresas públicas e sociedades de economia mista." },
+          { letter: "C", text: "As empresas estatais exploradoras de atividade econômica em sentido estrito e em regime concorrencial estão dispensadas de observar a vedação constitucional de acumulação de empregos públicos." },
+          { letter: "D", text: "A proibição de acumular atinge formalmente as subsidiárias e as sociedades controladas, de forma direta ou indireta, pelo poder público." },
+          { letter: "E", text: "Ressalvados os cargos acumuláveis na forma da Constituição, os mandatos eletivos e os cargos comissionados de livre nomeação e exoneração, é vedada a percepção simultânea de proventos de aposentadoria de regime próprio com a remuneração de cargo ou função pública." }
+        ],
+        correctAnswer: "C",
+        resolution: "A alternativa correta (que traduz o erro buscado pelo enunciado) é a letra C. O art. 37, inciso XVII, da Carta da República preceitua que a proibição de acumular estende-se a empregos e funções e abrange autarquias, fundações, empresas públicas, sociedades de economia mista, suas subsidiárias e sociedades controladas, direta ou indiretamente, pelo poder público. Dessa maneira, é juridicamente infundada a tese de que estatais exploradoras de atividade econômica em regime concorrencial estejam desobrigadas da regra impeditiva; a vedação alcança toda e qualquer entidade descentralizada. As demais afirmativas estão rigorosamente corretas e refletem a amplitude dos incisos XVI, XVII e do § 10 do art. 37 da CF/88."
+      },
+      {
+        id: 5,
+        ref: "Art. 37, inciso XI e § 11, da CF/88",
+        stem: `<p>No tocante ao teto remuneratório e às garantias do sistema de retribuição pecuniária dos agentes públicos insculpidas no art. 37 da Carta Política de 1988, assinale a alternativa <strong>CORRETA</strong>:</p>`,
+        options: [
+          { letter: "A", text: "O subsídio mensal dos ocupantes de cargos, funções e empregos públicos de qualquer dos Poderes da União tem como parâmetro teto o valor percebido pelos Ministros do Superior Tribunal de Justiça." },
+          { letter: "B", text: "As verbas indenizatórias previstas em legislação de regência sujeitam-se obrigatoriamente aos limites pecuniários do teto remuneratório constitucional, sofrendo a incidência do mecanismo de abate-teto." },
+          { letter: "C", text: "A vedação de ultrapassagem do teto remuneratório não atinge as empresas públicas e sociedades de economia mista que recebem recursos fiscais do ente controlador para despesas de pessoal e de custeio em geral." },
+          { letter: "D", text: "Não serão computadas, para efeito dos limites remuneratórios fixados no art. 37, XI, da Constituição Federal, as parcelas de caráter eminentemente indenizatório expressamente fixadas em lei." },
+          { letter: "E", text: "O sistema de remuneração pública prescinde da análise da complexidade e dos graus de responsabilidade inerentes aos postos de trabalho para fins de graduação dos vencimentos funcionais." }
+        ],
+        correctAnswer: "D",
+        resolution: "A alternativa correta é a letra D. O constituinte derivado, ao promulgar a Emenda Constitucional nº 47/2005, introduziu o § 11 no art. 37 da Constituição, estatuindo de forma inequívoca que não serão computadas, para efeito dos limites remuneratórios de que trata o inciso XI do caput, as parcelas de caráter indenizatório previstas em lei. Dada a natureza jurídica dessas verbas — vocacionadas à recomposição de despesas materiais sofridas pelo agente no desempenho do serviço público (diárias, ajudas de custo) —, sua percepção afasta a incidência do redutor remuneratório. A alternativa A erra porque o paradigma do teto geral da União é o subsídio dos Ministros do Supremo Tribunal Federal (STF). A alternativa B comete erro diametral ao sujeitar verbas indenizatórias ao teto. A alternativa C desconsidera o art. 37, § 9º, que impõe o teto às empresas dependentes de repasses estatais. A alternativa E vulnera o art. 39, § 1º, da CF/88."
+      },
+      {
+        id: 6,
+        ref: "Art. 37, § 6º, da CF/88",
+        stem: `<p>A respeito do modelo de responsabilidade civil extracontratual da Administração Pública consagrado no art. 37, § 6º, da Constituição Federal de 1988, considere a seguinte hipótese fática:</p>
+               <p style="background-color: #f1f5f9; padding: 12px 16px; border-radius: 6px; font-style: italic;">
+                 Durante o deslocamento operacional para execução de serviços de campo, o motorista oficial de um Instituto Federal de Educação, Ciência e Tecnologia, conduzindo viatura pertencente à frota da instituição autárquica, avança sinalização de parada por imprudência e colide contra o veículo de um cidadão, acarretando danos materiais consubstanciados em laudo pericial.
+               </p>
+               <p>Diante do regramento constitucional sobre a responsabilidade do Estado e da orientação dos tribunais superiores, assinale a alternativa <strong>CORRETA</strong>:</p>`,
+        options: [
+          { letter: "A", text: "A ação judicial de reparação patrimonial deve ser distribuída com exclusividade em face do agente causador do acidente, ante a primazia de sua responsabilidade subjetiva originária." },
+          { letter: "B", text: "O Instituto Federal responde civilmente de maneira objetiva perante o terceiro vitimado, sendo-lhe ressalvado o direito de regresso em face do agente público responsável apenas se demonstrado dolo ou culpa." },
+          { letter: "C", text: "A responsabilização objetiva da autarquia exclui peremptoriamente qualquer pretensão de regresso patrimonial contra o servidor, dada a incidência de presunção de legitimidade funcional." },
+          { letter: "D", text: "Assiste ao lesado a faculdade discricionária de ajuizar a demanda indenizatória unicamente contra o servidor público, eximindo o ente autárquico de comparecer à lide reparatória." },
+          { letter: "E", text: "A responsabilidade civil das autarquias e entes de direito público depende, como pressuposto processual genérico, da averiguação de dolo do servidor na eclosão da conduta comissiva." }
+        ],
+        correctAnswer: "B",
+        resolution: "A alternativa correta é a letra B. O art. 37, § 6º, da Constituição Federal consagra a responsabilidade civil objetiva das pessoas jurídicas de direito público e das de direito privado prestadoras de serviços públicos, fundada na teoria do risco administrativo. Sendo autarquia federal, o Instituto Federal responde de modo objetivo perante o particular lesado, bastando a prova da conduta estatal, do dano e do nexo de causalidade, independentemente de verificação de culpa inicial. O direito de regresso em desfavor do servidor exige comprovação de dolo ou culpa na esfera interna. As alternativas A e D violam o entendimento consolidado pelo STF no Tema 940 de Repercussão Geral (RE 1.027.633), segundo o qual a ação indenizatória deve ser proposta obrigatoriamente contra o Estado/pessoa jurídica pública, sendo o servidor parte passiva ilegítima na demanda direta movida pelo particular."
+      },
+      {
+        id: 7,
+        ref: "Art. 38, inciso II, da CF/88",
+        stem: `<p>A Constituição Federal de 1988, em seu art. 38, define regras mandatórias concernentes ao exercício de mandato político eletivo por servidor público vinculado à administração direta, autárquica e fundacional. Sobre o regramento atinente aos mandatos do Poder Executivo e Legislativo, assinale a alternativa <strong>CORRETA</strong>:</p>`,
+        options: [
+          { letter: "A", text: "Investido no exercício de mandato eletivo federal, estadual ou distrital, o servidor público titular de cargo efetivo não será afastado caso demonstre suficiência e compatibilidade de horários." },
+          { letter: "B", text: "Investido no mandato de Prefeito, o servidor permanecerá obrigatoriamente no exercício das atribuições executivas do seu cargo técnico, auferindo cumulativamente os dois padrões de rendimento." },
+          { letter: "C", text: "Investido no mandato de Prefeito, será afastado do cargo, emprego ou função, sendo-lhe facultado optar pela sua remuneração." },
+          { letter: "D", text: "Investido no mandato de Vereador, o servidor público será compulsoriamente afastado do cargo de origem, independentemente de haver plena harmonia de turnos e expedientes." },
+          { letter: "E", text: "O servidor investido no mandato de Prefeito auferirá compulsoriamente a remuneração do cargo efetivo, sem direito de percepção do subsídio afeto ao cargo político de chefia do Poder Executivo municipal." }
+        ],
+        correctAnswer: "C",
+        resolution: "A alternativa correta é a letra C. O art. 38, inciso II, da Constituição Federal estabelece expressamente que, investido no mandato de Prefeito, o servidor público da administração direta, autárquica e fundacional será compulsoriamente afastado do seu cargo, emprego ou função, sendo-lhe facultado optar pela sua remuneração (ou seja, optar entre o subsídio de Prefeito ou a remuneração original do cargo público). A alternativa A contraria o inciso I (mandato federal, estadual ou distrital gera afastamento obrigatório incondicional). As opções B e E desvirtuam a regra do afastamento obrigatório com faculdade remuneratória. A alternativa D viola o art. 38, III, que assegura ao Vereador a permanência em ambos os cargos e a cumulação de estipêndios, desde que haja compatibilidade de horários."
+      },
+      {
+        id: 8,
+        ref: "Art. 38, inciso V, da CF/88 (EC nº 103/2019)",
+        stem: `<p>O art. 38 da Constituição Federal estipula salvaguardas e condições específicas para a preservação funcional e o enquadramento previdenciário do servidor público titular de cargo efetivo quando afastado para o cumprimento de mandato eletivo. Em relação a essas normas, assinale a alternativa <strong>CORRETA</strong>:</p>`,
+        options: [
+          { letter: "A", text: "O tempo funcional transcorrido em afastamento para desempenho de mandato político será computado para todos os efeitos da carreira, sem qualquer restrição, inclusive para a promoção por merecimento." },
+          { letter: "B", text: "A exigência de afastamento do cargo de provimento efetivo enseja a extinção imediata do vínculo jurídico com o órgão de lotação, interrompendo em definitivo a contagem de tempo de serviço." },
+          { letter: "C", text: "Na hipótese de ser segurado de regime próprio de previdência social, o servidor que se afastar para o exercício de mandato eletivo permanecerá filiado a esse regime, no ente federativo de origem." },
+          { letter: "D", text: "A investidura em mandato de representação parlamentar importa em transferência imperativa da filiação do servidor público para o Regime Geral de Previdência Social gerido pelo INSS." },
+          { letter: "E", text: "O cômputo temporal do afastamento para exercício de representação popular confere direitos estritamente restritos à percepção de gratificações de produtividade funcional instituídas pelo órgão patronal." }
+        ],
+        correctAnswer: "C",
+        resolution: "A alternativa correta é a letra C. A Emenda Constitucional nº 103/2019 outorgou nova redação ao inciso V do art. 38 da CF/88, fixando taxativamente que o servidor público que exerça mandato eletivo, na hipótese de ser segurado de regime próprio de previdência social, permanecerá compulsoriamente filiado a esse regime no ente federativo de origem. A alternativa A é errônea porque o art. 38, IV, excepciona categoricamente a promoção por merecimento (o tempo conta para todos os efeitos, menos merecimento). A alternativa B é descabida, inexistindo quebra de vínculo. A alternativa D contraria a unificação determinada pela EC nº 103/2019, que vedou a transferência para o Regime Geral (INSS). A alternativa E inventa restrição não agasalhada pela ordem constitucional."
+      },
+      {
+        id: 9,
+        ref: "Art. 37, § 1º, § 4º e § 5º, da CF/88",
+        stem: `<p>O texto do art. 37 da Constituição Federal tutela a integridade republicana ao estabelecer balizas de transparência pública, limites à divulgação institucional e consequências para os atos de corrupção administrativa. Avalie as afirmativas a seguir à luz dos dispositivos constitucionais:</p>
+               <p><strong>I.</strong> A publicidade dos atos, programas, obras, serviços e campanhas dos órgãos públicos deverá ter caráter educativo, informativo ou de orientação social, não podendo conter expressões, marcas ou fotos que impliquem promoção pessoal de autoridades.<br>
+               <strong>II.</strong> A comprovação de atos de improbidade administrativa enseja a suspensão dos direitos políticos, a perda da função pública, a indisponibilidade dos bens e o ressarcimento ao erário, na forma e gradação da lei, sem prejuízo da responsabilidade na esfera criminal.<br>
+               <strong>III.</strong> As ações de ressarcimento por prejuízos causados ao erário por ilícitos praticados por agentes públicos subordinam-se de forma absoluta e irrestrita à prescrição quinquenal, vedadas ressalvas na ordem jurídica.<br>
+               <strong>IV.</strong> As entidades privadas concessionárias e permissionárias de serviços públicos não respondem diretamente pelos prejuízos gerados por seus trabalhadores perante os administrados, recaindo a responsabilidade integral no ente político contratante.</p>
+               <p>Estão <strong>CORRETAS</strong> as afirmativas:</p>`,
+        options: [
+          { letter: "A", text: "I e II, apenas." },
+          { letter: "B", text: "III e IV, apenas." },
+          { letter: "C", text: "I, II e III, apenas." },
+          { letter: "D", text: "II e IV, apenas." },
+          { letter: "E", text: "I, II, III e IV." }
+        ],
+        correctAnswer: "A",
+        resolution: "A alternativa correta é a letra A (afirmativas I e II, apenas). A afirmativa I espelha com fidelidade o art. 37, § 1º, da CF/88, proscrevendo qualquer promoção pessoal em atos e campanhas públicas. A afirmativa II reproduz com exatidão as quatro sanções constitucionais por improbidade dispostas no art. 37, § 4º (suspensão de direitos políticos, perda da função pública, indisponibilidade dos bens e ressarcimento ao erário, sem prejuízo da ação penal). Já a afirmativa III é falsa: o art. 37, § 5º, ressalva expressamente as ações de ressarcimento, sendo pacífico no STF (Tema 897) que atos dolosos de improbidade que causam dano ao erário são imprescritíveis. Por fim, a afirmativa IV é flagrantemente errônea, pois o art. 37, § 6º, impõe expressamente a responsabilidade civil objetiva direta às pessoas jurídicas de direito privado prestadoras de serviços públicos."
+      },
+      {
+        id: 10,
+        ref: "Art. 37, incisos V e VIII, da CF/88",
+        stem: `<p>De acordo com os preceitos expressos no art. 37, incisos V e VIII, da Constituição Federal, o preenchimento de posições funcionais e o mecanismo de ações afirmativas na Administração Pública orientam-se por critérios estruturantes. No que concerne a essas normas, assinale a alternativa <strong>CORRETA</strong>:</p>`,
+        options: [
+          { letter: "A", text: "As funções de confiança destinam-se a qualquer cidadão que atenda às exigências legais, independentemente de ostentar vínculo prévio efetivo com o serviço público." },
+          { letter: "B", text: "Os cargos em comissão destinam-se privativamente a servidores ocupantes de cargo efetivo de carreira, restando nula a investidura de agentes sem vínculo funcional prévio com o Estado." },
+          { letter: "C", text: "As funções de confiança, exercidas exclusivamente por servidores ocupantes de cargo efetivo, e os cargos em comissão, a serem preenchidos por servidores de carreira nos casos, condições e percentuais mínimos previstos em lei, destinam-se apenas às atribuições de direção, chefia e assessoramento." },
+          { letter: "D", text: "As funções de confiança e os cargos comissionados destinam-se indistintamente à execução de tarefas subalternas, rotineiras e meramente operacionais da burocracia estatal." },
+          { letter: "E", text: "O constituinte originário vedou a reserva de vagas em certames para pessoas com deficiência, de sorte que eventuais quotas estabelecidas em lei padecem de vício de inconstitucionalidade." }
+        ],
+        correctAnswer: "C",
+        resolution: "A alternativa correta é a letra C. O art. 37, inciso V, da Carta Constitucional define com precisão estrutural: as funções de confiança são de exercício exclusivo por servidores titulares de cargo efetivo, ao passo que os cargos em comissão destinam-se a servidores de carreira nos limites e percentuais previstos em lei (admitindo preenchimento por agentes sem vínculo nos demais casos), destinando-se ambos unicamente às atribuições de direção, chefia e assessoramento. A alternativa A erra porque função de confiança exige vínculo efetivo obrigatório. A alternativa B erra ao pretender que cargo em comissão seja restrito a concursados. A alternativa D contraria a jurisprudência que veda comissionados para atividades rotineiras. A alternativa E colide frontalmente com o art. 37, VIII, que ordena a reserva legal de percentual de cargos para pessoas com deficiência."
+      }
+    ];
+
+    // Estado do simulado
+    const userAnswers = {};
+    let isSubmitted = false;
+    let allowIncompleteSubmit = false;
+
+    // Renderizar o simulado
+    function renderQuiz() {
+      const container = document.getElementById("quizContainer");
+      container.innerHTML = "";
+
+      examData.forEach((q, index) => {
+        const card = document.createElement("article");
+        card.className = "question-card";
+        card.id = `card-q${q.id}`;
+
+        let optionsHtml = "";
+        q.options.forEach(opt => {
+          optionsHtml += `
+            <label class="option-label" id="label-q${q.id}-${opt.letter}">
+              <input type="radio" 
+                     name="question-${q.id}" 
+                     value="${opt.letter}" 
+                     class="option-input" 
+                     onchange="handleSelect(${q.id}, '${opt.letter}')">
+              <div class="option-text-wrapper">
+                <span class="option-letter">${opt.letter})</span>
+                <span class="option-body">${opt.text}</span>
+              </div>
+            </label>
+          `;
+        });
+
+        card.innerHTML = `
+          <div class="question-header">
+            <span class="question-number">Questão ${String(q.id).padStart(2, "0")}</span>
+            <span class="question-reference">${q.ref}</span>
+          </div>
+          <div class="question-stem">${q.stem}</div>
+          <div class="options-group" id="optionsGroup-q${q.id}">
+            ${optionsHtml}
+          </div>
+          <div class="resolution-box" id="res-q${q.id}">
+            <div class="resolution-title">
+              <span>⚖️ Resolução Comentada e Fundamentação Jurídica</span>
+            </div>
+            <div class="resolution-text">${q.resolution}</div>
+          </div>
+        `;
+
+        container.appendChild(card);
+      });
+
+      updateProgress();
+    }
+
+    // Tratamento de seleção de alternativa
+    function handleSelect(questionId, letter) {
+      if (isSubmitted) return;
+
+      userAnswers[questionId] = letter;
+      
+      const card = document.getElementById(`card-q${questionId}`);
+      if (card) {
+        card.classList.add("answered");
+      }
+
+      // Remove alerta de itens faltantes caso usuário esteja preenchendo
+      document.getElementById("unansweredAlert").style.display = "none";
+      allowIncompleteSubmit = false;
+
+      updateProgress();
+    }
+
+    // Atualiza a barra superior de progresso
+    function updateProgress() {
+      const total = examData.length;
+      const answeredCount = Object.keys(userAnswers).length;
+      const pct = (answeredCount / total) * 100;
+
+      document.getElementById("progressFill").style.width = `${pct}%`;
+      document.getElementById("progressText").textContent = `${answeredCount} de ${total} respondidas`;
+    }
+
+    // Finalizar simulado
+    function submitExam() {
+      if (isSubmitted) return;
+
+      const total = examData.length;
+      const answeredCount = Object.keys(userAnswers).length;
+
+      // Confirmação caso haja itens pendentes
+      if (answeredCount < total && !allowIncompleteSubmit) {
+        const alertBox = document.getElementById("unansweredAlert");
+        alertBox.style.display = "block";
+        allowIncompleteSubmit = true;
+        alertBox.scrollIntoView({ behavior: "smooth", block: "center" });
+        return;
+      }
+
+      isSubmitted = true;
+      document.getElementById("unansweredAlert").style.display = "none";
+
+      // Desabilitar todas as opções e aplicar gabarito visual
+      let correctCount = 0;
+      const summaryRows = [];
+
+      examData.forEach(q => {
+        const userChoice = userAnswers[q.id] || null;
+        const isCorrect = userChoice === q.correctAnswer;
+        if (isCorrect) correctCount++;
+
+        // Desativar inputs do grupo
+        const inputs = document.querySelectorAll(`input[name="question-${q.id}"]`);
+        inputs.forEach(input => input.disabled = true);
+
+        // Estilizar alternativas
+        q.options.forEach(opt => {
+          const label = document.getElementById(`label-q${q.id}-${opt.letter}`);
+          
+          if (opt.letter === q.correctAnswer) {
+            label.classList.add("is-correct");
+          }
+          if (userChoice === opt.letter && !isCorrect) {
+            label.classList.add("is-wrong");
+          }
+          if (userChoice === opt.letter) {
+            label.classList.add("is-user-selected");
+          }
+        });
+
+        // Revelar a resolução comentada na mesma página logo abaixo da questão
+        const resBox = document.getElementById(`res-q${q.id}`);
+        if (resBox) {
+          resBox.style.display = "block";
+        }
+
+        // Montar linha do sumário
+        let statusBadge = "";
+        if (!userChoice) {
+          statusBadge = `<span class="status-badge em-branco">Em Branco</span>`;
+        } else if (isCorrect) {
+          statusBadge = `<span class="status-badge acerto">Acertou</span>`;
+        } else {
+          statusBadge = `<span class="status-badge erro">Errou</span>`;
+        }
+
+        summaryRows.push(`
+          <tr>
+            <td><strong>Questão ${String(q.id).padStart(2, "0")}</strong></td>
+            <td>${userChoice ? userChoice : "<em>Nenhuma</em>"}</td>
+            <td><strong>${q.correctAnswer}</strong></td>
+            <td>${statusBadge}</td>
+            <td>${q.ref}</td>
+          </tr>
+        `);
+      });
+
+      // Atualizar painel de resultados
+      document.getElementById("scoreValue").textContent = correctCount;
+      document.getElementById("summaryTableBody").innerHTML = summaryRows.join("");
+
+      // Feedback personalizado
+      const feedbackEl = document.getElementById("feedbackText");
+      const percentage = (correctCount / total) * 100;
+      if (percentage >= 80) {
+        feedbackEl.innerHTML = `<strong>Desempenho Excelente (${percentage}%):</strong> Você demonstrou domínio consistente dos arts. 37 e 38 da CF/88 e das nuances exigidas nos certames do IFMG.`;
+      } else if (percentage >= 60) {
+        feedbackEl.innerHTML = `<strong>Bom Aproveitamento (${percentage}%):</strong> Você possui base sólida, mas vale atentar-se às exceções pontuais de acumulação de cargos e regras de responsabilidade civil.`;
+      } else {
+        feedbackEl.innerHTML = `<strong>Atenção Necessária (${percentage}%):</strong> Sugerimos revisar detalhadamente a literalidade dos arts. 37 e 38 da Constituição Federal e as fundamentações comentadas abaixo.`;
+      }
+
+      // Exibir seção de resultados
+      const resultsSec = document.getElementById("resultsSection");
+      resultsSec.style.display = "block";
+      
+      // Alternar botões
+      document.getElementById("btnSubmit").style.display = "none";
+      document.getElementById("btnReset").style.display = "inline-block";
+
+      // Rolagem suave para o painel de resultados
+      resultsSec.scrollIntoView({ behavior: "smooth" });
+    }
+
+    // Reiniciar simulado para novo treino
+    function resetExam() {
+      for (const key in userAnswers) {
+        delete userAnswers[key];
+      }
+      isSubmitted = false;
+      allowIncompleteSubmit = false;
+
+      document.getElementById("resultsSection").style.display = "none";
+      document.getElementById("btnSubmit").style.display = "inline-block";
+      document.getElementById("btnReset").style.display = "none";
+      document.getElementById("unansweredAlert").style.display = "none";
+
+      renderQuiz();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    // Inicialização ao carregar a página
+    window.addEventListener("DOMContentLoaded", () => {
+      renderQuiz();
+    });
+  </script>
+</body>
+</html>

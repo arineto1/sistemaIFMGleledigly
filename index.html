@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Menu de Aulas - Concurso IFMG</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-color: #f7f9fa;
+      --card-bg: #ffffff;
+      --text-main: #3c3c3c;
+      --text-muted: #777777;
+      --border-color: #e5e5e5;
+      
+      /* Duolingo Green Palette (Legislação) */
+      --duo-green: #58cc02;
+      --duo-green-shadow: #58a700;
+      --duo-green-light: #d7ffb8;
+      --duo-green-text: #3b8700;
+
+      /* Duolingo Blue Palette (Geografia) */
+      --duo-blue: #1cb0f6;
+      --duo-blue-shadow: #1899d6;
+      --duo-blue-light: #ddf4ff;
+      --duo-blue-text: #1178ab;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Nunito', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-main);
+      padding: 24px 16px 80px 16px;
+      line-height: 1.4;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    /* Top Banner Header */
+    header {
+      text-align: center;
+      margin-bottom: 36px;
+      padding-bottom: 20px;
+      border-bottom: 2px solid var(--border-color);
+    }
+
+    .badge-top {
+      display: inline-block;
+      background: #ffc800;
+      color: #7d4900;
+      font-weight: 900;
+      font-size: 0.85rem;
+      padding: 6px 14px;
+      border-radius: 999px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 10px;
+    }
+
+    header h1 {
+      font-size: 2.2rem;
+      font-weight: 900;
+      color: #2b2b2b;
+      margin-bottom: 6px;
+    }
+
+    header p {
+      color: var(--text-muted);
+      font-weight: 700;
+      font-size: 1.05rem;
+    }
+
+    /* Section Styling */
+    .subject-section {
+      margin-bottom: 48px;
+    }
+
+    .section-header {
+      background: #ffffff;
+      border: 2px solid var(--border-color);
+      border-radius: 20px;
+      padding: 16px 22px;
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .section-title-wrap {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .section-tag {
+      width: 14px;
+      height: 38px;
+      border-radius: 7px;
+    }
+
+    .section-tag.green {
+      background: var(--duo-green);
+      box-shadow: 0 4px 0 var(--duo-green-shadow);
+    }
+
+    .section-tag.blue {
+      background: var(--duo-blue);
+      box-shadow: 0 4px 0 var(--duo-blue-shadow);
+    }
+
+    .section-title {
+      font-size: 1.25rem;
+      font-weight: 900;
+      color: #2e2e2e;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+
+    .section-badge {
+      font-size: 0.9rem;
+      font-weight: 800;
+      padding: 6px 12px;
+      border-radius: 12px;
+      background: #f0f2f5;
+      color: #555;
+    }
+
+    /* 4 Buttons per line Grid */
+    .lessons-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 22px;
+    }
+
+    /* Lesson Card */
+    .lesson-card {
+      background: var(--card-bg);
+      border: 2px solid var(--border-color);
+      border-radius: 22px;
+      padding: 24px 14px 18px 14px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      transition: transform 0.15s ease, border-color 0.15s ease;
+    }
+
+    .lesson-card:hover {
+      border-color: #cfd4d8;
+    }
+
+    /* Duolingo 3D Chunky Circular Buttons */
+    .duo-button {
+      width: 76px;
+      height: 70px;
+      border-radius: 50%;
+      border: none;
+      outline: none;
+      cursor: pointer;
+      font-family: inherit;
+      font-size: 1.2rem;
+      font-weight: 900;
+      color: #ffffff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      transition: transform 0.08s ease, box-shadow 0.08s ease;
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
+      margin-bottom: 16px;
+    }
+
+    /* Green Button Variant */
+    .duo-button.green {
+      background: var(--duo-green);
+      box-shadow: 0 7px 0 var(--duo-green-shadow);
+    }
+
+    .duo-button.green:hover {
+      filter: brightness(1.04);
+    }
+
+    .duo-button.green:active {
+      transform: translateY(6px);
+      box-shadow: 0 1px 0 var(--duo-green-shadow);
+    }
+
+    /* Blue Button Variant */
+    .duo-button.blue {
+      background: var(--duo-blue);
+      box-shadow: 0 7px 0 var(--duo-blue-shadow);
+    }
+
+    .duo-button.blue:hover {
+      filter: brightness(1.04);
+    }
+
+    .duo-button.blue:active {
+      transform: translateY(6px);
+      box-shadow: 0 1px 0 var(--duo-blue-shadow);
+    }
+
+    .duo-button .icon {
+      font-size: 1.2rem;
+      line-height: 1;
+      margin-bottom: 2px;
+    }
+
+    .duo-button .number {
+      font-size: 0.95rem;
+      letter-spacing: 0.5px;
+    }
+
+    /* Lesson Details below button */
+    .lesson-title {
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: #3b3b3b;
+      margin-bottom: 8px;
+      line-height: 1.35;
+      min-height: 70px;
+      display: -webkit-box;
+      -webkit-line-clamp: 4;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    /* Last Accessed Time Tag */
+    .time-counter {
+      margin-top: auto;
+      font-size: 0.78rem;
+      font-weight: 800;
+      padding: 6px 12px;
+      border-radius: 999px;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: #f0f2f4;
+      color: var(--text-muted);
+      border: 1px solid #e0e3e6;
+    }
+
+    .time-counter.accessed-green {
+      background: var(--duo-green-light);
+      color: var(--duo-green-text);
+      border-color: #bbf08d;
+    }
+
+    .time-counter.accessed-blue {
+      background: var(--duo-blue-light);
+      color: var(--duo-blue-text);
+      border-color: #b8e6fe;
+    }
+
+    /* Responsive Adaptation: Keeps exactly 4 on standard screens, falls back smoothly on smaller views */
+    @media (max-width: 960px) {
+      .lessons-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 520px) {
+      .lessons-grid {
+        grid-template-columns: repeat(1, 1fr);
+      }
+      header h1 {
+        font-size: 1.7rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <header>
+      <div class="badge-top">Plano de Estudos</div>
+      <h1>Concurso IFMG</h1>
+      <p>Selecione uma aula para abrir o conteúdo diretamente</p>
+    </header>
+
+    <!-- Seção: Legislação Aplicada ao Serviço Público -->
+    <section class="subject-section">
+      <div class="section-header">
+        <div class="section-title-wrap">
+          <div class="section-tag green"></div>
+          <h2 class="section-title">Legislação Aplicada ao Serviço Público</h2>
+        </div>
+        <span class="section-badge">20 Aulas</span>
+      </div>
+      <div class="lessons-grid" id="grid-legislacao"></div>
+    </section>
+
+    <!-- Seção: Geografia -->
+    <section class="subject-section">
+      <div class="section-header">
+        <div class="section-title-wrap">
+          <div class="section-tag blue"></div>
+          <h2 class="section-title">Geografia</h2>
+        </div>
+        <span class="section-badge">30 Aulas</span>
+      </div>
+      <div class="lessons-grid" id="grid-geografia"></div>
+    </section>
+  </div>
+
+  <script>
+    // Lista completa de aulas de Legislação Aplicada ao Serviço Público
+    const aulasLegislacao = [
+      { id: "leg_01", aula: "01", url: "legs/legislacao_aula_01.html", titulo: "CF/88 – Administração Pública e Disposições Gerais" },
+      { id: "leg_02", aula: "02", url: "legs/legislacao_aula_02.html", titulo: "CF/88 – Servidores Públicos Constitucionais" },
+      { id: "leg_03", aula: "03", url: "legs/legislacao_aula_03.html", titulo: "Decreto nº 1.171/1994 – Código de Ética Profissional do Servidor Civil Federal" },
+      { id: "leg_04", aula: "04", url: "legs/legislacao_aula_04.html", titulo: "Lei nº 8.112/1990 – Disposições Preliminares e Provimento" },
+      { id: "leg_05", aula: "05", url: "legs/legislacao_aula_05.html", titulo: "Lei nº 8.112/1990 – Estabilidade, Vacância e Movimentação de Pessoal" },
+      { id: "leg_06", aula: "06", url: "legs/legislacao_aula_06.html", titulo: "Lei nº 8.112/1990 – Regime Disciplinar I: Deveres, Proibições e Responsabilidades" },
+      { id: "leg_07", aula: "07", url: "legs/legislacao_aula_07.html", titulo: "Lei nº 8.112/1990 – Regime Disciplinar II: Penalidades e Prescrição" },
+      { id: "leg_08", aula: "08", url: "legs/legislacao_aula_08.html", titulo: "Lei nº 11.892/2008 – Criação, Finalidades e Metas de Vagas nos Institutos Federais" },
+      { id: "leg_09", aula: "09", url: "legs/legislacao_aula_09.html", titulo: "Lei nº 11.892/2008 – Estrutura Organizacional e Governança do IFMG" },
+      { id: "leg_10", aula: "10", url: "legs/legislacao_aula_10.html", titulo: "Lei nº 12.772/2012 – Ingresso, Classes e Desenvolvimento na Carreira EBTT" },
+      { id: "leg_11", aula: "11", url: "legs/legislacao_aula_11.html", titulo: "Lei nº 12.772/2012 – Remuneração, Regimes de Trabalho, CPPD e Afastamentos" },
+      { id: "leg_12", aula: "12", url: "legs/legislacao_aula_12.html", titulo: "Lei nº 14.133/2021 – Princípios, Definições e Agentes Públicos" },
+      { id: "leg_13", aula: "13", url: "legs/legislacao_aula_13.html", titulo: "Lei nº 14.133/2021 – O Processo Licitatório, Modalidades e Critérios de Julgamento" },
+      { id: "leg_14", aula: "14", url: "legs/legislacao_aula_14.html", titulo: "Lei nº 14.133/2021 – Contratos Administrativos, Execução e Sanções" },
+      { id: "leg_15", aula: "15", url: "legs/legislacao_aula_15.html", titulo: "Estatuto da Criança e do Adolescente (ECA) – Princípios, Dignidade e Prevenção" },
+      { id: "leg_16", aula: "16", url: "legs/legislacao_aula_16.html", titulo: "Estatuto da Criança e do Adolescente (ECA) – Educação e Proteção no Trabalho" },
+      { id: "leg_17", aula: "17", url: "legs/legislacao_aula_17.html", titulo: "LDB (Lei nº 9.394/1996) – Ensino Médio e Educação Profissional Técnica de Nível Médio" },
+      { id: "leg_18", aula: "18", url: "legs/legislacao_aula_18.html", titulo: "LDB (Lei nº 9.394/1996) – EPT e Educação Superior" },
+      { id: "leg_19", aula: "19", url: "legs/legislacao_aula_19.html", titulo: "Estatuto do IFMG (Resolução Consup nº 45/2025)" },
+      { id: "leg_20", aula: "20", url: "legs/legislacao_aula_20.html", titulo: "Política de Enfrentamento ao Assédio e Discriminação (Resolução Consup nº 47/2025)" }
+    ];
+
+    // Lista completa de aulas de Geografia
+    const aulasGeografia = [
+      { id: "geo_01", aula: "01", url: "geografia_aula_01.html", titulo: "História do Pensamento Geográfico I – As Matrizes Clássicas" },
+      { id: "geo_02", aula: "02", url: "geografia_aula_02.html", titulo: "História do Pensamento Geográfico II – As Rupturas Contemporâneas e Categorias de Análise" },
+      { id: "geo_03", aula: "03", url: "geografia_aula_03.html", titulo: "Cartografia Básica – Projeções, Fusos Horários e Escalas" },
+      { id: "geo_04", aula: "04", url: "geografia_aula_04.html", titulo: "Cartografia Temática e Representação do Relevo" },
+      { id: "geo_05", aula: "05", url: "geografia_aula_05.html", titulo: "Fundamentos de Sensoriamento Remoto e Geotecnologias" },
+      { id: "geo_06", aula: "06", url: "geografia_aula_06.html", titulo: "Estrutura Geológica e Dinâmica Interna da Terra" },
+      { id: "geo_07", aula: "07", url: "geografia_aula_07.html", titulo: "Petrologia, Recursos Minerais e Tempo Geológico" },
+      { id: "geo_08", aula: "08", url: "geografia_aula_08.html", titulo: "Geomorfologia Geral – Processos Morfogenéticos e Relevo" },
+      { id: "geo_09", aula: "09", url: "geografia_aula_09.html", titulo: "Geomorfologia do Brasil – Classificação e Compartimentação de Ross" },
+      { id: "geo_10", aula: "10", url: "geografia_aula_10.html", titulo: "Fundamentos de Pedologia" },
+      { id: "geo_11", aula: "11", url: "geografia_aula_11.html", titulo: "Climatologia e Dinâmica Atmosférica Geral" },
+      { id: "geo_12", aula: "12", url: "geografia_aula_12.html", titulo: "Climatologia do Brasil e Fenômenos Climáticos Extremos" },
+      { id: "geo_13", aula: "13", url: "geografia_aula_13.html", titulo: "Hidrogeografia I – Fundamentos Hidrológicos e Dinâmica Fluvial" },
+      { id: "geo_14", aula: "14", url: "geografia_aula_14.html", titulo: "Hidrogeografia II – Bacias do Brasil, Gestão e Impactos de Uso" },
+      { id: "geo_15", aula: "15", url: "geografia_aula_15.html", titulo: "Domínios Morfoclimáticos e Biomas Brasileiros" },
+      { id: "geo_16", aula: "16", url: "geografia_aula_16.html", titulo: "Questões Socioambientais Contemporâneas e Ordenamento Territorial" },
+      { id: "geo_17", aula: "17", url: "geografia_aula_17.html", titulo: "Modo de Produção Capitalista, Modelos Produtivos e Divisão do Trabalho" },
+      { id: "geo_18", aula: "18", url: "geografia_aula_18.html", titulo: "Geografia da Indústria Global e Reestruturação Produtiva" },
+      { id: "geo_19", aula: "19", url: "geografia_aula_19.html", titulo: "Globalização e a Teoria do Meio Técnico-Científico-Informacional" },
+      { id: "geo_20", aula: "20", url: "geografia_aula_20.html", titulo: "Financeirização da Economia, Comércio Global e Blocos Regionais" },
+      { id: "geo_21", aula: "21", url: "geografia_aula_21.html", titulo: "Geopolítica Contemporânea, Multilateralismo e a Ordem Multipolar" },
+      { id: "geo_22", aula: "22", url: "geografia_aula_22.html", titulo: "Conflitos Territoriais, Geopolítica dos Recursos e Fronteiras no Século XXI" },
+      { id: "geo_23", aula: "23", url: "geografia_aula_23.html", titulo: "Espaço, Turismo e Cultura no Período Técnico-Científico-Informacional" },
+      { id: "geo_24", aula: "24", url: "geografia_aula_24.html", titulo: "História Econômica e Industrialização Brasileira I – Do Café ao Plano de Metas" },
+      { id: "geo_25", aula: "25", url: "geografia_aula_25.html", titulo: "História Econômica e Industrialização Brasileira II – Da Ditadura à Desindustrialização" },
+      { id: "geo_26", aula: "26", url: "geografia_aula_26.html", titulo: "Demografia – Teorias Demográficas e Transição Global" },
+      { id: "geo_27", aula: "27", url: "geografia_aula_27.html", titulo: "Dinâmica e Estrutura da População Brasileira" },
+      { id: "geo_28", aula: "28", url: "geografia_aula_28.html", titulo: "Urbanização Global, Metropolização e Tendências do Século XXI" },
+      { id: "geo_29", aula: "29", url: "geografia_aula_29.html", titulo: "As Cidades e a Rede Urbana Brasileira" },
+      { id: "geo_30", aula: "30", url: "geografia_aula_30.html", titulo: "O Espaço Rural, a Questão Agrária e a Produção Agropecuária" }
+    ];
+
+    // Formata o tempo decorrido desde o último acesso salvo no LocalStorage
+    function formatTimeElapsed(timestamp) {
+      if (!timestamp) return { text: "Nunca acessado", isAccessed: false };
+
+      const diffMs = Date.now() - parseInt(timestamp, 10);
+      const diffSec = Math.floor(diffMs / 1000);
+      const diffMin = Math.floor(diffSec / 60);
+      const diffHours = Math.floor(diffMin / 60);
+      const diffDays = Math.floor(diffHours / 24);
+
+      if (diffSec < 60) {
+        return { text: "Acessado agora mesmo", isAccessed: true };
+      }
+      if (diffMin < 60) {
+        return { text: `Acessado há ${diffMin} min`, isAccessed: true };
+      }
+      if (diffHours < 24) {
+        return { text: `Acessado há ${diffHours}h`, isAccessed: true };
+      }
+      if (diffDays === 1) {
+        return { text: `Acessado há 1 dia`, isAccessed: true };
+      }
+      if (diffDays < 30) {
+        return { text: `Acessado há ${diffDays} dias`, isAccessed: true };
+      }
+      const diffMonths = Math.floor(diffDays / 30);
+      return { text: `Acessado há ${diffMonths} ${diffMonths === 1 ? 'mês' : 'meses'}`, isAccessed: true };
+    }
+
+    // Registra acesso e redireciona imediatamente sem confirmação
+    function acessarAula(id, url) {
+      localStorage.setItem(`ifmg_access_${id}`, Date.now().toString());
+      window.location.href = url;
+    }
+
+    // Renderiza cada grupo de aulas na grade
+    function renderLessons(containerId, list, colorTheme, iconSymbol) {
+      const container = document.getElementById(containerId);
+      container.innerHTML = "";
+
+      list.forEach(item => {
+        const storedTime = localStorage.getItem(`ifmg_access_${item.id}`);
+        const timeInfo = formatTimeElapsed(storedTime);
+
+        const card = document.createElement("div");
+        card.className = "lesson-card";
+
+        // Botão estilo Duolingo
+        const button = document.createElement("button");
+        button.className = `duo-button ${colorTheme}`;
+        button.innerHTML = `
+          <span class="icon">${iconSymbol}</span>
+          <span class="number">${item.aula}</span>
+        `;
+        button.title = `Ir para ${item.url}`;
+        button.addEventListener("click", () => {
+          acessarAula(item.id, item.url);
+        });
+
+        // Título e conteúdo da aula
+        const title = document.createElement("div");
+        title.className = "lesson-title";
+        title.textContent = `Aula ${item.aula}: ${item.titulo}`;
+
+        // Contador de acesso
+        const counter = document.createElement("div");
+        counter.className = `time-counter ${timeInfo.isAccessed ? `accessed-${colorTheme}` : ''}`;
+        counter.innerHTML = `⏱️ ${timeInfo.text}`;
+
+        card.appendChild(button);
+        card.appendChild(title);
+        card.appendChild(counter);
+
+        container.appendChild(card);
+      });
+    }
+
+    // Inicialização da interface
+    function init() {
+      renderLessons("grid-legislacao", aulasLegislacao, "green", "⚖️");
+      renderLessons("grid-geografia", aulasGeografia, "blue", "🌍");
+    }
+
+    // Renderiza ao carregar a página
+    window.addEventListener("DOMContentLoaded", init);
+  </script>
+</body>
+</html>

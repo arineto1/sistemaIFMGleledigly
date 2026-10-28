@@ -1,0 +1,912 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administração Pública CF/88 (Arts. 37 e 38) - IFMG EBTT</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#f0fdf4',
+                            100: '#dcfce7',
+                            600: '#16a34a',
+                            700: '#15803d',
+                            800: '#166534',
+                            900: '#14532d',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Tipografia de alta legibilidade para leitura prolongada */
+        body {
+            background-color: #ffffff;
+            color: #1e293b; /* Slate 800: contraste ideal sem ofuscar a visão */
+            line-height: 1.8;
+            font-size: 1.0625rem;
+        }
+
+        /* Grifos e destaques visuais suaves */
+        .highlight-yellow {
+            background-color: #fef08a; /* Amber/Yellow 200 */
+            color: #451a03;
+            padding: 0.12rem 0.35rem;
+            border-radius: 0.25rem;
+            font-weight: 600;
+        }
+        
+        .highlight-green {
+            background-color: #dcfce7; /* Emerald 100 */
+            color: #14532d;
+            padding: 0.12rem 0.35rem;
+            border-radius: 0.25rem;
+            font-weight: 600;
+        }
+
+        .highlight-blue {
+            background-color: #e0f2fe; /* Sky 100 */
+            color: #0c4a6e;
+            padding: 0.12rem 0.35rem;
+            border-radius: 0.25rem;
+            font-weight: 600;
+        }
+
+        /* Ajustes para tabelas não gerarem rolagem horizontal */
+        table {
+            table-layout: fixed;
+            width: 100%;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+        }
+
+        /* Barra de progresso de leitura */
+        #progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 4px;
+            background: #16a34a;
+            width: 0%;
+            z-index: 50;
+            transition: width 0.1s ease;
+        }
+    </style>
+</head>
+<body class="bg-white text-slate-800 antialiased min-h-screen flex flex-col">
+
+    <!-- Indicador de Progresso de Leitura -->
+    <div id="progress-bar"></div>
+
+    <!-- Barra Superior de Navegação Rápida -->
+    <header class="border-b border-slate-200 bg-white sticky top-0 z-40 shadow-xs">
+        <div class="max-w-5xl mx-auto px-4 py-3 flex items-center justify-between">
+            <div class="flex items-center space-x-2">
+                <span class="w-3 h-3 rounded-full bg-brand-600 inline-block"></span>
+                <span class="font-bold text-slate-900 tracking-tight text-sm sm:text-base">IFMG • EBTT Geografia</span>
+                <span class="text-xs bg-slate-100 text-slate-700 px-2 py-0.5 rounded border border-slate-200 hidden sm:inline">Legislação Constitucional</span>
+            </div>
+            <div class="flex items-center space-x-2">
+                <button onclick="changeFontSize(-1)" class="px-2 py-1 text-xs font-semibold border border-slate-300 rounded hover:bg-slate-50 transition text-slate-700" title="Diminuir fonte">A-</button>
+                <button onclick="changeFontSize(1)" class="px-2 py-1 text-xs font-semibold border border-slate-300 rounded hover:bg-slate-50 transition text-slate-700" title="Aumentar fonte">A+</button>
+                <a href="#audio-player-card" class="px-3 py-1 text-xs font-medium bg-brand-50 text-brand-700 border border-brand-200 rounded hover:bg-brand-100 transition flex items-center gap-1">
+                    <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20"><path d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z"/></svg>
+                    Áudio
+                </a>
+                <a href="questoes1legs.html" class="px-3 py-1 text-xs font-bold bg-slate-900 text-white rounded hover:bg-slate-800 transition">
+                    Questões
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Conteúdo Principal -->
+    <main class="max-w-4xl mx-auto px-4 sm:px-6 py-8 flex-grow">
+
+        <!-- CABEÇALHO DO DOCUMENTO -->
+        <div class="mb-8 border-b border-slate-200 pb-6">
+            <div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-brand-50 border border-brand-200 text-brand-800 text-xs font-semibold uppercase tracking-wider mb-3">
+                Material de Estudo Oficial • Concurso Público
+            </div>
+            <h1 class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight leading-tight">
+                A Disciplina Constitucional da Administração Pública (Arts. 37 e 38 da CF/88)
+            </h1>
+            <p class="text-base sm:text-lg text-slate-600 font-medium mt-2">
+                Fundamentos Normativos, Jurisprudência e Fixação Estratégica para o Concurso Docente do IFMG
+            </p>
+        </div>
+
+        <!-- REPRODUTOR DE ÁUDIO NO INÍCIO DA PÁGINA -->
+        <section id="audio-player-card" class="mb-10 p-5 sm:p-6 bg-slate-50 border border-slate-300 rounded-xl shadow-xs">
+            <div class="flex items-center justify-between mb-3 flex-wrap gap-2">
+                <div class="flex items-center gap-2">
+                    <div class="p-2 bg-brand-600 text-white rounded-lg">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 100-6 3 3 0 000 6z" />
+                        </svg>
+                    </div>
+                    <div>
+                        <h2 class="text-base font-bold text-slate-900 leading-none">Resumo em Áudio da Aula</h2>
+                        <span class="text-xs text-slate-500">Ouça enquanto acompanha os pontos grifados do texto</span>
+                    </div>
+                </div>
+                <div class="flex items-center gap-1.5">
+                    <span class="text-xs font-medium text-slate-600">Velocidade:</span>
+                    <button type="button" onclick="setPlaybackSpeed(1.0)" class="speed-btn px-2 py-0.5 text-xs font-semibold rounded border border-slate-300 bg-white hover:bg-slate-100 text-slate-700">1x</button>
+                    <button type="button" onclick="setPlaybackSpeed(1.25)" class="speed-btn px-2 py-0.5 text-xs font-semibold rounded border border-slate-300 bg-white hover:bg-slate-100 text-slate-700">1.25x</button>
+                    <button type="button" onclick="setPlaybackSpeed(1.5)" class="speed-btn px-2 py-0.5 text-xs font-semibold rounded border border-slate-300 bg-white hover:bg-slate-100 text-slate-700">1.5x</button>
+                    <button type="button" onclick="setPlaybackSpeed(2.0)" class="speed-btn px-2 py-0.5 text-xs font-semibold rounded border border-slate-300 bg-white hover:bg-slate-100 text-slate-700">2x</button>
+                </div>
+            </div>
+
+            <!-- Formulário para configurar o arquivo MP3 -->
+            <div class="mt-3 pt-3 border-t border-slate-200">
+                <label for="audioFileNameInput" class="block text-xs font-semibold text-slate-700 mb-1">
+                    Nome do arquivo de áudio (localizado na mesma pasta deste arquivo):
+                </label>
+                <div class="flex flex-col sm:flex-row gap-2">
+                    <div class="relative flex-grow">
+                        <span class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400 text-xs">
+                            📁
+                        </span>
+                        <input 
+                            type="text" 
+                            id="audioFileNameInput" 
+                            value="resumo.mp3" 
+                            placeholder="ex: resumo.mp3 ou audio-cf88.mp3" 
+                            class="w-full pl-8 pr-3 py-2 text-sm border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-600 focus:border-brand-600 bg-white font-mono text-slate-800"
+                        />
+                    </div>
+                    <button 
+                        type="button" 
+                        onclick="updateAudioSource()" 
+                        class="px-4 py-2 bg-brand-700 hover:bg-brand-800 text-white font-semibold text-sm rounded-lg transition shrink-0 flex items-center justify-center gap-1.5 shadow-xs"
+                    >
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+                        Carregar Áudio
+                    </button>
+                </div>
+                <p id="audioStatusText" class="text-xs text-slate-500 mt-1.5 flex items-center gap-1">
+                    <span class="inline-block w-2 h-2 rounded-full bg-emerald-500"></span>
+                    Pronto para reproduzir: <strong class="font-mono text-slate-700" id="currentFileNameDisplay">resumo.mp3</strong>
+                </p>
+            </div>
+
+            <!-- Tag de áudio HTML5 Nativa com controles -->
+            <div class="mt-4">
+                <audio id="mainAudioElement" controls class="w-full h-11 rounded-lg">
+                    <source id="mainAudioSource" src="audio1legs.mp3" type="audio/mpeg">
+                    Seu navegador não suporta o elemento de áudio.
+                </audio>
+            </div>
+        </section>
+
+        <!-- TEXTO INTEGRAL ORGANIZADO COM GRIFOS E TABELAS ADAPTADAS -->
+        <article class="space-y-8 text-justify leading-relaxed">
+            
+            <!-- INTRODUÇÃO -->
+            <div class="text-slate-800 leading-relaxed text-base sm:text-lg">
+                <p>
+                    O arcabouço normativo estabelecido pelos <mark class="highlight-yellow">artigos 37 e 38 da Constituição Federal de 1988</mark> constitui o núcleo basilar do Direito Administrativo Constitucional brasileiro, regulando a organização, os limites e os deveres que estruturam o aparelho estatal. No contexto do concurso para a carreira do <mark class="highlight-green">Magistério do Ensino Básico, Técnico e Tecnológico (EBTT)</mark> do Instituto Federal de Educação, Ciência e Tecnologia de Minas Gerais (IFMG), organizado sob a condução da <strong>Comissão Central de Concurso Público da Reitoria</strong>, essa matéria ostenta centralidade categórica nas provas de Legislação. Como <mark class="highlight-blue">autarquia federal vinculada ao Ministério da Educação</mark>, o IFMG subordina-se de modo estrito a tais balizas constitucionais, de sorte que a compreensão verticalizada da literalidade da norma, associada à jurisprudência consolidada dos Tribunais Superiores, consubstancia requisito indispensável para a resolução assertiva da prova objetiva.
+                </p>
+            </div>
+
+            <hr class="border-slate-200 my-6">
+
+            <!-- SEÇÃO 1: PRINCÍPIOS -->
+            <section id="secao-1" class="space-y-4">
+                <h2 class="text-xl sm:text-2xl font-bold text-slate-900 border-l-4 border-brand-600 pl-3">
+                    1. Princípios Constitucionais da Administração Pública (Expressos e Implícitos)
+                </h2>
+                
+                <p>
+                    O <em>caput</em> do art. 37 da Constituição consagra que a administração pública direta e indireta de qualquer dos Poderes da União, dos Estados, do Distrito Federal e dos Municípios obedecerá a postulados normativos fundamentais que orientam toda a atividade administrativa.
+                </p>
+
+                <h3 class="text-lg font-bold text-slate-800 mt-4">
+                    Princípios Expressos (Mnemônico LIMPE)
+                </h3>
+                <p>
+                    A atuação dos gestores e docentes da Rede Federal de Educação Profissional, Científica e Tecnológica é regida por cinco princípios fundamentais expressos na cabeça do dispositivo constitucional:
+                </p>
+
+                <!-- TABELA 1: LIMPE (TOTALMENTE VISÍVEL SEM SCROLL HORIZONTAL) -->
+                <div class="my-6 border border-slate-300 rounded-lg overflow-hidden bg-white shadow-xs">
+                    <table class="w-full text-left text-xs sm:text-sm divide-y divide-slate-300">
+                        <thead class="bg-slate-100 font-bold text-slate-900">
+                            <tr>
+                                <th class="w-3/12 p-2.5 sm:p-3 border-r border-slate-300">Princípio</th>
+                                <th class="w-4/12 p-2.5 sm:p-3 border-r border-slate-300">Conceito Dogmático</th>
+                                <th class="w-5/12 p-2.5 sm:p-3">Desdobramento no IFMG e Casuística de Prova</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-200">
+                            <tr class="hover:bg-slate-50 transition">
+                                <td class="p-2.5 sm:p-3 font-bold text-slate-900 border-r border-slate-200 align-top">
+                                    <span class="text-brand-800 font-extrabold">L</span>egalidade
+                                </td>
+                                <td class="p-2.5 sm:p-3 border-r border-slate-200 align-top text-slate-700">
+                                    O administrador só pode agir quando houver <mark class="highlight-yellow">expressa autorização ou determinação em lei</mark> (legalidade estrita).
+                                </td>
+                                <td class="p-2.5 sm:p-3 align-top text-slate-700">
+                                    Diferencia-se da autonomia privada (art. 5º, II). No IFMG, a autonomia didático-científica <mark class="highlight-yellow">não afasta a estrita submissão</mark> aos ditames orçamentários, disciplinares e de contratações públicas.
+                                </td>
+                            </tr>
+                            <tr class="hover:bg-slate-50 transition">
+                                <td class="p-2.5 sm:p-3 font-bold text-slate-900 border-r border-slate-200 align-top">
+                                    <span class="text-brand-800 font-extrabold">I</span>mpessoalidade
+                                </td>
+                                <td class="p-2.5 sm:p-3 border-r border-slate-200 align-top text-slate-700">
+                                    A atividade estatal deve visar unicamente ao interesse público, <mark class="highlight-yellow">vedando privilégios ou perseguições</mark>.
+                                </td>
+                                <td class="p-2.5 sm:p-3 align-top text-slate-700">
+                                    Fundamenta a exigência de concursos públicos e <mark class="highlight-yellow">proíbe promoção pessoal</mark> (nomes, símbolos ou imagens) em obras ou divulgações do IFMG (art. 37, § 1º).
+                                </td>
+                            </tr>
+                            <tr class="hover:bg-slate-50 transition">
+                                <td class="p-2.5 sm:p-3 font-bold text-slate-900 border-r border-slate-200 align-top">
+                                    <span class="text-brand-800 font-extrabold">M</span>oralidade
+                                </td>
+                                <td class="p-2.5 sm:p-3 border-r border-slate-200 align-top text-slate-700">
+                                    Exigência de conformação funcional a padrões éticos, de probidade, decoro, boa-fé e lealdade.
+                                </td>
+                                <td class="p-2.5 sm:p-3 align-top text-slate-700">
+                                    Não se resume à legalidade: ato formalmente legal é anulável se demonstrado desvio ético. Sustenta o combate ao nepotismo e deveres da Lei 8.112/1990.
+                                </td>
+                            </tr>
+                            <tr class="hover:bg-slate-50 transition">
+                                <td class="p-2.5 sm:p-3 font-bold text-slate-900 border-r border-slate-200 align-top">
+                                    <span class="text-brand-800 font-extrabold">P</span>ublicidade
+                                </td>
+                                <td class="p-2.5 sm:p-3 border-r border-slate-200 align-top text-slate-700">
+                                    Dever de transparência e publicação oficial dos atos como <mark class="highlight-yellow">requisito de eficácia</mark> e controle social.
+                                </td>
+                                <td class="p-2.5 sm:p-3 align-top text-slate-700">
+                                    <strong>Exceções constitucionais taxativas:</strong> apenas segurança do Estado e da sociedade ou inviolabilidade da intimidade e vida privada (art. 5º, X e XXXIII).
+                                </td>
+                            </tr>
+                            <tr class="hover:bg-slate-50 transition">
+                                <td class="p-2.5 sm:p-3 font-bold text-slate-900 border-r border-slate-200 align-top">
+                                    <span class="text-brand-800 font-extrabold">E</span>ficiência
+                                </td>
+                                <td class="p-2.5 sm:p-3 border-r border-slate-200 align-top text-slate-700">
+                                    Otimização de recursos, presteza funcional, economicidade e máximo rendimento útil.
+                                </td>
+                                <td class="p-2.5 sm:p-3 align-top text-slate-700">
+                                    Inserido pela <mark class="highlight-yellow">EC nº 19/1998</mark>. Fundamenta avaliações periódicas de desempenho no estágio probatório e aprimoramento didático contínuo.
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3 class="text-lg font-bold text-slate-800 mt-6">
+                    A Vedação ao Nepotismo e a Súmula Vinculante 13 do STF
+                </h3>
+                <p>
+                    A proibição do nepotismo deriva da <mark class="highlight-yellow">incidência direta e autoaplicável</mark> dos princípios da impessoalidade, moralidade e eficiência previstos no art. 37, <strong>prescindindo de lei formal ordinária</strong> para gerar efeitos mandamentais perante todos os Poderes. Conforme o enunciado da <mark class="highlight-yellow">Súmula Vinculante 13 do STF</mark>, resta vedada a nomeação de cônjuge, companheiro ou parente em linha reta, colateral ou por afinidade, <strong>até o terceiro grau, inclusive</strong>, da autoridade nomeante ou de servidor da mesma pessoa jurídica investido em cargo de direção, chefia ou assessoramento, para o exercício de cargo em comissão, função gratificada ou de confiança.
+                </p>
+                <div class="p-4 bg-slate-50 border-l-4 border-amber-500 rounded-r-lg my-3 text-slate-700 text-sm">
+                    <strong>Ponto Chave de Prova:</strong> O enunciado veda igualmente o <strong>nepotismo cruzado</strong> (designações recíprocas entre entes ou órgãos). Além disso, o STF firmou que a SV 13 <em>não se aplica ordinariamente a cargos de natureza puramente política</em> (como Ministros de Estado ou Secretários), salvo hipóteses de flagrante ausência de qualificação técnica ou inidoneidade moral. Contudo, nos Institutos Federais, funções como Pró-Reitorias, Diretorias de Campus e Coordenações de Curso são <strong>cargos comissionados e de função gratificada de natureza administrativa</strong>, submetendo-se <strong>integralmente</strong> à vedação ao nepotismo.
+                </div>
+
+                <h3 class="text-lg font-bold text-slate-800 mt-6">
+                    Princípios Implícitos Relevantes para a Prova
+                </h3>
+                <ul class="list-disc pl-5 space-y-2 text-slate-700">
+                    <li>
+                        <strong>Supremacia do Interesse Público sobre o Privado:</strong> Prerrogativas especiais do Estado em favor da coletividade, orientando cláusulas exorbitantes e desapropriações.
+                    </li>
+                    <li>
+                        <strong>Indisponibilidade do Interesse Público:</strong> O gestor não é proprietário da coisa pública, sendo-lhe <mark class="highlight-yellow">defeso renunciar, conceder liberalidades ou transigir</mark> fora das previsões estritas em lei.
+                    </li>
+                    <li>
+                        <strong>Autotutela Administrativa (Súmulas 346 e 473 do STF):</strong> O Poder Público tem o poder-dever de <mark class="highlight-yellow">anular atos ilegais</mark> (vício de legalidade, não gera direitos) e de <mark class="highlight-yellow">revogar atos inoportunos ou inconvenientes</mark> (mérito administrativo, respeitados direitos adquiridos).
+                    </li>
+                    <li>
+                        <strong>Razoabilidade e Proporcionalidade:</strong> Limites ao arbítrio nas medidas disciplinares e discricionárias, demandando adequação e moderação entre meios e fins.
+                    </li>
+                    <li>
+                        <strong>Segurança Jurídica e Proteção da Confiança:</strong> Estabilidade das situações consolidadas perante o Estado, vedando aplicação retroativa de nova interpretação normativa no âmbito do processo administrativo federal (art. 2º, XIII, da Lei nº 9.784/1999).
+                    </li>
+                </ul>
+            </section>
+
+            <hr class="border-slate-200 my-6">
+
+            <!-- SEÇÃO 2: CONCURSOS PÚBLICOS -->
+            <section id="secao-2" class="space-y-4">
+                <h2 class="text-xl sm:text-2xl font-bold text-slate-900 border-l-4 border-brand-600 pl-3">
+                    2. Regras Constitucionais de Concurso Público e Validade
+                </h2>
+
+                <h3 class="text-lg font-bold text-slate-800">
+                    Acessibilidade Universal e Obrigatoriedade da Seleção (Art. 37, I e II)
+                </h3>
+                <p>
+                    O art. 37, I, prescreve que os cargos, empregos e funções públicas são acessíveis a todos os brasileiros que preencham os requisitos dispostos em lei, estendendo-se aos estrangeiros na forma da lei. Nos Institutos Federais, essa previsão dá supedâneo à contratação de <strong>professores, técnicos e cientistas estrangeiros</strong> (art. 207, § 1º, da CF/88 e Lei 8.112/1990).
+                </p>
+                <p>
+                    A investidura em cargo ou emprego público depende fundamentalmente da aprovação prévia em <mark class="highlight-yellow">concurso público de provas ou de provas e títulos</mark>, de acordo com a natureza e a complexidade do cargo. <strong>Pegadinha frequente de prova:</strong> a Constituição <em>não admite</em> concurso apenas de "títulos" para ingresso originário no cargo efetivo; exige-se sempre provas isoladas ou provas combinadas com títulos. A única exceção ao concurso é a nomeação para cargos em comissão de livre nomeação e livre exoneração.
+                </p>
+
+                <h3 class="text-lg font-bold text-slate-800 mt-4">
+                    Prazo de Validade e Regime de Prorrogação (Art. 37, III e IV)
+                </h3>
+                <p>
+                    O concurso público terá validade de <mark class="highlight-yellow">até 2 (dois) anos</mark>, prorrogável <mark class="highlight-yellow">uma única vez, por igual período</mark>. A autoridade não é obrigada a fixar 2 anos (pode ser de 6 meses, 1 ano etc.), mas se fixar 1 ano no edital, eventual prorrogação fica limitada a exatamente 1 ano adicional.
+                </p>
+                <div class="p-4 bg-slate-50 border-l-4 border-brand-600 rounded-r-lg my-2 text-slate-700 text-sm">
+                    <strong>Jurisprudência Vinculante (Tema 161 do STF):</strong> O candidato aprovado dentro do número de vagas expressamente fixado no edital possui <strong>direito público subjetivo à nomeação</strong> durante a vigência do certame. A Administração só pode recusar a nomeação em circunstâncias excepcionais, imprevisíveis, graves e necessárias, devidamente motivadas e supervenientes ao edital.
+                </div>
+
+                <h3 class="text-lg font-bold text-slate-800 mt-4">
+                    Funções de Confiança versus Cargos em Comissão (Art. 37, V)
+                </h3>
+                <p>
+                    A Constituição diferencia categoricamente ambos os institutos:
+                </p>
+                <ul class="list-disc pl-5 space-y-1.5 text-slate-700">
+                    <li>
+                        <strong>Funções de Confiança (FG / FCC):</strong> Exercidas <mark class="highlight-yellow">exclusivamente por servidores ocupantes de cargo efetivo</mark>.
+                    </li>
+                    <li>
+                        <strong>Cargos em Comissão (CD):</strong> Preenchidos por servidores de carreira nos casos, condições e percentuais mínimos previstos em lei, <mark class="highlight-yellow">destinando-se também a pessoas sem vínculo prévio</mark>.
+                    </li>
+                    <li>
+                        <strong>Finalidade Constitucional Comum:</strong> Ambas destinam-se <strong>apenas às atribuições de direção, chefia e assessoramento</strong>. É inconstitucional criar cargos comissionados para atividades técnicas burocráticas, operacionais ou rotineiras.
+                    </li>
+                </ul>
+
+                <h3 class="text-lg font-bold text-slate-800 mt-4">
+                    Contratação Temporária por Excepcional Interesse Público (Art. 37, IX)
+                </h3>
+                <p>
+                    Destina-se ao atendimento de necessidade temporária de excepcional interesse público, mediante <strong>processo seletivo simplificado</strong> (Lei Federal nº 8.745/1993). Não enseja efetividade nem estabilidade funcional, servindo no IFMG para a admissão de <mark class="highlight-green">professores substitutos ou temporários</mark> diante de licenças, afastamentos ou vacâncias imprevisíveis.
+                </p>
+            </section>
+
+            <hr class="border-slate-200 my-6">
+
+            <!-- SEÇÃO 3: ACUMULAÇÃO REMUNERADA -->
+            <section id="secao-3" class="space-y-4">
+                <h2 class="text-xl sm:text-2xl font-bold text-slate-900 border-l-4 border-brand-600 pl-3">
+                    3. Hipóteses Taxativas de Acumulação Remunerada de Cargos Públicos
+                </h2>
+                
+                <p>
+                    A regra constitucional basilar insculpida no art. 37, XVI, é a <mark class="highlight-yellow">vedação à acumulação remunerada</mark> de cargos públicos. Como exceção expressa e taxativa, havendo <strong>compatibilidade de horários</strong> e respeitado o teto remuneratório, admite-se exclusivamente:
+                </p>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-3 my-4">
+                    <div class="p-3 bg-slate-50 border border-slate-300 rounded-lg">
+                        <span class="text-xs font-bold text-brand-800 uppercase block">Alínea "a"</span>
+                        <strong class="text-slate-900 block text-base mt-1">Dois Cargos de Professor</strong>
+                        <p class="text-xs text-slate-600 mt-1">Magistério da educação básica, técnico ou superior.</p>
+                    </div>
+                    <div class="p-3 bg-brand-50 border border-brand-300 rounded-lg">
+                        <span class="text-xs font-bold text-brand-900 uppercase block">Alínea "b" (EC 138/2025)</span>
+                        <strong class="text-brand-950 block text-base mt-1">1 Professor + Outro de Qualquer Natureza</strong>
+                        <p class="text-xs text-brand-900 mt-1">A exigência restritiva de ser cargo "técnico ou científico" foi extinta.</p>
+                    </div>
+                    <div class="p-3 bg-slate-50 border border-slate-300 rounded-lg">
+                        <span class="text-xs font-bold text-brand-800 uppercase block">Alínea "c"</span>
+                        <strong class="text-slate-900 block text-base mt-1">Dois de Profissionais de Saúde</strong>
+                        <p class="text-xs text-slate-600 mt-1">Desde que com profissões regulamentadas (EC nº 34/2001).</p>
+                    </div>
+                </div>
+
+                <h3 class="text-lg font-bold text-slate-800 mt-4">
+                    O Novo Paradigma da Emenda Constitucional nº 138/2025
+                </h3>
+                <p>
+                    Atenção redobrada para as provas atuais: a <strong>Emenda Constitucional nº 138/2025</strong> alterou a redação da alínea "b" do inciso XVI. Anteriormente, exigia-se que o segundo cargo fosse de natureza "técnica ou científica", gerando inúmeros litígios interpretativos sobre as atribuições do cargo. Agora, o texto constitucional autoriza a acumulação de <mark class="highlight-yellow">um cargo de professor com outro cargo público de qualquer natureza</mark>.
+                </p>
+
+                <h3 class="text-lg font-bold text-slate-800 mt-4">
+                    Compatibilidade de Horários e a Tese do Tema 1081 do STF
+                </h3>
+                <p>
+                    Historicamente, a AGU e o TCU limitavam a jornada semanal total de servidores a 60 horas semanais. No julgamento do <mark class="highlight-yellow">Tema 1081 de Repercussão Geral</mark>, o STF fixou a seguinte tese vinculante:
+                </p>
+                <div class="p-4 bg-slate-50 border-l-4 border-slate-700 rounded-r-lg my-2 text-slate-800 text-sm italic">
+                    "As hipóteses excepcionais autorizadoras de acumulação de cargos públicos sujeitam-se, unicamente, à existência de compatibilidade de horários, verificada no caso concreto, ainda que haja norma infraconstitucional fixadora de limitação de jornada semanal."
+                </div>
+                <p class="text-sm text-slate-700">
+                    Portanto, é <strong>inconstitucional</strong> o indeferimento sumário da posse baseado apenas na soma matemática das cargas horárias (por exemplo, 40h + 30h = 70h), incumbindo à Administração demonstrar faticamente a sobreposição de turnos ou o prejuízo funcional.
+                </p>
+
+                <h3 class="text-lg font-bold text-slate-800 mt-4">
+                    A Peculiaridade Estatutária da Dedicação Exclusiva (DE) no IFMG
+                </h3>
+                <p>
+                    <strong>Atenção ao detalhe específico da Carreira EBTT:</strong> No âmbito dos Institutos Federais, regido pela <mark class="highlight-green">Lei Federal nº 12.772/2012</mark>, o docente submetido ao regime de 40 horas com <strong>Dedicação Exclusiva (DE)</strong> está impedido pelo art. 20, § 2º, de exercer <em>qualquer outra atividade remunerada, pública ou privada</em>. 
+                </p>
+                <p class="text-sm text-slate-700">
+                    Essa restrição legal específica <strong>prevalece</strong>: o professor em DE não pode acumular outro cargo de magistério ou de qualquer natureza, salvo as estritas hipóteses de colaboração institucional e direitos autorais autorizadas no art. 21 da mesma lei.
+                </p>
+            </section>
+
+            <hr class="border-slate-200 my-6">
+
+            <!-- SEÇÃO 4: TETO REMUNERATÓRIO -->
+            <section id="secao-4" class="space-y-4">
+                <h2 class="text-xl sm:text-2xl font-bold text-slate-900 border-l-4 border-brand-600 pl-3">
+                    4. Teto Remuneratório e Regimes de Incidência
+                </h2>
+
+                <p>
+                    O art. 37, XI, estabelece os limites máximos para a remuneração, proventos e subsídios no serviço público em todas as esferas federativas.
+                </p>
+
+                <!-- TABELA 2: TETOS E SUBTETOS CONSTITUCIONAIS (NENHUM SCROLL HORIZONTAL) -->
+                <div class="my-5 border border-slate-300 rounded-lg overflow-hidden bg-white shadow-xs">
+                    <table class="w-full text-left text-xs sm:text-sm divide-y divide-slate-300">
+                        <thead class="bg-slate-100 font-bold text-slate-900">
+                            <tr>
+                                <th class="w-5/12 p-2.5 sm:p-3 border-r border-slate-300">Esfera / Poder</th>
+                                <th class="w-7/12 p-2.5 sm:p-3">Limite Máximo Remuneratório (Art. 37, XI)</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-200">
+                            <tr class="hover:bg-slate-50 transition">
+                                <td class="p-2.5 sm:p-3 font-semibold text-slate-900 border-r border-slate-200">Federal (Geral)</td>
+                                <td class="p-2.5 sm:p-3 text-slate-700"><mark class="highlight-yellow">Subsídio dos Ministros do STF</mark> (teto absoluto nacional).</td>
+                            </tr>
+                            <tr class="hover:bg-slate-50 transition">
+                                <td class="p-2.5 sm:p-3 font-semibold text-slate-900 border-r border-slate-200">Municipal (Geral)</td>
+                                <td class="p-2.5 sm:p-3 text-slate-700">Subsídio do Prefeito Municipal (para todo o funcionalismo local).</td>
+                            </tr>
+                            <tr class="hover:bg-slate-50 transition">
+                                <td class="p-2.5 sm:p-3 font-semibold text-slate-900 border-r border-slate-200">Estadual - Executivo</td>
+                                <td class="p-2.5 sm:p-3 text-slate-700">Subsídio mensal do Governador do Estado.</td>
+                            </tr>
+                            <tr class="hover:bg-slate-50 transition">
+                                <td class="p-2.5 sm:p-3 font-semibold text-slate-900 border-r border-slate-200">Estadual - Legislativo</td>
+                                <td class="p-2.5 sm:p-3 text-slate-700">Subsídio dos Deputados Estaduais ou Distritais.</td>
+                            </tr>
+                            <tr class="hover:bg-slate-50 transition">
+                                <td class="p-2.5 sm:p-3 font-semibold text-slate-900 border-r border-slate-200">Estadual - Judiciário, MP e Defensoria</td>
+                                <td class="p-2.5 sm:p-3 text-slate-700">Subsídio dos Desembargadores do Tribunal de Justiça (limitado a 90,25% do subsídio dos Ministros do STF).</td>
+                            </tr>
+                            <tr class="hover:bg-slate-50 transition">
+                                <td class="p-2.5 sm:p-3 font-semibold text-slate-900 border-r border-slate-200">Subteto Único Estadual (Facultativo)</td>
+                                <td class="p-2.5 sm:p-3 text-slate-700">Fixado por emenda à Constituição Estadual no subsídio de Desembargador do TJ (exceto Deputados).</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3 class="text-lg font-bold text-slate-800 mt-4">
+                    Empresas Estatais e o Teto Constitucional (Art. 37, § 9º)
+                </h3>
+                <p>
+                    O teto aplica-se a empresas públicas e sociedades de economia mista (e subsidiárias) <mark class="highlight-yellow">apenas se receberem recursos</mark> da Fazenda Pública para pagamento de despesas de pessoal ou de custeio geral (<strong>estatais dependentes</strong>). As empresas estatais independentes, que auferem receitas próprias de mercado e não recebem repasses para pessoal/custeio, não se sujeitam ao teto do art. 37, XI.
+                </p>
+
+                <h3 class="text-lg font-bold text-slate-800 mt-4">
+                    Incidência do Teto na Acumulação Lícita (Temas 377 e 384 do STF)
+                </h3>
+                <div class="p-4 bg-slate-50 border-l-4 border-brand-600 rounded-r-lg my-2 text-slate-800 text-sm">
+                    <strong>Jurisprudência Pacificada:</strong> Havendo acumulação legítima de cargos (ex: dois cargos de professor), o teto constitucional <mark class="highlight-yellow">incide isoladamente sobre a remuneração de cada cargo</mark>, e <strong>jamais sobre a soma das remunerações</strong>. O abate-teto unificado constituiria enriquecimento ilícito da Administração, que exigiria a prestação integral dos serviços sem a contraprestação respectiva.
+                </div>
+            </section>
+
+            <hr class="border-slate-200 my-6">
+
+            <!-- SEÇÃO 5: RESPONSABILIDADE CIVIL -->
+            <section id="secao-5" class="space-y-4">
+                <h2 class="text-xl sm:text-2xl font-bold text-slate-900 border-l-4 border-brand-600 pl-3">
+                    5. Responsabilidade Civil Objetiva do Estado
+                </h2>
+
+                <p>
+                    Regulada pelo art. 37, § 6º, da CF/88: <em>"As pessoas jurídicas de direito público e as de direito privado prestadoras de serviços públicos responderão pelos danos que seus agentes, nessa qualidade, causarem a terceiros, assegurado o direito de regresso contra o responsável nos casos de dolo ou culpa."</em>
+                </p>
+
+                <h3 class="text-lg font-bold text-slate-800 mt-3">
+                    Requisitos e Teoria do Risco Administrativo
+                </h3>
+                <p>
+                    A responsabilidade do Estado é <mark class="highlight-yellow">objetiva</mark>, prescindindo de comprovação de culpa ou dolo da Administração, exigindo-se três requisitos concorrentes:
+                </p>
+                <ol class="list-decimal pl-5 space-y-1 text-slate-700">
+                    <li><strong>Conduta estatal comissiva</strong> realizada por agente público investido na função;</li>
+                    <li><strong>Dano experimentado</strong> pelo particular (material, moral ou estético);</li>
+                    <li><strong>Nexo de causalidade direto</strong> entre o ato estatal e o dano sofrido.</li>
+                </ol>
+                <p class="text-sm text-slate-700 mt-2">
+                    Por adotar a <strong>Teoria do Risco Administrativo</strong> (e não a do Risco Integral), o nexo causal é afastado ou atenuado diante de: <strong>culpa exclusiva da vítima</strong> (exclui o dever de indenizar), <strong>caso fortuito ou força maior</strong> (exclui), ou <strong>culpa concorrente</strong> (atenua proporcionalmente o montante da indenização).
+                </p>
+
+                <h3 class="text-lg font-bold text-slate-800 mt-4">
+                    Responsabilidade Subjetiva do Agente e a Ação Regressiva
+                </h3>
+                <p>
+                    Se o Estado for condenado a indenizar o administrado lesado, nasce o direito de regresso contra o agente público causador do ato. Entretanto, a responsabilidade do agente perante o erário é <mark class="highlight-yellow">subjetiva</mark>, tornando-se <strong>obrigatória a comprovação cabal de dolo ou culpa estrita</strong> (negligência, imprudência ou imperícia). Inexistindo dolo ou culpa funcional, o servidor não responde financeiramente perante a Fazenda.
+                </p>
+
+                <h3 class="text-lg font-bold text-slate-800 mt-4">
+                    A Tese da Dupla Garantia (Tema 940 do STF)
+                </h3>
+                <div class="p-4 bg-slate-50 border-l-4 border-brand-700 rounded-r-lg my-2 text-slate-800 text-sm">
+                    <strong>Tese Fixada pelo STF:</strong> A ação de reparação de danos decorrente de conduta administrativa <strong>deve ser ajuizada diretamente contra o Estado</strong> (ou contra a pessoa jurídica prestadora do serviço público). O agente público causador do dano é <strong>parte manifestamente ilegítima</strong> para figurar no polo passivo da ação, sendo vedado à vítima acioná-lo isoladamente ou em litisconsórcio passivo facultativo com a Administração.
+                </div>
+            </section>
+
+            <hr class="border-slate-200 my-6">
+
+            <!-- SEÇÃO 6: MANDATO ELETIVO (ART. 38) -->
+            <section id="secao-6" class="space-y-4">
+                <h2 class="text-xl sm:text-2xl font-bold text-slate-900 border-l-4 border-brand-600 pl-3">
+                    6. Exercício de Mandato Eletivo por Servidor Público (Art. 38)
+                </h2>
+
+                <p>
+                    O art. 38 estatui regras rígidas sobre compatibilidade, remuneração, previdência e progressão funcional de servidores titulares de cargos efetivos eleitos para mandatos representativos:
+                </p>
+
+                <!-- TABELA 3: MANDATOS ELETIVOS (TOTALMENTE VISÍVEL SEM SCROLL HORIZONTAL) -->
+                <div class="my-5 border border-slate-300 rounded-lg overflow-hidden bg-white shadow-xs">
+                    <table class="w-full text-left text-xs divide-y divide-slate-300">
+                        <thead class="bg-slate-100 font-bold text-slate-900">
+                            <tr>
+                                <th class="w-3/12 p-2 sm:p-2.5 border-r border-slate-300">Mandato Eletivo</th>
+                                <th class="w-2/12 p-2 sm:p-2.5 border-r border-slate-300">Afastamento?</th>
+                                <th class="w-3/12 p-2 sm:p-2.5 border-r border-slate-300">Regra Remuneratória</th>
+                                <th class="w-2/12 p-2 sm:p-2.5 border-r border-slate-300">Tempo de Serviço</th>
+                                <th class="w-2/12 p-2 sm:p-2.5">Previdência</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-200">
+                            <tr class="hover:bg-slate-50 transition">
+                                <td class="p-2 sm:p-2.5 font-bold text-slate-900 border-r border-slate-200">
+                                    Federal / Estadual / Distrital
+                                    <span class="block text-slate-500 font-normal mt-0.5">Deputado, Senador, Governador, Presidente</span>
+                                </td>
+                                <td class="p-2 sm:p-2.5 text-slate-700 font-medium border-r border-slate-200 text-red-700">
+                                    Afastamento <mark class="highlight-yellow">obrigatório</mark>
+                                </td>
+                                <td class="p-2 sm:p-2.5 text-slate-700 border-r border-slate-200">
+                                    Percebe unicamente o subsídio do mandato político (sem opção).
+                                </td>
+                                <td class="p-2 sm:p-2.5 text-slate-700 border-r border-slate-200">
+                                    Conta para tudo, <mark class="highlight-yellow">exceto merecimento</mark>.
+                                </td>
+                                <td class="p-2 sm:p-2.5 text-slate-700">
+                                    Permanece filiado ao RPPS de origem.
+                                </td>
+                            </tr>
+                            <tr class="hover:bg-slate-50 transition">
+                                <td class="p-2 sm:p-2.5 font-bold text-slate-900 border-r border-slate-200">
+                                    Prefeito Municipal
+                                    <span class="block text-slate-500 font-normal mt-0.5">e Vice-Prefeito em exercício</span>
+                                </td>
+                                <td class="p-2 sm:p-2.5 text-slate-700 font-medium border-r border-slate-200 text-red-700">
+                                    Afastamento <mark class="highlight-yellow">obrigatório</mark>
+                                </td>
+                                <td class="p-2 sm:p-2.5 text-slate-700 border-r border-slate-200">
+                                    <mark class="highlight-green">Faculdade de opção</mark> entre o subsídio de Prefeito e a remuneração do cargo.
+                                </td>
+                                <td class="p-2 sm:p-2.5 text-slate-700 border-r border-slate-200">
+                                    Conta para tudo, <mark class="highlight-yellow">exceto merecimento</mark>.
+                                </td>
+                                <td class="p-2 sm:p-2.5 text-slate-700">
+                                    Permanece filiado ao RPPS de origem.
+                                </td>
+                            </tr>
+                            <tr class="hover:bg-slate-50 transition">
+                                <td class="p-2 sm:p-2.5 font-bold text-slate-900 border-r border-slate-200">
+                                    Vereador (com compatibilidade)
+                                </td>
+                                <td class="p-2 sm:p-2.5 text-slate-700 font-medium border-r border-slate-200 text-brand-800">
+                                    <mark class="highlight-green">Não se afasta</mark> (permanece no cargo)
+                                </td>
+                                <td class="p-2 sm:p-2.5 text-slate-700 border-r border-slate-200">
+                                    <mark class="highlight-green">Acumula</mark> a remuneração funcional com o subsídio de Vereador.
+                                </td>
+                                <td class="p-2 sm:p-2.5 text-slate-700 border-r border-slate-200">
+                                    Conta integralmente, inclusive merecimento.
+                                </td>
+                                <td class="p-2 sm:p-2.5 text-slate-700">
+                                    RPPS pelo cargo + RGPS pela edilidade.
+                                </td>
+                            </tr>
+                            <tr class="hover:bg-slate-50 transition">
+                                <td class="p-2 sm:p-2.5 font-bold text-slate-900 border-r border-slate-200">
+                                    Vereador (sem compatibilidade)
+                                </td>
+                                <td class="p-2 sm:p-2.5 text-slate-700 font-medium border-r border-slate-200 text-red-700">
+                                    Afastamento <mark class="highlight-yellow">obrigatório</mark>
+                                </td>
+                                <td class="p-2 sm:p-2.5 text-slate-700 border-r border-slate-200">
+                                    Aplica-se a regra de Prefeito: <mark class="highlight-green">faculdade de opção</mark>.
+                                </td>
+                                <td class="p-2 sm:p-2.5 text-slate-700 border-r border-slate-200">
+                                    Conta para tudo, <mark class="highlight-yellow">exceto merecimento</mark>.
+                                </td>
+                                <td class="p-2 sm:p-2.5 text-slate-700">
+                                    Permanece filiado ao RPPS de origem.
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="space-y-2 text-sm text-slate-700">
+                    <p>
+                        <strong>Regra da Promoção por Merecimento (Art. 38, IV):</strong> O tempo de afastamento conta para aposentadoria e progressão por antiguidade; contudo, é <mark class="highlight-yellow">terminantemente vedado para promoção por merecimento</mark>, haja vista a ausência de efetivo exercício funcional e aferição ordinária de desempenho funcional no órgão de lotação.
+                    </p>
+                    <p>
+                        <strong>Previdência (EC nº 103/2019):</strong> O servidor afastado continua compulsoriamente vinculado ao Regime Próprio de Previdência Social (RPPS) do respectivo ente estatal originário, recolhendo as alíquotas com base na remuneração do cargo efetivo de que é titular.
+                    </p>
+                </div>
+            </section>
+
+            <hr class="border-slate-200 my-6">
+
+            <!-- SEÇÃO 7: TÓPICOS PARA MEMORIZAÇÃO -->
+            <section id="secao-7" class="space-y-4">
+                <h2 class="text-xl sm:text-2xl font-bold text-slate-900 border-l-4 border-brand-600 pl-3">
+                    7. Definições Básicas e Tópicos para Memorização para o Dia da Prova
+                </h2>
+                <p class="text-slate-600 text-sm">
+                    Revisão condensada dos pontos de incidência direta e armadilhas costumeiras da banca:
+                </p>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-3.5">
+                    <div class="p-3.5 bg-slate-50 border border-slate-300 rounded-lg">
+                        <h4 class="font-bold text-slate-900 text-sm flex items-center gap-1.5">
+                            <span class="text-brand-600">✔</span> Princípios Expressos (LIMPE)
+                        </h4>
+                        <p class="text-xs text-slate-700 mt-1">
+                            Legalidade (estrita), Impessoalidade (sem privilégios e sem autopromoção no § 1º), Moralidade (probidade e boa-fé), Publicidade (regra geral com exceção de sigilo por segurança ou intimidade) e Eficiência (produtividade/EC 19/98).
+                        </p>
+                    </div>
+
+                    <div class="p-3.5 bg-slate-50 border border-slate-300 rounded-lg">
+                        <h4 class="font-bold text-slate-900 text-sm flex items-center gap-1.5">
+                            <span class="text-brand-600">✔</span> Nepotismo (Súmula Vinculante 13)
+                        </h4>
+                        <p class="text-xs text-slate-700 mt-1">
+                            Veda parentesco até 3º grau para comissões e funções de confiança. Abrange nepotismo cruzado. Não alcança cargos eminentemente políticos, salvo desvio de finalidade. No IFMG, coordenações e pró-reitorias são comissionadas de gestão (vedação plena).
+                        </p>
+                    </div>
+
+                    <div class="p-3.5 bg-slate-50 border border-slate-300 rounded-lg">
+                        <h4 class="font-bold text-slate-900 text-sm flex items-center gap-1.5">
+                            <span class="text-brand-600">✔</span> Validade do Concurso
+                        </h4>
+                        <p class="text-xs text-slate-700 mt-1">
+                            Até 2 anos, prorrogável uma vez por igual período. Edital com validade de 1 ano só pode ser prorrogado por até mais 1 ano. Aprovado dentro das vagas tem direito subjetivo à nomeação (Tema 161 STF).
+                        </p>
+                    </div>
+
+                    <div class="p-3.5 bg-slate-50 border border-slate-300 rounded-lg">
+                        <h4 class="font-bold text-slate-900 text-sm flex items-center gap-1.5">
+                            <span class="text-brand-600">✔</span> Confiança vs Comissão (Art. 37, V)
+                        </h4>
+                        <p class="text-xs text-slate-700 mt-1">
+                            Funções de confiança = exclusivas de servidores efetivos. Cargos em comissão = percentual mínimo para servidores de carreira + admissão de externos. Ambos: apenas direção, chefia e assessoramento.
+                        </p>
+                    </div>
+
+                    <div class="p-3.5 bg-slate-50 border border-slate-300 rounded-lg">
+                        <h4 class="font-bold text-slate-900 text-sm flex items-center gap-1.5">
+                            <span class="text-brand-600">✔</span> EC nº 138/2025 (Acumulação do Docente)
+                        </h4>
+                        <p class="text-xs text-slate-700 mt-1">
+                            Professor pode acumular com outro cargo de <strong>qualquer natureza</strong>. O critério anterior que exigia cargo "técnico ou científico" foi revogado do texto constitucional.
+                        </p>
+                    </div>
+
+                    <div class="p-3.5 bg-slate-50 border border-slate-300 rounded-lg">
+                        <h4 class="font-bold text-slate-900 text-sm flex items-center gap-1.5">
+                            <span class="text-brand-600">✔</span> Tema 1081 STF (Jornada Semanal)
+                        </h4>
+                        <p class="text-xs text-slate-700 mt-1">
+                            O limite genérico de 60 horas é inconstitucional. O único critério legítimo é a aferição de compatibilidade física de horários no caso concreto, sem sobreposição de turnos.
+                        </p>
+                    </div>
+
+                    <div class="p-3.5 bg-slate-50 border border-slate-300 rounded-lg">
+                        <h4 class="font-bold text-slate-900 text-sm flex items-center gap-1.5">
+                            <span class="text-brand-600">✔</span> Dedicação Exclusiva (Lei 12.772/2012)
+                        </h4>
+                        <p class="text-xs text-slate-700 mt-1">
+                            Docente do IFMG em regime de 40h com Dedicação Exclusiva <strong>não pode</strong> acumular segundo vínculo, pois há vedação legal estrita, permitidas apenas colaborações esporádicas do art. 21.
+                        </p>
+                    </div>
+
+                    <div class="p-3.5 bg-slate-50 border border-slate-300 rounded-lg">
+                        <h4 class="font-bold text-slate-900 text-sm flex items-center gap-1.5">
+                            <span class="text-brand-600">✔</span> Teto na Acumulação (Temas 377 e 384)
+                        </h4>
+                        <p class="text-xs text-slate-700 mt-1">
+                            O teto constitucional do art. 37, XI, incide de forma <strong>isolada</strong> sobre cada remuneração auferida, sendo inconstitucional calcular o abate-teto somando os contracheques.
+                        </p>
+                    </div>
+
+                    <div class="p-3.5 bg-slate-50 border border-slate-300 rounded-lg">
+                        <h4 class="font-bold text-slate-900 text-sm flex items-center gap-1.5">
+                            <span class="text-brand-600">✔</span> Responsabilidade e Dupla Garantia
+                        </h4>
+                        <p class="text-xs text-slate-700 mt-1">
+                            Estado responde objetivamente (sem dolo/culpa). Ação regressiva contra o servidor é subjetiva (exige dolo ou culpa comprovada). Servidor não pode ser réu direto do particular lesado (Tema 940 STF).
+                        </p>
+                    </div>
+
+                    <div class="p-3.5 bg-slate-50 border border-slate-300 rounded-lg">
+                        <h4 class="font-bold text-slate-900 text-sm flex items-center gap-1.5">
+                            <span class="text-brand-600">✔</span> Mandato Eletivo (Opção de Remuneração)
+                        </h4>
+                        <p class="text-xs text-slate-700 mt-1">
+                            Apenas têm faculdade de opção remuneratória o <strong>Prefeito</strong> e o <strong>Vereador incompatível</strong>. Deputados, Governadores e Senadores afastam-se sem direito de escolha.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <hr class="border-slate-200 my-6">
+
+            <!-- SEÇÃO 8: CONSIDERAÇÕES CONCLUSIVAS E ESTRATÉGICAS -->
+            <section id="secao-8" class="space-y-4">
+                <h2 class="text-xl sm:text-2xl font-bold text-slate-900 border-l-4 border-brand-600 pl-3">
+                    8. Considerações Conclusivas Estratégicas para o Concurso do IFMG
+                </h2>
+
+                <p>
+                    A leitura atenta dos artigos 37 e 38 da Constituição Federal revela um sistema coeso de salvaguardas voltadas à proteção do patrimônio e da moralidade pública. No caso das provas promovidas pelo IFMG, a banca tende a elaborar assertivas que exploram a tensão entre regras gerais e suas ressalvas constitucionais textuais. Para assegurar assertividade, o candidato deve conduzir a resolução das questões apoiando-se em três diretrizes axiais:
+                </p>
+
+                <div class="space-y-3 mt-3">
+                    <div class="p-4 bg-slate-50 border border-slate-300 rounded-lg">
+                        <strong class="text-slate-900 block text-sm sm:text-base">1. Atenção aos Reflexos da Emenda Constitucional nº 138/2025:</strong>
+                        <p class="text-xs sm:text-sm text-slate-700 mt-1">
+                            O candidato deve atentar para o texto que autoriza a acumulação de um cargo docente com outro cargo público "de qualquer natureza", identificando como superadas as teses e questões pregressas que demandavam do segundo cargo a condição estrita de natureza "técnica ou científica".
+                        </p>
+                    </div>
+
+                    <div class="p-4 bg-slate-50 border border-slate-300 rounded-lg">
+                        <strong class="text-slate-900 block text-sm sm:text-base">2. Diferenciação entre Limitações de Horário e Regime Especial:</strong>
+                        <p class="text-xs sm:text-sm text-slate-700 mt-1">
+                            Não se deve confundir a vedação genérica e inconstitucional das 60 horas semanais rechaçada pelo Tema 1081 do STF com a vedação legal e específica imposta aos docentes do plano de carreiras e cargos do magistério federal investidos em Dedicação Exclusiva (Lei nº 12.772/2012), os quais não podem manter segundo vínculo empregatício público ou privado.
+                        </p>
+                    </div>
+
+                    <div class="p-4 bg-slate-50 border border-slate-300 rounded-lg">
+                        <strong class="text-slate-900 block text-sm sm:text-base">3. Mecanismos de Afastamento Político do Artigo 38:</strong>
+                        <p class="text-xs sm:text-sm text-slate-700 mt-1">
+                            A retenção da sistemática que apenas confere opção de remuneração ao Prefeito e ao Vereador incompatível — subtraindo esse direito dos mandatos do Executivo federal/estadual e dos legislativos correspondentes — representa a chave de acerto em enunciados que propõem a aplicação generalizada de faculdade de opção pecuniária aos servidores públicos eleitos.
+                        </p>
+                    </div>
+                </div>
+
+                <p class="pt-2">
+                    A articulação segura da literalidade constitucional com essas balizas doutrinárias e jurisprudenciais garante o domínio teórico e prático indispensável para alcançar a pontuação almejada na prova objetiva do IFMG.
+                </p>
+            </section>
+
+        </article>
+
+        <!-- SEÇÃO FINAL: BOTÃO PARA QUESTÕES -->
+        <section class="mt-14 pt-8 border-t border-slate-300 text-center">
+            <div class="p-6 bg-slate-50 border border-slate-300 rounded-2xl max-w-2xl mx-auto shadow-xs">
+                <div class="inline-flex items-center justify-center w-12 h-12 rounded-full bg-brand-100 text-brand-800 mb-3">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                </div>
+                <h3 class="text-xl font-extrabold text-slate-900">Finalizou a Leitura da Teoria?</h3>
+                <p class="text-sm text-slate-600 mt-1 mb-5">
+                    Teste e consolide seus conhecimentos na bateria de questões de fixação baseada no estilo da Comissão de Concurso do IFMG.
+                </p>
+                <a 
+                    href="questoes1legs.html" 
+                    class="inline-flex items-center justify-center gap-2 px-8 py-3.5 bg-slate-900 hover:bg-slate-800 text-white font-bold text-base rounded-xl transition shadow-md hover:shadow-lg transform active:scale-95"
+                >
+                    <span>Ir para as Questões de Fixação</span>
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+                    </svg>
+                </a>
+                <span class="block text-xs text-slate-400 mt-2 font-mono">Redireciona para: questoes1legs.html</span>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Rodapé Limpo -->
+    <footer class="mt-12 border-t border-slate-200 bg-white py-6 text-center text-xs text-slate-500">
+        <p>Material de Fixação e Legislação Constitucional Administrativa • IFMG EBTT</p>
+        <p class="mt-1">Desenvolvido com foco em alto rendimento e conformidade com a CF/88 e jurisprudência dos Tribunais Superiores.</p>
+    </footer>
+
+    <!-- LÓGICA JAVASCRIPT: ÁUDIO, TAMANHO DE FONTE E BARRA DE LEITURA -->
+    <script>
+        // --- 1. Controle do Reprodutor de Áudio ---
+        const audioElement = document.getElementById('mainAudioElement');
+        const audioSource = document.getElementById('mainAudioSource');
+        const fileNameInput = document.getElementById('audioFileNameInput');
+        const displayFileName = document.getElementById('currentFileNameDisplay');
+        const statusText = document.getElementById('audioStatusText');
+
+        function updateAudioSource() {
+            let filename = fileNameInput.value.trim();
+            if (!filename) {
+                filename = 'resumo.mp3';
+                fileNameInput.value = filename;
+            }
+
+            // Atualiza fonte e recarrega elemento
+            audioSource.src = filename;
+            audioElement.load();
+            displayFileName.textContent = filename;
+
+            statusText.innerHTML = `
+                <span class="inline-block w-2 h-2 rounded-full bg-emerald-500"></span>
+                Áudio configurado: <strong class="font-mono text-slate-700">${filename}</strong>
+            `;
+        }
+
+        function setPlaybackSpeed(speed) {
+            if (audioElement) {
+                audioElement.playbackRate = speed;
+                // Realce do botão ativo
+                document.querySelectorAll('.speed-btn').forEach(btn => {
+                    btn.classList.remove('bg-brand-600', 'text-white', 'border-brand-600');
+                    btn.classList.add('bg-white', 'text-slate-700');
+                    if (btn.textContent.trim() === `${speed}x` || (speed === 1 && btn.textContent.trim() === '1x')) {
+                        btn.classList.add('bg-brand-600', 'text-white', 'border-brand-600');
+                        btn.classList.remove('bg-white', 'text-slate-700');
+                    }
+                });
+            }
+        }
+
+        // Permitir atualizar com a tecla Enter no input
+        fileNameInput.addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                updateAudioSource();
+            }
+        });
+
+        // Feedback caso ocorra erro ao tentar tocar (ex: arquivo ainda não colocado na pasta)
+        audioElement.addEventListener('error', function() {
+            statusText.innerHTML = `
+                <span class="inline-block w-2 h-2 rounded-full bg-amber-500"></span>
+                <span class="text-amber-800">Aviso: O arquivo <strong>${fileNameInput.value}</strong> ainda não foi encontrado na mesma pasta. Quando adicionar o arquivo .mp3 ao diretório, clique em "Carregar Áudio".</span>
+            `;
+        });
+
+        // --- 2. Barra de Progresso de Leitura ---
+        window.addEventListener('scroll', () => {
+            const winScroll = document.documentElement.scrollTop || document.body.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            const progressBar = document.getElementById('progress-bar');
+            if (progressBar) {
+                progressBar.style.width = scrolled + '%';
+            }
+        });
+
+        // --- 3. Controle Acessível de Tamanho de Fonte ---
+        let currentScale = 1;
+        function changeFontSize(delta) {
+            currentScale += delta * 0.08;
+            if (currentScale < 0.85) currentScale = 0.85;
+            if (currentScale > 1.35) currentScale = 1.35;
+            document.querySelector('article').style.fontSize = `${currentScale * 1.0625}rem`;
+        }
+    </script>
+</body>
+</html>
