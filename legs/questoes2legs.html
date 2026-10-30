@@ -1,0 +1,1031 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simulado Interativo: Servidores Públicos (Arts. 39 a 41 da CF/88) - IFMG</title>
+  <style>
+    :root {
+      --bg-warm: #f7f5f0;
+      --card-bg: #ffffff;
+      --card-subtle: #fbfaf8;
+      --text-main: #2b2f38;
+      --text-secondary: #585e6d;
+      --text-muted: #798091;
+      --border-color: #e5e0d8;
+      --border-focus: #1d4ed8;
+      --primary: #1e3a5f;
+      --primary-light: #eff4fa;
+      --accent: #2e6095;
+      --success-bg: #eaf6ec;
+      --success-border: #2e7d32;
+      --success-text: #1b4d20;
+      --wrong-bg: #fdf1f1;
+      --wrong-border: #c62828;
+      --wrong-text: #7f1d1d;
+      --quote-bg: #f4efe6;
+      --quote-border: #bfa175;
+      --shadow-sm: 0 2px 6px rgba(0, 0, 0, 0.04);
+      --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.06);
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 14px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-warm);
+      color: var(--text-main);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      padding: 24px 16px 80px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .container {
+      max-width: 860px;
+      margin: 0 auto;
+    }
+
+    /* Cabeçalho */
+    header.exam-header {
+      background-color: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 32px 28px;
+      margin-bottom: 24px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .badge-banca {
+      display: inline-block;
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--primary);
+      background-color: var(--primary-light);
+      padding: 4px 10px;
+      border-radius: var(--radius-sm);
+      margin-bottom: 12px;
+    }
+
+    h1.exam-title {
+      font-family: "Georgia", "Cambria", serif;
+      font-size: 1.75rem;
+      line-height: 1.35;
+      color: var(--primary);
+      margin-bottom: 12px;
+      font-weight: 700;
+    }
+
+    p.exam-desc {
+      color: var(--text-secondary);
+      font-size: 0.98rem;
+      margin-bottom: 16px;
+    }
+
+    .meta-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      align-items: center;
+      padding-top: 16px;
+      border-top: 1px dashed var(--border-color);
+      font-size: 0.88rem;
+      color: var(--text-muted);
+    }
+
+    .meta-item strong {
+      color: var(--text-main);
+    }
+
+    /* Barra de progresso flutuante suave */
+    .progress-tracker {
+      position: sticky;
+      top: 12px;
+      z-index: 50;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(8px);
+      border: 1px solid var(--border-color);
+      border-radius: 50px;
+      padding: 10px 20px;
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: var(--shadow-md);
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    .progress-bar-bg {
+      flex: 1;
+      height: 8px;
+      background: #ece8e1;
+      border-radius: 99px;
+      margin: 0 16px;
+      overflow: hidden;
+    }
+
+    .progress-bar-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #2e6095, #1e3a5f);
+      border-radius: 99px;
+      transition: width 0.3s ease;
+    }
+
+    /* Cartões das Questões */
+    .question-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 28px 26px;
+      margin-bottom: 24px;
+      box-shadow: var(--shadow-sm);
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .question-card.answered {
+      border-color: #d1cbbf;
+    }
+
+    .question-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .q-number {
+      font-family: "Georgia", "Cambria", serif;
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--primary);
+    }
+
+    .q-status-tag {
+      font-size: 0.78rem;
+      font-weight: 600;
+      padding: 3px 8px;
+      border-radius: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+
+    .tag-pendente {
+      background-color: #f1ede6;
+      color: #7a7366;
+    }
+
+    .tag-respondida {
+      background-color: var(--primary-light);
+      color: var(--primary);
+    }
+
+    .tag-correto {
+      background-color: var(--success-bg);
+      color: var(--success-text);
+      border: 1px solid var(--success-border);
+    }
+
+    .tag-incorreto {
+      background-color: var(--wrong-bg);
+      color: var(--wrong-text);
+      border: 1px solid var(--wrong-border);
+    }
+
+    .q-statement {
+      font-family: "Georgia", "Cambria", serif;
+      font-size: 1.05rem;
+      line-height: 1.75;
+      color: var(--text-main);
+      margin-bottom: 20px;
+    }
+
+    .q-statement p {
+      margin-bottom: 12px;
+    }
+
+    .q-statement ol, .q-statement ul {
+      margin-left: 24px;
+      margin-bottom: 16px;
+    }
+
+    .q-statement li {
+      margin-bottom: 8px;
+    }
+
+    /* Alternativas */
+    .options-group {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .option-item {
+      display: flex;
+      align-items: flex-start;
+      padding: 14px 16px;
+      background: var(--card-subtle);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      transition: all 0.15s ease-in-out;
+      user-select: none;
+    }
+
+    .option-item:hover:not(.locked) {
+      background: #f4f0e8;
+      border-color: #cdc5b6;
+    }
+
+    .option-item.selected {
+      background: #edf3fa;
+      border-color: #8bb2df;
+      box-shadow: 0 0 0 1px #8bb2df;
+    }
+
+    .option-item.locked {
+      cursor: default;
+    }
+
+    .option-item input[type="radio"] {
+      position: absolute;
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .opt-letter {
+      flex-shrink: 0;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: #eae5dc;
+      color: var(--text-main);
+      font-size: 0.85rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 14px;
+      margin-top: 2px;
+      transition: all 0.15s ease;
+    }
+
+    .option-item.selected .opt-letter {
+      background: var(--primary);
+      color: #ffffff;
+    }
+
+    .opt-text {
+      font-family: "Georgia", "Cambria", serif;
+      font-size: 0.98rem;
+      line-height: 1.6;
+      color: var(--text-main);
+      flex: 1;
+    }
+
+    /* Feedback visual pós-submissão */
+    .option-item.is-correct {
+      background-color: var(--success-bg) !important;
+      border-color: var(--success-border) !important;
+    }
+    .option-item.is-correct .opt-letter {
+      background-color: var(--success-border) !important;
+      color: #fff !important;
+    }
+
+    .option-item.is-wrong {
+      background-color: var(--wrong-bg) !important;
+      border-color: var(--wrong-border) !important;
+    }
+    .option-item.is-wrong .opt-letter {
+      background-color: var(--wrong-border) !important;
+      color: #fff !important;
+    }
+
+    /* Bloco de Resolução e Comentário Dogmático */
+    .resolution-box {
+      display: none;
+      margin-top: 24px;
+      padding: 22px 24px;
+      background: #faf8f5;
+      border-left: 4px solid var(--primary);
+      border-radius: 0 var(--radius-md) var(--radius-md) 0;
+      border-top: 1px solid #eae5dc;
+      border-right: 1px solid #eae5dc;
+      border-bottom: 1px solid #eae5dc;
+      animation: fadeIn 0.4s ease;
+    }
+
+    .resolution-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 12px;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    .resolution-content {
+      font-family: "Georgia", "Cambria", serif;
+      font-size: 0.97rem;
+      line-height: 1.8;
+      color: #343a46;
+    }
+
+    .resolution-content p {
+      margin-bottom: 12px;
+    }
+
+    .resolution-content blockquote {
+      background: var(--quote-bg);
+      border-left: 3px solid var(--quote-border);
+      padding: 12px 18px;
+      margin: 14px 0;
+      font-style: italic;
+      color: #3f392f;
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    }
+
+    /* Ações e Painel de Conclusão */
+    .actions-panel {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+      margin: 36px 0;
+    }
+
+    .btn {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-size: 1.05rem;
+      font-weight: 600;
+      padding: 14px 36px;
+      border-radius: var(--radius-md);
+      border: none;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+    }
+
+    .btn-primary {
+      background-color: var(--primary);
+      color: #ffffff;
+      box-shadow: 0 4px 12px rgba(30, 58, 95, 0.25);
+    }
+
+    .btn-primary:hover {
+      background-color: #152943;
+      transform: translateY(-1px);
+      box-shadow: 0 6px 16px rgba(30, 58, 95, 0.35);
+    }
+
+    .btn-secondary {
+      background-color: #ebe6dc;
+      color: var(--text-main);
+    }
+
+    .btn-secondary:hover {
+      background-color: #ded7c9;
+    }
+
+    /* Placar Final e Resultados */
+    .score-banner {
+      display: none;
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 36px 28px;
+      margin-bottom: 32px;
+      box-shadow: var(--shadow-md);
+      text-align: center;
+      animation: fadeIn 0.4s ease;
+    }
+
+    .score-circle {
+      width: 110px;
+      height: 110px;
+      border-radius: 50%;
+      background: var(--primary-light);
+      border: 4px solid var(--primary);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+    }
+
+    .score-number {
+      font-size: 2.2rem;
+      font-weight: 800;
+      line-height: 1;
+      color: var(--primary);
+    }
+
+    .score-total {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
+    .score-title {
+      font-family: "Georgia", "Cambria", serif;
+      font-size: 1.6rem;
+      color: var(--primary);
+      margin-bottom: 8px;
+    }
+
+    .score-feedback {
+      font-size: 1.05rem;
+      color: var(--text-secondary);
+      max-width: 600px;
+      margin: 0 auto 24px;
+    }
+
+    .filter-pills {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 20px;
+    }
+
+    .pill-btn {
+      background: var(--card-subtle);
+      border: 1px solid var(--border-color);
+      color: var(--text-secondary);
+      font-size: 0.88rem;
+      font-weight: 600;
+      padding: 8px 16px;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .pill-btn.active, .pill-btn:hover {
+      background: var(--primary);
+      color: #fff;
+      border-color: var(--primary);
+    }
+
+    /* Mensagem de alerta in-page */
+    .warning-toast {
+      display: none;
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #262930;
+      color: #ffffff;
+      padding: 12px 24px;
+      border-radius: 50px;
+      font-size: 0.95rem;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+      z-index: 100;
+      animation: slideUp 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes slideUp {
+      from { opacity: 0; transform: translate(-50%, 16px); }
+      to { opacity: 1; transform: translate(-50%, 0); }
+    }
+
+    @media (max-width: 640px) {
+      body {
+        padding: 16px 12px 60px;
+      }
+      header.exam-header {
+        padding: 24px 18px;
+      }
+      .question-card {
+        padding: 20px 16px;
+      }
+      h1.exam-title {
+        font-size: 1.4rem;
+      }
+      .q-statement {
+        font-size: 0.98rem;
+      }
+      .opt-text {
+        font-size: 0.92rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <!-- Cabeçalho Informativo e Institucional -->
+    <header class="exam-header">
+      <span class="badge-banca">Banca Examinadora IFMG • Direito Constitucional</span>
+      <h1 class="exam-title">Caderno de Avaliação: Servidores Públicos Constitucionais</h1>
+      <p class="exam-desc">
+        Questões objetivas completas baseadas nos artigos 39 a 41 da Constituição Federal de 1988: Regime Jurídico Único e julgamento da ADI 2.135/STF, fixação do sistema remuneratório e subsídios, direitos sociais estendidos, requisitos do estágio probatório e estabilidade trienal, hipóteses de perda do cargo e disciplina da disponibilidade remunerada proporcional.
+      </p>
+      <div class="meta-bar">
+        <div class="meta-item"><span>Total:</span> <strong>10 Questões</strong></div>
+        <div class="meta-item"><span>Tipo:</span> <strong>Múltipla Escolha (A-E)</strong></div>
+        <div class="meta-item"><span>Norma Base:</span> <strong>CF/88, arts. 39 a 41</strong></div>
+        <div class="meta-item"><span>Formato:</span> <strong>Resolução Integrada</strong></div>
+      </div>
+    </header>
+
+    <!-- Rastreador de Progresso Interativo -->
+    <div class="progress-tracker" id="progressTracker">
+      <span id="trackerCount">0 de 10 respondidas</span>
+      <div class="progress-bar-bg">
+        <div class="progress-bar-fill" id="progressBar"></div>
+      </div>
+      <span id="trackerPercent">0%</span>
+    </div>
+
+    <!-- Painel de Placar Final (Exibido após o término) -->
+    <section class="score-banner" id="scoreBanner">
+      <div class="score-circle">
+        <span class="score-number" id="correctScore">0</span>
+        <span class="score-total">de 10 acertos</span>
+      </div>
+      <h2 class="score-title" id="scoreVerdict">Resultado Concluído</h2>
+      <p class="score-feedback" id="scoreDetails">
+        Confira abaixo o gabarito oficial com a resolução completa e fundamentação dogmática mantida diretamente em cada uma das questões respondidas.
+      </p>
+      <div class="filter-pills">
+        <button class="pill-btn active" onclick="filterQuestions('all')">Ver Todas (10)</button>
+        <button class="pill-btn" onclick="filterQuestions('wrong')">Apenas Erros (<span id="wrongCount">0</span>)</button>
+        <button class="pill-btn" onclick="filterQuestions('correct')">Apenas Acertos (<span id="rightCount">0</span>)</button>
+        <button class="pill-btn" onclick="resetQuiz()">Reiniciar Simulado</button>
+      </div>
+    </section>
+
+    <!-- Formulário contendo as 10 Questões Completas -->
+    <form id="quizForm" onsubmit="event.preventDefault();">
+      <div id="questionsContainer"></div>
+
+      <!-- Botão de Finalização -->
+      <div class="actions-panel" id="actionsPanel">
+        <button type="button" class="btn btn-primary" id="btnSubmitQuiz" onclick="submitQuiz()">
+          Finalizar Simulado e Ver Resoluções
+        </button>
+      </div>
+    </form>
+
+    <!-- Alerta Flutuante -->
+    <div class="warning-toast" id="toastMsg">Por favor, responda a todas as 10 questões antes de finalizar.</div>
+  </div>
+
+  <script>
+    // Base de dados contendo todas as 10 questões na íntegra, opções e resoluções completas
+    const questionsData = [
+      {
+        id: 1,
+        number: "Questão 01",
+        articleRef: "Art. 39, caput (ADI 2.135/STF)",
+        statement: `No que concerne à conformação constitucional do regime de pessoal da administração pública direta, autárquica e fundacional, mormente após a consolidação jurisprudencial do Supremo Tribunal Federal no julgamento de mérito da Ação Direta de Inconstitucionalidade (ADI) nº 2.135, assinale a alternativa CORRETA:`,
+        options: [
+          { key: "A", text: "O Supremo Tribunal Federal declarou inconstitucional a redação conferida ao caput do artigo 39 pela Emenda Constitucional nº 19/1998, impondo o retorno com efeitos retroativos (ex tunc) da obrigatoriedade do Regime Jurídico Único exclusivamente estatutário para todos os entes federativos." },
+          { key: "B", text: "A deliberação plenária do Supremo Tribunal Federal julgou improcedente a ADI nº 2.135 e validou o texto decorrente da Emenda Constitucional nº 19/1998, reconhecendo a competência de cada ente federativo para eleger regimes de contratação distintos (estatutário ou celetista) para futuras admissões, com eficácia ex nunc, preservada a obrigatoriedade de concurso público e obstada a alteração unilateral do regime dos atuais servidores." },
+          { key: "C", text: "A alteração procedida no caput do artigo 39 suprimiu a exigência do concurso público para os empregados admitidos sob as regras da Consolidação das Leis do Trabalho na administração direta e autárquica, autorizando a contratação direta mediante processo seletivo simplificado para qualquer função." },
+          { key: "D", text: "A União fixou competência privativa cogente para transmutar de ofício todos os servidores estatutários dos Estados e Municípios em empregados regidos pelo regime celetista, com direito imediato ao levantamento das contas do Fundo de Garantia do Tempo de Serviço." },
+          { key: "E", text: "Declarou-se a inconstitucionalidade dos conselhos de política de administração e remuneração de pessoal em razão de vício de iniciativa do Poder Executivo e violação reflexa ao princípio da separação dos Poderes." }
+        ],
+        correct: "B",
+        resolution: `
+          <p><strong>Gabarito Oficial: Alternativa B.</strong></p>
+          <p>O histórico evolutivo do artigo 39, <em>caput</em>, da Constituição Federal de 1988 revela uma relevante dinâmica institucional. Em sua redação originária de 1988, a Carta Magna obrigava a União, os Estados, o Distrito Federal e os Municípios a instituírem o Regime Jurídico Único (RJU) de natureza exclusivamente estatutária no âmbito da administração direta, autárquica e fundacional. Com a Reforma Administrativa introduzida pela Emenda Constitucional nº 19/1998, a redação do dispositivo foi alterada para dispensar a unicidade de regime e prever a instituição de conselhos de política de administração e remuneração de pessoal, conferindo liberdade aos entes federados para a escolha do vínculo de seus servidores.</p>
+          <p>Embora em sede cautelar (2007) o Supremo Tribunal Federal houvesse suspendido preventivamente a alteração em razão de alegado vício formal ocorrido na tramitação bicameral do texto constitucional, o Plenário da Suprema Corte julgou, no mérito da <strong>ADI nº 2.135</strong>, <strong>improcedente</strong> o pedido deduzido na ação direta. A decisão colegiada assentou a plena regularidade da tramitação legislativa e validou a redação dada pela EC nº 19/1998. Atribuiu-se ao julgado eficácia prospectiva (<em>ex nunc</em>), salvaguardando a estabilidade das relações funcionais consolidadas para impedir qualquer transmutação involuntária de regime dos servidores já estatutários, mas facultando aos entes públicos admitir novos quadros sob o regime celetista, permanecendo intangível a exigência do concurso público inscrita no artigo 37, II.</p>
+          <p>A <strong>alternativa A</strong> incorre em erro por contrariar o resultado meritório final do julgamento da ADI nº 2.135, o qual não declarou a inconstitucionalidade da reforma, mas sim rechaçou o pleito dos requerentes e validou o preceito reformado. A assertiva <strong>C</strong> equivoca-se ao pretender que a extinção do RJU teria afastado o postulado republicano do concurso público; o próprio Pretório Excelso enfatizou em seu julgamento vinculante que a escolha pelo regime celetista exige, com idêntica imperatividade, a prévia aprovação em certame público para investidura em emprego na administração direta. A opção <strong>D</strong> desconsidera a autonomia organizativa dos entes subnacionais e vulnera a modulação dos efeitos firmada pelo Supremo, a qual proibiu expressamente a modificação de regime dos servidores já investidos sob o estatuto tradicional. Por derradeiro, a proposição <strong>E</strong> não possui aderência constitucional, pois a previsão dos conselhos remuneratórios integra o texto chancelado pela Corte Suprema.</p>
+        `
+      },
+      {
+        id: 2,
+        number: "Questão 02",
+        articleRef: "Art. 39, § 1º, incisos I, II e III",
+        statement: `A fixação dos padrões de vencimento e dos componentes do sistema remuneratório dos servidores públicos subordina-se a balizas normativas materiais de observância vinculante pelos entes políticos. De acordo com o artigo 39, § 1º, da Constituição Federal de 1988, a definição dos referidos padrões remuneratórios observará:`,
+        options: [
+          { key: "A", text: "o grau acadêmico de pós-graduação stricto sensu, o índice acumulado da inflação no exercício financeiro anterior e a avaliação de desempenho funcional subjetiva da chefia imediata." },
+          { key: "B", text: "a natureza, o grau de responsabilidade e a complexidade dos cargos componentes de cada carreira; os requisitos para a investidura; e as peculiaridades dos cargos." },
+          { key: "C", text: "a paridade mandatória com as carreiras homólogas do Poder Judiciário, a incorporação permanente de horas extraordinárias e a contagem de tempo de serviço prestado no setor privado." },
+          { key: "D", text: "o princípio da equivalência salarial ao piso profissional nacional fixado em negociação coletiva de trabalho e a antiguidade no serviço público." },
+          { key: "E", text: "a fixação compulsória por acordos e convenções sindicais e a instituição de participação ordinária nos resultados e lucros da repartição administrativa." }
+        ],
+        correct: "B",
+        resolution: `
+          <p><strong>Gabarito Oficial: Alternativa B.</strong></p>
+          <p>O artigo 39, § 1º, da Constituição da República de 1988 estabelece uma moldura objetiva para conter arbítrios na estruturação de planos de cargos e salários. Conforme prevê textualmente o cânone constitucional:</p>
+          <blockquote>"§ 1º A fixação dos padrões de vencimento e dos demais componentes do sistema remuneratório observará:<br>I - a natureza, o grau de responsabilidade e a complexidade dos cargos componentes de cada carreira;<br>II - os requisitos para a investidura;<br>III - as peculiaridades dos cargos."</blockquote>
+          <p>Essas balizas formam a base analítica necessária para garantir a compatibilidade entre a relevância das atribuições públicas exercidas e a justa contraprestação pecuniária estatal, afastando distorções funcionais e desequilíbrios orçamentários injustificados.</p>
+          <p>A <strong>alternativa A</strong> carece de base jurídica, porquanto fatores como a formação continuada em pós-graduação <em>stricto sensu</em> e índices inflacionários podem embasar vantagens remuneratórias específicas em leis locais ou setoriais, mas não configuram os vetores gerais elencados pelo § 1º do artigo 39. A assertiva <strong>C</strong> descumpre a vedação insculpida no artigo 37, XIII, que proíbe expressamente a vinculação ou equiparação de quaisquer espécies remuneratórias para efeito de remuneração de pessoal do serviço público, reforçada pelo entendimento consolidado na Súmula Vinculante nº 37 do STF. A opção <strong>D</strong> distancia-se do regramento dos cargos efetivos ao pretender indexar o padrão remuneratório a negociações coletivas estranhas ao regime jurídico de direito público. Por fim, a proposição <strong>E</strong> contraria a jurisprudência sumulada da Suprema Corte, haja vista a Súmula nº 679 dispor que a fixação de vencimentos de servidores não pode, sob qualquer ângulo, ser objeto de convenção coletiva, bem como não há partilha de lucros em órgãos burocráticos do Estado.</p>
+        `
+      },
+      {
+        id: 3,
+        number: "Questão 03",
+        articleRef: "Art. 39, § 2º",
+        statement: `Nos termos do artigo 39, § 2º, da Constituição Federal de 1988, relativamente à disciplina constitucional da capacitação continuada e ao aperfeiçoamento dos quadros funcionais do Estado, assinale a afirmativa CORRETA:`,
+        options: [
+          { key: "A", text: "A União, os Estados, o Distrito Federal e os Municípios são obrigados a instituir escolas de governo individuais, vedando-se categoricamente a formalização de convênios ou contratos entre as esferas federativas para fins educacionais." },
+          { key: "B", text: "A União, os Estados e o Distrito Federal manterão escolas de governo para a formação e o aperfeiçoamento dos servidores públicos, constituindo-se a participação nos cursos um dos requisitos para a promoção na carreira, facultada, para isso, a celebração de convênios ou contratos entre os entes federados." },
+          { key: "C", text: "A aprovação em programas de formação ministrados por escolas de governo supre a exigência do estágio probatório, conferindo estabilidade funcional automática ao servidor recém-empossado." },
+          { key: "D", text: "A atuação das escolas de governo circunscreve-se privativamente ao treinamento de ocupantes de cargos de provimento em comissão e funções de confiança, sendo vedado o acesso aos titulares de cargos efetivos." },
+          { key: "E", text: "A conclusão dos módulos de aperfeiçoamento em escolas de governo faculta ao servidor a conversão automática do vínculo estatutário para o regime da Consolidação das Leis do Trabalho com integralização de depósitos rescisórios." }
+        ],
+        correct: "B",
+        resolution: `
+          <p><strong>Gabarito Oficial: Alternativa B.</strong></p>
+          <p>Em conformidade literal com o preceito veiculado pelo artigo 39, § 2º, da Carta Constitucional, a União, os Estados e o Distrito Federal manterão escolas de governo para a formação e o aperfeiçoamento dos servidores públicos. O texto prevê expressamente que a participação nos cursos constitui um dos requisitos para a promoção funcional na carreira. Com vistas a evitar desperdício de recursos materiais e humanos e a fomentar a sinergia na gestão federativa, o constituinte facultou a celebração de convênios ou contratos de parceria interfederativa para a operacionalização conjunta dessas instituições.</p>
+          <p>No âmbito federal, a atuação de entidades como a Fundação Escola Nacional de Administração Pública (ENAP) ilustra a concretização desse modelo de formação técnica e aperfeiçoamento continuado dos servidores estatais.</p>
+          <p>A <strong>alternativa A</strong> contraria a letra da Constituição, pois os Municípios não receberam imposição mandatória idêntica e a Carta expressamente incentiva instrumentos contratuais e convênios para otimizar a estrutura de capacitação. A assertiva <strong>C</strong> comete grave equívoco conceitual: a participação em cursos oferecidos pelas escolas de governo constitui condição voltada para a promoção funcional interna da carreira, enquanto a confirmação da estabilidade no cargo reclama, imperativamente, o cumprimento do estágio probatório avaliado por comissão especial (art. 41, § 4º). A assertiva <strong>D</strong> limita indevidamente o alcance da política educacional do Estado, direcionada aos quadros permanentes organizados em carreira. A alternativa <strong>E</strong> encerra proposição flagrantemente descabida ao misturar regimes jurídicos ontologicamente inconciliáveis e sustentar mudança de regime em razão de treinamento funcional.</p>
+        `
+      },
+      {
+        id: 4,
+        number: "Questão 04",
+        articleRef: "Art. 39, § 3º c/c Art. 7º",
+        statement: `O ordenamento constitucional brasileiro estende aos servidores públicos titulares de cargos efetivos apenas uma fração delimitada dos direitos trabalhistas conferidos aos trabalhadores em geral. Em conformidade com o artigo 39, § 3º, conjugado com o artigo 7º da Constituição Federal de 1988, assinale a opção que engloba EXCLUSIVAMENTE garantias expressamente asseguradas aos servidores ocupantes de cargo público:`,
+        options: [
+          { key: "A", text: "Décimo terceiro salário com base na remuneração integral; remuneração do serviço extraordinário superior, no mínimo, em cinquenta por cento à do normal; e licença à gestante, sem prejuízo do emprego e do salário, com a duração de cento e vinte dias." },
+          { key: "B", text: "Fundo de Garantia do Tempo de Serviço; remuneração do trabalho noturno superior à do diurno; e seguro-desemprego em caso de desligamento involuntário da função." },
+          { key: "C", text: "Piso salarial proporcional à extensão e à complexidade do trabalho; adicional por atividades penosas, insalubres ou perigosas; e aviso prévio indenizado proporcional ao tempo de serviço." },
+          { key: "D", text: "Participação nos lucros ou resultados da entidade; remuneração de horas extraordinárias; e repouso semanal remunerado preferencialmente aos domingos." },
+          { key: "E", text: "Proteção contra despedida arbitrária ou sem justa causa mediante indenização compensatória; licença-paternidade; e proibição de trabalho noturno a menores de dezoito anos." }
+        ],
+        correct: "A",
+        resolution: `
+          <p><strong>Gabarito Oficial: Alternativa A.</strong></p>
+          <p>O artigo 39, § 3º, opera uma remissão exaustiva aos direitos fundamentais laborais previstos no artigo 7º da Constituição Federal, autorizando que a lei estabeleça requisitos diferenciados de investidura exclusivamente quando a natureza do cargo assim o exigir. Dos institutos contidos no artigo 7º, aplicam-se aos titulares de cargo público os seguintes incisos: IV (salário mínimo), VII (garantia de remuneração nunca inferior ao mínimo), VIII (décimo terceiro salário integral), IX (remuneração superior pelo trabalho noturno), XII (salário-família ao dependente de baixa renda), XIII (jornada padrão de oito horas diárias e quarenta e quatro semanais), XV (repouso semanal remunerado), XVI (serviço extraordinário remunerado no mínimo a cinquenta por cento sobre o valor ordinário), XVII (férias anuais com acréscimo mínimo de um terço), XVIII (licença à gestante de 120 dias sem prejuízo do cargo ou remuneração), XIX (licença-paternidade), XX (proteção do trabalho da mulher), XXII (redução dos riscos do trabalho) e XXX (proibição de discriminação funcional ou salarial com base em idade, sexo, cor ou estado civil). Todos os itens da assertiva A estão expressamente albergados.</p>
+          <p>A <strong>alternativa B</strong> erra ao arrolar o Fundo de Garantia do Tempo de Serviço (art. 7º, III) e o seguro-desemprego involuntário (art. 7º, II), os quais constituem institutos de proteção vocacionados aos trabalhadores regidos pela CLT perante a dispensa sem justa causa, sendo incompatíveis com o regime estatutário provido de garantias de permanência no vínculo. A <strong>alternativa C</strong> falha ao incluir o aviso prévio proporcional ao tempo de serviço (art. 7º, XXI) e o piso salarial setorial (art. 7º, V), elementos estranhos à lógica de vencimento básico estipulado em lei formal de iniciativa privativa. A <strong>alternativa D</strong> inclui a participação nos lucros ou resultados (art. 7º, XI), cláusula orientada ao setor produtivo e excluída do setor público burocrático. A <strong>opção E</strong> traz a proteção contra demissão arbitrária calcada em indenização compensatória (art. 7º, I), inaplicável a ocupantes de cargos públicos efetivos em razão da disciplina autônoma e própria da estabilidade prevista no artigo 41.</p>
+        `
+      },
+      {
+        id: 5,
+        number: "Questão 05",
+        articleRef: "Art. 39, § 4º, § 8º e § 9º (EC 103/2019)",
+        statement: `No que concerne ao modelo remuneratório estabelecido pela Carta Magna, às regras aplicáveis ao subsídio e às restrições financeiras instituídas para os servidores públicos, assinale a afirmativa CORRETA:`,
+        options: [
+          { key: "A", text: "O subsídio deve ser instituído em parcela única, sendo constitucionalmente autorizada a incorporação cumulativa de abonos, prêmios e adicionais por tempo de serviço aos vencimentos ordinários." },
+          { key: "B", text: "A remuneração dos servidores organizados em carreiras não pode adotar o regime de subsídio em parcela única, modalidade restrita aos chefes dos Poderes e membros de mandatos políticos representativos." },
+          { key: "C", text: "O texto constitucional permite que leis ordinárias locais autorizem a incorporação progressiva de vantagens pecuniárias decorrentes do exercício pretérito de cargos em comissão e funções comissionadas ao vencimento básico do cargo efetivo." },
+          { key: "D", text: "É expressamente vedada a incorporação de vantagens de caráter temporário ou vinculadas ao exercício de função de confiança ou de cargo em comissão à remuneração do cargo efetivo." },
+          { key: "E", text: "A estipulação do pagamento sob a modalidade de subsídio inviabiliza o pagamento de décimo terceiro salário e do adicional de férias, haja vista a vedação absoluta de agregação de qualquer parcela pecuniária ao montante unitário." }
+        ],
+        correct: "D",
+        resolution: `
+          <p><strong>Gabarito Oficial: Alternativa D.</strong></p>
+          <p>Em virtude das reformas estruturais impulsionadas com a promulgação da Emenda Constitucional nº 103/2019, o artigo 39 da Constituição foi acrescido do parágrafo nono, com o objetivo de eliminar do direito positivo a prática de concessão ou incorporação definitiva de adicionais por exercício de chefia e assessoramento aos proventos do cargo de base:</p>
+          <blockquote>"§ 9º É vedada a incorporação de vantagens de caráter temporário ou vinculadas ao exercício de função de confiança ou de cargo em comissão à remuneração do cargo efetivo."</blockquote>
+          <p>Essa salvaguarda normativa sedimenta a intangibilidade do erário, impedindo que o desempenho circunstancial de encargo de livre nomeação onere permanentemente a folha de pagamento de ativos e futuros inativos.</p>
+          <p>A <strong>alternativa A</strong> é equivocada porque a própria essência dogmática do subsídio, conforme o artigo 39, § 4º, exige sua fixação em parcela única desprovida de quaisquer gratificações ordinárias, adicionais de tempo de serviço ou prêmios de desempenho ordinário. A assertiva <strong>B</strong> omite que o artigo 39, § 8º, outorga autorização explícita para que as carreiras do serviço público em geral adotem a metodologia de subsídio em parcela única, sendo essa sistemática largamente empregada em órgãos de segurança pública e no magistério federal superior e básico. A <strong>alternativa C</strong> cai em erro ao sugerir que a lei ordinária pode suplantar proibição erigida em nível constitucional supremo pelo constituinte derivado reformador. Por seu turno, a proposição <strong>E</strong> sucumbe perante a jurisprudência vinculativa do STF (julgamento do Tema 484 de Repercussão Geral e ADI nº 5.404), a qual fixou que o pagamento em subsídio repele acréscimos relativos ao trabalho ordinário, mas não desrespeita os direitos sociais universais estendidos pelo art. 39, § 3º, tais como a gratificação natalina e as férias remuneradas com um terço constitucional.</p>
+        `
+      },
+      {
+        id: 6,
+        number: "Questão 06",
+        articleRef: "Art. 41, caput e § 4º",
+        statement: `A aquisição da estabilidade no âmbito do serviço público subordina-se ao implemento cumulativo de condições fixadas na Constituição Federal de 1988. Considerando o preceituado no artigo 41, assinale a alternativa CORRETA:`,
+        options: [
+          { key: "A", text: "A estabilidade é adquirida após dois anos de efetivo exercício, exigindo-se tão somente a ausência de penalidade administrativa grave registrada nos assentamentos funcionais." },
+          { key: "B", text: "São estáveis após três anos de efetivo exercício os servidores nomeados para cargo de provimento efetivo em virtude de concurso público, sendo condição obrigatória para a aquisição da estabilidade a avaliação especial de desempenho por comissão instituída para essa finalidade." },
+          { key: "C", text: "O prazo de estágio probatório para a aquisição da estabilidade pode ser reduzido para vinte e quatro meses mediante deliberação fundamentada do conselho superior ou ato regulamentar autônomo do dirigente máximo do órgão." },
+          { key: "D", text: "A aquisição da estabilidade independe de aferição avaliativa comissional, operando-se de pleno direito e de modo tácito pela simples contagem do lapso de três anos ininterruptos em exercício funcional." },
+          { key: "E", text: "A avaliação especial de desempenho funcional restringe-se aos empregados públicos contratados sob regime celetista pelas entidades da administração indireta prestadoras de serviços públicos." }
+        ],
+        correct: "B",
+        resolution: `
+          <p><strong>Gabarito Oficial: Alternativa B.</strong></p>
+          <p>O artigo 41 da Lei Maior teve sua arquitetura delineada pela Emenda Constitucional nº 19/1998, a qual redefiniu os parâmetros de ingresso definitivo no serviço público estável. Desde a referida alteração, são necessários: a aprovação e nomeação em virtude de concurso público; a investidura em cargo de provimento efetivo; o cumprimento irrevogável do interstício de <strong>três anos</strong> de efetivo exercício; e a aprovação obrigatória em <strong>avaliação especial de desempenho</strong>, conduzida no ambiente institucional por comissão criada unicamente para esse propósito.</p>
+          <p>Doutrina e jurisprudência apontam que a estabilidade constitui garantia institucional de impessoalidade e continuidade administrativa do Estado, vinculando a confirmação do servidor a métricas de competência e dedicação.</p>
+          <p>A <strong>alternativa A</strong> é errônea, pois os cargos em comissão mantêm a natureza intrínseca de livre nomeação e exoneração, jamais ostentando estabilidade, e o lapso constitucional foi majorado de dois para três anos. A <strong>alternativa C</strong> não prospera, uma vez que o Supremo Tribunal Federal firmou tese de que o prazo de três anos imposto pela Constituição Federal é de aplicação obrigatória e uniforme a todas as esferas federativas, sendo vedada sua atenuação legislativa ou regulamentar (STF, ADI 230). A opção <strong>D</strong> desconsidera o mandamento categórico do § 4º do artigo 41, que condiciona a estabilidade à avaliação especial, inexistindo estabilidade tácita decorrente do transcurso temporal mecânico sem a realização dos atos da comissão. A assertiva <strong>E</strong> confunde as figuras jurídicas, pois a estabilidade contemplada no artigo 41 é prerrogativa de titulares de cargos públicos efetivos estatutários, não se aplicando aos empregados celetistas comuns de entidades de direito privado (conforme Súmula 390 do TST e diretriz do STF no RE 589.998).</p>
+        `
+      },
+      {
+        id: 7,
+        number: "Questão 07",
+        articleRef: "Art. 41, § 1º, inciso III",
+        statement: `A perda do cargo público por servidor estável constitui providência extrema condicionada a hipóteses exaustivamente delineadas na Lei Fundamental. Consoante o disposto no artigo 41, § 1º, da Constituição Federal de 1988, constitui causa legítima de perda do cargo pelo servidor estável:`,
+        options: [
+          { key: "A", text: "Apuração preliminar em sindicância inquisitiva sumária promovida pelo órgão de correição, sendo dispensado o contraditório formal." },
+          { key: "B", text: "Sentença condenatória proferida por juízo de primeiro grau, independentemente da interposição de recurso ordinário dotado de efeito suspensivo." },
+          { key: "C", text: "Procedimento de avaliação periódica de desempenho, na forma de lei complementar, assegurada a ampla defesa." },
+          { key: "D", text: "Decisão motivada de exoneração de ofício emanada da autoridade superior, alicerçada exclusivamente em juízo discricionário de conveniência da gestão." },
+          { key: "E", text: "Relatório circunstanciado de baixa produtividade formulado por comissão de estágio probatório após a concessão da estabilidade definitiva ao servidor." }
+        ],
+        correct: "C",
+        resolution: `
+          <p><strong>Gabarito Oficial: Alternativa C.</strong></p>
+          <p>O artigo 41, § 1º, prevê três hipóteses taxativas e exaustivas que autorizam o desligamento compulsório do titular de cargo efetivo já agraciado pela estabilidade funcional:</p>
+          <blockquote>"§ 1º O servidor público estável só perderá o cargo:<br>I - em virtude de sentença judicial transitada em julgado;<br>II - mediante processo administrativo em que lhe seja assegurada ampla defesa;<br>III - mediante procedimento de avaliação periódica de desempenho, na forma de lei complementar, assegurada ampla defesa."</blockquote>
+          <p>A hipótese retratada na alternativa C corresponde à modalidade inserida pela Reforma Administrativa voltada à eficiência do serviço público. Todavia, para resguardar a imparcialidade do servidor e impedir perseguições funcionais, a Constituição subordinou sua aplicação à futura edição de lei complementar e à preservação irrestrita do contraditório e da ampla defesa.</p>
+          <p>A <strong>alternativa A</strong> é nula de pleno direito, pois a sindicância preparatória desprovida do devido processo legal e contraditório amplo viola a garantia processual do inciso II do § 1º do art. 41 e da Súmula nº 20 do STF. A <strong>alternativa B</strong> peca ao desconsiderar a exigência fundamental de <strong>trânsito em julgado</strong>, descabendo o afastamento irreversível enquanto houver recurso dotado de efeito suspensivo pendente de apreciação. A <strong>alternativa D</strong> é absolutamente incompatível com o estatuto da estabilidade, porquanto servidores estáveis não podem ser exonerados por juízo discricionário ou imotivado de conveniência política do gestor. A <strong>alternativa E</strong> encerra grave vício de legalidade, na medida em que a avaliação que acarreta a perda do cargo após a consumação da estabilidade pressupõe a existência de lei complementar regulamentadora, refutando portarias ou orientações administrativas inferiores.</p>
+        `
+      },
+      {
+        id: 8,
+        number: "Questão 08",
+        articleRef: "Art. 41, § 2º",
+        statement: `Carlos, servidor público federal estável de uma instituição de ensino da rede federal, foi demitido ao final de regular processo administrativo. Inconformado com o resultado, ingressou com ação judicial e obteve sentença transitada em julgado reconhecendo a nulidade do ato expulsivo e ordenando o restabelecimento do seu vínculo funcional. No momento do cumprimento da ordem jurisdicional, verificou-se que a vaga decorrente da sua antiga lotação fora provida por Juliana, servidora estável que detinha seis anos de efetivo exercício público.<br><br>Consoante o artigo 41, § 2º, da Constituição Federal de 1988, a resolução jurídica do caso impõe que:`,
+        options: [
+          { key: "A", text: "Carlos seja reintegrado ao cargo, e Juliana seja exonerada compulsoriamente do serviço público sem qualquer direito de retenção de vínculo ou compensação." },
+          { key: "B", text: "Carlos seja mantido em disponibilidade remunerada definitiva, assegurando-se a posse e a permanência inabalável de Juliana na vaga que ocupava." },
+          { key: "C", text: "Carlos seja reintegrado, e Juliana, por ser estável, seja reconduzida ao cargo de origem, sem direito a indenização, aproveitada em outro cargo ou posta em disponibilidade com remuneração proporcional ao tempo de serviço." },
+          { key: "D", text: "Juliana permaneça no cargo controvertido em face do princípio da proteção da confiança, convertendo-se a tutela jurisdicional de Carlos em perdas e danos indenizatórias." },
+          { key: "E", text: "Ambos os servidores sejam postos simultaneamente em disponibilidade com remuneração integral até a criação superveniente de um novo cargo na estrutura orgânica do ente." }
+        ],
+        correct: "C",
+        resolution: `
+          <p><strong>Gabarito Oficial: Alternativa C.</strong></p>
+          <p>O artigo 41, § 2º, estabelece com rigor o mecanismo de restauração do estado anterior decorrente da desconstituição de atos demissórios ilegais pelo Poder Judiciário:</p>
+          <blockquote>"§ 2º Invalidada por sentença judicial a demissão do servidor estável, será ele reintegrado, e o eventual ocupante da vaga, se estável, reconduzido ao cargo de origem, sem direito a indenização, aproveitado em outro cargo ou posto em disponibilidade com remuneração proporcional ao tempo de serviço."</blockquote>
+          <p>Nesse ecossistema jurídico, o servidor injustamente lesado (Carlos) obtém a <strong>reintegração</strong>, com ressarcimento integral de todos os seus direitos pretéritos. Em contrapartida, Juliana, por ser titular de estabilidade própria consolidada, não sofre exoneração desarrazoada: a norma constitucional determina prioritariamente a sua <strong>recondução ao cargo de origem</strong>, vedando qualquer pedido de indenização pelo retorno compulsório. Caso o cargo de origem tenha sido suprimido ou esteja preenchido, impõe-se a aplicação das opções subsidiárias de aproveitamento em cargo com afinidade de atribuições e vencimentos ou a sua colocação em disponibilidade remunerada proporcional.</p>
+          <p>A <strong>alternativa A</strong> contraria a Carta Magna, uma vez que a exoneração sumária recai tão somente sobre ocupantes eventuais não amparados pela estabilidade do serviço público. A <strong>alternativa B</strong> afronta a eficácia da coisa julgada favorável à reintegração de Carlos, já que o servidor arbitrariamente demitido não pode ser preterido na reassunção do seu cargo em proveito de terceiro. A <strong>alternativa D</strong> desrespeita a regra constitucional de recondução e postula impropriamente a transmudação da tutela específica de provimento em reparação financeira. A <strong>alternativa E</strong> cria uma figura desprovida de previsão jurídica ao dispor sobre simultaneidade de disponibilidade integral sem atendimento aos requisitos de proporcionalidade fixados no texto normativo de regência.</p>
+        `
+      },
+      {
+        id: 9,
+        number: "Questão 09",
+        articleRef: "Art. 41, § 3º",
+        statement: `No que tange às regras constitucionais disciplinadoras da extinção de cargos e da declaração de sua desnecessidade pelo Poder Público, nos termos do artigo 41, § 3º, da Constituição Federal de 1988, assinale a afirmativa CORRETA:`,
+        options: [
+          { key: "A", text: "A extinção do cargo acarreta a rescisão instantânea do vínculo estatutário do servidor estável, garantindo-se apenas indenização tarifada de uma remuneração mensal por ano de efetivo exercício." },
+          { key: "B", text: "Extinto o cargo ou declarada a sua desnecessidade, o servidor estável ficará em disponibilidade, com remuneração proporcional ao tempo de serviço, até seu adequado aproveitamento em outro cargo." },
+          { key: "C", text: "O servidor colocado em disponibilidade mantém o direito à percepção do vencimento básico integral e de todas as gratificações operacionais inerentes ao exercício ativo do cargo extinto." },
+          { key: "D", text: "A declaração de desnecessidade do cargo rompe a relação jurídica previdenciária e veda o futuro aproveitamento do servidor estável em carreiras afins da administração direta." },
+          { key: "E", text: "A disponibilidade remunerada proporcional aplica-se irrestritamente a servidores admitidos em funções temporárias de excepcional interesse público e a comissionados não titulares de cargo efetivo." }
+        ],
+        correct: "B",
+        resolution: `
+          <p><strong>Gabarito Oficial: Alternativa B.</strong></p>
+          <p>Conforme a dicção expressa do artigo 41, § 3º, da Carta Constitucional:</p>
+          <blockquote>"§ 3º Extinto o cargo ou declarada a sua desnecessidade, o servidor estável ficará em disponibilidade, com remuneração proporcional ao tempo de serviço, até seu adequado aproveitamento em outro cargo."</blockquote>
+          <p>O instituto da disponibilidade opera como garantia da estabilidade funcional. A alteração trazida pela Emenda nº 19/1998 modificou o panorama originário para impor a percepção de <strong>remuneração proporcional ao tempo de serviço</strong>, superando o critério da integralidade antes preconizado pelo legislador constituinte de 1988. Desse modo, o servidor permanece à disposição do ente estatal, mantendo hígido o seu vínculo até que sobrevenha a oportunidade e conveniência do aproveitamento em cargo compaginável.</p>
+          <p>A <strong>alternativa A</strong> incorre em erro grosseiro, porquanto a extinção e a declaração formal de desnecessidade de cargos efetivos ocupados por servidores estáveis não conduzem à rescisão do vínculo funcional nem autorizam exoneração sumária com verba rescisória de natureza celetista. A <strong>alternativa C</strong> está incorreta em duplicidade: a remuneração já não é integral desde a reforma constitucional de 1998 e o objetivo intrínseco da disponibilidade é justamente o aproveitamento oportuno do servidor em cargo congênere da estrutura pública. A <strong>alternativa D</strong> é falsa porque a disponibilidade mantém incólume a relação estatutária de direito público, perdurando a contagem de tempo para fins previdenciários proporcionais de conformidade com a legislação específica. A <strong>alternativa E</strong> sucumbe porque a disponibilidade é garantia indelegável reservada aos titulares de estabilidade, inexistindo amparo análogo para contratados temporários ou comissionados sem vínculo permanente.</p>
+        `
+      },
+      {
+        id: 10,
+        number: "Questão 10",
+        articleRef: "Art. 41, § 1º, III, § 3º e § 4º",
+        statement: `Examine as proposições a seguir, fundamentando-se nas disposições dos artigos 39 a 41 da Constituição Federal de 1988:<br><br>
+        <strong>I.</strong> Constitui condição mandatória para a aquisição da estabilidade a submissão e aprovação do servidor em avaliação especial de desempenho, procedida por comissão constituída expressamente para essa finalidade.<br>
+        <strong>II.</strong> A demissão decorrente de procedimento de avaliação periódica de desempenho prescinde de lei complementar nacional ou local, operando-se por meio de decreto autônomo do Chefe do Executivo.<br>
+        <strong>III.</strong> Extinto o cargo ou declarada a sua desnecessidade, o servidor público estável é posto em disponibilidade com proventos ou remuneração proporcional ao tempo de serviço, até oportuno e adequado aproveitamento em cargo equivalente.<br>
+        <strong>IV.</strong> O rol de direitos sociais estendidos aos servidores públicos titulares de cargo efetivo contempla expressamente a indenização securitária contra o desemprego involuntário e o Fundo de Garantia do Tempo de Serviço.<br><br>
+        Estão CORRETAS apenas as proposições:`,
+        options: [
+          { key: "A", text: "I e II." },
+          { key: "B", text: "I e III." },
+          { key: "C", text: "II e IV." },
+          { key: "D", text: "III e IV." },
+          { key: "E", text: "I, II e III." }
+        ],
+        correct: "B",
+        resolution: `
+          <p><strong>Gabarito Oficial: Alternativa B (Proposições I e III).</strong></p>
+          <p>A <strong>proposição I</strong> revela harmonia absoluta com o comando do artigo 41, § 4º, que estatui como condição necessária para a consumação da estabilidade funcional a obrigatoriedade da realização de avaliação especial de desempenho levada a efeito por comissão instituída expressamente para esse fim.</p>
+          <p>A <strong>proposição II</strong> mostra-se juridicamente equivocada, uma vez que a avaliação periódica de desempenho apta a extinguir o vínculo do servidor estável foi alocada pelo constituinte no artigo 41, § 1º, III, sob a égide indispensável de <strong>lei complementar</strong>, o que afasta a possibilidade de integração dessa matéria por meio de regulamento autônomo expedido pelo Executivo.</p>
+          <p>A <strong>proposição III</strong> consubstancia a literalidade da salvaguarda disposta no artigo 41, § 3º, determinando a retenção do servidor estável na condição jurídica de disponibilidade, com remuneração proporcionalizada ao tempo de serviço já cumprido, na pendência de reacomodação em cargo correspondente da estrutura administrativa.</p>
+          <p>A <strong>proposição IV</strong> apresenta erro insanável, visto que o Fundo de Garantia do Tempo de Serviço e o seguro-desemprego não integram o catálogo de direitos sociais estendidos aos titulares de cargo público nos moldes delineados pelo artigo 39, § 3º, da Carta da República. Portanto, restam validadas apenas as assertivas I e III.</p>
+        `
+      }
+    ];
+
+    // Estado do Quiz
+    const userAnswers = {};
+    let isSubmitted = false;
+
+    // Renderização das Questões na página
+    function renderQuiz() {
+      const container = document.getElementById("questionsContainer");
+      container.innerHTML = "";
+
+      questionsData.forEach((q) => {
+        const card = document.createElement("article");
+        card.className = "question-card";
+        card.id = `qCard-${q.id}`;
+        card.dataset.id = q.id;
+
+        card.innerHTML = `
+          <div class="question-header">
+            <div>
+              <span class="q-number">${q.number}</span>
+              <span style="font-size: 0.82rem; color: var(--text-muted); margin-left: 8px;">(${q.articleRef})</span>
+            </div>
+            <span class="q-status-tag tag-pendente" id="statusTag-${q.id}">Pendente</span>
+          </div>
+          <div class="q-statement">${q.statement}</div>
+          <div class="options-group" id="optionsGroup-${q.id}">
+            ${q.options.map(opt => `
+              <label class="option-item" id="optLabel-${q.id}-${opt.key}" onclick="handleOptionSelect(${q.id}, '${opt.key}')">
+                <input type="radio" name="q_${q.id}" value="${opt.key}">
+                <div class="opt-letter">${opt.key}</div>
+                <div class="opt-text">${opt.text}</div>
+              </label>
+            `).join('')}
+          </div>
+          <div class="resolution-box" id="resBox-${q.id}">
+            <div class="resolution-header">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                <polyline points="14 2 14 8 20 8"></polyline>
+                <line x1="16" y1="13" x2="8" y2="13"></line>
+                <line x1="16" y1="17" x2="8" y2="17"></line>
+                <polyline points="10 9 9 9 8 9"></polyline>
+              </svg>
+              <span>Resolução e Fundamentação Dogmática</span>
+            </div>
+            <div class="resolution-content">
+              ${q.resolution}
+            </div>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+
+      updateProgress();
+    }
+
+    // Seleção de Alternativa
+    function handleOptionSelect(qId, key) {
+      if (isSubmitted) return;
+
+      userAnswers[qId] = key;
+      const card = document.getElementById(`qCard-${qId}`);
+      card.classList.add("answered");
+
+      // Atualizar classes visuais de seleção
+      const labels = document.querySelectorAll(`#optionsGroup-${qId} .option-item`);
+      labels.forEach(l => l.classList.remove("selected"));
+
+      const selectedLabel = document.getElementById(`optLabel-${qId}-${key}`);
+      if (selectedLabel) {
+        selectedLabel.classList.add("selected");
+        const radio = selectedLabel.querySelector('input[type="radio"]');
+        if (radio) radio.checked = true;
+      }
+
+      // Atualizar tag
+      const statusTag = document.getElementById(`statusTag-${qId}`);
+      statusTag.className = "q-status-tag tag-respondida";
+      statusTag.textContent = "Respondida";
+
+      updateProgress();
+    }
+
+    // Atualização da Barra de Progresso Superior
+    function updateProgress() {
+      const answeredCount = Object.keys(userAnswers).length;
+      const total = questionsData.length;
+      const percentage = Math.round((answeredCount / total) * 100);
+
+      document.getElementById("trackerCount").textContent = `${answeredCount} de ${total} respondidas`;
+      document.getElementById("trackerPercent").textContent = `${percentage}%`;
+      document.getElementById("progressBar").style.width = `${percentage}%`;
+    }
+
+    // Alerta Suave Sem uso de alert()
+    function showToast(msg) {
+      const toast = document.getElementById("toastMsg");
+      toast.textContent = msg;
+      toast.style.display = "block";
+      setTimeout(() => {
+        toast.style.display = "none";
+      }, 3500);
+    }
+
+    // Submissão do Simulado e Revelação das Resoluções
+    function submitQuiz() {
+      const answeredCount = Object.keys(userAnswers).length;
+      const total = questionsData.length;
+
+      if (answeredCount < total) {
+        showToast(`Você respondeu ${answeredCount} de ${total} questões. Responda a todas antes de finalizar.`);
+        return;
+      }
+
+      isSubmitted = true;
+      let rightCount = 0;
+
+      // Travar opções e avaliar acertos/erros
+      questionsData.forEach(q => {
+        const userChoice = userAnswers[q.id];
+        const isRight = userChoice === q.correct;
+        const card = document.getElementById(`qCard-${q.id}`);
+        const statusTag = document.getElementById(`statusTag-${q.id}`);
+
+        if (isRight) {
+          rightCount++;
+          card.dataset.result = "correct";
+          statusTag.className = "q-status-tag tag-correto";
+          statusTag.textContent = "Você acertou";
+        } else {
+          card.dataset.result = "wrong";
+          statusTag.className = "q-status-tag tag-incorreto";
+          statusTag.textContent = `Incorreto • Gabarito: ${q.correct}`;
+        }
+
+        // Marcar visualmente as alternativas
+        q.options.forEach(opt => {
+          const label = document.getElementById(`optLabel-${q.id}-${opt.key}`);
+          label.classList.add("locked");
+
+          if (opt.key === q.correct) {
+            label.classList.add("is-correct");
+          } else if (opt.key === userChoice && !isRight) {
+            label.classList.add("is-wrong");
+          }
+        });
+
+        // Revelar a caixa de resolução mantida na mesma página logo abaixo da questão
+        const resBox = document.getElementById(`resBox-${q.id}`);
+        resBox.style.display = "block";
+      });
+
+      // Atualizar o banner de pontuação
+      const wrongCount = total - rightCount;
+      document.getElementById("correctScore").textContent = rightCount;
+      document.getElementById("rightCount").textContent = rightCount;
+      document.getElementById("wrongCount").textContent = wrongCount;
+
+      const verdictTitle = document.getElementById("scoreVerdict");
+      const verdictDetails = document.getElementById("scoreDetails");
+
+      if (rightCount >= 9) {
+        verdictTitle.textContent = "Excelente Desempenho!";
+        verdictDetails.textContent = `Você obteve ${rightCount} acertos de 10 (${rightCount * 10}% de aproveitamento). Domínio consistente e aprofundado do regime constitucional dos servidores públicos!`;
+      } else if (rightCount >= 7) {
+        verdictTitle.textContent = "Bom Desempenho!";
+        verdictDetails.textContent = `Você obteve ${rightCount} acertos de 10 (${rightCount * 10}% de aproveitamento). Aproveite as fundamentações dogmáticas abaixo para consolidar os pontos que geraram dúvidas.`;
+      } else {
+        verdictTitle.textContent = "Simulado Concluído!";
+        verdictDetails.textContent = `Você obteve ${rightCount} acertos de 10 (${rightCount * 10}% de aproveitamento). Leia com atenção cada uma das resoluções abaixo para fixar a letra da CF/88 e a jurisprudência da ADI 2.135 do STF.`;
+      }
+
+      // Ocultar painel de envio e exibir painel de pontuação
+      document.getElementById("actionsPanel").style.display = "none";
+      document.getElementById("scoreBanner").style.display = "block";
+
+      // Rolar suavemente até o topo para visualizar o desempenho
+      document.getElementById("scoreBanner").scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+
+    // Filtragem pós-conclusão: Ver todas, Apenas erros, Apenas acertos
+    function filterQuestions(type) {
+      // Atualizar botões de filtro
+      const buttons = document.querySelectorAll(".filter-pills .pill-btn");
+      buttons.forEach(btn => btn.classList.remove("active"));
+      event.target.classList.add("active");
+
+      const cards = document.querySelectorAll(".question-card");
+      cards.forEach(card => {
+        if (type === "all") {
+          card.style.display = "block";
+        } else if (type === "correct") {
+          card.style.display = card.dataset.result === "correct" ? "block" : "none";
+        } else if (type === "wrong") {
+          card.style.display = card.dataset.result === "wrong" ? "block" : "none";
+        }
+      });
+    }
+
+    // Reinicialização do Simulado
+    function resetQuiz() {
+      for (const prop of Object.getOwnPropertyNames(userAnswers)) {
+        delete userAnswers[prop];
+      }
+      isSubmitted = false;
+
+      document.getElementById("scoreBanner").style.display = "none";
+      document.getElementById("actionsPanel").style.display = "flex";
+
+      renderQuiz();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    // Inicialização ao carregar a página
+    window.onload = function() {
+      renderQuiz();
+    };
+  </script>
+</body>
+</html>

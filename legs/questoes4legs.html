@@ -1,0 +1,976 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simulado IFMG - Lei nº 8.112/1990: Disposições Preliminares e Provimento</title>
+  <style>
+    :root {
+      --bg-body: #f8f7f4;
+      --bg-card: #ffffff;
+      --bg-card-subtle: #fbfbf9;
+      --text-main: #23272f;
+      --text-muted: #57606a;
+      --text-soft: #768390;
+      --border-color: #e5e3dd;
+      --border-focus: #1d4ed8;
+      --primary: #1e3a8a;
+      --primary-light: #eff6ff;
+      --primary-border: #bfdbfe;
+      --success-bg: #f0fdf4;
+      --success-border: #86efac;
+      --success-text: #166534;
+      --danger-bg: #fef2f2;
+      --danger-border: #fca5a5;
+      --danger-text: #991b1b;
+      --accent-badge: #eef2f6;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.04), 0 1px 2px rgba(0,0,0,0.02);
+      --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.05), 0 2px 4px -2px rgba(0,0,0,0.03);
+      --font-stack: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      --font-reading: "Charter", Georgia, "Times New Roman", serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-body);
+      color: var(--text-main);
+      font-family: var(--font-stack);
+      line-height: 1.7;
+      font-size: 17px;
+      -webkit-font-smoothing: antialiased;
+      padding: 0 16px 80px 16px;
+    }
+
+    /* Container de leitura otimizado */
+    .container {
+      max-width: 820px;
+      margin: 0 auto;
+    }
+
+    /* Cabeçalho */
+    header {
+      padding: 48px 0 32px 0;
+      border-bottom: 1px solid var(--border-color);
+      margin-bottom: 32px;
+    }
+
+    .badge-banca {
+      display: inline-block;
+      background: #e2e8f0;
+      color: #334155;
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 4px 10px;
+      border-radius: 4px;
+      margin-bottom: 12px;
+    }
+
+    header h1 {
+      font-size: 1.85rem;
+      line-height: 1.3;
+      color: #0f172a;
+      font-weight: 800;
+      margin-bottom: 12px;
+      letter-spacing: -0.02em;
+    }
+
+    header p {
+      color: var(--text-muted);
+      font-size: 1.05rem;
+      line-height: 1.6;
+    }
+
+    /* Barra de Progresso Flutuante/Fixa */
+    .progress-bar-container {
+      position: sticky;
+      top: 0;
+      background: rgba(248, 247, 244, 0.95);
+      backdrop-filter: blur(8px);
+      z-index: 100;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--border-color);
+      margin-bottom: 28px;
+    }
+
+    .progress-info {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+    }
+
+    .progress-track {
+      height: 8px;
+      background: #e2e8f0;
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      width: 0%;
+      background: var(--primary);
+      transition: width 0.3s ease;
+    }
+
+    /* Card de Questão */
+    .question-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      padding: 28px;
+      margin-bottom: 28px;
+      box-shadow: var(--shadow-sm);
+      transition: border-color 0.2s ease;
+    }
+
+    .question-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 1px dashed var(--border-color);
+    }
+
+    .question-number {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .question-tag {
+      font-size: 0.8rem;
+      color: var(--text-soft);
+      background: var(--accent-badge);
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-weight: 500;
+    }
+
+    .question-enunciado {
+      font-size: 1.05rem;
+      color: var(--text-main);
+      margin-bottom: 20px;
+      line-height: 1.65;
+    }
+
+    .question-enunciado p {
+      margin-bottom: 12px;
+    }
+
+    .question-enunciado p:last-child {
+      margin-bottom: 0;
+    }
+
+    /* Alternativas */
+    .options-group {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .option-label {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      padding: 14px 16px;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      background-color: var(--bg-card-subtle);
+      cursor: pointer;
+      transition: all 0.15s ease-in-out;
+      font-size: 0.98rem;
+      line-height: 1.55;
+    }
+
+    .option-label:hover {
+      background-color: #f1f5f9;
+      border-color: #cbd5e1;
+    }
+
+    .option-label input[type="radio"] {
+      margin-top: 5px;
+      transform: scale(1.15);
+      accent-color: var(--primary);
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+
+    .option-letter {
+      font-weight: 700;
+      color: #334155;
+      min-width: 22px;
+      flex-shrink: 0;
+    }
+
+    .option-text {
+      flex: 1;
+      color: var(--text-main);
+    }
+
+    /* Estado selecionado antes de corrigir */
+    .option-label.is-selected {
+      background-color: var(--primary-light);
+      border-color: var(--primary-border);
+    }
+
+    /* Estados de correção (Pós-gabarito) */
+    .option-label.option-correct {
+      background-color: var(--success-bg) !important;
+      border-color: var(--success-border) !important;
+      color: var(--success-text) !important;
+      font-weight: 500;
+    }
+
+    .option-label.option-wrong {
+      background-color: var(--danger-bg) !important;
+      border-color: var(--danger-border) !important;
+      color: var(--danger-text) !important;
+    }
+
+    .option-label.option-dimmed {
+      opacity: 0.6;
+    }
+
+    /* Resolução dentro do card da questão */
+    .resolution-box {
+      display: none;
+      margin-top: 24px;
+      padding: 20px;
+      background-color: #fcfcfb;
+      border: 1px solid #e2e8f0;
+      border-left: 4px solid var(--primary);
+      border-radius: 6px;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .resolution-title {
+      font-size: 0.95rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--primary);
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .resolution-body {
+      font-family: var(--font-reading);
+      font-size: 1.02rem;
+      line-height: 1.7;
+      color: #27272a;
+    }
+
+    .badge-status {
+      display: inline-block;
+      padding: 3px 8px;
+      border-radius: 4px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      margin-left: auto;
+    }
+
+    .badge-status.acertou {
+      background: var(--success-bg);
+      color: var(--success-text);
+      border: 1px solid var(--success-border);
+    }
+
+    .badge-status.errou {
+      background: var(--danger-bg);
+      color: var(--danger-text);
+      border: 1px solid var(--danger-border);
+    }
+
+    /* Barra de Ações */
+    .actions-bar {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+      margin: 40px 0;
+      text-align: center;
+    }
+
+    .btn-submit {
+      background-color: var(--primary);
+      color: #ffffff;
+      border: none;
+      border-radius: 8px;
+      padding: 16px 36px;
+      font-size: 1.1rem;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(30, 58, 138, 0.25);
+      transition: all 0.2s ease;
+      width: 100%;
+      max-width: 380px;
+    }
+
+    .btn-submit:hover {
+      background-color: #172554;
+      transform: translateY(-1px);
+      box-shadow: 0 6px 16px rgba(30, 58, 138, 0.35);
+    }
+
+    .btn-reset {
+      background-color: transparent;
+      color: var(--text-muted);
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      padding: 10px 20px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .btn-reset:hover {
+      background-color: #e2e8f0;
+      color: var(--text-main);
+    }
+
+    /* Seção de Resultados */
+    #results-section {
+      display: none;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 36px;
+      margin-bottom: 40px;
+      box-shadow: var(--shadow-md);
+      animation: fadeIn 0.4s ease;
+    }
+
+    .score-summary {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .score-circle {
+      width: 110px;
+      height: 110px;
+      border-radius: 50%;
+      background: var(--primary-light);
+      border: 3px solid var(--primary);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+
+    .score-number {
+      font-size: 2.2rem;
+      font-weight: 800;
+      color: var(--primary);
+      line-height: 1;
+    }
+
+    .score-total {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
+    .score-message {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: #0f172a;
+      margin-bottom: 8px;
+    }
+
+    .score-submessage {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      max-width: 500px;
+    }
+
+    /* Tabela de Gabarito Rápido */
+    .gabarito-table-wrapper {
+      overflow-x: auto;
+      margin: 24px 0;
+    }
+
+    table.gabarito-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.95rem;
+      text-align: left;
+    }
+
+    table.gabarito-table th, 
+    table.gabarito-table td {
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    table.gabarito-table th {
+      background-color: #f1f5f9;
+      color: #334155;
+      font-weight: 700;
+    }
+
+    table.gabarito-table tr:hover td {
+      background-color: #f8fafc;
+    }
+
+    /* Quadro Comparativo de Provimento Derivado */
+    .summary-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      padding: 28px;
+      margin-top: 36px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .summary-card h2 {
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 12px;
+      border-bottom: 2px solid #e2e8f0;
+      padding-bottom: 8px;
+    }
+
+    .summary-card p {
+      font-size: 0.98rem;
+      color: var(--text-muted);
+      margin-bottom: 20px;
+    }
+
+    table.provimento-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.92rem;
+      line-height: 1.5;
+    }
+
+    table.provimento-table th, 
+    table.provimento-table td {
+      padding: 12px 12px;
+      border: 1px solid var(--border-color);
+      vertical-align: top;
+    }
+
+    table.provimento-table th {
+      background: #f1f5f9;
+      color: #1e293b;
+      font-weight: 700;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 640px) {
+      body {
+        font-size: 16px;
+        padding: 0 12px 60px 12px;
+      }
+      .question-card {
+        padding: 20px 16px;
+      }
+      header h1 {
+        font-size: 1.45rem;
+      }
+      table.provimento-table {
+        display: block;
+        overflow-x: auto;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <!-- Cabeçalho -->
+    <header>
+      <span class="badge-banca">Banca Comissão Central de Concurso Público da Reitoria do IFMG</span>
+      <h1>Simulado Exclusivo: Lei nº 8.112/1990</h1>
+      <p>
+        <strong>Conteúdo Programático:</strong> Disposições Preliminares (arts. 1º a 4º) e Provimento (arts. 5º a 22 e 24 a 32). Conceito de servidor e cargo; requisitos de investidura; posse (30 dias) e exercício (15 dias); concurso público e homologação; provimento originário e derivado (reversão, reintegração, recondução, readaptação e aproveitamento).
+      </p>
+    </header>
+
+    <!-- Barra de Progresso Superior -->
+    <div class="progress-bar-container">
+      <div class="progress-info">
+        <span id="progress-text">0 de 10 respondidas</span>
+        <span id="progress-pct">0%</span>
+      </div>
+      <div class="progress-track">
+        <div class="progress-fill" id="progress-fill"></div>
+      </div>
+    </div>
+
+    <!-- Painel de Resultados (Aparece ao Finalizar) -->
+    <section id="results-section">
+      <div class="score-summary">
+        <div class="score-circle">
+          <span class="score-number" id="score-val">0</span>
+          <span class="score-total">de 10 acertos</span>
+        </div>
+        <div class="score-message" id="score-msg">Desempenho</div>
+        <p class="score-submessage" id="score-submsg">Confira abaixo o gabarito detalhado e as resoluções fundamentadas de cada uma das questões respondidas.</p>
+      </div>
+
+      <div class="gabarito-table-wrapper">
+        <table class="gabarito-table">
+          <thead>
+            <tr>
+              <th>Questão</th>
+              <th>Sua Escolha</th>
+              <th>Gabarito</th>
+              <th>Tema Central</th>
+              <th>Resultado</th>
+            </tr>
+          </thead>
+          <tbody id="gabarito-summary-body">
+            <!-- Inserido dinamicamente via JS -->
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Lista de Questões -->
+    <form id="quiz-form">
+      <div id="questions-wrapper">
+        <!-- Renderizado dinamicamente via JavaScript com o texto integral -->
+      </div>
+
+      <div class="actions-bar">
+        <button type="button" class="btn-submit" id="btn-submit-quiz" onclick="finalizarQuiz()">
+          Finalizar Simulado e Ver Resoluções
+        </button>
+        <button type="button" class="btn-reset" id="btn-reset-quiz" onclick="reiniciarQuiz()" style="display: none;">
+          Refazer Simulado
+        </button>
+      </div>
+    </form>
+
+    <!-- Quadro Comparativo de Provimento Derivado (Artigos 24 a 32) -->
+    <section class="summary-card" id="comparativo-section">
+      <h2>Síntese Comparativa das Formas de Provimento Derivado</h2>
+      <p>
+        Quadro esquemático das hipóteses de provimento derivado segundo o Título II, Capítulo I da Lei nº 8.112/1990 para fixação e revisão da matéria:
+      </p>
+      <table class="provimento-table">
+        <thead>
+          <tr>
+            <th>Instituto</th>
+            <th>Situação Fática Desencadeadora</th>
+            <th>Qualificação do Servidor</th>
+            <th>Efeito Financeiro e Solução para a Vaga</th>
+            <th>Base Legal</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Readaptação</strong></td>
+            <td>Limitação de capacidade psicofísica atestada em inspeção de junta médica oficial.</td>
+            <td>Servidor em atividade funcional (estável ou em estágio probatório).</td>
+            <td>Garantia da irredutibilidade de vencimentos funcionais; constatada a incapacidade plena para o serviço, enseja aposentadoria compulsória.</td>
+            <td>Art. 24</td>
+          </tr>
+          <tr>
+            <td><strong>Reversão</strong></td>
+            <td>Cessação da invalidez motivadora de aposentadoria anterior ou interesse administrativo a pedido.</td>
+            <td>Servidor público na condição de aposentado.</td>
+            <td>Retorno formal ao serviço; encontrando-se a respectiva vaga provida, o servidor atua na condição de excedente até vacância.</td>
+            <td>Art. 25</td>
+          </tr>
+          <tr>
+            <td><strong>Reintegração</strong></td>
+            <td>Anulação administrativa ou decretação judicial de nulidade do ato de demissão do servidor.</td>
+            <td>Servidor estável no cargo à época da penalidade demissória anulada.</td>
+            <td>Restabelecimento do status com ressarcimento pecuniário e temporal integral; eventual ocupante da vaga é reconduzido sem indenização.</td>
+            <td>Art. 28</td>
+          </tr>
+          <tr>
+            <td><strong>Recondução</strong></td>
+            <td>Inabilitação em estágio probatório em outro cargo inacumulável ou reintegração do anterior titular.</td>
+            <td>Servidor público dotado de estabilidade no cargo original.</td>
+            <td>Regresso ao cargo anterior sem direito a ressarcimentos ou indenizações; achando-se provido o posto, opera-se o aproveitamento em cargo similar.</td>
+            <td>Art. 29</td>
+          </tr>
+          <tr>
+            <td><strong>Aproveitamento</strong></td>
+            <td>Surgimento de claro de lotação em vaga funcional compatível na Administração Pública Federal.</td>
+            <td>Servidor público estável colocado formalmente em disponibilidade remunerada.</td>
+            <td>Retorno obrigatório à atividade estatutária; a ausência injustificada de entrada em exercício no prazo legal culmina na cassação da disponibilidade.</td>
+            <td>Arts. 30 a 32</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+  </div>
+
+  <script>
+    // Base de dados integral das 10 questões, assertivas e resoluções
+    const quizData = [
+      {
+        id: 1,
+        tema: "Conceito de Servidor e Cargo Público",
+        artigo: "Arts. 2º, 3º e 4º",
+        enunciado: "Com base nas disposições preliminares estabelecidas no Título I da Lei nº 8.112/1990 (arts. 1º a 4º), a respeito dos conceitos de servidor público, cargo público e da atuação funcional no âmbito da Administração Pública Federal, assinale a alternativa correta:",
+        options: [
+          { letter: "A", text: "Cargo público é a unidade estrutural de atribuições e responsabilidades cometidas a um agente, criado exclusivamente mediante decreto do Poder Executivo, dotado de denominação própria e com estipêndio fixado por ato infralegal da autoridade competente." },
+          { letter: "B", text: "O servidor público é a pessoa física legalmente investida em cargo público, sendo-lhe expressamente facultada a prestação de serviços gratuitos na Administração Federal Direta ou Indireta, desde que haja manifestação formal do interessado e anuência da chefia imediata." },
+          { letter: "C", text: "Os cargos públicos são acessíveis a todos os brasileiros, sendo expressamente vedada a criação de cargos para provimento em comissão no âmbito das autarquias e fundações públicas federais." },
+          { letter: "D", text: "Cargo público é o conjunto de atribuições e responsabilidades previstas na estrutura organizacional que devem ser cometidas a um servidor, criado por lei, com denominação própria e vencimento pago pelos cofres públicos, para provimento em caráter efetivo ou em comissão." },
+          { letter: "E", text: "O regime estatutário instituído pela Lei nº 8.112/1990 aplica-se indistintamente aos servidores públicos civis e militares da União, estendendo-se subsidiariamente aos empregados regidos pela Consolidação das Leis do Trabalho em atuação nas empresas públicas federais." }
+        ],
+        correct: "D",
+        resolucao: "O gabarito oficial corresponde à Alternativa D. Sob a ótica do Direito Administrativo Positivo, o art. 3º da Lei nº 8.112/1990 conceitua expressamente o cargo público como o conjunto de atribuições e responsabilidades previstas na estrutura organizacional que devem ser cometidas a um servidor. O parágrafo único desse mesmo dispositivo impõe a observância estrita ao princípio constitucional da reserva legal para a sua criação, exigindo denominação própria, provimento efetivo ou em comissão e remuneração custeada pelos cofres públicos, o que confere exatidão ao teor da opção D.<br><br>Em sentido contrário, a Alternativa A viola diretamente o postulado da legalidade formal ao assinalar que os cargos públicos poderiam ser criados por simples decreto executivo ou remunerados por ato infralegal, contrariando o art. 3º, parágrafo único, do diploma estatutário e o art. 48, X, da Constituição Federal. A Alternativa B mostra-se juridicamente equivocada por desconsiderar o art. 4º da lei de regência, que veda categoricamente a prestação de serviços gratuitos na Administração Pública, ressalvadas exclusivamente as hipóteses positivadas em normas legais especiais. A Alternativa C formula premissa inexistente, haja vista que as autarquias e fundações públicas mantêm legalmente cargos em comissão para as atribuições de direção, chefia e assessoramento. Por fim, a Alternativa E padece de vício conceitual manifesto, dado que a incidência da Lei nº 8.112/1990 circunscreve-se aos servidores públicos civis da União, autarquias e fundações públicas, excluindo expressamente os militares e os empregados celetistas das empresas estatais."
+      },
+      {
+        id: 2,
+        tema: "Requisitos Básicos para Investidura",
+        artigo: "Art. 5º, V e Súmula nº 266/STJ",
+        enunciado: "Nos termos do art. 5º da Lei nº 8.112/1990, que disciplina os requisitos básicos para investidura em cargo público federal, analise a seguinte situação hipotética:<br><br>Um candidato com 17 anos e 10 meses de idade participou de concurso público para provimento de vagas no Instituto Federal de Minas Gerais (IFMG). Na data em que o certame teve seu resultado homologado, o candidato possuía 17 anos e 11 meses. A portaria de nomeação foi publicada duas semanas depois, e o comparecimento com a documentação para a formalização da posse ocorreu quando o candidato já havia atingido 18 anos completos.<br><br>Considerando os preceitos estatutários sobre a investidura, assinale a alternativa correta:",
+        options: [
+          { letter: "A", text: "A investidura no cargo é juridicamente inviável, porquanto a exigência da maioridade civil e da idade mínima de 18 (dezoito) anos deve restar comprovada na data de encerramento das inscrições ou, no mais tardar, no ato de homologação do concurso." },
+          { letter: "B", text: "O requisito de idade mínima de 18 (dezoito) anos completos deve ser obrigatoriamente preenchido e comprovado no momento da investidura no cargo, configurada pelo ato da posse, tornando plenamente válida a investidura do candidato no caso apresentado." },
+          { letter: "C", text: "O Estatuto do Servidor Público Federal proíbe de forma absoluta e peremptória a investidura de estrangeiros em quaisquer quadros da Administração Pública Direta e Indireta, vedando exceções para instituições de ensino e de pesquisa científica." },
+          { letter: "D", text: "Às pessoas com deficiência é garantido o direito de inscrição em concursos públicos para cargos cujas atribuições sejam compatíveis com suas condições, devendo a Administração destinar-lhes até 30% (trinta por cento) das vagas ofertadas no edital regulamentador." },
+          { letter: "E", text: "A natureza das atribuições do cargo público em nenhuma hipótese poderá justificar a cobrança de requisitos adicionais de investidura além daqueles taxativamente delineados no caput do art. 5º da Lei nº 8.112/1990." }
+        ],
+        correct: "B",
+        resolucao: "O gabarito oficial corresponde à Alternativa B. O liame funcional estatutário é formalizado no ordenamento jurídico por meio da investidura no cargo, a qual se perfectibiliza juridicamente com a assinatura do termo de posse, conforme delineado no art. 7º da Lei nº 8.112/1990. Os requisitos basilares fixados pelo art. 5º do Regime Jurídico Único (gozo dos direitos políticos, quitação eleitoral e militar, escolaridade e idade mínima de 18 anos completos) devem estar presentes no ato da posse, e não na etapa de inscrição do concurso. Esse raciocínio alinha-se ao enunciado da Súmula nº 266 do Superior Tribunal de Justiça: 'O diploma ou habilitação legal para o exercício do cargo deve ser exigido na posse e não na inscrição para o concurso público'.<br><br>A Alternativa A é errada pois cobrar a comprovação de maioridade civil na inscrição ou homologação representa restrição ilegal. A Alternativa C conflita com o art. 5º, § 3º, que autoriza formalmente as universidades federais e institutos federais a admitirem professores, técnicos e cientistas estrangeiros. A Alternativa D erra o percentual legal (o art. 5º, § 2º assegura até 20% das vagas, e não 30%). A Alternativa E ignora o § 1º do art. 5º, que autoriza expressamente a exigência legal de outros requisitos em razão das atribuições do cargo."
+      },
+      {
+        id: 3,
+        tema: "Formas Regulares de Provimento de Cargos",
+        artigo: "Art. 8º",
+        enunciado: "O preenchimento de posições funcionais existentes na Administração Pública Federal opera-se por meio do provimento de cargos, o qual pode se manifestar de maneira originária ou derivada. À luz do rol taxativo consignado no art. 8º da Lei nº 8.112/1990 e das restrições constitucionais vigentes, assinale a alternativa que apresenta exclusivamente formas regulares de provimento de cargo público:",
+        options: [
+          { letter: "A", text: "Nomeação, readaptação, reversão e reintegração." },
+          { letter: "B", text: "Ascensão funcional, recondução, aproveitamento e promoção." },
+          { letter: "C", text: "Nomeação, redistribuição funcional, remoção a pedido e recondução." },
+          { letter: "D", text: "Transferência, readaptação, reversão e nomeação temporária." },
+          { letter: "E", text: "Aproveitamento, reintegração, progressão profissional e cessão entre órgãos." }
+        ],
+        correct: "A",
+        resolucao: "O gabarito oficial corresponde à Alternativa A. O art. 8º da Lei nº 8.112/1990 estabelece o rol taxativo das formas de provimento admitidas na esfera federal: nomeação (única originária), promoção, readaptação, reversão, aproveitamento, reintegração e recondução. Apenas a alternativa A traz elementos estritamente contidos nesse rol positivo.<br><br>Análise das demais alternativas: Em B, a 'ascensão funcional' foi banida pela CF/88 (Súmula Vinculante nº 43 do STF). Em C, redistribuição (art. 37) e remoção (art. 36) são modalidades de deslocamento do cargo e do servidor, não de provimento. Em D, a transferência foi revogada pela Lei nº 9.527/1997 em razão de inconstitucionalidade, e contratação temporária segue a Lei nº 8.745/1993 sem provimento de cargo efetivo. Em E, progressão é evolução dentro da mesma carreira e cessão é afastamento transitório (art. 93)."
+      },
+      {
+        id: 4,
+        tema: "Prazos, Formalidades e Efeitos da Posse",
+        artigo: "Art. 13, §§ 1º, 3º e 6º",
+        enunciado: "No que tange às solenidades, condições materiais e prazos legalmente estabelecidos para a posse em cargo público de provimento efetivo, em conformidade com as regras do art. 13 da Lei nº 8.112/1990, assinale a alternativa correta:",
+        options: [
+          { letter: "A", text: "A posse efetiva a investidura no cargo público e deve processar-se no prazo improrrogável de 15 (quinze) dias, contados a partir da data de publicação do ato de homologação definitiva do certame." },
+          { letter: "B", text: "A posse poderá ocorrer mediante procuração específica outorgada pelo nomeado, sendo dispensada a prévia submissão à junta médica oficial caso o candidato já pertença aos quadros da Administração Pública federal." },
+          { letter: "C", text: "A posse dar-se-á no prazo de 30 (trinta) dias, contados da publicação oficial do ato de provimento, restando estabelecido que o referido ato de provimento será tornado sem efeito se a posse não ocorrer tempestivamente." },
+          { letter: "D", text: "Transcorrido o lapso de 30 (trinta) dias sem que o cidadão regularmente nomeado se apresente para tomar posse, a autoridade competente deve deflagrar processo sumário para declarar sua demissão do serviço público." },
+          { letter: "E", text: "Em se tratando de candidato que esteja em gozo de licença maternidade ou em tratamento da própria saúde na data da nomeação, o prazo legal para a posse iniciar-se-á compulsoriamente no dia da publicação do provimento, sob pena de decadência." }
+        ],
+        correct: "C",
+        resolucao: "O gabarito oficial corresponde à Alternativa C. Segundo os ditames claros do art. 13, § 1º, da Lei nº 8.112/1990, a posse ocorrerá no prazo de 30 (trinta) dias, contados da publicação do ato de provimento. O § 6º do mesmo artigo prevê categoricamente que, se a posse não se concretizar no prazo previsto, o ato de provimento será tornado sem efeito.<br><br>Erros das demais assertivas: A alternativa A confunde os prazos (posse é de 30 dias a contar da publicação do provimento/nomeação, e não de 15 dias da homologação). A alternativa B erra ao aduzir dispensa de inspeção médica: a prévia inspeção médica oficial é sempre obrigatória para a posse (art. 13, § 6º). A alternativa D erra ao sugerir demissão: se o indivíduo não tomou posse, ele ainda não é servidor, logo o ato de nomeação é apenas tornado sem efeito. A alternativa E ignora o art. 13, § 2º, que estabelece que o prazo de 30 dias para posse do servidor em licença legal é contado a partir do término do impedimento."
+      },
+      {
+        id: 5,
+        tema: "Prazo de Exercício e Consequências de Inércia",
+        artigo: "Art. 15, §§ 1º e 2º",
+        enunciado: "Determinada candidata, após ser aprovada em concurso público e devidamente nomeada, compareceu ao órgão setorial de gestão de pessoas e tomou posse regular no cargo de provimento efetivo no âmbito do IFMG. Todavia, por motivos exclusivamente particulares, ela deixou de comparecer ao local de lotação para assumir as atribuições funcionais dentro do lapso temporal preconizado na norma legal de regência.<br><br>Considerando o que prescreve o art. 15 da Lei nº 8.112/1990 acerca do exercício funcional, assinale a alternativa correta quanto ao prazo legal e ao desfecho administrativo cabível:",
+        options: [
+          { letter: "A", text: "O prazo para o servidor entrar em exercício é de 30 (trinta) dias a contar da publicação da portaria de nomeação; descumprido esse prazo, será instaurado Processo Administrativo Disciplinar para apuração de abandono de cargo." },
+          { letter: "B", text: "O servidor dispõe de 15 (quinze) dias contados da publicação da homologação para entrar em exercício; a ausência de cumprimento tempestivo enseja a declaração de caducidade do concurso em relação ao candidato." },
+          { letter: "C", text: "O prazo legal para o servidor empossado em cargo público entrar em exercício é de 15 (quinze) dias, contados da data da posse, e a consequência legal de sua omissão consiste na sua exoneração do cargo." },
+          { letter: "D", text: "O prazo fixado pela legislação federal é de 15 (quinze) dias da posse; ocorrendo o decurso do prazo sem entrada em exercício, a autoridade administrativa deverá tornar sem efeito o ato de nomeação." },
+          { letter: "E", text: "O prazo para início do exercício é de 30 (trinta) dias contados da posse; caso não se apresente, a Administração determinará a suspensão do pagamento com aplicação da pena de advertência." }
+        ],
+        correct: "C",
+        resolucao: "O gabarito oficial corresponde à Alternativa C. De acordo com o art. 15, § 1º, da Lei nº 8.112/1990, 'é de quinze dias o prazo para o servidor empossado em cargo público entrar em exercício, contados da data da posse'. Conforme o § 2º do mesmo artigo, 'o servidor será exonerado do cargo, ou será tornado sem efeito o ato de sua designação para função de confiança, se não entrar em exercício de prazo estabelecido'. Como a candidata já havia tomado posse, já era servidora pública; assim, a consequência de sua inércia é a exoneração de ofício.<br><br>Pontos de atenção contra as pegadinhas clássicas da banca: Não tomou posse no prazo de 30 dias? O ato de provimento é tornado sem efeito. Tomou posse, mas não entrou em exercício no prazo de 15 dias? O servidor é exonerado."
+      },
+      {
+        id: 6,
+        tema: "Concurso Público, Validade e Homologação",
+        artigo: "Arts. 11 e 12",
+        enunciado: "A respeito das normas estatutárias federais relativas ao concurso público e à eficácia da homologação de seus resultados finais (arts. 11 e 12 da Lei nº 8.112/1990), assinale a afirmativa correta:",
+        options: [
+          { letter: "A", text: "O concurso público terá prazo de validade de até 2 (dois) anos, sendo facultada a sua prorrogação por uma única vez e por igual período." },
+          { letter: "B", text: "Os concursos públicos federais serão obrigatoriamente de provas e de títulos de forma cumulada, não se admitindo certames formatados unicamente com base em provas teóricas e práticas." },
+          { letter: "C", text: "O prazo de validade do certame e as instruções regulamentares serão formalizados em edital com publicação obrigatória exclusiva no portal eletrônico oficial da instituição promotora." },
+          { letter: "D", text: "Durante a vigência do prazo de validade do concurso, a Administração detém ampla discricionariedade para abrir novo concurso público para o mesmo cargo e priorizar a nomeação imediata dos aprovados na seleção mais recente." },
+          { letter: "E", text: "A homologação do certame é ato prévio e discricionário que deve ocorrer obrigatoriamente antes do julgamento dos recursos administrativos eventualmente impetrados contra o gabarito preliminar das provas objetivas." }
+        ],
+        correct: "A",
+        resolucao: "O gabarito oficial corresponde à Alternativa A. O art. 12 da Lei nº 8.112/1990 (em perfeita consonância com o art. 37, III, da Constituição Federal) dispõe que 'o concurso público terá validade de até 2 (dois) anos, podendo ser prorrogado uma única vez, por igual período'.<br><br>Erros dos demais itens: Em B, o art. 11 autoriza concurso apenas 'de provas' ou 'de provas e títulos', sendo a exigência de títulos facultativa conforme as atribuições do cargo. Em C, o art. 12, caput, determina publicação no Diário Oficial da União e em jornal de grande circulação. Em D, o art. 12, § 2º, proíbe expressamente a abertura de novo concurso enquanto houver candidato aprovado em concurso anterior com prazo de validade não expirado. Em E, a homologação encerra o certame e somente pode ocorrer após decididos todos os recursos."
+      },
+      {
+        id: 7,
+        tema: "Provimento Derivado: Reversão de Ofício",
+        artigo: "Art. 25, I",
+        enunciado: "Um servidor estável da carreira administrativa do IFMG sofreu grave patologia neurológica degenerativa, que resultou em laudo médico pericial conclusivo pela incapacidade permanente para o trabalho funcional, determinando sua aposentadoria por invalidez. Passados dois anos do ato de inativação, uma junta médica oficial da instituição reavaliou clinicamente o servidor e declarou, formal e fundamentadamente, que os motivos causadores da referida aposentadoria cessaram por completo e que o servidor encontra-se apto ao trabalho.<br><br>Diante do regramento estatuído pelo art. 25 da Lei nº 8.112/1990, o provimento derivado aplicável a essa hipótese é a:",
+        options: [
+          { letter: "A", text: "Reintegração de ofício, restabelecendo o agente no cargo de origem com indenização das remunerações relativas ao período em que permaneceu inativo." },
+          { letter: "B", text: "Reversão de ofício, consubstanciada no retorno à atividade funcional do servidor aposentado por invalidez quando a junta médica oficial declarar insubsistentes os motivos determinantes da aposentadoria." },
+          { letter: "C", text: "Recondução administrativa, que viabiliza a volta do servidor mediante opção expressa e independentemente da verificação de vaga no quadro de pessoal." },
+          { letter: "D", text: "Readaptação ex officio, acarretando a realocação imediata do agente em cargo de nível de vencimento superior para compensar o período de tratamento médico." },
+          { letter: "E", text: "Transferência médica de ofício, subordinada ao interesse particular do servidor aposentado e condicionada à abertura de novo concurso público." }
+        ],
+        correct: "B",
+        resolucao: "O gabarito oficial corresponde à Alternativa B. Conforme o art. 25, I, da Lei nº 8.112/1990, a reversão é o retorno à atividade de servidor aposentado por invalidez, quando junta médica oficial declarar insubsistentes os motivos da aposentadoria. Trata-se de hipótese vinculada de reversão de ofício.<br><br>Diferenciação necessária: Reintegração (art. 28) é o retorno do servidor demitido ilegalmente; Recondução (art. 29) é o retorno do servidor estável ao cargo anterior em razão de inabilitação em estágio ou reintegração do antigo titular; Readaptação (art. 24) ocorre com servidor em atividade que sofre limitação de sua capacidade física/mental; Transferência é instituto revogado e banido do ordenamento."
+      },
+      {
+        id: 8,
+        tema: "Reintegração e Destino do Ocupante da Vaga",
+        artigo: "Art. 28, §§ 1º e 2º",
+        enunciado: "Carlos, servidor público estável do IFMG, sofreu demissão após a tramitação de Processo Administrativo Disciplinar. Posteriormente, em ação judicial com trânsito em julgado, demonstrou-se cerceamento de defesa e ilegalidade formal insanável, culminando na anulação da demissão. Ocorre que, durante o trâmite processual, a vaga deixada por Carlos havia sido regularmente ocupada por Mariana, servidora aprovada e nomeada a partir de certame público ulterior.<br><br>Considerando o que preconiza o art. 28 da Lei nº 8.112/1990 para a reintegração e suas repercussões, assinale a alternativa que retrata a solução legal da controvérsia:",
+        options: [
+          { letter: "A", text: "Carlos retornará ao cargo por reintegração, com pleno ressarcimento de todas as vantagens pecuniárias e funcionais; Mariana, como ocupante da vaga, será reconduzida ao cargo de origem sem indenização, ou aproveitada em outro cargo, ou ainda posta em disponibilidade, se estável." },
+          { letter: "B", text: "Carlos será readaptado provisoriamente em cargo afim para manter os direitos de posse de Mariana, recebendo indenização unicamente moral pelas violações ocorridas no processo administrativo." },
+          { letter: "C", text: "A anulação da demissão de Carlos operará apenas efeito indenizatório em dinheiro perante a Fazenda Pública, sendo vedado o retorno funcional a fim de resguardar a estabilidade e a segurança jurídica de Mariana." },
+          { letter: "D", text: "Mariana será exonerada sumariamente do serviço público federal sem qualquer direito residual, e Carlos retornará ao cargo submetendo-se a novo período probatório por razões de atualização técnica." },
+          { letter: "E", text: "Carlos será revertido ao cargo primitivo com a condição de não receber valores pretéritos, enquanto Mariana permanecerá na mesma função em regime de coocupação funcional temporária." }
+        ],
+        correct: "A",
+        resolucao: "O gabarito oficial corresponde à Alternativa A. O art. 28 da Lei nº 8.112/1990 determina que a reintegração é a reinvestidura do servidor estável no cargo anteriormente ocupado, ou no cargo resultante de sua transformação, quando invalidada a sua demissão por decisão administrativa ou judicial, com ressarcimento de todas as vantagens. O § 2º do mesmo artigo estipula a situação do eventual ocupante da vaga: 'encontrando-se provido o cargo, o seu eventual ocupante será reconduzido ao cargo de origem, sem direito à indenização ou aproveitado em outro cargo, ou, ainda, posto em disponibilidade'.<br><br>As demais alternativas distorcem as regras: não há readaptação nem impedimento ao retorno físico de Carlos, tampouco exoneração sumária de servidor estável ou inexistente 'coocupação funcional'."
+      },
+      {
+        id: 9,
+        tema: "Hipóteses Normativas de Recondução",
+        artigo: "Art. 29 e parágrafo único",
+        enunciado: "De acordo com os preceitos do art. 29 da Lei nº 8.112/1990, a recondução figura como uma das formas de provimento derivado de cargos públicos federais. Assinale a afirmativa que apresenta os contornos normativos corretos desse instituto:",
+        options: [
+          { letter: "A", text: "A recondução é aplicável a todo e qualquer servidor, estável ou não estável, que seja reprovado em estágio probatório no âmbito de qualquer esfera governamental do território nacional." },
+          { letter: "B", text: "Recondução é a reinvestidura do servidor dispensado ou exonerado arbitrariamente por ato de autoridade superior, cabendo ao servidor indenização pelas perdas materiais ocorridas no período de desligamento." },
+          { letter: "C", text: "A recondução consiste no retorno do servidor estável ao cargo anteriormente ocupado, decorrendo de sua inabilitação em estágio probatório relativo a outro cargo ou da reintegração do anterior ocupante." },
+          { letter: "D", text: "Estando o cargo de origem provido por outro servidor de provimento efetivo, o servidor reconduzido será sumariamente demitido do serviço público em homenagem ao direito adquirido do ocupante mais recente." },
+          { letter: "E", text: "A recondução motivada por reintegração de antigo titular confere ao servidor reconduzido direito amplo à indenização pecuniária por eventuais perdas de padrão vencimental no cargo primitivo." }
+        ],
+        correct: "C",
+        resolucao: "O gabarito oficial corresponde à Alternativa C. Segundo o art. 29 da Lei nº 8.112/1990: 'Recondução é o retorno do servidor estável ao cargo anteriormente ocupado e decorrerá de: I - inabilitação em estágio probatório relativo a outro cargo; II - reintegração do anterior ocupante'.<br><br>Erros dos outros itens: Em A, a recondução exige que o servidor seja ESTÁVEL no cargo de origem. Em B, confunde recondução com reintegração. Em D, o parágrafo único do art. 29 diz que, se o cargo de origem estiver provido, o servidor será aproveitado em outro cargo, jamais demitido. Em E, o art. 28, § 2º veda expressamente o direito à indenização ao servidor reconduzido em virtude de reintegração."
+      },
+      {
+        id: 10,
+        tema: "Regras de Readaptação e Aproveitamento",
+        artigo: "Arts. 24, 30, 31 e 32",
+        enunciado: "No que tange aos regimes jurídicos da readaptação (art. 24) e do aproveitamento do servidor em disponibilidade (arts. 30 a 32 da Lei nº 8.112/1990), assinale a alternativa correta:",
+        options: [
+          { letter: "A", text: "A readaptação permite o enquadramento de servidor estável ou em estágio probatório em cargo de complexidade e padrão remuneratório substancialmente inferiores, aplicando-se proporcional redução sobre seu vencimento básico." },
+          { letter: "B", text: "Caso o laudo conclusivo de junta médica oficial ateste que o servidor que necessita de readaptação está incapaz para todo e qualquer trabalho no serviço público, o servidor será compulsoriamente aposentado." },
+          { letter: "C", text: "O aproveitamento é a forma de provimento derivado que possibilita o retorno à atividade do servidor que se aposentou voluntariamente, desde que haja conveniência da Administração e requerimento expresso do inativo." },
+          { letter: "D", text: "O retorno à atividade de servidor colocado em disponibilidade decorrente da extinção de cargo é facultativo e deve ocorrer por livre opção deste perante vagas abertas em concurso público." },
+          { letter: "E", text: "O servidor em disponibilidade que, convocado para o aproveitamento em cargo de atribuições e vencimentos compatíveis, não entrar em exercício tempestivamente sem justificativa médica oficial continuará em disponibilidade com suspensão temporária dos proventos." }
+        ],
+        correct: "B",
+        resolucao: "O gabarito oficial corresponde à Alternativa B. O art. 24, § 1º, da Lei nº 8.112/1990 determina textualmente que 'se julgado incapaz para o serviço público, o readaptando será aposentado'. Assim, constatada a incapacidade total e definitiva, cessa a possibilidade de readaptação e impõe-se a aposentadoria.<br><br>Erros dos demais itens: Em A, a readaptação exige respeito à habilitação exigida, nível de escolaridade e equivalência de vencimentos (art. 24, caput). Em C, retorno de aposentado é reversão (art. 25), enquanto aproveitamento é o retorno de quem está em disponibilidade remunerada (art. 30). Em D, o aproveitamento do disponível é obrigatório perante cargo de atribuições compatíveis. Em E, o art. 32 prevê sanção gravosa: será cassada a disponibilidade do servidor que não entrar em exercício no prazo legal, salvo doença comprovada por junta médica."
+      }
+    ];
+
+    // Estado do usuário
+    const userAnswers = {};
+
+    // Renderizar questões na página
+    function renderQuiz() {
+      const container = document.getElementById("questions-wrapper");
+      container.innerHTML = "";
+
+      quizData.forEach((q) => {
+        const card = document.createElement("div");
+        card.className = "question-card";
+        card.id = `card-q${q.id}`;
+
+        let optionsHtml = q.options.map(opt => `
+          <label class="option-label" id="opt-label-${q.id}-${opt.letter}">
+            <input type="radio" name="question_${q.id}" value="${opt.letter}" onchange="selectOption(${q.id}, '${opt.letter}')">
+            <span class="option-letter">${opt.letter})</span>
+            <span class="option-text">${opt.text}</span>
+          </label>
+        `).join("");
+
+        card.innerHTML = `
+          <div class="question-header">
+            <div class="question-number">Questão ${q.id}</div>
+            <div class="question-tag">${q.tema} (${q.artigo})</div>
+            <span class="badge-status" id="badge-status-${q.id}" style="display: none;"></span>
+          </div>
+          <div class="question-enunciado">
+            ${q.enunciado}
+          </div>
+          <div class="options-group">
+            ${optionsHtml}
+          </div>
+          <div class="resolution-box" id="resolution-${q.id}">
+            <div class="resolution-title">
+              <span>Fundamentação e Resolução Comentada</span>
+            </div>
+            <div class="resolution-body">
+              ${q.resolucao}
+            </div>
+          </div>
+        `;
+
+        container.appendChild(card);
+      });
+    }
+
+    // Seleção de alternativa
+    function selectOption(qId, letter) {
+      userAnswers[qId] = letter;
+
+      // Estilizar opção selecionada
+      const groupLabels = document.querySelectorAll(`[id^="opt-label-${qId}-"]`);
+      groupLabels.forEach(lbl => lbl.classList.remove("is-selected"));
+
+      const current = document.getElementById(`opt-label-${qId}-${letter}`);
+      if (current) current.classList.add("is-selected");
+
+      updateProgress();
+    }
+
+    // Atualização da barra de progresso
+    function updateProgress() {
+      const total = quizData.length;
+      const answered = Object.keys(userAnswers).length;
+      const pct = Math.round((answered / total) * 100);
+
+      document.getElementById("progress-text").textContent = `${answered} de ${total} respondidas`;
+      document.getElementById("progress-pct").textContent = `${pct}%`;
+      document.getElementById("progress-fill").style.width = `${pct}%`;
+    }
+
+    // Finalizar o Quiz e Revelar Gabaritos / Resoluções
+    function finalizarQuiz() {
+      const total = quizData.length;
+      const answered = Object.keys(userAnswers).length;
+
+      if (answered < total) {
+        const confirmar = confirm(`Você respondeu ${answered} de ${total} questões. Deseja finalizar e conferir as resoluções mesmo assim?`);
+        if (!confirmar) return;
+      }
+
+      let acertos = 0;
+      const summaryTbody = document.getElementById("gabarito-summary-body");
+      summaryTbody.innerHTML = "";
+
+      quizData.forEach((q) => {
+        const userChoice = userAnswers[q.id] || "Não respondeu";
+        const isCorreta = userChoice === q.correct;
+        if (isCorreta) acertos++;
+
+        // Exibir e colorir opções no card
+        q.options.forEach(opt => {
+          const optLabel = document.getElementById(`opt-label-${q.id}-${opt.letter}`);
+          const inputRadio = optLabel.querySelector("input");
+          inputRadio.disabled = true;
+
+          if (opt.letter === q.correct) {
+            optLabel.classList.add("option-correct");
+          } else if (opt.letter === userChoice && !isCorreta) {
+            optLabel.classList.add("option-wrong");
+          } else {
+            optLabel.classList.add("option-dimmed");
+          }
+        });
+
+        // Atualizar crachá de acerto/erro
+        const badge = document.getElementById(`badge-status-${q.id}`);
+        badge.style.display = "inline-block";
+        if (isCorreta) {
+          badge.textContent = "Acertou";
+          badge.className = "badge-status acertou";
+        } else {
+          badge.textContent = userChoice === "Não respondeu" ? "Em Branco" : "Errou";
+          badge.className = "badge-status errou";
+        }
+
+        // Revelar resolução comentada na mesma página
+        const resBox = document.getElementById(`resolution-${q.id}`);
+        resBox.style.display = "block";
+
+        // Linha na tabela geral de gabarito
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+          <td><strong>Questão ${q.id}</strong></td>
+          <td><span style="font-weight: 700; color: ${isCorreta ? 'var(--success-text)' : 'var(--danger-text)'}">${userChoice}</span></td>
+          <td><strong style="color: var(--success-text);">${q.correct}</strong></td>
+          <td>${q.tema}</td>
+          <td>
+            <span class="badge-status ${isCorreta ? 'acertou' : 'errou'}">
+              ${isCorreta ? 'Correta' : (userChoice === "Não respondeu" ? 'Em branco' : 'Incorreta')}
+            </span>
+          </td>
+        `;
+        summaryTbody.appendChild(tr);
+      });
+
+      // Atualizar bloco de pontuação
+      const pctScore = Math.round((acertos / total) * 100);
+      document.getElementById("score-val").textContent = acertos;
+      
+      let msg = "";
+      let submsg = "";
+      if (acertos >= 9) {
+        msg = "Excelente aproveitamento! Nível de aprovação.";
+        submsg = `Você obteve ${pctScore}% de acertos. Domínio consistente dos arts. 1º a 32 da Lei nº 8.112/1990.`;
+      } else if (acertos >= 7) {
+        msg = "Bom desempenho! Ajuste pequenos detalhes.";
+        submsg = `Você obteve ${pctScore}% de acertos. Fique atento às pegadinhas clássicas de prazos e formas derivadas.`;
+      } else {
+        msg = "Oportunidade de revisão teórica.";
+        submsg = `Você obteve ${pctScore}% de acertos. Leia atentamente as resoluções comentadas abaixo para consolidar cada dispositivo.`;
+      }
+
+      document.getElementById("score-msg").textContent = msg;
+      document.getElementById("score-submsg").textContent = submsg;
+
+      // Exibir seção de resultado e botões
+      const resSection = document.getElementById("results-section");
+      resSection.style.display = "block";
+      document.getElementById("btn-submit-quiz").style.display = "none";
+      document.getElementById("btn-reset-quiz").style.display = "inline-block";
+
+      // Scroll suave até o sumário de resultados
+      resSection.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+
+    // Reiniciar Simulado
+    function reiniciarQuiz() {
+      if (!confirm("Deseja reiniciar todas as respostas e refazer o simulado?")) return;
+
+      for (const k in userAnswers) {
+        delete userAnswers[k];
+      }
+
+      document.getElementById("results-section").style.display = "none";
+      document.getElementById("btn-submit-quiz").style.display = "inline-block";
+      document.getElementById("btn-reset-quiz").style.display = "none";
+
+      renderQuiz();
+      updateProgress();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    // Inicialização ao carregar página
+    document.addEventListener("DOMContentLoaded", () => {
+      renderQuiz();
+      updateProgress();
+    });
+  </script>
+</body>
+</html>

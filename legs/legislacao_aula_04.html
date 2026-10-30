@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lei nº 8.112/1990: Disposições Preliminares e Provimento | Concurso IFMG</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #ffffff;
+      color: #1e293b; /* Slate 800: excelente contraste e descanso visual */
+      line-height: 1.7;
+    }
+    /* Estilização para grifos e destaques visuais */
+    .grifo {
+      background-color: #fef08a; /* Amarelo suave */
+      color: #713f12; /* Texto castanho escuro legível */
+      padding: 0.12rem 0.35rem;
+      border-radius: 0.25rem;
+      font-weight: 600;
+    }
+    .grifo-alerta {
+      background-color: #fee2e2; /* Vermelho claro */
+      color: #991b1b;
+      padding: 0.12rem 0.35rem;
+      border-radius: 0.25rem;
+      font-weight: 600;
+    }
+    .grifo-prazo {
+      background-color: #e0f2fe; /* Azul claro suave */
+      color: #0369a1;
+      padding: 0.12rem 0.35rem;
+      border-radius: 0.25rem;
+      font-weight: 700;
+    }
+    /* Tabelas responsivas com quebra de palavras para eliminar qualquer scroll horizontal */
+    table {
+      width: 100% !important;
+      table-layout: fixed;
+      border-collapse: collapse;
+      word-break: break-word;
+      overflow-wrap: break-word;
+    }
+    th, td {
+      word-wrap: break-word;
+      hyphens: auto;
+    }
+  </style>
+</head>
+<body class="bg-white min-h-screen">
+
+  <!-- Barra Superior de Navegação / Identificação -->
+  <header class="border-b border-slate-200 bg-white sticky top-0 z-40 shadow-sm">
+    <div class="max-w-5xl mx-auto px-4 py-3 flex flex-wrap items-center justify-between gap-3">
+      <div class="flex items-center space-x-2">
+        <span class="inline-block w-3 h-3 rounded-full bg-emerald-600"></span>
+        <span class="text-xs sm:text-sm font-semibold tracking-wide text-slate-700 uppercase">
+          IFMG • Magistério EBTT (Geografia) • Legislação Específica
+        </span>
+      </div>
+      <a href="questões.html" class="inline-flex items-center text-xs sm:text-sm font-medium text-slate-700 hover:text-slate-950 bg-slate-100 hover:bg-slate-200 px-3 py-1.5 rounded-lg border border-slate-300 transition-colors">
+        Acessar Questões &rarr;
+      </a>
+    </div>
+  </header>
+
+  <!-- Conteúdo Principal -->
+  <main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+
+    <!-- Seção do Reprodutor de Áudio MP3 -->
+    <section class="mb-10 bg-slate-50 border border-slate-200 rounded-2xl p-5 sm:p-6 shadow-sm">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-4">
+        <div>
+          <div class="flex items-center gap-2">
+            <svg class="w-6 h-6 text-slate-700" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path>
+            </svg>
+            <h2 class="text-base sm:text-lg font-bold text-slate-900">Áudio da Aula (Estudo Auditivo / Revisão)</h2>
+          </div>
+          <p class="text-xs sm:text-sm text-slate-600 mt-1">
+            Ouça o conteúdo sintetizado enquanto acompanha os tópicos grifados.
+          </p>
+        </div>
+
+        <!-- Indicação do arquivo MP3 -->
+        <div class="text-xs bg-white px-3 py-1.5 rounded-md border border-slate-300 text-slate-600 flex items-center gap-1.5">
+          <span class="font-medium text-slate-500">Arquivo atual:</span>
+          <code id="current-filename" class="font-mono text-slate-800 font-semibold">aula_lei8112.mp3</code>
+        </div>
+      </div>
+
+      <!-- Player de Áudio HTML5 -->
+      <audio id="audioPlayer" controls class="w-full h-11 focus:outline-none">
+        <!-- O arquivo MP3 deve ficar na mesma pasta deste HTML -->
+        <source id="audioSource" src="aula_lei8112.mp3" type="audio/mpeg">
+        Seu navegador não suporta a execução de áudio HTML5.
+      </audio>
+
+      <!-- Painel simples para o usuário alterar o nome do arquivo se desejar via tela -->
+      <div class="mt-4 pt-3 border-t border-slate-200 flex flex-wrap items-center justify-between gap-2 text-xs text-slate-500">
+        <span>Para utilizar outro arquivo de áudio presente na mesma pasta:</span>
+        <div class="flex items-center gap-2">
+          <input type="text" id="audioNameInput" placeholder="ex: minha_aula.mp3" class="px-2 py-1 text-xs border border-slate-300 rounded bg-white text-slate-800 focus:outline-none focus:ring-1 focus:ring-slate-400">
+          <button onclick="updateAudioSource()" class="px-2.5 py-1 bg-slate-800 hover:bg-slate-900 text-white rounded font-medium">Carregar</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Título Principal da Aula -->
+    <header class="mb-10 text-center sm:text-left">
+      <span class="inline-block bg-slate-100 text-slate-800 text-xs font-semibold px-2.5 py-1 rounded-md border border-slate-300 mb-3">
+        Edital Magistério EBTT • IFMG (Banca Própria Reitoria)
+      </span>
+      <h1 class="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-slate-900 tracking-tight leading-tight">
+        Regime Jurídico Estatutário Federal: Disposições Preliminares, Investidura e Provimento na Lei nº 8.112/1990
+      </h1>
+      <p class="mt-3 text-sm sm:text-base text-slate-600">
+        Foco estratégico: Título I (arts. 1º a 4º) e Título II, Capítulo I (arts. 5º a 22 e 24 a 32). Análise técnica, prazos cruciais, formas de provimento e tópicos literais de acerto na prova objetiva.
+      </p>
+    </header>
+
+    <!-- Introdução Contextual -->
+    <div class="prose max-w-none text-slate-700 text-sm sm:text-base mb-10 leading-relaxed border-l-4 border-slate-400 pl-4 bg-slate-50 py-3 rounded-r-lg">
+      <p>
+        A compreensão do regime jurídico instituído pela <strong>Lei Federal nº 8.112, de 11 de dezembro de 1990</strong>, revela-se basilar na estruturação do Estado contemporâneo e figura como disciplina de destaque nos editais formulados pela Comissão Central de Concurso Público do <strong>Instituto Federal de Minas Gerais (IFMG)</strong>. No certame destinado ao provimento de cargos da Carreira de Magistério do Ensino Básico, Técnico e Tecnológico (EBTT), a exigência de conhecimentos legislativos transcende o domínio puramente mnemônico, requerendo a apreensão dos encadeamentos lógicos que regem o provimento, a investidura e o exercício dos servidores públicos federais. O delineamento dos Títulos I e II da referida norma articula postulados constitucionais da Administração Pública a uma ordem estatutária rígida, desenhada para coibir o patrimonialismo e resguardar a impessoalidade no acesso às funções estatais permanentes.
+      </p>
+    </div>
+
+    <!-- SEÇÃO 1: Disposições Preliminares (Arts. 1º a 4º) -->
+    <section class="mb-12">
+      <div class="border-b border-slate-200 pb-2 mb-5">
+        <h2 class="text-xl sm:text-2xl font-bold text-slate-900 flex items-center gap-2">
+          <span class="flex items-center justify-center w-7 h-7 rounded-md bg-slate-800 text-white text-sm font-bold">1</span>
+          Disposições Preliminares e Arquitetura Institucional (Arts. 1º a 4º)
+        </h2>
+      </div>
+
+      <p class="text-sm sm:text-base text-slate-700 mb-4 leading-relaxed">
+        A aplicação do regime estatutário federal abarca a administração pública direta, as autarquias e as fundações públicas federais dos três Poderes da União. Ao ser estruturado pela <span class="grifo">Lei nº 11.892/2008</span> como autarquia federal vinculada ao Ministério da Educação, o <strong>IFMG submete integralmente os seus quadros de pessoal permanente</strong> — tanto docentes quanto técnico-administrativos — aos preceitos da Lei nº 8.112/1990. A ordem jurídica consagra distinções terminológicas precisas nos artigos inaugurais que estabelecem a base subjetiva e funcional da relação administrativa:
+      </p>
+
+      <div class="space-y-4 mb-6">
+        <div class="p-4 rounded-xl border border-slate-200 bg-white">
+          <h3 class="font-bold text-slate-900 text-base mb-1">
+            • Conceito de Servidor Público (Art. 2º):
+          </h3>
+          <p class="text-sm sm:text-base text-slate-700">
+            Configura a <span class="grifo">pessoa física legalmente investida em cargo público</span>. A existência da condição de servidor pressupõe o ato regular e solene de <strong>investidura</strong> (que ocorre com a posse), não bastando a aprovação em certame ou a designação administrativa precária.
+          </p>
+        </div>
+
+        <div class="p-4 rounded-xl border border-slate-200 bg-white">
+          <h3 class="font-bold text-slate-900 text-base mb-1">
+            • Conceito e Características de Cargo Público (Art. 3º):
+          </h3>
+          <p class="text-sm sm:text-base text-slate-700">
+            Compreende a unidade estrutural básica do organograma estatal, caracterizada como o <span class="grifo">conjunto de atribuições e responsabilidades cometidas a um servidor</span>, dotada de denominação própria, número certo, remuneração suportada pelos cofres públicos e <strong>criação privativa mediante lei em sentido estrito</strong>. Os cargos subdividem-se em:
+          </p>
+          <ul class="list-disc list-inside mt-2 text-sm sm:text-base text-slate-700 space-y-1 pl-2">
+            <li><strong>Cargos de Provimento Efetivo:</strong> Providos privativamente por meio de concurso público de provas ou de provas e títulos.</li>
+            <li><strong>Cargos de Provimento em Comissão:</strong> Destinados exclusivamente às atribuições de <em>direção, chefia e assessoramento</em>, de livre nomeação e livre exoneração.</li>
+          </ul>
+        </div>
+
+        <div class="p-4 rounded-xl border border-slate-200 bg-white">
+          <h3 class="font-bold text-slate-900 text-base mb-1">
+            • Princípio da Vedação de Serviços Gratuitos (Art. 4º):
+          </h3>
+          <p class="text-sm sm:text-base text-slate-700">
+            É <span class="grifo-alerta">terminantemente vedada</span> a prestação de serviços gratuitos à Administração Pública Federal, excepcionando-se unicamente os casos expressamente <span class="grifo">previstos em lei</span> (a exemplo do exercício do munus público de jurado do Tribunal do Júri e de mesário da Justiça Eleitoral).
+          </p>
+        </div>
+      </div>
+
+      <!-- Tabela 1: Sem Scroll Horizontal -->
+      <div class="border border-slate-300 rounded-xl overflow-hidden mb-6">
+        <table class="w-full text-xs sm:text-sm text-left">
+          <thead class="bg-slate-100 text-slate-800 uppercase font-bold border-b border-slate-300 text-[11px] sm:text-xs">
+            <tr>
+              <th class="p-2.5 sm:p-3 w-1/4">Componente Estrutural</th>
+              <th class="p-2.5 sm:p-3 w-2/5">Regra Legal (Lei nº 8.112/1990)</th>
+              <th class="p-2.5 sm:p-3 w-1/3">Pegadinha / Fraude da Banca</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-200 bg-white text-slate-700">
+            <tr>
+              <td class="p-2.5 sm:p-3 font-semibold text-slate-900">Criação e Extinção de Cargos</td>
+              <td class="p-2.5 sm:p-3">Privativa de <span class="grifo">lei em sentido formal</span> (Art. 3º).</td>
+              <td class="p-2.5 sm:p-3 text-slate-600">Afirmar viabilidade de criação por Decreto do Reitor ou Resolução do Conselho Superior.</td>
+            </tr>
+            <tr>
+              <td class="p-2.5 sm:p-3 font-semibold text-slate-900">Vínculo Jurídico</td>
+              <td class="p-2.5 sm:p-3"><span class="grifo">Estatutário</span>, regido por lei federal (Arts. 1º e 2º).</td>
+              <td class="p-2.5 sm:p-3 text-slate-600">Confundir o regime do docente efetivo com CLT ou contrato temporário.</td>
+            </tr>
+            <tr>
+              <td class="p-2.5 sm:p-3 font-semibold text-slate-900">Gratuidade Laboral</td>
+              <td class="p-2.5 sm:p-3"><span class="grifo-alerta">Vedada como regra geral</span>; exceções somente com previsão em lei (Art. 4º).</td>
+              <td class="p-2.5 sm:p-3 text-slate-600">Defender voluntariado genérico como hipótese padrão sem arrimo legal específico.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Síntese de Memorização 1 -->
+      <div class="bg-slate-50 border border-slate-200 rounded-xl p-4 sm:p-5">
+        <h4 class="font-bold text-slate-900 text-sm uppercase tracking-wider mb-2 flex items-center gap-1.5">
+          <span class="text-amber-600">📌</span> Síntese de Memorização: Disposições Iniciais
+        </h4>
+        <ul class="list-disc list-inside space-y-1.5 text-xs sm:text-sm text-slate-700">
+          <li><strong>Servidor:</strong> Pessoa legalmente <span class="grifo">investida em cargo público</span> federal.</li>
+          <li><strong>Cargo Público:</strong> Criação exclusiva por <strong>lei</strong>, denominação própria, número certo e estipêndio pago pelos cofres da União.</li>
+          <li><strong>Divisão funcional:</strong> Provimento efetivo (concurso) ou em comissão (livre destituição/provimento para direção, chefia e assessoramento).</li>
+          <li><strong>Trabalho gratuito:</strong> Proibido em termos absolutos, ressalvadas designações compulsórias expressas em lei formal.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- SEÇÃO 2: Condições de Acesso, Requisitos de Investidura e Concurso (Arts. 5º a 12) -->
+    <section class="mb-12">
+      <div class="border-b border-slate-200 pb-2 mb-5">
+        <h2 class="text-xl sm:text-2xl font-bold text-slate-900 flex items-center gap-2">
+          <span class="flex items-center justify-center w-7 h-7 rounded-md bg-slate-800 text-white text-sm font-bold">2</span>
+          Condições de Acesso, Requisitos de Investidura e Concurso Público (Arts. 5º a 12)
+        </h2>
+      </div>
+
+      <p class="text-sm sm:text-base text-slate-700 mb-4 leading-relaxed">
+        O ingresso na carreira do magistério e nas funções públicas federais é balizado pela aferição prévia de idoneidade jurídica, higidez física e capacitação técnica. O artigo 5º da norma institui os requisitos universais de acesso, que coexistem com as regras gerais de certames previstas nos artigos 11 e 12.
+      </p>
+
+      <div class="mb-6">
+        <h3 class="font-bold text-slate-900 text-base mb-2">Requisitos Básicos de Investidura (Art. 5º)</h3>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm sm:text-base">
+          <div class="p-3 border border-slate-200 rounded-lg bg-white flex items-start gap-2">
+            <span class="font-bold text-slate-800">1.</span>
+            <span><strong class="text-slate-900">Nacionalidade brasileira</strong> (admitida a naturalização).</span>
+          </div>
+          <div class="p-3 border border-slate-200 rounded-lg bg-white flex items-start gap-2">
+            <span class="font-bold text-slate-800">2.</span>
+            <span><strong class="text-slate-900">Gozo dos direitos políticos</strong> em sua plenitude.</span>
+          </div>
+          <div class="p-3 border border-slate-200 rounded-lg bg-white flex items-start gap-2">
+            <span class="font-bold text-slate-800">3.</span>
+            <span><strong class="text-slate-900">Quitação</strong> com as obrigações militares e eleitorais.</span>
+          </div>
+          <div class="p-3 border border-slate-200 rounded-lg bg-white flex items-start gap-2">
+            <span class="font-bold text-slate-800">4.</span>
+            <span><strong class="text-slate-900">Nível de escolaridade exigido</strong> para o exercício do cargo (ex: Licenciatura/Bacharelado em Geografia + titulação requerida no edital).</span>
+          </div>
+          <div class="p-3 border border-slate-200 rounded-lg bg-white flex items-start gap-2">
+            <span class="font-bold text-slate-800">5.</span>
+            <span><strong class="text-slate-900">Idade mínima de 18 anos</strong> completos.</span>
+          </div>
+          <div class="p-3 border border-slate-200 rounded-lg bg-white flex items-start gap-2">
+            <span class="font-bold text-slate-800">6.</span>
+            <span><strong class="text-slate-900">Aptidão física e mental</strong> comprovada em inspeção pericial oficial prévia.</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Regras Especiais para IFs -->
+      <div class="space-y-3 mb-6">
+        <div class="p-4 rounded-xl border border-slate-200 bg-white">
+          <h4 class="font-bold text-slate-900 text-sm sm:text-base mb-1">
+            • Pessoas com Deficiência — PcD (§ 2º do Art. 5º):
+          </h4>
+          <p class="text-sm sm:text-base text-slate-700">
+            Fica resguardado o direito de inscrição em certame para atribuições compatíveis com a deficiência, assegurando-se a reserva de <span class="grifo-prazo">até 20% (vinte por cento)</span> das vagas ofertadas no edital do concurso.
+          </p>
+        </div>
+
+        <div class="p-4 rounded-xl border border-slate-200 bg-white">
+          <h4 class="font-bold text-slate-900 text-sm sm:text-base mb-1">
+            • Estrangeiros no Magistério Federal (§ 3º do Art. 5º):
+          </h4>
+          <p class="text-sm sm:text-base text-slate-700">
+            A legislação autoriza expressamente o provimento de cargos de <span class="grifo">professores, técnicos e cientistas estrangeiros</span> nas universidades e nas instituições federais de ensino e pesquisa técnica/científica (abarcando expressamente os Institutos Federais). A investidura prescinde de naturalização prévia, observados os critérios em lei específica.
+          </p>
+        </div>
+      </div>
+
+      <!-- Regime de Concurso e Homologação -->
+      <div class="mb-6 p-4 rounded-xl border border-slate-200 bg-white space-y-3 text-sm sm:text-base text-slate-700">
+        <h3 class="font-bold text-slate-900 text-base">Regime do Concurso Público e Homologação (Arts. 11 e 12)</h3>
+        <p>
+          <strong>Natureza das Provas:</strong> O concurso será de provas ou de <em>provas e títulos</em>. Para a carreira docente (EBTT), a modalidade de provas e títulos é obrigatória.
+        </p>
+        <p>
+          <strong>Prazo de Validade:</strong> O certame terá validade de <span class="grifo-prazo">até 2 (dois) anos</span>, podendo ser prorrogado <span class="grifo">uma única vez, por igual período</span>. A prorrogação é ato discricionário da Administração e só pode ocorrer dentro do prazo de vigência original.
+        </p>
+        <p>
+          <strong>Homologação e Ordem Convocatória:</strong> A homologação pelo Reitor publica o resultado oficial definitivo e deflagra o início do prazo de validade. Enquanto houver candidato aprovado em concurso anterior com prazo de vigência não expirado, veda-se a posse de novo concursado em preterição dos primeiros (§ 2º do Art. 12).
+        </p>
+      </div>
+
+      <!-- Tabela 2: Sem Scroll Horizontal -->
+      <div class="border border-slate-300 rounded-xl overflow-hidden mb-6">
+        <table class="w-full text-xs sm:text-sm text-left">
+          <thead class="bg-slate-100 text-slate-800 uppercase font-bold border-b border-slate-300 text-[11px] sm:text-xs">
+            <tr>
+              <th class="p-2.5 sm:p-3 w-1/4">Parâmetro do Certame</th>
+              <th class="p-2.5 sm:p-3 w-2/5">Fixação Legal (Lei nº 8.112/1990)</th>
+              <th class="p-2.5 sm:p-3 w-1/3">Desvio Comum em Questões</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-200 bg-white text-slate-700">
+            <tr>
+              <td class="p-2.5 sm:p-3 font-semibold text-slate-900">Prazo Máximo Inicial</td>
+              <td class="p-2.5 sm:p-3"><span class="grifo-prazo">Até 2 anos</span> (pode ser fixado em prazo inferior, ex: 1 ano).</td>
+              <td class="p-2.5 sm:p-3 text-slate-600">Afirmar que a validade é obrigatoriamente e invariavelmente de 2 anos.</td>
+            </tr>
+            <tr>
+              <td class="p-2.5 sm:p-3 font-semibold text-slate-900">Regra de Prorrogação</td>
+              <td class="p-2.5 sm:p-3"><span class="grifo">Uma única vez, por período estritamente igual</span>.</td>
+              <td class="p-2.5 sm:p-3 text-slate-600">Alegar prorrogações sucessivas ou por tempo distinto do inicial.</td>
+            </tr>
+            <tr>
+              <td class="p-2.5 sm:p-3 font-semibold text-slate-900">Reserva para PcD</td>
+              <td class="p-2.5 sm:p-3">Limite máximo de <span class="grifo-prazo">até 20%</span> das vagas ofertadas.</td>
+              <td class="p-2.5 sm:p-3 text-slate-600">Indicar percentual fixo obrigatório de 20% ou superior a este teto legal.</td>
+            </tr>
+            <tr>
+              <td class="p-2.5 sm:p-3 font-semibold text-slate-900">Ingresso de Estrangeiro</td>
+              <td class="p-2.5 sm:p-3">Permitido para <span class="grifo">professores, técnicos e cientistas</span> em IFs e Universidades federais.</td>
+              <td class="p-2.5 sm:p-3 text-slate-600">Apontar veto absoluto por ausência de nacionalidade brasileira.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Síntese de Memorização 2 -->
+      <div class="bg-slate-50 border border-slate-200 rounded-xl p-4 sm:p-5">
+        <h4 class="font-bold text-slate-900 text-sm uppercase tracking-wider mb-2 flex items-center gap-1.5">
+          <span class="text-amber-600">📌</span> Síntese de Memorização: Acesso e Concursos
+        </h4>
+        <ul class="list-disc list-inside space-y-1.5 text-xs sm:text-sm text-slate-700">
+          <li><strong>Requisitos Básicos:</strong> Gozo de direitos políticos, quitação militar/eleitoral, nível de escolaridade, maioridade (18 anos) e aptidão física/mental comprovada em perícia oficial.</li>
+          <li><strong>Momento da comprovação dos requisitos:</strong> Comprovados exclusivamente na <span class="grifo">POSSE</span>, e não na inscrição do concurso (Súmula 266 do STJ).</li>
+          <li><strong>Cotas PcD:</strong> Até o teto de 20% das vagas do edital.</li>
+          <li><strong>Docência Estrangeira:</strong> Expressamente admitida para professores e pesquisadores nos Institutos Federais (§ 3º do Art. 5º).</li>
+          <li><strong>Validade:</strong> Até 2 anos, prorrogável uma única vez por período exatamente idêntico.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- SEÇÃO 3: Dinâmica Cronológica da Investidura (Arts. 13 a 22) -->
+    <section class="mb-12">
+      <div class="border-b border-slate-200 pb-2 mb-5">
+        <h2 class="text-xl sm:text-2xl font-bold text-slate-900 flex items-center gap-2">
+          <span class="flex items-center justify-center w-7 h-7 rounded-md bg-slate-800 text-white text-sm font-bold">3</span>
+          Dinâmica Cronológica da Investidura: Da Nomeação ao Efetivo Exercício (Arts. 13 a 22)
+        </h2>
+      </div>
+
+      <p class="text-sm sm:text-base text-slate-700 mb-4 leading-relaxed">
+        A formalização do vínculo entre o Estado e o servidor perpassa um encadeamento de atos administrativos vinculados e sucessivos. O ordenamento estatutário opera a cisão temporal entre o chamamento da Administração (<span class="font-semibold text-slate-900">Nomeação</span>), a aceitação jurídica solene (<span class="font-semibold text-slate-900">Posse</span>) e o efetivo desempenho do plexo de atribuições laborais (<span class="font-semibold text-slate-900">Exercício</span>).
+      </p>
+
+      <!-- Linha do Tempo Visual Simplificada -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-3 mb-6 text-center text-xs sm:text-sm">
+        <div class="p-3 rounded-xl border border-slate-200 bg-white shadow-xs">
+          <span class="block text-slate-500 font-semibold mb-1">Passo 1</span>
+          <span class="font-bold text-slate-900 text-base">NOMEAÇÃO</span>
+          <span class="block text-slate-600 mt-1">Ato unilateral publicado no DOU</span>
+        </div>
+        <div class="p-3 rounded-xl border-2 border-slate-800 bg-white shadow-xs">
+          <span class="block text-slate-500 font-semibold mb-1">Passo 2 • Prazo: <span class="text-sky-700 font-bold">30 dias</span></span>
+          <span class="font-bold text-slate-900 text-base">POSSE (Investidura)</span>
+          <span class="block text-slate-600 mt-1">Assinatura do termo de compromisso</span>
+        </div>
+        <div class="p-3 rounded-xl border border-slate-200 bg-white shadow-xs">
+          <span class="block text-slate-500 font-semibold mb-1">Passo 3 • Prazo: <span class="text-sky-700 font-bold">15 dias</span></span>
+          <span class="font-bold text-slate-900 text-base">EXERCÍCIO</span>
+          <span class="block text-slate-600 mt-1">Início das aulas e atividades práticas</span>
+        </div>
+      </div>
+
+      <div class="space-y-4 mb-6 text-sm sm:text-base text-slate-700 leading-relaxed">
+        <p>
+          A cadeia principia com a <strong>Nomeação</strong>, ato administrativo unilateral de provimento publicado no Diário Oficial da União. A publicação desse ato deflagra o prazo peremptório para a <strong>Posse</strong>, momento solene que marca formalmente a <span class="grifo">investidura no cargo público</span> (§ 1º do Art. 7º e Art. 13). A posse exige a assinatura do respectivo termo de compromisso, exigindo previamente aptidão pericial física e mental, além de formal declaração de bens e valores patrimoniais e sobre inexistência de acumulação ilícita de cargos.
+        </p>
+
+        <div class="p-4 rounded-xl border-l-4 border-amber-500 bg-amber-50/40">
+          <p class="font-semibold text-slate-900 mb-1">Prazo e Consequência da Omissão na Posse:</p>
+          <p>
+            O prazo legal para a posse é de <span class="grifo-prazo">30 (trinta) dias</span> contados improrrogavelmente da publicação do ato de nomeação no DOU. Caso o nomeado permaneça inerte, o ato de provimento é <span class="grifo-alerta">TORNADO SEM EFEITO</span>. <em>Não ocorre exoneração</em>, visto que o candidato ainda não foi investido no cargo.
+          </p>
+          <p class="mt-2 text-xs sm:text-sm text-slate-600">
+            * <strong>Posse por Procuração:</strong> <span class="grifo">É expressamente admitida</span> por instrumento público com poderes especiais (§ 3º do Art. 13).
+          </p>
+        </div>
+
+        <p>
+          Consumada a posse, inaugura-se a etapa do <strong>Exercício</strong> (Art. 15), consubstanciado no efetivo desempenho das funções do cargo docente. O prazo estatuído pela Lei nº 8.112/1990 para o ingresso em exercício é de <span class="grifo-prazo">15 (quinze) dias</span>, calculados estritamente da data da <span class="grifo">posse</span>. Ao revés da posse, o exercício encerra dever <strong>personalíssimo e indelegável</strong>, sendo vedada posse ou exercício por procuração nessa fase.
+        </p>
+
+        <div class="p-4 rounded-xl border-l-4 border-red-500 bg-red-50/40">
+          <p class="font-semibold text-slate-900 mb-1">Prazo e Consequência da Omissão no Exercício:</p>
+          <p>
+            Se o servidor já empossado não entrar em exercício dentro do interstício improrrogável de <span class="grifo-prazo">15 dias</span>, será <span class="grifo-alerta">EXONERADO DE OFÍCIO</span> (§ 2º do Art. 15). Como a posse formalizou a investidura, há vínculo jurídico estabelecido; sua ruptura comina a extinção do liame através da exoneração de ofício.
+          </p>
+        </div>
+
+        <p>
+          <strong>Prazo de Trânsito para Nova Sede (Art. 18):</strong> O servidor que for removido, redistribuído, requisitado, cedido ou posto em exercício provisório em outra localidade terá prazo de <span class="grifo-prazo">no mínimo 10 (dez) e no máximo 30 (trinta) dias</span> de trânsito, contados da publicação do ato, para reassumir o desempenho funcional na nova comarca ou campus de destino, computado o tempo de deslocamento.
+        </p>
+      </div>
+
+      <!-- Tabela 3: Sem Scroll Horizontal -->
+      <div class="border border-slate-300 rounded-xl overflow-hidden mb-6">
+        <table class="w-full text-xs sm:text-sm text-left">
+          <thead class="bg-slate-100 text-slate-800 uppercase font-bold border-b border-slate-300 text-[11px] sm:text-xs">
+            <tr>
+              <th class="p-2 sm:p-2.5 w-[18%]">Etapa</th>
+              <th class="p-2 sm:p-2.5 w-[17%]">Prazo Legal</th>
+              <th class="p-2 sm:p-2.5 w-[25%]">Termo Inicial</th>
+              <th class="p-2 sm:p-2.5 w-[25%]">Efeito do Descumprimento</th>
+              <th class="p-2 sm:p-2.5 w-[15%]">Procuração</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-200 bg-white text-slate-700">
+            <tr>
+              <td class="p-2 sm:p-2.5 font-bold text-slate-900">Posse</td>
+              <td class="p-2 sm:p-2.5"><span class="grifo-prazo">30 dias</span> corridos</td>
+              <td class="p-2 sm:p-2.5">Publicação da Nomeação no DOU</td>
+              <td class="p-2 sm:p-2.5"><span class="grifo-alerta">Ato tornado sem efeito</span></td>
+              <td class="p-2 sm:p-2.5 text-emerald-800 font-semibold">Admitida (poderes específicos)</td>
+            </tr>
+            <tr>
+              <td class="p-2 sm:p-2.5 font-bold text-slate-900">Exercício</td>
+              <td class="p-2 sm:p-2.5"><span class="grifo-prazo">15 dias</span> corridos</td>
+              <td class="p-2 sm:p-2.5">Data da assinatura da Posse</td>
+              <td class="p-2 sm:p-2.5"><span class="grifo-alerta">Exoneração de ofício</span></td>
+              <td class="p-2 sm:p-2.5 text-red-800 font-semibold">Vedada (personalíssimo)</td>
+            </tr>
+            <tr>
+              <td class="p-2 sm:p-2.5 font-bold text-slate-900">Trânsito</td>
+              <td class="p-2 sm:p-2.5"><span class="grifo-prazo">10 a 30 dias</span></td>
+              <td class="p-2 sm:p-2.5">Publicação do ato de deslocamento</td>
+              <td class="p-2 sm:p-2.5 text-slate-600">Falta e sanção disciplinar</td>
+              <td class="p-2 sm:p-2.5 text-red-800 font-semibold">Vedada</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Síntese de Memorização 3 -->
+      <div class="bg-slate-50 border border-slate-200 rounded-xl p-4 sm:p-5">
+        <h4 class="font-bold text-slate-900 text-sm uppercase tracking-wider mb-2 flex items-center gap-1.5">
+          <span class="text-amber-600">📌</span> Síntese de Memorização: Prazos e Consequências
+        </h4>
+        <ul class="list-disc list-inside space-y-1.5 text-xs sm:text-sm text-slate-700">
+          <li><strong>Nomeação &rarr; Posse:</strong> 30 dias. Não tomou posse? <span class="grifo-alerta">Ato tornado sem efeito</span>.</li>
+          <li><strong>Posse &rarr; Exercício:</strong> 15 dias. Não entrou em exercício? <span class="grifo-alerta">Exoneração de ofício</span>.</li>
+          <li><strong>Momento exato da investidura:</strong> Consolida-se com a <span class="grifo">POSSE</span>.</li>
+          <li><strong>Posse por mandato:</strong> Juridicamente permitida mediante procuração pública específica.</li>
+          <li><strong>Exercício por mandato:</strong> Absolutamente nulo e vedado pela ordem estatutária.</li>
+          <li><strong>Deslocamento/Trânsito:</strong> Mínimo de 10 e máximo de 30 dias.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- SEÇÃO 4: Taxonomia do Provimento: Originário e Derivado (Arts. 8º a 32) -->
+    <section class="mb-12">
+      <div class="border-b border-slate-200 pb-2 mb-5">
+        <h2 class="text-xl sm:text-2xl font-bold text-slate-900 flex items-center gap-2">
+          <span class="flex items-center justify-center w-7 h-7 rounded-md bg-slate-800 text-white text-sm font-bold">4</span>
+          Taxonomia do Provimento: Modalidade Originária e Formas Derivadas (Arts. 8º a 32)
+        </h2>
+      </div>
+
+      <p class="text-sm sm:text-base text-slate-700 mb-4 leading-relaxed">
+        O provimento designa o ato administrativo de preenchimento de vaga em cargo público. O ordenamento distingue o provimento <em>originário</em> (que instaura relação jurídica inaugural e autônoma) do provimento <em>derivado</em> (que pressupõe vínculo prévio entre o servidor e a Administração).
+      </p>
+
+      <div class="p-4 rounded-xl border border-slate-200 bg-white mb-6">
+        <h3 class="font-bold text-slate-900 text-base mb-1">A Nomeação como Único Provimento Originário</h3>
+        <p class="text-sm sm:text-base text-slate-700 leading-relaxed">
+          Com a promulgação da Constituição de 1988 e a consolidação da jurisprudência do STF (<span class="grifo">Súmula Vinculante nº 43</span>), a <strong>Nomeação é a única forma de provimento originário</strong> admissível no ordenamento pátrio. As antigas formas derivadas de <em>ascensão</em>, <em>transferência</em> e <em>transposição</em> funcional, que permitiam mudar de carreira sem novo concurso, foram integralmente banidas por inconstitucionalidade.
+        </p>
+      </div>
+
+      <!-- Detalhamento das 5 Formas de Provimento Derivado -->
+      <div class="space-y-4 mb-6">
+
+        <!-- Readaptação -->
+        <div class="p-4 rounded-xl border border-slate-200 bg-white">
+          <div class="flex items-center justify-between mb-2">
+            <h3 class="text-base font-bold text-slate-900">1. Readaptação (Art. 24)</h3>
+            <span class="text-xs bg-slate-100 font-semibold px-2 py-0.5 rounded text-slate-700">Provimento + Vacância</span>
+          </div>
+          <p class="text-sm sm:text-base text-slate-700 mb-2 leading-relaxed">
+            É a investidura do servidor em cargo de atribuições e responsabilidades compatíveis com a <span class="grifo">limitação física ou mental</span> que tenha sofrido, atestada por junta médica oficial.
+          </p>
+          <ul class="list-disc list-inside text-xs sm:text-sm text-slate-700 space-y-1 pl-1">
+            <li>Exige equivalência de vencimentos e de grau de escolaridade.</li>
+            <li><strong>Se não houver vaga disponível:</strong> O servidor exercerá suas atribuições como <span class="grifo">EXCEDENTE</span> até a vacância regular (§ 2º do Art. 24).</li>
+            <li>Se a perícia atestar incapacidade total e permanente para qualquer função: gera <span class="font-semibold text-slate-900">aposentadoria por invalidez</span>.</li>
+            <li>Constitui ato híbrido: acarreta simultaneamente o <strong>provimento</strong> no novo cargo e a <strong>vacância</strong> no cargo primitivo (Art. 33, VI).</li>
+          </ul>
+        </div>
+
+        <!-- Reversão -->
+        <div class="p-4 rounded-xl border border-slate-200 bg-white">
+          <div class="flex items-center justify-between mb-2">
+            <h3 class="text-base font-bold text-slate-900">2. Reversão (Art. 25)</h3>
+            <span class="text-xs bg-slate-100 font-semibold px-2 py-0.5 rounded text-slate-700">Retorno do Aposentado</span>
+          </div>
+          <p class="text-sm sm:text-base text-slate-700 mb-2 leading-relaxed">
+            Consiste no <span class="grifo">retorno à atividade do servidor aposentado</span>. Ocorre em duas modalidades com requisitos bem distintos:
+          </p>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-2 text-xs sm:text-sm">
+            <div class="p-3 bg-slate-50 rounded-lg border border-slate-200">
+              <span class="font-bold text-slate-900 block mb-1">A) Reversão de Ofício (por Invalidez):</span>
+              Declarada insubsistente por junta médica a incapacidade que motivou a aposentadoria. Se não houver vaga, reassume na condição de <span class="grifo">excedente</span>.
+            </div>
+            <div class="p-3 bg-slate-50 rounded-lg border border-slate-200">
+              <span class="font-bold text-slate-900 block mb-1">B) Reversão a Pedido (Interesse da Administração):</span>
+              Ato discricionário. Exige 5 requisitos cumulativos:
+              <ol class="list-decimal list-inside mt-1 space-y-0.5 text-slate-700">
+                <li>Requerimento formal do servidor;</li>
+                <li>Aposentadoria voluntária;</li>
+                <li>Estabilidade enquanto na ativa;</li>
+                <li>Aposentadoria concedida há <span class="grifo-prazo">no máximo 5 anos</span>;</li>
+                <li>Existência obrigatória de <span class="grifo">cargo vago</span>.</li>
+              </ol>
+            </div>
+          </div>
+          <p class="text-xs text-slate-500 mt-2">
+            * <strong>Limite etário:</strong> Em qualquer hipótese, veda-se a reversão a quem atingiu a idade da aposentadoria compulsória (70/75 anos).
+          </p>
+        </div>
+
+        <!-- Reintegração -->
+        <div class="p-4 rounded-xl border border-slate-200 bg-white">
+          <div class="flex items-center justify-between mb-2">
+            <h3 class="text-base font-bold text-slate-900">3. Reintegração (Art. 28)</h3>
+            <span class="text-xs bg-slate-100 font-semibold px-2 py-0.5 rounded text-slate-700">Anulação de Demissão Ilegal</span>
+          </div>
+          <p class="text-sm sm:text-base text-slate-700 mb-2 leading-relaxed">
+            É a reinvestidura do servidor <span class="grifo">estável</span> no cargo anteriormente ocupado, quando sua demissão for invalidada por decisão judicial ou administrativa, com <span class="grifo">RESSARCIMENTO INTEGRAL</span> de todos os vencimentos, direitos e vantagens devidas.
+          </p>
+          <div class="p-3 bg-slate-50 rounded-lg border border-slate-200 text-xs sm:text-sm">
+            <span class="font-bold text-slate-900 block mb-1">Destino do eventual terceiro que ocupava a vaga do reintegrado:</span>
+            <ul class="list-disc list-inside space-y-1 text-slate-700">
+              <li><strong>Se for servidor ESTÁVEL:</strong> É <span class="grifo">reconduzido</span> ao cargo de origem, aproveitado em outro cargo ou colocado em disponibilidade remunerada, expressamente <span class="grifo-alerta">SEM INDENIZAÇÃO</span>.</li>
+              <li><strong>Se for servidor NÃO ESTÁVEL (em estágio probatório):</strong> Será sumariamente <span class="grifo-alerta">exonerado de ofício</span>, sem direito a recondução ou disponibilidade.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Recondução -->
+        <div class="p-4 rounded-xl border border-slate-200 bg-white">
+          <div class="flex items-center justify-between mb-2">
+            <h3 class="text-base font-bold text-slate-900">4. Recondução (Art. 29)</h3>
+            <span class="text-xs bg-slate-100 font-semibold px-2 py-0.5 rounded text-slate-700">Retorno do Estável ao Cargo Anterior</span>
+          </div>
+          <p class="text-sm sm:text-base text-slate-700 mb-2 leading-relaxed">
+            Retorno do servidor <span class="grifo">estável</span> ao cargo público de que era titular outrora, <span class="grifo-alerta">SEM DIREITO A INDENIZAÇÃO</span>. Ocorre estritamente em duas situações fáticas:
+          </p>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs sm:text-sm">
+            <div class="p-2.5 bg-slate-50 border border-slate-200 rounded-md">
+              <strong>1. Inabilitação ou desistência</strong> em estágio probatório referente a outro cargo público federal.
+            </div>
+            <div class="p-2.5 bg-slate-50 border border-slate-200 rounded-md">
+              <strong>2. Reintegração do titular</strong> original daquele cargo (efeito reflexo da reintegração alheia).
+            </div>
+          </div>
+          <p class="text-xs text-slate-600 mt-2">
+            * Se o cargo anterior do reconduzido estiver extinto ou provido, ele será aproveitado em outro correlato ou posto em disponibilidade.
+          </p>
+        </div>
+
+        <!-- Aproveitamento -->
+        <div class="p-4 rounded-xl border border-slate-200 bg-white">
+          <div class="flex items-center justify-between mb-2">
+            <h3 class="text-base font-bold text-slate-900">5. Aproveitamento (Arts. 30 a 32)</h3>
+            <span class="text-xs bg-slate-100 font-semibold px-2 py-0.5 rounded text-slate-700">Retorno de Quem Estava em Disponibilidade</span>
+          </div>
+          <p class="text-sm sm:text-base text-slate-700 mb-2 leading-relaxed">
+            Retorno obrigatório à atividade do servidor estável que se encontrava em <span class="grifo">disponibilidade remunerada</span> (em decorrência da extinção do seu cargo ou declaração formal de sua desnecessidade).
+          </p>
+          <p class="text-xs sm:text-sm text-slate-700">
+            <strong>Penalidade por inércia:</strong> Convocado para o aproveitamento em cargo de atribuições e vencimentos equivalentes, se o servidor não entrar em exercício no prazo legal (salvo doença comprovada por junta médica oficial), o ato de aproveitamento será tornado sem efeito e haverá a <span class="grifo-alerta">CASSAÇÃO DA DISPONIBILIDADE</span> (perda definitiva do cargo e da remuneração).
+          </p>
+        </div>
+
+      </div>
+
+      <!-- Tabela 4: Sem Scroll Horizontal -->
+      <div class="border border-slate-300 rounded-xl overflow-hidden mb-6">
+        <table class="w-full text-xs sm:text-sm text-left">
+          <thead class="bg-slate-100 text-slate-800 uppercase font-bold border-b border-slate-300 text-[11px] sm:text-xs">
+            <tr>
+              <th class="p-2 sm:p-2.5 w-[20%]">Forma Derivada</th>
+              <th class="p-2 sm:p-2.5 w-[35%]">Causa Deflagradora</th>
+              <th class="p-2 sm:p-2.5 w-[20%]">Estabilidade?</th>
+              <th class="p-2 sm:p-2.5 w-[25%]">Destino se Não Houver Vaga</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-200 bg-white text-slate-700">
+            <tr>
+              <td class="p-2 sm:p-2.5 font-bold text-slate-900">Readaptação</td>
+              <td class="p-2 sm:p-2.5">Limitação na capacidade física ou mental atestada por perícia médica.</td>
+              <td class="p-2 sm:p-2.5 text-slate-600">Não exigida</td>
+              <td class="p-2 sm:p-2.5">Atua como <span class="grifo">excedente</span> até surgir vaga.</td>
+            </tr>
+            <tr>
+              <td class="p-2 sm:p-2.5 font-bold text-slate-900">Reversão</td>
+              <td class="p-2 sm:p-2.5">Retorno de servidor aposentado (invalidez insubsistente ou a pedido).</td>
+              <td class="p-2 sm:p-2.5"><span class="grifo">Sim</span> (na modalidade a pedido)</td>
+              <td class="p-2 sm:p-2.5">Na invalidez: excedente. A pedido: impossível reverter.</td>
+            </tr>
+            <tr>
+              <td class="p-2 sm:p-2.5 font-bold text-slate-900">Reintegração</td>
+              <td class="p-2 sm:p-2.5">Anulação formal de demissão ilegal (via decisão judicial ou administrativa).</td>
+              <td class="p-2 sm:p-2.5"><span class="grifo">Sim, indispensável</span></td>
+              <td class="p-2 sm:p-2.5">Se cargo extinto, fica em <span class="grifo">disponibilidade</span> remunerada.</td>
+            </tr>
+            <tr>
+              <td class="p-2 sm:p-2.5 font-bold text-slate-900">Recondução</td>
+              <td class="p-2 sm:p-2.5">Reprovação em novo probatório ou reintegração do antigo titular.</td>
+              <td class="p-2 sm:p-2.5"><span class="grifo">Sim, indispensável</span></td>
+              <td class="p-2 sm:p-2.5">Aproveitamento em cargo afim ou disponibilidade.</td>
+            </tr>
+            <tr>
+              <td class="p-2 sm:p-2.5 font-bold text-slate-900">Aproveitamento</td>
+              <td class="p-2 sm:p-2.5">Convocação de servidor que estava posto em disponibilidade.</td>
+              <td class="p-2 sm:p-2.5"><span class="grifo">Sim</span> (pressuposto da disp.)</td>
+              <td class="p-2 sm:p-2.5">Permanece em disponibilidade aguardando função correlata.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Mnemônico Funcional -->
+      <div class="bg-slate-50 border border-slate-200 rounded-xl p-4 sm:p-5">
+        <h4 class="font-bold text-slate-900 text-sm uppercase tracking-wider mb-2 flex items-center gap-1.5">
+          <span class="text-amber-600">💡</span> Mnemônico Funcional dos Provimentos Derivados com "RE"
+        </h4>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs sm:text-sm text-slate-700">
+          <div class="p-2.5 bg-white border border-slate-200 rounded-lg">
+            <strong><span class="text-indigo-800">RE</span>-adaptação:</strong> O servidor <span class="grifo">REcupera-se</span> de limitação e assume cargo com atribuições compatíveis.
+          </div>
+          <div class="p-2.5 bg-white border border-slate-200 rounded-lg">
+            <strong><span class="text-indigo-800">RE</span>-versão:</strong> O aposentado <span class="grifo">REtorna</span> à ativa (<span class="italic">"o velho reverte"</span>).
+          </div>
+          <div class="p-2.5 bg-white border border-slate-200 rounded-lg">
+            <strong><span class="text-indigo-800">RE</span>-integração:</strong> Demitido <span class="grifo">REgressa com Reparação</span> financeira integral dos proventos perdidos.
+          </div>
+          <div class="p-2.5 bg-white border border-slate-200 rounded-lg">
+            <strong><span class="text-indigo-800">RE</span>-condução:</strong> Servidor estável <span class="grifo">REpete</span> o cargo anterior (probatório ou terceiro reintegrado), <span class="grifo-alerta">SEM</span> indenização.
+          </div>
+          <div class="p-2.5 bg-white border border-slate-200 rounded-lg sm:col-span-2">
+            <strong><span class="text-indigo-800">A</span>-proveitamento:</strong> O servidor em disponibilidade é <span class="grifo">Aproveitado</span> perante a vaga pública aberta.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SEÇÃO 5: Matriz de Pegadinhas Recorrentes da Banca IFMG -->
+    <section class="mb-12">
+      <div class="border-b border-slate-200 pb-2 mb-5">
+        <h2 class="text-xl sm:text-2xl font-bold text-slate-900 flex items-center gap-2">
+          <span class="flex items-center justify-center w-7 h-7 rounded-md bg-slate-800 text-white text-sm font-bold">5</span>
+          Matriz de Pegadinhas Recorrentes da Banca Examinadora (IFMG)
+        </h2>
+      </div>
+
+      <div class="space-y-4">
+
+        <div class="border border-slate-200 rounded-xl p-4 sm:p-5 bg-white">
+          <h3 class="font-bold text-slate-900 text-base mb-1 text-red-900">
+            ⚠️ Pegadinha 1: Inversão Operacional entre Posse e Exercício
+          </h3>
+          <p class="text-xs sm:text-sm text-slate-600 mb-2">
+            <strong>Como a banca tenta enganar:</strong> Afirma que a omissão na posse gera a "exoneração do candidato", ou que não entrar em exercício torna a posse "sem efeito".
+          </p>
+          <div class="p-3 bg-slate-50 rounded-lg border-l-4 border-slate-800 text-xs sm:text-sm text-slate-800">
+            <strong>Gabarito Correto:</strong>
+            <ul class="list-disc list-inside mt-1 space-y-0.5">
+              <li>Não tomou posse em 30 dias? O provimento é <span class="grifo-alerta">TORNADO SEM EFEITO</span> (não era servidor).</li>
+              <li>Não entrou em exercício em 15 dias? O servidor empossado é <span class="grifo-alerta">EXONERADO DE OFÍCIO</span> (já era servidor investido).</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="border border-slate-200 rounded-xl p-4 sm:p-5 bg-white">
+          <h3 class="font-bold text-slate-900 text-base mb-1 text-red-900">
+            ⚠️ Pegadinha 2: Pressupostos Temporais da Reversão a Pedido
+          </h3>
+          <p class="text-xs sm:text-sm text-slate-600 mb-2">
+            <strong>Como a banca tenta enganar:</strong> Apresenta caso prático de docente aposentado há 8 ou 10 anos pedindo reversão voluntária e diz que a chefia do IFMG tem discricionariedade para deferir.
+          </p>
+          <div class="p-3 bg-slate-50 rounded-lg border-l-4 border-slate-800 text-xs sm:text-sm text-slate-800">
+            <strong>Gabarito Correto:</strong> A reversão a pedido possui barreira temporal rígida: a aposentadoria deve ter ocorrido <span class="grifo-prazo">nos 5 (cinco) anos anteriores</span> ao pedido. Decorrido o quinquênio legal, a reversão é expressamente nula e vedada pelo Art. 25, II, "d".
+          </div>
+        </div>
+
+        <div class="border border-slate-200 rounded-xl p-4 sm:p-5 bg-white">
+          <h3 class="font-bold text-slate-900 text-base mb-1 text-red-900">
+            ⚠️ Pegadinha 3: Destino do Terceiro na Reintegração
+          </h3>
+          <p class="text-xs sm:text-sm text-slate-600 mb-2">
+            <strong>Como a banca tenta enganar:</strong> Diz que quem ocupava a vaga do servidor reintegrado receberá polpuda indenização pecuniária pelo transtorno de ser desalojado.
+          </p>
+          <div class="p-3 bg-slate-50 rounded-lg border-l-4 border-slate-800 text-xs sm:text-sm text-slate-800">
+            <strong>Gabarito Correto:</strong> Se o ocupante for estável, é reconduzido ao seu cargo anterior expressamente <span class="grifo-alerta">SEM INDENIZAÇÃO</span>. E se não for estável (em estágio probatório), é sumariamente <span class="grifo-alerta">exonerado de ofício</span>, sem recondução nem disponibilidade.
+          </div>
+        </div>
+
+        <div class="border border-slate-200 rounded-xl p-4 sm:p-5 bg-white">
+          <h3 class="font-bold text-slate-900 text-base mb-1 text-red-900">
+            ⚠️ Pegadinha 4: Ausência de Cargo Vago na Readaptação
+          </h3>
+          <p class="text-xs sm:text-sm text-slate-600 mb-2">
+            <strong>Como a banca tenta enganar:</strong> Diz que, não havendo vaga disponível para readaptar o docente com limitações físicas, este será posto imediatamente em disponibilidade remunerada proporcional.
+          </p>
+          <div class="p-3 bg-slate-50 rounded-lg border-l-4 border-slate-800 text-xs sm:text-sm text-slate-800">
+            <strong>Gabarito Correto:</strong> Se não houver cargo vago no momento da readaptação, o servidor atuará formalmente como <span class="grifo">EXCEDENTE</span> até que surja vaga no quadro permanente (§ 2º do Art. 24).
+          </div>
+        </div>
+
+        <div class="border border-slate-200 rounded-xl p-4 sm:p-5 bg-white">
+          <h3 class="font-bold text-slate-900 text-base mb-1 text-red-900">
+            ⚠️ Pegadinha 5: Representação por Procuração na Posse vs Exercício
+          </h3>
+          <p class="text-xs sm:text-sm text-slate-600 mb-2">
+            <strong>Como a banca tenta enganar:</strong> Diz que tanto a posse quanto o exercício podem ser praticados por procurador habilitado, ou que ambos são atos personalíssimos indelegáveis.
+          </p>
+          <div class="p-3 bg-slate-50 rounded-lg border-l-4 border-slate-800 text-xs sm:text-sm text-slate-800">
+            <strong>Gabarito Correto:</strong> A <span class="grifo">POSSE PODE</span> ser tomada mediante procuração com poderes específicos (§ 3º do Art. 13). Todavia, o <span class="grifo-alerta">EXERCÍCIO NUNCA</span> pode ser delegado por procuração, pois traduz a atividade física e laboral direta do docente em sala e no campus.
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SEÇÃO 6: Síntese Estruturada para o Dia da Prova -->
+    <section class="mb-14">
+      <div class="border-b border-slate-200 pb-2 mb-5">
+        <h2 class="text-xl sm:text-2xl font-bold text-slate-900 flex items-center gap-2">
+          <span class="flex items-center justify-center w-7 h-7 rounded-md bg-slate-800 text-white text-sm font-bold">6</span>
+          Checklist de Memorização Rápida para o Dia da Prova
+        </h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+
+        <!-- Card Prazos -->
+        <div class="p-4 rounded-xl border border-slate-200 bg-white">
+          <h3 class="font-bold text-slate-900 text-sm uppercase tracking-wide border-b border-slate-200 pb-2 mb-3">
+            ⏱️ Prazos Decisivos
+          </h3>
+          <ul class="text-xs sm:text-sm space-y-2 text-slate-700">
+            <li><strong>Posse:</strong> <span class="grifo-prazo">30 dias</span> da publicação. Omissão = <em>ato tornado sem efeito</em>.</li>
+            <li><strong>Exercício:</strong> <span class="grifo-prazo">15 dias</span> da posse. Omissão = <em>exoneração de ofício</em>.</li>
+            <li><strong>Trânsito de comarca:</strong> <span class="grifo-prazo">10 a 30 dias</span> para assunção na nova sede.</li>
+            <li><strong>Validade de Concurso:</strong> Até <span class="grifo-prazo">2 anos</span>, prorrogável uma vez por igual período.</li>
+            <li><strong>Reserva PcD:</strong> Até <span class="grifo-prazo">20%</span> das vagas do certame.</li>
+          </ul>
+        </div>
+
+        <!-- Card Provimentos -->
+        <div class="p-4 rounded-xl border border-slate-200 bg-white">
+          <h3 class="font-bold text-slate-900 text-sm uppercase tracking-wide border-b border-slate-200 pb-2 mb-3">
+            🔄 Guia dos Provimentos
+          </h3>
+          <ul class="text-xs sm:text-sm space-y-2 text-slate-700">
+            <li><strong>Nomeação:</strong> Única modalidade <span class="grifo">originária</span>.</li>
+            <li><strong>Readaptação:</strong> Limitação de higidez; sem vaga, assume como <span class="grifo">excedente</span>.</li>
+            <li><strong>Reversão:</strong> Retorno de aposentado; a pedido só se voluntária e até <span class="grifo-prazo">5 anos</span>.</li>
+            <li><strong>Reintegração:</strong> Demissão anulada com <span class="grifo">ressarcimento integral</span>.</li>
+            <li><strong>Recondução:</strong> Retorno do estável anterior <span class="grifo-alerta">SEM indenização</span>.</li>
+            <li><strong>Aproveitamento:</strong> Retorno da disponibilidade remunerada.</li>
+          </ul>
+        </div>
+
+        <!-- Card Balizas -->
+        <div class="p-4 rounded-xl border border-slate-200 bg-white">
+          <h3 class="font-bold text-slate-900 text-sm uppercase tracking-wide border-b border-slate-200 pb-2 mb-3">
+            ⚖️ Balizas e Proibições
+          </h3>
+          <ul class="text-xs sm:text-sm space-y-2 text-slate-700">
+            <li><strong>Criação de cargos:</strong> Sempre privativa de <span class="grifo">lei em sentido estrito</span>.</li>
+            <li><strong>Serviços gratuitos:</strong> <span class="grifo-alerta">Vedados</span> como regra; só com autorização legal expressa.</li>
+            <li><strong>Ascensão e Transferência:</strong> Banidas por inconstitucionalidade (SV 43 STF).</li>
+            <li><strong>Docência estrangeira:</strong> Autorizada expressamente para IFs e Universidades (§ 3º, Art. 5º).</li>
+            <li><strong>Posse vs Exercício:</strong> Posse aceita procuração; exercício jamais.</li>
+          </ul>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Chamada / Botão de Navegação para Questões -->
+    <section class="border-t border-slate-200 pt-8 pb-12 text-center">
+      <div class="max-w-xl mx-auto p-6 rounded-2xl bg-slate-50 border border-slate-200 shadow-sm">
+        <h3 class="text-lg font-bold text-slate-900 mb-2">Pronto para testar a sua fixação?</h3>
+        <p class="text-xs sm:text-sm text-slate-600 mb-5">
+          Avance para o caderno prático e treine o conteúdo com exercícios comentados no estilo da Banca do IFMG.
+        </p>
+        <a href="questoes4legs.html" class="inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-slate-900 hover:bg-slate-800 text-white text-sm sm:text-base font-semibold rounded-xl shadow transition-all duration-200">
+          <span>Ir para Questões de Fixação</span>
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+          </svg>
+        </a>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Rodapé Simples e Neutro -->
+  <footer class="border-t border-slate-200 py-6 bg-white text-center text-xs text-slate-500">
+    <p>Material Didático Preparatório para o Magistério EBTT (Geografia) • IFMG • Lei nº 8.112/1990</p>
+  </footer>
+
+  <!-- Script para troca facilitada de áudio dinamicamente via tela -->
+  <script>
+    function updateAudioSource() {
+      var input = document.getElementById('audioNameInput');
+      var filename = input.value.trim();
+      if (!filename) {
+        return;
+      }
+      var player = document.getElementById('audioPlayer');
+      var source = document.getElementById('audioSource');
+      var label = document.getElementById('current-filename');
+      
+      source.src = filename;
+      label.textContent = filename;
+      player.load();
+      input.value = '';
+    }
+  </script>
+</body>
+</html>
