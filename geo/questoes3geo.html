@@ -1,0 +1,1034 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simulado de Cartografia Básica – IFMG</title>
+
+  <!-- KaTeX para renderização tipográfica precisa de fórmulas matemáticas -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
+
+  <style>
+    /* Reset e Configurações Tipográficas para Leitura Prolongada */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      /* Paleta de cores com fundo suave e alto contraste ergonômico */
+      --bg-body: #FBFBFA;
+      --bg-card: #FFFFFF;
+      --bg-muted: #F3F4F1;
+      --text-main: #24292F;
+      --text-secondary: #4A5568;
+      --text-muted: #6B7280;
+      --border-color: #E2E4DE;
+      --border-focus: #2B6CB0;
+      --primary: #1E3A8A;
+      --primary-hover: #1D4ED8;
+      --accent-green: #15803D;
+      --accent-green-bg: #F0FDF4;
+      --accent-green-border: #86EFAC;
+      --accent-red: #B91C1C;
+      --accent-red-bg: #FEF2F2;
+      --accent-red-border: #FCA5A5;
+      --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05);
+      --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.04);
+      --font-body: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Merriweather", "Charter", Georgia, serif;
+      --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-body);
+      color: var(--text-main);
+      font-family: var(--font-body);
+      font-size: 1.0625rem;
+      line-height: 1.72;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      padding: 2.5rem 1rem 6rem;
+    }
+
+    .container {
+      max-width: 860px;
+      margin: 0 auto;
+    }
+
+    /* Cabeçalho Institucional */
+    .header-box {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 2.25rem 2rem;
+      margin-bottom: 2rem;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .badge-institution {
+      display: inline-block;
+      font-family: var(--font-sans);
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--primary);
+      background-color: #EFF6FF;
+      border: 1px solid #BFDBFE;
+      padding: 0.25rem 0.65rem;
+      border-radius: 4px;
+      margin-bottom: 0.75rem;
+    }
+
+    .header-box h1 {
+      font-family: var(--font-sans);
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: var(--text-main);
+      line-height: 1.3;
+      margin-bottom: 0.75rem;
+    }
+
+    .header-box p {
+      font-size: 0.95rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    /* Barra de Progresso Fixo */
+    .progress-bar-container {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      padding: 0.75rem 1.25rem;
+      margin-bottom: 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-family: var(--font-sans);
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+    }
+
+    .progress-track {
+      flex: 1;
+      height: 8px;
+      background: #E5E7EB;
+      border-radius: 999px;
+      margin: 0 1rem;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      width: 0%;
+      height: 100%;
+      background: var(--primary);
+      transition: width 0.3s ease;
+    }
+
+    /* Cartão da Questão */
+    .question-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 2rem;
+      margin-bottom: 2rem;
+      box-shadow: var(--shadow-sm);
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .question-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.25rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .question-number {
+      font-family: var(--font-sans);
+      font-weight: 700;
+      font-size: 1.15rem;
+      color: var(--primary);
+    }
+
+    .question-topic {
+      font-family: var(--font-sans);
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      background: var(--bg-muted);
+      padding: 0.2rem 0.55rem;
+      border-radius: 4px;
+    }
+
+    .question-statement {
+      margin-bottom: 1.5rem;
+      text-align: justify;
+      color: var(--text-main);
+    }
+
+    .question-statement p {
+      margin-bottom: 0.85rem;
+    }
+
+    .question-statement ul {
+      margin-left: 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .question-statement li {
+      margin-bottom: 0.4rem;
+    }
+
+    /* Lista de Alternativas */
+    .options-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .option-label {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.9rem;
+      padding: 0.95rem 1.15rem;
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      cursor: pointer;
+      background: #FFFFFF;
+      transition: all 0.2s ease;
+      font-size: 0.975rem;
+      line-height: 1.55;
+    }
+
+    .option-label:hover {
+      background-color: #F8FAFC;
+      border-color: #CBD5E1;
+    }
+
+    .option-label input[type="radio"] {
+      margin-top: 0.28rem;
+      accent-color: var(--primary);
+      width: 1.15rem;
+      height: 1.15rem;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+
+    .option-letter {
+      font-family: var(--font-sans);
+      font-weight: 700;
+      color: var(--text-secondary);
+      flex-shrink: 0;
+    }
+
+    .option-text {
+      flex: 1;
+      color: var(--text-main);
+    }
+
+    /* Estados de Resposta após Correção */
+    .option-label.is-correct-answer {
+      background-color: var(--accent-green-bg) !important;
+      border-color: var(--accent-green-border) !important;
+    }
+
+    .option-label.is-correct-answer .option-letter,
+    .option-label.is-correct-answer .option-text {
+      color: #14532D !important;
+      font-weight: 500;
+    }
+
+    .option-label.is-wrong-answer {
+      background-color: var(--accent-red-bg) !important;
+      border-color: var(--accent-red-border) !important;
+    }
+
+    .option-label.is-wrong-answer .option-letter,
+    .option-label.is-wrong-answer .option-text {
+      color: #7F1D1D !important;
+    }
+
+    .feedback-tag {
+      display: none;
+      font-family: var(--font-sans);
+      font-size: 0.78rem;
+      font-weight: 600;
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+      margin-left: auto;
+      flex-shrink: 0;
+    }
+
+    .option-label.is-correct-answer .feedback-tag.correct-tag {
+      display: inline-block;
+      background: #DCFCE7;
+      color: #166534;
+    }
+
+    .option-label.is-wrong-answer .feedback-tag.wrong-tag {
+      display: inline-block;
+      background: #FEE2E2;
+      color: #991B1B;
+    }
+
+    /* Botão de Finalizar */
+    .actions-box {
+      display: flex;
+      justify-content: center;
+      margin: 2.5rem 0 3.5rem;
+    }
+
+    .btn-submit {
+      font-family: var(--font-sans);
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #FFFFFF;
+      background-color: var(--primary);
+      border: none;
+      padding: 1rem 2.5rem;
+      border-radius: 6px;
+      cursor: pointer;
+      box-shadow: 0 4px 6px rgba(30, 58, 138, 0.2);
+      transition: background-color 0.2s ease, transform 0.1s ease;
+    }
+
+    .btn-submit:hover {
+      background-color: var(--primary-hover);
+    }
+
+    .btn-submit:active {
+      transform: translateY(1px);
+    }
+
+    .btn-reset {
+      font-family: var(--font-sans);
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      padding: 0.75rem 1.5rem;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      margin-left: 1rem;
+    }
+
+    .btn-reset:hover {
+      background: #F1F5F9;
+      color: var(--text-main);
+    }
+
+    /* Painel de Resultados */
+    #results-section {
+      display: none;
+      margin-bottom: 3rem;
+      scroll-margin-top: 2rem;
+    }
+
+    .score-card {
+      background: #FFFFFF;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 2.5rem 2rem;
+      text-align: center;
+      box-shadow: var(--shadow-md);
+      margin-bottom: 2rem;
+    }
+
+    .score-number {
+      font-family: var(--font-sans);
+      font-size: 3.5rem;
+      font-weight: 800;
+      color: var(--primary);
+      line-height: 1;
+      margin-bottom: 0.5rem;
+    }
+
+    .score-label {
+      font-family: var(--font-sans);
+      font-size: 1.15rem;
+      font-weight: 500;
+      color: var(--text-secondary);
+      margin-bottom: 1rem;
+    }
+
+    .score-verdict {
+      font-size: 1.05rem;
+      max-width: 600px;
+      margin: 0 auto;
+      color: var(--text-main);
+    }
+
+    /* Tabela de Gabarito Rápido */
+    .gabarito-table-wrapper {
+      background: #FFFFFF;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 1.5rem;
+      margin-bottom: 2.5rem;
+      overflow-x: auto;
+    }
+
+    .gabarito-title {
+      font-family: var(--font-sans);
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      color: var(--text-main);
+    }
+
+    .table-gabarito {
+      width: 100%;
+      border-collapse: collapse;
+      font-family: var(--font-sans);
+      font-size: 0.925rem;
+    }
+
+    .table-gabarito th, .table-gabarito td {
+      border: 1px solid var(--border-color);
+      padding: 0.75rem 1rem;
+      text-align: left;
+    }
+
+    .table-gabarito th {
+      background-color: var(--bg-muted);
+      color: var(--text-main);
+      font-weight: 600;
+    }
+
+    .status-badge-table {
+      font-weight: 700;
+      padding: 0.15rem 0.5rem;
+      border-radius: 4px;
+      font-size: 0.8rem;
+    }
+
+    .status-badge-table.correct {
+      background: #DCFCE7;
+      color: #15803D;
+    }
+
+    .status-badge-table.wrong {
+      background: #FEE2E2;
+      color: #B91C1C;
+    }
+
+    /* Seção de Resoluções Analíticas */
+    .resolutions-section-title {
+      font-family: var(--font-sans);
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .resolution-card {
+      background: #FFFFFF;
+      border: 1px solid var(--border-color);
+      border-left: 5px solid var(--primary);
+      border-radius: 6px;
+      padding: 1.75rem 2rem;
+      margin-bottom: 1.75rem;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .resolution-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 1rem;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 0.5rem;
+    }
+
+    .resolution-card-title {
+      font-family: var(--font-sans);
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--primary);
+    }
+
+    .resolution-card-key {
+      font-family: var(--font-sans);
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--accent-green);
+      background: var(--accent-green-bg);
+      border: 1px solid var(--accent-green-border);
+      padding: 0.2rem 0.6rem;
+      border-radius: 4px;
+    }
+
+    .resolution-body {
+      font-size: 1rem;
+      line-height: 1.75;
+      color: var(--text-main);
+      text-align: justify;
+    }
+
+    .resolution-body p {
+      margin-bottom: 0.95rem;
+    }
+
+    .resolution-body p:last-child {
+      margin-bottom: 0;
+    }
+
+    .math-block {
+      overflow-x: auto;
+      padding: 0.5rem 0;
+    }
+
+    /* Estilo de Impressão */
+    @media print {
+      body {
+        background: #FFFFFF;
+        color: #000000;
+        padding: 0;
+      }
+      .actions-box, .progress-bar-container {
+        display: none;
+      }
+      .question-card, .resolution-card, .header-box {
+        box-shadow: none;
+        border: 1px solid #CCCCCC;
+        page-break-inside: avoid;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- Cabeçalho Informativo -->
+  <header class="header-box">
+    <div class="badge-institution">Comissão de Concurso – Reitoria IFMG</div>
+    <h1>Simulado de Cartografia Básica</h1>
+    <p>
+      <strong>Conteúdo Programático:</strong> Coordenadas geográficas; Fusos horários mundiais e o sistema brasileiro (Decreto nº 2.784/1913 e Lei nº 12.876/2013); Projeções cartográficas por contato e distorção; Mercator versus Peters; Escalas numéricas e gráficas ($D = d \times E$).<br>
+      <strong>Bibliografia Vinculada:</strong> FITZ (2008); TEIXEIRA et al. (2009).
+    </p>
+  </header>
+
+  <!-- Indicador de Progresso -->
+  <div class="progress-bar-container" id="progress-container">
+    <span>Progresso: <strong id="progress-text">0 de 10 respondidas</strong></span>
+    <div class="progress-track">
+      <div class="progress-fill" id="progress-fill"></div>
+    </div>
+    <span id="progress-percent">0%</span>
+  </div>
+
+  <!-- Formulário com as Questões -->
+  <form id="quiz-form">
+    <div id="questions-wrapper">
+      <!-- As 10 questões serão renderizadas aqui -->
+    </div>
+
+    <!-- Ações -->
+    <div class="actions-box">
+      <button type="button" class="btn-submit" id="btn-submit-quiz" onclick="finishQuiz()">Finalizar e Corrigir Simulado</button>
+      <button type="button" class="btn-reset" id="btn-reset-quiz" onclick="resetQuiz()" style="display: none;">Refazer Simulado</button>
+    </div>
+  </form>
+
+  <!-- Seção de Resultados e Resoluções -->
+  <section id="results-section">
+    <!-- Placar -->
+    <div class="score-card">
+      <div class="score-number" id="score-display">0/10</div>
+      <div class="score-label" id="score-percentage">Aproveitamento: 0%</div>
+      <p class="score-verdict" id="score-message"></p>
+    </div>
+
+    <!-- Tabela de Gabarito Rápido -->
+    <div class="gabarito-table-wrapper">
+      <h2 class="gabarito-title">Quadro Comparativo de Respostas</h2>
+      <table class="table-gabarito">
+        <thead>
+          <tr>
+            <th style="width: 12%;">Questão</th>
+            <th style="width: 18%;">Sua Resposta</th>
+            <th style="width: 18%;">Gabarito Oficial</th>
+            <th style="width: 18%;">Situação</th>
+            <th>Tópico Avaliado</th>
+          </tr>
+        </thead>
+        <tbody id="gabarito-table-body">
+          <!-- Linhas preenchidas via JS -->
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Resoluções Analíticas Detalhadas Conforme o Documento -->
+    <h2 class="resolutions-section-title">Resoluções Analíticas Detalhadas</h2>
+    <div id="resolutions-wrapper">
+      <!-- Cards de resolução inseridos via JS -->
+    </div>
+  </section>
+
+</div>
+
+<script>
+  // Banco de Dados Rigoroso com as 10 Questões e Resoluções na Íntegra
+  const quizData = [
+    {
+      id: 1,
+      topic: "Coordenadas geográficas, paralelos e meridianos notáveis",
+      statement: `A representação planimétrica do espaço geográfico depende da estruturação de um referencial geodésico que materialize a transposição de posições sobre a superfície curva da Terra por meio de coordenadas angulares. Em relação aos fundamentos geométricos das coordenadas geográficas, aos paralelos e meridianos notáveis e à variação métrica de arcos terrestres, assinale a alternativa correta:`,
+      options: [
+        { letter: "A", text: "A latitude geográfica varia linearmente de $0^\\circ$ no Equador a $90^\\circ$ nos polos e, por decorrência direta do achatamento polar do elipsoide de referência, o comprimento métrico linear correspondente a um arco de $1^\\circ$ de latitude decresce progressivamente em direção às altas latitudes." },
+        { letter: "B", text: "O Equador constitui o único círculo máximo entre os paralelos de latitude, ao passo que todos os meridianos geográficos formam arcos de semicircunferência que, associados aos respectivos antimeridianos, compõem círculos máximos dotados de comprimentos equivalentes em torno da Terra." },
+        { letter: "C", text: "O comprimento linear de um arco de $1^\\circ$ de longitude mantém valor rigorosamente uniforme ao longo de toda a superfície terrestre, correspondendo a aproximadamente $111{,}32\\text{ km}$, independentemente da latitude na qual a medição seja realizada." },
+        { letter: "D", text: "Os Círculos Polares Ártico e Antártico delimitam-se nas latitudes de $23^\\circ 27'\\text{ N}$ e $23^\\circ 27'\\text{ S}$, marcando as faixas limites do globo sobre as quais os raios solares incidem de maneira estritamente perpendicular no zênite durante os solstícios de verão." },
+        { letter: "E", text: "A longitude geográfica define-se como o afastamento angular medido sobre o meridiano central de cada fuso, admitindo variações padronizadas entre $0^\\circ$ e $90^\\circ$ para os hemisférios oriental e ocidental a partir da linha equatorial." }
+      ],
+      correct: "B",
+      resolution: `A alternativa correta é a <strong>B</strong>.<br><br>
+      O plano do equador secciona a Terra perpendicularmente ao eixo de rotação e intercepta o centro geométrico do planeta, configurando o único círculo máximo entre a família de paralelos de latitude. Todos os paralelos situados ao norte ou ao sul decrescem de perímetro em função do cosseno da latitude, caracterizando-se como círculos menores. Em contrapartida, os meridianos geográficos são linhas semicirculares delimitadas de polo a polo que, ao se combinarem com os seus antimeridianos correspondentes defasados em $180^\\circ$, formam círculos máximos dotados de dimensões praticamente idênticas.<br><br>
+      <strong>Análise das incorretas:</strong><br>
+      • <em>Alternativa A:</em> Errada porque a Terra aproxima-se geometricamente de um esferoide oblato (achatado nos polos). Como consequência, o raio de curvatura meridiano é maior nas imediações dos polos, fazendo com que o comprimento métrico linear de $1^\\circ$ de latitude <em>cresça</em> progressivamente com a latitude (cerca de $110{,}57\\text{ km}$ no equador contra $111{,}70\\text{ km}$ nos polos).<br>
+      • <em>Alternativa C:</em> Errada porque o afastamento linear de $1^\\circ$ de longitude diminui em direção aos polos conforme $L = 111{,}32 \\times \\cos\\phi\\text{ km}$, atingindo $0\\text{ km}$ no ponto polar exato.<br>
+      • <em>Alternativa D:</em> Errada porque as latitudes de $23^\\circ 27'$ delimitam os Trópicos de Câncer e Capricórnio. Os Círculos Polares situam-se em $66^\\circ 33'$.<br>
+      • <em>Alternativa E:</em> Errada porque a longitude é o ângulo medido ao longo do equador a partir de Greenwich ($0^\\circ$), variando de $0^\\circ$ a $180^\\circ$ para Leste ou Oeste.`
+    },
+    {
+      id: 2,
+      topic: "Fusos horários civis mundiais e a Linha Internacional de Mudança de Data",
+      statement: `A rotação da Terra em torno de seu eixo polar define o ciclo diário de iluminação e impõe a correspondência física entre o deslocamento longitudinal e a sucessão horária à razão de $15^\\circ$ por hora solar. Para compatibilizar essas discrepâncias locais, o sistema civil internacional dividiu o globo em 24 fusos teóricos e convencionou a Linha Internacional de Mudança de Data (LID) aproximadamente sobre o antimeridiano de Greenwich.<br><br>
+      Considere que uma aeronave comercial descole do Aeroporto Internacional de Narita, em Tóquio (Japão, pertencente ao fuso horário legal $\\text{UTC}+9$), pontualmente às $21\\text{h}30\\text{min}$ de uma quarta-feira, dia 12 de novembro. O voo transcorre sem escalas técnicas através da bacia do Oceano Pacífico em direção ao Aeroporto Internacional de São Francisco (Estados Unidos, situado no fuso horário legal $\\text{UTC}-8$). Sabendo-se que o tempo total de voo transcorrido entre a decolagem e a aterrissagem foi de exatamente $9\\text{ horas e }45\\text{ minutos}$, assinale a alternativa que indica o horário e a data civil exatos de chegada em São Francisco:`,
+      options: [
+        { letter: "A", text: "$14\\text{h}15\\text{min}$ do dia 12 de novembro (quarta-feira)." },
+        { letter: "B", text: "$07\\text{h}15\\text{min}$ do dia 13 de novembro (quinta-feira)." },
+        { letter: "C", text: "$14\\text{h}15\\text{min}$ do dia 13 de novembro (quinta-feira)." },
+        { letter: "D", text: "$04\\text{h}30\\text{min}$ do dia 12 de novembro (quarta-feira)." },
+        { letter: "E", text: "$22\\text{h}45\\text{min}$ do dia 11 de novembro (terça-feira)." }
+      ],
+      correct: "A",
+      resolution: `A alternativa correta é a <strong>A</strong>.<br><br>
+      A equação geral para o horário de chegada em viagens aéreas é:<br>
+      $$\\text{Hora Local de Chegada} = \\text{Hora Local de Partida} + (\\text{Fuso}_{\\text{Destino}} - \\text{Fuso}_{\\text{Origem}}) + \\text{Duração do Voo}$$
+      Dados da questão:
+      <ul>
+        <li>Origem: Tóquio ($\\text{UTC}+9$)</li>
+        <li>Destino: São Francisco ($\\text{UTC}-8$)</li>
+        <li>Partida: Quarta-feira, 12 de novembro, às $21\\text{h}30\\text{min}$</li>
+        <li>Duração: $9\\text{ horas e }45\\text{ minutos}$</li>
+      </ul>
+      Calculando a defasagem temporal entre o destino e a origem:
+      $$\\Delta\\text{Fuso} = (-8) - (+9) = -17\\text{ horas}$$
+      Logo, quando são $21\\text{h}30\\text{min}$ em Tóquio, em São Francisco são:
+      $$21\\text{h}30\\text{min} - 17\\text{h}00\\text{min} = 04\\text{h}30\\text{min}\\text{ do mesmo dia (12 de novembro)}$$
+      Adicionando o tempo decorrido de voo:
+      $$04\\text{h}30\\text{min} + 09\\text{h}45\\text{min} = 14\\text{h}15\\text{min}\\text{ do dia 12 de novembro (quarta-feira)}$$
+      Como o voo cruza o Pacífico de Oeste para Leste, transpõe a Linha Internacional de Mudança de Data no sentido favorável ao atraso do calendário, chegando na tarde da mesma quarta-feira.`
+    },
+    {
+      id: 3,
+      topic: "Legislação dos fusos horários do Brasil: Decreto nº 2.784/1913 e Lei nº 12.876/2013",
+      statement: `A evolução jurídica da organização do espaço territorial brasileiro em fusos horários iniciou-se institucionalmente com o Decreto nº 2.784, de 18 de junho de 1913, sendo subsequentemente reformulada pela Lei nº 11.662/2008 e consolidada pela Lei nº 12.876, de 30 de outubro de 2013. A respeito da configuração legal em vigor dos fusos horários civis no Brasil, assinale a alternativa correta:`,
+      options: [
+        { letter: "A", text: "A Lei nº 12.876/2013 revogou as disposições pretéritas para integrar a totalidade dos estados da Região Norte ao fuso horário de Brasília ($\\text{UTC}-3$), unificando os horários do setor financeiro e bancário nacional." },
+        { letter: "B", text: "O Brasil organiza-se em quatro fusos horários a oeste de Greenwich: o primeiro fuso ($\\text{UTC}-2$) abrange as ilhas oceânicas; o segundo fuso ($\\text{UTC}-3$, hora oficial do país) compreende as regiões Nordeste, Sudeste, Sul, além de Goiás, Tocantins, Pará, Amapá e o Distrito Federal; o terceiro fuso ($\\text{UTC}-4$) cobre Roraima, Rondônia, Mato Grosso, Mato Grosso do Sul e a porção oriental do Amazonas; e o quarto fuso ($\\text{UTC}-5$) abrange o estado do Acre e a porção ocidental do Amazonas." },
+        { letter: "C", text: "O primeiro fuso horário brasileiro corresponde ao padrão $\\text{UTC}-1$, incidindo sobre o Arquipélago de São Pedro e São Paulo e o Atol das Rocas, ao passo que a ilha de Fernando de Noronha submete-se ao fuso $\\text{UTC}-3$." },
+        { letter: "D", text: "A separação geográfica entre o terceiro e o quarto fuso no estado do Amazonas é delimitada por uma linha reta geodésica imaginária alinhada ao meridiano astronômico de $70^\\circ\\text{ W}$, desconsiderando acidentes geográficos ou termos municipais." },
+        { letter: "E", text: "O estado do Pará permanece fracionado entre dois fusos horários distintos em decorrência de sua ampla extensão longitudinal, ficando a porção situada a oeste da foz do rio Tapajós incorporada ao fuso $\\text{UTC}-4$." }
+      ],
+      correct: "B",
+      resolution: `A alternativa correta é a <strong>B</strong>.<br><br>
+      A divisão legal dos fusos horários no Brasil consolidou-se originalmente pelo Decreto Federal nº 2.784/1913 em quatro fusos a oeste de Greenwich. Após a tentativa frustrada da Lei nº 11.662/2008 de abolir o quarto fuso (rejeitada pela população acreana em referendo formal em 2010), o Congresso Nacional promulgou a Lei nº 12.876/2013, restabelecendo formalmente o fuso $\\text{UTC}-5$.<br><br>
+      <strong>Configuração Vigente:</strong><br>
+      • <strong>1º Fuso ($\\text{UTC}-2$):</strong> Ilhas oceânicas (Fernando de Noronha, Trindade, Martim Vaz, Rocas, São Pedro e São Paulo).<br>
+      • <strong>2º Fuso ($\\text{UTC}-3$):</strong> Hora de Brasília (Nordeste, Sudeste, Sul, Goiás, Tocantins, Pará, Amapá e DF).<br>
+      • <strong>3º Fuso ($\\text{UTC}-4$):</strong> Mato Grosso, Mato Grosso do Sul, Rondônia, Roraima e parte oriental do Amazonas.<br>
+      • <strong>4º Fuso ($\\text{UTC}-5$):</strong> Estado do Acre e 13 municípios do sudoeste do Amazonas (a oeste da linha Tabatinga–Porto Acre).<br><br>
+      <em>Por que as demais estão incorretas?</em> A alternativa A é fantasiosa; a C erra ao citar $\\text{UTC}-1$; a D erra pois a divisa obedece aos limites municipais estabelecidos na reta Tabatinga–Porto Acre; e a E está errada porque o Pará foi totalmente unificado em $\\text{UTC}-3$.`
+    },
+    {
+      id: 4,
+      topic: "Cálculo prático de fusos horários civis em viagens aéreas nacionais",
+      statement: `Um docente do Instituto Federal de Minas Gerais (IFMG) foi designado para executar atividades de campo em três regiões do território brasileiro. O plano de deslocamento aéreo contemplou as seguintes etapas:
+      <ul>
+        <li>Partida do Aeroporto de Fernando de Noronha (PE, situado no fuso $\\text{UTC}-2$) com destino ao Aeroporto Internacional do Recife (PE, fuso $\\text{UTC}-3$), em voo com tempo de deslocamento de $1\\text{ hora e }20\\text{ minutos}$, decolando às $08\\text{h}40\\text{min}$ do horário local insular.</li>
+        <li>Permanência em trânsito no saguão do aeroporto no Recife para troca de aeronave e reembarque por um intervalo exato de $1\\text{ hora e }30\\text{ minutos}$.</li>
+        <li>Decolagem da conexão no Recife com destino ao Aeroporto Internacional de Rio Branco (AC, situado no fuso $\\text{UTC}-5$), operando um trecho com tempo de voo de $5\\text{ horas e }45\\text{ minutos}$.</li>
+      </ul>
+      Considerando que todos os segmentos da viagem operaram pontualmente, a hora legal de desembarque em Rio Branco e o tempo total da jornada (desde o momento da decolagem em Noronha até o pouso definitivo no Acre) foram, respectivamente:`,
+      options: [
+        { letter: "A", text: "$12\\text{h}15\\text{min}$ e $7\\text{ horas e }05\\text{ minutos}$." },
+        { letter: "B", text: "$13\\text{h}45\\text{min}$ e $8\\text{ horas e }35\\text{ minutos}$." },
+        { letter: "C", text: "$14\\text{h}15\\text{min}$ e $8\\text{ horas e }35\\text{ minutos}$." },
+        { letter: "D", text: "$15\\text{h}15\\text{min}$ e $9\\text{ horas e }05\\text{ minutos}$." },
+        { letter: "E", text: "$16\\text{h}15\\text{min}$ e $10\\text{ horas e }35\\text{ minutos}$." }
+      ],
+      correct: "C",
+      resolution: `A alternativa correta é a <strong>C</strong>.<br><br>
+      <strong>1. Tempo Total Decorrido:</strong><br>
+      O tempo físico de viagem independe dos fusos horários atravessados:
+      $$\\text{Tempo Total} = 1\\text{h}20\\text{min (voo 1)} + 1\\text{h}30\\text{min (espera)} + 5\\text{h}45\\text{min (voo 2)} = 8\\text{ horas e }35\\text{ minutos}$$
+      <br>
+      <strong>2. Rastreamento das Horas Locais por Trecho:</strong><br>
+      • <em>Trecho 1 (Noronha $\\rightarrow$ Recife):</em>
+      $$\\text{Partida em Noronha: } 08\\text{h}40\\text{min (UTC}-2) = 07\\text{h}40\\text{min em Recife (UTC}-3)$$
+      $$\\text{Pouso no Recife: } 07\\text{h}40\\text{min} + 1\\text{h}20\\text{min} = 09\\text{h}00\\text{min (hora local do Recife)}$$
+      • <em>Conexão no Recife:</em>
+      $$\\text{Nova decolagem: } 09\\text{h}00\\text{min} + 1\\text{h}30\\text{min} = 10\\text{h}30\\text{min (hora local do Recife, UTC}-3)$$
+      • <em>Trecho 2 (Recife $\\rightarrow$ Rio Branco):</em><br>
+      Diferença de fusos: Rio Branco ($\\text{UTC}-5$) está $2\\text{ horas}$ atrás do Recife ($\\text{UTC}-3$).
+      $$\\text{Decolagem no fuso de Rio Branco: } 10\\text{h}30\\text{min} - 2\\text{h}00\\text{min} = 08\\text{h}30\\text{min}$$
+      $$\\text{Desembarque em Rio Branco: } 08\\text{h}30\\text{min} + 5\\text{h}45\\text{min} = 14\\text{h}15\\text{min}$$
+      Conclusão: Desembarque às $14\\text{h}15\\text{min}$ e jornada total de $8\\text{ horas e }35\\text{ minutos}$.`
+    },
+    {
+      id: 5,
+      topic: "Projeções cartográficas quanto à superfície de contato e desenvolvimento",
+      statement: `A transformação do modelo elipsoidal da Terra em um plano bidimensional constitui o objeto de estudo dos sistemas de projeções cartográficas, que utilizam superfícies geométricas auxiliares de desenvolvimento e contato (FITZ, 2008; TEIXEIRA et al., 2009). A respeito das propriedades de contato dessas superfícies de projeção, assinale a afirmativa correta:`,
+      options: [
+        { letter: "A", text: "Em uma projeção plana polar normal, os meridianos projetam-se como feixes retilíneos convergentes que irradiam a partir do centro da projeção, enquanto os paralelos de latitude estruturam-se como círculos concêntricos em torno do ponto central." },
+        { letter: "B", text: "As projeções cônicas normais desdobram-se a partir de um cone secante ou tangente cujo vértice se apoia no plano equatorial, originando uma malha cartográfica em que meridianos e paralelos formam linhas retas que se interceptam perpendicularmente." },
+        { letter: "C", text: "O uso de modelos cilíndricos secantes gera distorções lineares mais acentuadas ao longo da faixa central de mapeamento do que o emprego de cilindros tangentes, inviabilizando sua utilização em mapeamentos topográficos sistemáticos de alta precisão." },
+        { letter: "D", text: "As projeções cilíndricas normais preservam a convergência polar dos meridianos observada no globo, fazendo com que as dimensões longitudinais nas calotas polares sofram expressiva redução de escala linear." },
+        { letter: "E", text: "A geometria cônica pura representa a melhor alternativa de contato para o mapeamento contínuo da faixa tropical equatorial, haja vista que a geratriz do cone atinge sua menor distorção métrica em latitudes próximas a $0^\\circ$." }
+      ],
+      correct: "A",
+      resolution: `A alternativa correta é a <strong>A</strong>.<br><br>
+      Na projeção azimutal (plana) polar normal, o plano de projeção é tangente ou secante a um dos polos. Geometricamente, os meridianos projetam-se como semi-retas retilíneas radiais que divergem a partir do polo com ângulos iguais às diferenças de longitude. Os paralelos projetam-se como uma série de círculos concêntricos com centro no próprio polo.<br><br>
+      <strong>Análise das incorretas:</strong><br>
+      • <em>Alternativa B:</em> Na projeção cônica normal, os meridianos convergem para o vértice do cone e os paralelos são arcos de círculo concêntricos (não formam retas ortogonais como nos cilindros).<br>
+      • <em>Alternativa C:</em> Incorreta. A secância é empregada justamente para <em>minimizar e melhor distribuir</em> as distorções lineares na zona de mapeamento (fator $k=1$ em duas linhas de secância), razão pela qual o sistema UTM é secante ($k_0 = 0{,}9996$).<br>
+      • <em>Alternativa D:</em> Nas projeções cilíndricas normais, os meridianos tornam-se retas paralelas verticais que nunca convergem, o que dilata enormemente as altas latitudes.<br>
+      • <em>Alternativa E:</em> O cone adapta-se às médias latitudes ($30^\\circ$ a $60^\\circ$). Para a faixa equatorial, a superfície mais recomendada é a cilíndrica normal.`
+    },
+    {
+      id: 6,
+      topic: "Classificação das projeções quanto ao tipo de distorção e propriedades métricas",
+      statement: `Em virtude do Teorema Egregium de Gauss, uma superfície elipsoidal de dupla curvatura não pode ser planificada sem introduzir deformações geométricas em distâncias, áreas ou ângulos. Para classificar essas distorções, a cartografia apoia-se no comportamento da elipse de deformação de Tissot (FITZ, 2008; TEIXEIRA et al., 2009):<br><br>
+      I. As projeções conformes conservam as relações angulares e a forma das feições em torno de um ponto infinitesimal, assegurando que paralelos e meridianos se interceptem ortogonalmente a $90^\\circ$, porém alteram a proporcionalidade das áreas territoriais relativas.<br>
+      II. As projeções equivalentes preservam as grandezas de área em qualquer parte do documento cartográfico, garantindo uma relação de proporcionalidade estrita com o terreno real, à custa da deformação dos ângulos e das formas das massas mapeadas.<br>
+      III. As projeções afiláticas caracterizam-se por não manterem fidelidade matemática estrita nem aos ângulos nem às áreas, servindo como soluções de compromisso visual que atenuam simultaneamente a deformação total em representações de planisférios.<br>
+      IV. É tecnicamente viável desenvolver uma projeção cilíndrica de dupla secância que atenda concomitantemente aos requisitos matemáticos de conformalidade e de equivalência para toda a extensão territorial representada.<br><br>
+      Estão corretas apenas as afirmativas:`,
+      options: [
+        { letter: "A", text: "I e IV." },
+        { letter: "B", text: "II e III." },
+        { letter: "C", text: "II e IV." },
+        { letter: "D", text: "I, II e III." },
+        { letter: "E", text: "I, III e IV." }
+      ],
+      correct: "D",
+      resolution: `A alternativa correta é a <strong>D</strong>.<br><br>
+      <strong>Avaliação analítica das proposições:</strong><br>
+      • <strong>I. Verdadeira:</strong> Projeções conformes (ortomorfas) mantêm invariantes os ângulos em torno de cada ponto e a forma das pequenas feições (indicatriz de Tissot permanece circular com $a/b = 1$), interceptando paralelos e meridianos em ângulos retos ($90^\\circ$), ao custo da deformação de áreas.<br>
+      • <strong>II. Verdadeira:</strong> Projeções equivalentes (autálicas) conservam rigorosamente a proporção das áreas em toda a superfície ($a \\times b = 1$), distorcendo, contudo, as formas e os ângulos.<br>
+      • <strong>III. Verdadeira:</strong> Projeções afiláticas (ou de compromisso, como Robinson e Winkel-Tripel) não são nem conformes nem equivalentes nem equidistantes, mas buscam um equilíbrio estético aceitável para planisférios gerais.<br>
+      • <strong>IV. Falsa:</strong> O princípio matemático fundamental de Tissot demonstra que as propriedades de conformidade ($a = b$) e equivalência ($a \\times b = 1$) são mutuamente exclusivas em qualquer representação plana de superfície esférica ou elipsoidal. Não existe nenhuma projeção simultaneamente conforme e equivalente.`
+    },
+    {
+      id: 7,
+      topic: "Análise crítica, técnica e ideológica: Projeção de Mercator versus Peters",
+      statement: `A produção e a circulação de documentos cartográficos carregam posicionamentos geopolíticos e construções ideológicas consolidadas ao longo da história da ciência geográfica, evidenciadas de maneira emblemática no confronto clássico entre os planisférios elaborados por Gerhard Mercator (1569) e Arno Peters (1973) (TEIXEIRA et al., 2009). Acerca das características técnicas, propriedades métricas e repercussões ideológicas desses dois modelos, assinale a afirmativa correta:`,
+      options: [
+        { letter: "A", text: "A projeção de Peters, de natureza cilíndrica conforme, restabeleceu as formas fidedignas dos continentes intertropicais, preservando os ângulos reais e neutralizando as deformações morfológicas introduzidas pela cartografia europeia moderna." },
+        { letter: "B", text: "A projeção de Mercator, classificada como cilíndrica conforme, preservou a precisão dos rumos de navegação ao projetar as loxodromias como linhas retas, mas resultou na dilatação sistemática das massas de terra situadas nas médias e altas latitudes, favorecendo a difusão de uma matriz espacial eurocêntrica." },
+        { letter: "C", text: "O mapa de Mercator evidencia uma representação proporcional das dimensões territoriais dos continentes, de forma que o continente africano exibe uma área gráfica substancialmente superior à da ilha da Groenlândia." },
+        { letter: "D", text: "A projeção de Arno Peters baseou-se na técnica azimutal equidistante para subsidiar a estratégia mercantilista ibérica do século XVI, enfatizando o protagonismo comercial dos polos em detrimento das áreas periféricas tropicais." },
+        { letter: "E", text: "A concepção do mapa de Peters esteve associada à afirmação dos blocos hegemônicos da Europa Ocidental durante o Renascimento, buscando atenuar o peso territorial das nações periféricas do Hemisfério Sul perante a comunidade internacional." }
+      ],
+      correct: "B",
+      resolution: `A alternativa correta é a <strong>B</strong>.<br><br>
+      A projeção de Gerhard Mercator (1569) é cilíndrica conforme. Sua inovação matemática fundamental consistiu em representar as loxodromias (linhas de rumo magnético constante) como segmentos retilíneos, revolucionando a navegação náutica renascentista. Todavia, a preservação angular impõe um afastamento crescente dos paralelos conforme se aproxima dos polos, dilatando exponencialmente as áreas das altas latitudes (Europa, Groenlândia, América do Norte) e consolidando a visão geopolítica eurocêntrica.<br><br>
+      <strong>Análise das incorretas:</strong><br>
+      • <em>Alternativa A:</em> A projeção de Peters (1973) é <strong>equivalente</strong> (preserva áreas) e não conforme. Ela achata e alonga verticalmente as formas dos continentes tropicais.<br>
+      • <em>Alternativa C:</em> Em Mercator, a Groenlândia aparece no mapa com área gráfica semelhante ou superior à da África, quando no mundo real a África é cerca de 14 vezes maior.<br>
+      • <em>Alternativa D:</em> Peters elaborou uma projeção cilíndrica equivalente na década de 1970 (século XX), e não azimutal do século XVI.<br>
+      • <em>Alternativa E:</em> Peters vinculava sua proposta à valorização do Terceiro Mundo (países do Sul Global) no contexto da Guerra Fria e descolonização afro-asiática.`
+    },
+    {
+      id: 8,
+      topic: "Escalas numéricas e conversão de distâncias lineares (D = d x E)",
+      statement: `Durante a etapa de planejamento de uma obra civil rodoviária conduzida pelo setor de infraestrutura do IFMG, um analista examinou uma carta topográfica elaborada na escala numérica nominal de $1:250.000$. No documento, a extensão linear de um traçado retilíneo entre dois centros urbanos atingiu exatamente a marca gráfica de $18{,}4\\text{ cm}$.<br><br>
+      Com a finalidade de apresentar o traçado em um painel técnico no qual a representação gráfica desse mesmo segmento viário passe a ocupar um comprimento no papel de exatamente $11{,}5\\text{ cm}$, a escala numérica da nova planta temática e a distância real no terreno expressa em quilômetros equivalem, respectivamente, a:`,
+      options: [
+        { letter: "A", text: "$1:150.000$ e $46{,}0\\text{ km}$." },
+        { letter: "B", text: "$1:400.000$ e $46{,}0\\text{ km}$." },
+        { letter: "C", text: "$1:400.000$ e $4{,}6\\text{ km}$." },
+        { letter: "D", text: "$1:500.000$ e $460\\text{ km}$." },
+        { letter: "E", text: "$1:800.000$ e $92{,}0\\text{ km}$." }
+      ],
+      correct: "B",
+      resolution: `A alternativa correta é a <strong>B</strong>.<br><br>
+      A relação fundamental de escala é expressa por $D = d \\times E$.<br><br>
+      <strong>1. Cálculo da Distância Real ($D$):</strong>
+      $$D = 18{,}4\\text{ cm} \\times 250.000 = 4.600.000\\text{ cm}$$
+      Convertendo para metros e quilômetros:
+      $$D = \\frac{4.600.000\\text{ cm}}{100} = 46.000\\text{ m} = \\frac{46.000\\text{ m}}{1.000} = 46{,}0\\text{ km}$$
+      <br>
+      <strong>2. Determinação da Nova Escala ($E_2$):</strong><br>
+      Deseja-se que essa mesma distância real de $4.600.000\\text{ cm}$ ocupe $d_2 = 11{,}5\\text{ cm}$ na nova representação:
+      $$E_2 = \\frac{D}{d_2} = \\frac{4.600.000\\text{ cm}}{11{,}5\\text{ cm}} = 400.000$$
+      Portanto, a nova escala numérica é $1:400.000$ e a distância real equivale a $46{,}0\\text{ km}$.`
+    },
+    {
+      id: 9,
+      topic: "Cálculo de áreas e conversão de unidades de superfície",
+      statement: `Em estudos ambientais voltados à delimitação de uma Unidade de Conservação (UC) de proteção integral, uma equipe de geoprocessamento analisou uma folha topográfica na escala de $1:50.000$. Na representação cartográfica, o polígono retangular correspondente à gleba florestal apresentou comprimento gráfico de $12{,}0\\text{ cm}$ e largura gráfica de $7{,}5\\text{ cm}$.<br><br>
+      Sabendo que $1\\text{ hectare (ha)} = 10.000\\text{ m}^2$, assinale a alternativa que expressa a área real superficial ocupada pela reserva florestal em hectares ($\\text{ha}$) e em quilômetros quadrados ($\\text{km}^2$), respectivamente:`,
+      options: [
+        { letter: "A", text: "$2.250\\text{ ha}$ e $22{,}5\\text{ km}^2$." },
+        { letter: "B", text: "$22.500\\text{ ha}$ e $225\\text{ km}^2$." },
+        { letter: "C", text: "$4.500\\text{ ha}$ e $45{,}0\\text{ km}^2$." },
+        { letter: "D", text: "$900\\text{ ha}$ e $9{,}0\\text{ km}^2$." },
+        { letter: "E", text: "$225\\text{ ha}$ e $2{,}25\\text{ km}^2$." }
+      ],
+      correct: "A",
+      resolution: `A alternativa correta é a <strong>A</strong>.<br><br>
+      Na escala $1:50.000$, cada $1\\text{ cm}$ no mapa representa $50.000\\text{ cm} = 500\\text{ m} = 0{,}5\\text{ km}$ no terreno.<br><br>
+      <strong>1. Conversão das dimensões lineares do terreno:</strong>
+      $$C = 12{,}0\\text{ cm} \\times 50.000 = 600.000\\text{ cm} = 6.000\\text{ m} = 6{,}0\\text{ km}$$
+      $$L = 7{,}5\\text{ cm} \\times 50.000 = 375.000\\text{ cm} = 3.750\\text{ m} = 3{,}75\\text{ km}$$
+      <br>
+      <strong>2. Cálculo da Área Real Superficial:</strong>
+      $$A_{\\text{real}} = 6.000\\text{ m} \\times 3.750\\text{ m} = 22.500.000\\text{ m}^2$$
+      <br>
+      <strong>3. Conversão de Unidades:</strong><br>
+      • Em hectares:
+      $$A = \\frac{22.500.000\\text{ m}^2}{10.000\\text{ m}^2/\\text{ha}} = 2.250\\text{ ha}$$
+      • Em quilômetros quadrados:
+      $$A = 6{,}0\\text{ km} \\times 3{,}75\\text{ km} = 22{,}5\\text{ km}^2$$
+      Portanto, a reserva florestal totaliza $2.250\\text{ ha}$ e $22{,}5\\text{ km}^2$.`
+    },
+    {
+      id: 10,
+      topic: "Precisão gráfica, acuidade visual (0,2 mm) e escala limite (FITZ, 2008)",
+      statement: `Nos fundamentos de cartografia sistemática consolidados por Fitz (2008), o conceito de erro gráfico admissível ou precisão gráfica estipula o limite da capacidade média de acuidade visual humana e da precisão instrumental no desenho manual, convencionado no valor de $0{,}2\\text{ mm}$ na folha de papel ($e = 0{,}0002\\text{ m}$). Esse índice determina a menor dimensão métrica do terreno capaz de figurar em proporção escalar real sobre uma carta.<br><br>
+      Caso um projeto de infraestrutura demande que elementos e faixas de domínio viário com largura real mínima de $5{,}0\\text{ metros}$ no terreno sejam discerníveis e passíveis de traçado proporcional sem se situarem abaixo do limiar de acuidade visual do desenho, a escala numérica limite mínima recomendada e o valor métrico real representado pelo erro de $0{,}2\\text{ mm}$ na escala de $1:25.000$ são, respectivamente:`,
+      options: [
+        { letter: "A", text: "Escala $1:100.000$; e $20{,}0\\text{ metros}$." },
+        { letter: "B", text: "Escala $1:50.000$; e $10{,}0\\text{ metros}$." },
+        { letter: "C", text: "Escala $1:25.000$; e $5{,}0\\text{ metros}$." },
+        { letter: "D", text: "Escala $1:10.000$; e $2{,}0\\text{ metros}$." },
+        { letter: "E", text: "Escala $1:5.000$; e $1{,}0\\text{ metro}$." }
+      ],
+      correct: "C",
+      resolution: `A alternativa correta é a <strong>C</strong>.<br><br>
+      O erro gráfico tolerável na cartografia clássica segundo Fitz (2008) é $e = 0{,}2\\text{ mm} = 0{,}0002\\text{ m}$.<br><br>
+      <strong>1. Escala Limite Mínima para $D = 5{,}0\\text{ m}$ ser perceptível:</strong>
+      $$E = \\frac{D}{e} = \\frac{5{,}0\\text{ m}}{0{,}0002\\text{ m}} = 25.000$$
+      Logo, a escala numérica limite é $1:25.000$. Em escalas menores que $1:25.000$ (como $1:50.000$), $5\\text{ metros}$ equivaleriam a menos de $0{,}2\\text{ mm}$ no papel, tornando a feição graficamente invisível ou demandando generalização cartográfica.<br><br>
+      <strong>2. Valor real correspondente a $0{,}2\\text{ mm}$ na escala $1:25.000$:</strong>
+      $$D_{\\text{mín}} = e \\times E = 0{,}0002\\text{ m} \\times 25.000 = 5{,}0\\text{ metros}$$
+      Ambos os parâmetros corroboram exatamente os termos da alternativa C.`
+    }
+  ];
+
+  // Estado do Quiz
+  const userAnswers = {};
+  let quizSubmitted = false;
+
+  // Renderiza as Questões no DOM
+  function renderQuestions() {
+    const wrapper = document.getElementById("questions-wrapper");
+    wrapper.innerHTML = "";
+
+    quizData.forEach((q) => {
+      const card = document.createElement("div");
+      card.className = "question-card";
+      card.id = `card-q${q.id}`;
+
+      let optionsHtml = "";
+      q.options.forEach((opt) => {
+        optionsHtml += `
+          <label class="option-label" id="label-q${q.id}-${opt.letter}">
+            <input type="radio" name="q${q.id}" value="${opt.letter}" onchange="selectOption(${q.id}, '${opt.letter}')">
+            <span class="option-letter">${opt.letter})</span>
+            <span class="option-text">${opt.text}</span>
+            <span class="feedback-tag correct-tag">Gabarito</span>
+            <span class="feedback-tag wrong-tag">Sua Escolha</span>
+          </label>
+        `;
+      });
+
+      card.innerHTML = `
+        <div class="question-header">
+          <span class="question-number">Questão ${String(q.id).padStart(2, '0')}</span>
+          <span class="question-topic">${q.topic}</span>
+        </div>
+        <div class="question-statement">${q.statement}</div>
+        <div class="options-group">
+          ${optionsHtml}
+        </div>
+      `;
+
+      wrapper.appendChild(card);
+    });
+
+    // Renderiza o KaTeX nas fórmulas matemáticas
+    if (window.renderMathInElement) {
+      renderMathInElement(document.body, {
+        delimiters: [
+          { left: "$$", right: "$$", display: true },
+          { left: "$", right: "$", display: false }
+        ],
+        throwOnError: false
+      });
+    }
+  }
+
+  // Manipulação de seleção de alternativa
+  function selectOption(questionId, letter) {
+    if (quizSubmitted) return;
+    userAnswers[questionId] = letter;
+    updateProgress();
+  }
+
+  // Atualização da barra de progresso
+  function updateProgress() {
+    const total = quizData.length;
+    const answered = Object.keys(userAnswers).length;
+    const percent = Math.round((answered / total) * 100);
+
+    document.getElementById("progress-text").textContent = `${answered} de ${total} respondidas`;
+    document.getElementById("progress-fill").style.width = `${percent}%`;
+    document.getElementById("progress-percent").textContent = `${percent}%`;
+  }
+
+  // Finalização do Quiz e Correção
+  function finishQuiz() {
+    const total = quizData.length;
+    const answered = Object.keys(userAnswers).length;
+
+    if (answered < total) {
+      const confirmSubmit = confirm(`Atenção: você respondeu apenas ${answered} das ${total} questões.\nDeseja finalizar e corrigir o simulado mesmo assim?`);
+      if (!confirmSubmit) return;
+    }
+
+    quizSubmitted = true;
+
+    // Desativa inputs de rádio
+    document.querySelectorAll('input[type="radio"]').forEach(input => input.disabled = true);
+
+    let score = 0;
+    const tableBody = document.getElementById("gabarito-table-body");
+    tableBody.innerHTML = "";
+
+    const resolutionsWrapper = document.getElementById("resolutions-wrapper");
+    resolutionsWrapper.innerHTML = "";
+
+    quizData.forEach((q) => {
+      const userChoice = userAnswers[q.id] || "Em branco";
+      const isCorrect = userChoice === q.correct;
+      if (isCorrect) score++;
+
+      // Atualiza visualização das alternativas na questão
+      q.options.forEach(opt => {
+        const label = document.getElementById(`label-q${q.id}-${opt.letter}`);
+        if (opt.letter === q.correct) {
+          label.classList.add("is-correct-answer");
+        }
+        if (userChoice === opt.letter && !isCorrect) {
+          label.classList.add("is-wrong-answer");
+        }
+      });
+
+      // Linha do quadro de gabarito
+      const row = document.createElement("tr");
+      row.innerHTML = `
+        <td><strong>Questão ${String(q.id).padStart(2, '0')}</strong></td>
+        <td>${userChoice !== "Em branco" ? userChoice : "<em>Em branco</em>"}</td>
+        <td><strong>${q.correct}</strong></td>
+        <td>
+          <span class="status-badge-table ${isCorrect ? 'correct' : 'wrong'}">
+            ${isCorrect ? 'Acertou' : 'Errou'}
+          </span>
+        </td>
+        <td>${q.topic}</td>
+      `;
+      tableBody.appendChild(row);
+
+      // Card de resolução analítica
+      const resCard = document.createElement("div");
+      resCard.className = "resolution-card";
+      resCard.innerHTML = `
+        <div class="resolution-card-header">
+          <span class="resolution-card-title">Resolução da Questão ${String(q.id).padStart(2, '0')}</span>
+          <span class="resolution-card-key">Gabarito: Alternativa ${q.correct}</span>
+        </div>
+        <div class="resolution-body">
+          ${q.resolution}
+        </div>
+      `;
+      resolutionsWrapper.appendChild(resCard);
+    });
+
+    // Exibição do Placar
+    const percentage = Math.round((score / total) * 100);
+    document.getElementById("score-display").textContent = `${score}/${total}`;
+    document.getElementById("score-percentage").textContent = `Aproveitamento: ${percentage}%`;
+
+    let message = "";
+    if (score === 10) {
+      message = "Desempenho extraordinário! Domínio total dos tópicos de projeções, fusos e cálculo de escalas do padrão IFMG.";
+    } else if (score >= 8) {
+      message = "Excelente resultado! Você apresenta sólida preparação nas competências teóricas e matemáticas exigidas pelo edital.";
+    } else if (score >= 6) {
+      message = "Bom aproveitamento. Recomendamos revisar atentamente as resoluções das questões que você errou para consolidar os detalhes de cálculo e legislação.";
+    } else {
+      message = "Aproveitamento regular. Aproveite o caderno de resoluções abaixo para reforçar os conceitos de elipse de Tissot, fusos horários civis e precisão gráfica.";
+    }
+    document.getElementById("score-message").textContent = message;
+
+    // Mostra resultados e troca botões
+    const resultsSection = document.getElementById("results-section");
+    resultsSection.style.display = "block";
+    document.getElementById("btn-submit-quiz").style.display = "none";
+    document.getElementById("btn-reset-quiz").style.display = "inline-block";
+
+    // Re-renderiza o KaTeX nas resoluções geradas dinamicamente
+    if (window.renderMathInElement) {
+      renderMathInElement(resultsSection, {
+        delimiters: [
+          { left: "$$", right: "$$", display: true },
+          { left: "$", right: "$", display: false }
+        ],
+        throwOnError: false
+      });
+    }
+
+    // Rolagem suave até a seção de resultados
+    resultsSection.scrollIntoView({ behavior: 'smooth' });
+  }
+
+  // Reinicia o simulado
+  function resetQuiz() {
+    for (let key in userAnswers) delete userAnswers[key];
+    quizSubmitted = false;
+
+    renderQuestions();
+    updateProgress();
+
+    document.getElementById("results-section").style.display = "none";
+    document.getElementById("btn-submit-quiz").style.display = "inline-block";
+    document.getElementById("btn-reset-quiz").style.display = "none";
+
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  // Inicialização no carregamento
+  window.addEventListener("DOMContentLoaded", () => {
+    renderQuestions();
+  });
+</script>
+
+</body>
+</html>

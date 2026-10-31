@@ -1,0 +1,872 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cartografia Básica - Concurso Docente IFMG</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- MathJax CDN para fórmulas matemáticas nítidas -->
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <!-- Google Fonts Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background-color: #ffffff;
+      color: #1e293b; /* Slate 800 - contraste perfeito que não cansa a vista */
+    }
+    /* Estilos de Grifos Didáticos */
+    .grifo {
+      background-color: #fef08a; /* Amarelo suave de marcador de texto */
+      color: #713f12;
+      padding: 0.12rem 0.35rem;
+      border-radius: 0.25rem;
+      font-weight: 600;
+    }
+    .grifo-verde {
+      background-color: #dcfce7; /* Verde suave de destaque */
+      color: #14532d;
+      padding: 0.12rem 0.35rem;
+      border-radius: 0.25rem;
+      font-weight: 600;
+    }
+    .grifo-alerta {
+      background-color: #fee2e2; /* Vermelho suave para armadilhas de prova */
+      color: #991b1b;
+      padding: 0.12rem 0.35rem;
+      border-radius: 0.25rem;
+      font-weight: 600;
+    }
+    /* Quebras automáticas sem scroll em tabelas */
+    table {
+      table-layout: fixed;
+      width: 100%;
+      word-wrap: break-word;
+      word-break: break-word;
+    }
+    td, th {
+      word-wrap: break-word;
+      word-break: break-word;
+    }
+  </style>
+</head>
+<body class="bg-white min-h-screen text-slate-800 antialiased selection:bg-yellow-200">
+
+  <!-- Container Principal -->
+  <main class="max-w-4xl mx-auto px-4 sm:px-6 py-8 sm:py-12">
+
+    <!-- Cabeçalho Institucional do Material -->
+    <header class="border-b-2 border-slate-200 pb-6 mb-8 text-center sm:text-left">
+      <div class="inline-flex items-center gap-2 px-3 py-1 bg-slate-100 text-slate-700 text-xs sm:text-sm font-semibold rounded-full mb-3">
+        <span>IFMG • Banca Reitoria (Comissão Central)</span>
+        <span class="text-slate-400">•</span>
+        <span>Carreira EBTT - Geografia</span>
+      </div>
+      <h1 class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-slate-900 leading-tight">
+        Fundamentos de Cartografia Básica: Projeções, Fusos Horários e Escalas
+      </h1>
+      <p class="text-slate-600 mt-2 text-sm sm:text-base leading-relaxed">
+        Caderno completo de estudos teóricos, fórmulas resolvidas, análise crítica e armadilhas de prova com base em <strong>FITZ (2008)</strong> e <strong>TEIXEIRA et al. (2009)</strong>.
+      </p>
+    </header>
+
+    <!-- Módulo de Áudio Integrado (MP3 Player Local) -->
+    <section class="bg-slate-50 border border-slate-200 rounded-xl p-4 sm:p-5 mb-10 shadow-sm">
+      <div class="flex items-center gap-2 mb-3">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-slate-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
+        </svg>
+        <h2 class="text-base sm:text-lg font-bold text-slate-800">Reprodutor de Áudio da Aula (MP3)</h2>
+      </div>
+
+      <p class="text-xs sm:text-sm text-slate-600 mb-3">
+        Insira abaixo o nome do arquivo MP3 salvo na mesma pasta desta página web (ex.: <code class="bg-slate-200 text-slate-800 px-1 py-0.5 rounded text-xs font-mono">audio3geo.mp3</code>) para ouvi-lo diretamente enquanto estuda:
+      </p>
+
+      <div class="grid grid-cols-1 sm:grid-cols-12 gap-2 mb-3">
+        <div class="sm:col-span-9">
+          <label for="audioFileNameInput" class="sr-only">Nome do arquivo MP3</label>
+          <input 
+            type="text" 
+            id="audioFileNameInput" 
+            value="audio3geo.mp3" 
+            placeholder="Digite o nome do arquivo com a extensão .mp3"
+            class="w-full px-3 py-2 text-sm bg-white border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-slate-400 font-mono text-slate-800"
+          >
+        </div>
+        <div class="sm:col-span-3">
+          <button 
+            id="loadAudioBtn" 
+            type="button" 
+            class="w-full h-full py-2 px-3 bg-slate-800 hover:bg-slate-900 text-white font-medium text-xs sm:text-sm rounded-lg transition-colors flex items-center justify-center gap-1.5"
+          >
+            Carregar Áudio
+          </button>
+        </div>
+      </div>
+
+      <div class="bg-white p-2 rounded-lg border border-slate-200">
+        <audio id="audioPlayer" controls class="w-full focus:outline-none">
+          <source id="audioSource" src="audio3geo.mp3" type="audio/mpeg">
+          Seu navegador não suporta a execução direta deste reprodutor de áudio HTML5.
+        </audio>
+      </div>
+
+      <div id="audioStatusText" class="mt-2 text-xs text-slate-500 italic">
+        Arquivo configurado: <span id="currentAudioName" class="font-mono text-slate-700 font-semibold">audio3geo.mp3</span>
+      </div>
+    </section>
+
+    <!-- Artigo Completo na Íntegra -->
+    <article class="space-y-10 leading-relaxed text-slate-700 text-sm sm:text-base">
+
+      <!-- Introdução Geral -->
+      <section class="border-l-4 border-slate-300 pl-4 py-1 text-slate-600">
+        <p>
+          O domínio dos princípios matemáticos, geométricos e epistemológicos da Cartografia Básica é indispensável na atuação docente nos Institutos Federais de Educação, Ciência e Tecnologia, figurando recorrentemente nos certames promovidos pela Comissão Central de Concurso Público da Reitoria do Instituto Federal de Minas Gerais (IFMG). A banca examinadora demanda dos candidatos sólida competência técnica nas formulações analíticas de escala e tempo cronológico, combinada a uma perspectiva crítica da linguagem cartográfica enquanto instrumento de poder geopolítico.
+        </p>
+        <p class="mt-2">
+          A estruturação teórica deste conteúdo ancora-se nas obras referenciais de Paulo Roberto Fitz (<em>Cartografia Básica</em>) e Wilson Teixeira et al. (<em>Decifrando a Terra</em>), estabelecendo a ponte entre a erudição conceitual e a resolução prática das provas objetivas.
+        </p>
+      </section>
+
+      <!-- SEÇÃO 1 -->
+      <section class="space-y-4">
+        <div class="border-b border-slate-200 pb-2">
+          <h2 class="text-xl sm:text-2xl font-bold text-slate-900 flex items-center gap-2">
+            <span class="text-slate-400 font-mono text-lg">01.</span>
+            Coordenadas Geográficas e Geometria da Esfera Terrestre
+          </h2>
+        </div>
+
+        <p>
+          A representação da superfície terrestre assenta-se sobre modelos geodésicos que descrevem o planeta a partir de sua aproximação físico-matemática real — o <strong class="text-slate-900">geoide</strong> — e de sua parametrização geométrica simplificada, consubstanciada no <strong class="text-slate-900">elipsoide de revolução</strong>. Sobre esse substrato geométrico estabelece-se o sistema de coordenadas geográficas, uma rede tridimensional ortogonal baseada em medidas angulares que permite a localização unívoca de qualquer fenômeno na biosfera.
+        </p>
+
+        <p>
+          A <strong class="text-slate-900">latitude (&phi;)</strong> consiste na <span class="grifo">distância angular medida ao longo do meridiano local</span>, compreendida entre a Linha do Equador ($0^\circ$) e o paralelo do lugar. Expressa em graus, minutos e segundos, a latitude projeta-se em valores que variam de $0^\circ$ no Equador até $90^\circ$ nos polos geográficos, adquire polaridades <span class="grifo">Norte (+90° ou Boreal/Setentrional)</span> e <span class="grifo">Sul (-90° ou Austral/Meridional)</span>, e atua como a <span class="grifo">principal variável astronômica de modulação climática</span> devido à variação do ângulo de incidência da radiação solar.
+        </p>
+
+        <p>
+          A <strong class="text-slate-900">longitude (&lambda;)</strong>, por sua vez, constitui o <span class="grifo">arco angular medido sobre a linha equatorial</span> entre o plano do Meridiano de Greenwich ($0^\circ$) e o meridiano que passa pelo ponto de interesse. Seus limites lineares estendem-se de $0^\circ$ a $180^\circ$ a Leste (Oriental/Este) e de $0^\circ$ a $180^\circ$ a Oeste (Ocidental/Oeste). A longitude decorre do <span class="grifo">movimento cinemático de rotação da Terra</span> e parametriza as convenções matemáticas do cômputo do tempo civil.
+        </p>
+
+        <p>
+          Os paralelos e meridianos notáveis originam-se da interação entre a geometria esférica e a mecânica orbital da Terra, destacando-se a <strong class="text-slate-900">obliquidade da eclíptica</strong> — a inclinação de aproximadamente <span class="grifo">23° 27'</span> do eixo de rotação planetário em relação ao plano orbital em torno do Sol.
+        </p>
+
+        <!-- Tabela 1: Linhas Notáveis (Sem Scroll Horizontal) -->
+        <div class="border border-slate-200 rounded-lg overflow-hidden my-4 bg-white">
+          <table class="text-left text-xs sm:text-sm">
+            <thead class="bg-slate-100 text-slate-800 border-b border-slate-200">
+              <tr>
+                <th class="w-1/4 p-2 sm:p-3 font-bold border-r border-slate-200">Linha Notável</th>
+                <th class="w-1/4 p-2 sm:p-3 font-bold border-r border-slate-200">Lat. / Long.</th>
+                <th class="w-2/4 p-2 sm:p-3 font-bold">Caracterização Geométrica e Implicações Espaciais</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-200 text-slate-700">
+              <tr class="hover:bg-slate-50">
+                <td class="p-2 sm:p-3 font-semibold text-slate-900 border-r border-slate-200">Linha do Equador</td>
+                <td class="p-2 sm:p-3 border-r border-slate-200 font-mono text-xs">Latitude 0°</td>
+                <td class="p-2 sm:p-3">
+                  <span class="grifo">Único paralelo que é um círculo máximo</span>; divide o planeta nos hemisférios Norte e Sul.
+                </td>
+              </tr>
+              <tr class="hover:bg-slate-50">
+                <td class="p-2 sm:p-3 font-semibold text-slate-900 border-r border-slate-200">Trópico de Câncer</td>
+                <td class="p-2 sm:p-3 border-r border-slate-200 font-mono text-xs">23° 27' N</td>
+                <td class="p-2 sm:p-3">Limite astronômico setentrional da incidência solar perpendicular (zenital).</td>
+              </tr>
+              <tr class="hover:bg-slate-50">
+                <td class="p-2 sm:p-3 font-semibold text-slate-900 border-r border-slate-200">Trópico de Capricórnio</td>
+                <td class="p-2 sm:p-3 border-r border-slate-200 font-mono text-xs">23° 27' S</td>
+                <td class="p-2 sm:p-3">
+                  Limite meridional dos raios zenitais solares; cruza no Brasil os estados de <span class="grifo">SP, PR e MS</span>.
+                </td>
+              </tr>
+              <tr class="hover:bg-slate-50">
+                <td class="p-2 sm:p-3 font-semibold text-slate-900 border-r border-slate-200">Círculo Polar Ártico</td>
+                <td class="p-2 sm:p-3 border-r border-slate-200 font-mono text-xs">66° 33' N</td>
+                <td class="p-2 sm:p-3">Complemento do Trópico ($90^\circ - 23^\circ 27'$); marco de ocorrência do sol da meia-noite boreal.</td>
+              </tr>
+              <tr class="hover:bg-slate-50">
+                <td class="p-2 sm:p-3 font-semibold text-slate-900 border-r border-slate-200">Círculo Polar Antártico</td>
+                <td class="p-2 sm:p-3 border-r border-slate-200 font-mono text-xs">66° 33' S</td>
+                <td class="p-2 sm:p-3">Limite meridional para o sol da meia-noite e noites polares austrais.</td>
+              </tr>
+              <tr class="hover:bg-slate-50">
+                <td class="p-2 sm:p-3 font-semibold text-slate-900 border-r border-slate-200">Meridiano de Greenwich</td>
+                <td class="p-2 sm:p-3 border-r border-slate-200 font-mono text-xs">Longitude 0°</td>
+                <td class="p-2 sm:p-3">Meridiano de origem convencionado em 1884; separa os hemisférios Ocidental e Oriental.</td>
+              </tr>
+              <tr class="hover:bg-slate-50">
+                <td class="p-2 sm:p-3 font-semibold text-slate-900 border-r border-slate-200">Linha Internacional de Data (LID)</td>
+                <td class="p-2 sm:p-3 border-r border-slate-200 font-mono text-xs">Longitude 180°</td>
+                <td class="p-2 sm:p-3">
+                  Antimeridiano de Greenwich; marco de <span class="grifo">transição obrigatória do calendário civil mundial</span>.
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="bg-slate-50 p-4 rounded-lg border border-slate-200 space-y-2 text-xs sm:text-sm">
+          <p class="font-bold text-slate-900 uppercase tracking-wide">Síntese de Memorização - Tópico 01:</p>
+          <ul class="list-disc list-inside space-y-1">
+            <li>A <span class="grifo">Linha do Equador e os pares conjugados de meridianos e antimeridianos</span> configuram os únicos círculos máximos da esfera terrestre.</li>
+            <li>Todos os paralelos ao norte ou ao sul do Equador são <span class="grifo">círculos menores</span>, cujos perímetros convergem progressivamente para zero nas calotas polares.</li>
+            <li>A <span class="grifo">latitude determina as zonas bioclimáticas</span> (radiação e insolação); a <span class="grifo">longitude determina os fusos horários</span> e a defasagem temporal mecânica.</li>
+            <li>Na Linha Internacional de Mudança de Data ($180^\circ$): o deslocamento no rumo oeste requer o <span class="grifo-verde">acréscimo de um dia civil (+1 dia)</span>; a travessia para o leste impõe a <span class="grifo-alerta">subtração de um dia (-1 dia)</span>, mantendo o relógio inalterado.</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- SEÇÃO 2 -->
+      <section class="space-y-4">
+        <div class="border-b border-slate-200 pb-2">
+          <h2 class="text-xl sm:text-2xl font-bold text-slate-900 flex items-center gap-2">
+            <span class="text-slate-400 font-mono text-lg">02.</span>
+            Fusos Horários Mundiais e o Sistema Horário Brasileiro
+          </h2>
+        </div>
+
+        <p>
+          A convenção dos fusos horários estabelecida na Conferência Internacional do Meridiano de 1884 correlaciona a dinâmica de rotação da Terra à contagem civil das horas. O percurso de uma rotação angular completa de $360^\circ$ ocorre no intervalo astronômico de aproximadamente 24 horas, derivando a taxa constante de <span class="grifo">15° por hora</span>, ou <span class="grifo">1° a cada 4 minutos</span>:
+        </p>
+
+        <div class="p-3 bg-slate-50 border border-slate-200 rounded-lg text-center font-mono text-sm sm:text-base">
+          $$\frac{360^\circ}{24\text{ h}} = 15^\circ/\text{h} \iff 1^\circ = 4\text{ minutos}$$
+        </div>
+
+        <p>
+          Cada fuso horário teórico compreende uma faixa longitudinal de $15^\circ$, estendendo-se por $7^\circ 30'$ para oeste e $7^\circ 30'$ para leste a partir do respectivo meridiano central. Como o movimento de rotação terrestre transcorre no sentido de <strong class="text-slate-900">oeste para leste</strong>, as porções orientais da Terra são iluminadas pioneiramente pelo Sol.
+        </p>
+
+        <p>
+          Desse princípio derivam as premissas operacionais da banca: para o sentido <span class="grifo-verde">leste as horas devem ser adiantadas (+)</span>, enquanto para o sentido <span class="grifo-alerta">oeste as horas devem ser atrasadas (-)</span>. Cabe distinguir a <em>hora solar</em>, atrelada à passagem zenital solar sobre o meridiano local, da <em>hora legal ou civil</em>, fixada por prerrogativa soberana dos Estados nacionais para evitar fragmentações socioeconômicas.
+        </p>
+
+        <h3 class="text-lg font-bold text-slate-900 pt-2">Evolução Normativa do Sistema Brasileiro</h3>
+        <p>
+          No território brasileiro, integralmente situado no Hemisfério Ocidental (a oeste de Greenwich), o arcabouço normativo dos fusos foi estruturado pelo <span class="grifo">Decreto Federal nº 2.784/1913</span>, que originalmente instituiu quatro fusos no país. Essa ordem vigorou até a controversa <span class="grifo-alerta">Lei Federal nº 11.662/2008</span>, que unificou o Pará ao 2º fuso e extinguiu o 4º fuso horário, atrelando o Acre e o oeste amazonense ao fuso UTC-4.
+        </p>
+        <p>
+          Após maciça rejeição no <span class="grifo">Referendo Popular de 2010</span> no Acre, o Congresso Nacional promulgou a <span class="grifo-verde">Lei Federal nº 12.876/2013</span> (em vigor desde 10/11/2013), que <strong>restabeleceu em definitivo o 4º fuso horário brasileiro (UTC-5)</strong> para o Acre e os municípios do oeste amazonense, preservando o Pará integralmente em UTC-3.
+        </p>
+        <p>
+          Adicionalmente, o <strong class="text-slate-900">Horário de Verão no Brasil foi extinto</strong> pelo <span class="grifo">Decreto Federal nº 9.772/2019</span>, permanecendo a diferença dos fusos inalterada ao longo de todo o ano em território nacional.
+        </p>
+
+        <!-- Tabela 2: Fusos do Brasil (Sem Scroll Horizontal) -->
+        <div class="border border-slate-200 rounded-lg overflow-hidden my-4 bg-white">
+          <table class="text-left text-xs sm:text-sm">
+            <thead class="bg-slate-100 text-slate-800 border-b border-slate-200">
+              <tr>
+                <th class="w-[18%] p-2 sm:p-2.5 font-bold border-r border-slate-200">Fuso Oficial</th>
+                <th class="w-[17%] p-2 sm:p-2.5 font-bold border-r border-slate-200">Meridiano</th>
+                <th class="w-[15%] p-2 sm:p-2.5 font-bold border-r border-slate-200">Greenwich</th>
+                <th class="w-[15%] p-2 sm:p-2.5 font-bold border-r border-slate-200">Brasília</th>
+                <th class="w-[35%] p-2 sm:p-2.5 font-bold">Abrangência e Estados</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-200 text-slate-700">
+              <tr class="hover:bg-slate-50">
+                <td class="p-2 sm:p-2.5 font-semibold text-slate-900 border-r border-slate-200">1º Fuso</td>
+                <td class="p-2 sm:p-2.5 border-r border-slate-200 font-mono text-xs">30° O</td>
+                <td class="p-2 sm:p-2.5 border-r border-slate-200 font-semibold">UTC-2</td>
+                <td class="p-2 sm:p-2.5 border-r border-slate-200 text-slate-600">+1 hora</td>
+                <td class="p-2 sm:p-2.5">
+                  <span class="grifo">Restrito às ilhas oceânicas</span>: Fernando de Noronha (PE), Trindade e Martim Vaz (ES), Rocas (RN), São Pedro e São Paulo (PE).
+                </td>
+              </tr>
+              <tr class="hover:bg-slate-50 bg-amber-50/40">
+                <td class="p-2 sm:p-2.5 font-semibold text-slate-900 border-r border-slate-200">2º Fuso</td>
+                <td class="p-2 sm:p-2.5 border-r border-slate-200 font-mono text-xs">45° O</td>
+                <td class="p-2 sm:p-2.5 border-r border-slate-200 font-semibold text-slate-900">UTC-3</td>
+                <td class="p-2 sm:p-2.5 border-r border-slate-200 font-bold text-slate-900">Hora Oficial</td>
+                <td class="p-2 sm:p-2.5">
+                  <span class="grifo">DF + 20 estados</span>: Todo o Sul, Sudeste e Nordeste; Goiás; e os estados do <span class="grifo">Pará, Amapá e Tocantins</span>.
+                </td>
+              </tr>
+              <tr class="hover:bg-slate-50">
+                <td class="p-2 sm:p-2.5 font-semibold text-slate-900 border-r border-slate-200">3º Fuso</td>
+                <td class="p-2 sm:p-2.5 border-r border-slate-200 font-mono text-xs">60° O</td>
+                <td class="p-2 sm:p-2.5 border-r border-slate-200 font-semibold">UTC-4</td>
+                <td class="p-2 sm:p-2.5 border-r border-slate-200 text-slate-600">-1 hora</td>
+                <td class="p-2 sm:p-2.5">
+                  <span class="grifo">5 estados</span>: MT, MS, RO, RR e a porção oriental do Amazonas (incluindo a capital Manaus).
+                </td>
+              </tr>
+              <tr class="hover:bg-slate-50">
+                <td class="p-2 sm:p-2.5 font-semibold text-slate-900 border-r border-slate-200">4º Fuso</td>
+                <td class="p-2 sm:p-2.5 border-r border-slate-200 font-mono text-xs">75° O</td>
+                <td class="p-2 sm:p-2.5 border-r border-slate-200 font-semibold">UTC-5</td>
+                <td class="p-2 sm:p-2.5 border-r border-slate-200 text-slate-600">-2 horas</td>
+                <td class="p-2 sm:p-2.5">
+                  Todo o <span class="grifo">Estado do Acre</span> + oeste amazonense (a oeste da linha <span class="grifo">Tabatinga–Porto Acre</span>).
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="bg-slate-50 p-4 rounded-lg border border-slate-200 space-y-2 text-xs sm:text-sm">
+          <p class="font-bold text-slate-900 uppercase tracking-wide">Síntese de Memorização - Tópico 02:</p>
+          <ul class="list-disc list-inside space-y-1">
+            <li>O Brasil possui <span class="grifo">4 fusos horários oficiais</span>, todos a oeste de Greenwich ($\text{UTC}-2$, $\text{UTC}-3$, $\text{UTC}-4$ e $\text{UTC}-5$).</li>
+            <li>A <span class="grifo">Lei nº 12.876/2013</span> revogou a Lei nº 11.662/2008 e reinseriu o Acre e o extremo oeste amazonense no fuso $\text{UTC}-5$.</li>
+            <li>A linha demarcatória divisória no Amazonas é a reta imaginária entre <span class="grifo">Tabatinga e Porto Acre</span>.</li>
+            <li>O Estado do Pará e o Estado do Amapá estão <span class="grifo">100% integrados à hora de Brasília (UTC-3)</span>.</li>
+            <li><span class="grifo-alerta">Não há horário de verão no Brasil</span> desde a publicação do Decreto nº 9.772/2019.</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- SEÇÃO 3 -->
+      <section class="space-y-4">
+        <div class="border-b border-slate-200 pb-2">
+          <h2 class="text-xl sm:text-2xl font-bold text-slate-900 flex items-center gap-2">
+            <span class="text-slate-400 font-mono text-lg">03.</span>
+            Resolução Algorítmica de Fusos em Viagens Aéreas
+          </h2>
+        </div>
+
+        <p>
+          Nas provas de concurso do IFMG, as questões sobre voos aéreos integram três variáveis simultâneas: <strong>a hora legal de partida</strong>, o <strong>tempo de duração de voo no ar</strong> e a <strong>diferença de fusos horários</strong> entre origem e destino.
+        </p>
+
+        <p class="font-semibold text-slate-900">Equação Geral do Deslocamento Espaciotemporal:</p>
+        <div class="p-3 bg-slate-50 border border-slate-200 rounded-lg text-center font-mono text-sm sm:text-base">
+          $$\text{Hora Local de Chegada} = \text{Hora de Partida} + \Delta T_{\text{voo}} + (\text{Fuso}_{\text{destino}} - \text{Fuso}_{\text{origem}})$$
+        </div>
+
+        <div class="space-y-2 text-xs sm:text-sm pl-2 border-l-2 border-slate-300">
+          <p><strong>Roteiro Passo a Passo para Não Errar o Sinal:</strong></p>
+          <ol class="list-decimal list-inside space-y-1">
+            <li>Identifique algebricamente o fuso de origem e o de destino em relação a Greenwich ($\text{UTC}\pm n$).</li>
+            <li>Calcule a variação horária linear: $\Delta\text{Fuso} = \text{Fuso}_{\text{destino}} - \text{Fuso}_{\text{origem}}$. Para Leste $\to$ resultado positivo ($+$); para Oeste $\to$ resultado negativo ($-$).</li>
+            <li>Some a duração física do voo ($\Delta T_{\text{voo}}$) à hora local de partida.</li>
+            <li>Aplique a correção de fuso ($\Delta\text{Fuso}$).</li>
+            <li>Se o resultado ultrapassar $24\text{ h}$, subtraia $24\text{ h}$ e avance um dia no calendário ($+1\text{ dia}$); se o resultado for negativo, adicione $24\text{ h}$ e volte um dia ($-1\text{ dia}$).</li>
+          </ol>
+        </div>
+
+        <!-- Problemas Resolvidos -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">
+          <!-- Exemplo 1 -->
+          <div class="p-4 rounded-lg border border-slate-200 bg-white shadow-sm space-y-2">
+            <span class="inline-block px-2 py-0.5 bg-slate-100 text-slate-700 text-xs font-bold rounded">Aplicação Nacional</span>
+            <h4 class="font-bold text-slate-900 text-sm">Voo Belo Horizonte (MG) &rarr; Rio Branco (AC)</h4>
+            <p class="text-xs text-slate-600">
+              Decolagem de Belo Horizonte ($\text{UTC}-3$) às $09\text{h}15\text{min}$ de quarta-feira. Tempo de voo de $4\text{h}30\text{min}$. Fuso de Rio Branco: $\text{UTC}-5$. Qual a hora de chegada no Acre?
+            </p>
+            <div class="bg-slate-50 p-2.5 rounded font-mono text-xs space-y-1 text-slate-800">
+              <p>• Origem: -3 | Destino: -5</p>
+              <p>• $\Delta\text{Fuso} = (-5) - (-3) = \mathbf{-2\text{ horas}}$</p>
+              <p>• Chegada = $09\text{h}15 + 04\text{h}30 + (-02\text{h}00)$</p>
+              <p>• Chegada = $13\text{h}45 - 02\text{h}00 = \mathbf{11\text{h}45\text{min}}$</p>
+              <p class="text-slate-900 font-sans font-bold pt-1 text-[11px] text-green-700">
+                &check; Chegada às 11h45min da mesma quarta-feira.
+              </p>
+            </div>
+          </div>
+
+          <!-- Exemplo 2 -->
+          <div class="p-4 rounded-lg border border-slate-200 bg-white shadow-sm space-y-2">
+            <span class="inline-block px-2 py-0.5 bg-slate-100 text-slate-700 text-xs font-bold rounded">Aplicação Internacional</span>
+            <h4 class="font-bold text-slate-900 text-sm">Voo Sydney (Austrália) &rarr; Santiago (Chile)</h4>
+            <p class="text-xs text-slate-600">
+              Decolagem de Sydney ($150^\circ\text{ L} \implies \text{UTC}+10$) às $14\text{h}00$ de domingo, 5 de maio. Voo de $13\text{h}00$. Destino: Santiago ($75^\circ\text{ O} \implies \text{UTC}-5$).
+            </p>
+            <div class="bg-slate-50 p-2.5 rounded font-mono text-xs space-y-1 text-slate-800">
+              <p>• $\Delta\text{Fuso} = (-5) - (+10) = \mathbf{-15\text{ horas}}$</p>
+              <p>• Chegada = $14\text{h}00 + 13\text{h}00 - 15\text{h}00$</p>
+              <p>• Chegada = $27\text{h}00 - 15\text{h}00 = \mathbf{12\text{h}00}$</p>
+              <p class="text-slate-900 font-sans font-bold pt-1 text-[11px] text-green-700">
+                &check; Chegada às 12h00 de domingo, dia 5 de maio (cruza a LID para leste e "ganha" o dia civil).
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SEÇÃO 4 -->
+      <section class="space-y-4">
+        <div class="border-b border-slate-200 pb-2">
+          <h2 class="text-xl sm:text-2xl font-bold text-slate-900 flex items-center gap-2">
+            <span class="text-slate-400 font-mono text-lg">04.</span>
+            Classificação das Projeções Cartográficas
+          </h2>
+        </div>
+
+        <p>
+          Conforme postula Fitz em <em>Cartografia Básica</em>, a representação bidimensional da curvatura esferoidal da Terra em um plano configura uma impossibilidade geométrica absoluta de resolução perfeita. Para minimizar deformações inevitáveis, utilizam-se superfícies geométricas auxiliares desenvolvíveis.
+        </p>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs sm:text-sm">
+          <div class="p-3 border border-slate-200 rounded-lg bg-slate-50">
+            <h4 class="font-bold text-slate-900 text-sm mb-1">1. Cilíndricas</h4>
+            <p>
+              A rede geográfica projeta-se sobre um cilindro envolvente. Na posição normal, paralelos e meridianos formam um reticulado ortogonal que se intercepta a $90^\circ$. Ideal para a <span class="grifo">faixa equatorial</span> ou planisférios integrais.
+            </p>
+          </div>
+          <div class="p-3 border border-slate-200 rounded-lg bg-slate-50">
+            <h4 class="font-bold text-slate-900 text-sm mb-1">2. Cônicas</h4>
+            <p>
+              O globo é projetado sobre um cone. Os paralelos formam arcos circulares concêntricos e os meridianos são feixes retos que convergem para o ápice polar. É o modelo com menor distorção para as <span class="grifo">médias latitudes (zonas temperadas)</span>.
+            </p>
+          </div>
+          <div class="p-3 border border-slate-200 rounded-lg bg-slate-50">
+            <h4 class="font-bold text-slate-900 text-sm mb-1">3. Azimutais / Planas</h4>
+            <p>
+              A projeção é feita diretamente sobre um plano tangente ou secante. Preserva com rigor as direções (azimutes) a partir do centro da projeção. Empregado para <span class="grifo">regiões polares</span>, navegação aérea transpolar e emblemas geopolíticos (ex.: ONU).
+            </p>
+          </div>
+        </div>
+
+        <p class="text-xs sm:text-sm text-slate-600">
+          <strong>Quanto ao grau de contato da superfície:</strong> as projeções <em>tangentes</em> tocam a esfera em uma única linha ou ponto ($k = 1,0$ somente no contato); as projeções <em>secantes</em> cortam o globo em dois paralelos padrão, ampliando a área de baixa distorção métrica.
+        </p>
+
+        <h3 class="text-base sm:text-lg font-bold text-slate-900 pt-2">Classificação Segundo as Deformações (Teorema de Tissot)</h3>
+
+        <!-- Tabela 3: Deformações (Sem Scroll Horizontal) -->
+        <div class="border border-slate-200 rounded-lg overflow-hidden my-4 bg-white">
+          <table class="text-left text-xs sm:text-sm">
+            <thead class="bg-slate-100 text-slate-800 border-b border-slate-200">
+              <tr>
+                <th class="w-[20%] p-2 sm:p-2.5 font-bold border-r border-slate-200">Classificação</th>
+                <th class="w-[25%] p-2 sm:p-2.5 font-bold border-r border-slate-200">Propriedade Preservada</th>
+                <th class="w-[25%] p-2 sm:p-2.5 font-bold border-r border-slate-200">Comportamento Deformação</th>
+                <th class="w-[30%] p-2 sm:p-2.5 font-bold">Aplicações e Exemplos Notáveis</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-200 text-slate-700">
+              <tr class="hover:bg-slate-50">
+                <td class="p-2 sm:p-2.5 font-bold text-slate-900 border-r border-slate-200">Conformes (Ortomórficas)</td>
+                <td class="p-2 sm:p-2.5 border-r border-slate-200 font-semibold text-slate-900">
+                  <span class="grifo">Formas locais e ângulos</span> ($\alpha = \alpha'$); cruzamentos a $90^\circ$.
+                </td>
+                <td class="p-2 sm:p-2.5 border-r border-slate-200 text-slate-600">
+                  <span class="grifo-alerta">Distorce intensamente as áreas</span> relativas (sobretudo nas altas latitudes).
+                </td>
+                <td class="p-2 sm:p-2.5">
+                  Navegação aérea/marítima, cartas náuticas e cadastros urbanos de grande escala. <em>Exemplos: Mercator, Lambert, UTM</em>.
+                </td>
+              </tr>
+              <tr class="hover:bg-slate-50">
+                <td class="p-2 sm:p-2.5 font-bold text-slate-900 border-r border-slate-200">Equivalentes (Autálicas)</td>
+                <td class="p-2 sm:p-2.5 border-r border-slate-200 font-semibold text-slate-900">
+                  <span class="grifo">Áreas superficiais</span> proporcionais e idênticas em proporção à realidade.
+                </td>
+                <td class="p-2 sm:p-2.5 border-r border-slate-200 text-slate-600">
+                  <span class="grifo-alerta">Distorce severamente as formas</span> e os ângulos das massas continentais.
+                </td>
+                <td class="p-2 sm:p-2.5">
+                  Mapeamentos temáticos de densidade demográfica, uso do solo e produção agrária. <em>Exemplos: Peters, Albers, Mollweide</em>.
+                </td>
+              </tr>
+              <tr class="hover:bg-slate-50">
+                <td class="p-2 sm:p-2.5 font-bold text-slate-900 border-r border-slate-200">Equidistantes</td>
+                <td class="p-2 sm:p-2.5 border-r border-slate-200 font-semibold text-slate-900">
+                  <span class="grifo">Distâncias lineares</span> em direções e eixos específicos a partir do centro.
+                </td>
+                <td class="p-2 sm:p-2.5 border-r border-slate-200 text-slate-600">
+                  Distorce áreas e formas de modo conjugado.
+                </td>
+                <td class="p-2 sm:p-2.5">
+                  Rotas de telecomunicações, trajetos estratégicos de aviação polar, cartas sismológicas. <em>Exemplo: Azimutal Equidistante</em>.
+                </td>
+              </tr>
+              <tr class="hover:bg-slate-50">
+                <td class="p-2 sm:p-2.5 font-bold text-slate-900 border-r border-slate-200">Afiláticas (Compromisso)</td>
+                <td class="p-2 sm:p-2.5 border-r border-slate-200 font-semibold text-slate-900">
+                  <span class="grifo">Nenhuma propriedade integral</span> (não é conforme, equivalente nem equidistante).
+                </td>
+                <td class="p-2 sm:p-2.5 border-r border-slate-200 text-slate-600">
+                  Minimiza as aberrações totais para um equilíbrio estético harmônico.
+                </td>
+                <td class="p-2 sm:p-2.5">
+                  Atlas escolares, didática geral e divulgação pedagógica visual. <em>Exemplos: Robinson, Winkel-Tripel</em>.
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- SEÇÃO 5 -->
+      <section class="space-y-4">
+        <div class="border-b border-slate-200 pb-2">
+          <h2 class="text-xl sm:text-2xl font-bold text-slate-900 flex items-center gap-2">
+            <span class="text-slate-400 font-mono text-lg">05.</span>
+            Análise Crítica Comparativa: Mercator versus Peters
+          </h2>
+        </div>
+
+        <p>
+          O embate entre a projeção de <strong>Gerhard Mercator (1569)</strong> e a de <strong>Arno Peters (1973)</strong> é o tema epistemológico e geopolítico mais explorado pela banca do IFMG para verificar se o candidato compreende a cartografia como instrumento ideológico e de relações de poder.
+        </p>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div class="p-4 rounded-lg border border-slate-200 bg-slate-50 space-y-2">
+            <h4 class="font-bold text-slate-900 text-base">Projeção de Gerhard Mercator (1569)</h4>
+            <ul class="text-xs sm:text-sm space-y-1.5 list-disc list-inside">
+              <li><strong>Contexto Histórico:</strong> Grandes Navegações mercantilistas do século XVI e Renascimento comercial europeu.</li>
+              <li><strong>Propriedade Geométrica:</strong> <span class="grifo">Cilíndrica Conforme Tangente</span> ao Equador.</li>
+              <li><strong>Finalidade Técnica:</strong> Traçado de retas que cortam meridianos com o mesmo ângulo — as <span class="grifo">loxodromias</span> (linhas de rumo magnético constante na bússola).</li>
+              <li><strong>Distorção Marcante:</strong> Espaçamento crescente entre paralelos em direção aos polos, gerando <span class="grifo-alerta">hipertrofia desmedida das altas latitudes</span> (Groenlândia aparenta ter o mesmo tamanho da África).</li>
+              <li><strong>Ideologia Subjacente:</strong> Matriz <span class="grifo">Eurocêntrica</span>, colocando a Europa no centro visual e superior com dimensão física inflada em relação às terras tropicais colonizadas.</li>
+            </ul>
+          </div>
+
+          <div class="p-4 rounded-lg border border-slate-200 bg-slate-50 space-y-2">
+            <h4 class="font-bold text-slate-900 text-base">Projeção de Arno Peters (1973)</h4>
+            <ul class="text-xs sm:text-sm space-y-1.5 list-disc list-inside">
+              <li><strong>Contexto Histórico:</strong> Guerra Fria, descolonização afro-asiática e ascensão do pensamento desenvolvimentista e da Teoria da Dependência.</li>
+              <li><strong>Propriedade Geométrica:</strong> <span class="grifo">Cilíndrica Equivalente Secante</span> aos paralelos de $45^\circ\text{ N}$ e $45^\circ\text{ S}$.</li>
+              <li><strong>Finalidade Técnica:</strong> <span class="grifo">Preservação exata da proporção das áreas</span> territoriais em escala global.</li>
+              <li><strong>Distorção Marcante:</strong> Forte distorção angular e morfológica; os continentes tropicais aparentam estar <span class="grifo-alerta">esticados verticalmente ("escorridos")</span> de norte a sul.</li>
+              <li><strong>Ideologia Subjacente:</strong> Perspectiva <span class="grifo">Terceiro-Mundista</span>, valorizando o Sul Global e conferindo destaque espacial às nações periféricas.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Tabela 4: Mercator vs Peters (Sem Scroll Horizontal) -->
+        <div class="border border-slate-200 rounded-lg overflow-hidden my-4 bg-white">
+          <table class="text-left text-xs sm:text-sm">
+            <thead class="bg-slate-100 text-slate-800 border-b border-slate-200">
+              <tr>
+                <th class="w-[25%] p-2 sm:p-2.5 font-bold border-r border-slate-200">Atributo Diferenciador</th>
+                <th class="w-[37.5%] p-2 sm:p-2.5 font-bold border-r border-slate-200">Mercator (1569)</th>
+                <th class="w-[37.5%] p-2 sm:p-2.5 font-bold">Peters (1973)</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-200 text-slate-700">
+              <tr class="hover:bg-slate-50">
+                <td class="p-2 sm:p-2.5 font-semibold text-slate-900 border-r border-slate-200">Superfície Geométrica</td>
+                <td class="p-2 sm:p-2.5 border-r border-slate-200">Cilíndrica Normal Tangente ao Equador</td>
+                <td class="p-2 sm:p-2.5">Cilíndrica Normal Secante a 45° N e 45° S</td>
+              </tr>
+              <tr class="hover:bg-slate-50">
+                <td class="p-2 sm:p-2.5 font-semibold text-slate-900 border-r border-slate-200">Propriedade Central</td>
+                <td class="p-2 sm:p-2.5 border-r border-slate-200 font-bold text-slate-900">
+                  <span class="grifo">CONFORME</span> (Formas e ângulos)
+                </td>
+                <td class="p-2 sm:p-2.5 font-bold text-slate-900">
+                  <span class="grifo">EQUIVALENTE</span> (Áreas proporcionais)
+                </td>
+              </tr>
+              <tr class="hover:bg-slate-50">
+                <td class="p-2 sm:p-2.5 font-semibold text-slate-900 border-r border-slate-200">Espaçamento dos Paralelos</td>
+                <td class="p-2 sm:p-2.5 border-r border-slate-200">Afasta-se e cresce rumo aos polos</td>
+                <td class="p-2 sm:p-2.5">Comprime-se e decresce rumo aos polos</td>
+              </tr>
+              <tr class="hover:bg-slate-50">
+                <td class="p-2 sm:p-2.5 font-semibold text-slate-900 border-r border-slate-200">Distorção Visual</td>
+                <td class="p-2 sm:p-2.5 border-r border-slate-200">Áreas infladas nas zonas polares</td>
+                <td class="p-2 sm:p-2.5">Formas alongadas/esticadas verticalmente</td>
+              </tr>
+              <tr class="hover:bg-slate-50">
+                <td class="p-2 sm:p-2.5 font-semibold text-slate-900 border-r border-slate-200">Utilidade Primária</td>
+                <td class="p-2 sm:p-2.5 border-r border-slate-200">Navegação náutica (linhas de rumo constante)</td>
+                <td class="p-2 sm:p-2.5">Mapeamento temático e denúncia geopolítica</td>
+              </tr>
+              <tr class="hover:bg-slate-50">
+                <td class="p-2 sm:p-2.5 font-semibold text-slate-900 border-r border-slate-200">Conotação Ideológica</td>
+                <td class="p-2 sm:p-2.5 border-r border-slate-200 font-bold text-slate-900">
+                  <span class="grifo">Eurocentrismo</span> (Norte hegemônico)
+                </td>
+                <td class="p-2 sm:p-2.5 font-bold text-slate-900">
+                  <span class="grifo">Terceiro-Mundismo</span> (Sul Global)
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- SEÇÃO 6 -->
+      <section class="space-y-4">
+        <div class="border-b border-slate-200 pb-2">
+          <h2 class="text-xl sm:text-2xl font-bold text-slate-900 flex items-center gap-2">
+            <span class="text-slate-400 font-mono text-lg">06.</span>
+            Escala Cartográfica: Cálculos Lineares, Relações de Área e Conversão
+          </h2>
+        </div>
+
+        <p>
+          A escala traduz a relação matemática de proporcionalidade entre as dimensões de uma representação cartográfica e as medidas reais na superfície da Terra:
+        </p>
+
+        <div class="p-3 bg-slate-50 border border-slate-200 rounded-lg text-center font-mono text-sm sm:text-base">
+          $$E = \frac{d}{D} = \frac{1}{M} \iff D = d \cdot M$$
+        </div>
+
+        <p class="text-xs sm:text-sm text-slate-600">
+          Onde $d$ é a distância gráfica medida no mapa (padronizada em $\text{cm}$), $D$ é a distância real no terreno ($\text{m}$ ou $\text{km}$) e $M$ é o módulo/denominador de redução.
+        </p>
+
+        <!-- Regra de Ouro da Proporcionalidade Inversa -->
+        <div class="p-3 bg-amber-50/60 border border-amber-200 rounded-lg text-xs sm:text-sm space-y-1">
+          <p class="font-bold text-amber-950">Regra da Proporcionalidade Inversa da Escala:</p>
+          <p>
+            • Denominador ($M$) <strong class="text-slate-900">GRANDE</strong> $\implies$ Escala <span class="grifo-alerta">PEQUENA</span>: muita redução, abrange grandes áreas geográficas (continentes, países), com <em>pouco detalhamento</em> (ex.: $1:1.000.000$).
+          </p>
+          <p>
+            • Denominador ($M$) <strong class="text-slate-900">PEQUENO</strong> $\implies$ Escala <span class="grifo-verde">GRANDE</span>: pouca redução, abrange áreas menores (bairros, lotes), com <em>alto nível de detalhe</em> (ex.: $1:5.000$).
+          </p>
+        </div>
+
+        <h3 class="text-base sm:text-lg font-bold text-slate-900 pt-2">Conversão Decimal Instantânea (Macete de Prova)</h3>
+        <p>
+          Para converter diretamente de centímetros ($\text{cm}$) no papel para quilômetros lineares ($\text{km}$) no terreno, basta <span class="grifo">deslocar a vírgula 5 casas para a esquerda</span> (dividir por $100.000$):
+        </p>
+        <div class="p-3 bg-slate-50 border border-slate-200 rounded font-mono text-center text-xs sm:text-sm">
+          $$\text{km} \quad \xleftarrow{\div 10} \quad \text{hm} \quad \xleftarrow{\div 10} \quad \text{dam} \quad \xleftarrow{\div 10} \quad \text{m} \quad \xleftarrow{\div 10} \quad \text{dm} \quad \xleftarrow{\div 10} \quad \text{cm} \quad \xleftarrow{\div 10} \quad \text{mm}$$
+        </div>
+
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs font-mono text-slate-800">
+          <div class="p-2 border border-slate-200 rounded bg-white text-center">
+            <span class="block text-slate-500 text-[10px]">Escala 1:50.000</span>
+            <strong>1 cm = 0,5 km</strong><br>(500 m)
+          </div>
+          <div class="p-2 border border-slate-200 rounded bg-white text-center">
+            <span class="block text-slate-500 text-[10px]">Escala 1:100.000</span>
+            <strong>1 cm = 1,0 km</strong><br>(1.000 m)
+          </div>
+          <div class="p-2 border border-slate-200 rounded bg-white text-center">
+            <span class="block text-slate-500 text-[10px]">Escala 1:250.000</span>
+            <strong>1 cm = 2,5 km</strong><br>(2.500 m)
+          </div>
+          <div class="p-2 border border-slate-200 rounded bg-white text-center">
+            <span class="block text-slate-500 text-[10px]">Escala 1:1.000.000</span>
+            <strong>1 cm = 10,0 km</strong><br>(10.000 m)
+          </div>
+        </div>
+
+        <p class="text-xs sm:text-sm">
+          <strong>Escala Gráfica vs Escala Numérica:</strong> A escala gráfica expressa-se visualmente por uma régua graduada. Sua principal vantagem pedagógica e técnica é que ela <span class="grifo">mantém a exatidão métrica mesmo após processos de ampliação ou redução xerográfica</span>, sofrendo a mesma alteração do mapa. A porção à esquerda do ponto zero é denominada <strong>talão</strong> ou escala fracionária de precisão.
+        </p>
+
+        <h3 class="text-base sm:text-lg font-bold text-slate-900 pt-2">Cálculo de Escala Superficial de Área ($A = a \cdot M^2$)</h3>
+        <p>
+          Nas questões da banca Reitoria do IFMG, o erro clássico é multiplicar a área gráfica pelo denominador linear comum. Como a escala atua bidimensionalmente no comprimento e na largura, a escala de área é dada pela <span class="grifo-alerta">segunda potência do denominador</span>:
+        </p>
+
+        <div class="p-3 bg-slate-50 border border-slate-200 rounded-lg text-center font-mono text-sm sm:text-base">
+          $$\text{Escala de Superfície} = \frac{a_{\text{gráfico}}}{A_{\text{real}}} = \left(\frac{1}{M}\right)^2 \iff A_{\text{real}} = a_{\text{gráfico}} \cdot M^2$$
+        </div>
+
+        <div class="p-3 bg-slate-100 rounded text-xs space-y-1 font-mono text-slate-700">
+          <p><strong>Fatores de conversão agrária obrigatórios:</strong></p>
+          <p>• $1\text{ hectare (ha)} = 10.000\text{ m}^2$</p>
+          <p>• $1\text{ km}^2 = 1.000.000\text{ m}^2 = \mathbf{100\text{ hectares (ha)}}$</p>
+        </div>
+
+        <!-- Problemas de Escala Resolvidos -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">
+          <!-- Problema Linear -->
+          <div class="p-4 rounded-lg border border-slate-200 bg-white shadow-sm space-y-2">
+            <span class="inline-block px-2 py-0.5 bg-slate-100 text-slate-700 text-xs font-bold rounded">Resolução Linear</span>
+            <h4 class="font-bold text-slate-900 text-sm">Determinação de Escala e Extrapolação</h4>
+            <p class="text-xs text-slate-600">
+              Duas estações medem $7,5\text{ cm}$ no mapa e $30\text{ km}$ no real. Ache a escala e a distância real para outro trecho com $3,2\text{ cm}$ no mapa.
+            </p>
+            <div class="bg-slate-50 p-2.5 rounded font-mono text-xs space-y-1 text-slate-800">
+              <p>1. $D = 30\text{ km} = 3.000.000\text{ cm}$</p>
+              <p>2. $M = \frac{3.000.000}{7,5} = \mathbf{400.000} \implies \mathbf{1:400.000}$</p>
+              <p>3. $D_2 = 3,2\text{ cm} \times 400.000 = 1.280.000\text{ cm}$</p>
+              <p class="text-slate-900 font-sans font-bold pt-1 text-[11px] text-green-700">
+                &check; Escala 1:400.000 (1 cm = 4 km) e distância real de 12,8 km.
+              </p>
+            </div>
+          </div>
+
+          <!-- Problema Área -->
+          <div class="p-4 rounded-lg border border-slate-200 bg-white shadow-sm space-y-2">
+            <span class="inline-block px-2 py-0.5 bg-slate-100 text-slate-700 text-xs font-bold rounded">Resolução de Área</span>
+            <h4 class="font-bold text-slate-900 text-sm">Bacia Hidrográfica em Hectares</h4>
+            <p class="text-xs text-slate-600">
+              Na escala $1:50.000$, uma bacia retangular mede $6\text{ cm} \times 4\text{ cm}$. Qual a área em $\text{km}^2$ e em hectares ($\text{ha}$)?
+            </p>
+            <div class="bg-slate-50 p-2.5 rounded font-mono text-xs space-y-1 text-slate-800">
+              <p>• Na escala $1:50.000 \implies 1\text{ cm} = 0,5\text{ km}$</p>
+              <p>• Comprimento real = $6\text{ cm} \times 0,5\text{ km} = \mathbf{3,0\text{ km}}$</p>
+              <p>• Largura real = $4\text{ cm} \times 0,5\text{ km} = \mathbf{2,0\text{ km}}$</p>
+              <p>• Área real = $3,0\text{ km} \times 2,0\text{ km} = \mathbf{6,0\text{ km}^2}$</p>
+              <p>• Conversão em ha: $6,0\text{ km}^2 \times 100 = \mathbf{600\text{ ha}}$</p>
+              <p class="text-slate-900 font-sans font-bold pt-1 text-[11px] text-green-700">
+                &check; Área de 6,0 km² ou 600 hectares.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SEÇÃO 7 -->
+      <section class="space-y-4">
+        <div class="border-b border-slate-200 pb-2">
+          <h2 class="text-xl sm:text-2xl font-bold text-slate-900 flex items-center gap-2">
+            <span class="text-slate-400 font-mono text-lg">07.</span>
+            Síntese Mnemônica Operacional e Roteiro de Acerto
+          </h2>
+        </div>
+
+        <div class="bg-slate-50 border border-slate-200 rounded-lg p-4 space-y-2 text-xs sm:text-sm">
+          <p class="font-bold text-slate-900 uppercase">Definições Básicas em Textos Curtos para Guardar:</p>
+          <p>• <strong>Latitude:</strong> Arco angular vertical medido de $0^\circ$ no Equador a $90^\circ$ nos polos (Norte/Sul). Modula a radiação solar e os climas.</p>
+          <p>• <strong>Longitude:</strong> Arco angular horizontal de $0^\circ$ a $180^\circ$ a partir de Greenwich (Leste/Oeste). Determina as horas civis no globo.</p>
+          <p>• <strong>Regra Universal dos Fusos:</strong> Cada $15^\circ$ equivale a 1 hora. Para <span class="grifo-verde">Leste soma (+)</span>; para <span class="grifo-alerta">Oeste subtrai (-)</span>.</p>
+          <p>• <strong>Quatro Fusos do Brasil:</strong> $\text{UTC}-2$ (ilhas oceânicas); $\text{UTC}-3$ (Brasília: 20 estados, DF, PA e AP); $\text{UTC}-4$ (MT, MS, RO, RR e Leste do AM); $\text{UTC}-5$ (Acre e oeste do AM).</p>
+          <p>• <strong>Situação Legal dos Fusos:</strong> A <span class="grifo">Lei nº 12.876/2013</span> garantiu o retorno definitivo do 4º fuso ($\text{UTC}-5$). O horário de verão continua <span class="grifo-alerta">extinto</span> pelo Decreto nº 9.772/2019.</p>
+          <p>• <strong>Projeção Conforme:</strong> Preserva formas e ângulos; deforma áreas em altas latitudes (Exemplo: <em>Mercator</em>, eurocêntrica).</p>
+          <p>• <strong>Projeção Equivalente:</strong> Preserva as áreas relativas; deforma formas e ângulos (Exemplo: <em>Peters</em>, terceiro-mundista).</p>
+          <p>• <strong>Projeções Afiláticas:</strong> Não preservam integralmente forma nem área, buscando equilíbrio estético harmônico (Exemplo: <em>Robinson</em>).</p>
+          <p>• <strong>Escala Linear:</strong> Relação $D = d \cdot M$. Para converter centímetros em quilômetros, corte 5 zeros (ou desloque 5 casas à esquerda).</p>
+          <p>• <strong>Grandeza da Escala:</strong> Denominador pequeno $\implies$ Escala Grande (detalhes locais); Denominador grande $\implies$ Escala Pequena (visão geral continental).</p>
+          <p>• <strong>Escala de Área:</strong> A área varia com o quadrado do denominador ($A = a \cdot M^2$). Calcule primeiro os lados no real e depois multiplique.</p>
+        </div>
+
+        <h3 class="text-base sm:text-lg font-bold text-slate-900 pt-2">Quadro Anti-Pegadinha da Banca IFMG</h3>
+
+        <!-- Tabela 5: Armadilhas da Banca IFMG (Sem Scroll Horizontal) -->
+        <div class="border border-slate-200 rounded-lg overflow-hidden my-4 bg-white">
+          <table class="text-left text-xs sm:text-sm">
+            <thead class="bg-slate-100 text-slate-800 border-b border-slate-200">
+              <tr>
+                <th class="w-[18%] p-2 sm:p-2.5 font-bold border-r border-slate-200">Conteúdo</th>
+                <th class="w-[26%] p-2 sm:p-2.5 font-bold border-r border-slate-200">Ponto Crítico</th>
+                <th class="w-[26%] p-2 sm:p-2.5 font-bold border-r border-slate-200">Armadilha da Banca</th>
+                <th class="w-[30%] p-2 sm:p-2.5 font-bold">Regra Prática de Acerto</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-200 text-slate-700">
+              <tr class="hover:bg-slate-50">
+                <td class="p-2 sm:p-2.5 font-bold text-slate-900 border-r border-slate-200">Fusos do Brasil</td>
+                <td class="p-2 sm:p-2.5 border-r border-slate-200">Acre e oeste do AM em UTC-5</td>
+                <td class="p-2 sm:p-2.5 border-r border-slate-200 text-red-700">Dizer que o Brasil possui somente 3 fusos atualmente</td>
+                <td class="p-2 sm:p-2.5 font-semibold text-slate-900">
+                  O Brasil possui <span class="grifo-verde">4 fusos horários</span> (Lei nº 12.876/2013).
+                </td>
+              </tr>
+              <tr class="hover:bg-slate-50">
+                <td class="p-2 sm:p-2.5 font-bold text-slate-900 border-r border-slate-200">Horário de Verão</td>
+                <td class="p-2 sm:p-2.5 border-r border-slate-200">Extinto em 2019 pelo Decreto nº 9.772</td>
+                <td class="p-2 sm:p-2.5 border-r border-slate-200 text-red-700">Somar +1 hora por horário de verão no Brasil</td>
+                <td class="p-2 sm:p-2.5 font-semibold text-slate-900">
+                  Diferenças horárias no Brasil são <span class="grifo">constantes o ano inteiro</span>.
+                </td>
+              </tr>
+              <tr class="hover:bg-slate-50">
+                <td class="p-2 sm:p-2.5 font-bold text-slate-900 border-r border-slate-200">Mercator</td>
+                <td class="p-2 sm:p-2.5 border-r border-slate-200">Projeção cilíndrica conforme</td>
+                <td class="p-2 sm:p-2.5 border-r border-slate-200 text-red-700">Afirmar que deforma ângulos ou formas das massas</td>
+                <td class="p-2 sm:p-2.5 font-semibold text-slate-900">
+                  <span class="grifo">Conserva formas locais</span>; deforma severamente as áreas polares.
+                </td>
+              </tr>
+              <tr class="hover:bg-slate-50">
+                <td class="p-2 sm:p-2.5 font-bold text-slate-900 border-r border-slate-200">Peters</td>
+                <td class="p-2 sm:p-2.5 border-r border-slate-200">Projeção cilíndrica equivalente</td>
+                <td class="p-2 sm:p-2.5 border-r border-slate-200 text-red-700">Afirmar que Peters mostra a forma correta dos países</td>
+                <td class="p-2 sm:p-2.5 font-semibold text-slate-900">
+                  <span class="grifo">Conserva a proporção das áreas</span>; alonga e deforma as formas.
+                </td>
+              </tr>
+              <tr class="hover:bg-slate-50">
+                <td class="p-2 sm:p-2.5 font-bold text-slate-900 border-r border-slate-200">Grandeza Escala</td>
+                <td class="p-2 sm:p-2.5 border-r border-slate-200">Escala é uma fração ordinária ($1/M$)</td>
+                <td class="p-2 sm:p-2.5 border-r border-slate-200 text-red-700">Supor que 1:1.000.000 é maior que 1:25.000</td>
+                <td class="p-2 sm:p-2.5 font-semibold text-slate-900">
+                  <span class="grifo">Menor denominador</span> indica a <span class="grifo-verde">maior escala real</span>.
+                </td>
+              </tr>
+              <tr class="hover:bg-slate-50">
+                <td class="p-2 sm:p-2.5 font-bold text-slate-900 border-r border-slate-200">Escala de Área</td>
+                <td class="p-2 sm:p-2.5 border-r border-slate-200">Varia com a segunda potência ($M^2$)</td>
+                <td class="p-2 sm:p-2.5 border-r border-slate-200 text-red-700">Multiplicar a área gráfica pelo denominador simples ($M$)</td>
+                <td class="p-2 sm:p-2.5 font-semibold text-slate-900">
+                  Calcule os <span class="grifo">lados lineares reais primeiro</span> e depois obtenha a área.
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- SEÇÃO 8 -->
+      <section class="space-y-4">
+        <div class="border-b border-slate-200 pb-2">
+          <h2 class="text-xl sm:text-2xl font-bold text-slate-900 flex items-center gap-2">
+            <span class="text-slate-400 font-mono text-lg">08.</span>
+            Considerações Didático-Pedagógicas para a Carreira EBTT
+          </h2>
+        </div>
+
+        <p>
+          O processo avaliativo da Carreira de Magistério EBTT do IFMG exige que a sólida competência técnica seja convertida em prática pedagógica contextualizada. No ensino técnico e tecnológico, a cartografia básica atua não apenas como instrumental de medição nos cursos de Meio Ambiente, Edificações ou Agropecuária, mas como linguagem formadora da consciência espacial e cidadã.
+        </p>
+
+        <p>
+          A discussão epistemológica acerca das projeções de Mercator e Peters permite problematizar a pretensa neutralidade da ciência: demonstra que a escolha de um sistema projetivo reflete intencionalidades históricas, ideológicas e de dominação territorial. Da mesma forma, o estudo dos fusos horários brasileiros proporciona o resgate dos conflitos federativos e da soberania popular expressa no referendo acriano de 2010, atestando como decisões geográficas afetam diretamente o cotidiano biológico, econômico e cultural dos sujeitos. Dominar esses conteúdos habilita o docente a articular com rigor os fundamentos matemáticos e as dimensões críticas da Geografia na formação dos estudantes.
+        </p>
+      </section>
+
+    </article>
+
+    <!-- Rodapé de Ação e Botão para Questões -->
+    <footer class="mt-14 pt-8 border-t-2 border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div class="text-xs text-slate-500 text-center sm:text-left">
+        Caderno Didático para Concurso Público • IFMG Reitoria<br>
+        Geografia EBTT • Cartografia Básica
+      </div>
+
+      <a 
+        href="questoes3geo.html" 
+        class="inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-slate-900 hover:bg-slate-800 text-white font-bold rounded-xl shadow transition-all duration-200 hover:-translate-y-0.5 text-sm sm:text-base text-center w-full sm:w-auto"
+      >
+        <span>Ir para Banco de Questões</span>
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+        </svg>
+      </a>
+    </footer>
+
+  </main>
+
+  <!-- Lógica do Reprodutor MP3 Local -->
+  <script>
+    (function initAudioPlayer() {
+      const audioPlayer = document.getElementById('audioPlayer');
+      const audioSource = document.getElementById('audioSource');
+      const input = document.getElementById('audioFileNameInput');
+      const loadBtn = document.getElementById('loadAudioBtn');
+      const currentNameSpan = document.getElementById('currentAudioName');
+
+      function updateAudioSource() {
+        const fileName = input.value.trim();
+        if (fileName) {
+          audioSource.src = fileName;
+          audioPlayer.load();
+          currentNameSpan.textContent = fileName;
+        }
+      }
+
+      loadBtn.addEventListener('click', updateAudioSource);
+      
+      input.addEventListener('keypress', function(event) {
+        if (event.key === 'Enter') {
+          event.preventDefault();
+          updateAudioSource();
+        }
+      });
+    })();
+  </script>
+</body>
+</html>

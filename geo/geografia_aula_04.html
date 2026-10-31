@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cartografia Temática e Representação do Relevo - IFMG</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- KaTeX para renderização de fórmulas matemáticas -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js" 
+          onload="renderMathInElement(document.body, {delimiters: [{left: '$$', right: '$$', display: true}, {left: '$', right: '$', display: false}]});"></script>
+  <style>
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background-color: #ffffff;
+      color: #1e293b;
+      line-height: 1.75;
+    }
+    /* Grifo estilizado com acabamento agradável para leitura */
+    mark.grifo {
+      background-color: #fef08a; /* Amarelo suave pastel */
+      color: #0f172a;
+      padding: 0.125rem 0.35rem;
+      border-radius: 0.25rem;
+      font-weight: 600;
+      border-bottom: 2px solid #facc15;
+    }
+    mark.alerta {
+      background-color: #fed7aa; /* Laranja suave para armadilhas e regras de ouro */
+      color: #7c2d12;
+      padding: 0.125rem 0.35rem;
+      border-radius: 0.25rem;
+      font-weight: 600;
+      border-bottom: 2px solid #fb923c;
+    }
+    /* Quebras de tabela fluidas para evitar scroll horizontal em qualquer tela */
+    table {
+      width: 100% !important;
+      table-layout: fixed;
+      word-wrap: break-word;
+      word-break: break-word;
+      hyphens: auto;
+    }
+    th, td {
+      overflow-wrap: break-word;
+    }
+  </style>
+</head>
+<body class="bg-white text-slate-800 antialiased selection:bg-amber-100 selection:text-slate-900">
+
+  <!-- Container Geral Centralizado -->
+  <main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+
+    <!-- Cabeçalho do Concurso -->
+    <header class="border-b border-slate-200 pb-8 mb-8 text-center sm:text-left">
+      <div class="inline-flex items-center gap-2 px-3 py-1 bg-slate-100 text-slate-700 text-xs font-semibold rounded-full uppercase tracking-wider mb-3">
+        Concurso Docente EBTT • IFMG (Banca Central)
+      </div>
+      <h1 class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight leading-tight mb-3">
+        Cartografia Temática e Representação do Relevo
+      </h1>
+      <p class="text-base sm:text-lg text-slate-600 font-medium">
+        Semiologia Gráfica, Métodos Cartográficos, Morfometria de Curvas de Nível e Transposição Didática
+      </p>
+      <div class="mt-4 flex flex-wrap gap-4 text-xs font-medium text-slate-500">
+        <span><strong>Foco:</strong> Interpretação Morfométrica e Seleção de Métodos</span>
+        <span><strong>Bibliografia:</strong> FITZ (2008); PONTUSCHKA et al. (2007)</span>
+      </div>
+    </header>
+
+    <!-- Seção de Áudio MP3 -->
+    <section class="bg-white border-2 border-slate-200 rounded-xl p-5 mb-10 shadow-xs" id="reprodutor-audio">
+      <div class="flex items-center gap-2 mb-3">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-slate-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
+        </svg>
+        <h2 class="text-base font-bold text-slate-900 uppercase tracking-wide">Áudio da Aula (MP3)</h2>
+      </div>
+
+      <!-- Configuração e nome do arquivo -->
+      <div class="bg-slate-50 border border-slate-200 rounded-lg p-3.5 mb-3 text-xs sm:text-sm text-slate-700 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
+        <div class="flex-1">
+          <label for="audioFileName" class="block font-semibold text-slate-800 mb-1">
+            Nome do arquivo de áudio (na mesma pasta):
+          </label>
+          <input 
+            type="text" 
+            id="audioFileName" 
+            value="audio4geo.mp3" 
+            placeholder="Exemplo: audio4geo.mp3" 
+            class="w-full bg-white border border-slate-300 rounded px-3 py-1.5 text-slate-800 font-mono text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-slate-400"
+          >
+        </div>
+        <button 
+          type="button" 
+          onclick="atualizarAudio()"
+          class="self-end sm:self-auto px-4 py-2 bg-slate-800 hover:bg-slate-900 text-white rounded font-medium text-xs transition-colors shrink-0"
+        >
+          Carregar Áudio
+        </button>
+      </div>
+
+      <!-- Reprodutor Nativo -->
+      <audio id="audioPlayer" controls class="w-full h-10 outline-none">
+        <source id="audioSource" src="audio4geo.mp3" type="audio/mpeg">
+        Seu navegador não suporta o elemento de áudio.
+      </audio>
+      <p class="text-[11px] text-slate-500 mt-2 italic">
+        * Para escutar, basta deixar o arquivo de áudio com o mesmo nome na mesma pasta desta página HTML e pressionar "Play". Você também pode alterar o nome no campo acima a qualquer momento.
+      </p>
+    </section>
+
+    <!-- Índice Rápido de Conteúdo -->
+    <nav class="bg-slate-50 border border-slate-200 rounded-xl p-4 mb-10 text-xs sm:text-sm">
+      <span class="font-bold text-slate-900 block mb-2 uppercase tracking-wide">Estrutura da Aula Didática:</span>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-slate-700">
+        <a href="#secao1" class="hover:text-black hover:underline flex items-center gap-1.5 font-medium">
+          <span class="w-5 h-5 rounded-full bg-slate-200 flex items-center justify-center text-xs font-bold text-slate-800">1</span>
+          Semiologia Gráfica: Variáveis de Jacques Bertin
+        </a>
+        <a href="#secao2" class="hover:text-black hover:underline flex items-center gap-1.5 font-medium">
+          <span class="w-5 h-5 rounded-full bg-slate-200 flex items-center justify-center text-xs font-bold text-slate-800">2</span>
+          Métodos de Mapeamento e Anamorfose
+        </a>
+        <a href="#secao3" class="hover:text-black hover:underline flex items-center gap-1.5 font-medium">
+          <span class="w-5 h-5 rounded-full bg-slate-200 flex items-center justify-center text-xs font-bold text-slate-800">3</span>
+          Altimetria e Morfometria de Curvas de Nível
+        </a>
+        <a href="#secao4" class="hover:text-black hover:underline flex items-center gap-1.5 font-medium">
+          <span class="w-5 h-5 rounded-full bg-slate-200 flex items-center justify-center text-xs font-bold text-slate-800">4</span>
+          Transposição Didática no IFMG (Fitz e Pontuschka)
+        </a>
+        <a href="#secao5" class="hover:text-black hover:underline flex items-center gap-1.5 font-medium sm:col-span-2">
+          <span class="w-5 h-5 rounded-full bg-slate-200 flex items-center justify-center text-xs font-bold text-slate-800">5</span>
+          Tópicos de Memorização Rápida e Matriz Anti-Pegadinha de Concurso
+        </a>
+      </div>
+    </nav>
+
+    <!-- ==========================================
+         SEÇÃO 1: SEMIOLOGIA GRÁFICA
+         ========================================== -->
+    <article id="secao1" class="mb-14 scroll-mt-6">
+      <div class="border-b border-slate-200 pb-3 mb-6">
+        <span class="text-xs font-bold text-slate-500 uppercase tracking-wider">Módulo 1</span>
+        <h2 class="text-xl sm:text-2xl font-bold text-slate-900">
+          1. Fundamentos da Semiologia Gráfica: As Variáveis Visuais de Jacques Bertin
+        </h2>
+      </div>
+
+      <div class="space-y-4 text-slate-700 text-sm sm:text-base leading-relaxed text-justify">
+        <p>
+          A estruturação teórica da Cartografia Temática moderna consolidou-se a partir da publicação de <em>Sémiologie Graphique</em> por Jacques Bertin, obra que definiu a representação gráfica como um <mark class="grifo">sistema monossêmico</mark> de comunicação visual voltado à transcrição rigorosa da informação espacial. Diferentemente dos sistemas polissêmicos próprios das artes plásticas, nos quais os signos admitem múltiplas interpretações subjetivas e polivalentes, o signo cartográfico exige <mark class="grifo">monossemia estrita</mark>: o <mark class="grifo">significado de cada elemento gráfico deve ser unívoco, invariável e previamente estabelecido por meio de uma legenda</mark> antes do processo de apreensão visual das relações espaciais. A cartografia temática organiza-se sobre a intersecção de dois componentes estruturantes: os <strong>modos de implantação geométrica</strong> e as <strong>variáveis visuais retinianas</strong>.
+        </p>
+
+        <p>
+          Os modos de implantação materializam a geometria com a qual o fenômeno geográfico é fixado no plano bidimensional definido pelos eixos coordenados ($X, Y$) da carta. Manifestam-se em três tipologias gráficas fundamentais:
+        </p>
+
+        <ul class="list-disc pl-6 space-y-2 text-slate-700">
+          <li>
+            <strong class="text-slate-900">Implantação Pontual ($P$):</strong> Caracteriza fenômenos cuja dimensão territorial é pontual ou adquire expressão adimensional na escala de representação adotada, como uma estação fluviométrica, um sítio urbano em escala continental ou uma ocorrência mineral.
+          </li>
+          <li>
+            <strong class="text-slate-900">Implantação Linear ($L$):</strong> Transcreve feições unidimensionais contínuas cujo comprimento é preponderante e a largura gráfica é estritamente convencional, a exemplo de redes hidrográficas, divisas político-administrativas e eixos de transporte.
+          </li>
+          <li>
+            <strong class="text-slate-900">Implantação Zonal ou Superficial ($Z$):</strong> Recobre feições bidimensionais dotadas de área mensurável e delimitação espacial contínua ou descontínua, tais como compartimentos geomorfológicos, biomas e manchas de uso e cobertura da terra.
+          </li>
+        </ul>
+
+        <p>
+          A partir da base geométrica fixada pelos modos de implantação, a diferenciação interna das informações exige o emprego de variáveis visuais retinianas moduladas sobre o grafismo. Bertin sistematizou seis variáveis fundamentais: <mark class="grifo">forma, tamanho, orientação, cor (matiz), valor e granulação (textura)</mark>. A escolha de cada variável visual é regida pela <strong>natureza do dado</strong> a ser representado, dividida em três níveis de organização da informação: <mark class="grifo">qualitativo, ordenado e quantitativo</mark>.
+        </p>
+
+        <p>
+          O <strong class="text-slate-900">nível qualitativo (ou nominal)</strong> designa fenômenos cuja diferenciação é de natureza ontológica ou categórica, ausente qualquer hierarquia, ordenamento prévio ou relação métrica de magnitude entre as classes. A percepção visual mobilizada deve ser prioritariamente <em>associativa</em> (reconhecimento de que os elementos possuem pesos cognitivos equivalentes) ou <em>seletiva</em> (possibilidade de isolar uma família temática de símbolos em uma visada global do mapa). As variáveis visuais adequadas a esse nível são:
+        </p>
+        <ul class="list-disc pl-6 space-y-1 text-slate-700">
+          <li><mark class="grifo">Forma</mark> (diferenciação por símbolos geométricos regulares ou pictóricos);</li>
+          <li><mark class="grifo">Orientação</mark> (variação angular de traços lineares ou tramas em ângulos fixos, como $0^\circ$, $45^\circ$ ou $90^\circ$);</li>
+          <li><mark class="grifo">Cor / Matiz</mark> (matiz espectral distinto, como azul, vermelho ou verde, mantida rigorosamente idêntica a luminosidade).</li>
+        </ul>
+        <p class="text-slate-600 italic">
+          <mark class="alerta">Atenção para a prova:</mark> A utilização de variações tonais de claro-escuro ou de dimensões geométricas para dados puramente nominais constitui <strong>erro metodológico severo</strong>, pois induz no leitor uma interpretação equivocada de hierarquia ou volume.
+        </p>
+
+        <p>
+          O <strong class="text-slate-900">nível ordenado</strong> expressa uma ordenação relativa intrínseca entre as classes do fenômeno geográfico, estabelecendo relações comparativas de precedência, gradação de intensidade ou hierarquia funcional, tais como estágios temporais, classes de declividade ou faixas de vulnerabilidade ambiental. A percepção visual exigida é a de ordem, em que o olho humano identifica de imediato a sequência dos intervalos. A variável visual por excelência para o nível ordenado é o <mark class="grifo">Valor</mark>, definido como a <strong>variação sistemática da claridade ou luminosidade de uma mesma cor</strong>, organizando uma escala contínua que transita do tom mais claro ao tom mais escuro. A convenção perceptiva determina que os <mark class="grifo">tons de maior valor (mais escuros) traduzam as classes superiores de intensidade</mark> ou criticidade. Secundariamente, a <mark class="grifo">Granulação</mark> (ou textura gráfica) cumpre papel de ordenação visual por meio da variação na densidade de elementos de uma trama (do fino ao grosso), embora apresente rendimento cognitivo inferior ao do valor quando aplicada a áreas cartográficas reduzidas.
+        </p>
+
+        <p>
+          O <strong class="text-slate-900">nível quantitativo</strong> compreende a manifestação de fenômenos mensuráveis por magnitudes numéricas reais, estabelecendo relações de proporção matemática exata ($A = 2B$) entre os registros georreferenciados. Para que o cérebro humano decodifique espontaneamente a relação de proporcionalidade métrica, a <mark class="grifo">única variável visual capaz de expressar proporção direta é o Tamanho</mark>. A modulação do tamanho opera pela alteração do comprimento de linhas, das áreas de figuras geométricas bidimensionais (como raios de círculos proporcionais) ou do volume aparente de sólidos tridimensionais (esferas e cubos perspectivos). A variável cor pura (matiz) jamais traduz relações quantitativas proporcionais, e o valor (claro-escuro) é capaz de organizar intervalos ordenados de classes quantitativas agrupadas, mas não exprime a proporção direta entre grandezas absolutas.
+        </p>
+      </div>
+
+      <!-- Tabela 1: Sem Scroll Horizontal -->
+      <div class="mt-8">
+        <h3 class="text-sm font-bold text-slate-800 uppercase tracking-wide mb-3 flex items-center gap-1.5">
+          <span>Quadro Sinótico 1:</span> Variáveis Visuais de Jacques Bertin e Adequação Cognitiva
+        </h3>
+        <table class="w-full text-left border-collapse border border-slate-300 text-[11px] sm:text-xs">
+          <thead>
+            <tr class="bg-slate-100 text-slate-900 font-bold border-b border-slate-300">
+              <th class="p-2 sm:p-2.5 border-r border-slate-300 w-[17%]">Variável Visual</th>
+              <th class="p-2 sm:p-2.5 border-r border-slate-300 w-[18%]">Implantações</th>
+              <th class="p-2 sm:p-2.5 border-r border-slate-300 w-[20%]">Nível Preponderante</th>
+              <th class="p-2 sm:p-2.5 border-r border-slate-300 w-[18%]">Nível Secundário</th>
+              <th class="p-2 sm:p-2.5 w-[27%]">Exemplo Prático</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-200">
+            <tr class="hover:bg-slate-50">
+              <td class="p-2 sm:p-2.5 border-r border-slate-200 font-bold text-slate-900">Forma</td>
+              <td class="p-2 sm:p-2.5 border-r border-slate-200">Ponto, Linha, Área</td>
+              <td class="p-2 sm:p-2.5 border-r border-slate-200 font-semibold text-slate-800"><mark class="grifo">Qualitativo</mark></td>
+              <td class="p-2 sm:p-2.5 border-r border-slate-200 text-slate-500">Inaplicável</td>
+              <td class="p-2 sm:p-2.5">Recursos minerais; postos de saúde.</td>
+            </tr>
+            <tr class="hover:bg-slate-50">
+              <td class="p-2 sm:p-2.5 border-r border-slate-200 font-bold text-slate-900">Tamanho</td>
+              <td class="p-2 sm:p-2.5 border-r border-slate-200">Ponto, Linha, Área</td>
+              <td class="p-2 sm:p-2.5 border-r border-slate-200 font-semibold text-slate-800"><mark class="grifo">Quantitativo</mark></td>
+              <td class="p-2 sm:p-2.5 border-r border-slate-200">Ordenado</td>
+              <td class="p-2 sm:p-2.5">Círculos proporcionais de população absoluta; espessura de vias.</td>
+            </tr>
+            <tr class="hover:bg-slate-50">
+              <td class="p-2 sm:p-2.5 border-r border-slate-200 font-bold text-slate-900">Orientação</td>
+              <td class="p-2 sm:p-2.5 border-r border-slate-200">Ponto, Linha, Área</td>
+              <td class="p-2 sm:p-2.5 border-r border-slate-200 font-semibold text-slate-800"><mark class="grifo">Qualitativo</mark></td>
+              <td class="p-2 sm:p-2.5 border-r border-slate-200 text-slate-500">Inaplicável</td>
+              <td class="p-2 sm:p-2.5">Direção de falhamentos geológicos; zoneamento por hachuras.</td>
+            </tr>
+            <tr class="hover:bg-slate-50">
+              <td class="p-2 sm:p-2.5 border-r border-slate-200 font-bold text-slate-900">Cor (Matiz)</td>
+              <td class="p-2 sm:p-2.5 border-r border-slate-200">Ponto, Linha, Área</td>
+              <td class="p-2 sm:p-2.5 border-r border-slate-200 font-semibold text-slate-800"><mark class="grifo">Qualitativo</mark></td>
+              <td class="p-2 sm:p-2.5 border-r border-slate-200">Ordenado (espectral)</td>
+              <td class="p-2 sm:p-2.5">Cartas geológicas; domínios morfoclimáticos e fitogeográficos.</td>
+            </tr>
+            <tr class="hover:bg-slate-50">
+              <td class="p-2 sm:p-2.5 border-r border-slate-200 font-bold text-slate-900">Valor</td>
+              <td class="p-2 sm:p-2.5 border-r border-slate-200">Ponto, Linha, Área</td>
+              <td class="p-2 sm:p-2.5 border-r border-slate-200 font-semibold text-slate-800"><mark class="grifo">Ordenado</mark></td>
+              <td class="p-2 sm:p-2.5 border-r border-slate-200">Quantitativo (intervalos)</td>
+              <td class="p-2 sm:p-2.5">Classes de declividade; rendimento nominal médio municipal.</td>
+            </tr>
+            <tr class="hover:bg-slate-50">
+              <td class="p-2 sm:p-2.5 border-r border-slate-200 font-bold text-slate-900">Granulação</td>
+              <td class="p-2 sm:p-2.5 border-r border-slate-200">Ponto, Linha, Área</td>
+              <td class="p-2 sm:p-2.5 border-r border-slate-200 font-semibold text-slate-800"><mark class="grifo">Ordenado</mark></td>
+              <td class="p-2 sm:p-2.5 border-r border-slate-200">Qualitativo</td>
+              <td class="p-2 sm:p-2.5">Classes de textura de solo; graus de adensamento urbano.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </article>
+
+    <!-- ==========================================
+         SEÇÃO 2: MÉTODOS DE MAPEAMENTO TEMÁTICO
+         ========================================== -->
+    <article id="secao2" class="mb-14 scroll-mt-6">
+      <div class="border-b border-slate-200 pb-3 mb-6">
+        <span class="text-xs font-bold text-slate-500 uppercase tracking-wider">Módulo 2</span>
+        <h2 class="text-xl sm:text-2xl font-bold text-slate-900">
+          2. Métodos de Mapeamento Temático e Anamorfose Geográfica
+        </h2>
+      </div>
+
+      <div class="space-y-4 text-slate-700 text-sm sm:text-base leading-relaxed text-justify">
+        <p>
+          A escolha do método de mapeamento temático decorre da combinação entre a natureza dos dados (quantitativos absolutos, quantitativos relativos ou qualitativos) e a continuidade geométrica do fenômeno (se discreto, contínuo ou dinâmico).
+        </p>
+
+        <p>
+          No <strong class="text-slate-900">método corocromático</strong>, a representação apoia-se em polígonos preenchidos por <mark class="grifo">matizes cromáticos ou tramas qualitativas</mark> diferenciadas para individualizar classes nominais contínuas sobre a superfície. Empregado sistematicamente em mapas de compartimentação física — como mapeamentos geológicos, pedológicos e fitoecológicos —, o método delimita áreas contíguas separadas por limites conceituais e <mark class="grifo">não pressupõe qualquer hierarquia numérica</mark> entre as categorias identificadas.
+        </p>
+
+        <p>
+          O <strong class="text-slate-900">método coroplético</strong> é a convenção cartográfica destinada à representação de variáveis quantitativas agrupadas por <mark class="grifo">unidades espaciais administrativas ou censitárias predefinidas</mark> (países, estados, municípios ou setores censitários). A espacialização opera pela aplicação da variável visual <strong>valor</strong>, associando tons progressivamente mais escuros às classes de valores mais elevados.
+        </p>
+
+        <div class="p-4 bg-slate-50 border-l-4 border-amber-500 rounded-r-md text-slate-800">
+          <p class="font-bold text-sm text-amber-900 mb-1">REGRA DE OURO PARA A PROVA OBJETIVA:</p>
+          <p class="text-xs sm:text-sm">
+            O método coroplético deve ser empregado <mark class="grifo">exclusivamente para grandezas estatísticas relativas</mark> — tais como densidades demográficas, percentuais, taxas de natalidade, coeficientes econômicos ou índices médios ponderados. A transcrição de <mark class="alerta">valores absolutos totais (ex: número total de habitantes) por método coroplético é um erro clássico</mark>, pois gera uma ilusão visual determinada pela área física do município e não pela magnitude do dado.
+          </p>
+        </div>
+
+        <p>
+          Para sanar as distorções inerentes ao método coroplético — no qual se assume uma ficção estatística de que o fenômeno se distribui de maneira perfeitamente homogênea por toda a extensão da malha administrativa —, utiliza-se o <strong class="text-slate-900">método dasimétrico</strong>. O mapeamento dasimétrico decompõe a unidade político-administrativa original valendo-se de informações temáticas acessórias de maior detalhamento espacial, obtidas por cartas de cobertura da terra ou produtos de sensoriamento remoto. Com esse procedimento, <mark class="grifo">excluem-se zonas desprovidas do fenômeno</mark> em análise (como áreas de espelhos d'água, picos rochosos e florestas de preservação permanente no caso de estudos populacionais) e <mark class="grifo">redistribui-se a grandeza estatística estritamente sobre as frações territoriais onde a ocupação humana de fato ocorre</mark>, gerando um mapa de densidades dotado de realismo fisiográfico superior.
+        </p>
+
+        <p>
+          O <strong class="text-slate-900">método isarítmico (ou das isolinhas)</strong> estrutura-se sobre fenômenos contínuos que se manifestam como superfícies estatísticas ou topográficas tridimensionais sobre o espaço geográfico. A representação desenvolve-se pelo <mark class="grifo">traçado de linhas que unem pontos de mesmo valor métrico quantitativo</mark>, preservando entre linhas sucessivas um intervalo regular denominado <strong>equidistância</strong>. No âmbito da literatura especializada, distingue-se as <em>isolinhas verdadeiras (isarítmicas)</em>, calculadas a partir de dados reais aferidos em posições geográficas pontuais precisas (como curvas de nível derivadas de cotas altimétricas, isotermas oriundas de estações meteorológicas ou isóbatas obtidas por batimetria sonar), das <em>isolinhas fictícias ou derivadas (isópletas)</em>, que conectam índices ou densidades médias derivados do centro de gravidade de áreas predeterminadas.
+        </p>
+
+        <p>
+          O <strong class="text-slate-900">método de fluxo</strong> destina-se a representar a dinâmica espacial, o intercâmbio relacional, a circulação e as conexões que ocorrem entre pares de nós (polos de emissão e recepção). A transcrição gráfica emprega segmentos de linha dotados de vetores direcionais (flechas indicativas do sentido do movimento) ou traçados sem pontas quando o trajeto é bidirecional. A <mark class="grifo">espessura do vetor linear é calculada em escala de proporcionalidade matemática estrita</mark> com a intensidade do fluxo medido (toneladas de carga, passageiros embarcados, transferências financeiras ou saldos migratórios), articulando simultaneamente orientação, trajeto e magnitude.
+        </p>
+
+        <p>
+          A <strong class="text-slate-900">anamorfose geográfica (ou cartograma)</strong> opera a reestruturação topológica do mapa, <mark class="grifo">abandonando a geometria euclidiana tradicional</mark> baseada em coordenadas de latitude e longitude em favor de um <mark class="grifo">espaço métrico modelado pelas próprias variáveis socioeconômicas</mark> em análise. Nos modelos de anamorfose contígua, os polígonos territoriais sofrem deformações plásticas contínuas, expandindo-se ou encolhendo-se proporcionalmente ao valor absoluto do dado considerado (como população residente, PIB ou emissões de CO₂), ao mesmo tempo em que preservam as relações de adjacência e contiguidade de suas fronteiras originais. A escala métrica linear habitual perde validade operacional, sendo substituída por uma escala de equivalência de superfície, demonstrando visualmente o descompasso entre a extensão física dos territórios e a concentração das variáveis humanas e produtivas contemporâneas.
+        </p>
+      </div>
+
+      <!-- Tabela 2: Sem Scroll Horizontal -->
+      <div class="mt-8">
+        <h3 class="text-sm font-bold text-slate-800 uppercase tracking-wide mb-3 flex items-center gap-1.5">
+          <span>Quadro Sinótico 2:</span> Métodos de Mapeamento Temático e Variáveis Centrais
+        </h3>
+        <table class="w-full text-left border-collapse border border-slate-300 text-[11px] sm:text-xs">
+          <thead>
+            <tr class="bg-slate-100 text-slate-900 font-bold border-b border-slate-300">
+              <th class="p-2 sm:p-2.5 border-r border-slate-300 w-[18%]">Método</th>
+              <th class="p-2 sm:p-2.5 border-r border-slate-300 w-[20%]">Natureza dos Dados</th>
+              <th class="p-2 sm:p-2.5 border-r border-slate-300 w-[18%]">Implantação</th>
+              <th class="p-2 sm:p-2.5 border-r border-slate-300 w-[20%]">Variável Central</th>
+              <th class="p-2 sm:p-2.5 w-[24%]">Aplicação Recorrente</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-200">
+            <tr class="hover:bg-slate-50">
+              <td class="p-2 sm:p-2.5 border-r border-slate-200 font-bold text-slate-900">Corocromático</td>
+              <td class="p-2 sm:p-2.5 border-r border-slate-200">Qualitativo nominal</td>
+              <td class="p-2 sm:p-2.5 border-r border-slate-200">Zonal (Área)</td>
+              <td class="p-2 sm:p-2.5 border-r border-slate-200 font-semibold"><mark class="grifo">Cor (Matiz)</mark></td>
+              <td class="p-2 sm:p-2.5">Geologia, unidades fitogeográficas e limites políticos.</td>
+            </tr>
+            <tr class="hover:bg-slate-50">
+              <td class="p-2 sm:p-2.5 border-r border-slate-200 font-bold text-slate-900">Coroplético</td>
+              <td class="p-2 sm:p-2.5 border-r border-slate-200 font-semibold"><mark class="grifo">Quantitativo relativo</mark></td>
+              <td class="p-2 sm:p-2.5 border-r border-slate-200">Zonal (Polígonos predefinidos)</td>
+              <td class="p-2 sm:p-2.5 border-r border-slate-200 font-semibold"><mark class="grifo">Valor (Claro-Escuro)</mark></td>
+              <td class="p-2 sm:p-2.5">Densidade demográfica, índices de Gini e taxas de mortalidade.</td>
+            </tr>
+            <tr class="hover:bg-slate-50">
+              <td class="p-2 sm:p-2.5 border-r border-slate-200 font-bold text-slate-900">Dasimétrico</td>
+              <td class="p-2 sm:p-2.5 border-r border-slate-200">Quantitativo relativo refinado</td>
+              <td class="p-2 sm:p-2.5 border-r border-slate-200">Zonal (Polígonos recortados)</td>
+              <td class="p-2 sm:p-2.5 border-r border-slate-200 font-semibold">Valor (Claro-Escuro)</td>
+              <td class="p-2 sm:p-2.5">Densidade de povoamento real calculada sobre zonas residenciais.</td>
+            </tr>
+            <tr class="hover:bg-slate-50">
+              <td class="p-2 sm:p-2.5 border-r border-slate-200 font-bold text-slate-900">Isarítmico</td>
+              <td class="p-2 sm:p-2.5 border-r border-slate-200">Quantitativo contínuo</td>
+              <td class="p-2 sm:p-2.5 border-r border-slate-200">Linear (Isolinhas)</td>
+              <td class="p-2 sm:p-2.5 border-r border-slate-200 font-semibold">Linhas de isolores</td>
+              <td class="p-2 sm:p-2.5">Topografia (curvas de nível), climatologia (isoietas, isotermas).</td>
+            </tr>
+            <tr class="hover:bg-slate-50">
+              <td class="p-2 sm:p-2.5 border-r border-slate-200 font-bold text-slate-900">Fluxo</td>
+              <td class="p-2 sm:p-2.5 border-r border-slate-200">Dinâmico / Quantitativo</td>
+              <td class="p-2 sm:p-2.5 border-r border-slate-200">Linear direcional</td>
+              <td class="p-2 sm:p-2.5 border-r border-slate-200 font-semibold"><mark class="grifo">Tamanho (Espessura)</mark></td>
+              <td class="p-2 sm:p-2.5">Redes de transporte, rotas de comércio global e migrações.</td>
+            </tr>
+            <tr class="hover:bg-slate-50">
+              <td class="p-2 sm:p-2.5 border-r border-slate-200 font-bold text-slate-900">Anamorfose</td>
+              <td class="p-2 sm:p-2.5 border-r border-slate-200 font-semibold">Quantitativo absoluto</td>
+              <td class="p-2 sm:p-2.5 border-r border-slate-200">Zonal (Áreas deformadas)</td>
+              <td class="p-2 sm:p-2.5 border-r border-slate-200 font-semibold"><mark class="grifo">Tamanho da superfície</mark></td>
+              <td class="p-2 sm:p-2.5">Distribuição da população mundial e concentração de riqueza.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </article>
+
+    <!-- ==========================================
+         SEÇÃO 3: ALTIMETRIA E RELEVO
+         ========================================== -->
+    <article id="secao3" class="mb-14 scroll-mt-6">
+      <div class="border-b border-slate-200 pb-3 mb-6">
+        <span class="text-xs font-bold text-slate-500 uppercase tracking-wider">Módulo 3</span>
+        <h2 class="text-xl sm:text-2xl font-bold text-slate-900">
+          3. Altimetria e Representação do Relevo em Cartas Topográficas
+        </h2>
+      </div>
+
+      <div class="space-y-4 text-slate-700 text-sm sm:text-base leading-relaxed text-justify">
+        <p>
+          A altimetria compreende a área da cartografia básica voltada à determinação e representação das altitudes da superfície do terreno acima de um plano de referência geodésico vertical padronizado, estabelecido no território brasileiro a partir do nível médio do mar registrado pelo Marégrafo de Imbituba, em Santa Catarina. A representação matemática e tridimensional do relevo sobre suporte planimétrico bidimensional apoia-se primordialmente na técnica das <mark class="grifo">curvas de nível</mark>, associada a pontos cotados e perfis topográficos, constituindo arcabouço analítico indispensável à geomorfologia e ao planejamento territorial, conforme discutido nas abordagens de Fitz e Pontuschka et al.
+        </p>
+
+        <p>
+          Curvas de nível (ou isoípsas) consistem em linhas isarítmicas imaginárias que <mark class="grifo">conectam sucessivos pontos no terreno situados na mesma altitude ortométrica</mark> em relação ao nível do mar. O traçado dessas linhas obedece a regras geométricas fixas que determinam sua interpretação:
+        </p>
+
+        <ul class="list-disc pl-6 space-y-2 text-slate-700">
+          <li>
+            Todas as curvas de nível configuram <mark class="grifo">linhas fechadas em si mesmas</mark>, ainda que os limites físicos da moldura da folha cartográfica interrompam a visualização de seu fechamento completo.
+          </li>
+          <li>
+            <mark class="alerta">Curvas de nível nunca se bifurcam nem se cruzam no plano</mark>, uma vez que um único ponto geográfico na superfície do terreno não pode sustentar simultaneamente dois valores altimétricos distintos, admitindo-se sobreposição gráfica unicamente em casos de despenhadeiros em balanço ou grutas com tetos rochosos suspensos.
+          </li>
+          <li>
+            A separação altimétrica vertical mantida constante e inalterada entre duas curvas consecutivas em uma mesma folha cartográfica recebe a denominação de <mark class="grifo">equidistância altimétrica ($h$)</mark>. O valor da equidistância é condicionado pela escala do documento e pelo relevo mapeado, correspondendo tradicionalmente a $20\text{ m}$ em cartas topográficas sistemáticas na escala $1:50.000$ e a $10\text{ m}$ na escala $1:25.000$.
+          </li>
+          <li>
+            <strong class="text-slate-900">Curvas Mestras (ou Principais):</strong> Traçadas com espessura gráfica realçada (linha contínua grossa), apresentando inscrições numéricas que indicam a cota altimétrica correspondente. Ocorrem em intervalos múltiplos regulares da equidistância básica (regularmente a cada cinco curvas, como $100\text{ m}$, $200\text{ m}$ ou $500\text{ m}$).
+          </li>
+          <li>
+            <strong class="text-slate-900">Curvas Intermediárias:</strong> Traçadas com espessura fina contínua entre as curvas mestras, preenchendo as cotas da equidistância sem receber rotulação numérica expressa para evitar poluição visual sobre a folha.
+          </li>
+          <li>
+            <strong class="text-slate-900">Curvas Auxiliares:</strong> Representadas por linhas tracejadas ou pontilhadas, inseridas provisoriamente em setores de topografia excessivamente plana onde as variações microtopográficas do terreno são inferiores ao valor da equidistância regular padrão da carta.
+          </li>
+          <li>
+            <strong class="text-slate-900">Pontos Cotados:</strong> Notações pontuais acompanhadas de dígitos numéricos que expressam altitudes exatas aferidas no campo por nivelamento trigonométrico ou barométrico, demarcando picos culminantes, cruzamentos de drenagem, selas topográficas e depressões que não coincidem estritamente com os traçados das curvas.
+          </li>
+        </ul>
+
+        <div class="bg-slate-50 border border-slate-300 rounded-lg p-4 my-6">
+          <h4 class="font-bold text-slate-900 text-sm uppercase tracking-wide mb-2">
+            Interpretação Morfométrica e Comportamento Geométrico das Curvas
+          </h4>
+          <p class="mb-3 text-xs sm:text-sm">
+            <mark class="grifo">Proximidade Horizontal = Declividade:</mark> A proximidade horizontal entre curvas contíguas expressa a inclinação do terreno: <mark class="grifo">quanto menor a distância gráfica entre duas curvas consecutivas, mais abrupta e íngreme é a encosta</mark>, ao passo que curvas amplamente espaçadas indicam relevos aplainados, tabulares ou colinosos de declive suave.
+          </p>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs sm:text-sm pt-2">
+            <div class="p-3 bg-white border border-slate-200 rounded">
+              <strong class="text-slate-900 block mb-1">Vales Fluviais (Inflexão em "V"):</strong>
+              Ao interceptarem eixos de drenagem e fundos de vale fluvial, as curvas de nível realizam uma inflexão geométrica característica em "V". O <mark class="grifo">vértice da curvatura aponta invariavelmente para MONTANTE</mark> (cotas mais elevadas / nascentes). A abertura do "V" se orienta no sentido do escoamento d'água para <mark class="grifo">JUSANTE</mark> (foz).
+            </div>
+            <div class="p-3 bg-white border border-slate-200 rounded">
+              <strong class="text-slate-900 block mb-1">Espigões / Divisores de Águas:</strong>
+              Ao modelarem espigões, interflúvios e divisores de águas, as curvas de nível desenham arcos ou pontas projetadas cujo <mark class="grifo">ápice angular aponta em direção oposta: voltado para as cotas decrescentes do vale ou sopé (JUSANTE)</mark>.
+            </div>
+          </div>
+        </div>
+
+        <p class="font-bold text-slate-900">Morfologia Tridimensional das Vertentes:</p>
+        <p>A observação do espaçamento das curvas entre o topo e a base de uma encosta permite classificar com exatidão a morfologia tridimensional das vertentes:</p>
+        <ul class="list-disc pl-6 space-y-2 text-slate-700">
+          <li>
+            <strong class="text-slate-900">Vertente Retilínea:</strong> Exibe <mark class="grifo">espaçamento horizontal uniforme e simétrico</mark> entre as sucessivas curvas de nível ao longo de todo o perfil da encosta, refletindo gradiente de declividade estável do ápice ao sopé.
+          </li>
+          <li>
+            <strong class="text-slate-900">Vertente Côncava:</strong> Caracteriza-se por <mark class="grifo">curvas fortemente adensadas e concentradas nos setores superiores (topo íngreme)</mark>, tornando-se progressivamente <mark class="grifo">mais espaçadas e afastadas em direção à base (sopé aplainado)</mark>, evidenciando atenuação da declividade de montante para jusante.
+          </li>
+          <li>
+            <strong class="text-slate-900">Vertente Convexa:</strong> Apresenta <mark class="grifo">curvas de nível espaçadas nos setores superiores (topo suave)</mark>, as quais convergem e <mark class="grifo">se adensam intensamente em direção à base e ao fundo de vale (sopé escarpado / íngreme)</mark>, caracterizando aceleração do gradiente topográfico descendente.
+          </li>
+        </ul>
+
+        <!-- Fórmulas Matemáticas -->
+        <div class="bg-slate-50 border border-slate-300 rounded-lg p-4 my-6">
+          <h4 class="font-bold text-slate-900 text-sm uppercase tracking-wide mb-3">
+            Fórmulas Topográficas e Morfométricas Indispensáveis
+          </h4>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs sm:text-sm">
+            <div class="bg-white p-3 rounded border border-slate-200">
+              <span class="font-semibold block text-slate-800 mb-1">Desnível Vertical ($\Delta H$):</span>
+              $$\Delta H = |\text{Cota de } A - \text{Cota de } B|$$
+            </div>
+            <div class="bg-white p-3 rounded border border-slate-200">
+              <span class="font-semibold block text-slate-800 mb-1">Distância Real no Terreno ($D$):</span>
+              $$D = d \times E$$
+              <span class="text-[11px] text-slate-500">onde $d$ é a medida no mapa e $E$ é o denominador da escala.</span>
+            </div>
+            <div class="bg-white p-3 rounded border border-slate-200">
+              <span class="font-semibold block text-slate-800 mb-1">Declividade Percentual ($I$):</span>
+              $$I = \left(\frac{\Delta H}{D}\right) \times 100 \quad [\%]$$
+            </div>
+            <div class="bg-white p-3 rounded border border-slate-200">
+              <span class="font-semibold block text-slate-800 mb-1">Exagero Vertical ($EV$):</span>
+              $$EV = \frac{E_h}{E_v}$$
+              <span class="text-[11px] text-slate-500">Razão entre denominador da escala horizontal e vertical do perfil.</span>
+            </div>
+          </div>
+        </div>
+
+        <p>
+          A construção de perfis topográficos constitui a representação transversal bidimensional obtida pelo seccionamento de um segmento reto traçado sobre a carta topográfica, transpondo as intersecções com as curvas de nível para um gráfico cartesiano dotado de eixos de distância horizontal e altitude. Para viabilizar a visualização didática e geomorfológica de relevos com gradientes suaves, utiliza-se a técnica do <strong>Exagero Vertical ($EV$)</strong>, que quantifica a distorção proporcional deliberada entre a escala vertical selecionada para o eixo de altitudes e a escala horizontal da carta topográfica original.
+        </p>
+      </div>
+
+      <!-- Tabela 3: Sem Scroll Horizontal -->
+      <div class="mt-8">
+        <h3 class="text-sm font-bold text-slate-800 uppercase tracking-wide mb-3 flex items-center gap-1.5">
+          <span>Quadro Sinótico 3:</span> Comportamento Morfológico das Curvas de Nível
+        </h3>
+        <table class="w-full text-left border-collapse border border-slate-300 text-[11px] sm:text-xs">
+          <thead>
+            <tr class="bg-slate-100 text-slate-900 font-bold border-b border-slate-300">
+              <th class="p-2 sm:p-2.5 border-r border-slate-300 w-[20%]">Feição</th>
+              <th class="p-2 sm:p-2.5 border-r border-slate-300 w-[28%]">Comportamento das Curvas</th>
+              <th class="p-2 sm:p-2.5 border-r border-slate-300 w-[24%]">Orientação do Vértice</th>
+              <th class="p-2 sm:p-2.5 w-[28%]">Significado Fisiográfico</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-200">
+            <tr class="hover:bg-slate-50">
+              <td class="p-2 sm:p-2.5 border-r border-slate-200 font-bold text-slate-900">Vale Fluvial / Talvegue</td>
+              <td class="p-2 sm:p-2.5 border-r border-slate-200">Inflexões agudas em "V" cruzando o canal.</td>
+              <td class="p-2 sm:p-2.5 border-r border-slate-200 font-semibold"><mark class="grifo">Aponta para Montante</mark> (cotas altas)</td>
+              <td class="p-2 sm:p-2.5">Eixo concentrador de drenagem e fluxo hidrológico.</td>
+            </tr>
+            <tr class="hover:bg-slate-50">
+              <td class="p-2 sm:p-2.5 border-r border-slate-200 font-bold text-slate-900">Espigão / Interflúvio</td>
+              <td class="p-2 sm:p-2.5 border-r border-slate-200">Curvas salientes e arqueadas para o vale.</td>
+              <td class="p-2 sm:p-2.5 border-r border-slate-200 font-semibold"><mark class="grifo">Aponta para Jusante</mark> (cotas baixas)</td>
+              <td class="p-2 sm:p-2.5">Divisor de águas entre bacias hidrográficas contíguas.</td>
+            </tr>
+            <tr class="hover:bg-slate-50">
+              <td class="p-2 sm:p-2.5 border-r border-slate-200 font-bold text-slate-900">Escarpa / Encosta Íngreme</td>
+              <td class="p-2 sm:p-2.5 border-r border-slate-200 font-semibold"><mark class="grifo">Curvas extremamente próximas</mark> (densas)</td>
+              <td class="p-2 sm:p-2.5 border-r border-slate-200 text-slate-500">Inaplicável</td>
+              <td class="p-2 sm:p-2.5">Queda vertical abrupta; aceleração da dinâmica de vertente.</td>
+            </tr>
+            <tr class="hover:bg-slate-50">
+              <td class="p-2 sm:p-2.5 border-r border-slate-200 font-bold text-slate-900">Platô / Planície</td>
+              <td class="p-2 sm:p-2.5 border-r border-slate-200">Curvas amplamente afastadas.</td>
+              <td class="p-2 sm:p-2.5 border-r border-slate-200 text-slate-500">Inaplicável</td>
+              <td class="p-2 sm:p-2.5">Superfície aplainada ou patamar de baixa declividade média.</td>
+            </tr>
+            <tr class="hover:bg-slate-50">
+              <td class="p-2 sm:p-2.5 border-r border-slate-200 font-bold text-slate-900">Vertente Côncava</td>
+              <td class="p-2 sm:p-2.5 border-r border-slate-200 font-semibold"><mark class="grifo">Densidade decrescente</mark> do topo para a base.</td>
+              <td class="p-2 sm:p-2.5 border-r border-slate-200 text-slate-500">Inaplicável</td>
+              <td class="p-2 sm:p-2.5">Topo íngreme e base suave; desaceleração hídrica no sopé.</td>
+            </tr>
+            <tr class="hover:bg-slate-50">
+              <td class="p-2 sm:p-2.5 border-r border-slate-200 font-bold text-slate-900">Vertente Convexa</td>
+              <td class="p-2 sm:p-2.5 border-r border-slate-200 font-semibold"><mark class="grifo">Densidade crescente</mark> do topo para a base.</td>
+              <td class="p-2 sm:p-2.5 border-r border-slate-200 text-slate-500">Inaplicável</td>
+              <td class="p-2 sm:p-2.5">Topo suave e base escarpada; aceleração erosiva no sopé.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </article>
+
+    <!-- ==========================================
+         SEÇÃO 4: TRANSPOSIÇÃO DIDÁTICA
+         ========================================== -->
+    <article id="secao4" class="mb-14 scroll-mt-6">
+      <div class="border-b border-slate-200 pb-3 mb-6">
+        <span class="text-xs font-bold text-slate-500 uppercase tracking-wider">Módulo 4</span>
+        <h2 class="text-xl sm:text-2xl font-bold text-slate-900">
+          4. Transposição Didática e o Ensino da Cartografia no IFMG
+        </h2>
+      </div>
+
+      <div class="space-y-4 text-slate-700 text-sm sm:text-base leading-relaxed text-justify">
+        <p>
+          A articulação entre a teoria cartográfica e o ensino de Geografia, alicerçada nas formulações de <strong>Pontuschka, Paganelli e Cacete (2007)</strong> e nas bases conceituais de <strong>Paulo Roberto Fitz (2008)</strong>, constitui um núcleo teórico central para a atuação do docente na Educação Básica, Técnica e Tecnológica. Os autores pontuam que o domínio da cartografia no contexto pedagógico não pode se limitar à assimilação passiva de mapas prontos, mas deve <mark class="grifo">habilitar o estudante a assumir o papel ativo de leitor e mapeador crítico</mark> do espaço em que está inserido.
+        </p>
+
+        <p>
+          A representação do relevo impõe uma barreira cognitiva tradicional no aprendizado escolar: o educando está biologicamente adaptado à visualização oblíqua e horizontal da paisagem a partir da superfície e enfrenta dificuldades substanciais para transpor esse raciocínio para a projeção zenital, abstrata e métrica das cartas topográficas. Para consolidar a transposição didática dessa abstração bidimensional para a realidade tridimensional da paisagem física, Pontuschka et al. preconizam a utilização de recursos de modelagem tátil, com destaque para a <mark class="grifo">construção de maquetes de relevo baseadas em curvas de nível</mark>.
+        </p>
+
+        <p>
+          A confecção de maquetes fundamenta-se na <mark class="grifo">sobreposição de placas escalonadas</mark> de materiais acessíveis (como lâminas de isopor, placas de cortiça ou camadas de papelão), em que cada lâmina recortada corresponde com fidelidade geométrica ao polígono circunscrito por uma cota altimétrica contínua na carta de base. A <mark class="grifo">espessura do material empregado materializa no plano concreto a equidistância altimétrica vertical</mark>.
+        </p>
+
+        <p>
+          Ao montar fisicamente as placas em sucessão, o estudante visualiza a materialização das formas de relevo, correlacionando de forma orgânica a declividade com a densidade de lâminas empilhadas e a concavidade e convexidade das encostas com a curvatura tridimensional gerada. Esse processo viabiliza a posterior compreensão abstrata dos perfis topográficos e sua associação com os fatores ambientais e dinâmicas da ocupação humana, tais como os processos erosivos lineares, a ocupação desordenada de encostas e as vulnerabilidades deflagradas por movimentos de massa gravitacionais no relevo brasileiro.
+        </p>
+      </div>
+    </article>
+
+    <!-- ==========================================
+         SEÇÃO 5: MEMORIZAÇÃO E MATRIZ DE QUESTÕES
+         ========================================== -->
+    <article id="secao5" class="mb-14 scroll-mt-6">
+      <div class="border-b border-slate-200 pb-3 mb-6">
+        <span class="text-xs font-bold text-slate-500 uppercase tracking-wider">Módulo 5</span>
+        <h2 class="text-xl sm:text-2xl font-bold text-slate-900">
+          5. Tópicos de Memorização Rápida e Matriz de Resolução de Questões
+        </h2>
+      </div>
+
+      <!-- Cards de Revisão Rápida -->
+      <div class="space-y-6 text-sm text-slate-700">
+        <!-- Bloco 1 -->
+        <div class="bg-white border border-slate-300 rounded-lg p-5">
+          <h3 class="font-bold text-slate-900 text-sm uppercase tracking-wide mb-3 flex items-center gap-2">
+            <span class="w-2.5 h-2.5 rounded-full bg-slate-800"></span>
+            Tópicos Imediatos: Semiologia e Variáveis Visuais
+          </h3>
+          <ul class="space-y-2 list-disc pl-5">
+            <li>
+              <strong class="text-slate-900">Linguagem Cartográfica Monossêmica:</strong> O mapa apoia-se em signos unívocos, nos quais a relação entre significante e significado é rigorosamente fixada pela legenda antes da leitura espacial.
+            </li>
+            <li>
+              <strong class="text-slate-900">Dados Qualitativos (Nominais):</strong> Expressam distinção de natureza sem ordem ou magnitude métrica. Variáveis obrigatórias: <mark class="grifo">Forma</mark>, <mark class="grifo">Orientação</mark> e <mark class="grifo">Cor (Matiz)</mark>. <mark class="alerta">Jamais empregar variação de tamanho para atributos nominais</mark>.
+            </li>
+            <li>
+              <strong class="text-slate-900">Dados Ordenados:</strong> Expressam hierarquia relativa, precedência ou intensidade escalonada ("maior que", "menor que"). Variáveis mandatórias: <mark class="grifo">Valor (degradação claro-escuro)</mark> e <mark class="grifo">Granulação (fino a grosso)</mark>.
+            </li>
+            <li>
+              <strong class="text-slate-900">Dados Quantitativos Absolutos:</strong> Expressam quantidades numéricas concretas com relações métricas diretas. A única variável retiniana capaz de traduzir proporcionalidade no sistema de Bertin é o <mark class="grifo">Tamanho</mark>.
+            </li>
+          </ul>
+        </div>
+
+        <!-- Bloco 2 -->
+        <div class="bg-white border border-slate-300 rounded-lg p-5">
+          <h3 class="font-bold text-slate-900 text-sm uppercase tracking-wide mb-3 flex items-center gap-2">
+            <span class="w-2.5 h-2.5 rounded-full bg-slate-800"></span>
+            Tópicos Imediatos: Métodos de Mapeamento Temático
+          </h3>
+          <ul class="space-y-2 list-disc pl-5">
+            <li>
+              <strong class="text-slate-900">Corocromático:</strong> Zonas preenchidas por matizes qualitativos para representar mosaicos categóricos (domínios fitogeográficos, compartimentos geológicos e divisões políticas).
+            </li>
+            <li>
+              <strong class="text-slate-900">Coroplético:</strong> Áreas administrativas preenchidas por gradações tonais de valor para representar <mark class="grifo">dados quantitativos relativos</mark> (densidades, proporções e taxas). <mark class="alerta">Jamais utilizar para números brutos totais</mark>.
+            </li>
+            <li>
+              <strong class="text-slate-900">Dasimétrico:</strong> Aprimoramento da técnica coroplética por meio da <mark class="grifo">eliminação de vazios geográficos</mark> a partir do cruzamento com o mapa de uso e cobertura da terra, delimitando áreas de ocupação efetiva.
+            </li>
+            <li>
+              <strong class="text-slate-900">Isarítmico:</strong> Linhas contínuas de mesma magnitude que representam superfícies espaciais estatísticas contínuas (isoípsas, isotermas e isoietas).
+            </li>
+            <li>
+              <strong class="text-slate-900">Fluxo:</strong> Vetores dinâmicos lineares conectando origens e destinos, nos quais a espessura da linha é proporcional ao volume da circulação.
+            </li>
+            <li>
+              <strong class="text-slate-900">Anamorfose:</strong> Deformação proposital da geometria euclidiana das fronteiras com áreas proporcionais a grandezas quantitativas absolutas.
+            </li>
+          </ul>
+        </div>
+
+        <!-- Bloco 3 -->
+        <div class="bg-white border border-slate-300 rounded-lg p-5">
+          <h3 class="font-bold text-slate-900 text-sm uppercase tracking-wide mb-3 flex items-center gap-2">
+            <span class="w-2.5 h-2.5 rounded-full bg-slate-800"></span>
+            Tópicos Imediatos: Altimetria e Curvas de Nível
+          </h3>
+          <ul class="space-y-2 list-disc pl-5">
+            <li>
+              <strong class="text-slate-900">Densidade de Curvas:</strong> Maior adensamento ou aproximação gráfica entre curvas indica <mark class="grifo">maior inclinação e declividade</mark>; curvas espaçadas indicam relevos suaves ou planos.
+            </li>
+            <li>
+              <strong class="text-slate-900">Morfologia em "V" de Vale Fluvial:</strong> O vértice agudo do traçado aponta invariavelmente para as cotas altimétricas mais altas (<mark class="grifo">Montante / Nascentes</mark>). O fluxo d'água corre em sentido oposto ao vértice, em direção à abertura do "V" (<mark class="grifo">Jusante</mark>).
+            </li>
+            <li>
+              <strong class="text-slate-900">Morfologia de Espigão / Interflúvio:</strong> O ápice arqueado das curvas salientes projeta-se apontando para as cotas altimétricas decrescentes (<mark class="grifo">Jusante / Sopé</mark>).
+            </li>
+            <li>
+              <strong class="text-slate-900">Vertente Retilínea:</strong> Espaçamento simétrico e homogêneo entre as curvas ao longo de toda a encosta.
+            </li>
+            <li>
+              <strong class="text-slate-900">Vertente Côncava:</strong> Curvas fortemente aglomeradas no topo (íngreme) e gradualmente abertas no sopé (suave).
+            </li>
+            <li>
+              <strong class="text-slate-900">Vertente Convexa:</strong> Curvas amplamente espaçadas no topo (suave) e intensamente concentradas no sopé (íngreme).
+            </li>
+            <li>
+              <strong class="text-slate-900">Equidistância:</strong> Desnível vertical constante entre curvas contíguas, regular em toda a carta.
+            </li>
+            <li>
+              <strong class="text-slate-900">Cálculo de Declividade:</strong> Relação percentual expressa por $I = (\Delta H / D) \times 100$, na qual $\Delta H$ é a diferença de cotas e $D$ é a distância horizontal no terreno calculada via escala.
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Tabela 4: Matriz Anti-Pegadinha Sem Scroll Horizontal -->
+      <div class="mt-8">
+        <h3 class="text-sm font-bold text-slate-800 uppercase tracking-wide mb-3 flex items-center gap-1.5">
+          <span>Quadro Sinótico 4:</span> Matriz de Erros Recorrentes em Provas Objetivas de Concurso
+        </h3>
+        <table class="w-full text-left border-collapse border border-slate-300 text-[11px] sm:text-xs">
+          <thead>
+            <tr class="bg-slate-100 text-slate-900 font-bold border-b border-slate-300">
+              <th class="p-2 sm:p-2.5 border-r border-slate-300 w-1/2">Distorção Típica em Questões de Concurso</th>
+              <th class="p-2 sm:p-2.5 w-1/2">Correção Científica e Fundamentação</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-200">
+            <tr class="hover:bg-slate-50">
+              <td class="p-2 sm:p-2.5 border-r border-slate-200 font-medium text-slate-800">
+                Representar contagens absolutas de população por preenchimento coroplético.
+              </td>
+              <td class="p-2 sm:p-2.5">
+                <mark class="grifo">Violação da semiologia.</mark> População total requer símbolos proporcionais (Tamanho); método coroplético destina-se a índices e taxas relativas (Valor).
+              </td>
+            </tr>
+            <tr class="hover:bg-slate-50">
+              <td class="p-2 sm:p-2.5 border-r border-slate-200 font-medium text-slate-800">
+                Tratar cores espectrais puras (matiz) como ordenamento de classes altimétricas.
+              </td>
+              <td class="p-2 sm:p-2.5">
+                Cores puras expressam apenas diferença qualitativa. A hierarquia altimétrica requer graduação de valor ou hipsometria normalizada.
+              </td>
+            </tr>
+            <tr class="hover:bg-slate-50">
+              <td class="p-2 sm:p-2.5 border-r border-slate-200 font-medium text-slate-800">
+                Afirmar que o vértice em "V" da curva de nível aponta para a foz do rio.
+              </td>
+              <td class="p-2 sm:p-2.5 font-semibold text-slate-900">
+                <mark class="alerta">Erro grave:</mark> O vértice do "V" aponta unicamente para montante (nascente/cotas altas); a água escorre em direção à abertura da inflexão.
+              </td>
+            </tr>
+            <tr class="hover:bg-slate-50">
+              <td class="p-2 sm:p-2.5 border-r border-slate-200 font-medium text-slate-800">
+                Confundir o método isarítmico com o método coroplético em cartas térmicas ou pluviométricas.
+              </td>
+              <td class="p-2 sm:p-2.5">
+                O método isarítmico representa gradientes contínuos da natureza física por isolinhas, sem vinculação com divisas territoriais artificiais.
+              </td>
+            </tr>
+            <tr class="hover:bg-slate-50">
+              <td class="p-2 sm:p-2.5 border-r border-slate-200 font-medium text-slate-800">
+                Considerar que encostas côncavas concentram maior declividade na base.
+              </td>
+              <td class="p-2 sm:p-2.5">
+                Encostas côncavas concentram seu adensamento e declividade máxima no ápice/topo, suavizando-se progressivamente em direção à base.
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </article>
+
+    <!-- Botão de Navegação para Questões -->
+    <div class="border-t border-slate-200 pt-8 mt-12 pb-16 flex flex-col items-center justify-center text-center">
+      <p class="text-sm text-slate-600 mb-4 font-medium">
+        Finalizou o estudo teórico e a memorização dos quadros?
+      </p>
+      <a 
+        href="questoes4geo.html" 
+        class="inline-flex items-center gap-3 px-8 py-4 bg-slate-900 hover:bg-black text-white text-base sm:text-lg font-bold rounded-xl shadow-md hover:shadow-lg transition-all transform hover:-translate-y-0.5 active:translate-y-0"
+      >
+        <span>Ir para Questões da Prova</span>
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+        </svg>
+      </a>
+      <span class="text-xs text-slate-400 mt-2">Redireciona para questoes4geo.html</span>
+    </div>
+
+  </main>
+
+  <!-- Script para gerenciar dinamicamente o arquivo de áudio sem editar código -->
+  <script>
+    function atualizarAudio() {
+      const input = document.getElementById('audioFileName');
+      const player = document.getElementById('audioPlayer');
+      const source = document.getElementById('audioSource');
+      
+      const fileName = input.value.trim();
+      if (fileName) {
+        source.src = fileName;
+        player.load();
+      }
+    }
+
+    // Permite apertar Enter no input para recarregar o áudio
+    document.getElementById('audioFileName').addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') {
+        atualizarAudio();
+      }
+    });
+  </script>
+</body>
+</html>

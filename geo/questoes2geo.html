@@ -1,0 +1,1144 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simulado e Caderno Analítico – Geografia EBTT IFMG</title>
+  
+  <!-- Fontes Google otimizadas para leitura prolongada e ergonomia visual -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg-page: #FBF9F5;          /* Tom pergaminho/off-white aquecido, reduz fadiga */
+      --bg-surface: #FFFFFF;       /* Superfície dos cartões */
+      --bg-subtle: #F3EFEA;        /* Fundo secundário sutil */
+      --text-main: #1D232A;        /* Grafite profundo com contraste confortável */
+      --text-muted: #4B5565;       /* Texto de apoio */
+      --text-light: #6B7280;       /* Metadados e notas */
+      
+      --border-soft: #E8E2D9;      /* Bordas suaves */
+      --border-focus: #1E3A8A;     /* Foco institucional */
+      
+      --primary: #1E3A8A;          /* Azul institucional acadêmico */
+      --primary-hover: #172554;
+      --primary-light: #EFF6FF;
+      
+      --success: #15803D;          /* Verde floresta para acertos */
+      --success-bg: #F0FDF4;
+      --success-border: #86EFAC;
+      
+      --danger: #B91C1C;           /* Vermelho sóbrio para erros */
+      --danger-bg: #FEF2F2;
+      --danger-border: #FCA5A5;
+      
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 16px;
+      
+      --shadow-sm: 0 1px 3px rgba(30, 35, 42, 0.05);
+      --shadow-md: 0 4px 14px rgba(30, 35, 42, 0.06);
+      --shadow-lg: 0 10px 25px rgba(30, 35, 42, 0.08);
+
+      --font-body: 'Lora', Georgia, serif;
+      --font-ui: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-page);
+      color: var(--text-main);
+      font-family: var(--font-body);
+      font-size: 1.0625rem;
+      line-height: 1.75;
+      -webkit-font-smoothing: antialiased;
+      padding: 0 1rem 4rem 1rem;
+    }
+
+    /* Container Principal */
+    .container {
+      max-width: 860px;
+      margin: 0 auto;
+    }
+
+    /* Cabeçalho Institucional */
+    .header-box {
+      background-color: var(--bg-surface);
+      border: 1px solid var(--border-soft);
+      border-radius: var(--radius-lg);
+      padding: 2.25rem 2rem;
+      margin-top: 2rem;
+      margin-bottom: 2rem;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .badge-banca {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: var(--font-ui);
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--primary);
+      background-color: var(--primary-light);
+      padding: 0.35rem 0.75rem;
+      border-radius: 9999px;
+      margin-bottom: 1rem;
+    }
+
+    .header-box h1 {
+      font-family: var(--font-ui);
+      font-size: 1.65rem;
+      line-height: 1.35;
+      color: var(--text-main);
+      margin-bottom: 0.75rem;
+      font-weight: 700;
+    }
+
+    .header-box p {
+      font-size: 0.98rem;
+      color: var(--text-muted);
+      margin-bottom: 0.5rem;
+    }
+
+    .metadata-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1rem;
+      margin-top: 1.25rem;
+      padding-top: 1.25rem;
+      border-top: 1px solid var(--border-soft);
+      font-family: var(--font-ui);
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    .metadata-item strong {
+      display: block;
+      color: var(--text-main);
+      font-weight: 600;
+    }
+
+    /* Barra de Progresso Flutuante / Superior */
+    .progress-bar-container {
+      position: sticky;
+      top: 0.75rem;
+      z-index: 50;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(8px);
+      border: 1px solid var(--border-soft);
+      border-radius: var(--radius-md);
+      padding: 0.75rem 1.25rem;
+      margin-bottom: 2rem;
+      box-shadow: var(--shadow-md);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      font-family: var(--font-ui);
+    }
+
+    .progress-stats {
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--text-main);
+      white-space: nowrap;
+    }
+
+    .progress-track {
+      flex: 1;
+      height: 8px;
+      background-color: var(--bg-subtle);
+      border-radius: 9999px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      width: 0%;
+      background-color: var(--primary);
+      transition: width 0.3s ease;
+      border-radius: 9999px;
+    }
+
+    /* Cartão da Questão */
+    .question-card {
+      background-color: var(--bg-surface);
+      border: 1px solid var(--border-soft);
+      border-radius: var(--radius-lg);
+      padding: 2.25rem 2rem;
+      margin-bottom: 2rem;
+      box-shadow: var(--shadow-sm);
+      transition: box-shadow 0.2s ease, border-color 0.2s ease;
+    }
+
+    .question-card:focus-within {
+      border-color: #CBD5E1;
+      box-shadow: var(--shadow-md);
+    }
+
+    .question-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1.25rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px dashed var(--border-soft);
+      font-family: var(--font-ui);
+    }
+
+    .question-number {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--primary);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .question-status-tag {
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 0.2rem 0.6rem;
+      border-radius: var(--radius-sm);
+      display: none;
+    }
+
+    .enunciado {
+      color: var(--text-main);
+      margin-bottom: 1.75rem;
+      font-size: 1.0625rem;
+      text-align: justify;
+    }
+
+    .enunciado p {
+      margin-bottom: 1rem;
+    }
+
+    .enunciado p:last-child {
+      margin-bottom: 0;
+    }
+
+    /* Alternativas */
+    .options-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+    }
+
+    .option-label {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      padding: 1rem 1.15rem;
+      border: 1px solid var(--border-soft);
+      background-color: #FAF8F5;
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-family: var(--font-body);
+      font-size: 1rem;
+      line-height: 1.6;
+      color: var(--text-main);
+      user-select: none;
+    }
+
+    .option-label:hover {
+      background-color: #F4EFE6;
+      border-color: #D3CBBE;
+    }
+
+    .option-label input[type="radio"] {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .opt-letter {
+      font-family: var(--font-ui);
+      font-weight: 700;
+      font-size: 0.95rem;
+      min-width: 2rem;
+      height: 2rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: var(--radius-sm);
+      background-color: #EAE4DA;
+      color: var(--text-main);
+      flex-shrink: 0;
+      margin-top: 0.15rem;
+      transition: all 0.2s ease;
+    }
+
+    .opt-text {
+      flex: 1;
+      text-align: justify;
+    }
+
+    /* Estado de Seleção pelo Usuário */
+    .option-label.selected {
+      background-color: var(--primary-light);
+      border-color: var(--primary);
+    }
+
+    .option-label.selected .opt-letter {
+      background-color: var(--primary);
+      color: #FFFFFF;
+    }
+
+    /* Estados de Correção Pós-Envio */
+    .option-label.correct-target {
+      background-color: var(--success-bg) !important;
+      border-color: var(--success-border) !important;
+      color: #14532D;
+    }
+    .option-label.correct-target .opt-letter {
+      background-color: var(--success) !important;
+      color: #FFFFFF !important;
+    }
+
+    .option-label.incorrect-target {
+      background-color: var(--danger-bg) !important;
+      border-color: var(--danger-border) !important;
+      color: #7F1D1D;
+    }
+    .option-label.incorrect-target .opt-letter {
+      background-color: var(--danger) !important;
+      color: #FFFFFF !important;
+    }
+
+    /* Bloco da Resolução Analítica */
+    .resolution-box {
+      margin-top: 1.75rem;
+      padding: 1.5rem 1.6rem;
+      border-radius: var(--radius-md);
+      background-color: #F8F9FA;
+      border-left: 4px solid var(--primary);
+      display: none; /* Revelado via JS */
+      animation: fadeIn 0.4s ease forwards;
+    }
+
+    .resolution-box.visible {
+      display: block;
+    }
+
+    .resolution-title {
+      font-family: var(--font-ui);
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--primary);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      margin-bottom: 0.75rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .resolution-content {
+      font-size: 0.98rem;
+      color: var(--text-main);
+      line-height: 1.7;
+      text-align: justify;
+    }
+
+    .resolution-content p {
+      margin-bottom: 0.85rem;
+    }
+
+    .resolution-content p:last-child {
+      margin-bottom: 0;
+    }
+
+    /* Painel de Controle e Submissão */
+    .control-panel {
+      text-align: center;
+      margin: 3rem 0;
+    }
+
+    .btn-main {
+      font-family: var(--font-ui);
+      font-size: 1.05rem;
+      font-weight: 700;
+      background-color: var(--primary);
+      color: #FFFFFF;
+      padding: 1rem 2.5rem;
+      border: none;
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      box-shadow: var(--shadow-md);
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .btn-main:hover {
+      background-color: var(--primary-hover);
+      transform: translateY(-1px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .btn-main:active {
+      transform: translateY(0);
+    }
+
+    .btn-secondary {
+      font-family: var(--font-ui);
+      font-size: 0.9rem;
+      font-weight: 600;
+      background-color: transparent;
+      color: var(--text-muted);
+      border: 1px solid var(--border-soft);
+      padding: 0.6rem 1.25rem;
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .btn-secondary:hover {
+      background-color: var(--bg-subtle);
+      color: var(--text-main);
+    }
+
+    /* Mensagem Inline caso haja pendências */
+    .warning-msg {
+      margin-top: 1rem;
+      font-family: var(--font-ui);
+      font-size: 0.9rem;
+      color: #B45309;
+      background-color: #FEF3C7;
+      padding: 0.75rem 1.25rem;
+      border-radius: var(--radius-sm);
+      display: none;
+      max-width: 500px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* Seção de Resultados e Encerramento */
+    .results-dashboard {
+      background-color: var(--bg-surface);
+      border: 2px solid var(--primary);
+      border-radius: var(--radius-lg);
+      padding: 2.25rem 2rem;
+      margin-top: 3rem;
+      box-shadow: var(--shadow-lg);
+      display: none;
+      animation: fadeIn 0.5s ease forwards;
+    }
+
+    .dashboard-header {
+      text-align: center;
+      margin-bottom: 2rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid var(--border-soft);
+    }
+
+    .dashboard-header h2 {
+      font-family: var(--font-ui);
+      font-size: 1.85rem;
+      color: var(--primary);
+      margin-bottom: 0.5rem;
+    }
+
+    .score-badge {
+      display: inline-block;
+      font-family: var(--font-ui);
+      font-size: 2.75rem;
+      font-weight: 800;
+      color: var(--primary);
+      margin: 0.75rem 0;
+    }
+
+    .score-feedback {
+      font-family: var(--font-ui);
+      font-size: 1.05rem;
+      color: var(--text-muted);
+    }
+
+    /* Resumo Rápido das Questões */
+    .quick-nav-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(65px, 1fr));
+      gap: 0.5rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .nav-pill {
+      font-family: var(--font-ui);
+      font-size: 0.85rem;
+      font-weight: 700;
+      padding: 0.6rem 0.2rem;
+      text-align: center;
+      border-radius: var(--radius-sm);
+      text-decoration: none;
+      display: block;
+      transition: all 0.2s ease;
+    }
+
+    .nav-pill.correct {
+      background-color: var(--success-bg);
+      color: var(--success);
+      border: 1px solid var(--success-border);
+    }
+
+    .nav-pill.incorrect {
+      background-color: var(--danger-bg);
+      color: var(--danger);
+      border: 1px solid var(--danger-border);
+    }
+
+    /* Tabelas Sintéticas de Apoio */
+    .reference-section {
+      margin-top: 2.5rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border-soft);
+    }
+
+    .reference-section h3 {
+      font-family: var(--font-ui);
+      font-size: 1.25rem;
+      color: var(--text-main);
+      margin-bottom: 1rem;
+    }
+
+    .table-responsive {
+      overflow-x: auto;
+      margin-bottom: 2rem;
+      border: 1px solid var(--border-soft);
+      border-radius: var(--radius-md);
+      background-color: #FFFFFF;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.9rem;
+      text-align: left;
+    }
+
+    th {
+      background-color: var(--bg-subtle);
+      font-family: var(--font-ui);
+      font-weight: 700;
+      color: var(--text-main);
+      padding: 0.85rem 1rem;
+      border-bottom: 1px solid var(--border-soft);
+    }
+
+    td {
+      padding: 0.85rem 1rem;
+      border-bottom: 1px solid var(--border-soft);
+      color: var(--text-main);
+      vertical-align: top;
+      line-height: 1.5;
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    tr:hover td {
+      background-color: #FAF8F5;
+    }
+
+    /* Animação */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Responsividade */
+    @media (max-width: 768px) {
+      body {
+        padding: 0 0.5rem 3rem 0.5rem;
+      }
+      .header-box {
+        padding: 1.5rem 1.25rem;
+        margin-top: 1rem;
+      }
+      .header-box h1 {
+        font-size: 1.35rem;
+      }
+      .question-card {
+        padding: 1.5rem 1.25rem;
+      }
+      .option-label {
+        padding: 0.85rem 0.9rem;
+        gap: 0.75rem;
+      }
+      .btn-main {
+        width: 100%;
+        justify-content: center;
+      }
+    }
+
+    /* Modo de Impressão Limpo */
+    @media print {
+      body {
+        background: #FFFFFF;
+        color: #000000;
+        padding: 0;
+      }
+      .progress-bar-container, .control-panel, .warning-msg {
+        display: none !important;
+      }
+      .question-card, .header-box, .results-dashboard {
+        box-shadow: none;
+        border: 1px solid #CCC;
+        page-break-inside: avoid;
+      }
+      .resolution-box {
+        display: block !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <main class="container">
+    
+    <!-- Cabeçalho Oficial -->
+    <header class="header-box">
+      <div class="badge-banca">Concurso EBTT • Reitoria IFMG</div>
+      <h1>História do Pensamento Geográfico II</h1>
+      <p><strong>Ementa Temática:</strong> As Rupturas Contemporâneas e as Cinco Categorias Estruturantes de Análise Espacial.</p>
+      
+      <div class="metadata-grid">
+        <div class="metadata-item">
+          <strong>Banca Examinadora:</strong>
+          Comissão Central de Concurso Público (IFMG)
+        </div>
+        <div class="metadata-item">
+          <strong>Foco da Prova Objetiva:</strong>
+          Diferenciação Ontológica Estrita das Categorias
+        </div>
+        <div class="metadata-item">
+          <strong>Bibliografia Vinculada:</strong>
+          Corrêa et al. (2007); Godoy (2010); Moreira (2009, 2010); Claval (2007)
+        </div>
+      </div>
+    </header>
+
+    <!-- Indicador de Progresso Interativo -->
+    <nav class="progress-bar-container" aria-label="Progresso do Simulado">
+      <div class="progress-stats">
+        <span id="answered-count">0</span> de 10 respondidas
+      </div>
+      <div class="progress-track">
+        <div class="progress-fill" id="progress-fill"></div>
+      </div>
+      <button class="btn-secondary" id="scroll-to-btn" onclick="scrollToNextUnanswered()">Próxima Pendente</button>
+    </nav>
+
+    <!-- Formulário do Simulado -->
+    <form id="quiz-form" onsubmit="return false;">
+      <div id="questions-wrapper">
+        <!-- Renderizado dinamicamente via JS com integridade literal -->
+      </div>
+
+      <div class="control-panel">
+        <div class="warning-msg" id="validation-warning">
+          Atenção: Você ainda não respondeu todas as questões. Deseja finalizar mesmo assim?
+        </div>
+        <button type="button" class="btn-main" id="submit-quiz-btn" onclick="handleQuizSubmission()">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="20 6 9 17 4 12"></polyline>
+          </svg>
+          Finalizar Simulado e Ver Resoluções
+        </button>
+      </div>
+    </form>
+
+    <!-- Seção de Resultados e Resoluções Analíticas -->
+    <section class="results-dashboard" id="results-dashboard">
+      <div class="dashboard-header">
+        <h2>Resultado do Simulado</h2>
+        <div class="score-badge" id="score-display">0 / 10</div>
+        <p class="score-feedback" id="feedback-display">Desempenho calculado</p>
+      </div>
+
+      <p style="font-family: var(--font-ui); font-size: 0.95rem; font-weight: 600; margin-bottom: 0.75rem;">
+        Navegação Rápida pelas Resoluções:
+      </p>
+      <div class="quick-nav-grid" id="quick-nav-grid">
+        <!-- Pílulas de navegação preenchidas via script -->
+      </div>
+
+      <!-- Tabelas Sintéticas Integradas -->
+      <div class="reference-section">
+        <h3>Tabela 1: Gabarito Oficial Sintético</h3>
+        <div class="table-responsive">
+          <table>
+            <thead>
+              <tr>
+                <th style="width: 15%; text-align: center;">Questão</th>
+                <th style="width: 65%;">Eixo Temático Específico da Ementa</th>
+                <th style="width: 20%; text-align: center;">Gabarito</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td style="text-align: center;"><strong>01</strong></td><td>Neopositivismo e a Geografia Teorético-Quantitativa</td><td style="text-align: center;"><strong>C</strong></td></tr>
+              <tr><td style="text-align: center;"><strong>02</strong></td><td>Movimento de Renovação Crítica no Brasil e o III ENG (Fortaleza, 1978)</td><td style="text-align: center;"><strong>B</strong></td></tr>
+              <tr><td style="text-align: center;"><strong>03</strong></td><td>Materialismo Histórico-Dialético e a virada teórica de David Harvey</td><td style="text-align: center;"><strong>C</strong></td></tr>
+              <tr><td style="text-align: center;"><strong>04</strong></td><td>A crítica epistemológica e geopolítica de Yves Lacoste</td><td style="text-align: center;"><strong>B</strong></td></tr>
+              <tr><td style="text-align: center;"><strong>05</strong></td><td>Ontologia do Espaço Geográfico em Milton Santos (Sistemas de Objetos e Ações)</td><td style="text-align: center;"><strong>C</strong></td></tr>
+              <tr><td style="text-align: center;"><strong>06</strong></td><td>Geografia Humanista, Fenomenologia e Percepção em Yi-Fu Tuan</td><td style="text-align: center;"><strong>D</strong></td></tr>
+              <tr><td style="text-align: center;"><strong>07</strong></td><td>A abordagem da Geografia Cultural segundo Paul Claval</td><td style="text-align: center;"><strong>B</strong></td></tr>
+              <tr><td style="text-align: center;"><strong>08</strong></td><td>A categoria analítica Território como relação de poder (Marcelo Lopes de Souza)</td><td style="text-align: center;"><strong>C</strong></td></tr>
+              <tr><td style="text-align: center;"><strong>09</strong></td><td>Diferenciação ontológica: Paisagem (dimensão visível) vs Espaço Geográfico</td><td style="text-align: center;"><strong>C</strong></td></tr>
+              <tr><td style="text-align: center;"><strong>10</strong></td><td>A categoria Região no pensamento crítico e a divisão territorial do trabalho</td><td style="text-align: center;"><strong>C</strong></td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>Tabela 2: Matriz Diferencial das Categorias Espaciais Estruturantes</h3>
+        <div class="table-responsive">
+          <table>
+            <thead>
+              <tr>
+                <th style="width: 18%;">Categoria</th>
+                <th style="width: 32%;">Estatuto Ontológico Primário</th>
+                <th style="width: 30%;">Dimensão Operacional Predominante</th>
+                <th style="width: 20%;">Autores de Referência</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Espaço Geográfico</strong></td>
+                <td>Totalidade social indissociável de formas materiais e processos sociohistóricos ativos.</td>
+                <td>Articulação dialética e contraditória entre sistemas de objetos (fixos) e sistemas de ações (fluxos).</td>
+                <td>Milton Santos (1996); Roberto Lobato Corrêa (2007).</td>
+              </tr>
+              <tr>
+                <td><strong>Território</strong></td>
+                <td>Campo de forças e materialização de relações assimétricas de dominação e apropriação.</td>
+                <td>Espaço delimitado e instrumentalizado a partir e por meio de relações de poder, em múltiplas escalas.</td>
+                <td>Marcelo Lopes de Souza (2007); Claude Raffestin (1980).</td>
+              </tr>
+              <tr>
+                <td><strong>Paisagem</strong></td>
+                <td>Configuração morfológica aparente, dimensão sensível e visível da superfície terrestre.</td>
+                <td>Acumulação heterogênea de tempos desiguais materializados sob a forma de rugosidades pretéritas e fixos presentes.</td>
+                <td>Milton Santos (1996); Paulo Cesar da Costa Gomes (2007).</td>
+              </tr>
+              <tr>
+                <td><strong>Lugar</strong></td>
+                <td>Dimensão da experiência existencial direta, do apego, do pertencimento e da afetividade.</td>
+                <td>Espaço pausado e humanizado dotado de sentido e segurança pelo sujeito (<i>topofilia</i>) via mundo vivido.</td>
+                <td>Yi-Fu Tuan (1977); Werther Holzer (2007).</td>
+              </tr>
+              <tr>
+                <td><strong>Região</strong></td>
+                <td>Constructo histórico da diferenciação socioespacial e da articulação de escalas.</td>
+                <td>Fração espacial originada pela divisão social e territorial do trabalho, expressando desenvolvimentos geográficos desiguais.</td>
+                <td>Sandra Lencioni (2007); Ruy Moreira (2009, 2010).</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div style="text-align: center; margin-top: 2rem;">
+        <button class="btn-secondary" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+          Voltar ao Topo
+        </button>
+      </div>
+    </section>
+
+  </main>
+
+  <script>
+    /* -------------------------------------------------------------
+       BANCO DE DADOS INTEGRAL DAS QUESTÕES E RESOLUÇÕES
+       Conteúdo idêntico e literal ao documento base do certame
+    -------------------------------------------------------------- */
+    const quizData = [
+      {
+        id: 1,
+        enunciado: "No cenário acadêmico e institucional do pós-Segunda Guerra Mundial, a afirmação da Geografia Teorético-Quantitativa representou uma ruptura epistemológica com a tradição regional e historicista clássica da ciência geográfica. O debate deflagrado pelo artigo de Fred K. Schaefer (1953), em aberta contestação ao modelo excepcionalista preconizado por Richard Hartshorne, estabeleceu as bases conceituais para a introdução do neopositivismo na disciplina.<br><br>À luz da análise sistemática apresentada por Godoy (2010) acerca das transformações teóricas e epistemológicas da geografia, assinale a alternativa que define corretamente as premissas teórico-metodológicas estruturantes da Geografia Teorético-Quantitativa:",
+        options: {
+          A: "A preservação dos cânones do excepcionalismo geográfico como matriz epistêmica, fundamentando a tese de que os recortes regionais constituem realidades empíricas únicas, singulares e infensas a enunciados nomotéticos universais.",
+          B: "O recurso à redução fenomenológica e à indução empírica direta como vias indispensáveis para decodificar os significados existenciais impressos pelas comunidades tradicionais no arranjo morfológico da paisagem.",
+          C: "A vinculação metodológica ao positivismo lógico e ao método hipotético-dedutivo, concebendo o espaço como uma superfície isotrópica e relacional geometricamente mensurável, passível de apreensão por intermédio da modelagem matemática, da análise locacional e da teoria geral dos sistemas.",
+          D: "A adoção pioneira da dialética materialista e da teoria do valor-trabalho para mapear a circulação de mercadorias, desnudando a alienação espacial provocada pelas políticas territoriais dos regimes autoritários.",
+          E: "A consideração do espaço enquanto reflexo imediato das contradições de classe, valorizando o trabalho de campo etnográfico e descritivo em oposição à formalização algorítmica e à análise multivariada de matriz estatística."
+        },
+        correct: "C",
+        resolucao: "<strong>Resolução Analítica:</strong><br>A alternativa C consagra a resposta exata ao articular os pilares da corrente quantitativista. A Geografia Teorético-Quantitativa, delineada com veemência nos decênios de 1950 e 1960 nos centros anglo-saxões e difundida nas instituições de planejamento territorial da América Latina, rompeu deliberadamente com a tradição historicista da disciplina. Conforme examinado por Godoy (2010), essa vertente alicerçou-se nos cânones do neopositivismo lógico emanados do Círculo de Viena, abraçando o método hipotético-dedutivo e a busca incontornável por leis gerais de organização espacial. Fred K. Schaefer, em sua polêmica com Richard Hartshorne, estabeleceu que a Geografia deveria despir-se de seu caráter excepcional e idiográfico para integrar o concerto das ciências nomotéticas. Para tornar o espaço matematicamente operacionalizável por equações diferenciais, análises matriciais e princípios cibernéticos, essa escola concebeu a superfície terrestre como uma planície isotrópica na qual atuam vetores de atrito da distância, geometrias de rede e fluxos de gravitação locacional, visando à previsão de comportamentos espaciais ótimos.<br><br><strong>Análise dos Distratores:</strong><br>• Proposição A: Incorre em flagrante contradição ao assentar a corrente quantitativa na defesa do excepcionalismo corológico; foi justamente contra a ideia de Hartshorne de que a geografia trata de regiões únicas que Schaefer desferiu seu ataque fundador.<br>• Alternativa B: Erra ao aproximar o neopositivismo da fenomenologia e dos métodos indutivos existenciais, referenciais que emergiram na década de 1970 como refutação ao reducionismo calculista da Nova Geografia.<br>• Proposição D: Antecipa de modo anacrônico conceitos derivados da teoria do valor e do materialismo histórico-dialético, que pertencem exclusivamente ao paradigma da Geografia Crítica.<br>• Alternativa E: Sugere que a abordagem teorética privilegiava métodos etnográficos de campo e contradições de classes, aspectos expressamente rechaçados pela modelagem estatística abstrata da revolução quantitativa."
+      },
+      {
+        id: 2,
+        enunciado: "No Brasil, a consolidação da Renovação Crítica da Geografia ao longo da década de 1970 articulou-se de forma intrínseca ao combate contra a ditadura militar e à crítica epistemológica das práticas espaciais a serviço da modernização autoritária. Nesse contexto de efervescência, o III Encontro Nacional de Geógrafos (ENG), promovido pela Associação dos Geógrafos Brasileiros (AGB) em Fortaleza, no ano de 1978, consolidou-se como o catalisador histórico dessa virada disciplinar.<br><br>Com base na reconstrução analítica realizada por Ruy Moreira (2010) em <em>O pensamento geográfico brasileiro: as matrizes brasileiras</em>, o significado do ENG de 1978 em Fortaleza residiu no fato de ter:",
+        options: {
+          A: "Consolidado formalmente a hegemonia da \"Nova Geografia\" teorética nas universidades, integrando os departamentos acadêmicos à lógica de planejamento censitário e espacial do Instituto Brasileiro de Geografia e Estatística (IBGE) capitaneada pelo Estado autoritário.",
+          B: "Efetuado a ruptura simultaneamente epistemológica e institucional com a tradição conservadora do mandarinato catedrático e com o pragmatismo tecnocrático, refundando a AGB como espaço democrático voltado à análise socialmente engajada via materialismo histórico-dialético.",
+          C: "Entronizado a matriz fenomenológica husserliana como o horizonte explicativo predominante das pesquisas agrárias, priorizando os aspectos imateriais e a percepção subjetiva das populações rurais em detrimento da luta de classes pela terra.",
+          D: "Institucionalizado a fragmentação temática definitiva entre a modelagem físico-ecológica quantificada e a geografia humana literária, vedando o debate político-partidário no seio das assembleias deliberativas da comunidade geográfica.",
+          E: "Reabilitado o modelo possibilista da geografia regional francesa de Paul Vidal de La Blache, defendendo a primazia dos gêneros de vida regionais harmoniosos como explicação final para a organização do espaço agrário brasileiro."
+        },
+        correct: "B",
+        resolucao: "<strong>Resolução Analítica:</strong><br>A alternativa B representa a leitura histórica e epistemológica correta do acontecimento. A realização do III Encontro Nacional de Geógrafos (ENG) da Associação dos Geógrafos Brasileiros, ocorrido em Fortaleza no ano de 1978, é amplamente documentada na obra <em>O pensamento geográfico brasileiro: as matrizes brasileiras</em>, de Ruy Moreira (2010), como a certidão de nascimento formal do Movimento de Renovação Crítica no território brasileiro. Durante o congresso, consolidou-se uma convergência histórica entre geógrafos veteranos de inclinação progressista, jovens docentes universitários e militantes do movimento estudantil, culminando na destituição do conservadorismo acadêmico personificado na estrutura arcaica das cátedras e no controle burocrático da AGB. Esse evento demoliu o pacto tácito que subordinava as investigações geográficas aos interesses técnicos do planejamento tecnocrático do regime civil-militar, encarnado nas formulações assépticas da Nova Geografia no IBGE. A Geografia brasileira assumiu a partir de então o materialismo histórico-dialético e a denúncia da espoliação territorial como eixos analíticos, convertendo a entidade agebeana em tribuna democrática de enfrentamento das injustiças estruturais do país.<br><br><strong>Análise dos Distratores:</strong><br>• Alternativa A: Inverte a realidade histórica ao asseverar que o congresso de Fortaleza submeteu a AGB às diretrizes da geografia tecnocrática do IBGE, quando o processo ocorrido foi rigorosamente a sua contestação radical e ruptura institucional.<br>• Alternativa C: Equivoca-se ao situar a fenomenologia husserliana como matriz triunfante em 1978; o paradigma reitor do movimento renovador brasileiro naquele instante foi primordialmente o marxismo histórico e dialético.<br>• Alternativa D: Desconsidera que o engajamento de Fortaleza operou no sentido de politizar profundamente os debates, rejeitando a cisão positivista entre a dimensão física e a sociedade.<br>• Proposição E: É insustentável ao asseverar que Fortaleza preconizou um retorno saudosista ao possibilismo vidaliano da geografia tradicional francesa, matriz denunciada pelo coletivo de 1978 como cúmplice ideológica da alienação curricular."
+      },
+      {
+        id: 3,
+        enunciado: "O itinerário teórico do geógrafo britânico David Harvey exemplifica as tensões e os desdobramentos intelectuais que caracterizaram a crise de paradigmas na Geografia da segunda metade do século XX. Harvey publicou a monumental obra <em>Explanation in Geography</em> (1969), convertida em marco da consolidação neopositivista e analítica, para em seguida empreender uma inflexão radical com <em>Social Justice and the City</em> (1973).<br><br>Ao considerar a transição metodológica e ontológica operada por David Harvey na construção da vertente crítica da geografia ocidental, verifica-se que:",
+        options: {
+          A: "O autor sustentou a perfeita equivalência conceitual entre a teoria da localização espacial dos economistas neoclássicos e a teoria marxista da mais-valia, demonstrando que as leis do equilíbrio espacial atendem a princípios matemáticos independentes da história.",
+          B: "A virada paradigmática consistiu no abandono da escala metropolitana em favor de estudos monográficos locais despolitizados, sob a justificativa de que a grande urbe impossibilitava a identificação das redes de significação comunitárias.",
+          C: "Harvey constatou os limites estruturais do ferramental lógico-analítico do neopositivismo para elucidar os conflitos urbanos, passando a fundamentar sua crítica na dialética marxista, na espoliação imobiliária capitalista e nos circuitos de acumulação e reprodução da renda da terra.",
+          D: "O geógrafo defendeu o primado da justiça espacial enquanto imperativo ético abstrato de matriz kantiana, independente dos processos históricos de valorização e expropriação do capital.",
+          E: "A formulação teórica de Harvey prescindiu da análise de classes sociais, priorizando o funcionalismo parsoniano como chave analítica para a manutenção da coesão e da ordem no tecido socioespacial moderno."
+        },
+        correct: "C",
+        resolucao: "<strong>Resolução Analítica:</strong><br>A alternativa C espelha com precisão o trajeto intelectual e a guinada teórica de David Harvey. Inicialmente tributário da ambição positivista de formular uma sintaxe lógica universal para a pesquisa espacial, Harvey publicou <em>Explanation in Geography</em> em 1969, texto que se consagrou como o apogeu da sofisticação neopositivista e analítica. No entanto, confrontado diretamente com as lutas pelos direitos civis, com as revoltas nos guetos urbanos norte-americanos (notadamente em Baltimore) e com as contradições brutais da segregação socioespacial, o autor constatou a absoluta falência epistemológica da teoria locacional neoclássica para explicar a produção da miséria e da injustiça. Essa desilusão teórica culminou na obra basilar <em>Social Justice and the City</em> (1973), na qual Harvey rompe com o formalismo analítico e abraça a dialética marxista. A partir dessa ruptura, o espaço deixa de ser concebido como um contêiner geométrico passivo e passa a ser investigado como um produto social construído historicamente pelo modo de produção capitalista, em que a especulação fundiária, o complexo financeiro-imobiliário e os circuitos de extração da renda da terra atuam como engrenagens cruciais da crise e da acumulação.<br><br><strong>Análise dos Distratores:</strong><br>• Proposição A: Falha ao pretender conciliar modelos matemáticos neoclássicos de equilíbrio espacial com a teoria do valor marxista, arcabouços ontologicamente inconciliáveis e que Harvey demarcou como incompatíveis.<br>• Alternativa B: Comete equívoco grosseiro ao defender que Harvey teria se retraído para descrições monográficas despolitizadas, tendo em vista que sua obra inaugurou o estatuto teórico avançado dos estudos da urbanização capitalista global.<br>• Formulação D: Peca ao categorizar o conceito harveyano de justiça social como um imperativo moral idealista e abstrato de matriz puramente kantiana; para Harvey, a justiça socioespacial só se concretiza na desmontagem prática dos mecanismos de espoliação material do capital.<br>• Proposição E: Contradiz os fatos ao vincular Harvey ao funcionalismo estruturalista de Talcott Parsons, sistema que o teórico britânico combateu por seu caráter integrador e legitimador do <em>status quo</em> burguês."
+      },
+      {
+        id: 4,
+        enunciado: "Na obra de ruptura <em>A Geografia – isso serve, em primeiro lugar, para fazer a guerra</em>, publicada em 1976, Yves Lacoste formulou um dos diagnósticos epistemológicos mais incisivos sobre a natureza ideológica e a utilidade prática do conhecimento geográfico tradicional e acadêmico.<br><br>Conforme a análise epistemológica elaborada por Lacoste, o saber geográfico ocidental estrutura-se fundamentalmente em torno de uma disjunção estratégica que opõe:",
+        options: {
+          A: "A \"Geografia Cibernética\", orientada para a predição estocástica dos sistemas de transporte, e a \"Geografia Cultural\", concentrada exclusivamente nos estudos de toponímia e religiosidade popular.",
+          B: "A \"Geografia dos Estados-Maiores\", compreendida como um saber operativo, confidencial, estratégico e cartográfico a serviço da dominação militar e corporativa, e a \"Geografia dos Professores\" (universitária e escolar), despolitizada, descritiva e orientada para a ocultação das práticas espaciais de poder.",
+          C: "A \"Geografia Radical\", comprometida com a subversão armada dos governos soberanos, e a \"Geografia Positiva\", voltada com exclusividade para o mapeamento da degradação das bacias hidrográficas continentais.",
+          D: "A \"Geografia Corológica\", preocupada em documentar exaustivamente as formas do relevo e os climas regionais, e a \"Geografia Anarquista\", que postula a extinção imediata de fronteiras estatais e demarcações cartográficas.",
+          E: "A \"Geografia Regional Histórica\", que busca resgatar as matrizes autóctones pré-modernas, e a \"Geografia Global Financeira\", voltada exclusivamente à especulação nos distritos bancários transnacionais."
+        },
+        correct: "B",
+        resolucao: "<strong>Resolução Analítica:</strong><br>A alternativa B elucida com fidelidade a denúncia pioneira articulada por Yves Lacoste em sua célebre obra de 1976. Lacoste efetuou uma dissecação contundente da divisão histórica e institucional do saber geográfico, denunciando que a ciência espacial consolidou-se originariamente como um conhecimento de Estado, prático, cartograficamente instrumental e de natureza estratégica (\"a Geografia dos Estados-Maiores\"). Esta modalidade operacional de saber é conscientemente mobilizada pelos círculos dirigentes, pelas forças militares e pelas grandes corporações financeiras para planificar a ocupação estratégica, mobilizar tropas, guerrear, controlar fluxos de recursos e consolidar a dominação geopolítica territorial. Simultaneamente, com o advento da instrução pública de massas no século XIX, instituiu-se uma contraparte mascaradora: a \"Geografia dos Professores\", veiculada nas escolas e universidades sob uma roupagem enfadonha, descritiva, nomenclatural e aparentemente desprovida de intencionalidade política, cujo papel precípuo é desarmar a consciência espacial dos indivíduos e velar o uso bélico e espoliador do espaço.<br><br><strong>Análise dos Distratores:</strong><br>• Proposição A: Descaracteriza a tese do autor ao reduzi-la a um conflito estritamente metodológico entre estatística cibernética e estudos culturais toponímicos.<br>• Alternativa C: Falseia os termos cunhados pelo pensador francês, substituindo as categorias consagradas da geopolítica crítica por polarizações vagas entre insurgência armada e inventários de conservação hidroecológica.<br>• Opção D: Erra ao sugerir que a reflexão de Lacoste estaria centrada na clássica contraposição entre a corologia tradicional e as utopias anarquistas do século XIX de Reclus e Kropotkin.<br>• Distrator E: Restringe o escopo de um debate político-epistemológico sobre a própria gênese do saber espacial a uma contenda entre recortes de cronologia histórica e as dinâmicas corporativas financeiras."
+      },
+      {
+        id: 5,
+        enunciado: "Ao fundar as bases de uma epistemologia crítica ancorada na especificidade disciplinar, Milton Santos contrapôs-se tanto à dispersão interdisciplinar que desfigurava o objeto geográfico quanto ao mecanicismo que tratava o espaço como mero reflexo passivo dos processos econômicos, propondo formulações que culminaram em obras como <em>Por uma Geografia Nova</em> (1978) e <em>A Natureza do Espaço</em> (1996).<br><br>De acordo com o rigor analítico formulado por Milton Santos, a categoria analítica <strong>Espaço Geográfico</strong> define-se ontologicamente como:",
+        options: {
+          A: "Uma superfície geométrica inerte, destituída de dinamismo próprio, cuja conformação material atua exclusivamente como palco passivo para as representações simbólicas e manifestações psíquicas dos indivíduos.",
+          B: "A extensão física demarcada pela atuação territorial e normativa privativa dos aparelhos burocráticos do Estado moderno, circunscrevendo os limites de soberania nacional.",
+          C: "Um sistema indissociável, solidário e ao mesmo tempo contraditório composto pela dialética entre sistemas de objetos (formas materiais, técnicas, fixos) e sistemas de ações (práticas sociais, trabalho, intencionalidades, fluxos) em constante movimento histórico.",
+          D: "Um ecossistema biológico fechado e autoequilibrado que responde mecanicamente às leis da termodinâmica, cuja evolução prescinde das relações de produção e da divisão internacional do trabalho.",
+          E: "A projeção de representações cartográficas e imagéticas puramente cognitivas, que independem da historicidade das técnicas e da materialidade rugosa herdada dos períodos precedentes."
+        },
+        correct: "C",
+        resolucao: "<strong>Resolução Analítica:</strong><br>A alternativa C exprime com exatidão científica a ontologia do espaço formulada por Milton Santos. Em obras de maturidade analítica, com destaque para <em>Por uma Geografia Nova</em> e <em>A Natureza do Espaço</em>, o geógrafo brasileiro supera tanto o materialismo vulgar de viés mecanicista quanto o subjetivismo idealista ao conceituar o Espaço Geográfico como uma instância social estruturante, definindo-o como um sistema indissociável, solidário e ao mesmo tempo contraditório de sistemas de objetos e sistemas de ações. Os sistemas de objetos corporificam as formas materiais, a infraestrutura técnica, as heranças do trabalho preexistente e os fixos espaciais, ao passo que os sistemas de ações corporificam as práticas sociais vivas, as intencionalidades, os conflitos de classe, as relações de trabalho e os fluxos hegemônicos ou subalternos. A dialética santiana estabelece que os objetos condicionam a realização dos atos sociais, enquanto as ações atribuem significado histórico, função e dinamismo à materialidade física, inviabilizando qualquer abordagem analítica que trate as formas espaciais de maneira descolada dos processos sociais dinâmicos.<br><br><strong>Análise dos Distratores:</strong><br>• Alternativa A: Retrocede à concepção mecanicista do espaço enquanto mero invólucro ou receptáculo newtoniano inerte, desconsiderando que o espaço age como fator ativo e condicionante das transformações históricas.<br>• Alternativa B: Comete a falha clássica de confundir a amplitude categorial do Espaço Geográfico com a circunscrição jurisdicional do território jurídico-estatal.<br>• Alternativa D: Incide em um naturalismo ingênuo ao interpretar o espaço a partir de preceitos puramente ecológicos e termodinâmicos, subtraindo do horizonte explicativo a historicidade, as técnicas e o trabalho humano.<br>• Alternativa E: Sucumbe ao idealismo cognitivo ao retirar do espaço geográfico seu peso técnico e suas rugosidades materiais acumuladas ao longo dos séculos, reduzindo-o a meras impressões imateriais da percepção subjetiva."
+      },
+      {
+        id: 6,
+        enunciado: "A consolidação da Geografia Humanista a partir da década de 1970 encontrou na fenomenologia e no existencialismo o suporte filosófico para questionar o objetivismo abstrato da Geografia Quantitativa e o reducionismo economicista de vertentes marxistas deterministas. Nessa acepção, Yi-Fu Tuan converteu-se em referência central ao investigar a intersecção entre experiência sensível, mente e espaço.<br><br>Na obra de Yi-Fu Tuan, notadamente em <em>Espaço e Lugar: A perspectiva da experiência</em> (1977), a diferenciação ontológica entre as categorias <strong>Espaço</strong> e <strong>Lugar</strong> estabelece-se pela formulação de que:",
+        options: {
+          A: "O espaço traduz o universo empírico mensurado pela cartografia de precisão, enquanto o lugar designa exclusivamente a dimensão imaginária e ficcional reproduzida pela literatura.",
+          B: "O espaço é o domínio do confinamento, da restrição institucional e da perda de liberdade, ao passo que o lugar é o ambiente ilimitado e desfronteirizado onde se abrem as perspectivas de fuga do indivíduo.",
+          C: "O espaço e o lugar equivalem à mesma substância fenomenológica, distinguindo-se unicamente pela escala cartográfica, em que o lugar denota a métrica centimétrica do lote residencial e o espaço abrange a magnitude quilométrica dos continentes.",
+          D: "O espaço constitui a dimensão da abertura, do horizonte amplo, do movimento e da liberdade, podendo ensejar desorientação e vulnerabilidade, enquanto o lugar é o espaço pausado, investido de significados, valores subjetivos, densidade afetiva e estabilidade existencial.",
+          E: "O lugar é a estrutura morfológica construída e desprovida de laços humanos, ao passo que o espaço expressa o conjunto exclusivo de afetos e crenças místicas sem vínculo com o meio material."
+        },
+        correct: "D",
+        resolucao: "<strong>Resolução Analítica:</strong><br>A alternativa D apreende a essência da ontologia fenomenológica e existencialista formulada por Yi-Fu Tuan em <em>Espaço e Lugar: A perspectiva da experiência</em> (1977). Tuan parte da conceituação do homem como um ser corporal no mundo e postula que o <strong>Espaço</strong> simboliza a abertura imensa, o movimento, a amplidão do horizonte e a liberdade de expansão; contudo, por ser aberto e indiferenciado, o espaço aberto pode suscitar no sujeito sensações de desorientação, perda de balizas, vulnerabilidade e angústia existencial. Por seu turno, o <strong>Lugar</strong> surge por meio da experiência vivida e corporificada, representando uma pausa no movimento ininterrupto: é o espaço humanizado que, ao ser apropriado, domesticado, vivenciado repetidamente e investido de significados, converte-se em núcleo de estabilidade ontológica, familiaridade, apego e segurança psicológica. Nessa moldura humanista inserem-se os conceitos seminais de <em>topofilia</em>, delineado como o vínculo de afeto e reciprocidade entre a pessoa e o lugar material, e seu contraponto negativo, a <em>topofobia</em>, correspondente ao horror ou repulsa diante de cenários opressores.<br><br><strong>Análise dos Distratores:</strong><br>• Proposição A: Rebaixa o debate filosófico a um dualismo técnico entre cartografia topográfica e ficção literária, ignorando a primazia atribuída pela fenomenologia à experiência cotidiana dos sentidos corporificados.<br>• Alternativa B: Opera uma inversão nos postulados de Tuan, alocando equivocadamente a ausência de liberdade no espaço e definindo o lugar como um domínio desfronteirizado e irrestrito.<br>• Formulação C: Comete o equívoco de balizar a separação entre espaço e lugar por parâmetros meramente métricos ou cartográficos de escala (centímetro versus quilômetro), quando a distinção humanista é de ordem ontológica, existencial e afetiva.<br>• Alternativa E: Destrói a ontologia da experiência ao esvaziar o lugar de sua materialidade concreta envolvente e ao divorciar o espaço da base sensorial do corpo biológico."
+      },
+      {
+        id: 7,
+        enunciado: "No livro <em>A Geografia Cultural</em>, publicado originalmente no final do século XX e amplamente debatido na geografia de expressão lusófona, Paul Claval delineia as bases de uma corrente que busca articular as dimensões materiais da existência humana com as estruturas imateriais da cognição e da comunicação.<br><br>Ao examinar as premissas epistemológicas da abordagem cultural em geografia segundo Paul Claval (2007), constata-se que a cultura deve ser apreendida como:",
+        options: {
+          A: "Um mosaico de traços genéticos e determinantes físicos que encarcera cada grupo social nos limites ecológicos e morfológicos de sua paisagem de origem.",
+          B: "O processo ativo de mediação simbólica por meio do qual os grupos humanos codificam a realidade, transmitem conhecimentos, edificam representações espaciais, demarcam identidades e estruturam territorialidades e redes de solidariedade e poder.",
+          C: "O inventário mecânico de ferramentas e traços morfológicos visíveis em meios agrários tradicionais, devendo o geógrafo abster-se do exame de sistemas de crenças, ideologias ou discursos simbólicos.",
+          D: "Um entrave irracional à evolução tecnológica, preconizando o abandono dos valores comunitários em prol da modelagem cibernética funcional de ordenamento territorial.",
+          E: "Um fenômeno desprovido de exterioridade espacial, cujos efeitos se restringem ao psiquismo individual, sem conexão com a configuração dos assentamentos ou com os padrões de circulação e convivência social."
+        },
+        correct: "B",
+        resolucao: "<strong>Resolução Analítica:</strong><br>A alternativa B encapsula as teses epistemológicas desenvolvidas por Paul Claval no âmbito da renovação da Geografia Cultural. Distanciando-se dos modelos ecológicos tradicionais de extração saueriana, que priorizavam a descrição estática da cultura materializada em artefatos agrícolas e tipos de telhados, Claval compreende a cultura como um processo dinâmico de mediação simbólica. Por meio da cultura, os grupos sociais interpretam o ambiente biológico e transformam a superfície terrestre, valendo-se da linguagem, de sistemas partilhados de crenças, de valores morais e de canais de comunicação para instituir identidades coletivas. O geógrafo francês argumenta que a espacialização não se reduz a reflexos de leis econômicas ou imposições tecnológicas: ela passa inexoravelmente pela estruturação das redes de transmissão de saberes e pela afirmação de territorialidades carregadas de significação social e relações de poder.<br><br><strong>Análise dos Distratores:</strong><br>• Assertiva A: Incorre no determinismo ambiental e biológico vulgar, postura combatida por Claval por subjugar a inventividade cultural humana a imperativos puramente morfológicos e fisiográficos.<br>• Opção C: Reproduz a visão arcaica da geografia dos tempos de Berkeley, afirmando indevidamente que a abordagem contemporânea exclui a investigação de discursos, mitos, valores e representações simbólicas do seu instrumental teórico.<br>• Distrator D: Atribui a Claval uma rejeição tecnocrática às tradições comunitárias em prol do racionalismo neopositivista, premissa que se choca com toda a literatura humanista e cultural do pensador francês.<br>• Alternativa E: Erra ao defender que o fato cultural é um epifenômeno psíquico desprovido de projeção espacial empírica, ignorando que para Claval a cultura se materializa cotidianamente na estruturação de redes, povoados, cidades e paisagens geográficas."
+      },
+      {
+        id: 8,
+        enunciado: "Ao analisar o conceito de território na obra coletiva <em>Geografia: conceitos e temas</em>, organizada por Castro, Gomes e Corrêa (2007), Marcelo Lopes de Souza (\"O território: sobre espaço e poder, autonomia e desenvolvimento\") desenvolve uma interlocução crítica com a abordagem de Claude Raffestin em <em>Por uma Geografia do Poder</em>.<br><br>De acordo com o constructo teórico defendido por Marcelo Lopes de Souza e a linhagem relacional da geografia política contemporânea, a categoria <strong>Território</strong> define-se ontologicamente:",
+        options: {
+          A: "Como uma entidade puramente fisiográfica e geomorfológica preexistente à hominização do planeta, definindo-se a partir dos divisores naturais de águas de grandes bacias fluviais.",
+          B: "Pelo aparato jurídico estrito e contínuo do Estado moderno ocidental, sendo conceitualmente errôneo classificar as áreas sob controle efêmero de atores marginalizados, movimentos sociais ou redes criminosas como territórios.",
+          C: "Essencialmente como um campo de forças, uma projeção espacial fundada em relações assimétricas de poder, no qual determinado sujeito social delimita, apropria-se e exerce domínio sobre um espaço concreto, englobando desde a soberania formal até práticas insurgentes de resistência e autonomia societária.",
+          D: "Como sinônimo metodológico estrito do conceito fenomenológico de espaço vivido, sendo regido unicamente pelas pulsões afetivas e pelos laços ancestrais de pertencimento inconsciente, expurgada qualquer mediação política ou coação material.",
+          E: "Pela sua dimensão cenográfica puramente visível, configurando-se unicamente nas morfologias tombadas pelo patrimônio histórico-arquitetônico internacional."
+        },
+        correct: "C",
+        resolucao: "<strong>Resolução Analítica:</strong><br>A alternativa C estabelece com fidelidade o estatuto ontológico do território no pensamento de Marcelo Lopes de Souza e no debate contemporâneo de geografia política. Dialogando com a perspectiva foucaultiana absorvida na geografia por Claude Raffestin, Souza desmistifica a redução liberal-positivista que engessava a categoria Território na órbita exclusiva do aparelho governamental do Estado-Nação moderno. O território é ontologicamente compreendido a partir do exercício do poder: é o espaço apropriado, significado, controlado e delimitado por e mediante relações de poder. Por ser o poder um feixe polimorfo de correlações de forças exercidas por múltiplos sujeitos, a produção territorial é intrinsecamente multiescalar, multidimensional e mutável no tempo. Tal arcabouço analítico viabiliza desvendar a gênese de territórios estatais formais ao lado de territorialidades insurgentes, efêmeras ou perenes, como os assentamentos camponeses, os territórios quilombolas e indígenas, as áreas controladas por facções criminosas nos complexos urbanos periféricos e as zonas de comércio de rua autônomo.<br><br><strong>Análise dos Distratores:</strong><br>• Alternativa A: Naturaliza a categoria ao fundamentá-la em linhas de drenagem ou feições de geologia estrutural, ignorando que o território é uma construção social indissociável das relações de dominação.<br>• Assertiva B: Incorre no reducionismo estatalista, vedando indevidamente a aplicação do conceito aos múltiplos agentes sociais não estatais que demarcam fronteiras cotidianamente nas cidades e no campo.<br>• Alternativa D: Desnatura o conceito ao transformá-lo em sinônimo de espaço vivido ou de intimidade psicológica, ignorando que o território repousa no conflito social, na assimetria de forças e nas práticas de coação ou autonomia política.<br>• Proposição E: Comete erro grosseiro ao reduzir o território a um monumento arquitetônico cênico, confundindo poder com patrimonialização visual estética da paisagem."
+      },
+      {
+        id: 9,
+        enunciado: "As categorias <strong>Paisagem</strong> e <strong>Espaço Geográfico</strong> guardam distinções ontológicas indispensáveis à coerência teórico-metodológica da investigação científica da disciplina, conforme sintetizado nas contribuições de Roberto Lobato Corrêa (2007) e nas reflexões ontológicas de Milton Santos e Ruy Moreira.<br><br>A diferenciação ontológica rigorosa entre as categorias Paisagem e Espaço Geográfico evidencia-se no fato de que:",
+        options: {
+          A: "A paisagem constitui a totalidade processual viva e contraditória em constante auto-organização, enquanto o espaço geográfico denota o quadro perceptivo fixado em um registro visual fugaz e panorâmico.",
+          B: "A paisagem atém-se aos processos orgânicos da natureza intocada, ao passo que o espaço geográfico somente passa a existir a partir da conformação do meio técnico-científico-informacional sob a globalização contemporânea.",
+          C: "A paisagem configura a dimensão visível, sensível e morfológica dos elementos materiais cristalizados na superfície, operando como uma acumulação heterogênea de tempos pretéritos (\"rugosidades\"), ao passo que o espaço geográfico articula essa configuração material aos fluxos sociais ativos, às intencionalidades, aos processos de produção e à dinâmica relacional da totalidade histórica.",
+          D: "O espaço geográfico é um constructo conceitual desprovido de substrato empírico ou técnico, existindo meramente na elaboração discursiva de relatórios estatais, enquanto a paisagem se limita ao enquadramento estético e pictórico de natureza romântica.",
+          E: "A paisagem é passível de delimitação e mensuração analítica direta, enquanto o espaço geográfico foi superado pelas categorias cibernéticas de não-lugar e hiperespaço virtual."
+        },
+        correct: "C",
+        resolucao: "<strong>Resolução Analítica:</strong><br>A alternativa C expressa com elevado rigor analítico a demarcação ontológica que separa a Paisagem do Espaço Geográfico. A paisagem corresponde à dimensão imediatamente perceptível, visível, sensorial e morfológica da realidade na superfície planetária. Conforme formulações basilares de Milton Santos e Roberto Lobato Corrêa, a paisagem configura-se materialmente como uma acumulação heterogênea de tempos desiguais: são as \"rugosidades\", fixos e heranças produtivas herdadas de formações sociais anteriores que cristalizaram formas na matéria e sobrevivem no presente. O Espaço Geográfico, por sua vez, transcende a morfologia estática e visível da paisagem. O espaço engloba a paisagem (enquanto sua dimensão material/formal), mas a ela articula, em um movimento contínuo e contraditório, as relações sociais de produção em andamento, as lutas de classes, o trabalho vivo, as decisões políticas hegemônicas, os fluxos de capitais e a dinâmica relacional da totalidade histórica. Em síntese conceitual: a paisagem é a forma material herdada e visível; o espaço geográfico é a indissociabilidade orgânica entre a forma física e a dinâmica da vida social que nela transcorre e a reconfigura.<br><br><strong>Análise dos Distratores:</strong><br>• Proposição A: Opera uma inversão dos conceitos ao caracterizar a paisagem como processo dinâmico totalizante e degradar o espaço geográfico à condição de cena estética efêmera.<br>• Formulação B: Sustenta uma inverdade conceitual ao confinar a paisagem à natureza intocada e ao afirmar que o espaço geográfico só emerge no período contemporâneo, negando a existência de espaços geográficos pretéritos estruturados por técnicas mercantis ou pré-capitalistas.<br>• Distrator D: Cai em um subjetivismo estéril ao julgar o espaço geográfico destituído de materialidade palpável e ao associar a paisagem unicamente aos gêneros da pintura idílica oitocentista.<br>• Alternativa E: Desconsidera a perenidade dos conceitos ao declarar que as noções contemporâneas de rede informacional e hiperespaço teriam extinguido a materialidade concreta e a necessidade de investigação do espaço geográfico."
+      },
+      {
+        id: 10,
+        enunciado: "Ao longo do século XX e nas décadas iniciais do século XXI, a categoria <strong>Região</strong> experimentou transformações teóricas de monta. As perspectivas corológica da \"região natural\" e da síntese da \"região vidaliana\", assim como os modelos locacionais de \"região nodal\" e polarizada da Geografia Quantitativa, foram alvos de densa problematização pela Geografia Crítica.<br><br>Conforme as análises formuladas nos ensaios de Castro, Gomes e Corrêa (2007) e por Ruy Moreira (2009, 2010), a categoria analítica <strong>Região</strong>, no quadro epistemológico contemporâneo, é compreendida como:",
+        options: {
+          A: "Uma subdivisão biofísica imutável do relevo terrestre, cuja conformação interna repousa em determinismos fitogeográficos e climáticos que sobrepujam os condicionantes históricos da formação social.",
+          B: "Um instrumento de ordenamento técnico-administrativo e cartográfico arbitrário formulado exclusivamente pela burocracia estatal, divorciado das lutas de classes, das identidades culturais e das dinâmicas econômicas que operam no território nacional.",
+          C: "Uma construção socioespacial e histórica erigida a partir da divisão social e territorial do trabalho, expressando a dinâmica do desenvolvimento geográfico desigual do capitalismo, articulando de maneira dialética o geral e o singular, o global e o local, e conformando uma arena tática de reprodução econômica e disputa política.",
+          D: "Um artefato conceitual arcaico que perdeu qualquer eficácia teórica ou empírica ante a fluidez desterritorializadora das redes informacionais, tendo sido plenamente substituída pelo ecossistema digital planetário.",
+          E: "A dimensão microescalar da afetividade e do cotidiano existencial imediato, servindo como conceito intercambiável e idêntico à noção humanista de lugar vivido."
+        },
+        correct: "C",
+        resolucao: "<strong>Resolução Analítica:</strong><br>A alternativa C expressa a superação do conceito clássico de região e sintetiza sua reformulação no interior da Geografia Crítica contemporânea. As noções corológicas de \"região natural\" e a síntese ecológica do possibilismo francês, assim como o modelo teorético-quantitativo de polos de crescimento regional e redes nodais, desconsideravam as determinações estruturais do modo de produção. Autores como Sandra Lencioni e Roberto Lobato Corrêa (em Castro, Gomes e Corrêa, 2007), amparados no horizonte dialético exposto igualmente por Ruy Moreira (2009, 2010), demonstraram que a região é um constructo histórico-social indissociável da divisão social e territorial do trabalho. O capital fragmenta, diferencia e hierarquiza o espaço para explorar disparidades nos custos da reprodução da força de trabalho, do solo e da infraestrutura técnica, configurando um processo ininterrupto de desenvolvimento geográfico desigual. Dessa maneira, a região deixa de ser uma moldura passiva e converte-se em um recorte relacional de articulação dinâmica entre as escalas local, regional e global, configurando um lócus de acumulação econômica e uma arena política de disputa entre classes sociais e frações do capital pelo ordenamento territorial.<br><br><strong>Análise dos Distratores:</strong><br>• Proposição A: Reproduz o determinismo ecológico ultrapassado da \"região natural\", subordinando as formações socioespaciais a barreiras de geomorfologia ou de fitogeografia.<br>• Assertiva B: Incorre em um reducionismo formalista e institucional ao confinar a gênese regional a meras tabelas de tributação ou decretos cadastrais do Estado, negando sua base nos circuitos de produção material e nas contradições da sociedade civil.<br>• Distrator D: Ancora-se em um discurso de fluidez globalizante desprovido de lastro real, pois a aceleração dos fluxos informacionais transnacionais não eliminou a diferenciação das regiões mundiais, antes aprofundou as assimetrias regionais de poder econômico.<br>• Assertiva E: Desrespeita a escala analítica e o estatuto teórico dos conceitos, confundindo a macroestrutura política da divisão regional do trabalho com a escala de afetos existenciais e vivenciais primários inerentes ao Lugar humanista."
+      }
+    ];
+
+    // Armazenamento das respostas do usuário
+    const userAnswers = {};
+    let isSubmitted = false;
+
+    // Inicialização da renderização do Quiz
+    function renderQuiz() {
+      const container = document.getElementById('questions-wrapper');
+      container.innerHTML = '';
+
+      quizData.forEach((q) => {
+        const card = document.createElement('article');
+        card.className = 'question-card';
+        card.id = `card-q${q.id}`;
+
+        const letters = ['A', 'B', 'C', 'D', 'E'];
+        let optionsHtml = '';
+
+        letters.forEach((letter) => {
+          optionsHtml += `
+            <label class="option-label" id="opt-q${q.id}-${letter}" onclick="selectOption(${q.id}, '${letter}')">
+              <input type="radio" name="question_${q.id}" value="${letter}" />
+              <span class="opt-letter">${letter}</span>
+              <span class="opt-text">${q.options[letter]}</span>
+            </label>
+          `;
+        });
+
+        card.innerHTML = `
+          <div class="question-header">
+            <span class="question-number">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+                <line x1="12" y1="17" x2="12.01" y2="17"></line>
+              </svg>
+              Questão ${String(q.id).padStart(2, '0')}
+            </span>
+            <span class="question-status-tag" id="status-tag-q${q.id}">Pendente</span>
+          </div>
+
+          <div class="enunciado">
+            ${q.enunciado}
+          </div>
+
+          <div class="options-group" role="radiogroup" aria-label="Opções da Questão ${q.id}">
+            ${optionsHtml}
+          </div>
+
+          <div class="resolution-box" id="res-q${q.id}">
+            <div class="resolution-title">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                <polyline points="14 2 14 8 20 8"></polyline>
+                <line x1="16" y1="13" x2="8" y2="13"></line>
+                <line x1="16" y1="17" x2="8" y2="17"></line>
+                <polyline points="10 9 9 9 8 9"></polyline>
+              </svg>
+              Gabarito Oficial e Fundamentação Analítica
+            </div>
+            <div class="resolution-content">
+              ${q.resolucao}
+            </div>
+          </div>
+        `;
+
+        container.appendChild(card);
+      });
+
+      updateProgress();
+    }
+
+    // Seleção de alternativa com feedback visual imediato
+    function selectOption(questionId, letter) {
+      if (isSubmitted) return; // Trava após envio
+
+      userAnswers[questionId] = letter;
+
+      // Atualiza visual das opções nesta questão
+      const letters = ['A', 'B', 'C', 'D', 'E'];
+      letters.forEach(l => {
+        const el = document.getElementById(`opt-q${questionId}-${l}`);
+        if (el) {
+          if (l === letter) {
+            el.classList.add('selected');
+          } else {
+            el.classList.remove('selected');
+          }
+        }
+      });
+
+      // Esconde aviso caso existisse
+      document.getElementById('validation-warning').style.display = 'none';
+
+      updateProgress();
+    }
+
+    // Atualiza estatísticas da barra de progresso
+    function updateProgress() {
+      const count = Object.keys(userAnswers).length;
+      const total = quizData.length;
+      const percent = (count / total) * 100;
+
+      document.getElementById('answered-count').innerText = count;
+      document.getElementById('progress-fill').style.width = `${percent}%`;
+
+      const btnScroll = document.getElementById('scroll-to-btn');
+      if (count === total) {
+        btnScroll.innerText = 'Tudo Respondido ✓';
+        btnScroll.style.color = 'var(--success)';
+      } else {
+        btnScroll.innerText = 'Próxima Pendente';
+        btnScroll.style.color = 'var(--text-muted)';
+      }
+    }
+
+    // Navega suavemente para a próxima questão pendente
+    function scrollToNextUnanswered() {
+      for (let q of quizData) {
+        if (!userAnswers[q.id]) {
+          const el = document.getElementById(`card-q${q.id}`);
+          if (el) {
+            el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            return;
+          }
+        }
+      }
+      // Se todas foram respondidas, vai para o botão de envio
+      document.getElementById('submit-quiz-btn').scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+
+    // Submissão do simulado e avaliação analítica
+    function handleQuizSubmission() {
+      if (isSubmitted) {
+        // Se já submeteu, apenas rola até os resultados
+        document.getElementById('results-dashboard').scrollIntoView({ behavior: 'smooth' });
+        return;
+      }
+
+      const total = quizData.length;
+      const answered = Object.keys(userAnswers).length;
+
+      // Verificação de preenchimento com banner na página
+      if (answered < total) {
+        const warning = document.getElementById('validation-warning');
+        const faltam = total - answered;
+        warning.innerHTML = `Você ainda tem <strong>${faltam} ${faltam === 1 ? 'questão não respondida' : 'questões não respondidas'}</strong>. Clique novamente em <em>Finalizar</em> para confirmar o envio ou revise suas respostas.`;
+        warning.style.display = 'block';
+        
+        // Se clicar pela segunda vez com o aviso já exposto, prossegue
+        if (warning.dataset.confirmed !== 'true') {
+          warning.dataset.confirmed = 'true';
+          return;
+        }
+      }
+
+      isSubmitted = true;
+
+      let score = 0;
+      const quickNav = document.getElementById('quick-nav-grid');
+      quickNav.innerHTML = '';
+
+      quizData.forEach((q) => {
+        const userAnswer = userAnswers[q.id];
+        const isCorrect = (userAnswer === q.correct);
+        if (isCorrect) score++;
+
+        // Status tag no cartão da questão
+        const statusTag = document.getElementById(`status-tag-q${q.id}`);
+        statusTag.style.display = 'inline-block';
+        if (isCorrect) {
+          statusTag.innerText = 'Acerto ✓';
+          statusTag.style.backgroundColor = 'var(--success-bg)';
+          statusTag.style.color = 'var(--success)';
+        } else {
+          statusTag.innerText = userAnswer ? 'Incorreta ✕' : 'Em Branco ✕';
+          statusTag.style.backgroundColor = 'var(--danger-bg)';
+          statusTag.style.color = 'var(--danger)';
+        }
+
+        // Destaca as opções
+        const letters = ['A', 'B', 'C', 'D', 'E'];
+        letters.forEach((l) => {
+          const label = document.getElementById(`opt-q${q.id}-${l}`);
+          if (!label) return;
+          label.style.cursor = 'default';
+
+          if (l === q.correct) {
+            label.classList.add('correct-target');
+          } else if (l === userAnswer && !isCorrect) {
+            label.classList.add('incorrect-target');
+          }
+        });
+
+        // Revela a resolução analítica detalhada no próprio cartão da questão
+        const resBox = document.getElementById(`res-q${q.id}`);
+        if (resBox) {
+          resBox.classList.add('visible');
+        }
+
+        // Cria pílula de navegação rápida para o painel inferior
+        const pill = document.createElement('a');
+        pill.href = `#card-q${q.id}`;
+        pill.className = `nav-pill ${isCorrect ? 'correct' : 'incorrect'}`;
+        pill.innerHTML = `Q${q.id}<br><small>${isCorrect ? '✓' : '✕'}</small>`;
+        pill.title = `Questão ${q.id}: ${isCorrect ? 'Acertou' : 'Errou (Gabarito: ' + q.correct + ')'}`;
+        quickNav.appendChild(pill);
+      });
+
+      // Configuração do Dashboard de Resultados
+      document.getElementById('score-display').innerText = `${score} / ${total}`;
+      
+      const percentScore = (score / total) * 100;
+      let feedbackText = '';
+      if (percentScore >= 80) {
+        feedbackText = `Excelente desempenho (${percentScore}%)! Domínio sólido dos postulados teóricos e categorias de análise exigidas pela banca IFMG.`;
+      } else if (percentScore >= 60) {
+        feedbackText = `Bom desempenho (${percentScore}%). Sugere-se revisar os apontamentos específicos da bibliografia e a matriz ontológica das categorias.`;
+      } else {
+        feedbackText = `Aproveitamento de ${percentScore}%. Recomendada leitura integral dos capítulos de Godoy (2010), Milton Santos (1996) e Moreira (2010).`;
+      }
+      document.getElementById('feedback-display').innerText = feedbackText;
+
+      // Exibe Dashboard e oculta avisos
+      const dashboard = document.getElementById('results-dashboard');
+      dashboard.style.display = 'block';
+      document.getElementById('validation-warning').style.display = 'none';
+
+      // Atualiza texto do botão principal
+      const submitBtn = document.getElementById('submit-quiz-btn');
+      submitBtn.innerText = 'Ver Painel de Resultados Completo';
+      submitBtn.onclick = () => {
+        dashboard.scrollIntoView({ behavior: 'smooth' });
+      };
+
+      // Rola suavemente até o painel de resultados
+      dashboard.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    // Inicialização ao carregar a página
+    window.addEventListener('DOMContentLoaded', () => {
+      renderQuiz();
+    });
+  </script>
+</body>
+</html>

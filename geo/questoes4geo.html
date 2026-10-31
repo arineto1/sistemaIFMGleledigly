@@ -1,0 +1,1040 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simulado: Cartografia Temática e Representação do Relevo | IFMG</title>
+  
+  <!-- Tipografia de alta legibilidade para leitura acadêmica confortável -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Charter:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500;600;700&family=Lora:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  
+  <!-- Suporte a fórmulas matemáticas elegantes -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+
+  <style>
+    /* =====================================================================
+       DESIGN SYSTEM ERGONÔMICO (FUNDO CLARO E CONTRASTE EQUILIBRADO)
+       Cores testadas para leitura prolongada e minimização de fadiga visual
+       ===================================================================== */
+    :root {
+      --bg-canvas: #F8F7F3;          /* Fundo papiro/creme suave */
+      --bg-card: #FFFFFF;            /* Branco puro nos cartões de leitura */
+      --bg-accent: #EFECE4;          /* Fundo sutil para destaques */
+      
+      --text-main: #23272E;          /* Carvão escuro profundo para corpo de texto */
+      --text-muted: #57606A;         /* Cinza chumbo para metadados e legendas */
+      --text-strong: #0F141C;        /* Quase preto para títulos e ênfases */
+      
+      --border-soft: #E2DDD3;        /* Linhas divisórias orgânicas e suaves */
+      --border-focus: #1D4ED8;       /* Foco acessível */
+      
+      --brand-blue: #1C3D5A;         /* Azul sóbrio e acadêmico */
+      --brand-blue-light: #EBF3FA;
+      
+      --correct-bg: #F0FDF4;         /* Verde pastel suave */
+      --correct-border: #22C55E;     /* Verde de confirmação */
+      --correct-text: #14532D;       /* Verde escuro para leitura */
+      
+      --incorrect-bg: #FEF2F2;       /* Vermelho pastel suave */
+      --incorrect-border: #EF4444;   /* Vermelho de alerta */
+      --incorrect-text: #7F1D1D;     /* Vermelho escuro para leitura */
+
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 16px;
+      --shadow-subtle: 0 4px 18px rgba(0, 0, 0, 0.04);
+      --shadow-hover: 0 6px 22px rgba(0, 0, 0, 0.07);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-canvas);
+      color: var(--text-main);
+      font-family: 'Lora', 'Charter', Georgia, serif;
+      font-size: 1.08rem;
+      line-height: 1.75;
+      padding: 2.5rem 1.25rem 6rem;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+
+    /* Contêiner principal com largura ideal para leitura contínua (65-75 caracteres por linha) */
+    .container {
+      max-width: 860px;
+      margin: 0 auto;
+    }
+
+    /* Cabeçalho do Concurso e Ementa */
+    header.exam-header {
+      background: var(--bg-card);
+      border: 1px solid var(--border-soft);
+      border-radius: var(--radius-lg);
+      padding: 2.2rem 2.5rem;
+      margin-bottom: 2.5rem;
+      box-shadow: var(--shadow-subtle);
+      border-top: 5px solid var(--brand-blue);
+    }
+
+    .badge-banca {
+      display: inline-block;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--brand-blue);
+      background-color: var(--brand-blue-light);
+      padding: 0.35rem 0.75rem;
+      border-radius: 999px;
+      margin-bottom: 1rem;
+    }
+
+    h1.exam-title {
+      font-family: 'Inter', sans-serif;
+      font-size: 1.85rem;
+      font-weight: 700;
+      color: var(--text-strong);
+      line-height: 1.3;
+      margin-bottom: 0.8rem;
+    }
+
+    .exam-meta {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.92rem;
+      color: var(--text-muted);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      padding-bottom: 1.2rem;
+      border-bottom: 1px solid var(--border-soft);
+      margin-bottom: 1.2rem;
+    }
+
+    .exam-instructions {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    /* Barra de progresso flutuante / indicador */
+    .progress-bar-container {
+      background-color: var(--bg-card);
+      border: 1px solid var(--border-soft);
+      border-radius: var(--radius-md);
+      padding: 1rem 1.5rem;
+      margin-bottom: 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: var(--shadow-subtle);
+      font-family: 'Inter', sans-serif;
+      position: sticky;
+      top: 1rem;
+      z-index: 100;
+      backdrop-filter: blur(8px);
+      background-color: rgba(255, 255, 255, 0.96);
+    }
+
+    .progress-info {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text-strong);
+    }
+
+    .progress-track {
+      flex: 1;
+      height: 8px;
+      background: var(--bg-accent);
+      border-radius: 999px;
+      margin: 0 1.2rem;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: var(--brand-blue);
+      width: 0%;
+      transition: width 0.35s ease;
+      border-radius: 999px;
+    }
+
+    /* Cartão individual de cada questão */
+    .question-card {
+      background-color: var(--bg-card);
+      border: 1px solid var(--border-soft);
+      border-radius: var(--radius-lg);
+      padding: 2.2rem 2.4rem;
+      margin-bottom: 2.2rem;
+      box-shadow: var(--shadow-subtle);
+      transition: border-color 0.25s ease, box-shadow 0.25s ease;
+      position: relative;
+    }
+
+    .question-card.active-focus {
+      border-color: #CBD5E1;
+      box-shadow: var(--shadow-hover);
+    }
+
+    .question-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.3rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid var(--border-soft);
+      font-family: 'Inter', sans-serif;
+    }
+
+    .question-number {
+      font-weight: 700;
+      font-size: 1.15rem;
+      color: var(--brand-blue);
+    }
+
+    .question-tag {
+      font-size: 0.78rem;
+      background-color: var(--bg-accent);
+      color: var(--text-muted);
+      padding: 0.25rem 0.65rem;
+      border-radius: var(--radius-sm);
+      font-weight: 500;
+    }
+
+    /* Texto do Enunciado */
+    .question-text {
+      color: var(--text-main);
+      margin-bottom: 1.5rem;
+      text-align: justify;
+    }
+
+    .question-text p {
+      margin-bottom: 0.95rem;
+    }
+
+    .question-text ol, .question-text ul {
+      margin: 0.8rem 0 1.2rem 1.6rem;
+    }
+
+    .question-text li {
+      margin-bottom: 0.4rem;
+    }
+
+    /* Opções de Resposta */
+    .options-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+      margin-top: 1.2rem;
+    }
+
+    .option-item {
+      display: flex;
+      align-items: flex-start;
+      padding: 1rem 1.2rem;
+      border: 1.5px solid var(--border-soft);
+      border-radius: var(--radius-md);
+      background-color: #FFFFFF;
+      cursor: pointer;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
+      user-select: none;
+    }
+
+    .option-item:hover {
+      border-color: #94A3B8;
+      background-color: #FCFBFA;
+    }
+
+    .option-item input[type="radio"] {
+      position: absolute;
+      opacity: 0;
+      cursor: pointer;
+    }
+
+    .option-letter {
+      font-family: 'Inter', sans-serif;
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      width: 2.2rem;
+      height: 2.2rem;
+      border-radius: 50%;
+      background-color: var(--bg-accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 1.1rem;
+      flex-shrink: 0;
+      transition: all 0.2s ease;
+    }
+
+    .option-text {
+      font-size: 1.02rem;
+      line-height: 1.6;
+      color: var(--text-main);
+      padding-top: 0.15rem;
+    }
+
+    /* Estado de Seleção pelo Usuário */
+    .option-item.selected {
+      border-color: var(--brand-blue);
+      background-color: var(--brand-blue-light);
+    }
+
+    .option-item.selected .option-letter {
+      background-color: var(--brand-blue);
+      color: #FFFFFF;
+    }
+
+    /* Feedback Pós-Finalização */
+    .question-card.evaluated .option-item {
+      cursor: default;
+    }
+
+    .question-card.evaluated .option-item.is-correct {
+      border-color: var(--correct-border) !important;
+      background-color: var(--correct-bg) !important;
+    }
+
+    .question-card.evaluated .option-item.is-correct .option-letter {
+      background-color: var(--correct-border) !important;
+      color: #FFFFFF !important;
+    }
+
+    .question-card.evaluated .option-item.is-incorrect {
+      border-color: var(--incorrect-border) !important;
+      background-color: var(--incorrect-bg) !important;
+    }
+
+    .question-card.evaluated .option-item.is-incorrect .option-letter {
+      background-color: var(--incorrect-border) !important;
+      color: #FFFFFF !important;
+    }
+
+    /* Painel da Resolução Comentada */
+    .resolution-panel {
+      display: none;
+      margin-top: 1.8rem;
+      padding-top: 1.6rem;
+      border-top: 1px dashed var(--border-soft);
+      animation: fadeIn 0.4s ease-out forwards;
+    }
+
+    .question-card.evaluated .resolution-panel {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .resolution-header {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-family: 'Inter', sans-serif;
+      font-weight: 700;
+      font-size: 0.98rem;
+      color: var(--text-strong);
+      margin-bottom: 0.8rem;
+    }
+
+    .gabarito-tag {
+      font-family: 'Inter', sans-serif;
+      display: inline-block;
+      font-size: 0.82rem;
+      font-weight: 700;
+      padding: 0.25rem 0.65rem;
+      border-radius: var(--radius-sm);
+      margin-bottom: 0.75rem;
+    }
+
+    .gabarito-tag.correct {
+      background-color: var(--correct-bg);
+      color: var(--correct-text);
+      border: 1px solid var(--correct-border);
+    }
+
+    .gabarito-tag.wrong {
+      background-color: var(--incorrect-bg);
+      color: var(--incorrect-text);
+      border: 1px solid var(--incorrect-border);
+    }
+
+    .resolution-content {
+      font-size: 0.98rem;
+      color: #2F363D;
+      line-height: 1.7;
+      background: var(--bg-canvas);
+      padding: 1.4rem 1.6rem;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-soft);
+    }
+
+    .resolution-content h4 {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.92rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--brand-blue);
+      margin: 1rem 0 0.4rem;
+    }
+
+    .resolution-content h4:first-child {
+      margin-top: 0;
+    }
+
+    .resolution-content p {
+      margin-bottom: 0.7rem;
+      text-align: justify;
+    }
+
+    .resolution-content p:last-child {
+      margin-bottom: 0;
+    }
+
+    /* Seção Inferior: Barra de Ação e Finalização */
+    .action-container {
+      text-align: center;
+      margin: 3rem 0;
+    }
+
+    .btn-submit {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--brand-blue);
+      color: #FFFFFF;
+      border: none;
+      font-size: 1.12rem;
+      font-weight: 600;
+      padding: 1rem 2.5rem;
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      box-shadow: 0 4px 14px rgba(28, 61, 90, 0.25);
+      transition: all 0.2s ease;
+    }
+
+    .btn-submit:hover {
+      background-color: #12283C;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 18px rgba(28, 61, 90, 0.35);
+    }
+
+    /* Placar Final de Resultados */
+    .results-card {
+      display: none;
+      background: var(--bg-card);
+      border: 2px solid var(--brand-blue);
+      border-radius: var(--radius-lg);
+      padding: 2.5rem;
+      margin-bottom: 3rem;
+      box-shadow: var(--shadow-hover);
+      text-align: center;
+    }
+
+    .results-card.show {
+      display: block;
+      animation: fadeIn 0.5s ease-out forwards;
+    }
+
+    .score-circle {
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      background: var(--brand-blue-light);
+      border: 4px solid var(--brand-blue);
+      margin-bottom: 1.5rem;
+    }
+
+    .score-number {
+      font-family: 'Inter', sans-serif;
+      font-size: 2.6rem;
+      font-weight: 800;
+      color: var(--brand-blue);
+      line-height: 1;
+    }
+
+    .score-total {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
+    .results-title {
+      font-family: 'Inter', sans-serif;
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--text-strong);
+      margin-bottom: 0.5rem;
+    }
+
+    .results-message {
+      font-size: 1.05rem;
+      color: var(--text-muted);
+      max-width: 620px;
+      margin: 0 auto 1.8rem;
+    }
+
+    .results-summary-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.6rem;
+      margin-bottom: 2rem;
+    }
+
+    .nav-pill {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.88rem;
+      font-weight: 600;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      border: 1px solid var(--border-soft);
+      background: #FFFFFF;
+      color: var(--text-main);
+      transition: all 0.2s ease;
+    }
+
+    .nav-pill.correct {
+      background: var(--correct-bg);
+      border-color: var(--correct-border);
+      color: var(--correct-text);
+    }
+
+    .nav-pill.incorrect {
+      background: var(--incorrect-bg);
+      border-color: var(--incorrect-border);
+      color: var(--incorrect-text);
+    }
+
+    .nav-pill:hover {
+      transform: scale(1.08);
+    }
+
+    .btn-retake {
+      font-family: 'Inter', sans-serif;
+      background: transparent;
+      color: var(--brand-blue);
+      border: 1.5px solid var(--brand-blue);
+      padding: 0.75rem 1.8rem;
+      border-radius: var(--radius-md);
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .btn-retake:hover {
+      background: var(--brand-blue);
+      color: #FFFFFF;
+    }
+
+    /* Responsividade */
+    @media (max-width: 680px) {
+      body {
+        padding: 1.25rem 0.85rem 4rem;
+        font-size: 1.02rem;
+      }
+
+      header.exam-header {
+        padding: 1.5rem 1.2rem;
+      }
+
+      h1.exam-title {
+        font-size: 1.45rem;
+      }
+
+      .question-card {
+        padding: 1.5rem 1.25rem;
+      }
+
+      .option-item {
+        padding: 0.85rem 0.9rem;
+      }
+
+      .option-letter {
+        width: 1.9rem;
+        height: 1.9rem;
+        font-size: 0.85rem;
+        margin-right: 0.8rem;
+      }
+
+      .score-circle {
+        width: 110px;
+        height: 110px;
+      }
+
+      .score-number {
+        font-size: 2.1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    
+    <!-- Cabeçalho Informativo Oficial -->
+    <header class="exam-header">
+      <span class="badge-banca">Banca Comissão Central de Concurso Público da Reitoria do IFMG</span>
+      <h1 class="exam-title">Prova Objetiva: Cartografia Temática e Representação do Relevo</h1>
+      <div class="exam-meta">
+        <span><strong>Total de Itens:</strong> 10 Questões Inéditas</span>
+        <span><strong>Foco Avaliativo:</strong> Interpretação Altimétrica e Variáveis Visuais</span>
+        <span><strong>Bibliografia de Apoio:</strong> FITZ (2008); PONTUSCHKA et al. (2007)</span>
+      </div>
+      <p class="exam-instructions">
+        Selecione uma única alternativa por questão. O simulado foi configurado para uma leitura contínua e agradável. Ao concluir, clique em <strong>"Finalizar Simulado e Ver Resoluções"</strong> no final da página para obter a contagem de acertos e conferir as resoluções técnicas completas diretamente sob cada questão respondida.
+      </p>
+    </header>
+
+    <!-- Barra de Progresso Superior -->
+    <div class="progress-bar-container" id="progressBar">
+      <span class="progress-info" id="progressText">0 de 10 respondidas</span>
+      <div class="progress-track">
+        <div class="progress-fill" id="progressFill"></div>
+      </div>
+      <span class="progress-info" id="progressPercent">0%</span>
+    </div>
+
+    <!-- Painel de Resultados (Aparece após finalização) -->
+    <section class="results-card" id="resultsCard">
+      <div class="score-circle">
+        <span class="score-number" id="scoreDisplay">0</span>
+        <span class="score-total">de 10 acertos</span>
+      </div>
+      <h2 class="results-title" id="resultsTitle">Desempenho no Simulado</h2>
+      <p class="results-message" id="resultsMessage">
+        Confira abaixo o resultado de cada questão e a fundamentação teórica completa comentada para revisão detalhada.
+      </p>
+      
+      <!-- Navegação rápida pelas questões respondidas -->
+      <div class="results-summary-grid" id="navSummary"></div>
+      
+      <button class="btn-retake" onclick="resetQuiz()">Refazer Simulado</button>
+    </section>
+
+    <!-- Lista de Questões -->
+    <main id="questionsContainer"></main>
+
+    <!-- Ação de Finalização -->
+    <div class="action-container" id="actionContainer">
+      <button class="btn-submit" id="btnSubmit" onclick="finishQuiz()">Finalizar Simulado e Ver Resoluções</button>
+    </div>
+
+  </div>
+
+  <script>
+    /* =====================================================================
+       BASE DE DADOS INTEGRAL DAS QUESTÕES E RESOLUÇÕES
+       Conteúdo idêntico ao documento original do concurso
+       ===================================================================== */
+    const quizData = [
+      {
+        id: 1,
+        tag: "Variáveis Visuais de Jacques Bertin",
+        question: `No âmbito da Semiologia Gráfica sistematizada por Jacques Bertin e discutida na literatura cartográfica aplicada, as variáveis visuais constituem o sistema de signos elementar empregado para transcrever as relações fundamentais existentes entre os dados geográficos: diversidade (qualitativa), ordem (ordenada) e proporcionalidade (quantitativa).<br><br>Considere um especialista que necessita representar três camadas geoespaciais distintas em uma carta temática regional:<ol><li>Os tipos de cobertura vegetal e uso da terra (ex.: silvicultura, pastagem, floresta estacional e área urbana antropizada);</li><li>A suscetibilidade à erosão laminar dos solos, classificada ordinalmente em "baixa", "média", "alta" e "muito alta";</li><li>O volume absoluto da colheita cafeeira por município polo, expresso em toneladas anuais.</li></ol>Considerando as propriedades perceptivas intrínsecas das variáveis visuais e a hierarquia dos níveis de mensuração dos dados, assinale a alternativa que apresenta a correspondência cartograficamente correta e eficaz para expressar, respectivamente, as camadas 1, 2 e 3:`,
+        options: [
+          { letter: "A", text: "Valor (tonalidade acromática); Orientação gráfica; Tamanho proporcional." },
+          { letter: "B", text: "Cor (matiz distintivo); Valor (luminosidade e tonalidade contínua); Tamanho proporcional." },
+          { letter: "C", text: "Tamanho proporcional; Forma geométrica pura; Cor (matiz distintivo)." },
+          { letter: "D", text: "Forma geométrica pura; Cor (matiz distintivo); Valor (luminosidade e tonalidade contínua)." },
+          { letter: "E", text: "Orientação gráfica; Granulação de textura; Símbolos pontuais de dimensão estática invariável." }
+        ],
+        correct: "B",
+        resolution: {
+          fundamentacao: `A Semiologia Gráfica sistematizada por Jacques Bertin e discutida em Fitz (2008) estabelece uma correspondência formal entre o nível perceptivo das variáveis visuais (tamanho, valor, granulação, cor, orientação e forma) e os níveis de organização da informação cartográfica (qualitativo, ordenado e quantitativo). Na camada 1, os tipos de cobertura e uso da terra constituem dados qualitativos nominais, cuja propriedade perceptiva exigida é a associativa ou diferencial, na qual nenhuma categoria sobrepuja visualmente a outra; nesse contexto, a variável visual <em>cor</em> (matiz puro) ou <em>forma</em> é a mais indicada. Na camada 2, a suscetibilidade à erosão ("baixa", "média", "alta", "muito alta") expressa uma relação ordenada contínua de intensidade; a variável perceptiva apropriada é o <em>valor</em> (degradação luminosa do claro ao escuro dentro de uma mesma escala cromática), pois o olho humano hierarquiza de modo espontâneo as tonalidades. Na camada 3, a produção cafeeira em toneladas métricas constitui uma grandeza quantitativa absoluta; a única variável visual dotada de propriedade perceptiva quantitativa métrica imediata é o <em>tamanho proporcional</em> de símbolos gráficos.`,
+          distratores: `A alternativa A incorre em erro ao sugerir <em>valor</em> para fenômenos puramente qualitativos nominais, gerando falsa hierarquização de importância entre coberturas vegetais, além de prescrever <em>orientação</em> para classes de ordem contínua. A alternativa C prescreve <em>tamanho</em> para uso da terra, ignorando que feições nominais não possuem magnitude dimensional intrínseca. A alternativa D propõe o uso de <em>cor</em> pura para ordens hierarquizadas e <em>valor</em> para grandezas absolutas proporcionais, contrariando o princípio de monossemia visual de Bertin. A alternativa E prescreve símbolos fixos invariáveis para totais absolutos de produção, anulando a apreensão quantitativa do mapa.`
+        }
+      },
+      {
+        id: 2,
+        tag: "Mapeamento Coroplético e Dasimétrico",
+        question: `No planejamento de representações cartográficas temáticas de base demográfica e territorial, a seleção do método de espacialização pode induzir a erros analíticos decorrentes da falácia ecológica e do efeito de agregação espacial em malhas administrativas arbitrárias.<br><br>A respeito dos métodos de mapeamento temático coroplético e dasimétrico, analise as afirmativas a seguir:<ul><li><strong>I.</strong> O método coroplético é indicado para representar variáveis quantitativas relativas derivadas de razões espaciais (tais como densidades demográficas e taxas percentuais), aplicando classes de valor visual sobre unidades territoriais pré-fixadas, operando sob o pressuposto de homogeneidade no interior de cada polígono censitário.</li><li><strong>II.</strong> O método dasimétrico diferencia-se estruturalmente da representação coroplética tradicional por recorrer a informações auxiliares e dados de cobertura da terra para desagregar os totais estatísticos, eliminando áreas desprovidas de população (como corpos d'água, florestas densas e relevos escarpados) e restringindo a taxa às zonas de ocupação real.</li><li><strong>III.</strong> O método coroplético presta-se prioritariamente à distribuição direta de grandezas quantitativas absolutas brutas (a exemplo do contingente populacional total), bastando utilizar classes de preenchimento policromático de alta saturação sobre os limites dos municípios.</li><li><strong>IV.</strong> Tanto o método coroplético quanto o dasimétrico alteram mecanicamente a forma geométrica e a área euclidiana dos perímetros municipais como recurso primário para traduzir a magnitude da variável analisada.</li></ul>Estão CORRETAS apenas as afirmativas:`,
+        options: [
+          { letter: "A", text: "I e II." },
+          { letter: "B", text: "I e III." },
+          { letter: "C", text: "II e IV." },
+          { letter: "D", text: "III e IV." },
+          { letter: "E", text: "I, II e IV." }
+        ],
+        correct: "A",
+        resolution: {
+          fundamentacao: `O método coroplético é concebido especificamente para a espacialização de grandezas quantitativas relativas, tais como densidades demográficas, percentuais e médias ponderadas expressas por unidades espaciais administrativas preexistentes. Conforme explicita Fitz (2008), o mapa coroplético apoia-se na premissa de distribuição uniforme do fenômeno no interior de cada setor, ocultando descontinuidades intra-administrativas severas. O método dasimétrico surge como uma evolução conceitual para sanar essa distorção: ele utiliza dados auxiliares (como mapeamentos de uso da terra, altimetria e imagens de satélite) para identificar vazios espaciais e concentrar os totais estatísticos exclusivamente nas zonas efetivamente habitadas, aproximando a densidade cartografada da densidade real de ocupação. Portanto, as proposições I e II expressam de forma irretocável a lógica cartográfica desses métodos.`,
+          distratores: `A proposição III é conceitualmente errônea porque a cartografia temática veda o emprego de preenchimentos zonais coropléticos para grandezas quantitativas absolutas brutas (ex.: total de habitantes). Tal procedimento induz o observador ao erro perceptivo de superestimar municípios territorialmente extensos e subestimar municípios pequenos com densa aglomeração urbana; para valores absolutos, o método preconizado envolve figuras geométricas pontuais proporcionais. A proposição IV está incorreta porque a deformação mecânica dos polígonos zonais é prerrogativa exclusiva da <em>anamorfose geográfica</em>, ao passo que os métodos coroplético e dasimétrico mantêm inalterada a base cartográfica e os limites euclidianos oficiais.`
+        }
+      },
+      {
+        id: 3,
+        tag: "Métodos Temáticos: Isarítmico, Corocromático e Fluxo",
+        question: `Os métodos de mapeamento temático variam em função do nível de abstração, da continuidade espacial e da geometria de representação do fenômeno abordado.<br><br>A respeito das propriedades e finalidades dos métodos corocromático, isarítmico e de fluxo, assinale a afirmativa CORRETA:`,
+        options: [
+          { letter: "A", text: "O método corocromático fundamenta-se no emprego de variações sistemáticas de valor luminoso (escalas de claro a escuro de um mesmo tom) para classificar gradações quantitativas térmicas contínuas." },
+          { letter: "B", text: "O método de fluxo estrutura-se na utilização de linhas dinâmicas de largura gráfica uniforme e invariável, cujo traçado retilíneo independe de vetores de deslocamento, vetando a representação de redes de transporte de mercadorias ou circulação de pessoas." },
+          { letter: "C", text: "O método isarítmico fundamenta-se em linhas de igual valor obtidas por interpolação de pontos de controle para cartografar superfícies contínuas tridimensionais, prestando-se à representação de variáveis físicas reais (como relevo e precipitação) ou derivadas estatisticamente (como custos de transporte e tempos de percurso)." },
+          { letter: "D", text: "O método corocromático é estritamente quantitativo contínuo, assemelhando-se aos modelos de declividade gerados por krigagem geoestatística a partir de cartas topográficas." },
+          { letter: "E", text: "O método isarítmico aplica-se exclusivamente a feições qualitativas nominais delimitadas por contato abrupto em polígonos fechados, sendo incompatível com grandezas hipsométricas ou climáticas." }
+        ],
+        correct: "C",
+        resolution: {
+          fundamentacao: `O método isarítmico (ou isoplético) fundamenta-se na utilização de isolinhas (linhas de igual valor) para expressar a distribuição tridimensional de grandezas contínuas na superfície terrestre. Conforme abordado em Fitz (2008), tais linhas resultam da interpolação matemática de valores conhecidos coletados em pontos de controle amostrais. O método contempla superfícies contínuas tangíveis, como o modelado do relevo (curvas de nível hipsométricas e batimétricas), distribuições climáticas (isotermas para temperatura e isoietas para precipitação) e indicadores abstratos derivados de modelos de acessibilidade (isócronas para tempo de deslocamento).`,
+          distratores: `A alternativa A está incorreta porque o método corocromático aplica cores planas (matizes distintos) para categorizar elementos qualitativos de natureza estritamente nominal, e não grandezas contínuas escalonadas. A alternativa B erra ao caracterizar o método de fluxo, uma vez que a espessura vetorial das linhas precisa variar de maneira proporcional ao volume de deslocamento cartografado, traduzindo a magnitude e a orientação dinâmica da carga ou de passageiros. A alternativa D erra ao classificar o corocromático como método contínuo quantitativo derivado de geoestatística. A alternativa E confunde as propriedades do método isarítmico, tratando-o erroneamente como uma técnica restrita a compartimentos qualitativos estanques.`
+        }
+      },
+      {
+        id: 4,
+        tag: "Anamorfose Geográfica e Relações Topológicas",
+        question: `A utilização da anamorfose geográfica como instrumento cartográfico ganhou projeção contemporânea pela capacidade de ressignificar as relações de escala e espacialidade no ensino de Geografia e na análise espacial.<br><br>A respeito dos pressupostos conceituais e das características operacionais da anamorfose geográfica, assinale a afirmativa INCORRETA:`,
+        options: [
+          { letter: "A", text: "A anamorfose geográfica configura-se como um modelo cartográfico no qual as áreas das unidades territoriais sofrem deformações geométricas calculadas para se tornarem proporcionais a uma variável quantitativa absoluta associada." },
+          { letter: "B", text: "Na elaboração dos cartogramas em anamorfose, mantém-se a escala gráfica constante em todo o mapa e preservam-se rigorosamente as coordenadas geodésicas ortogonais de projeção ao longo de todas as bordas dos polígonos, permitindo medidas acuradas de distância euclidiana." },
+          { letter: "C", text: "A eficácia da anamorfose depende da manutenção de relações topológicas elementares, tais como a contiguidade e a vizinhança relativa entre os espaços limítrofes, possibilitando a identificação imediata das entidades representadas." },
+          { letter: "D", text: "As anamorfoses promovem forte impacto visual imediato ao romper com o mapa convencional, servindo à problematização das assimetrias socioeconômicas mundiais e regionais, tais como concentração de renda e consumo energético per capita." },
+          { letter: "E", text: "A confecção de cartogramas anamórficos pressupõe o uso de dados quantitativos acumuláveis, operando como uma representação temática que evidencia fenômenos descolados da simples extensão física do suporte territorial." }
+        ],
+        correct: "B",
+        resolution: {
+          fundamentacao: `A questão demanda a identificação da proposição <strong>incorreta</strong> a respeito da anamorfose geográfica. O cartograma por anamorfose caracteriza-se pela renúncia expressa e intencional à métrica euclidiana convencional e à rigidez das escalas geodésicas ortogonais. Nele, a extensão espacial de cada unidade administrativa ou regional deixa de corresponder à sua área real em quilômetros quadrados e passa a ser dimensionada proporcionalmente à magnitude da grandeza quantitativa em análise (ex.: Produto Interno Bruto, população absoluta, mortalidade infantil). Logo, a afirmativa B é flagrantemente falsa ao asseverar que a anamorfose preserva escalas métricas fixas e coordenadas geodésicas idênticas às de cartas de navegação.`,
+          distratores: `As afirmativas A, C, D e E encontram-se fundamentadas nas formulações de Pontuschka et al. (2007) e Fitz (2008): a anamorfose atua como uma transformação geométrica controlada; sua leitura inteligível exige a preservação da contiguidade topológica e dos nexos de adjacência entre vizinhos territoriais; constitui ferramenta didática indispensável para chocar o olhar do estudante frente a desigualdades espaciais historicamente consolidadas; e fundamenta-se na utilização de grandezas absolutas cumulativas.`
+        }
+      },
+      {
+        id: 5,
+        tag: "Morfometria de Curvas de Nível: Vales e Talvegues",
+        question: `A leitura estrutural e morfométrica de cartas topográficas sistemáticas apoia-se em princípios geométricos universais relativos à interação entre as curvas de nível e a drenagem superficial continental.<br><br>Considere um trecho de carta topográfica em que as curvas de nível com valores sucessivos de 600 m, 620 m, 640 m e 660 m conformam inflexões bem delineadas em forma de "V", sendo que as cotas altimétricas mais altas situam-se no interior do arco (para onde converge o vértice da letra "V").<br><br>A partir da leitura topográfica dessa configuração geométrica, é CORRETO afirmar que:`,
+        options: [
+          { letter: "A", text: "A estrutura corresponde a um divisor de águas interfluvial, visto que os vértices de curvas de nível em formato de \"V\" apontam invariavelmente para a jusante da bacia hidrográfica." },
+          { letter: "B", text: "O vértice da curva de nível em \"V\" aponta no sentido de montante (cabeceiras), caracterizando um vale fluvial ou talvegue em que o fluxo das águas se desloca das cotas mais altas para a abertura do arco em direção a jusante." },
+          { letter: "C", text: "O arranjo geométrico indica um relevo de colina em espigão suave, no qual o escoamento superficial pluvial converge perpendicularmente em direção à crista topográfica." },
+          { letter: "D", text: "O padrão descrito é típico de planícies de acumulação meândrica, caracterizadas pela ausência de gradientes verticais entre as curvas e ausência de encaixe erosivo." },
+          { letter: "E", text: "Trata-se de uma vertente de convexidade basal contínua, onde o vértice em \"V\" orienta-se rumo à foz como indicativo de perda súbita de energia cinética fluvial." }
+        ],
+        correct: "B",
+        resolution: {
+          fundamentacao: `A interpretação morfométrica das curvas de nível em cartas topográficas rege-se por princípios fundamentais de hidrologia física e geometria do relevo. As calhas fluviais entalham progressivamente a superfície topográfica por processos erosivos regressivos. Como consequência, a curva de nível necessita penetrar terra adentro, em direção às cotas mais elevadas das cabeceiras, para manter seu patamar de altitude antes de cruzar o leito do curso d'água. Por esse mecanismo, toda curva de nível que transpõe um vale ou talvegue assume a configuração geométrica de um "V" cujo vértice aponta invariavelmente para <strong>montante</strong> (sentido das cotas crescentes). Em contrapartida, as águas drenam no sentido oposto, fluindo do vértice em direção à abertura do arco (jusante).`,
+          distratores: `A alternativa A inverte a regra ao afirmar que os vértices dos vales apontam para jusante; na realidade, quem aponta para jusante são os vértices das curvas que contornam os divisores de água e cristas de interflúvio. A alternativa C desconsidera o padrão convergente de vale, vinculando erroneamente a morfologia em "V" a colinas de dispersão divergente. A alternativa D ignora que o traçado nítido de curvas em "V" denota incisão vertical e dissecação hidrológica expressiva, incompatível com planícies aluviais aplainadas. A alternativa E confunde orientação morfodinâmica de montante com descontinuidade de escoamento.`
+        }
+      },
+      {
+        id: 6,
+        tag: "Cálculo de Declividade, Escala e Equidistância",
+        question: `Em uma carta topográfica elaborada na escala de 1:50.000, com equidistância altimétrica vertical de 20 metros, dois pontos cotados em campo, $A$ e $B$, estão posicionados sobre a mesma vertente.<br><br>Sabe-se que:<ul><li>O ponto $A$ localiza-se exatamente sobre a curva de nível de cota 700 metros;</li><li>O ponto $B$ situa-se na encosta sobre a quarta curva de nível imediatamente superior a $A$;</li><li>A distância retilínea medida com precisão milimétrica entre os pontos $A$ e $B$ diretamente sobre a folha de papel da carta topográfica é igual a 4,0 centímetros.</li></ul>Com base nos dados fornecidos, a declividade média do terreno entre os pontos $A$ e $B$, expressa em porcentagem ($D_{\\%}$), é de:`,
+        options: [
+          { letter: "A", text: "1,6%" },
+          { letter: "B", text: "4,0%" },
+          { letter: "C", text: "8,0%" },
+          { letter: "D", text: "16,0%" },
+          { letter: "E", text: "40,0%" }
+        ],
+        correct: "B",
+        resolution: {
+          fundamentacao: `<strong>Memória de Cálculo Passo a Passo:</strong><br><br>
+          <strong>1. Cálculo da Distância Horizontal Real ($D_h$):</strong><br>
+          A escala da carta topográfica é de $1:50.000$, indicando que cada $1\\text{ cm}$ no mapa equivale a $50.000\\text{ cm}$ ($500\\text{ m}$) na realidade de campo. A distância gráfica medida entre os pontos $A$ e $B$ é de $d = 4,0\\text{ cm}$.<br>
+          $$D_h = d \\times 50.000 = 4,0\\text{ cm} \\times 50.000 = 200.000\\text{ cm} = 2.000\\text{ metros}.$$<br>
+          <strong>2. Cálculo da Diferença de Nível Vertical ($\\Delta h$):</strong><br>
+          A equidistância altimétrica vertical na folha é de $20\\text{ metros}$. Como o ponto $B$ localiza-se na 4ª curva de nível imediatamente superior ao ponto $A$ (cota 700 m):<br>
+          $$\\Delta h = 4 \\times 20\\text{ m} = 80\\text{ metros}.$$<br>
+          <strong>3. Determinação da Declividade Média Percentual ($D_{\\%}$):</strong><br>
+          A declividade percentual é a razão entre o desnível vertical e a distância percorrida no plano horizontal multiplicada por 100:<br>
+          $$D_{\\%} = \\left( \\frac{\\Delta h}{D_h} \\right) \\times 100 = \\left( \\frac{80\\text{ m}}{2.000\\text{ m}} \\right) \\times 100 = 0,04 \\times 100 = 4,0\\%.$$`,
+          distratores: `O valor de 1,6% (alternativa A) decorre de erro na interpretação da equidistância ou do número de intervalos; 8,0% (alternativa C) resulta de erro na conversão de escala, aplicando denominador de 1:25.000; 16,0% (alternativa D) e 40,0% (alternativa E) originam-se de equívocos aritméticos sistemáticos na conversão de unidades lineares de centímetros para metros.`
+        }
+      },
+      {
+        id: 7,
+        tag: "Formas de Vertente: Perfil Côncavo e Perfil Convexo",
+        question: `A geometria do relevo expressa nas cartas topográficas permite a identificação tridimensional das formas de vertente por meio da observação do arranjo e do gradiente horizontal de espaçamento entre as curvas de nível sucessivas.<br><br>Considere a análise de duas encostas contíguas, $X$ e $Y$, representadas em uma mesma carta topográfica:<ul><li>Na encosta $X$, partindo-se do interflúvio culminante (topo) em direção ao fundo do vale (base), verifica-se que as curvas de nível mantêm-se bastante espaçadas no setor superior e tornam-se progressivamente adensadas e muito próximas no sopé da vertente.</li><li>Na encosta $Y$, partindo-se do interflúvio em direção ao fundo do vale, observa-se o comportamento inverso: as curvas de nível encontram-se agrupadas e com espaçamento reduzido no terço superior, tornando-se progressivamente afastadas e espaçadas no terço basal inferior.</li></ul>A partir dos fundamentos morfométricos de cartas topográficas, conclui-se que:`,
+        options: [
+          { letter: "A", text: "A encosta X possui perfil côncavo, propício ao acúmulo de sedimentos basais; a encosta Y exibe perfil convexo, com aceleração da drenagem junto ao fundo de vale." },
+          { letter: "B", text: "A encosta X exibe perfil convexo, caracterizado por gradiente de declividade crescente em direção à base; a encosta Y exibe perfil côncavo, caracterizado por declividade decrescente em direção à base." },
+          { letter: "C", text: "Ambas as encostas constituem perfis estritamente retilíneos, pois o valor absoluto da declividade independe do adensamento horizontal das curvas em projeção ortogonal." },
+          { letter: "D", text: "A encosta X caracteriza um patamar estrutural de declividade homogênea e constante; a encosta Y reflete uma escarpa de falha vertical com descontinuidades topográficas sem escoamento superficial." },
+          { letter: "E", text: "O perfil da encosta X favorece a desaceleração contínua do fluxo pluvial em direção ao sopé; o perfil da encosta Y acelera o escoamento hídrico na transição para a planície aluvionar." }
+        ],
+        correct: "B",
+        resolution: {
+          fundamentacao: `A morfometria de curvas de nível em cartas topográficas traduz a declividade pela densidade horizontal das linhas: curvas próximas indicam gradientes íngremes e curvas espaçadas revelam declives suaves. Na encosta $X$, o espaçamento amplo no topo seguido por adensamento contínuo em direção à base expressa uma superfície cuja inclinação torna-se mais acentuada à medida que se desce; essa configuração define geometricamente e geomorfologicamente uma <strong>vertente convexa</strong>. Na vertente convexa, as linhas de fluxo superficial convergem em velocidade acelerada em direção ao fundo de vale. Na encosta $Y$, o forte adensamento no terço superior sucedido por amplo espaçamento no terço inferior traduz uma declividade que diminui progressivamente em direção ao sopé; essa morfologia configura uma <strong>vertente côncava</strong>. No setor basal côncavo, a desaceleração das águas superficiais propicia a sedimentação coluvial e a formação de solos mais espessos.`,
+          distratores: `A alternativa A inverte diametralmente as definições morfológicas de convexidade e concavidade. A alternativa C desconsidera que vertentes retilíneas exibem espaçamento uniforme e equidistante ao longo de toda a extensão do perfil de encosta. A alternativa D associa incorretamente perfis convexos a patamares planos estáticos. A alternativa E formula hipótese hidrológica insustentável, pois perfis convexos aumentam a energia do escoamento na base, ao passo que perfis côncavos provocam dissipação de energia cinética junto ao sopé.`
+        }
+      },
+      {
+        id: 8,
+        tag: "Convenções Topográficas: Curvas Mestras e Pontos Cotados",
+        question: `O sistema de representação hipsométrica das folhas topográficas sistemáticas articula o emprego de curvas de nível com o registro de pontos cotados para assegurar a reconstituição altimétrica da superfície modelada.<br><br>Sobre as propriedades e convenções cartográficas dos elementos altimétricos em cartas topográficas, assinale a afirmativa CORRETA:`,
+        options: [
+          { letter: "A", text: "As curvas de nível mestras distinguem-se das intermediárias por apresentarem traço mais espesso e inscrição expressa de suas cotas numéricas, sucedendo-se em intervalos regulares para facilitar a determinação de desníveis." },
+          { letter: "B", text: "A equidistância vertical das curvas de nível varia de maneira livre e aleatória ao longo de uma mesma folha topográfica, adaptando-se às rupturas de relevo para evitar espaçamentos gráficos amplos." },
+          { letter: "C", text: "Os pontos cotados destinam-se exclusivamente a registrar anomalias geodésicas sem valor topográfico, sendo dispensáveis nos cumes de morros e nas seladas interfluviais." },
+          { letter: "D", text: "As curvas de nível de valores altimétricos desiguais podem interceptar-se e cruzar-se de forma ortogonal sobre colinas de declividade suave, indicando confluência de drenagem pluvial." },
+          { letter: "E", text: "A proximidade acentuada entre curvas de nível vizinhas no plano do mapa indica terrenos planos e baixadas aluviais sujeitas a inundações periódicas." }
+        ],
+        correct: "A",
+        resolution: {
+          fundamentacao: `As normas sistemáticas da cartografia topográfica nacional (estabelecidas pelo IBGE e pela Diretoria de Serviço Geográfico do Exército) convencionam a diferenciação das curvas de nível em mestras e intermediárias. As <strong>curvas mestras</strong> são desenhadas com espessura gráfica mais grossa e recebem obrigatoriamente a inscrição do valor de sua altitude em metros, ocorrendo em intervalos regulares (usualmente a cada cinco curvas) para simplificar a contagem e a leitura morfométrica dos desníveis. As curvas intermediárias preenchem o intervalo com traçado fino, preservando a equidistância definida na folha.`,
+          distratores: `A alternativa B é incorreta porque a equidistância altimétrica vertical é um parâmetro fixo, uniforme e constante em toda a extensão de uma folha topográfica regular. A alternativa C está errada porque os pontos cotados fornecem referências indispensáveis para balizar altitudes máximas em cumes e divisores, onde a altitude do relevo quase nunca coincide de forma exata com o valor de uma curva de nível múltipla da equidistância. A alternativa D contraria o axioma fundamental da topografia, que postula que curvas de nível de cotas distintas <strong>nunca se cruzam</strong>, com exceção pontual de escarpas rochosas em balanço vertical negativo (<em>overhanging cliffs</em>). A alternativa E inverte o postulado básico da altimetria: o adensamento estreito de curvas revela relevos escarpados e montanhosos, e não baixadas de planície plana.`
+        }
+      },
+      {
+        id: 9,
+        tag: "Perfis Topográficos e Exagero Vertical (EV)",
+        question: `A elaboração de perfis topográficos constitui um procedimento analítico e didático essencial para a visualização da rugosidade do relevo a partir do plano das cartas com curvas de nível.<br><br>A respeito da técnica de construção, das propriedades métricas e da aplicação pedagógica dos perfis topográficos, assinale a afirmativa CORRETA:`,
+        options: [
+          { letter: "A", text: "A escala horizontal e a escala vertical de um perfil topográfico regional devem ser obrigatoriamente idênticas para evitar distorções perceptivas em estudos geomorfológicos." },
+          { letter: "B", text: "O fator de exagero vertical (EV) é obtido pela razão entre o denominador da escala horizontal e o denominador da escala vertical (EV = Eh / Ev), aplicando-se para tornar visualmente perceptíveis as inflexões do terreno em relevos de desnível relativo moderado." },
+          { letter: "C", text: "Os pontos de inflexão morfológica observados ao longo da linha de perfil representam distorções de traçado que devem ser eliminadas por suavização gráfica antes de sua interpretação estrutural." },
+          { letter: "D", text: "O perfil topográfico oferece uma projeção azimutal que elimina a necessidade de controle de cotas, tornando desnecessária a utilização de curvas de nível ou pontos cotados de referência." },
+          { letter: "E", text: "As orientações metodológicas para o ensino de Geografia desaconselham o recurso a perfis topográficos e maquetes no estudo do relevo por considerá-los prejudiciais à abstração cartográfica escolar." }
+        ],
+        correct: "B",
+        resolution: {
+          fundamentacao: `A confecção de um perfil topográfico consiste no traçado de uma seção vertical ortogonal transversal ao relevo a partir das interseções de uma linha de corte com as curvas de nível de uma carta. Em cartas topográficas regionais (escalas 1:50.000 ou 1:100.000), a dimensão linear horizontal abrange quilômetros, ao passo que as amplitudes altimétricas locais medem poucas centenas de metros. A manutenção de escalas vertical e horizontal rigorosamente iguais achataria o relevo na representação gráfica, tornando impossível distinguir colinas, patamares ou terraços fluviais. O <strong>fator de exagero vertical ($EV$)</strong> é adotado para conferir legibilidade morfológica ao perfil, resultando da razão entre os denominadores das escalas:<br>
+          $$EV = \\frac{\\text{Escala Vertical}}{\\text{Escala Horizontal}} = \\frac{\\frac{1}{E_v}}{\\frac{1}{E_h}} = \\frac{E_h}{E_v}$$
+          onde $E_h$ e $E_v$ correspondem aos denominadores das escalas horizontal e vertical, respectivamente.`,
+          distratores: `A alternativa A está incorreta porque a igualdade estrita de escalas horizontal e vertical prejudica a análise visual em cartas de escala média ou pequena. A alternativa C erra ao caracterizar as inflexões de encosta como distorções ou erros de traçado, desconsiderando que tais quebras revelam a dinâmica geomorfológica concreta do substrato rochoso e dos processos erosivos. A alternativa D erra a natureza do perfil, tratando-o como projeção azimutal independente de cotas altimétricas. A alternativa E contraria diretamente as diretrizes didáticas de Pontuschka et al. (2007), que prescrevem o uso ativo de perfis topográficos e maquetes como passos metodológicos fundamentais para consolidar a alfabetização cartográfica do relevo.`
+        }
+      },
+      {
+        id: 10,
+        tag: "Adequação do Método Temático à Natureza dos Dados",
+        question: `Um comitê de bacia hidrográfica demandou a confecção de quatro mapas temáticos regionais integrados a um Sistema de Informações Geográficas para subsidiar diretrizes de planejamento ambiental e urbano:<ul><li><strong>Mapa 1:</strong> Distribuição espacial dos tipos de classes de solos da bacia (Latossolos, Argissolos, Neossolos e Cambissolos);</li><li><strong>Mapa 2:</strong> Índice de Desenvolvimento Humano Municipal (IDHM) categorizado por classes de desenvolvimento em cada polígono municipal da bacia;</li><li><strong>Mapa 3:</strong> Precipitação pluviométrica média anual (em milímetros), espacializada a partir de uma rede de 30 pluviômetros distribuídos regionalmente;</li><li><strong>Mapa 4:</strong> Vetores direcionais de deslocamento pendular diário de trabalhadores entre os municípios periféricos e a cidade polo, com espessuras correspondentes à intensidade dos contingentes.</li></ul>Considerando os preceitos de adequação cartográfica à natureza dos dados (qualitativo, ordenado, quantitativo e dinâmico), os métodos de mapeamento temático adequados para elaborar os Mapas 1, 2, 3 e 4 são, respectivamente:`,
+        options: [
+          { letter: "A", text: "Coroplético; Corocromático; Isarítmico (isoietas); Anamorfose." },
+          { letter: "B", text: "Corocromático; Coroplético; Isarítmico (isoietas); Fluxo." },
+          { letter: "C", text: "Dasimétrico; Símbolos pontuais proporcionais; Coroplético; Isarítmico." },
+          { letter: "D", text: "Isarítmico; Corocromático; Dasimétrico; Coroplético." },
+          { letter: "E", text: "Corocromático; Fluxo; Anamorfose; Coroplético." }
+        ],
+        correct: "B",
+        resolution: {
+          fundamentacao: `A conformidade entre o método de representação e a natureza dos dados fundamenta a gramática da Cartografia Temática:<ol><li><strong>Mapa 1 (Classes de solos):</strong> Dados de natureza <em>qualitativa nominal</em>, subdivididos em compartimentos territoriais contíguos. O método padronizado é o <strong>Corocromático</strong>, que emprega diferenciações cromáticas por matizes independentes para delimitar zonas sem imputar juízo de magnitude ou hierarquia numérica.</li><li><strong>Mapa 2 (IDHM por municípios):</strong> Indicador socioeconômico relativo, mensurado em escalas contínuas e agregado por unidades administrativas poligonais. O método adequado é o <strong>Coroplético</strong>, que traduz o escalonamento do IDHM por gradações sistemáticas da variável visual valor (luminosidade progressiva).</li><li><strong>Mapa 3 (Precipitação média anual interpolada):</strong> Fenômeno físico contínuo tridimensional obtido a partir de medições amostrais pontuais. O método consagrado é o <strong>Isarítmico</strong>, materializado por meio de isolinhas de precipitação (<strong>isoietas</strong>).</li><li><strong>Mapa 4 (Deslocamentos pendulares origem-destino):</strong> Fenômeno <em>dinâmico</em> de circulação interurbana de fluxos. O método apropriado é o <strong>Mapa de Fluxo</strong>, que utiliza vetores lineares orientados e dimensionados com larguras proporcionais à quantidade de passageiros transportados.</li></ol>`,
+          distratores: `A alternativa A prescreve o método coroplético para solos, gerando falsa hierarquização de classes taxonômicas pedológicas, e indica anamorfose para a circulação de passageiros. A alternativa C prescreve o método dasimétrico sem desagregação de censos demográficos e propõe símbolos pontuais graduados para o IDHM municipal, sacrificando a continuidade do tecido político. As alternativas D e E realizam combinações metodologicamente incoerentes, desconsiderando a matriz taxonômica dos dados geoespaciais e os fundamentos operacionais consolidados na literatura científica.`
+        }
+      }
+    ];
+
+    /* Estado da Sessão do Usuário */
+    const userAnswers = {};
+    let isEvaluated = false;
+
+    // Renderiza as questões na página
+    function renderQuiz() {
+      const container = document.getElementById("questionsContainer");
+      container.innerHTML = "";
+
+      quizData.forEach((q) => {
+        const card = document.createElement("article");
+        card.className = "question-card";
+        card.id = `q-card-${q.id}`;
+
+        let optionsHtml = "";
+        q.options.forEach((opt) => {
+          optionsHtml += `
+            <label class="option-item" id="opt-label-${q.id}-${opt.letter}">
+              <input type="radio" name="q_${q.id}" value="${opt.letter}" onchange="selectOption(${q.id}, '${opt.letter}')">
+              <span class="option-letter">${opt.letter}</span>
+              <span class="option-text">${opt.text}</span>
+            </label>
+          `;
+        });
+
+        card.innerHTML = `
+          <div class="question-header">
+            <span class="question-number">Questão ${String(q.id).padStart(2, '0')}</span>
+            <span class="question-tag">${q.tag}</span>
+          </div>
+          <div class="question-text">${q.question}</div>
+          <div class="options-group">${optionsHtml}</div>
+          
+          <!-- Painel de Resolução (exibido pós-finalização) -->
+          <div class="resolution-panel" id="resolution-${q.id}">
+            <div class="resolution-header">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                <polyline points="14 2 14 8 20 8"></polyline>
+                <line x1="16" y1="13" x2="8" y2="13"></line>
+                <line x1="16" y1="17" x2="8" y2="17"></line>
+                <polyline points="10 9 9 9 8 9"></polyline>
+              </svg>
+              <span>Resolução Comentada e Justificativa</span>
+            </div>
+            <div id="badge-status-${q.id}"></div>
+            <div class="resolution-content">
+              <h4>Fundamentação e Justificativa Teórica</h4>
+              <p>${q.resolution.fundamentacao}</p>
+              <h4>Análise Detalhada dos Distratores</h4>
+              <p>${q.resolution.distratores}</p>
+            </div>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+
+      // Renderiza fórmulas LaTeX se houver KaTeX disponível
+      renderMathNotation();
+    }
+
+    // Registra a seleção de uma opção
+    function selectOption(questionId, letter) {
+      if (isEvaluated) return;
+
+      userAnswers[questionId] = letter;
+
+      // Atualiza o estado visual das opções da questão
+      const options = document.querySelectorAll(`[id^="opt-label-${questionId}-"]`);
+      options.forEach(opt => opt.classList.remove("selected"));
+
+      const selectedOpt = document.getElementById(`opt-label-${questionId}-${letter}`);
+      if (selectedOpt) selectedOpt.classList.add("selected");
+
+      updateProgress();
+    }
+
+    // Atualiza a barra de progresso no topo
+    function updateProgress() {
+      const total = quizData.length;
+      const answered = Object.keys(userAnswers).length;
+      const percent = Math.round((answered / total) * 100);
+
+      document.getElementById("progressText").textContent = `${answered} de ${total} respondidas`;
+      document.getElementById("progressPercent").textContent = `${percent}%`;
+      document.getElementById("progressFill").style.width = `${percent}%`;
+    }
+
+    // Finaliza o simulado e gera a avaliação
+    function finishQuiz() {
+      const total = quizData.length;
+      const answered = Object.keys(userAnswers).length;
+
+      if (answered < total) {
+        const confirmar = confirm(`Você respondeu ${answered} de ${total} questões. Deseja finalizar mesmo assim e ver o gabarito das resoluções?`);
+        if (!confirmar) return;
+      }
+
+      isEvaluated = true;
+      let score = 0;
+      const navSummary = document.getElementById("navSummary");
+      navSummary.innerHTML = "";
+
+      quizData.forEach((q) => {
+        const userChoice = userAnswers[q.id];
+        const isCorrect = userChoice === q.correct;
+        const card = document.getElementById(`q-card-${q.id}`);
+        card.classList.add("evaluated");
+
+        if (isCorrect) score++;
+
+        // Destaca as opções corretas e incorretas
+        q.options.forEach(opt => {
+          const optEl = document.getElementById(`opt-label-${q.id}-${opt.letter}`);
+          const radioInput = optEl.querySelector('input[type="radio"]');
+          radioInput.disabled = true;
+
+          if (opt.letter === q.correct) {
+            optEl.classList.add("is-correct");
+          } else if (opt.letter === userChoice && !isCorrect) {
+            optEl.classList.add("is-incorrect");
+          }
+        });
+
+        // Configura o selo de status na resolução
+        const badgeContainer = document.getElementById(`badge-status-${q.id}`);
+        if (isCorrect) {
+          badgeContainer.innerHTML = `<span class="gabarito-tag correct">✓ Você acertou! Gabarito Oficial: Alternativa ${q.correct}</span>`;
+        } else if (userChoice) {
+          badgeContainer.innerHTML = `<span class="gabarito-tag wrong">✗ Você marcou ${userChoice}. Gabarito Oficial: Alternativa ${q.correct}</span>`;
+        } else {
+          badgeContainer.innerHTML = `<span class="gabarito-tag wrong">Item Não Respondido. Gabarito Oficial: Alternativa ${q.correct}</span>`;
+        }
+
+        // Adiciona pill na navegação rápida
+        const pill = document.createElement("a");
+        pill.href = `#q-card-${q.id}`;
+        pill.className = `nav-pill ${isCorrect ? "correct" : "incorrect"}`;
+        pill.textContent = q.id;
+        pill.title = `Questão ${q.id}: ${isCorrect ? "Acerto" : "Erro"} (Gabarito ${q.correct})`;
+        navSummary.appendChild(pill);
+      });
+
+      // Exibe painel de resultado
+      const resultsCard = document.getElementById("resultsCard");
+      resultsCard.classList.add("show");
+      document.getElementById("scoreDisplay").textContent = score;
+
+      const percentage = (score / total) * 100;
+      let feedback = "";
+      if (percentage >= 80) {
+        feedback = `Excelente desempenho! Você obteve ${percentage}% de acertos, demonstrando domínio sólido sobre variáveis visuais de Bertin e interpretação morfométrica de curvas de nível.`;
+      } else if (percentage >= 60) {
+        feedback = `Bom rendimento! Você atingiu ${percentage}% de acertos. Revise as resoluções comentadas abaixo, em especial os itens morfométricos e métodos temáticos.`;
+      } else {
+        feedback = `Você obteve ${percentage}% de acertos. A prova da banca do IFMG possui alta exigência conceitual e de cálculo. Estude detidamente os comentários de cada questão abaixo.`;
+      }
+      document.getElementById("resultsMessage").textContent = feedback;
+
+      // Oculta o botão de submissão
+      document.getElementById("actionContainer").style.display = "none";
+
+      // Suaviza rolagem para o painel de resultados
+      resultsCard.scrollIntoView({ behavior: "smooth", block: "start" });
+
+      // Re-renderiza fórmulas nas resoluções recém-abertas
+      renderMathNotation();
+    }
+
+    // Reinicia o simulado para novo treino
+    function resetQuiz() {
+      for (let key in userAnswers) delete userAnswers[key];
+      isEvaluated = false;
+
+      document.getElementById("resultsCard").classList.remove("show");
+      document.getElementById("actionContainer").style.display = "block";
+
+      renderQuiz();
+      updateProgress();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    // Renderização com KaTeX
+    function renderMathNotation() {
+      if (typeof renderMathInElement === "function") {
+        renderMathInElement(document.body, {
+          delimiters: [
+            { left: "$$", right: "$$", display: true },
+            { left: "$", right: "$", display: false }
+          ],
+          throwOnError: false
+        });
+      }
+    }
+
+    // Inicialização ao carregar a página
+    document.addEventListener("DOMContentLoaded", () => {
+      renderQuiz();
+      updateProgress();
+
+      // Aguarda carregamento do KaTeX caso CDN demore alguns milissegundos
+      setTimeout(renderMathNotation, 400);
+    });
+  </script>
+</body>
+</html>
