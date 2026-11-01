@@ -1,0 +1,1192 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Estrutura Geológica e Dinâmica Interna da Terra - IFMG Geografia</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          },
+          colors: {
+            neutral: {
+              50: '#fafafa',
+              100: '#f4f4f5',
+              200: '#e4e4e7',
+              300: '#d4d4d8',
+              400: '#a1a1aa',
+              500: '#71717a',
+              600: '#52525b',
+              700: '#3f3f46',
+              800: '#27272a',
+              900: '#18181b',
+              950: '#09090b',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #ffffff;
+      color: #18181b;
+      line-height: 1.7;
+    }
+    mark.highlight {
+      background-color: #fef08a;
+      color: #713f12;
+      padding: 0.125rem 0.375rem;
+      border-radius: 0.25rem;
+      font-weight: 600;
+    }
+    mark.concept {
+      background-color: #fed7aa;
+      color: #7c2d12;
+      padding: 0.125rem 0.375rem;
+      border-radius: 0.25rem;
+      font-weight: 600;
+    }
+    mark.danger {
+      background-color: #fecaca;
+      color: #7f1d1d;
+      padding: 0.125rem 0.375rem;
+      border-radius: 0.25rem;
+      font-weight: 600;
+    }
+    /* Estilização para garantir tabelas visíveis sem scroll horizontal */
+    .table-responsive-fit {
+      width: 100%;
+      table-layout: fixed;
+      word-wrap: break-word;
+      hyphens: auto;
+    }
+    .table-responsive-fit th,
+    .table-responsive-fit td {
+      overflow-wrap: break-word;
+      word-break: normal;
+    }
+  </style>
+</head>
+<body class="bg-white text-neutral-900 antialiased selection:bg-yellow-200 selection:text-neutral-900">
+
+  <!-- TOPO / CABEÇALHO ACADÊMICO -->
+  <header class="border-b border-neutral-200 bg-white sticky top-0 z-30 shadow-xs">
+    <div class="max-w-5xl mx-auto px-4 py-3 flex flex-wrap items-center justify-between gap-3">
+      <div>
+        <span class="inline-block text-xs uppercase tracking-wider font-bold bg-neutral-100 text-neutral-700 px-2.5 py-1 rounded border border-neutral-300">
+          Concurso Professor EBTT - IFMG
+        </span>
+        <span class="text-xs text-neutral-500 font-medium ml-2">Banca Reitoria IFMG</span>
+      </div>
+      <div class="flex items-center gap-2">
+        <a href="#memorizacao" class="text-xs font-semibold text-neutral-700 hover:text-neutral-950 underline decoration-neutral-300 underline-offset-4">
+          Ir para Fórmulas & Foco de Prova ↓
+        </a>
+        <a href="questoes6geo.html" class="inline-flex items-center gap-1.5 text-xs font-bold bg-neutral-900 text-white px-3 py-1.5 rounded hover:bg-neutral-800 transition">
+          Questões IFMG →
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- CONTEÚDO PRINCIPAL -->
+  <main class="max-w-5xl mx-auto px-4 sm:px-6 py-8">
+
+    <!-- HERO DO TEMA -->
+    <div class="mb-8 border-b border-neutral-200 pb-6">
+      <h1 class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-neutral-950 tracking-tight leading-tight mb-3">
+        Estrutura Geológica e Dinâmica Interna da Terra
+      </h1>
+      <p class="text-base sm:text-lg text-neutral-600 font-normal leading-relaxed">
+        Diretrizes Teóricas, Mecânica Geodinâmica e Matriz de Fixação Objetiva para a Prova de Geografia do IFMG.
+      </p>
+      <div class="mt-4 flex flex-wrap items-center gap-2 text-xs font-medium text-neutral-600">
+        <span class="bg-neutral-100 border border-neutral-200 px-2 py-0.5 rounded">Bibliografia: TEIXEIRA et al. (2009)</span>
+        <span class="bg-neutral-100 border border-neutral-200 px-2 py-0.5 rounded">CHRISTOPHERSON & BIRKELAND (2017)</span>
+        <span class="bg-neutral-100 border border-neutral-200 px-2 py-0.5 rounded">Foco: Associação de Limites & Feições</span>
+      </div>
+    </div>
+
+    <!-- REPRODUTOR DE ÁUDIO CONFIGURÁVEL -->
+    <section class="mb-10 p-5 rounded-lg border border-neutral-300 bg-neutral-50">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-3">
+        <div>
+          <h2 class="text-sm font-bold uppercase tracking-wider text-neutral-900 flex items-center gap-2">
+            <svg class="w-4 h-4 text-neutral-700" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"/>
+            </svg>
+            Reprodutor de Áudio da Aula (Podcast/Resumo MP3)
+          </h2>
+          <p class="text-xs text-neutral-600">Insira abaixo o nome do arquivo MP3 presente na mesma pasta desta página:</p>
+        </div>
+        <span id="audio-status" class="text-xs font-medium px-2 py-0.5 bg-neutral-200 text-neutral-700 rounded self-start sm:self-auto">
+          Pronto para reprodução
+        </span>
+      </div>
+
+      <!-- Barra de Input para o arquivo de áudio -->
+      <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 mb-4">
+        <div class="relative flex-1">
+          <label for="audioFileName" class="sr-only">Nome do arquivo MP3</label>
+          <input 
+            type="text" 
+            id="audioFileName" 
+            value="audio6geo.mp3" 
+            placeholder="Exemplo: audio6geo.mp3 ou resumo_terra.mp3"
+            class="w-full text-xs font-mono bg-white border border-neutral-300 text-neutral-900 px-3 py-2 rounded focus:outline-none focus:ring-2 focus:ring-neutral-800"
+          >
+        </div>
+        <button 
+          id="btnLoadAudio" 
+          type="button" 
+          class="text-xs font-bold bg-neutral-800 text-white px-4 py-2 rounded hover:bg-neutral-900 transition flex items-center justify-center gap-1.5"
+        >
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
+          </svg>
+          Carregar Áudio
+        </button>
+      </div>
+
+      <!-- Player de Áudio Nativo -->
+      <div class="bg-white p-2.5 rounded border border-neutral-200">
+        <audio id="audioPlayer" controls class="w-full h-10 outline-none">
+          <source id="audioSource" src="audio6geo.mp3" type="audio/mpeg">
+          Seu navegador não suporta a reprodução deste arquivo de áudio.
+        </audio>
+      </div>
+      <p class="text-[11px] text-neutral-500 mt-2">
+        <span class="font-semibold text-neutral-700">Dica técnica:</span> Deixe seu arquivo de gravação ou síntese em formato <code class="bg-neutral-200 px-1 py-0.5 rounded text-neutral-800">.mp3</code> no mesmo diretório em que salvou esta página HTML.
+      </p>
+    </section>
+
+    <!-- SEÇÃO 1: ESTRUTURA INTERNA DA TERRA -->
+    <article class="mb-12">
+      <div class="flex items-center gap-2 mb-3">
+        <span class="w-7 h-7 rounded-full bg-neutral-900 text-white flex items-center justify-center font-bold text-xs">1</span>
+        <h2 class="text-xl sm:text-2xl font-bold text-neutral-900">
+          Modelagem da Estrutura Interna da Terra: Critérios Composicionais e Reológicos
+        </h2>
+      </div>
+
+      <p class="text-neutral-700 text-sm sm:text-base mb-4 text-justify">
+        A investigação da geodinâmica do planeta Terra fundamenta-se na dissociação conceitual entre duas abordagens complementares de compartimentação de sua estrutura profunda: o <mark class="concept">modelo químico ou composicional</mark>, pautado na diferenciação petrológica e geoquímica das camadas, e o <mark class="concept">modelo físico ou mecânico/reológico</mark>, estruturado no comportamento mecânico e no estado físico da matéria submetida a gradientes extremos de temperatura e pressão litostática. Em provas de concursos públicos para o magistério federal do IFMG, a alternância indiscriminada entre essas duas nomenclaturas constitui uma das armadilhas taxonômicas mais recorrentes da banca.
+      </p>
+
+      <p class="text-neutral-700 text-sm sm:text-base mb-4 text-justify">
+        A compartimentação geoquímica reflete a diferenciação gravitacional primária ocorrida nos primórdios do Sistema Solar há 4,56 bilhões de anos: elementos siderófilos de alta densidade afundaram para o baricentro, enquanto materiais litófilos mais leves formaram as camadas externas. Sob este ângulo composicional, definem-se três zonas concêntricas: <mark class="highlight">Crosta Terrestre, Manto e Núcleo</mark>.
+      </p>
+
+      <!-- CARDS COMPOSICIONAIS -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 my-6">
+        <div class="p-4 border border-neutral-300 rounded-lg bg-white">
+          <div class="text-xs uppercase font-bold text-neutral-500 mb-1">Camada Química 01</div>
+          <h3 class="font-bold text-neutral-900 text-base mb-2">Crosta Terrestre</h3>
+          <p class="text-xs text-neutral-700 mb-2 leading-relaxed">
+            Menos de 1% do volume global. Marcada por forte dualidade constitutiva:
+          </p>
+          <ul class="text-xs text-neutral-700 space-y-1.5 list-disc list-inside">
+            <li><strong class="text-neutral-900">Crosta Continental:</strong> 30 a 70 km de espessura; densidade média de <mark class="highlight">2,7 g/cm³</mark>; composição félsica (granitos e metamórficas) rica em Si e Al (<mark class="concept">camada SiAl</mark>); rochas antigas até o Arqueano.</li>
+            <li><strong class="text-neutral-900">Crosta Oceânica:</strong> 5 a 10 km de espessura; densidade superior de <mark class="highlight">3,0 g/cm³</mark>; composição máfica (basaltos e gabros) rica em Si e Mg (<mark class="concept">camada SiMa</mark>); idade inferior a 200 Ma devido à contínua reciclagem por subducção.</li>
+          </ul>
+        </div>
+
+        <div class="p-4 border border-neutral-300 rounded-lg bg-white">
+          <div class="text-xs uppercase font-bold text-neutral-500 mb-1">Camada Química 02</div>
+          <h3 class="font-bold text-neutral-900 text-base mb-2">Manto Terrestre</h3>
+          <p class="text-xs text-neutral-700 mb-2 leading-relaxed">
+            Estende-se da Moho até 2.900 km de profundidade. Abriga ~83% do volume e 67% da massa do planeta.
+          </p>
+          <ul class="text-xs text-neutral-700 space-y-1.5 list-disc list-inside">
+            <li>Composição <mark class="highlight">ultramáfica</mark> dominada por peridotitos ricos em olivina e piroxênio.</li>
+            <li><strong class="text-neutral-900">Manto Superior:</strong> Vai até 660 km, incluindo a zona de transição mineralógica (olivina → espinela → ringwoodita).</li>
+            <li><strong class="text-neutral-900">Manto Inferior:</strong> De 660 a 2.900 km, reorganizado em fases de alta pressão como <mark class="concept">bridgmanita e magnesiowüstita</mark>.</li>
+          </ul>
+        </div>
+
+        <div class="p-4 border border-neutral-300 rounded-lg bg-white">
+          <div class="text-xs uppercase font-bold text-neutral-500 mb-1">Camada Química 03</div>
+          <h3 class="font-bold text-neutral-900 text-base mb-2">Núcleo Terrestre (Nife)</h3>
+          <p class="text-xs text-neutral-700 mb-2 leading-relaxed">
+            Dos 2.900 km até o centro do globo a 6.371 km de profundidade. Raio de ~3.470 km.
+          </p>
+          <ul class="text-xs text-neutral-700 space-y-1.5 list-disc list-inside">
+            <li>Composição metálica de liga <mark class="highlight">Ferro-Níquel (Fe-Ni)</mark> (~85-90% Fe, 5% Ni).</li>
+            <li>Presença de elementos químicos leves secundários (enxofre, silício, oxigênio, carbono).</li>
+            <li>Responde pelas maiores massas específicas e pelo baricentro gravitacional do planeta.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- CAMADAS MECÂNICAS / REOLÓGICAS -->
+      <h3 class="text-base sm:text-lg font-bold text-neutral-900 mt-6 mb-3">
+        Compartimentação Reológica (Física e Mecânica): As Quatro Geosferas Dinâmicas
+      </h3>
+      <p class="text-neutral-700 text-sm sm:text-base mb-4 text-justify">
+        Os limites reológicos não coincidem perfeitamente com os limites químicos, mas governam diretamente a mecânica das placas litosféricas e os fluxos térmicos:
+      </p>
+
+      <div class="space-y-3 mb-6">
+        <div class="p-3.5 border border-neutral-200 rounded-md bg-white">
+          <h4 class="font-bold text-sm text-neutral-950 flex items-center gap-1.5">
+            <span class="w-2 h-2 rounded-full bg-neutral-900"></span>
+            Litosfera (Crosta + Topo Mantélico)
+          </h4>
+          <p class="text-xs sm:text-sm text-neutral-700 mt-1">
+            Camada superficial <mark class="highlight">mecanicamente rígida, elástica e quebradiça</mark>, que responde a esforços tectônicos por fraturamento ou deformação elástica. Compreende toda a Crosta somada ao topo do manto superior (manto litosférico). Sua base térmica é delimitada pela isoterma de 1.300 °C. Varia de apenas 5 km sob o rifte das dorsais a mais de 200 km sob os velhos escudos cratônicos. Constitui as placas tectônicas.
+          </p>
+        </div>
+
+        <div class="p-3.5 border border-neutral-200 rounded-md bg-white">
+          <h4 class="font-bold text-sm text-neutral-950 flex items-center gap-1.5">
+            <span class="w-2 h-2 rounded-full bg-neutral-900"></span>
+            Astenosfera (~100 km a 410 km)
+          </h4>
+          <p class="text-xs sm:text-sm text-neutral-700 mt-1">
+            Manto superior subjacente à litosfera com comportamento mecânico <mark class="concept">plástico, dúctil e viscoso</mark> no tempo geológico. <mark class="danger">Atenção para a prova:</mark> a astenosfera <strong>não é líquida</strong> nem um mar de magma! Encontra-se em estado predominantemente sólido, mas submetida a uma tênue <mark class="highlight">fusão parcial intergranular de 1% a 5%</mark>. Essa fração fluida gera a Zona de Baixa Velocidade sísmica (ZBV) e serve como zona de desacoplamento mecânico onde a litosfera desliza.
+          </p>
+        </div>
+
+        <div class="p-3.5 border border-neutral-200 rounded-md bg-white">
+          <h4 class="font-bold text-sm text-neutral-950 flex items-center gap-1.5">
+            <span class="w-2 h-2 rounded-full bg-neutral-900"></span>
+            Mesosfera (660 km a 2.900 km)
+          </h4>
+          <p class="text-xs sm:text-sm text-neutral-700 mt-1">
+            Equivale ao manto inferior. Embora atinja temperaturas elevadas (2.000 °C a 3.700 °C), a colossal pressão confinante impede a fusão dos silicatos, conferindo a esta camada comportamento <mark class="highlight">perfeitamente sólido e alta rigidez elástica</mark>. O calor interno aqui é transportado por convecção de estado sólido em taxas ultralentas.
+          </p>
+        </div>
+
+        <div class="p-3.5 border border-neutral-200 rounded-md bg-white">
+          <h4 class="font-bold text-sm text-neutral-950 flex items-center gap-1.5">
+            <span class="w-2 h-2 rounded-full bg-neutral-900"></span>
+            Endosfera (O Núcleo sob o Ponto de Vista Físico)
+          </h4>
+          <ul class="text-xs sm:text-sm text-neutral-700 mt-1 space-y-1 list-disc list-inside">
+            <li><strong class="text-neutral-900">Endosfera Externa (Núcleo Externo - 2.900 a 5.150 km):</strong> Encontra-se em estado rigorosamente <mark class="highlight">LÍQUIDO</mark>. As altas temperaturas superam a pressão, gerando convecção turbulenta do fluido metálico condutor de Fe-Ni que, associada à rotação da Terra (força de Coriolis), cria e regenera o campo geomagnético pelo mecanismo do <mark class="concept">geodínamo</mark>.</li>
+            <li><strong class="text-neutral-900">Endosfera Interna (Núcleo Interno - 5.150 a 6.371 km):</strong> Encontra-se em estado rigorosamente <mark class="highlight">SÓLIDO cristalino</mark>. A despeito de registrar temperaturas na casa de 5.000 a 6.000 °C, as pressões confinantes hiperbólicas (&gt;3,3 milhões de atm) forçam o arranjo atômico metálico compacto.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- TABELA 1: COMPOSIÇÃO X REOLOGIA (SEM SCROLL HORIZONTAL) -->
+      <div class="my-6">
+        <h4 class="text-xs font-bold uppercase tracking-wider text-neutral-600 mb-2">
+          Quadro Comparativo Integrado: Camadas Químicas vs. Reológicas
+        </h4>
+        <div class="border border-neutral-300 rounded overflow-hidden">
+          <table class="table-responsive-fit text-[11px] sm:text-xs">
+            <thead class="bg-neutral-100 border-b border-neutral-300 text-neutral-900 font-bold">
+              <tr>
+                <th class="p-2 text-left w-[20%]">Camada Composicional</th>
+                <th class="p-2 text-left w-[15%]">Espessura / Prof.</th>
+                <th class="p-2 text-left w-[25%]">Composição e Densidade</th>
+                <th class="p-2 text-left w-[20%]">Camada Reológica</th>
+                <th class="p-2 text-left w-[20%]">Comportamento Mecânico</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-neutral-200">
+              <tr>
+                <td class="p-2 font-semibold">Crosta Continental</td>
+                <td class="p-2">30 a 70 km</td>
+                <td class="p-2">Félsica (SiAl, granitos), 2,7 g/cm³</td>
+                <td class="p-2 font-medium">Litosfera (topo)</td>
+                <td class="p-2">Rígido, quebradiço, elástico</td>
+              </tr>
+              <tr class="bg-neutral-50/50">
+                <td class="p-2 font-semibold">Crosta Oceânica</td>
+                <td class="p-2">5 a 10 km</td>
+                <td class="p-2">Máfica (SiMa, basaltos), 3,0 g/cm³</td>
+                <td class="p-2 font-medium">Litosfera (topo)</td>
+                <td class="p-2">Rígido, recicla nas fossas</td>
+              </tr>
+              <tr>
+                <td class="p-2 font-semibold">Manto Superior</td>
+                <td class="p-2">Moho até 660 km</td>
+                <td class="p-2">Ultramáfica (peridotitos, olivina)</td>
+                <td class="p-2 font-medium">Astenosfera (~100-410 km)</td>
+                <td class="p-2">Plástico, fusão parcial (1-5%), ZBV</td>
+              </tr>
+              <tr class="bg-neutral-50/50">
+                <td class="p-2 font-semibold">Manto Inferior</td>
+                <td class="p-2">660 a 2.900 km</td>
+                <td class="p-2">Óxidos densos (bridgmanita)</td>
+                <td class="p-2 font-medium">Mesosfera</td>
+                <td class="p-2">Sólido rígido de alta pressão</td>
+              </tr>
+              <tr>
+                <td class="p-2 font-semibold">Núcleo Externo</td>
+                <td class="p-2">2.900 a 5.150 km</td>
+                <td class="p-2">Metálica: Liga Fe-Ni fluida</td>
+                <td class="p-2 font-medium">Endosfera Externa</td>
+                <td class="p-2 font-bold text-neutral-900">LÍQUIDO (gera o Geodínamo)</td>
+              </tr>
+              <tr class="bg-neutral-50/50">
+                <td class="p-2 font-semibold">Núcleo Interno</td>
+                <td class="p-2">5.150 a 6.371 km</td>
+                <td class="p-2">Metálica: Liga Fe-Ni cristalizada</td>
+                <td class="p-2 font-medium">Endosfera Interna</td>
+                <td class="p-2 font-bold text-neutral-900">SÓLIDO hiperdenso sob pressão</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </article>
+
+    <!-- SEÇÃO 2: COMPORTAMENTO SÍSMICO E DESCONTINUIDADES -->
+    <article class="mb-12">
+      <div class="flex items-center gap-2 mb-3">
+        <span class="w-7 h-7 rounded-full bg-neutral-900 text-white flex items-center justify-center font-bold text-xs">2</span>
+        <h2 class="text-xl sm:text-2xl font-bold text-neutral-900">
+          Comportamento Sísmico e Descontinuidades Internas da Terra
+        </h2>
+      </div>
+
+      <p class="text-neutral-700 text-sm sm:text-base mb-4 text-justify">
+        O conhecimento da arquitetura interna baseia-se em métodos geofísicos indiretos, notadamente a propagação de ondas sísmicas de volume ($P$ e $S$). Ao atingirem interfaces de diferentes densidades e propriedades elásticas, os raios sísmicos sofrem refração e reflexão segundo as leis de Snell-Descartes.
+      </p>
+
+      <!-- CAIXAS DE FÓRMULAS E ONDAS -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 my-6">
+        <div class="p-4 border border-neutral-300 rounded-lg bg-white">
+          <h3 class="font-bold text-neutral-900 text-sm mb-2 flex items-center gap-2">
+            <span class="px-2 py-0.5 rounded bg-neutral-200 text-neutral-800 text-xs font-mono font-bold">Ondas P</span>
+            Primárias / Longitudinais / Compressivas
+          </h3>
+          <p class="text-xs text-neutral-700 mb-2 leading-relaxed">
+            As partículas do meio oscilam na <strong>mesma direção</strong> de propagação da onda (compressão e descompressão volumétrica). São as mais rápidas e <mark class="highlight">atravessam sólidos, líquidos e gases</mark>.
+          </p>
+          <div class="p-2.5 bg-neutral-50 border border-neutral-200 rounded font-mono text-xs text-neutral-800 text-center">
+            V<sub>p</sub> = √ [ (K + 4/3 μ) / ρ ]
+          </div>
+          <p class="text-[11px] text-neutral-500 mt-2">
+            <em>K</em> = incompressibilidade volumétrica | <em>μ</em> = módulo de cisalhamento (rigidez) | <em>ρ</em> = densidade.
+          </p>
+        </div>
+
+        <div class="p-4 border border-neutral-300 rounded-lg bg-white">
+          <h3 class="font-bold text-neutral-900 text-sm mb-2 flex items-center gap-2">
+            <span class="px-2 py-0.5 rounded bg-neutral-200 text-neutral-800 text-xs font-mono font-bold">Ondas S</span>
+            Secundárias / Transversais / Cisalhantes
+          </h3>
+          <p class="text-xs text-neutral-700 mb-2 leading-relaxed">
+            A oscilação das partículas ocorre de modo <strong>perpendicular</strong> à trajetória do raio sísmico. Exigem resistência física ao cisalhamento lateral (rigidez).
+          </p>
+          <div class="p-2.5 bg-neutral-50 border border-neutral-200 rounded font-mono text-xs text-neutral-800 text-center">
+            V<sub>s</sub> = √ [ μ / ρ ]
+          </div>
+          <p class="text-[11px] text-neutral-800 mt-2 font-medium">
+            <mark class="danger">REGRA DE OURO:</mark> Como fluidos e líquidos não resistem ao cisalhamento, <strong>μ = 0</strong>, logo <strong>V<sub>s</sub> = 0</strong>. Ondas S <mark class="danger">NÃO se propagam no núcleo externo líquido</mark>.
+          </p>
+        </div>
+      </div>
+
+      <!-- DESCONTINUIDADES PRINCIPAIS -->
+      <div class="space-y-4 mb-6">
+        <div class="p-4 border-l-4 border-neutral-900 bg-neutral-50 rounded-r-md">
+          <h4 class="font-bold text-sm text-neutral-950">
+            1. Descontinuidade de Mohorovičić (Moho) - Descoberta em 1909
+          </h4>
+          <p class="text-xs sm:text-sm text-neutral-700 mt-1">
+            Marca o limite petrológico entre a <mark class="highlight">Crosta Terrestre e o Manto Superior</mark>. Profundidade variável: 5 a 10 km sob oceanos e 30 a 70 km sob continentes e cordilheiras. É identificada por uma <mark class="concept">aceleração brusca de V<sub>p</sub></mark> (passando de ~6,5 km/s para mais de 8,1 km/s) e de V<sub>s</sub> (de ~3,7 km/s para &gt;4,5 km/s), decorrente da transição para os densos peridotitos mantélicos.
+          </p>
+        </div>
+
+        <div class="p-4 border-l-4 border-neutral-900 bg-neutral-50 rounded-r-md">
+          <h4 class="font-bold text-sm text-neutral-950">
+            2. Descontinuidade de Gutenberg (Wiechert-Gutenberg) - Fixada em 1913
+          </h4>
+          <p class="text-xs sm:text-sm text-neutral-700 mt-1">
+            Marca o limite entre o <mark class="highlight">Manto Inferior (Mesosfera) e o Núcleo Externo Líquido</mark> a exatos <mark class="highlight">2.900 km de profundidade</mark>. Caracterizada pela <mark class="danger">anulação completa e imediata das Ondas S</mark> e por uma <mark class="concept">queda drástica na velocidade das Ondas P</mark> (de 13,7 km/s para 8,1 km/s) devido à perda de rigidez do meio líquido de Fe-Ni.
+          </p>
+        </div>
+
+        <div class="p-4 border-l-4 border-neutral-400 bg-neutral-50 rounded-r-md">
+          <h4 class="font-bold text-sm text-neutral-950">
+            3. Zonas de Sombra Sísmica & Descontinuidades Complementares
+          </h4>
+          <ul class="text-xs sm:text-sm text-neutral-700 mt-1 space-y-1 list-disc list-inside">
+            <li><strong class="text-neutral-900">Zona de Sombra da Onda P (103° a 142°):</strong> Ocorre pelo desvio por refração acentuada das ondas compressivas ao penetrarem no núcleo líquido mais lento.</li>
+            <li><strong class="text-neutral-900">Zona de Sombra da Onda S (103° a 180°):</strong> Extensa faixa oposta ao epicentro onde nenhuma onda S direta é registrada, provando a natureza fluida do núcleo externo.</li>
+            <li><strong class="text-neutral-900">Descontinuidade de Lehmann (5.150 km):</strong> Transição entre o Núcleo Externo (líquido) e o Núcleo Interno (sólido), revelada pelo aumento de velocidade de refração das ondas P.</li>
+            <li><strong class="text-neutral-900">Descontinuidade de Conrad (10 a 20 km):</strong> Limite intracrustal continental entre a crosta superior granítica e a crosta inferior diorítica/granulítica.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- TABELA 2: DESCONTINUIDADES SÍSMICAS (SEM SCROLL HORIZONTAL) -->
+      <div class="my-6">
+        <h4 class="text-xs font-bold uppercase tracking-wider text-neutral-600 mb-2">
+          Resumo Estrutural das Descontinuidades Geofísicas
+        </h4>
+        <div class="border border-neutral-300 rounded overflow-hidden">
+          <table class="table-responsive-fit text-[11px] sm:text-xs">
+            <thead class="bg-neutral-100 border-b border-neutral-300 text-neutral-900 font-bold">
+              <tr>
+                <th class="p-2 text-left w-[20%]">Descontinuidade</th>
+                <th class="p-2 text-left w-[18%]">Profundidade</th>
+                <th class="p-2 text-left w-[22%]">Divisão Estrutural</th>
+                <th class="p-2 text-left w-[22%]">Comportamento Sísmico</th>
+                <th class="p-2 text-left w-[18%]">Significado Físico</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-neutral-200">
+              <tr>
+                <td class="p-2 font-semibold">Conrad</td>
+                <td class="p-2">10 a 20 km</td>
+                <td class="p-2">Crosta Sup. / Crosta Inf.</td>
+                <td class="p-2">Aumento tênue de V<sub>p</sub> (6,0 → 6,6 km/s)</td>
+                <td class="p-2">Quimismo félsico → intermediário</td>
+              </tr>
+              <tr class="bg-neutral-50/50">
+                <td class="p-2 font-semibold">Mohorovičić (Moho)</td>
+                <td class="p-2">5-10 km (oc.) / 30-70 km (cont.)</td>
+                <td class="p-2">Crosta Terrestre / Manto Superior</td>
+                <td class="p-2 font-medium">Salto rápido de V<sub>p</sub> (&gt;8,1 km/s) e V<sub>s</sub> (&gt;4,5 km/s)</td>
+                <td class="p-2">Base da crosta; topo dos peridotitos</td>
+              </tr>
+              <tr>
+                <td class="p-2 font-semibold">Gutenberg</td>
+                <td class="p-2 font-bold">2.900 km</td>
+                <td class="p-2">Manto Inferior / Núcleo Externo</td>
+                <td class="p-2 font-bold text-neutral-900">V<sub>s</sub> cai para ZERO; V<sub>p</sub> cai de 13,7 para 8,1 km/s</td>
+                <td class="p-2">Passagem de rocha silicatada sólida para fluido metálico</td>
+              </tr>
+              <tr class="bg-neutral-50/50">
+                <td class="p-2 font-semibold">Lehmann</td>
+                <td class="p-2 font-bold">5.150 km</td>
+                <td class="p-2">Núcleo Externo / Núcleo Interno</td>
+                <td class="p-2">Salto na velocidade das ondas P</td>
+                <td class="p-2">Transição de líquido para cristal metálico sólido</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </article>
+
+    <!-- SEÇÃO 3: DERIVA CONTINENTAL À TECTÔNICA DE PLACAS -->
+    <article class="mb-12">
+      <div class="flex items-center gap-2 mb-3">
+        <span class="w-7 h-7 rounded-full bg-neutral-900 text-white flex items-center justify-center font-bold text-xs">3</span>
+        <h2 class="text-xl sm:text-2xl font-bold text-neutral-900">
+          Da Deriva Continental à Tectônica de Placas: Evolução Conceitual e Mecanismos Motores
+        </h2>
+      </div>
+
+      <p class="text-neutral-700 text-sm sm:text-base mb-4 text-justify">
+        A unificação paradigmática das geociências sucedeu a hipótese da <mark class="concept">Deriva Continental</mark>, formulada em 1912 por <strong>Alfred Wegener</strong> em sua obra <em>Die Entstehung der Kontinente und Ozeane</em> (1915). Wegener defendeu que no fim do Paleozoico as terras emersas formavam um único supercontinente (<mark class="highlight">Pangeia</mark>), banhado pelo oceano universal <mark class="highlight">Pantalassa</mark>.
+      </p>
+
+      <!-- OS 4 CONJUNTOS DE EVIDÊNCIAS DE WEGENER -->
+      <h3 class="text-base sm:text-lg font-bold text-neutral-900 mt-4 mb-3">
+        As 4 Linhas Clássicas de Evidências Apresentadas por Alfred Wegener
+      </h3>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mb-6">
+        <div class="p-3 border border-neutral-300 rounded bg-white">
+          <h4 class="font-bold text-xs sm:text-sm text-neutral-900 mb-1">1. Evidências Morfocartográficas</h4>
+          <p class="text-xs text-neutral-700">
+            Encaixe geométrico complementar entre linhas de costa opostas, especialmente entre a América do Sul e a África. Edward Bullard (1965) comprovou com modelos computacionais que o encaixe geométrico ideal atinge 99% de perfeição na <mark class="highlight">isóbata de 2.000 metros de profundidade</mark> (borda do talude continental), e não na linha de praia atual.
+          </p>
+        </div>
+
+        <div class="p-3 border border-neutral-300 rounded bg-white">
+          <h4 class="font-bold text-xs sm:text-sm text-neutral-900 mb-1">2. Evidências Paleontológicas</h4>
+          <p class="text-xs text-neutral-700">
+            Fósseis contemporâneos idênticos em bacias sedimentares hoje isoladas por oceanos abissais: réptil aquático de água doce <mark class="highlight">Mesosaurus brasiliensis</mark> (Formação Irati no Brasil e Whitehill na África do Sul); répteis triássicos terrestres <em>Cynognathus</em> e <em>Lystrosaurus</em>; e a flora de sementes e pteridófitas primitivas <mark class="highlight">Glossopteris</mark> espalhada por todo o Gondwana.
+          </p>
+        </div>
+
+        <div class="p-3 border border-neutral-300 rounded bg-white">
+          <h4 class="font-bold text-xs sm:text-sm text-neutral-900 mb-1">3. Evidências Geológico-Estruturais</h4>
+          <p class="text-xs text-neutral-700">
+            Continuidade truncada de cinturões orogênicos proterozoicos e províncias cratônicas de mesma assinatura geocronológica e petrológica. Ao reunir os blocos continentais, faixas dobradas do Nordeste e Sudeste do Brasil coincidem perfeitamente com os cinturões homólogos da África Ocidental.
+          </p>
+        </div>
+
+        <div class="p-3 border border-neutral-300 rounded bg-white">
+          <h4 class="font-bold text-xs sm:text-sm text-neutral-900 mb-1">4. Evidências Paleoclimáticas</h4>
+          <p class="text-xs text-neutral-700">
+            Depósitos de morenas glaciais consolidadas (<mark class="highlight">tilitos permocarboníferos</mark>), lajes de rocha polida com estrias glaciais e relevos tipo <em>roches moutonnées</em> de ~300 Ma encontrados no sul da América do Sul, África Austral, Índia e Austrália. Reconstruções paleogeográficas mostram que essas áreas estavam unidas em torno do polo sul.
+          </p>
+        </div>
+      </div>
+
+      <div class="p-3.5 bg-neutral-100 border border-neutral-300 rounded text-xs sm:text-sm text-neutral-800 mb-6">
+        <strong class="text-neutral-900">Por que Wegener foi rejeitado pela academia de sua época?</strong><br>
+        Wegener postulava que os continentes navegavam sobre o assoalho oceânico impulsionados pela rotação da Terra (força centrífuga de fuga polar) e por marés gravitacionais do Sol e da Lua. O geofísico Harold Jeffreys provou que essas forças eram ordens de grandeza insuficientes para rasgar a crosta siálica. Faltava um mecanismo motor crível.
+      </div>
+
+      <!-- AVANÇO PÓS-GUERRA E TEORIA MODERNA -->
+      <h3 class="text-base sm:text-lg font-bold text-neutral-900 mt-4 mb-3">
+        A Consolidação da Tectônica de Placas e os Motores Térmicos
+      </h3>
+      <p class="text-neutral-700 text-sm sm:text-base mb-4 text-justify">
+        Na década de 1930, <strong>Arthur Holmes</strong> sugeriu correntes de convecção térmica mantélicas. Nas décadas de 1950 e 1960, com o sonar batimétrico, <strong>Harry Hess e Robert Dietz</strong> formularam a teoria da <mark class="concept">Expansão do Assoalho Oceânico</mark> (as dorsais criam crosta basáltica continuamente e as fossas a reciclam). Em 1963, <strong>Vine, Matthews e Morley</strong> comprovaram a hipótese ao mapearem o <mark class="highlight">paleomagnetismo simétrico</mark> em bandas alternadas de polaridade normal e invertida espelhadas ao longo da Dorsal Mesoatlântica.
+      </p>
+
+      <div class="p-4 border border-neutral-300 rounded-lg bg-white my-4">
+        <h4 class="font-bold text-sm text-neutral-900 mb-2">As Três Forças Motoras da Dinâmica Tectônica Atual:</h4>
+        <div class="space-y-2 text-xs sm:text-sm text-neutral-700">
+          <p>
+            <strong class="text-neutral-900">1. Slab Pull (Tração da Placa em Mergulho - Força Primária):</strong> À medida que a litosfera oceânica envelhece e se resfria, torna-se mais densa que a astenosfera. Ao afundar nas zonas de subducção, transforma-se mineralogicamente em eclogito hiperdenso, e seu peso puxa gravitacionalmente toda a placa para baixo. É o <mark class="highlight">motor dominante</mark>.
+          </p>
+          <p>
+            <strong class="text-neutral-900">2. Ridge Push (Empuxo da Crista Meso-Oceânica):</strong> Força gravitacional gerada pela cota topográfica elevada das dorsais submarinas aquecidas em relação às planícies abissais profundas e frias, deslizando lateralmente a placa.
+          </p>
+          <p>
+            <strong class="text-neutral-900">3. Basal Drag (Arrasto Mantélico Convectivo):</strong> Força de fricção por cisalhamento exercida pela movimentação das células convectivas na astenosfera sobre a base da litosfera.
+          </p>
+        </div>
+      </div>
+    </article>
+
+    <!-- SEÇÃO 4: LIMITES DE PLACAS E FEIÇÕES (FOCO MÁXIMO DO EDITAL) -->
+    <article class="mb-12">
+      <div class="flex items-center gap-2 mb-3">
+        <span class="w-7 h-7 rounded-full bg-neutral-900 text-white flex items-center justify-center font-bold text-xs">4</span>
+        <h2 class="text-xl sm:text-2xl font-bold text-neutral-900">
+          Limites de Placas Tectônicas e Feições Geomorfológicas Associadas
+        </h2>
+      </div>
+
+      <p class="text-neutral-700 text-sm sm:text-base mb-4 text-justify">
+        Este é o tópico com maior taxa de recorrência em provas da banca do IFMG: a associação direta entre a <mark class="concept">cinemática do limite</mark>, o <mark class="concept">regime mecânico atuante</mark> e a <mark class="highlight">feição de relevo resultante</mark>.
+      </p>
+
+      <!-- LIMITES DIVERGENTES -->
+      <div class="mb-6 p-4 border border-neutral-300 rounded-lg bg-white">
+        <h3 class="font-bold text-base text-neutral-900 mb-2 flex items-center gap-2">
+          <span class="px-2 py-0.5 rounded bg-neutral-100 text-neutral-800 text-xs font-mono font-bold">Divergente</span>
+          Limites Divergentes ou Construtivos (Regime de Tração / Extensão)
+        </h3>
+        <p class="text-xs sm:text-sm text-neutral-700 mb-3 text-justify">
+          Duas placas se afastam, promovendo descompressão adiabática do manto, fusão peridotítica parcial e extravasamento basáltico com criação de nova crosta. Possui dois estágios evolutivos cruciais:
+        </p>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs sm:text-sm text-neutral-700">
+          <div class="p-3 bg-neutral-50 rounded border border-neutral-200">
+            <strong class="text-neutral-900 block mb-1">Rifteamento Continental (Estágio Inicial)</strong>
+            Fracionamento da crosta por falhas normais escalonadas gerando depressões lineares (grabens) ladeadas por blocos soerguidos (horsts), com vulcanismo fissural e lagos de fossa tectônica.<br>
+            <span class="font-bold text-neutral-900">Exemplo clássico:</span> <mark class="highlight">Grande Vale do Rift do Leste Africano</mark> (East African Rift System - placas Núbia e Somali, lagos Tanganica e Malaui, vulcões Kilimanjaro e Quênia) e a fase proto-oceânica do <mark class="highlight">Mar Vermelho</mark>.
+          </div>
+          <div class="p-3 bg-neutral-50 rounded border border-neutral-200">
+            <strong class="text-neutral-900 block mb-1">Dorsais Oceânicas (Estágio Maduro)</strong>
+            Cadeias de montanhas submarinas globais com vale de rifte axial, emissão de pillow lavas (lavas almofadadas) e fontes hidrotermais submarinas. Sismos rasos constantes.<br>
+            <span class="font-bold text-neutral-900">Exemplo clássico:</span> <mark class="highlight">Dorsal Mesoatlântica</mark> (divide América do Sul da África e América do Norte da Eurásia) e a <mark class="highlight">Islândia</mark> (trecho emerso da dorsal associado a uma pluma mantélica/hot spot).
+          </div>
+        </div>
+      </div>
+
+      <!-- LIMITES CONVERGENTES -->
+      <div class="mb-6 p-4 border border-neutral-300 rounded-lg bg-white">
+        <h3 class="font-bold text-base text-neutral-900 mb-2 flex items-center gap-2">
+          <span class="px-2 py-0.5 rounded bg-neutral-100 text-neutral-800 text-xs font-mono font-bold">Convergente</span>
+          Limites Convergentes ou Destrutivos (Regime de Compressão / Choque)
+        </h3>
+        <p class="text-xs sm:text-sm text-neutral-700 mb-3 text-justify">
+          Duas placas colidem. A morfologia resultante é estritamente condicionada pela densidade relativa das crostas em choque:
+        </p>
+
+        <div class="space-y-3 text-xs sm:text-sm text-neutral-700">
+          <div class="p-3 bg-neutral-50 rounded border border-neutral-200">
+            <strong class="text-neutral-900 font-bold">A. Oceânico-Continental (Subducção Tipo Andino):</strong>
+            A placa oceânica densa mergulha sob a continental leve. Minerais hidratados liberam água no manto a 100 km de profundidade, provocando fusão parcial por hidratação (<mark class="concept">flux melting</mark>) e vulcanismo andesítico explosivo. A interface de atrito define o plano inclinado de sismos rasos a profundos (<mark class="highlight">Zona de Wadati-Benioff</mark>).<br>
+            <span class="font-bold text-neutral-900">Feição e Exemplo:</span> <mark class="highlight">Cordilheira dos Andes</mark> e a trincheira oceânica paralela da <mark class="highlight">Fossa do Peru-Chile</mark> (subducção da Placa de Nazca sob a Placa Sul-Americana).
+          </div>
+
+          <div class="p-3 bg-neutral-50 rounded border border-neutral-200">
+            <strong class="text-neutral-900 font-bold">B. Oceânico-Oceânico (Subducção Tipo Arco de Ilhas):</strong>
+            A placa oceânica mais velha, fria e densa sofre subducção sob a placa oceânica mais jovem. Cria fossas abissais ultraprofundas e vulcões submarinos que emergem como cordilheiras insulares curvadas.<br>
+            <span class="font-bold text-neutral-900">Feição e Exemplos:</span> <mark class="highlight">Arcos de Ilhas Vulcânicas do Japão</mark>, Filipinas, Ilhas Aleutas e a fossa mais profunda do planeta: a <mark class="highlight">Fossa das Marianas</mark> (11.034 m).
+          </div>
+
+          <div class="p-3 bg-neutral-50 rounded border border-neutral-200">
+            <strong class="text-neutral-900 font-bold">C. Continental-Continental (Colisão Orogênica Tipo Himalaiano):</strong>
+            Após o consumo da crosta oceânica intermediária, duas massas continentais espessas e leves colidem. Como nenhuma consegue afundar no manto, a crosta é encurtada, dobrada, empilhada e duplicada por falhas de empurrão (Moho atinge até 70 km). Ocorrem sismos devastadores de hipocentro raso a intermediário.<br>
+            <mark class="danger">PEGADINHA DE PROVA:</mark> Há <mark class="danger">AUSÊNCIA TOTAL DE VULCANISMO ATIVO</mark> no Himalaia, pois não existe subducção atual para alimentar câmaras magmáticas.<br>
+            <span class="font-bold text-neutral-900">Feição e Exemplos:</span> <mark class="highlight">Cadeia do Himalaia</mark> e Planalto do Tibete (colisão da Placa Indiana contra a Euro-Asiática) e a cadeia dos <mark class="highlight">Alpes</mark> na Europa.
+          </div>
+
+          <div class="p-3 bg-neutral-50 rounded border border-neutral-200">
+            <strong class="text-neutral-900 font-bold">D. Mecanismo de Obducção e Complexos Ofiolíticos:</strong>
+            Enquanto a subducção é o afundamento no manto, a <mark class="highlight">obducção</mark> é o cavalgamento forçado de lascas da crosta oceânica máfica e de peridotitos do manto superior <mark class="concept">sobre a margem continental</mark> durante a colisão. Essas rochas do antigo assoalho marinho preservadas nos continentes chamam-se <mark class="highlight">ofiolitos</mark> (ex.: Ofiolito de Semail em Omã).
+          </div>
+        </div>
+      </div>
+
+      <!-- LIMITES TRANSFORMATES -->
+      <div class="mb-6 p-4 border border-neutral-300 rounded-lg bg-white">
+        <h3 class="font-bold text-base text-neutral-900 mb-2 flex items-center gap-2">
+          <span class="px-2 py-0.5 rounded bg-neutral-100 text-neutral-800 text-xs font-mono font-bold">Transformante</span>
+          Limites Transformantes ou Conservativos (Regime de Cisalhamento Transcorrente)
+        </h3>
+        <p class="text-xs sm:text-sm text-neutral-700 mb-2 text-justify">
+          As placas deslizam horizontalmente uma ao lado da outra ao longo de falhas transcorrentes verticais. <mark class="highlight">Não há criação de crosta e nem destruição de litosfera</mark>.
+        </p>
+        <ul class="text-xs sm:text-sm text-neutral-700 space-y-1.5 list-disc list-inside">
+          <li><mark class="danger">AUSÊNCIA TOTAL DE VULCANISMO:</mark> Não há mergulho para fusão nem rifteamento para descompressão.</li>
+          <li><strong class="text-neutral-900">Sismicidade severa e exclusivamente rasa (&lt;20-30 km):</strong> O acoplamento por atrito friccional lateral acumula energia elástica até o rompimento catastrófico.</li>
+          <li><span class="font-bold text-neutral-900">Feição e Exemplos clássicos:</span> Vales de fratura lineares, escarpas retilíneas e deflexão de canais fluviais. Ex.: <mark class="highlight">Falha de San Andreas</mark> na Califórnia (Placa do Pacífico deslizando contra a Placa Norte-Americana) e a <mark class="highlight">Falha Norte-Anatólica</mark> na Turquia.</li>
+        </ul>
+      </div>
+
+      <!-- TABELA 3: LIMITES DE PLACAS GERAL (SEM SCROLL HORIZONTAL, COUBE INTEIRA) -->
+      <div class="my-6">
+        <h4 class="text-xs font-bold uppercase tracking-wider text-neutral-600 mb-2">
+          Matriz Geral Comparativa dos Limites de Placas Tectônicas
+        </h4>
+        <div class="border border-neutral-300 rounded overflow-hidden">
+          <table class="table-responsive-fit text-[10px] sm:text-[11px] leading-tight">
+            <thead class="bg-neutral-100 border-b border-neutral-300 text-neutral-900 font-bold">
+              <tr>
+                <th class="p-1.5 text-left w-[14%]">Tipo de Limite</th>
+                <th class="p-1.5 text-left w-[12%]">Regime Dinâmico</th>
+                <th class="p-1.5 text-left w-[14%]">Dinâmica Crustal</th>
+                <th class="p-1.5 text-left w-[12%]">Vulcanismo</th>
+                <th class="p-1.5 text-left w-[13%]">Foco Sísmico</th>
+                <th class="p-1.5 text-left w-[17%]">Feição Diagnóstica</th>
+                <th class="p-1.5 text-left w-[18%]">Exemplo Geográfico</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-neutral-200">
+              <tr>
+                <td class="p-1.5 font-bold">Divergente Continental</td>
+                <td class="p-1.5">Tração / Extensão</td>
+                <td class="p-1.5">Afinamento e fracionamento</td>
+                <td class="p-1.5">Fissural alcalino</td>
+                <td class="p-1.5">Rasos</td>
+                <td class="p-1.5">Vales de rifte, grabens, lagos tectônicos</td>
+                <td class="p-1.5 font-semibold">Rift Valley Africano; Mar Vermelho</td>
+              </tr>
+              <tr class="bg-neutral-50/50">
+                <td class="p-1.5 font-bold">Divergente Oceânico</td>
+                <td class="p-1.5">Tração / Extensão</td>
+                <td class="p-1.5">Criação contínua de crosta máfica</td>
+                <td class="p-1.5">Basáltico efusivo (pillow lavas)</td>
+                <td class="p-1.5">Rasos no eixo do rifte</td>
+                <td class="p-1.5">Cordilheira submarina, fontes termais</td>
+                <td class="p-1.5 font-semibold">Dorsal Mesoatlântica; Islândia</td>
+              </tr>
+              <tr>
+                <td class="p-1.5 font-bold">Convergente Oceano-Continente</td>
+                <td class="p-1.5">Compressão frontal</td>
+                <td class="p-1.5">Subducção da placa oceânica</td>
+                <td class="p-1.5">Explosivo (andesítico / dacítico)</td>
+                <td class="p-1.5">Rasos, médios e profundos (Benioff)</td>
+                <td class="p-1.5">Cadeia orogênica costeira + fossa marinha</td>
+                <td class="p-1.5 font-semibold">Cordilheira dos Andes e Fossa Peru-Chile</td>
+              </tr>
+              <tr class="bg-neutral-50/50">
+                <td class="p-1.5 font-bold">Convergente Oceano-Oceano</td>
+                <td class="p-1.5">Compressão frontal</td>
+                <td class="p-1.5">Subducção da placa oceânica velha</td>
+                <td class="p-1.5">Vulcânico de arco insular</td>
+                <td class="p-1.5">Rasos a ultraprofundos (&lt;700 km)</td>
+                <td class="p-1.5">Arcos de ilhas vulcânicas + fossas abissais</td>
+                <td class="p-1.5 font-semibold">Japão, Filipinas, Fossa das Marianas</td>
+              </tr>
+              <tr>
+                <td class="p-1.5 font-bold">Convergente Continente-Continente</td>
+                <td class="p-1.5">Compressão colisional</td>
+                <td class="p-1.5">Sutura e espessamento crustal</td>
+                <td class="p-1.5 font-bold text-neutral-900">ZERO vulcanismo ativo</td>
+                <td class="p-1.5">Rasos a intermediários severos</td>
+                <td class="p-1.5">Montanhas intracontinentais e platôs</td>
+                <td class="p-1.5 font-semibold">Cadeia do Himalaia; Montes Alpes</td>
+              </tr>
+              <tr class="bg-neutral-50/50">
+                <td class="p-1.5 font-bold">Transformante Conservativo</td>
+                <td class="p-1.5">Cisalhamento lateral</td>
+                <td class="p-1.5">Conservação total de litosfera</td>
+                <td class="p-1.5 font-bold text-neutral-900">ZERO vulcanismo ativo</td>
+                <td class="p-1.5">Estritamente rasos (&lt;20-30 km)</td>
+                <td class="p-1.5">Escarpas de falha, deflexão de rios</td>
+                <td class="p-1.5 font-semibold">Falha de San Andreas; Falha da Anatólia</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </article>
+
+    <!-- SEÇÃO 5: TECTONISMO ENDÓGENO - OROGÊNESE -->
+    <article class="mb-12">
+      <div class="flex items-center gap-2 mb-3">
+        <span class="w-7 h-7 rounded-full bg-neutral-900 text-white flex items-center justify-center font-bold text-xs">5</span>
+        <h2 class="text-xl sm:text-2xl font-bold text-neutral-900">
+          Tectonismo Endógeno: Orogênese e as Deformações Estruturais
+        </h2>
+      </div>
+
+      <p class="text-neutral-700 text-sm sm:text-base mb-4 text-justify">
+        O tectonismo ou diastrofismo compreende as deformações na litosfera induzidas por tensões mantélicas. A <mark class="concept">Orogênese</mark> é provocada por <mark class="highlight">esforços horizontais tangenciais</mark> concentrados em faixas estreitas nos limites de placas, tendo curta duração geológica relativa (poucas dezenas de Ma). 
+      </p>
+
+      <div class="p-3.5 bg-neutral-100 border border-neutral-300 rounded text-xs sm:text-sm text-neutral-800 mb-6">
+        <strong class="text-neutral-900">Comportamento Mecânico da Rocha:</strong>
+        <br>• <strong>Em níveis crustais rasos (até ~10-15 km):</strong> Temperaturas e pressões baixas induzem o comportamento <strong>frágil (rúptil)</strong>: a rocha rompe-se formando <mark class="highlight">falhas geológicas</mark>.
+        <br>• <strong>Em níveis profundos:</strong> Altas temperaturas e pressões de confinamento induzem o comportamento <strong>plástico (dúctil)</strong>: a rocha se deforma continuamente sem quebrar, gerando <mark class="highlight">dobras geológicas</mark>.
+      </div>
+
+      <!-- TIPOLOGIA DE DOBRAS -->
+      <h3 class="text-base sm:text-lg font-bold text-neutral-900 mt-4 mb-2">
+        Geometria das Dobras e Fenômeno de Inversão do Relevo
+      </h3>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+        <div class="p-3.5 border border-neutral-300 rounded bg-white">
+          <h4 class="font-bold text-xs sm:text-sm text-neutral-900 mb-1">Anticlinal vs. Sinclinal</h4>
+          <ul class="text-xs text-neutral-700 space-y-1 list-disc list-inside">
+            <li><strong class="text-neutral-900">Anticlinal:</strong> Dobra convexa (em arco para cima). Característica diagnóstica: o núcleo abriga as rochas <mark class="highlight">mais antigas</mark>.</li>
+            <li><strong class="text-neutral-900">Sinclinal:</strong> Dobra côncava (calha para baixo). Característica diagnóstica: o núcleo abriga as rochas <mark class="highlight">mais jovens</mark>.</li>
+          </ul>
+        </div>
+
+        <div class="p-3.5 border border-neutral-300 rounded bg-white">
+          <h4 class="font-bold text-xs sm:text-sm text-neutral-900 mb-1">Inversão Estrutural do Relevo</h4>
+          <p class="text-xs text-neutral-700 leading-relaxed">
+            A crista de um anticlinal sofre distensão e fraturamento contínuo, sendo erodida aceleradamente até virar uma depressão: o <mark class="highlight">vale anticlinal</mark>. Já a calha do sinclinal, compactada e resistente à erosão, acaba sustentando relevos residuais elevados: os <mark class="highlight">sinclinais suspensos</mark>. A estrutura geológica inverte-se morfologicamente na paisagem.
+          </p>
+        </div>
+      </div>
+
+      <!-- CINEMÁTICA DAS FALHAS -->
+      <h3 class="text-base sm:text-lg font-bold text-neutral-900 mt-6 mb-2">
+        Cinemática e Classificação das Falhas Geológicas
+      </h3>
+      <p class="text-neutral-700 text-xs sm:text-sm mb-3">
+        Uma falha é uma fratura com deslocamento mensurável entre dois blocos. O bloco sobre o plano inclinado de falha é o <strong class="text-neutral-900">Teto (Capa)</strong>; o bloco abaixo é o <strong class="text-neutral-900">Muro (Lapa)</strong>:
+      </p>
+
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-6">
+        <div class="p-3 border border-neutral-300 rounded bg-white">
+          <h4 class="font-bold text-xs sm:text-sm text-neutral-900 mb-1">Falha Normal (Distensiva)</h4>
+          <p class="text-xs text-neutral-700 mb-1">
+            Induzida por esforços de <mark class="concept">tração/extensão</mark>.
+          </p>
+          <p class="text-xs font-semibold text-neutral-900">
+            O Teto DESCE em relação ao Muro.
+          </p>
+          <p class="text-[11px] text-neutral-600 mt-1">
+            Gera afinamento crustal, <em>grabens</em> (fossas) e <em>horsts</em> (pilares).
+          </p>
+        </div>
+
+        <div class="p-3 border border-neutral-300 rounded bg-white">
+          <h4 class="font-bold text-xs sm:text-sm text-neutral-900 mb-1">Falha Inversa (Compressiva)</h4>
+          <p class="text-xs text-neutral-700 mb-1">
+            Induzida por esforços de <mark class="concept">compressão horizontal</mark>.
+          </p>
+          <p class="text-xs font-semibold text-neutral-900">
+            O Teto SOBE em relação ao Muro.
+          </p>
+          <p class="text-[11px] text-neutral-600 mt-1">
+            Provoca encurtamento horizontal e espessamento da crosta.
+          </p>
+        </div>
+
+        <div class="p-3 border border-neutral-300 rounded bg-white">
+          <h4 class="font-bold text-xs sm:text-sm text-neutral-900 mb-1">Falha de Cavalgamento / Empurrão</h4>
+          <p class="text-xs text-neutral-700 mb-1">
+            Falha inversa de ângulo muito suave: <mark class="highlight">mergulho &lt; 45°</mark> (frequentemente &lt; 30°).
+          </p>
+          <p class="text-xs font-semibold text-neutral-900">
+            Teto cavalga rochas antigas sobre jovens.
+          </p>
+          <p class="text-[11px] text-neutral-600 mt-1">
+            Gera mantos alóctones de empurrão (estruturas em <em>nappe</em>).
+          </p>
+        </div>
+      </div>
+
+      <!-- TABELA 4: FALHAS GEOLÓGICAS (SEM SCROLL HORIZONTAL) -->
+      <div class="my-6">
+        <h4 class="text-xs font-bold uppercase tracking-wider text-neutral-600 mb-2">
+          Síntese de Cinemática e Geometria das Falhas
+        </h4>
+        <div class="border border-neutral-300 rounded overflow-hidden">
+          <table class="table-responsive-fit text-[11px] sm:text-xs">
+            <thead class="bg-neutral-100 border-b border-neutral-300 text-neutral-900 font-bold">
+              <tr>
+                <th class="p-2 text-left w-[22%]">Tipo de Falha</th>
+                <th class="p-2 text-left w-[20%]">Tensão Dinâmica</th>
+                <th class="p-2 text-left w-[24%]">Movimentação Vetorial</th>
+                <th class="p-2 text-left w-[18%]">Efeito na Crosta</th>
+                <th class="p-2 text-left w-[16%]">Morfologia Típica</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-neutral-200">
+              <tr>
+                <td class="p-2 font-bold">Normal (Distensiva)</td>
+                <td class="p-2">Tração / Extensão</td>
+                <td class="p-2 font-semibold">Teto DESCE relativo ao Muro</td>
+                <td class="p-2">Estiramento e afinamento</td>
+                <td class="p-2">Grabens e Horsts</td>
+              </tr>
+              <tr class="bg-neutral-50/50">
+                <td class="p-2 font-bold">Inversa (Compressiva)</td>
+                <td class="p-2">Compressão frontal</td>
+                <td class="p-2 font-semibold">Teto SOBE relativo ao Muro</td>
+                <td class="p-2">Encurtamento e elevação</td>
+                <td class="p-2">Escarpas de compressão</td>
+              </tr>
+              <tr>
+                <td class="p-2 font-bold">Empurrão (Thrust)</td>
+                <td class="p-2">Compressão extrema</td>
+                <td class="p-2 font-semibold">Teto sobe em plano suave (&lt; 45°)</td>
+                <td class="p-2">Acavalamento rochoso regional</td>
+                <td class="p-2">Estruturas em Nappe</td>
+              </tr>
+              <tr class="bg-neutral-50/50">
+                <td class="p-2 font-bold">Transcorrente</td>
+                <td class="p-2">Cisalhamento lateral</td>
+                <td class="p-2 font-semibold">Deslocamento lateral puro (Dextral/Sinistral)</td>
+                <td class="p-2">Conservação de área</td>
+                <td class="p-2">Vales de fratura retilíneos</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </article>
+
+    <!-- SEÇÃO 6: TECTONISMO ENDÓGENO - EPIROGÊNESE, ISOSTASIA E NÍVEIS DE BASE -->
+    <article class="mb-12">
+      <div class="flex items-center gap-2 mb-3">
+        <span class="w-7 h-7 rounded-full bg-neutral-900 text-white flex items-center justify-center font-bold text-xs">6</span>
+        <h2 class="text-xl sm:text-2xl font-bold text-neutral-900">
+          Tectonismo Endógeno: Epirogênese, Isostasia e Oscilações do Nível de Base
+        </h2>
+      </div>
+
+      <p class="text-neutral-700 text-sm sm:text-base mb-4 text-justify">
+        A <mark class="concept">Epirogênese</mark> compreende movimentos tectônicos <mark class="highlight">verticais (radiais)</mark>, de escala continental, extremamente lentos e de longuíssima duração geológica (dezenas a centenas de Ma). Atua no interior estável das placas (crátons e bacias intracratônicas). Diferente da orogênese, <mark class="highlight">NÃO produz encurtamentos laterais nem metamorfismo regional</mark>, gerando apenas suaves arqueamentos na crosta: <mark class="concept">antéclises</mark> (cúpulas soerguidas convexas) e <mark class="concept">sinéclises</mark> (depressões côncavas onde se instalam bacias sedimentares).
+      </p>
+
+      <!-- ISOSTASIA: AIRY VS PRATT -->
+      <h3 class="text-base sm:text-lg font-bold text-neutral-900 mt-6 mb-3">
+        Modelos Clássicos de Compensação Isostática (Airy vs. Pratt)
+      </h3>
+      <p class="text-neutral-700 text-xs sm:text-sm mb-4 text-justify">
+        A <strong>Isostasia</strong> (Dutton, 1889) é o estado de equilíbrio hidrostático gravitacional da litosfera sobre a astenosfera fluida. Dois modelos clássicos explicam a sustentação mecânica dos relevos:
+      </p>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+        <div class="p-4 border border-neutral-300 rounded-lg bg-white">
+          <span class="text-xs font-mono font-bold uppercase text-neutral-600 block mb-1">Modelo de Airy (Airy-Heiskanen)</span>
+          <h4 class="font-bold text-sm text-neutral-900 mb-2">Densidade Constante & Raiz Crustal Variável</h4>
+          <p class="text-xs text-neutral-700 leading-relaxed mb-2">
+            A crosta possui <mark class="highlight">densidade uniforme e constante (ρ ≈ 2,7 g/cm³)</mark>. A elevação topográfica de uma montanha é sustentada por uma espessa <mark class="highlight">raiz crustal profunda</mark> mergulhada no manto mais denso (ρ ≈ 3,3 g/cm³).
+          </p>
+          <div class="p-2 bg-neutral-100 rounded text-xs font-semibold text-neutral-900 text-center">
+            Analogia do Iceberg flutuando na água
+          </div>
+        </div>
+
+        <div class="p-4 border border-neutral-300 rounded-lg bg-white">
+          <span class="text-xs font-mono font-bold uppercase text-neutral-600 block mb-1">Modelo de Pratt (Pratt-Hayford)</span>
+          <h4 class="font-bold text-sm text-neutral-900 mb-2">Profundidade Constante & Densidade Variável</h4>
+          <p class="text-xs text-neutral-700 leading-relaxed mb-2">
+            A base da crosta possui uma <mark class="highlight">profundidade de compensação plana e uniforme (D)</mark>. As montanhas são altas porque são formadas por rochas de <mark class="concept">densidade menor (blocos mais leves)</mark>, enquanto bacias baixas são sustentadas por blocos mais densos e pesados.
+          </p>
+          <div class="p-2 bg-neutral-100 rounded text-xs font-semibold text-neutral-900 text-center">
+            Analogia dos Blocos de madeira e metal alinhados na base
+          </div>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6">
+        <div class="p-3 bg-neutral-50 border border-neutral-200 rounded">
+          <strong class="text-xs sm:text-sm font-bold text-neutral-900 block mb-1">Rebote Glacioisostático:</strong>
+          <p class="text-xs text-neutral-700">
+            O peso do gelo no Pleistoceno deprimiu a crosta na Escandinávia e Canadá. Com a fusão no Holoceno, o alívio de peso induz soerguimento isostático contínuo vertical até hoje (~10 mm/ano).
+          </p>
+        </div>
+        <div class="p-3 bg-neutral-50 border border-neutral-200 rounded">
+          <strong class="text-xs sm:text-sm font-bold text-neutral-900 block mb-1">Reajuste Isostático por Erosão:</strong>
+          <p class="text-xs text-neutral-700">
+            A erosão contínua retira toneladas de sedimentos dos topos orogênicos. A perda de carga promove o soerguimento do núcleo profundo, fazendo aflorar rochas plutônicas (granitos) na superfície.
+          </p>
+        </div>
+      </div>
+
+      <!-- OSCILAÇÕES DO NÍVEL DE BASE -->
+      <h3 class="text-base sm:text-lg font-bold text-neutral-900 mt-6 mb-2">
+        Oscilações do Nível de Base da Erosão e a Resposta Geomorfológica
+      </h3>
+      <p class="text-neutral-700 text-xs sm:text-sm mb-4 text-justify">
+        O <mark class="concept">Nível de Base</mark> é o limite altimétrico abaixo do qual os cursos d'água não conseguem escavar seus leitos. O nível de base geral é o nível médio do mar; níveis locais são soleiras rochosas, lagos ou confluências. Flutuações verticais geram respostas geomorfológicas antagônicas:
+      </p>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+        <div class="p-4 border border-neutral-300 rounded bg-white">
+          <h4 class="font-bold text-sm text-neutral-900 mb-1 flex items-center gap-1.5">
+            <span class="w-2.5 h-2.5 rounded-full bg-neutral-900"></span>
+            Rebaixamento Relativo do Nível de Base
+          </h4>
+          <span class="text-[11px] font-mono text-neutral-500 uppercase block mb-2">Causado por: Epirogênese Positiva (Soerguimento) ou Regressão Marinha</span>
+          <ul class="text-xs text-neutral-700 space-y-1.5 list-disc list-inside">
+            <li>Instalação do processo de <mark class="highlight">Rejuvenescimento Fluvial</mark>.</li>
+            <li>Aceleração da incisão linear vertical (<em class="italic">downcutting</em>), entalhando vales profundos em "V".</li>
+            <li>Geração de rupturas de declive (<mark class="concept">knickpoints</mark>), corredeiras e cascatas por erosão remontante.</li>
+            <li>Abandono de antigas planícies aluviais em cotas altas, formando <mark class="highlight">terraços fluviais</mark> escalonados.</li>
+            <li>No litoral: praias antigas soerguidas transformam-se em <mark class="highlight">falésias fósseis e terraços marinhos</mark>.</li>
+          </ul>
+        </div>
+
+        <div class="p-4 border border-neutral-300 rounded bg-white">
+          <h4 class="font-bold text-sm text-neutral-900 mb-1 flex items-center gap-1.5">
+            <span class="w-2.5 h-2.5 rounded-full bg-neutral-400"></span>
+            Subida Relativa do Nível de Base
+          </h4>
+          <span class="text-[11px] font-mono text-neutral-500 uppercase block mb-2">Causado por: Epirogênese Negativa (Subsidência) ou Transgressão Marinha</span>
+          <ul class="text-xs text-neutral-700 space-y-1.5 list-disc list-inside">
+            <li>Redução drástica do gradiente de declividade dos rios.</li>
+            <li>Perda da competência de transporte hidráulico e <mark class="highlight">assoreamento/sedimentação generalizada</mark>.</li>
+            <li>Hipertrofia de planícies de inundação com padrões fluviais meândricos e anastomóticos.</li>
+            <li>Invasão marinha nas desembocaduras fluviais, formando vales afogados, <mark class="highlight">estuários e rias litorâneas</mark>.</li>
+          </ul>
+        </div>
+      </div>
+    </article>
+
+    <!-- SEÇÃO 7: MATRIZ DE MEMORIZAÇÃO PARA O CONCURSO IFMG -->
+    <article id="memorizacao" class="mb-12 border-t-2 border-neutral-900 pt-8">
+      <div class="flex items-center gap-2 mb-4">
+        <span class="w-7 h-7 rounded bg-neutral-900 text-white flex items-center justify-center font-bold text-xs">★</span>
+        <h2 class="text-xl sm:text-2xl font-extrabold text-neutral-950 uppercase tracking-tight">
+          Matriz de Memorização para o Concurso do IFMG
+        </h2>
+      </div>
+      <p class="text-xs sm:text-sm text-neutral-600 mb-6">
+        Guia de memorização rápida: os 6 cruzamentos mecânica-relevo e os 10 axiomas de acerto imediato em questões objetivas.
+      </p>
+
+      <!-- 6 CRUZAMENTOS MECÂNICA-RELEVO -->
+      <div class="mb-8">
+        <h3 class="text-sm font-bold uppercase tracking-wider text-neutral-900 mb-3 flex items-center gap-2">
+          <svg class="w-4 h-4 text-neutral-800" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+          Cruzamento Direto: Tipo de Limite → Mecânica → Feição Resultante
+        </h3>
+        <div class="space-y-2.5">
+          <div class="p-3 border border-neutral-300 rounded bg-white flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs sm:text-sm">
+            <div>
+              <span class="font-bold text-neutral-950">1. Divergente Continental:</span>
+              <span class="text-neutral-700"> Extensão/Tração → Grabens e vulcanismo alcalino</span>
+            </div>
+            <span class="font-bold text-neutral-900 bg-neutral-100 border border-neutral-300 px-2 py-0.5 rounded shrink-0">
+              Vale do Rift do Leste Africano
+            </span>
+          </div>
+
+          <div class="p-3 border border-neutral-300 rounded bg-white flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs sm:text-sm">
+            <div>
+              <span class="font-bold text-neutral-950">2. Divergente Oceânico:</span>
+              <span class="text-neutral-700"> Extensão com descompressão astenosférica → Nova crosta basáltica</span>
+            </div>
+            <span class="font-bold text-neutral-900 bg-neutral-100 border border-neutral-300 px-2 py-0.5 rounded shrink-0">
+              Dorsal Mesoatlântica & Islândia
+            </span>
+          </div>
+
+          <div class="p-3 border border-neutral-300 rounded bg-white flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs sm:text-sm">
+            <div>
+              <span class="font-bold text-neutral-950">3. Convergente Oceano-Continente:</span>
+              <span class="text-neutral-700"> Subducção com fusão por hidratação → Arco vulcânico andesítico</span>
+            </div>
+            <span class="font-bold text-neutral-900 bg-neutral-100 border border-neutral-300 px-2 py-0.5 rounded shrink-0">
+              Cordilheira dos Andes & Fossa Peru-Chile
+            </span>
+          </div>
+
+          <div class="p-3 border border-neutral-300 rounded bg-white flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs sm:text-sm">
+            <div>
+              <span class="font-bold text-neutral-950">4. Convergente Oceano-Oceano:</span>
+              <span class="text-neutral-700"> Subducção da crosta mais densa → Trincheira extrema e ilhas</span>
+            </div>
+            <span class="font-bold text-neutral-900 bg-neutral-100 border border-neutral-300 px-2 py-0.5 rounded shrink-0">
+              Arcos de Ilhas do Japão & Fossa das Marianas
+            </span>
+          </div>
+
+          <div class="p-3 border border-neutral-300 rounded bg-white flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs sm:text-sm">
+            <div>
+              <span class="font-bold text-neutral-950">5. Convergente Continente-Continente:</span>
+              <span class="text-neutral-700"> Colisão pura sem subducção → Espessamento e <mark class="danger">SEM vulcanismo</mark></span>
+            </div>
+            <span class="font-bold text-neutral-900 bg-neutral-100 border border-neutral-300 px-2 py-0.5 rounded shrink-0">
+              Cadeia do Himalaia & Planalto do Tibete
+            </span>
+          </div>
+
+          <div class="p-3 border border-neutral-300 rounded bg-white flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs sm:text-sm">
+            <div>
+              <span class="font-bold text-neutral-950">6. Transformante / Conservativo:</span>
+              <span class="text-neutral-700"> Cisalhamento horizontal sem perda ou ganho → Sismos rasos e <mark class="danger">SEM vulcanismo</mark></span>
+            </div>
+            <span class="font-bold text-neutral-900 bg-neutral-100 border border-neutral-300 px-2 py-0.5 rounded shrink-0">
+              Falha de San Andreas & Falha Anatólica
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <!-- OS 10 CONCEITOS CHAVE PARA O DIA DA PROVA -->
+      <div>
+        <h3 class="text-sm font-bold uppercase tracking-wider text-neutral-900 mb-3 flex items-center gap-2">
+          <svg class="w-4 h-4 text-neutral-800" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          10 Axiomas e Pegadinhas Clássicas para Acertar Questões na Prova Objetiva
+        </h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs sm:text-sm">
+          <div class="p-3 border border-neutral-200 rounded bg-white">
+            <span class="font-bold text-neutral-900 block mb-1">01. Crosta versus Litosfera</span>
+            A Crosta é divisão química/petrológica (SiAl continental ou SiMa oceânico). A Litosfera é camada mecânica/reológica (Crosta + Topo Mantélico rígido).
+          </div>
+
+          <div class="p-3 border border-neutral-200 rounded bg-white">
+            <span class="font-bold text-neutral-900 block mb-1">02. Natureza da Astenosfera</span>
+            Astenosfera <mark class="danger">NÃO é líquida</mark>. É peridotito sólido com comportamento plástico-dúctil sob alta pressão e discreta fusão parcial (1% a 5% - Zona de Baixa Velocidade).
+          </div>
+
+          <div class="p-3 border border-neutral-200 rounded bg-white">
+            <span class="font-bold text-neutral-900 block mb-1">03. Comportamento das Ondas S no Núcleo</span>
+            Ondas S exigem rigidez mecânica (cisalhamento). Como fluidos têm μ = 0, as ondas S são <mark class="danger">extintas a 2.900 km</mark> na Gutenberg, provando o núcleo externo líquido.
+          </div>
+
+          <div class="p-3 border border-neutral-200 rounded bg-white">
+            <span class="font-bold text-neutral-900 block mb-1">04. Motor da Tectônica de Placas</span>
+            Wegener errou no motor (força centrífuga e marés). O motor real comprovado é a convecção do manto associada primariamente ao <mark class="highlight">Slab Pull</mark> e secundariamente ao Ridge Push.
+          </div>
+
+          <div class="p-3 border border-neutral-200 rounded bg-white">
+            <span class="font-bold text-neutral-900 block mb-1">05. Subducção versus Obducção</span>
+            Subducção é o afundamento descendente da placa no manto. <mark class="concept">Obducção</mark> é o cavalgamento compressivo da crosta oceânica sobre o continente (origem dos ofiolitos).
+          </div>
+
+          <div class="p-3 border border-neutral-200 rounded bg-white">
+            <span class="font-bold text-neutral-900 block mb-1">06. Ausência de Vulcanismo</span>
+            Himalaia não tem vulcões porque a colisão é continente-continente (sem subducção). Falha de San Andreas não tem vulcões porque o deslizamento é puramente lateral de cisalhamento.
+          </div>
+
+          <div class="p-3 border border-neutral-200 rounded bg-white">
+            <span class="font-bold text-neutral-900 block mb-1">07. Cinemática dos Falhamentos</span>
+            Se o Teto escorrega para baixo, a falha é <strong>Normal</strong> (tração). Se o Teto sobe, a falha é <strong>Inversa</strong> (compressão). Se o ângulo é menor que 45°, chama-se <strong>Empurrão</strong>.
+          </div>
+
+          <div class="p-3 border border-neutral-200 rounded bg-white">
+            <span class="font-bold text-neutral-900 block mb-1">08. Orogênese versus Epirogênese</span>
+            Orogênese = forças horizontais tangenciais em faixas estreitas de borda. Epirogênese = forças verticais radiais lentas no interior cratônico (antéclises e sinéclises).
+          </div>
+
+          <div class="p-3 border border-neutral-200 rounded bg-white">
+            <span class="font-bold text-neutral-900 block mb-1">09. Isostasia: Airy versus Pratt</span>
+            <strong>Airy:</strong> densidade constante, montanhas possuem <mark class="highlight">raízes profundas</mark> (iceberg). <strong>Pratt:</strong> profundidade de base uniforme, relevos variam em função da <mark class="highlight">densidade dos blocos</mark>.
+          </div>
+
+          <div class="p-3 border border-neutral-200 rounded bg-white">
+            <span class="font-bold text-neutral-900 block mb-1">10. Nível de Base e Rejuvenescimento</span>
+            Epirogênese positiva rebaixa o nível de base relativo: gera incisão linear em "V", <em>knickpoints</em> e <mark class="highlight">terraços fluviais</mark> escalonados. Subsidência causa sedimentação e rias.
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- SEÇÃO FINAL: CHAMADA PARA O CADERNO DE QUESTÕES -->
+    <section class="mt-12 p-8 border border-neutral-300 rounded-xl bg-neutral-50 text-center flex flex-col items-center justify-center">
+      <div class="w-12 h-12 rounded-full bg-neutral-900 text-white flex items-center justify-center mb-3">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/>
+        </svg>
+      </div>
+      <h3 class="text-xl sm:text-2xl font-extrabold text-neutral-900 mb-2">
+        Fixação Prática de Conteúdo
+      </h3>
+      <p class="text-sm text-neutral-600 max-w-xl mb-6">
+        Teste seu domínio sobre a dinâmica interna, limites de placas, comportamento sísmico e isostasia com questões no perfil da banca examinadora do IFMG.
+      </p>
+      
+      <!-- BOTÃO SOLICITADO: REDIRECIONA PARA questoes6geo.html -->
+      <a 
+        href="questoes6geo.html" 
+        class="inline-flex items-center gap-2.5 px-8 py-3.5 rounded-lg bg-neutral-900 text-white font-bold text-sm sm:text-base hover:bg-neutral-800 transition duration-150 shadow-md hover:shadow-lg transform active:scale-95"
+      >
+        <span>Resolver Questões de Prova</span>
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+        </svg>
+      </a>
+      <span class="text-[11px] font-mono text-neutral-600 mt-2">Destino do link: questoes6geo.html</span>
+    </section>
+
+  </main>
+
+  <!-- RODAPÉ SÓBRIO -->
+  <footer class="mt-16 border-t border-neutral-200 py-6 text-center text-xs text-neutral-700 bg-white">
+    <div class="max-w-5xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-2">
+      <p>Material de Estudo Orientado - Geografia Física (Geodinâmica e Tectônica Global)</p>
+      <p class="font-medium text-neutral-700">Concurso Público Docente - Instituto Federal de Minas Gerais</p>
+    </div>
+  </footer>
+
+  <!-- SCRIPT PARA O REPRODUTOR DE ÁUDIO -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const audioInput = document.getElementById('audioFileName');
+      const btnLoad = document.getElementById('btnLoadAudio');
+      const player = document.getElementById('audioPlayer');
+      const source = document.getElementById('audioSource');
+      const status = document.getElementById('audioStatus') || document.getElementById('audio-status');
+
+      function updateAudioSource() {
+        const fileName = audioInput.value.trim();
+        if (!fileName) {
+          status.textContent = 'Insira o nome do arquivo MP3';
+          status.className = 'text-xs font-medium px-2 py-0.5 bg-yellow-100 text-yellow-800 rounded';
+          return;
+        }
+
+        // Atualiza a fonte e recarrega o reprodutor nativo
+        source.src = fileName;
+        player.load();
+        
+        status.textContent = 'Arquivo carregado: ' + fileName;
+        status.className = 'text-xs font-medium px-2 py-0.5 bg-neutral-200 text-neutral-800 rounded';
+      }
+
+      // Evento de clique no botão
+      btnLoad.addEventListener('click', updateAudioSource);
+
+      // Evento ao teclar Enter no input
+      audioInput.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          updateAudioSource();
+        }
+      });
+
+      // Feedback em caso de erro na reprodução (ex.: arquivo não encontrado na pasta)
+      player.addEventListener('error', function() {
+        status.textContent = 'Arquivo não localizado na pasta: ' + audioInput.value.trim();
+        status.className = 'text-xs font-medium px-2 py-0.5 bg-red-100 text-red-700 rounded';
+      });
+
+      // Feedback quando estiver pronto para tocar
+      player.addEventListener('canplay', function() {
+        status.textContent = 'Áudio pronto para reproduzir';
+        status.className = 'text-xs font-medium px-2 py-0.5 bg-emerald-100 text-emerald-800 rounded';
+      });
+    });
+  </script>
+</body>
+</html>

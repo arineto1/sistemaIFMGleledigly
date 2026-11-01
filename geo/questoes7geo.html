@@ -1,0 +1,1433 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simulado IFMG: Petrologia, Recursos Minerais e Tempo Geológico</title>
+  <style>
+    :root {
+      --bg-page: #f9f9f8;
+      --bg-card: #ffffff;
+      --bg-accent: #f2f4f2;
+      --text-main: #23272a;
+      --text-muted: #57606a;
+      --border-color: #e1e4e8;
+      --border-focus: #2563eb;
+      --primary: #1b4332;
+      --primary-light: #2d6a4f;
+      --primary-soft: #eaf4ed;
+      --correct-bg: #e6f4ea;
+      --correct-border: #1e7e34;
+      --correct-text: #0f5132;
+      --incorrect-bg: #fce8e6;
+      --incorrect-border: #d93025;
+      --incorrect-text: #842029;
+      --font-serif: "Charter", "Bitstream Charter", "Sitka Text", Cambria, Georgia, serif;
+      --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-page);
+      color: var(--text-main);
+      font-family: var(--font-sans);
+      line-height: 1.7;
+      font-size: 17px;
+      -webkit-font-smoothing: antialiased;
+      padding-bottom: 60px;
+    }
+
+    /* Container principal */
+    .container {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* Cabeçalho */
+    header {
+      background: #ffffff;
+      border-bottom: 1px solid var(--border-color);
+      padding: 36px 0 28px;
+      margin-bottom: 32px;
+    }
+
+    .badge-banca {
+      display: inline-block;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      background: var(--primary-soft);
+      color: var(--primary);
+      padding: 5px 12px;
+      border-radius: 4px;
+      margin-bottom: 12px;
+    }
+
+    h1 {
+      font-family: var(--font-serif);
+      font-size: 2.1rem;
+      line-height: 1.3;
+      color: #1a1a1a;
+      margin-bottom: 12px;
+      font-weight: 700;
+    }
+
+    .meta-desc {
+      color: var(--text-muted);
+      font-size: 1.05rem;
+      line-height: 1.6;
+    }
+
+    .meta-tags {
+      margin-top: 14px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      font-size: 0.85rem;
+    }
+
+    .meta-tag-item {
+      background: #f1f3f5;
+      padding: 3px 10px;
+      border-radius: 3px;
+      color: #495057;
+    }
+
+    /* Barra de progresso fixa / status */
+    .sticky-bar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(255, 255, 255, 0.96);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border-color);
+      padding: 12px 0;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
+    }
+
+    .sticky-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .progress-info {
+      font-size: 0.92rem;
+      font-weight: 600;
+      color: var(--text-main);
+    }
+
+    .progress-bar-wrap {
+      flex: 1;
+      max-width: 320px;
+      height: 8px;
+      background: #e9ecef;
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .progress-bar-fill {
+      height: 100%;
+      width: 0%;
+      background: var(--primary);
+      transition: width 0.3s ease;
+    }
+
+    /* Card de Questão */
+    .question-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 32px 36px;
+      margin-bottom: 28px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+      transition: border-color 0.2s ease;
+    }
+
+    .question-card:focus-within {
+      border-color: #cbd5e1;
+    }
+
+    .question-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid #f0f2f4;
+    }
+
+    .question-number {
+      font-family: var(--font-serif);
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--primary);
+    }
+
+    .status-badge {
+      font-size: 0.8rem;
+      font-weight: 600;
+      padding: 3px 8px;
+      border-radius: 4px;
+      display: none;
+    }
+
+    .status-badge.correct {
+      display: inline-block;
+      background-color: var(--correct-bg);
+      color: var(--correct-text);
+      border: 1px solid var(--correct-border);
+    }
+
+    .status-badge.incorrect {
+      display: inline-block;
+      background-color: var(--incorrect-bg);
+      color: var(--incorrect-text);
+      border: 1px solid var(--incorrect-border);
+    }
+
+    .question-text {
+      font-size: 1.05rem;
+      margin-bottom: 20px;
+      color: #1f2937;
+      text-align: justify;
+    }
+
+    .question-sublist {
+      margin: 16px 0 20px 0;
+      padding-left: 22px;
+      list-style-type: upper-roman;
+    }
+
+    .question-sublist li {
+      margin-bottom: 10px;
+      color: #2b2f33;
+    }
+
+    /* Tabelas em questões */
+    .table-container {
+      overflow-x: auto;
+      margin: 20px 0 24px;
+    }
+
+    table.exam-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.95rem;
+      background: #fafbfc;
+      border: 1px solid #d0d7de;
+      border-radius: 6px;
+    }
+
+    table.exam-table th, 
+    table.exam-table td {
+      border: 1px solid #d0d7de;
+      padding: 10px 14px;
+      text-align: left;
+      vertical-align: top;
+    }
+
+    table.exam-table th {
+      background: #f3f4f6;
+      font-weight: 700;
+      color: #24292f;
+    }
+
+    /* Opções */
+    .options-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    .option-item {
+      display: block;
+      position: relative;
+    }
+
+    .option-label {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 14px 18px;
+      border: 1px solid #e2e8f0;
+      border-radius: 6px;
+      background-color: #fafbfb;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      font-size: 1rem;
+      line-height: 1.55;
+      color: #2d3748;
+    }
+
+    .option-label:hover {
+      background-color: #f1f5f9;
+      border-color: #cbd5e1;
+    }
+
+    .option-input {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .option-letter {
+      flex-shrink: 0;
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      border: 1.5px solid #94a3b8;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: #475569;
+      background: #ffffff;
+      margin-top: 1px;
+      transition: all 0.15s;
+    }
+
+    .option-input:checked + .option-label {
+      background-color: #eff6ff;
+      border-color: #3b82f6;
+      box-shadow: 0 0 0 1px #3b82f6;
+    }
+
+    .option-input:checked + .option-label .option-letter {
+      background: #2563eb;
+      border-color: #2563eb;
+      color: #ffffff;
+    }
+
+    /* Estados de Resposta após correção */
+    .reviewed .option-label {
+      cursor: default;
+    }
+
+    .reviewed .option-item.correct-choice .option-label {
+      background-color: var(--correct-bg) !important;
+      border-color: var(--correct-border) !important;
+      color: var(--correct-text) !important;
+      font-weight: 600;
+    }
+
+    .reviewed .option-item.correct-choice .option-letter {
+      background-color: var(--correct-border) !important;
+      border-color: var(--correct-border) !important;
+      color: #ffffff !important;
+    }
+
+    .reviewed .option-item.wrong-choice .option-label {
+      background-color: var(--incorrect-bg) !important;
+      border-color: var(--incorrect-border) !important;
+      color: var(--incorrect-text) !important;
+    }
+
+    .reviewed .option-item.wrong-choice .option-letter {
+      background-color: var(--incorrect-border) !important;
+      border-color: var(--incorrect-border) !important;
+      color: #ffffff !important;
+    }
+
+    /* Caixa de Resolução */
+    .resolution-box {
+      display: none;
+      margin-top: 24px;
+      padding: 24px 26px;
+      background-color: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-left: 5px solid var(--primary);
+      border-radius: 4px;
+      font-size: 0.98rem;
+      line-height: 1.7;
+      color: #1e293b;
+    }
+
+    .resolution-title {
+      font-family: var(--font-serif);
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .resolution-content p {
+      margin-bottom: 12px;
+      text-align: justify;
+    }
+
+    .resolution-content p:last-child {
+      margin-bottom: 0;
+    }
+
+    /* Seção de Ações e Submissão */
+    .actions-section {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 32px;
+      text-align: center;
+      margin-top: 36px;
+    }
+
+    .btn {
+      font-size: 1.05rem;
+      font-weight: 600;
+      padding: 14px 32px;
+      border-radius: 6px;
+      border: none;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .btn-primary {
+      background-color: var(--primary);
+      color: #ffffff;
+      box-shadow: 0 2px 4px rgba(27, 67, 50, 0.25);
+    }
+
+    .btn-primary:hover {
+      background-color: var(--primary-light);
+      transform: translateY(-1px);
+    }
+
+    .btn-secondary {
+      background-color: #e2e8f0;
+      color: #334155;
+      margin-left: 12px;
+    }
+
+    .btn-secondary:hover {
+      background-color: #cbd5e1;
+    }
+
+    /* Painel de Resultados */
+    .results-panel {
+      display: none;
+      background: #ffffff;
+      border: 2px solid var(--primary);
+      border-radius: 8px;
+      padding: 36px;
+      margin-top: 32px;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.05);
+    }
+
+    .results-header {
+      text-align: center;
+      margin-bottom: 24px;
+    }
+
+    .results-title {
+      font-family: var(--font-serif);
+      font-size: 1.8rem;
+      color: var(--primary);
+      margin-bottom: 8px;
+    }
+
+    .score-banner {
+      display: flex;
+      justify-content: center;
+      align-items: baseline;
+      gap: 6px;
+      margin: 18px 0;
+    }
+
+    .score-number {
+      font-size: 3.4rem;
+      font-weight: 800;
+      color: var(--primary);
+    }
+
+    .score-total {
+      font-size: 1.5rem;
+      color: var(--text-muted);
+    }
+
+    .score-percentage {
+      display: inline-block;
+      font-weight: 700;
+      font-size: 1.1rem;
+      padding: 4px 14px;
+      border-radius: 20px;
+      margin-bottom: 16px;
+    }
+
+    .performance-high {
+      background-color: var(--correct-bg);
+      color: var(--correct-text);
+    }
+
+    .performance-medium {
+      background-color: #fef3c7;
+      color: #92400e;
+    }
+
+    .performance-low {
+      background-color: var(--incorrect-bg);
+      color: var(--incorrect-text);
+    }
+
+    .feedback-text {
+      max-width: 680px;
+      margin: 0 auto 24px;
+      font-size: 1.05rem;
+      color: #374151;
+      line-height: 1.6;
+    }
+
+    /* Gabarito Compacto */
+    .answer-key-table {
+      width: 100%;
+      max-width: 500px;
+      margin: 20px auto;
+      border-collapse: collapse;
+      font-size: 0.95rem;
+    }
+
+    .answer-key-table th,
+    .answer-key-table td {
+      border: 1px solid var(--border-color);
+      padding: 8px 12px;
+      text-align: center;
+    }
+
+    .answer-key-table th {
+      background: #f8fafc;
+      font-weight: 600;
+    }
+
+    /* Responsividade */
+    @media (max-width: 640px) {
+      .question-card {
+        padding: 22px 18px;
+      }
+      h1 {
+        font-size: 1.6rem;
+      }
+      .option-label {
+        padding: 12px 14px;
+      }
+      .btn {
+        width: 100%;
+        margin-left: 0;
+        margin-top: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Topo Institucional -->
+  <header>
+    <div class="container">
+      <span class="badge-banca">Concurso Público IFMG • Reitoria</span>
+      <h1>Caderno de Prova: Petrologia, Recursos Minerais e Tempo Geológico</h1>
+      <p class="meta-desc">
+        Avaliação prática e objetiva baseada no padrão e rigor analítico da Banca Comissão Central de Concurso Público do IFMG. Questões com foco na relação entre estrutura geológica brasileira e recursos minerais/energéticos.
+      </p>
+      <div class="meta-tags">
+        <span class="meta-tag-item"><strong>Bibliografia:</strong> TEIXEIRA et al. (2009)</span>
+        <span class="meta-tag-item"><strong>Bibliografia:</strong> ROSS (2014)</span>
+        <span class="meta-tag-item"><strong>Extensão:</strong> 10 Questões Objetivas</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Barra de Acompanhamento -->
+  <div class="sticky-bar">
+    <div class="container sticky-inner">
+      <div class="progress-info" id="progressInfo">Questões respondidas: 0 de 10</div>
+      <div class="progress-bar-wrap">
+        <div class="progress-bar-fill" id="progressBar"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Conteúdo do Questionário -->
+  <main class="container" style="margin-top: 24px;">
+    <form id="quizForm">
+
+      <!-- QUESTÃO 01 -->
+      <article class="question-card" id="card-q1">
+        <div class="question-header">
+          <span class="question-number">Questão 01</span>
+          <span class="status-badge" id="badge-q1"></span>
+        </div>
+        <p class="question-text">
+          Na caracterização dos constituintes fundamentais da crosta terrestre, a mineralogia física e a petrologia estabelecem fronteiras diagnósticas precisas entre os conceitos de mineral, mineraloide e rocha. De acordo com os fundamentos geológicos apresentados por Teixeira et al. (2009), assinale a alternativa que expressa a definição mineralógica correta:
+        </p>
+        <ul class="options-list">
+          <li class="option-item" data-opt="A">
+            <input type="radio" name="q1" id="q1-A" value="A" class="option-input">
+            <label for="q1-A" class="option-label">
+              <span class="option-letter">A</span>
+              <span>Os minerais definem-se como substâncias inorgânicas naturais, com arranjo interno amorfo e composição química aleatória que varia livremente de acordo com a pressão litostática.</span>
+            </label>
+          </li>
+          <li class="option-item" data-opt="B">
+            <input type="radio" name="q1" id="q1-B" value="B" class="option-input">
+            <label for="q1-B" class="option-label">
+              <span class="option-letter">B</span>
+              <span>O carvão mineral e o petróleo são considerados minerais no sentido estrito da cristalografia, visto que formam corpos rochosos contínuos na crosta terrestre.</span>
+            </label>
+          </li>
+          <li class="option-item" data-opt="C">
+            <input type="radio" name="q1" id="q1-C" value="C" class="option-input">
+            <label for="q1-C" class="option-label">
+              <span class="option-letter">C</span>
+              <span>Todo mineral constitui um sólido homogêneo de ocorrência natural, formado essencialmente por processos inorgânicos, com composição química definida e estrutura atômica tridimensional ordenada em retículo cristalino.</span>
+            </label>
+          </li>
+          <li class="option-item" data-opt="D">
+            <input type="radio" name="q1" id="q1-D" value="D" class="option-input">
+            <label for="q1-D" class="option-label">
+              <span class="option-letter">D</span>
+              <span>As rochas caracterizam-se estritamente como compostos estequiométricos puros, o que inviabiliza a ocorrência natural de corpos rochosos monominerálicos na crosta terrestre.</span>
+            </label>
+          </li>
+          <li class="option-item" data-opt="E">
+            <input type="radio" name="q1" id="q1-E" value="E" class="option-input">
+            <label for="q1-E" class="option-label">
+              <span class="option-letter">E</span>
+              <span>A matéria amorfa presente no vidro vulcânico confere à obsidiana o status de mineral modelo, dado o empacotamento cúbico perfeito de seus cátions de silício.</span>
+            </label>
+          </li>
+        </ul>
+
+        <div class="resolution-box" id="res-q1">
+          <div class="resolution-title">
+            <span>Fundamentação Geocientífica • Resolução da Questão 01</span>
+          </div>
+          <div class="resolution-content">
+            <p><strong>Gabarito Oficial: Alternativa C</strong></p>
+            <p>Em conformidade com a mineralogia sistemática apresentada por Teixeira et al. (2009), a caracterização formal de um mineral impõe parâmetros de homogeneidade física e química: a substância precisa ser naturalmente gerada por processos inorgânicos na litosfera, deter composição química definida (expressa por fórmulas empíricas estequiométricas ou intervalos contínuos de substituição em soluções sólidas) e exibir periodicidade atômica tridimensional (retículo cristalino). Uma rocha, por outro lado, consiste no agregado coeso de um ou múltiplos minerais, ou ainda de matéria vítrea/amorfa.</p>
+            <p>As demais proposições contrariam a taxonomia mineralógica e petrológica. A ausência de arranjo atômico periódico e a variação aleatória de composição eliminam o status de mineral, definindo os chamados mineraloides. O carvão mineral e o petróleo possuem gênese bioquímica ligada à decomposição e transformação térmica de matéria carbonosa vegetal e algálica, não apresentando fases inorgânicas cristalinas puras homogêneas. Rochas monominerálicas são abundantes na crosta terrestre, a exemplo de quartzitos ortoquartzíticos, mármores calcíticos e anortositos. Por fim, a obsidiana é um vidro vulcânico de resfriamento super-rápido cuja desordem estrutural atômica interna impede sua tipificação como espécie mineralógica.</p>
+          </div>
+        </div>
+      </article>
+
+      <!-- QUESTÃO 02 -->
+      <article class="question-card" id="card-q2">
+        <div class="question-header">
+          <span class="question-number">Questão 02</span>
+          <span class="status-badge" id="badge-q2"></span>
+        </div>
+        <p class="question-text">
+          O ciclo litológico ilustra as contínuas transformações dinâmicas pelas quais a matéria litosférica é reciclada por meio da integração de processos endógenos e exógenos. A respeito das trajetórias físico-químicas de transformação do arcabouço rochoso descritas por Teixeira et al. (2009), analise as afirmativas a seguir:
+        </p>
+        <ol class="question-sublist">
+          <li>A atuação combinada do intemperismo e da erosão sobre qualquer litotipo exposto às condições atmosféricas produz detritos e solutos que, após sedimentação e diagênese, originam rochas sedimentares.</li>
+          <li>O metamorfismo processa-se em estado estritamente sólido, no qual variações de pressão e temperatura promovem a recristalização mineralógica sem que o ponto de fusão da rocha seja ultrapassado.</li>
+          <li>O fenômeno da anatexia representa a fusão parcial ou total de rochas submetidas a gradientes geotérmicos e pressões ultraprofundas, reconduzindo a matéria sólida à condição de magma.</li>
+          <li>Rochas sedimentares convertem-se diretamente em rochas magmáticas efusivas por meio exclusivo de compactação e cimentação mecânica superficial, prescindindo de fusão silicatada.</li>
+        </ol>
+        <p class="question-text" style="font-weight: 600;">Estão corretas apenas as afirmativas:</p>
+        <ul class="options-list">
+          <li class="option-item" data-opt="A">
+            <input type="radio" name="q2" id="q2-A" value="A" class="option-input">
+            <label for="q2-A" class="option-label">
+              <span class="option-letter">A</span>
+              <span>I e IV.</span>
+            </label>
+          </li>
+          <li class="option-item" data-opt="B">
+            <input type="radio" name="q2" id="q2-B" value="B" class="option-input">
+            <label for="q2-B" class="option-label">
+              <span class="option-letter">B</span>
+              <span>II e IV.</span>
+            </label>
+          </li>
+          <li class="option-item" data-opt="C">
+            <input type="radio" name="q2" id="q2-C" value="C" class="option-input">
+            <label for="q2-C" class="option-label">
+              <span class="option-letter">C</span>
+              <span>I, II e III.</span>
+            </label>
+          </li>
+          <li class="option-item" data-opt="D">
+            <input type="radio" name="q2" id="q2-D" value="D" class="option-input">
+            <label for="q2-D" class="option-label">
+              <span class="option-letter">D</span>
+              <span>I, III e IV.</span>
+            </label>
+          </li>
+          <li class="option-item" data-opt="E">
+            <input type="radio" name="q2" id="q2-E" value="E" class="option-input">
+            <label for="q2-E" class="option-label">
+              <span class="option-letter">E</span>
+              <span>II, III e IV.</span>
+            </label>
+          </li>
+        </ul>
+
+        <div class="resolution-box" id="res-q2">
+          <div class="resolution-title">
+            <span>Fundamentação Geocientífica • Resolução da Questão 02</span>
+          </div>
+          <div class="resolution-content">
+            <p><strong>Gabarito Oficial: Alternativa C</strong></p>
+            <p>O ciclo das rochas articula as transferências energéticas e materiais do interior da Terra para a superfície, integrando processos endógenos e exógenos. A afirmativa I está correta porque sintetiza o ciclo exógeno completo: as fases de alteração superficial (intemperismo mecânico e químico), remoção (erosão), dinâmica sedimentar (transporte hídrico, eólico ou gravitacional e deposição) e a diagenização do depósito (litificação, compactação e cimentação) fecham a trajetória de gênese dos estratos sedimentares.</p>
+            <p>A afirmativa II define o domínio metamórfico com rigor físico-químico: o metamorfismo encerra-se no exato momento em que ocorre o início da fusão silicatada (solidus das rochas), processando-se sempre em estado subsólido por difusão de íons e recristalização sob gradientes termobarométricos dirigidos e confinantes.</p>
+            <p>A afirmativa III conceitua de forma apropriada a anatexia crustal, processo em que o aumento das temperaturas anatéticas em orógenos colisionais profundos conduz à fusão parcial de metapelitos e ortognaisses, gerando magmas graníticos migmatíticos que realimentam o vulcanismo e o plutonismo ígneo.</p>
+            <p>A afirmativa IV incorre em grave erro de dinâmica geológica: a consolidação de depósitos sedimentares nunca os transforma diretamente em rochas vulcânicas ou magmáticas. Para ingressar no campo magmático, o pacote litológico necessita transpor todo o ciclo termodinâmico, afundar termicamente na crosta, fundir em regime anatético silicatado em altas temperaturas e, finalmente, sofrer descompressão e ascensão como magma fluido antes de se consolidar como rocha ígnea efusiva. Logo, as afirmativas I, II e III são verdadeiras, e a afirmativa IV é falsa.</p>
+          </div>
+        </div>
+      </article>
+
+      <!-- QUESTÃO 03 -->
+      <article class="question-card" id="card-q3">
+        <div class="question-header">
+          <span class="question-number">Questão 03</span>
+          <span class="status-badge" id="badge-q3"></span>
+        </div>
+        <p class="question-text">
+          As rochas magmáticas são formadas a partir do resfriamento e da consolidação de magmas ou lavas, exibindo texturas que refletem as taxas de perda de calor e os ambientes de alojamento geológico. Em relação às características petrológicas do granito e do basalto e suas presenças no arcabouço brasileiro, assinale a alternativa correta:
+        </p>
+        <ul class="options-list">
+          <li class="option-item" data-opt="A">
+            <input type="radio" name="q3" id="q3-A" value="A" class="option-input">
+            <label for="q3-A" class="option-label">
+              <span class="option-letter">A</span>
+              <span>O granito é uma rocha magmática extrusiva de composição ultramáfica, dotada de matriz afanítica derivada da pulverização piroclástica contínua.</span>
+            </label>
+          </li>
+          <li class="option-item" data-opt="B">
+            <input type="radio" name="q3" id="q3-B" value="B" class="option-input">
+            <label for="q3-B" class="option-label">
+              <span class="option-letter">B</span>
+              <span>O basalto é uma rocha ígnea plutônica ácida, caracterizada por macrocristais idiomórficos de quartzo gerados pelo resfriamento lento no manto litosférico.</span>
+            </label>
+          </li>
+          <li class="option-item" data-opt="C">
+            <input type="radio" name="q3" id="q3-C" value="C" class="option-input">
+            <label for="q3-C" class="option-label">
+              <span class="option-letter">C</span>
+              <span>O basalto constitui uma rocha vulcânica máfica de resfriamento rápido na superfície, cuja textura afanítica predomina nos derrames da Formação Serra Geral na Bacia do Paraná.</span>
+            </label>
+          </li>
+          <li class="option-item" data-opt="D">
+            <input type="radio" name="q3" id="q3-D" value="D" class="option-input">
+            <label for="q3-D" class="option-label">
+              <span class="option-letter">D</span>
+              <span>A textura fanerítica observada em batólitos graníticos resulta da rápida dissipação térmica subaérea, impedindo o crescimento de fenocristais de feldspato e quartzo.</span>
+            </label>
+          </li>
+          <li class="option-item" data-opt="E">
+            <input type="radio" name="q3" id="q3-E" value="E" class="option-input">
+            <label for="q3-E" class="option-label">
+              <span class="option-letter">E</span>
+              <span>Os derrames basálticos formam estruturas intrusivas hipabissais desprovidas de fraturamentos e são incapazes de originar solos férteis por intemperismo químico.</span>
+            </label>
+          </li>
+        </ul>
+
+        <div class="resolution-box" id="res-q3">
+          <div class="resolution-title">
+            <span>Fundamentação Geocientífica • Resolução da Questão 03</span>
+          </div>
+          <div class="resolution-content">
+            <p><strong>Gabarito Oficial: Alternativa C</strong></p>
+            <p>O basalto caracteriza-se petrologicamente como uma rocha magmática extrusiva de quimismo máfico, dominada por plagioclásios cálcicos e piroxênios. A dissipação térmica rápida do fluido lático em contato com a atmosfera ou a hidrosfera inibe o crescimento microscópico ordenado dos cristais, produzindo texturas dominantemente afaníticas ou vítreas. No Brasil, episódios magmáticos fissurais do início do Período Cretáceo, atrelados ao rifting do paleocontinente Gondwana e à abertura do Atlântico Sul, acumularam sucessivos horizontes de lavas basálticas sobre a Bacia do Paraná, formando a expressiva Província Magmática do Paraná (Formação Serra Geral).</p>
+            <p>As demais alternativas invertem os conceitos de textura e filiação petrográfica. O granito é uma rocha félsica plutônica intrusiva, com altos teores de sílica (> 65%), rica em quartzo e feldspatos alcalinos, desenvolvendo textura fanerítica decorrente do resfriamento milenar em profundidade crustal confinada. Os granitos não são produtos de vulcanismo ultramáfico nem rochas geradoras de hidrocarbonetos, visto que sua porosidade primária é insignificante e sua consolidação ocorre sob altas temperaturas. O basalto não é uma rocha ácida de resfriamento lento plutônico e, longe de ser inerte, seu intemperismo químico em zonas tropicais libera ferro, magnésio e cálcio, promovendo a formação de solos de notável fertilidade agronômica natural, a exemplo dos Nitossolos e Latossolos derivados de "terra roxa".</p>
+          </div>
+        </div>
+      </article>
+
+      <!-- QUESTÃO 04 -->
+      <article class="question-card" id="card-q4">
+        <div class="question-header">
+          <span class="question-number">Questão 04</span>
+          <span class="status-badge" id="badge-q4"></span>
+        </div>
+        <p class="question-text">
+          A compartimentação genética das rochas sedimentares abrange litotipos clásticos (detríticos), químicos e orgânicos (biogênicos), formados conforme as condições deposicionais das bacias geológicas. A tabela a seguir correlaciona classes sedimentares, mecanismos genéticos e exemplos de litotipos:
+        </p>
+
+        <div class="table-container">
+          <table class="exam-table">
+            <thead>
+              <tr>
+                <th style="width: 22%;">Classe Sedimentar</th>
+                <th style="width: 53%;">Dinâmica Genética Predominante</th>
+                <th style="width: 25%;">Litotipo Representativo</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>1. Clástica</strong></td>
+                <td>Desagregação mecânica, transporte hidrodinâmico e litificação diagenética de clastos</td>
+                <td>Arenito e Folhelho</td>
+              </tr>
+              <tr>
+                <td><strong>2. Química</strong></td>
+                <td>Precipitação direta de íons carreados em solução sob evaporação ou saturação iônica</td>
+                <td>Calcário inorgânico</td>
+              </tr>
+              <tr>
+                <td><strong>3. Orgânica</strong></td>
+                <td>Acumulação, preservação sob anoxia e evolução bioquímica de matéria carbonosa</td>
+                <td>Carvão mineral</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p class="question-text">
+          Considerando as classificações e os processos sedimentológicos detalhados por Teixeira et al. (2009), assinale a afirmativa correta:
+        </p>
+        <ul class="options-list">
+          <li class="option-item" data-opt="A">
+            <input type="radio" name="q4" id="q4-A" value="A" class="option-input">
+            <label for="q4-A" class="option-label">
+              <span class="option-letter">A</span>
+              <span>Os folhelhos representam rochas sedimentares clásticas de alta permeabilidade e grãos milimétricos, atuando como as principais rochas aquíferas do embasamento cratônico.</span>
+            </label>
+          </li>
+          <li class="option-item" data-opt="B">
+            <input type="radio" name="q4" id="q4-B" value="B" class="option-input">
+            <label for="q4-B" class="option-label">
+              <span class="option-letter">B</span>
+              <span>Os arenitos são constituídos predominantemente por frações detríticas silicatadas de granulometria areia, exibindo porosidade intergranular que viabiliza o armazenamento de fluidos.</span>
+            </label>
+          </li>
+          <li class="option-item" data-opt="C">
+            <input type="radio" name="q4" id="q4-C" value="C" class="option-input">
+            <label for="q4-C" class="option-label">
+              <span class="option-letter">C</span>
+              <span>O calcário químico resulta unicamente do acúmulo fóssil de fragmentos lenhosos de angiospermas continentais sob intensa dessecação desértica.</span>
+            </label>
+          </li>
+          <li class="option-item" data-opt="D">
+            <input type="radio" name="q4" id="q4-D" value="D" class="option-input">
+            <label for="q4-D" class="option-label">
+              <span class="option-letter">D</span>
+              <span>O petróleo é uma rocha cristalina consolidada que forma as cordilheiras de dobramentos proterozoicos em decorrência da cristalização de lavas carbonatadas.</span>
+            </label>
+          </li>
+          <li class="option-item" data-opt="E">
+            <input type="radio" name="q4" id="q4-E" value="E" class="option-input">
+            <label for="q4-E" class="option-label">
+              <span class="option-letter">E</span>
+              <span>O carvão mineral é uma rocha detrítica grosseira originada pelo transporte eólico de cascalhos silicosos em zonas fluvioglaciais profundas.</span>
+            </label>
+          </li>
+        </ul>
+
+        <div class="resolution-box" id="res-q4">
+          <div class="resolution-title">
+            <span>Fundamentação Geocientífica • Resolução da Questão 04</span>
+          </div>
+          <div class="resolution-content">
+            <p><strong>Gabarito Oficial: Alternativa B</strong></p>
+            <p>Em sedimentologia e estratigrafia, os arenitos pertencem à subclasse das rochas clásticas ou siliciclásticas terrígenas, constituindo agregados consolidados de grãos minerais cuja faixa de granulometria varia entre 0,062 mm e 2,0 mm na escala de Wentworth. Essas rochas preservam expressiva porosidade intergranular original e conectividade de gargantas de poros (permeabilidade), convertendo-se em reservatórios geoestratigráficos para água subterrânea — como no paleodeserto eólico da Formação Botucatu da Bacia do Paraná — bem como para hidrocarbonetos.</p>
+            <p>As outras opções exibem desacertos conceituais: os folhelhos são sedimentos pelíticos (argila e silte, com granulação inferior a 0,062 mm), caracterizados por laminação plano-paralela fina e baixíssima permeabilidade, constituindo rochas selantes impermeáveis ou potenciais rochas geradoras de óleo e gás. Os calcários químicos derivam da precipitação iônica de carbonato de cálcio (CaCO<sub>3</sub>) em bacias marinhas ou lacustres hidroquimicamente saturadas, dissolvendo-se facilmente sob a ação de águas meteóricas ácidas para moldar cavernas e dolinas cársticas. O petróleo não é uma rocha sólida magmática, mas um fluido fóssil orgânico. Por sua vez, o carvão mineral é uma rocha sedimentar biogênica/organogênica derivada da carbonificação anaeróbica de resíduos vegetais continentais, e não um cascalho detrítico eólico.</p>
+          </div>
+        </div>
+      </article>
+
+      <!-- QUESTÃO 05 -->
+      <article class="question-card" id="card-q5">
+        <div class="question-header">
+          <span class="question-number">Questão 05</span>
+          <span class="status-badge" id="badge-q5"></span>
+        </div>
+        <p class="question-text">
+          O metamorfismo abrange o espectro de modificações mineralógicas e texturais que afetam formações litológicas pretéritas em resposta a novas condições termodinâmicas. Considerando a distinção entre metamorfismo regional e de contato, bem como seus efeitos na transformação de protólitos comuns descritos por Teixeira et al. (2009), assinale a alternativa correta:
+        </p>
+        <ul class="options-list">
+          <li class="option-item" data-opt="A">
+            <input type="radio" name="q5" id="q5-A" value="A" class="option-input">
+            <label for="q5-A" class="option-label">
+              <span class="option-letter">A</span>
+              <span>O metamorfismo de contato decorre da ação de pressões litostáticas compressionais em escala continental, gerando gnaisses com forte foliação regional.</span>
+            </label>
+          </li>
+          <li class="option-item" data-opt="B">
+            <input type="radio" name="q5" id="q5-B" value="B" class="option-input">
+            <label for="q5-B" class="option-label">
+              <span class="option-letter">B</span>
+              <span>O mármore resulta do metamorfismo atuante sobre protólitos carbonáticos (calcários e dolomitos), enquanto o quartzito é produto da recristalização de arenitos quartzosos.</span>
+            </label>
+          </li>
+          <li class="option-item" data-opt="C">
+            <input type="radio" name="q5" id="q5-C" value="C" class="option-input">
+            <label for="q5-C" class="option-label">
+              <span class="option-letter">C</span>
+              <span>O gnaisse é uma rocha de origem exclusivamente ígnea efusiva que não apresenta nenhum grau de recristalização ou orientação composicional metamórfica.</span>
+            </label>
+          </li>
+          <li class="option-item" data-opt="D">
+            <input type="radio" name="q5" id="q5-D" value="D" class="option-input">
+            <label for="q5-D" class="option-label">
+              <span class="option-letter">D</span>
+              <span>O metamorfismo regional produz apenas rochas maciças e isotrópicas sem qualquer evidência de xistosidade ou alinhamento de micas.</span>
+            </label>
+          </li>
+          <li class="option-item" data-opt="E">
+            <input type="radio" name="q5" id="q5-E" value="E" class="option-input">
+            <label for="q5-E" class="option-label">
+              <span class="option-letter">E</span>
+              <span>A formação de quartzitos depende da injeção de fluidos hidrotermais ricos em ferro em fendas de basaltos vulcânicos amigdaloide.</span>
+            </label>
+          </li>
+        </ul>
+
+        <div class="resolution-box" id="res-q5">
+          <div class="resolution-title">
+            <span>Fundamentação Geocientífica • Resolução da Questão 05</span>
+          </div>
+          <div class="resolution-content">
+            <p><strong>Gabarito Oficial: Alternativa B</strong></p>
+            <p>Os processos metamórficos operam a reconstituição de paragêneses minerais sob equilíbrios termodinâmicos distintos dos originais da rocha-mãe (protólito). Os mármores originam-se da transformação metamórfica (tanto de contato quanto regional) de rochas sedimentares carbonáticas, como calcários e dolomitos, gerando rochas recristalizadas de textura tipicamente granoblástica dominadas por cristais de calcita ou dolomita. Por sua vez, arenitos ricos em quartzo e sedimentos silicosos clásticos recristalizam-se na forma de quartzitos, cujo arcabouço é dominado por grãos interpenetrados de quartzo.</p>
+            <p>As demais proposições misturam parâmetros genéticos do metamorfismo. O metamorfismo de contato (térmico) é restrito termicamente às adjacências de plútons ígneos aquecidos intrusivos na crosta (auréolas de contato), atuando em condições de tensões direcionais reduzidas, o que gera rochas sem foliação regional (como as corneanas ou <em>hornfels</em>) e não gnaisses deformados. O gnaisse é fruto do metamorfismo regional de médio a alto grau, evidenciando notável bandamento composicional com segregação de fases félsicas e máficas. O metamorfismo regional dinamotermal está associado a amplos cinturões orogênicos colisionais, nos quais o estresse diferencial impõe foliações tectônicas conspícuas, xistosidades e lineações em rochas como ardósias, filitos e micaxistos.</p>
+          </div>
+        </div>
+      </article>
+
+      <!-- QUESTÃO 06 -->
+      <article class="question-card" id="card-q6">
+        <div class="question-header">
+          <span class="question-number">Questão 06</span>
+          <span class="status-badge" id="badge-q6"></span>
+        </div>
+        <p class="question-text">
+          A escala do tempo geológico articula a história da Terra em uma hierarquia cronoestratigráfica estandardizada. A respeito da hierarquia das divisões temporais e da cronologia associada à geologia brasileira conforme Teixeira et al. (2009) e Ross (2014), assinale a alternativa correta:
+        </p>
+        <ul class="options-list">
+          <li class="option-item" data-opt="A">
+            <input type="radio" name="q6" id="q6-A" value="A" class="option-input">
+            <label for="q6-A" class="option-label">
+              <span class="option-letter">A</span>
+              <span>A sequência cronoestratigráfica decrescente correta é: Éon, Era, Período e Época; a maior parte da história terrestre transcorreu durante os éons do Pré-Cambriano.</span>
+            </label>
+          </li>
+          <li class="option-item" data-opt="B">
+            <input type="radio" name="q6" id="q6-B" value="B" class="option-input">
+            <label for="q6-B" class="option-label">
+              <span class="option-letter">B</span>
+              <span>O Éon Fanerozoico engloba mais de 95% do tempo geológico do planeta, concentrando os episódios de formação dos núcleos arqueanos mais profundos.</span>
+            </label>
+          </li>
+          <li class="option-item" data-opt="C">
+            <input type="radio" name="q6" id="q6-C" value="C" class="option-input">
+            <label for="q6-C" class="option-label">
+              <span class="option-letter">C</span>
+              <span>A Era Paleozoica sucedeu a Era Cenozoica, sendo balizada pela deposição quaternária das planícies litorâneas e pelo encerramento dos oceanos modernos.</span>
+            </label>
+          </li>
+          <li class="option-item" data-opt="D">
+            <input type="radio" name="q6" id="q6-D" value="D" class="option-input">
+            <label for="q6-D" class="option-label">
+              <span class="option-letter">D</span>
+              <span>Os períodos Jurássico e Cretáceo integram o Éon Proterozoico, caracterizando-se pela proliferação das primeiras bactérias anaeróbicas nos crátons.</span>
+            </label>
+          </li>
+          <li class="option-item" data-opt="E">
+            <input type="radio" name="q6" id="q6-E" value="E" class="option-input">
+            <label for="q6-E" class="option-label">
+              <span class="option-letter">E</span>
+              <span>O Pré-Cambriano é uma época singular da Era Cenozoica, cujos registros rochosos restringem-se aos sedimentos inconsolidados das calhas fluviais amazônicas.</span>
+            </label>
+          </li>
+        </ul>
+
+        <div class="resolution-box" id="res-q6">
+          <div class="resolution-title">
+            <span>Fundamentação Geocientífica • Resolução da Questão 06</span>
+          </div>
+          <div class="resolution-content">
+            <p><strong>Gabarito Oficial: Alternativa A</strong></p>
+            <p>A cronoestratigrafia geológica é hierarquizada formalmente nas seguintes unidades de tempo decrescentes: Éons (Hadeano, Arqueano, Proterozoico e Fanerozoico), Eras (como Paleozoica, Mesozoica e Cenozoica dentro do Fanerozoico), Períodos (como Cambriano, Permiano, Cretáceo), Épocas e Idades. Os éons que antecederam o Cambriano (informalmente englobados no Pré-Cambriano) estendem-se desde o início da acreção planetária há cerca de 4,56 bilhões de anos até 541 milhões de anos atrás, totalizando quase 88% da história física da Terra.</p>
+            <p>As alternativas falsas contêm discrepâncias cronológicas explícitas: o Fanerozoico abarca somente os últimos 541 milhões de anos da história terrestre, período caracterizado pela abundância de vida fóssil visível nas sequências estratigráficas, enquanto a totalidade dos complexos granito-gnáissicos antigos e dos cinturões de rochas verdes (<em>greenstone belts</em>) remonta ao Arqueano e ao Paleoproterozoico. A Era Paleozoica iniciou o Fanerozoico e antecedeu o Mesozoico e o Cenozoico, este último sendo a era mais recente que inclui o Período Quaternário. Jurássico e Cretáceo constituem períodos da Era Mesozoica, marcada pelo domínio dos répteis e pela fragmentação do Gondwana, e não do Éon Proterozoico.</p>
+          </div>
+        </div>
+      </article>
+
+      <!-- QUESTÃO 07 -->
+      <article class="question-card" id="card-q7">
+        <div class="question-header">
+          <span class="question-number">Questão 07</span>
+          <span class="status-badge" id="badge-q7"></span>
+        </div>
+        <p class="question-text">
+          A compartimentação morfoestrutural do relevo brasileiro estrutura-se sobre três grandes macroestruturas ou províncias geológicas: Crátons (Escudos Cristalinos), Bacias Sedimentares e Faixas Móveis (Dobramentos Antigos). Conforme os modelos geotectônicos sintetizados por Ross (2014), assinale a afirmativa correta:
+        </p>
+        <ul class="options-list">
+          <li class="option-item" data-opt="A">
+            <input type="radio" name="q7" id="q7-A" value="A" class="option-input">
+            <label for="q7-A" class="option-label">
+              <span class="option-letter">A</span>
+              <span>Os escudos cristalinos brasileiros originaram-se de dobramentos modernos cenozóicos associados à convergência direta entre placas tectônicas na faixa litorânea oriental.</span>
+            </label>
+          </li>
+          <li class="option-item" data-opt="B">
+            <input type="radio" name="q7" id="q7-B" value="B" class="option-input">
+            <label for="q7-B" class="option-label">
+              <span class="option-letter">B</span>
+              <span>As bacias sedimentares recobrem a maior parte do substrato territorial brasileiro e abrigam pacotes estratigráficos paleozoicos, mesozoicos e cenozoicos instalados sobre sinéclises cratônicas.</span>
+            </label>
+          </li>
+          <li class="option-item" data-opt="C">
+            <input type="radio" name="q7" id="q7-C" value="C" class="option-input">
+            <label for="q7-C" class="option-label">
+              <span class="option-letter">C</span>
+              <span>As faixas de dobramentos antigos do Neoproterozoico (Ciclo Brasiliano) configuram cinturões orogênicos tectonicamente instáveis, dotados de vulcanismo magmático andino ativo.</span>
+            </label>
+          </li>
+          <li class="option-item" data-opt="D">
+            <input type="radio" name="q7" id="q7-D" value="D" class="option-input">
+            <label for="q7-D" class="option-label">
+              <span class="option-letter">D</span>
+              <span>As plataformas cratônicas brasileiras caracterizam-se por subsidência contínua durante o Quaternário, ausência de rochas metamórficas e presença de fossas abissais ativas.</span>
+            </label>
+          </li>
+          <li class="option-item" data-opt="E">
+            <input type="radio" name="q7" id="q7-E" value="E" class="option-input">
+            <label for="q7-E" class="option-label">
+              <span class="option-letter">E</span>
+              <span>O território brasileiro repousa sobre a borda instável de uma placa convergente, o que impede a preservação de coberturas sedimentares intracratônicas antigas.</span>
+            </label>
+          </li>
+        </ul>
+
+        <div class="resolution-box" id="res-q7">
+          <div class="resolution-title">
+            <span>Fundamentação Geocientífica • Resolução da Questão 07</span>
+          </div>
+          <div class="resolution-content">
+            <p><strong>Gabarito Oficial: Alternativa B</strong></p>
+            <p>Na obra de referência de Ross (2014) e nos estudos geodinâmicos de Teixeira et al. (2009), o território brasileiro tem seu arcabouço tectônico compartimentado em crátons (escudos cristalinos), faixas orogênicas antigas de dobramentos do Neoproterozoico e grandes bacias sedimentares intracratônicas. As bacias sedimentares recobrem mais de 60% da superfície do território emerso do Brasil, concentrando-se em amplas depressões de subsidência lenta sobre a crosta siálica (sinéclises intracratônicas das Bacias Amazônica, do Parnaíba e do Paraná), com preenchimentos estratigráficos espessos acumulados ao longo do Fanerozoico.</p>
+            <p>As demais alternativas distorcem a tectônica de placas do território sul-americano: o Brasil localiza-se na porção intraplaca tectonicamente estável da Placa Sul-Americana, inexistindo dobramentos modernos cenozóicos semelhantes aos orógenos colisionais ativos dos Andes ou do Himalaia em suas fronteiras. Os cinturões móveis brasileiros (Faixas Brasília, Ribeira e Paraguai-Araguaia) são orógenos antigos do Ciclo Brasiliano desprovidos de atividade orogenética ou vulcânica atual, com relevos rebaixados e estabilizados. As plataformas cratônicas compõem os núcleos continentais mais rígidos, antigos e arrasados pela erosão de longo curso, ricos em associações metamórficas de alto grau e corpos intrusivos ígneos pré-cambrianos.</p>
+          </div>
+        </div>
+      </article>
+
+      <!-- QUESTÃO 08 -->
+      <article class="question-card" id="card-q8">
+        <div class="question-header">
+          <span class="question-number">Questão 08</span>
+          <span class="status-badge" id="badge-q8"></span>
+        </div>
+        <p class="question-text">
+          A concentração de minerais metálicos no território brasileiro está espacial e geneticamente subordinada à evolução litoestrutural de terrenos pré-cambrianos. Em relação às maiores províncias minerais do Brasil nos escudos cristalinos, assinale a alternativa correta:
+        </p>
+        <ul class="options-list">
+          <li class="option-item" data-opt="A">
+            <input type="radio" name="q8" id="q8-A" value="A" class="option-input">
+            <label for="q8-A" class="option-label">
+              <span class="option-letter">A</span>
+              <span>Os depósitos de ferro do Quadrilátero Ferrífero (MG) associam-se a formações ferríferas bandadas paleoproterozoicas metamorfizadas (itabiritos) pertencentes ao Supergrupo Minas.</span>
+            </label>
+          </li>
+          <li class="option-item" data-opt="B">
+            <input type="radio" name="q8" id="q8-B" value="B" class="option-input">
+            <label for="q8-B" class="option-label">
+              <span class="option-letter">B</span>
+              <span>O minério de ferro de Carajás (PA) formou-se durante a deposição holocênica de aluviões no Período Quaternário da Bacia Amazônica.</span>
+            </label>
+          </li>
+          <li class="option-item" data-opt="C">
+            <input type="radio" name="q8" id="q8-C" value="C" class="option-input">
+            <label for="q8-C" class="option-label">
+              <span class="option-letter">C</span>
+              <span>As províncias ferríferas pré-cambrianas originaram-se da queima anaeróbica de espessas florestas de angiospermas da Era Cenozoica soterradas em deltas fluviais.</span>
+            </label>
+          </li>
+          <li class="option-item" data-opt="D">
+            <input type="radio" name="q8" id="q8-D" value="D" class="option-input">
+            <label for="q8-D" class="option-label">
+              <span class="option-letter">D</span>
+              <span>As ocorrências de ferro, ouro e manganês no Cráton do São Francisco hospedam-se exclusivamente nas camadas basálticas impermeáveis da Formação Botucatu.</span>
+            </label>
+          </li>
+          <li class="option-item" data-opt="E">
+            <input type="radio" name="q8" id="q8-E" value="E" class="option-input">
+            <label for="q8-E" class="option-label">
+              <span class="option-letter">E</span>
+              <span>A gênese dos itabiritos decorre de processos magmáticos extrusivos recentes associados ao rifting oceânico que formou a Dorsal Mesoatlântica.</span>
+            </label>
+          </li>
+        </ul>
+
+        <div class="resolution-box" id="res-q8">
+          <div class="resolution-title">
+            <span>Fundamentação Geocientífica • Resolução da Questão 08</span>
+          </div>
+          <div class="resolution-content">
+            <p><strong>Gabarito Oficial: Alternativa A</strong></p>
+            <p>Os depósitos econômicos de ferro do Quadrilátero Ferrífero, localizado na porção sul do Cráton do São Francisco em Minas Gerais, encontram-se hospedados em sequências químicas de formações ferríferas bandadas (<em>BIFs</em>) paleoproterozoicas. No contexto tectonometamórfico regional desse complexo, essas rochas foram recristalizadas em fáceis xisto verde e anfibolito, recebendo a denominação litológica de itabiritos, os quais compõem a Formação Cauê (pertencente ao Grupo Itabira do Supergrupo Minas, balizado cronologicamente entre 2,4 e 2,1 bilhões de anos).</p>
+            <p>As outras opções baseiam-se em erros genéticos e temporais: a Província Mineral de Carajás, no Pará, repousa no Domínio Carajás do Cráton Amazônico, associando-se a coberturas vulcanossedimentares arqueanas a paleoproterozoicas do Supergrupo Grão Pará (Formação Carajás datada em mais de 2,7 bilhões de anos), não possuindo vínculo com aluviões holocênicas recentes. Minérios de ferro nos escudos cristalinos possuem gênese geoquímica marinha pré-cambriana ligada ao Grande Evento de Oxigenação e enriquecimento hidrotermal ou supérgeno, inexistindo correlação com sedimentação biológica de angiospermas. O Cráton do São Francisco é um escudo cristalino antigo e não apresenta nenhuma correlação com os arenitos eólicos mesozoicos da Formação Botucatu da Bacia do Paraná.</p>
+          </div>
+        </div>
+      </article>
+
+      <!-- QUESTÃO 09 -->
+      <article class="question-card" id="card-q9">
+        <div class="question-header">
+          <span class="question-number">Questão 09</span>
+          <span class="status-badge" id="badge-q9"></span>
+        </div>
+        <p class="question-text">
+          A formação de reservas expressivas de combustíveis fósseis exige condições geológicas de bacia subsidente, aporte orgânico, soterramento e janelas térmicas diagenéticas e catagenéticas. A respeito dos depósitos energéticos fósseis no Brasil sob a ótica de Teixeira et al. (2009) e Ross (2014), analise as proposições a seguir:
+        </p>
+        <ol class="question-sublist">
+          <li>As camadas economicamente exploráveis de carvão mineral na Bacia do Paraná concentram-se na Formação Rio Bonito, estratigraficamente posicionada no Período Permiano da Era Paleozoica.</li>
+          <li>A geração de hidrocarbonetos nas bacias sedimentares de margem passiva oceânica, como as Bacias de Campos e Santos, vincula-se à maturação de rochas geradoras pelíticas e carbonáticas ricas em querogênio aquático.</li>
+          <li>Os reservatórios do Pré-sal brasileiro constituem acumulações de hidrocarbonetos alojadas em rochas carbonáticas microbianas do Cretáceo, retidas sob espessas sequências evaporíticas selantes.</li>
+          <li>O carvão mineral e o petróleo brasileiros são lavrados predominantemente em batólitos graníticos do Arqueano Inferior no interior dos escudos cristalinos nordestinos.</li>
+        </ol>
+        <p class="question-text" style="font-weight: 600;">Estão corretas apenas as afirmativas:</p>
+        <ul class="options-list">
+          <li class="option-item" data-opt="A">
+            <input type="radio" name="q9" id="q9-A" value="A" class="option-input">
+            <label for="q9-A" class="option-label">
+              <span class="option-letter">A</span>
+              <span>I e IV.</span>
+            </label>
+          </li>
+          <li class="option-item" data-opt="B">
+            <input type="radio" name="q9" id="q9-B" value="B" class="option-input">
+            <label for="q9-B" class="option-label">
+              <span class="option-letter">B</span>
+              <span>II e IV.</span>
+            </label>
+          </li>
+          <li class="option-item" data-opt="C">
+            <input type="radio" name="q9" id="q9-C" value="C" class="option-input">
+            <label for="q9-C" class="option-label">
+              <span class="option-letter">C</span>
+              <span>I, II e III.</span>
+            </label>
+          </li>
+          <li class="option-item" data-opt="D">
+            <input type="radio" name="q9" id="q9-D" value="D" class="option-input">
+            <label for="q9-D" class="option-label">
+              <span class="option-letter">D</span>
+              <span>I, III e IV.</span>
+            </label>
+          </li>
+          <li class="option-item" data-opt="E">
+            <input type="radio" name="q9" id="q9-E" value="E" class="option-input">
+            <label for="q9-E" class="option-label">
+              <span class="option-letter">E</span>
+              <span>II, III e IV.</span>
+            </label>
+          </li>
+        </ul>
+
+        <div class="resolution-box" id="res-q9">
+          <div class="resolution-title">
+            <span>Fundamentação Geocientífica • Resolução da Questão 09</span>
+          </div>
+          <div class="resolution-content">
+            <p><strong>Gabarito Oficial: Alternativa C</strong></p>
+            <p>As proposições I, II e III reproduzem fielmente os modelos de geração de recursos energéticos sedimentares no território nacional:</p>
+            <p>• A afirmativa I aborda de forma acurada os jazimentos de carvão mineral explorados na borda leste da Bacia do Paraná nos estados do Rio Grande do Sul e Santa Catarina, situados no Permiano inferior e hospedados nos intervalos arenosos e carbonosos da Formação Rio Bonito (Grupo Tubarão), fruto de antigas bacias pantanosas costeiras e deltaicas continentais pós-glaciais gondwânicas.</p>
+            <p>• A afirmativa II espelha o modelo clássico de geração dos sistemas petrolíferos de bacias marginais oceânicas, como as de Campos e Santos, onde folhelhos ricos em matéria orgânica marinha e lacustre anóxica atingiram a janela térmica catagenética de geração, expelindo óleo e gás que migraram até os horizontes reservatórios porosos.</p>
+            <p>• A afirmativa III sintetiza a evolução do intervalo do Pré-sal, cujas acumulações volumosas alojam-se em calcários estromatolíticos e coquinas aptianas do Cretáceo Inferior lacustre, soterradas e hermeticamente trapeadas pela posterior deposição de uma espessa camada de evaporitos (halita e anidrita) decorrente da abertura e evaporação do proto-Atlântico.</p>
+            <p>Por fim, a afirmativa IV é insustentável na geologia dos hidrocarbonetos: carvão fóssil e petróleo exigem bacias subsidentes sedimentares para o soterramento anaeróbico de matéria orgânica, inexistindo condições físico-químicas de preservação de óleo fóssil e carvão no interior de corpos de granitos ígneos do Arqueano basal. Portanto, estão corretas I, II e III.</p>
+          </div>
+        </div>
+      </article>
+
+      <!-- QUESTÃO 10 -->
+      <article class="question-card" id="card-q10">
+        <div class="question-header">
+          <span class="question-number">Questão 10</span>
+          <span class="status-badge" id="badge-q10"></span>
+        </div>
+        <p class="question-text">
+          A distribuição espacial dos recursos econômicos no Brasil espelha com clareza o zoneamento litoestrutural determinado pela geohistória da Plataforma Sul-Americana. A respeito do contraste geotectônico e metalogenético entre escudos cristalinos e bacias sedimentares, assinale a alternativa correta:
+        </p>
+        <ul class="options-list">
+          <li class="option-item" data-opt="A">
+            <input type="radio" name="q10" id="q10-A" value="A" class="option-input">
+            <label for="q10-A" class="option-label">
+              <span class="option-letter">A</span>
+              <span>Os escudos cristalinos antigos do Pré-Cambriano hospedam os grandes depósitos de minerais metálicos, enquanto as bacias sedimentares do Fanerozoico preservam os recursos energéticos de origem fóssil.</span>
+            </label>
+          </li>
+          <li class="option-item" data-opt="B">
+            <input type="radio" name="q10" id="q10-B" value="B" class="option-input">
+            <label for="q10-B" class="option-label">
+              <span class="option-letter">B</span>
+              <span>As bacias sedimentares fanerozoicas abrigam com exclusividade as maiores jazidas mundiais de hematita compacta primária e veios hidrotermais auríferos orogênicos.</span>
+            </label>
+          </li>
+          <li class="option-item" data-opt="C">
+            <input type="radio" name="q10" id="q10-C" value="C" class="option-input">
+            <label for="q10-C" class="option-label">
+              <span class="option-letter">C</span>
+              <span>Os terrenos cratônicos exibem estabilidade tectônica que favoreceu a preservação contínua de imensas reservas de carvão mineral de idade cenozóica em Carajás.</span>
+            </label>
+          </li>
+          <li class="option-item" data-opt="D">
+            <input type="radio" name="q10" id="q10-D" value="D" class="option-input">
+            <label for="q10-D" class="option-label">
+              <span class="option-letter">D</span>
+              <span>As províncias minerais dos escudos cristalinos (como o Quadrilátero Ferrífero) foram geradas pelos mesmos processos catagenéticos que geram os hidrocarbonetos fósseis marinhos.</span>
+            </label>
+          </li>
+          <li class="option-item" data-opt="E">
+            <input type="radio" name="q10" id="q10-E" value="E" class="option-input">
+            <label for="q10-E" class="option-label">
+              <span class="option-letter">E</span>
+              <span>O petróleo e o gás natural acumulam-se em rochas ígneas plutônicas cristalizadas no Hadeano, não apresentando relação com ambientes de sedimentação de bacias da margem continental.</span>
+            </label>
+          </li>
+        </ul>
+
+        <div class="resolution-box" id="res-q10">
+          <div class="resolution-title">
+            <span>Fundamentação Geocientífica • Resolução da Questão 10</span>
+          </div>
+          <div class="resolution-content">
+            <p><strong>Gabarito Oficial: Alternativa A</strong></p>
+            <p>A síntese litoestratigráfica e econômica traçada tanto por Ross (2014) quanto por Teixeira et al. (2009) estabelece um zoneamento mineral inequívoco no relevo e substrato brasileiro:</p>
+            <p>• Os terrenos ígneo-metamórficos dos <strong>escudos cristalinos e orógenos antigos do Pré-Cambriano</strong> (formados entre 4,0 Ga e 540 Ma) foram palco de intensos ciclos magmáticos, fluxos hidrotermais submarinos e diferenciações mantélicas, concentrando os grandes depósitos de <strong>minerais metálicos</strong> do país (como as reservas mundiais de ferro, manganês e ouro no Quadrilátero Ferrífero de Minas Gerais e na Serra dos Carajás no Pará, além de depósitos de cobre, cromo, níquel e nióbio).</p>
+            <p>• As depressões subsidentes das <strong>grandes bacias sedimentares fanerozoicas</strong> (Paleozoico, Mesozoico e Cenozoico), ao contrário, propiciaram o soterramento contínuo, rápido e em condições de anoxia da biomassa aquática e vegetal, fornecendo as pressões e janelas de maturação térmica diagenética essenciais para a conservação e gênese de <strong>combustíveis fósseis</strong> (como o carvão fóssil na Bacia do Paraná e o petróleo nas bacias costeiras e no Pré-sal marinho).</p>
+            <p>As proposições B, C, D e E contêm inversões conceituais: bacias sedimentares fanerozoicas não hospedam os minérios de hematita e itabiritos primários em faixas orogênicas de ferro e ouro dos escudos antigos. Carajás é um complexo metalogenético do Pré-Cambriano no Cráton Amazônico, inexistindo jazidas de carvão cenozóico nessa estrutura. As províncias de ferro do Quadrilátero Ferrífero não têm filiação com o craqueamento térmico de querogênio de petróleo, mas sim com a precipitação química de óxidos de ferro em oceanos proterozoicos primitivos. A acumulação de hidrocarbonetos não ocorre em granitos plutônicos do Hadeano, dependendo inteiramente da estratigrafia sedimentar porosa e selante das bacias da margem continental.</p>
+          </div>
+        </div>
+      </article>
+
+      <!-- Painel de Ações de Submissão -->
+      <section class="actions-section" id="actionsPanel">
+        <button type="button" class="btn btn-primary" id="btnSubmit">
+          Finalizar Prova e Corrigir
+        </button>
+        <button type="button" class="btn btn-secondary" id="btnReset">
+          Limpar Respostas
+        </button>
+      </section>
+
+    </form>
+
+    <!-- Painel de Resultados (Exibido pós-submissão) -->
+    <section class="results-panel" id="resultsPanel">
+      <div class="results-header">
+        <h2 class="results-title">Desempenho no Simulado</h2>
+        <div class="score-banner">
+          <span class="score-number" id="scoreValue">0</span>
+          <span class="score-total">/ 10</span>
+        </div>
+        <div id="performanceBadge" class="score-percentage">0% de Aproveitamento</div>
+        <p class="feedback-text" id="feedbackComment"></p>
+      </div>
+
+      <h3 style="text-align: center; font-size: 1.15rem; margin-bottom: 12px; font-family: var(--font-serif);">
+        Quadro Sinóptico de Respostas e Gabarito
+      </h3>
+      <table class="answer-key-table">
+        <thead>
+          <tr>
+            <th>Questão</th>
+            <th>Sua Resposta</th>
+            <th>Gabarito Oficial</th>
+            <th>Situação</th>
+          </tr>
+        </thead>
+        <tbody id="answerKeyRows">
+          <!-- Preenchido via JavaScript -->
+        </tbody>
+      </table>
+
+      <div style="text-align: center; margin-top: 28px;">
+        <button type="button" class="btn btn-primary" onclick="window.scrollTo({top: 0, behavior: 'smooth'});">
+          Revisar Questões no Texto
+        </button>
+      </div>
+    </section>
+
+  </main>
+
+  <script>
+    // Gabarito Oficial
+    const officialKeys = {
+      q1: "C",
+      q2: "C",
+      q3: "C",
+      q4: "B",
+      q5: "B",
+      q6: "A",
+      q7: "B",
+      q8: "A",
+      q9: "C",
+      q10: "A"
+    };
+
+    const totalQuestions = 10;
+    const form = document.getElementById('quizForm');
+    const progressBar = document.getElementById('progressBar');
+    const progressInfo = document.getElementById('progressInfo');
+    const btnSubmit = document.getElementById('btnSubmit');
+    const btnReset = document.getElementById('btnReset');
+    const resultsPanel = document.getElementById('resultsPanel');
+    const scoreValue = document.getElementById('scoreValue');
+    const performanceBadge = document.getElementById('performanceBadge');
+    const feedbackComment = document.getElementById('feedbackComment');
+    const answerKeyRows = document.getElementById('answerKeyRows');
+
+    // Atualiza progresso de questões respondidas
+    function updateProgress() {
+      const answeredCount = Object.keys(officialKeys).filter(key => {
+        return form.querySelector(`input[name="${key}"]:checked`) !== null;
+      }).length;
+
+      const pct = (answeredCount / totalQuestions) * 100;
+      progressBar.style.width = pct + "%";
+      progressInfo.textContent = `Questões respondidas: ${answeredCount} de ${totalQuestions}`;
+    }
+
+    form.addEventListener('change', (e) => {
+      if (e.target.type === 'radio') {
+        updateProgress();
+      }
+    });
+
+    // Submissão e Correção
+    btnSubmit.addEventListener('click', () => {
+      let score = 0;
+      let unanswered = 0;
+      answerKeyRows.innerHTML = '';
+
+      for (let i = 1; i <= totalQuestions; i++) {
+        const key = `q${i}`;
+        const correct = officialKeys[key];
+        const selectedInput = form.querySelector(`input[name="${key}"]:checked`);
+        const userChoice = selectedInput ? selectedInput.value : null;
+
+        const card = document.getElementById(`card-${key}`);
+        const badge = document.getElementById(`badge-${key}`);
+        const resolution = document.getElementById(`res-${key}`);
+        const items = card.querySelectorAll('.option-item');
+
+        // Adiciona classe de revisão no card
+        card.classList.add('reviewed');
+
+        // Limpa classes anteriores
+        items.forEach(item => {
+          item.classList.remove('correct-choice', 'wrong-choice');
+          const optLetter = item.getAttribute('data-opt');
+          if (optLetter === correct) {
+            item.classList.add('correct-choice');
+          } else if (userChoice && optLetter === userChoice) {
+            item.classList.add('wrong-choice');
+          }
+        });
+
+        // Avalia acerto/erro
+        let statusText = "";
+        let statusColor = "";
+        if (userChoice === correct) {
+          score++;
+          badge.className = "status-badge correct";
+          badge.textContent = "ACERTOU";
+          statusText = "Correta";
+          statusColor = "color: #0f5132; font-weight: 600;";
+        } else {
+          badge.className = "status-badge incorrect";
+          if (!userChoice) {
+            unanswered++;
+            badge.textContent = "NÃO RESPONDIDA";
+            statusText = "Em branco";
+            statusColor = "color: #6c757d;";
+          } else {
+            badge.textContent = "ERROU";
+            statusText = "Incorreta";
+            statusColor = "color: #842029; font-weight: 600;";
+          }
+        }
+
+        // Mostra resolução abaixo da questão
+        resolution.style.display = "block";
+
+        // Monta linha do quadro resumo
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td><strong>${String(i).padStart(2, '0')}</strong></td>
+          <td>${userChoice ? userChoice : '—'}</td>
+          <td><strong>${correct}</strong></td>
+          <td style="${statusColor}">${statusText}</td>
+        `;
+        answerKeyRows.appendChild(row);
+      }
+
+      // Painel de Resultados
+      scoreValue.textContent = score;
+      const percentage = Math.round((score / totalQuestions) * 100);
+      performanceBadge.textContent = `${percentage}% de Aproveitamento`;
+
+      if (percentage >= 80) {
+        performanceBadge.className = "score-percentage performance-high";
+        feedbackComment.textContent = "Excelente desempenho! Domínio sólido dos conceitos estruturantes de petrologia, evolução temporal do relevo brasileiro e relações metalogenéticas conforme os referenciais de Teixeira et al. (2009) e Ross (2014).";
+      } else if (percentage >= 50) {
+        performanceBadge.className = "score-percentage performance-medium";
+        feedbackComment.textContent = "Bom aproveitamento. Recomendamos uma revisão criteriosa das resoluções técnicas abaixo, focando especialmente nas distinções entre a metalogênese pré-cambriana e a gênese dos combustíveis fósseis nas bacias fanerozoicas.";
+      } else {
+        performanceBadge.className = "score-percentage performance-low";
+        feedbackComment.textContent = "Aproveitamento abaixo do ideal para o nível exigido pela banca. É fundamental aprofundar os estudos no ciclo das rochas, nas províncias litoestruturais brasileiras e nos marcos cronoestratigráficos da escala do tempo geológico.";
+      }
+
+      // Exibe painel e rola suavemente
+      resultsPanel.style.display = "block";
+      resultsPanel.scrollIntoView({ behavior: 'smooth' });
+
+      // Atualiza botões
+      btnSubmit.textContent = "Simulado Corrigido";
+      btnSubmit.disabled = true;
+      btnSubmit.style.opacity = "0.7";
+      btnSubmit.style.cursor = "default";
+    });
+
+    // Reiniciar Simulado
+    btnReset.addEventListener('click', () => {
+      form.reset();
+      updateProgress();
+
+      for (let i = 1; i <= totalQuestions; i++) {
+        const key = `q${i}`;
+        const card = document.getElementById(`card-${key}`);
+        const badge = document.getElementById(`badge-${key}`);
+        const resolution = document.getElementById(`res-${key}`);
+        const items = card.querySelectorAll('.option-item');
+
+        card.classList.remove('reviewed');
+        badge.className = "status-badge";
+        badge.textContent = "";
+        resolution.style.display = "none";
+
+        items.forEach(item => {
+          item.classList.remove('correct-choice', 'wrong-choice');
+        });
+      }
+
+      resultsPanel.style.display = "none";
+      btnSubmit.textContent = "Finalizar Prova e Corrigir";
+      btnSubmit.disabled = false;
+      btnSubmit.style.opacity = "1";
+      btnSubmit.style.cursor = "pointer";
+
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  </script>
+</body>
+</html>

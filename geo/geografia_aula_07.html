@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Petrologia, Recursos Minerais e Tempo Geológico | IFMG</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #ffffff;
+      color: #1e293b; /* Slate-800: ótimo contraste sem agredir a visão */
+      -webkit-font-smoothing: antialiased;
+    }
+    /* Estilo de grifo suave para memorização */
+    .grifo {
+      background-color: #fef3c7; /* Amarelo suave */
+      color: #78350f;
+      padding: 0.125rem 0.35rem;
+      border-radius: 0.25rem;
+      font-weight: 600;
+    }
+    .grifo-alerta {
+      background-color: #fee2e2; /* Vermelho suave para distratores e pegadinhas */
+      color: #991b1b;
+      padding: 0.125rem 0.35rem;
+      border-radius: 0.25rem;
+      font-weight: 600;
+    }
+    .grifo-verde {
+      background-color: #dcfce7; /* Verde suave para recursos econômicos */
+      color: #166534;
+      padding: 0.125rem 0.35rem;
+      border-radius: 0.25rem;
+      font-weight: 600;
+    }
+    /* Quebras de palavras e ajuste rigoroso para tabelas não gerarem scroll horizontal */
+    table {
+      table-layout: fixed;
+      width: 100%;
+    }
+    th, td {
+      word-wrap: break-word;
+      overflow-wrap: break-word;
+      hyphens: auto;
+    }
+  </style>
+</head>
+<body class="bg-white min-h-screen">
+
+  <!-- Container Central -->
+  <main class="max-w-4xl mx-auto px-4 sm:px-6 py-8 sm:py-12">
+
+    <!-- REPRODUTOR DE ÁUDIO NO INÍCIO -->
+    <header class="mb-10 bg-slate-50 border border-slate-200 rounded-xl p-5 shadow-sm">
+      <div class="flex items-center gap-3 mb-3">
+        <span class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-slate-200 text-slate-700">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
+          </svg>
+        </span>
+        <div>
+          <h2 class="text-sm font-bold uppercase tracking-wider text-slate-800">Aula em Áudio (Podcast / Narração)</h2>
+          <p class="text-xs text-slate-500">Ouça o resumo completo enquanto acompanha os tópicos e tabelas</p>
+        </div>
+      </div>
+
+      <!-- Espaço interativo e editável para o nome do arquivo MP3 -->
+      <div class="bg-white p-3 rounded-lg border border-slate-200 mb-3">
+        <label for="audioFileName" class="block text-xs font-semibold text-slate-600 mb-1">
+          Arquivo MP3 da mesma pasta:
+        </label>
+        <div class="flex flex-col sm:flex-row gap-2">
+          <!-- O usuário pode mudar aqui o nome padrão do arquivo se desejar -->
+          <input 
+            type="text" 
+            id="audioFileName" 
+            value="aula_petrologia.mp3" 
+            class="flex-1 text-sm bg-slate-50 border border-slate-300 rounded px-3 py-1.5 focus:ring-1 focus:ring-slate-500 focus:outline-none"
+            placeholder="Exemplo: aula_petrologia.mp3"
+          >
+          <button 
+            type="button" 
+            onclick="atualizarAudio()" 
+            class="text-xs bg-slate-800 hover:bg-slate-700 text-white font-medium px-4 py-2 rounded transition"
+          >
+            Carregar Áudio
+          </button>
+        </div>
+        <p class="text-[11px] text-slate-500 mt-1 italic">
+          *Dica: você também pode editar o atributo <code>src</code> na linha do código HTML abaixo.
+        </p>
+      </div>
+
+      <!-- Player de Áudio Nativo -->
+      <div class="w-full">
+        <audio id="meuPlayerAudio" controls class="w-full h-10 outline-none">
+          <!-- Nome do arquivo configurado aqui: -->
+          <source id="sourcePlayer" src="aula_petrologia.mp3" type="audio/mpeg">
+          Seu navegador não suporta a reprodução deste arquivo de áudio.
+        </audio>
+        <p id="audioStatus" class="text-xs text-slate-500 mt-1">Carregando: <span class="font-mono text-slate-700">aula_petrologia.mp3</span></p>
+      </div>
+    </header>
+
+    <!-- CABEÇALHO DO ARTIGO / RESUMO -->
+    <section class="border-b border-slate-200 pb-8 mb-8">
+      <div class="inline-block bg-slate-100 text-slate-700 text-xs px-2.5 py-1 rounded font-semibold uppercase tracking-wider mb-3">
+        Concurso Docente IFMG &bull; Geografia Física
+      </div>
+      <h1 class="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-slate-900 leading-tight mb-4">
+        Petrologia, Recursos Minerais e Tempo Geológico: Fundamentos Teóricos e Matriz de Conteúdo
+      </h1>
+      <p class="text-sm text-slate-600 leading-relaxed">
+        Material técnico e sistematizado com foco rigoroso no perfil da Comissão Central de Concurso do IFMG. Bibliografia vinculada: <strong>TEIXEIRA et al. (2009)</strong> e <strong>ROSS (2014)</strong>.
+      </p>
+    </section>
+
+    <!-- SEÇÃO 1 -->
+    <article class="space-y-6 text-slate-800 leading-relaxed text-sm sm:text-base">
+      <div>
+        <h2 class="text-xl sm:text-2xl font-bold text-slate-900 pb-2 border-b border-slate-200 mb-4">
+          1. Diferenciação Mineralógica e Petrogenética Fundamental
+        </h2>
+        <p class="mb-4">
+          A análise da dinâmica litosférica e da evolução do relevo terrestre exige a distinção rigorosa entre as substâncias químicas formadoras da crosta e os corpos rochosos que sustentam as morfoestruturas continentais. A petrologia e a mineralogia, assentadas na obra de referência de <em>Teixeira et al. (2009)</em>, constituem o alicerce indispensável para a compreensão da gênese crustal e para a resolução de questões nos certames do Instituto Federal de Minas Gerais (IFMG).
+        </p>
+
+        <h3 class="text-lg font-bold text-slate-900 mt-6 mb-3">Mineral versus Rocha</h3>
+        <ul class="list-disc pl-5 space-y-3 mb-6">
+          <li>
+            <strong>Mineral:</strong> Caracteriza-se como um <span class="grifo">elemento ou composto químico inorgânico</span>, homogêneo, originado por processos naturais, dotado de <span class="grifo">composição química definida</span> (fixa ou variante dentro de limites estritos por substituição isomórfica) e <span class="grifo">estrutura interna cristalina periódica e ordenada</span>. Cada espécie mineralógica apresenta propriedades físico-químicas constantes, tais como hábito, clivagem, fratura, dureza na escala de Mohs e densidade relativa, como se observa no quartzo (SiO<sub>2</sub>), na calcita (CaCO<sub>3</sub>) e na hematita (Fe<sub>2</sub>O<sub>3</sub>).
+          </li>
+          <li>
+            <strong>Rocha:</strong> Define-se como um <span class="grifo">agregado consolidado natural</span> composto pela associação coerente de um ou mais minerais (agregado poliminerálico ou monominerálico) ou por massas vítreas e matéria orgânica fóssil consolidada (mineraloides). O <strong>granito</strong>, por exemplo, é uma rocha poliminerálica formada essencialmente por quartzo, feldspato alcalino, plagioclásio e micas; o <strong>quartzito puro</strong> e o <strong>mármore</strong> constituem agregados tipicamente monominerálicos recristalizados; e o <strong>carvão mineral</strong> expressa uma rocha sedimentar combustível rica em compostos de carbono amorfo.
+          </li>
+        </ul>
+
+        <!-- Caixa de memorização rápida -->
+        <div class="bg-slate-50 border-l-4 border-slate-600 p-4 rounded-r-lg my-6">
+          <h4 class="font-bold text-sm uppercase text-slate-800 tracking-wide mb-2">Para Fixação Conceitual Direta:</h4>
+          <ul class="space-y-1 text-sm text-slate-700">
+            <li>&bull; <strong>Mineral:</strong> Elemento/composto natural, inorgânico, com rede cristalina ordenada tridimensional e fórmula química determinada.</li>
+            <li>&bull; <strong>Rocha:</strong> Associação consolidada e coerente de minerais ou matéria orgânica/vítrea, constituindo o arcabouço da litosfera.</li>
+            <li>&bull; <strong class="text-slate-900">Distinção Operacional de Prova:</strong> <span class="grifo">O mineral é a unidade constituinte básica individual; a rocha é o corpo geológico macroscópico resultante.</span></li>
+          </ul>
+        </div>
+
+        <h3 class="text-lg font-bold text-slate-900 mt-6 mb-3">O Ciclo Litológico e a Dinâmica Petrogenética</h3>
+        <p class="mb-4">
+          O ciclo litológico (ou ciclo petrogenético) sintetiza o circuito contínuo de transformação, reciclagem e gênese das rochas na crosta terrestre através do <span class="grifo">acoplamento direto entre forças geológicas endógenas e exógenas</span>. Esse dinamismo impede a estagnação litosférica e assegura a contínua mobilização dos elementos químicos do planeta.
+        </p>
+        <p class="mb-4">
+          A <strong>engrenagem endógena</strong> opera a partir da dissipação térmica interna e da dinâmica convectiva do manto, as quais impulsionam a tectônica de placas. O movimento termodinâmico promove a fusão total ou parcial de rochas preexistentes (anatexia), gerando o magma. Quando o magma sobe e se resfria, consolida-se em <span class="grifo">rochas magmáticas ou ígneas</span>. Ao mesmo tempo, massas rochosas de qualquer natureza submetidas a gradientes acentuados de pressão confinante, cisalhamento tectônico e calor crustal (sem atingir o ponto de fusão) sofrem recristalização no estado sólido, dando origem às <span class="grifo">rochas metamórficas</span>.
+        </p>
+        <p class="mb-4">
+          Simultaneamente, a <strong>engrenagem exógena</strong> é impulsionada pela radiação solar, pelos ciclos biogeoquímicos e pela gravidade, mobilizando a circulação hídrica e atmosférica. Toda rocha exposta às condições subaéreas da superfície é submetida ao intemperismo químico e físico, transformando-se em saprólitos e regolitos que sofrem desagregação, erosão, transporte por agentes fluidos (água, vento e gelo) e acumulação em bacias subsidentes. Com o soterramento contínuo dessas partículas minerais e orgânicas, instala-se a <span class="grifo">diagênese</span> — englobando a compactação mecânica, desidratação e cimentação geoquímica intersticial —, o que conclui a litificação dos sedimentos em <span class="grifo">rochas sedimentares</span>.
+        </p>
+        <p class="mb-4">
+          A dinâmica do ciclo petrogenético <strong>não é linear nem rígida</strong>: uma rocha ígnea pode ser metamorfisada diretamente na crosta profunda sem passar pela superfície; uma rocha metamórfica pode sofrer exumação orogênica, erosão e ingressar no trato sedimentar; e uma rocha sedimentar pode ser subductada em fossas oceânicas e fundir-se completamente no manto, retornando ao estado de magma primário.
+        </p>
+      </div>
+
+      <!-- SEÇÃO 2 -->
+      <div class="pt-6">
+        <h2 class="text-xl sm:text-2xl font-bold text-slate-900 pb-2 border-b border-slate-200 mb-4">
+          2. Sistemática Petrológica: Gênese, Texturas e Classificações
+        </h2>
+        <p class="mb-4">
+          A caracterização petrológica sistemática subdivide os corpos rochosos da Terra em três classes principais, delimitadas conforme o regime físico de consolidação e o ambiente geodinâmico de cristalização ou litificação:
+        </p>
+
+        <!-- Ígneas -->
+        <h3 class="text-lg font-bold text-slate-900 mt-6 mb-3">Rochas Magmáticas ou Ígneas</h3>
+        <p class="mb-3">
+          Originadas a partir da consolidação do magma silicático aquecido no interior da litosfera ou da lava expelida à superfície, as rochas ígneas conservam feições texturais que espelham com precisão o tempo e o ambiente físico de seu resfriamento:
+        </p>
+        <div class="space-y-4 mb-6">
+          <div class="p-4 bg-slate-50 border border-slate-200 rounded-lg">
+            <h4 class="font-bold text-slate-900 text-sm sm:text-base">Rochas Plutônicas ou Intrusivas</h4>
+            <p class="text-sm mt-1">
+              Formam-se quando grandes massas de magma ficam retidas no interior da crosta em câmaras magmáticas e esfriam de maneira lenta e gradual sob alta pressão litostática. Esse ritmo termodinâmico lento confere tempo hábil para que os cátions e ânions migrem ordenadamente pela fase fundida e formem cristais macroscópicos bem desenvolvidos, resultando na <span class="grifo">textura fanerítica</span> (equigranular ou inequigranular holocristalina visível a olho nu).
+            </p>
+            <p class="text-sm mt-2">
+              <strong>Exemplo Típico: Granito.</strong> Rocha félsica ou siálica, enriquecida em sílica (SiO<sub>2</sub> &gt; 65%), feldspatos potássicos (ortoclásio, microclina), plagioclásios sódicos e quartzo livre, subordinadamente associados a biotita e anfibólios. Apresenta coloração tipicamente leucocrática (clara) e baixa densidade relativa, sendo o <span class="grifo">constituinte majoritário do embasamento siálico dos crátons continentais</span> e de batólitos orogênicos.
+            </p>
+          </div>
+
+          <div class="p-4 bg-slate-50 border border-slate-200 rounded-lg">
+            <h4 class="font-bold text-slate-900 text-sm sm:text-base">Rochas Vulcânicas ou Extrusivas</h4>
+            <p class="text-sm mt-1">
+              Originadas quando o magma ascende através de condutos vulcânicos ou fraturas crustais profundas e extravasa sobre a superfície terrestre ou fundos oceânicos como lava líquida ou piroclastos. O contato com a atmosfera ou com a água produz uma perda térmica instantânea e despressurização violenta, impedindo o crescimento dos cristais. Em decorrência dessa rapidez cinética, consolidam-se com <span class="grifo">textura afanítica</span> (microcristalina ou criptocristalina) ou <span class="grifo">vítrea</span>, podendo conter vesículas de gases retidos durante o extravasamento.
+            </p>
+            <p class="text-sm mt-2">
+              <strong>Exemplo Típico: Basalto.</strong> Rocha máfica ou simática, empobrecida em sílica livre (SiO<sub>2</sub> &asymp; 45–52%) e enriquecida em ferro, magnésio e cálcio. É constituída essencialmente por piroxênios e plagioclásios cálcicos, com matriz fina escura (coloração melanocrática) e alta densidade. Consolida o assoalho das bacias oceânicas e grandes províncias ígneas continentais em eventos rifte, a exemplo dos <span class="grifo">espessos derrames da Formação Serra Geral na Bacia do Paraná</span>.
+            </p>
+          </div>
+        </div>
+
+        <!-- Sedimentares -->
+        <h3 class="text-lg font-bold text-slate-900 mt-6 mb-3">Rochas Sedimentares</h3>
+        <p class="mb-3">
+          As rochas sedimentares decorrem do intemperismo, erosão e litificação de restos minerais prévios, da precipitação direta de compostos iônicos ou da acumulação e soterramento de matéria orgânica fóssil em depressões crustais. Subdividem-se conforme o modo genético predominante:
+        </p>
+        <ul class="list-disc pl-5 space-y-3 mb-6">
+          <li>
+            <strong>Clásticas ou Detríticas:</strong> Formadas por fragmentos minerais e líticos (clastos) erodidos de rochas preexistentes, transportados por fluidos e cimentados durante a diagênese. Classificam-se pela escala de granulometria de grão:
+            <ul class="list-circle pl-5 mt-2 space-y-1 text-sm">
+              <li><strong>Arenito:</strong> Rocha constituída por grãos clásticos da fração areia (0,063 a 2,0 mm), predominantemente grãos de quartzo consolidados por matriz silicosa, ferruginosa ou carbonática.</li>
+              <li><strong>Folhelho (e pelitos/argilitos):</strong> Rocha gerada pela sedimentação por decantação de partículas finas da fração silte e argila (&lt; 0,063 mm) em ambientes aquáticos calmos de baixa energia mecânica (planícies de inundação, lagos e fundos oceânicos). Apresenta clivagem tabular típica e laminação milimétrica físsil.</li>
+            </ul>
+          </li>
+          <li>
+            <strong>Químicas:</strong> Originadas da precipitação de solutos químicos em ambientes aquáticos decorrente de saturação iônica, evaporação intensiva de corpos d'água restritos ou alterações no pH e potencial redox da bacia.
+            <div class="mt-1 text-sm">
+              <em>Exemplo Típico:</em> <strong>Calcário químico</strong> (gerado por precipitação inorgânica direta de carbonato de cálcio, CaCO<sub>3</sub>, na forma de calcita e aragonita, como travertinos) e rochas evaporíticas (halita, gipsita e anidrita).
+            </div>
+          </li>
+          <li>
+            <strong>Orgânicas (ou Biogênicas):</strong> Produzidas pelo acúmulo e diagênese anaeróbica de resíduos e esqueletos de organismos biológicos:
+            <ul class="list-circle pl-5 mt-2 space-y-2 text-sm">
+              <li>
+                <strong>Carvão Mineral:</strong> Rocha sedimentar estratificada combustível formada pela compressão, dessecação e carbonificação progressiva de biomassa florestal fóssil soterrada em paleopântanos costeiros e fluviais. Segue a sequência de enriquecimento progressivo de carbono: <span class="font-semibold text-slate-900">turfa &rarr; linhito &rarr; hulha &rarr; antracito</span>.
+              </li>
+              <li>
+                <strong>Petróleo e Gás Natural:</strong> Hidrocarbonetos líquidos e gasosos que se acumulam nos poros e fraturas de rochas-reservatório (arenitos e carbonatos). Originam-se da <span class="grifo">catagênese térmica da matéria orgânica lipídica microscópica (fitoplâncton e algas)</span> depositada junto a sedimentos argilosos finos no interior de folhelhos geradores.
+              </li>
+            </ul>
+          </li>
+        </ul>
+
+        <!-- Metamórficas -->
+        <h3 class="text-lg font-bold text-slate-900 mt-6 mb-3">Rochas Metamórficas</h3>
+        <p class="mb-3">
+          As transformações metamórficas ocorrem <span class="grifo">exclusivamente no estado termodinâmico sólido</span>, preservando a coerência física da rocha inicial enquanto seus minerais se rearranjam, desidratam ou reagem entre si para atingir equilíbrio em novas condições de pressão (<em>P</em>), temperatura (<em>T</em>) e presença de fluidos quimicamente ativos. Conforme o ambiente geotectônico gerador, destacam-se dois grandes tipos:
+        </p>
+        <div class="space-y-4 mb-6">
+          <div class="p-4 bg-slate-50 border border-slate-200 rounded-lg">
+            <h4 class="font-bold text-slate-900 text-sm sm:text-base">Metamorfismo Regional (ou Dinamotérmico)</h4>
+            <p class="text-sm mt-1">
+              Afeta cinturões orogênicos de centenas a milhares de quilômetros em zonas de convergência e colisão de placas tectônicas. Opera sob atuação conjugada de regimes térmicos elevados e <span class="grifo">tensões tectônicas direcionadas (pressão diferencial)</span>. Os novos minerais crescem alinhados e orientados perpendicularmente ao vetor de compressão tectônica, gerando estruturas planas e lineares conhecidas como <span class="grifo">foliação</span> (xistosidade e bandamento composicional).
+            </p>
+            <p class="text-sm mt-2">
+              <strong>Exemplo Típico: Gnaisse.</strong> Rocha metamórfica de médio a alto grau, caracterizada pela nítida segregação e intercalação de faixas claras ricas em quartzo e feldspatos (bandas félsicas) e faixas escuras ricas em biotita e anfibólios (bandas máficas). Deriva comumente do metamorfismo de rochas ígneas graníticas (ortognaisse) ou de espessos pacotes de sedimentos pelíticos e arenosos (paragnaisse).
+            </p>
+          </div>
+
+          <div class="p-4 bg-slate-50 border border-slate-200 rounded-lg">
+            <h4 class="font-bold text-slate-900 text-sm sm:text-base">Metamorfismo de Contato (ou Térmico)</h4>
+            <p class="text-sm mt-1">
+              Processo eminentemente localizado que circunda corpos magmáticos intrusivos quentes (auréolas de contato) em ascensão na crosta. O agente motor dominante é o <span class="grifo">calor elevado transferido por condução térmica</span> para as rochas hospedeiras encaixantes, sob pressões litostáticas não direcionais relativamente baixas. As rochas assim metamorfisadas recristalizam sem orientação linear de seus eixos cristalográficos, desenvolvendo <span class="grifo">textura granoblástica</span> (mosaico de cristais equidimensionais intercrescidos e sem foliação):
+            </p>
+            <ul class="list-circle pl-5 mt-2 space-y-1 text-sm">
+              <li><strong>Quartzito:</strong> Rocha metamórfica comumente não foliada (granoblástica) originada da recristalização térmica ou regional de arenitos quartzosos. Os limites dos grãos de areia originais soldam-se e coalescem em um mosaico contínuo e tenaz de cristais de quartzo.</li>
+              <li><strong>Mármore:</strong> Rocha metamórfica gerada pela recristalização de rochas carbonáticas sedimentares (calcários ou dolomitos). A calcita e a dolomita originais expandem-se e formam agregados granulares cristalinos, desfazendo marcas fósseis e porosidades pretéritas da rocha mãe.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- TABELA 1: SEM SCROLL HORIZONTAL, FORMATADA COM WRAP E LARGURAS INTELIGENTES -->
+        <h4 class="font-bold text-slate-900 text-sm uppercase tracking-wider mb-2">Tabela Síntese: Classificação Litológica e Petrogênese</h4>
+        <div class="w-full border border-slate-300 rounded-lg overflow-hidden mb-8">
+          <table class="w-full text-xs sm:text-sm text-left border-collapse">
+            <thead class="bg-slate-100 text-slate-900 font-bold border-b border-slate-300">
+              <tr>
+                <th class="p-2 sm:p-2.5 w-[20%] border-r border-slate-300">Categoria</th>
+                <th class="p-2 sm:p-2.5 w-[26%] border-r border-slate-300">Gênese Central</th>
+                <th class="p-2 sm:p-2.5 w-[22%] border-r border-slate-300">Textura Primária</th>
+                <th class="p-2 sm:p-2.5 w-[16%] border-r border-slate-300">Protólito</th>
+                <th class="p-2 sm:p-2.5 w-[16%]">Exemplos</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-200">
+              <tr class="hover:bg-slate-50 transition">
+                <td class="p-2 sm:p-2.5 font-bold border-r border-slate-200 text-slate-900">Ígnea Plutônica</td>
+                <td class="p-2 sm:p-2.5 border-r border-slate-200 text-slate-700">Resfriamento lento no interior da crosta</td>
+                <td class="p-2 sm:p-2.5 border-r border-slate-200 text-slate-700"><strong>Fanerítica</strong> (cristais visíveis a olho nu)</td>
+                <td class="p-2 sm:p-2.5 border-r border-slate-200 text-slate-700">Magmas em câmaras profundas</td>
+                <td class="p-2 sm:p-2.5 font-semibold text-slate-800">Granito, Sienito, Gabro</td>
+              </tr>
+              <tr class="hover:bg-slate-50 transition">
+                <td class="p-2 sm:p-2.5 font-bold border-r border-slate-200 text-slate-900">Ígnea Vulcânica</td>
+                <td class="p-2 sm:p-2.5 border-r border-slate-200 text-slate-700">Resfriamento rápido de lava em superfície</td>
+                <td class="p-2 sm:p-2.5 border-r border-slate-200 text-slate-700"><strong>Afanítica</strong> ou vítrea</td>
+                <td class="p-2 sm:p-2.5 border-r border-slate-200 text-slate-700">Lavas despressurizadas</td>
+                <td class="p-2 sm:p-2.5 font-semibold text-slate-800">Basalto, Riolito, Andesito</td>
+              </tr>
+              <tr class="hover:bg-slate-50 transition">
+                <td class="p-2 sm:p-2.5 font-bold border-r border-slate-200 text-slate-900">Sedimentar Clástica</td>
+                <td class="p-2 sm:p-2.5 border-r border-slate-200 text-slate-700">Erosão, transporte e litificação mecânica</td>
+                <td class="p-2 sm:p-2.5 border-r border-slate-200 text-slate-700"><strong>Clástica</strong> (grãos cimentados)</td>
+                <td class="p-2 sm:p-2.5 border-r border-slate-200 text-slate-700">Clastos silicatados prévios</td>
+                <td class="p-2 sm:p-2.5 font-semibold text-slate-800">Arenito, Folhelho, Conglomerado</td>
+              </tr>
+              <tr class="hover:bg-slate-50 transition">
+                <td class="p-2 sm:p-2.5 font-bold border-r border-slate-200 text-slate-900">Sedimentar Química</td>
+                <td class="p-2 sm:p-2.5 border-r border-slate-200 text-slate-700">Precipitação iônica em meio saturado</td>
+                <td class="p-2 sm:p-2.5 border-r border-slate-200 text-slate-700">Cristalina / inorgânica</td>
+                <td class="p-2 sm:p-2.5 border-r border-slate-200 text-slate-700">Soluções aquosas com íons</td>
+                <td class="p-2 sm:p-2.5 font-semibold text-slate-800">Calcário químico, Gipsita, Halita</td>
+              </tr>
+              <tr class="hover:bg-slate-50 transition">
+                <td class="p-2 sm:p-2.5 font-bold border-r border-slate-200 text-slate-900">Sedimentar Orgânica</td>
+                <td class="p-2 sm:p-2.5 border-r border-slate-200 text-slate-700">Soterramento e catagênese de biomassa</td>
+                <td class="p-2 sm:p-2.5 border-r border-slate-200 text-slate-700">Bioclástica / estratificada</td>
+                <td class="p-2 sm:p-2.5 border-r border-slate-200 text-slate-700">Fitoplâncton ou vegetação fóssil</td>
+                <td class="p-2 sm:p-2.5 font-semibold text-slate-800">Carvão mineral, Rocha geradora (petróleo)</td>
+              </tr>
+              <tr class="hover:bg-slate-50 transition">
+                <td class="p-2 sm:p-2.5 font-bold border-r border-slate-200 text-slate-900">Metamórfica Regional</td>
+                <td class="p-2 sm:p-2.5 border-r border-slate-200 text-slate-700">Pressão dirigida + temperatura elevada</td>
+                <td class="p-2 sm:p-2.5 border-r border-slate-200 text-slate-700"><strong>Foliada</strong> (xistosa / bandamento)</td>
+                <td class="p-2 sm:p-2.5 border-r border-slate-200 text-slate-700">Granitos, pelitos, basaltos</td>
+                <td class="p-2 sm:p-2.5 font-semibold text-slate-800">Gnaisse, Xisto, Ardósia, Filito</td>
+              </tr>
+              <tr class="hover:bg-slate-50 transition">
+                <td class="p-2 sm:p-2.5 font-bold border-r border-slate-200 text-slate-900">Metamorfismo Contato</td>
+                <td class="p-2 sm:p-2.5 border-r border-slate-200 text-slate-700">Calor condutivo de intrusões magmáticas</td>
+                <td class="p-2 sm:p-2.5 border-r border-slate-200 text-slate-700"><strong>Granoblástica</strong> (não foliada)</td>
+                <td class="p-2 sm:p-2.5 border-r border-slate-200 text-slate-700">Arenitos puros, calcários</td>
+                <td class="p-2 sm:p-2.5 font-semibold text-slate-800">Quartzito, Mármore, Corneana</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- SEÇÃO 3 -->
+      <div class="pt-6">
+        <h2 class="text-xl sm:text-2xl font-bold text-slate-900 pb-2 border-b border-slate-200 mb-4">
+          3. Escala do Tempo Geológico e Ritmo Estrutural
+        </h2>
+        <p class="mb-4">
+          A cronologia geológica apoia-se na quantificação das idades relativas e absolutas das sucessões litológicas da Terra, estruturando a evolução do planeta em compartimentos decrescentes: <span class="grifo">Éon &rarr; Era &rarr; Período &rarr; Época</span>. O <strong>Éon</strong> representa a maior divisão do tempo geológico; as <strong>Eras</strong> fragmentam os Éons com base em modificações bióticas e geotectônicas globais; os <strong>Períodos</strong> detalham grandes sistemas deposicionais; e as <strong>Épocas</strong> fornecem o refinamento bioestratigráfico das transformações sedimentares e climáticas.
+        </p>
+
+        <h3 class="text-lg font-bold text-slate-900 mt-6 mb-3">O Pré-Cambriano: Consolidação Crustal e Embasamento</h3>
+        <p class="mb-3">
+          Compreendendo cerca de <span class="grifo">88% de toda a cronologia da Terra</span> (dos 4,56 bilhões de anos até cerca de 541 milhões de anos atrás), o Pré-Cambriano abarca a gênese dos primeiros núcleos continentais e a evolução da litosfera primitiva:
+        </p>
+        <ul class="list-disc pl-5 space-y-3 mb-6">
+          <li>
+            <strong>Éon Hadeano (4,56 a 4,0 Ga):</strong> Marcado pela acreção planetária, intenso bombardeamento meteorítico e diferenciação geoquímica em camadas concêntricas (núcleo metálico e manto silicático), sem registro litológico continental conhecido.
+          </li>
+          <li>
+            <strong>Éon Arqueano (4,0 a 2,5 Ga):</strong> Caracterizado pelo resfriamento crustal que permitiu a formação dos primeiros protocontinentes rígidos. O registro litológico é composto por complexos de rochas granito-gnáissicas de alto grau e por faixas vulcanossedimentares intensamente dobradas do tipo <span class="grifo">greenstone belts</span>, as quais abrigam jazidas primárias de metais preciosos como o ouro e sulfetos maciços.
+          </li>
+          <li>
+            <strong>Éon Proterozoico (2,5 Ga a 541 Ma):</strong> Fragmentado em três Eras cruciais para a geologia histórica:
+            <ul class="list-circle pl-5 mt-2 space-y-2 text-sm">
+              <li>
+                <strong>Paleoproterozoico (2,5 a 1,6 Ga):</strong> Época do Grande Evento de Oxidação atmosférica provocada pela fotossíntese de cianobactérias marinhas. O oxigênio livre reagiu com o ferro dissolvido nos oceanos primitivos, precipitando gigantescas camadas de sedimentos químicos conhecidos como <span class="grifo">Formações Ferríferas Bandadas (BIFs)</span>. Nesse intervalo ocorreram os ciclos orogênicos consolidados, tais como o <strong>Ciclo Transamazônico</strong>, e a sedimentação da <strong>Bacia Minas (Quadrilátero Ferrífero)</strong>.
+              </li>
+              <li>
+                <strong>Mesoproterozoico (1,6 a 1,0 Ga):</strong> Intervalo de estabilidade morfotectônica com fragmentações intracontinentais que abriram bacias tipo rifte, preservando volumosas sequências psamíticas de quartzitos (como as camadas basais do Supergrupo Espinhaço).
+              </li>
+              <li>
+                <strong>Neoproterozoico (1,0 Ga a 541 Ma):</strong> Fase de aglutinação continental que gerou o supercontinente Gondwana através de episódios colisionais orogênicos aglutinados sob a denominação de <span class="grifo">Ciclo Brasiliano</span>, respondendo pela conformação das faixas móveis dobradas que recobrem e contornam os crátons nacionais.
+              </li>
+            </ul>
+          </li>
+        </ul>
+
+        <h3 class="text-lg font-bold text-slate-900 mt-6 mb-3">O Éon Fanerozoico: A Radiação da Vida e as Bacias Sedimentares</h3>
+        <p class="mb-3">
+          O Éon Fanerozoico (541 Ma ao presente) abrange os períodos de proliferação biológica macroscópica com ampla preservação de fósseis minerais, sendo estruturado em três Eras sucessivas:
+        </p>
+        <ul class="list-disc pl-5 space-y-3 mb-6">
+          <li>
+            <strong>Era Paleozoica (541 a 252 Ma):</strong> Dividida nos períodos Cambriano, Ordoviciano, Siluriano, Devoniano, Carbonífero e Permiano. Registra a formação das imensas <span class="grifo">bacias sedimentares intracratônicas da América do Sul</span> (Bacias do Paraná, do Parnaíba e do Amazonas). Sob condições paleoclimáticas que alternaram transgressões marinhas epicontinentais, ciclos glaciais e fases de sedimentação deltaica no <strong>Período Permiano</strong>, ocorreu o acúmulo de biomassa fóssil que consolidou os depósitos de <span class="grifo-verde">carvão mineral no sul do Brasil</span>.
+          </li>
+          <li>
+            <strong>Era Mesozoica (252 a 66 Ma):</strong> Dividida nos períodos Triássico, Jurássico e Cretáceo. Marcada inicialmente pela aridez generalizada e extensão de grandes paleodesertos de dunas eólicas (arenitos Botucatu) no interior do Gondwana. No Cretáceo, o rifteamento e a fragmentação continental originaram o Oceano Atlântico Sul, acompanhados por grandes derrames basálticos e pela instalação das <span class="grifo">bacias sedimentares costeiras da margem passiva</span> (Campos, Santos e Espírito Santo). Em ambientes lacustres restritos e golfos de evaporação, acumularam-se as rochas geradoras de <span class="grifo-verde">petróleo, reservatórios de carbonato microbial e a expressiva cobertura de rochas evaporíticas (sal)</span>.
+          </li>
+          <li>
+            <strong>Era Cenozoica (66 Ma ao presente):</strong> Subdividida nos períodos Paleógeno, Neógeno e Quaternário. Ocorre o fechamento orogênico que ergueu as cordilheiras terciárias globais (Himalaia, Andes e Alpes), <span class="grifo-alerta">sem equivalente orogênico compressivo no Brasil</span>. O registro nacional concentra-se na acomodação morfoestrutural por falhamentos distensivos, vulcanismo restrito nas ilhas oceânicas (Fernando de Noronha, Trindade) e sedimentação aluvial e costeira inconsolidada ao longo do Quaternário (Bacia do Pantanal e planícies fluviolitorâneas).
+          </li>
+        </ul>
+      </div>
+
+      <!-- SEÇÃO 4 -->
+      <div class="pt-6">
+        <h2 class="text-xl sm:text-2xl font-bold text-slate-900 pb-2 border-b border-slate-200 mb-4">
+          4. Províncias Estruturais do Brasil e Potencial Econômico Mineral
+        </h2>
+        <p class="mb-4">
+          Na sistematização de <strong>Jurandyr Ross (2014)</strong> e na cartografia geotectônica brasileira, o território nacional acha-se sustentado pela Plataforma Sul-Americana, apresentando um arcabouço estrutural <span class="grifo-alerta">desprovido de dobramentos modernos terciários</span>. As estruturas geológicas agrupam-se em três domínios clássicos:
+        </p>
+
+        <!-- Box Esquemático -->
+        <div class="bg-slate-50 border border-slate-300 rounded-lg p-4 sm:p-5 mb-6 text-xs sm:text-sm">
+          <p class="font-bold text-slate-900 mb-2 uppercase tracking-wide">Compartimentação Estrutural Brasileira (ROSS, 2014):</p>
+          <div class="space-y-2 text-slate-700">
+            <div>
+              <strong class="text-slate-900">&bull; Escudos Cristalinos / Crátons e Faixas Móveis (~36% da área):</strong> Terrenos magmático-plutônicos e metamórficos antigos (Arqueano e Proterozoico). Hospedam as maiores províncias de <span class="grifo-verde">minerais metálicos (ferro, manganês, cobre, ouro, bauxita, nióbio)</span>.
+            </div>
+            <div>
+              <strong class="text-slate-900">&bull; Bacias Sedimentares (~64% da área):</strong> Coberturas sedimentares intracratônicas, marginais atlânticas e bacias recentes fanerozoicas. Hospedam as reservas de <span class="grifo-verde">combustíveis fósseis (petróleo, gás natural e carvão mineral)</span>.
+            </div>
+            <div>
+              <strong class="text-slate-900">&bull; Dobramentos Modernos Terciários (Cordilheiras):</strong> <span class="grifo-alerta">Inexistentes no território brasileiro</span> devido à sua localização central intraplaca na Placa Sul-Americana.
+            </div>
+          </div>
+        </div>
+
+        <h3 class="text-lg font-bold text-slate-900 mt-6 mb-3">Províncias Estruturais e sua Caracterização Tectônica</h3>
+        <ol class="list-decimal pl-5 space-y-3 mb-6">
+          <li>
+            <strong>Crátons ou Escudos Cristalinos:</strong> Terrenos continentais tectonicamente estáveis e enrijecidos, consolidados antes do início da Era Paleozoica (estruturas cratônicas pré-cambrianas). Caracterizam-se pela estabilidade frente aos empurrões orogênicos fanerozoicos e pela exposição de rochas magmáticas plutônicas profundas e complexos metamórficos de alto grau, arrasados por sucessivos ciclos erosivos. Destacam-se o <strong>Cráton do São Francisco</strong>, o <strong>Cráton Amazônico</strong> (dividido pelo vale sedimentar amazônico em Escudo das Guianas ao norte e Escudo do Brasil Central ou Sul-Amazônico ao sul) e pequenos fragmentos cratônicos menores estabilizados.
+          </li>
+          <li>
+            <strong>Faixas Móveis / Dobramentos Antigos:</strong> Correspondem aos cinturões orogênicos alongados desenvolvidos pelas colisões continentais neoproterozoicas durante a amalgamação brasiliana. Compostas por espessas sequências de rochas metassedimentares e metavulcânicas dobradas, fraturadas e metamorfisadas (xistos, quartzitos, filitos e gnaisses), como as <strong>faixas Brasília, Ribeira, Borborema, Araguaia e Paraguai</strong>. Essas montanhas antigas sofreram centenas de milhões de anos de intemperismo e erosão subaérea, compondo atualmente as cristas, escarpas e serras dos planaltos do leste e sudeste do Brasil.
+          </li>
+          <li>
+            <strong>Bacias Sedimentares:</strong> Sinéclises tectônicas e depressões estruturais preenchidas ao longo do Fanerozoico por camadas de rochas sedimentares clásticas, químicas e orgânicas, associadas a rochas ígneas subordinadas. Dividem-se em:
+            <ul class="list-circle pl-5 mt-2 space-y-1 text-sm">
+              <li><em>Bacias Intracratônicas Fanerozoicas:</em> Enormes depressões interiores que acomodaram pacotes de rochas paleozoicas e mesozoicas (Bacias do Paraná, do Parnaíba e do Amazonas).</li>
+              <li><em>Bacias da Margem Continental / Rifte Costeiras:</em> Instaladas nas bordas continentais durante o estiramento litosférico do Mesozoico e deposição contínua até o Cenozoico (Bacias de Santos, Campos, Espírito Santo, Potiguar e Sergipe-Alagoas).</li>
+              <li><em>Bacias Cenozoicas de Acomodação Recente:</em> Depressões de subsidência recente ou falhamentos continentais (Bacia do Pantanal, Bacia de Taubaté e sedimentos da planície amazônica e costeira).</li>
+            </ul>
+          </li>
+        </ol>
+
+        <h3 class="text-lg font-bold text-slate-900 mt-6 mb-3">A Província Metalogenética Pré-Cambriana e os Recursos Metálicos</h3>
+        <p class="mb-3">
+          O arcabouço pré-cambriano dos escudos e faixas antigas abriga a quase totalidade dos recursos minerais metálicos explorados no território brasileiro, decorrentes de eventos hidrotermais, vulcanoexalativos e paleossedimentares:
+        </p>
+
+        <!-- Quadrilátero Ferrífero -->
+        <div class="mb-4 p-4 border border-slate-200 rounded-lg bg-slate-50">
+          <h4 class="font-bold text-slate-900 text-sm sm:text-base">Quadrilátero Ferrífero (Minas Gerais)</h4>
+          <p class="text-sm mt-1">
+            Localizado na porção meridional do Cráton do São Francisco, constitui historicamente a região mineradora mais clássica de extração de minério de ferro e ouro do país:
+          </p>
+          <ul class="list-disc pl-5 mt-2 space-y-2 text-sm text-slate-700">
+            <li>
+              <strong>Estratigrafia e Geologia:</strong> O substrato reúne terrenos arqueanos formados por complexos granito-gnáissicos e pelo <span class="grifo">Supergrupo Rio das Velhas</span> (sequência arqueana de rochas vulcânicas máficas e sedimentos químicos dobrados, do tipo <em>greenstone belt</em>, portadora dos maiores depósitos <em>lode</em> de <strong>ouro orogênico</strong> de Minas Gerais, explorados em Nova Lima, Sabará e Caeté). Sobrejacente a esse núcleo acha-se o <span class="grifo">Supergrupo Minas</span> (paleoproterozoico), que registra a evolução de uma bacia marinha de margem estável.
+            </li>
+            <li>
+              <strong>A Formação Cauê (Grupo Itabira):</strong> Camada de relevância econômica primária do Quadrilátero Ferrífero. É constituída por espessos depósitos de formações ferríferas bandadas (BIFs) paleoproterozoicas metamorfisadas, designadas petrograficamente como <span class="grifo-verde">itabiritos</span> (lâminas milimétricas alternadas de óxidos de ferro — hematita e magnetita — e quartzo recristalizado). O intemperismo supergênico e a circulação hidrotermal lixiviaram a sílica e enriqueceram os itabiritos, originando hematititos compactos com teor de ferro frequentemente acima de 60 a 65%.
+            </li>
+          </ul>
+        </div>
+
+        <!-- Carajás -->
+        <div class="mb-4 p-4 border border-slate-200 rounded-lg bg-slate-50">
+          <h4 class="font-bold text-slate-900 text-sm sm:text-base">Província Mineral de Carajás (Pará)</h4>
+          <p class="text-sm mt-1">
+            Situada no Cráton Amazônico (Domínio Tectônico Carajás), representa a mais densa província metalogenética do planeta, abrigando depósitos minerais de volume e teores de ferro de padrão mundial:
+          </p>
+          <ul class="list-disc pl-5 mt-2 space-y-2 text-sm text-slate-700">
+            <li>
+              <strong>Controle Litoestratigráfico:</strong> O minério de ferro localiza-se na <span class="grifo">Formação Carajás</span> (pertencente ao Grupo Grão Pará, Supergrupo Itacaiúnas), com idade neoarqueana (ca. 2,7 Ga). É formada por camadas de formações ferríferas bandadas do tipo <span class="grifo">jaspilito</span> (intercalações rítmicas de hematita pura e jaspe silicoso avermelhado) assentadas sobre rochas vulcânicas básicas.
+            </li>
+            <li>
+              <strong>Qualidade do Minério e Polimetalismo:</strong> As reservas de hematita de Carajás destacam-se pelo <span class="grifo-verde">teor natural bruto médio elevado (comumente entre 66 e 67% de Fe)</span>, permitindo a extração a céu aberto e transporte com dispensa de rotinas fabris onerosas de beneficiamento mineral. A província reúne jazidas gigantescas de cobre (complexos de Salobo e Sossego), manganês (Mina do Azul), ouro e coberturas lateríticas residuais ricas em níquel.
+            </li>
+          </ul>
+        </div>
+
+        <!-- Outras Províncias -->
+        <div class="mb-6 p-4 border border-slate-200 rounded-lg bg-slate-50">
+          <h4 class="font-bold text-slate-900 text-sm sm:text-base mb-2">Outras Províncias Metálicas Estruturais</h4>
+          <ul class="list-disc pl-5 space-y-2 text-sm text-slate-700">
+            <li>
+              <strong>Maciço de Urucum (Mato Grosso do Sul):</strong> Inserido no contexto da borda sul do Cráton Amazônico e Faixa Paraguai (Neoproterozoico), hospeda depósitos de ferro e manganês associados a rochas da Formação Santa Cruz (itabiritos/jaspilitos do tipo Rapitan), com escoamento logístico efetuado através da Hidrovia Paraguai-Paraná.
+            </li>
+            <li>
+              <strong>Províncias de Bauxita (Minério de Alumínio):</strong> Formadas sobre rochas aluminossilicatadas intemperizadas em clima tropical úmido ao longo do Cenozoico. Destaca-se o polo do Vale do Rio Trombetas e Paragominas (PA), desenvolvido sobre coberturas sedimentares alteradas por lateritização, e o polo de Poços de Caldas (MG), gerado pela alteração química profunda de intrusões magmáticas alcalinas.
+            </li>
+            <li>
+              <strong>Nióbio:</strong> Concentrado em complexos magmáticos alcalino-carbonatíticos cretáceos submetidos à concentração intempérica residual no bordo cratônico, com o maior depósito produtor global estabelecido no domo alcalino de <strong>Araxá (MG)</strong> e em <strong>Catalão (GO)</strong>.
+            </li>
+          </ul>
+        </div>
+
+        <h3 class="text-lg font-bold text-slate-900 mt-6 mb-3">A Província Sedimentar Fanerozoica e os Recursos Energéticos Fósseis</h3>
+        <p class="mb-3">
+          Ao contrário dos metais, cuja concentração depende da atividade térmica e deformacional do Pré-Cambriano, os combustíveis fósseis exigem a preservação estrutural de estratos sedimentares sem metamorfismo destrutivo, sendo <span class="grifo">exclusivos das bacias sedimentares do Fanerozoico</span>:
+        </p>
+
+        <!-- Carvão Mineral -->
+        <div class="mb-4 p-4 border border-slate-200 rounded-lg bg-slate-50">
+          <h4 class="font-bold text-slate-900 text-sm sm:text-base">O Carvão Mineral na Bacia do Paraná</h4>
+          <ul class="list-disc pl-5 mt-2 space-y-2 text-sm text-slate-700">
+            <li>
+              <strong>Posicionamento Estratigráfico e Geocronológico:</strong> O carvão mineral explorável do Brasil situa-se unicamente nas porções meridionais da <strong>Bacia do Paraná</strong>, datado com precisão do <span class="grifo">Período Permiano (Era Paleozoica)</span>. As camadas de carvão pertencem à <span class="grifo">Formação Rio Bonito</span> (Grupo Guatá).
+            </li>
+            <li>
+              <strong>Gênese Paleogeográfica:</strong> Formou-se sob condições climáticas temperadas periglaciais e úmidas que sucederam as glaciações paleozoicas do Gondwana, as quais viabilizaram a proliferação da flora fóssil de <em>Glossopteris</em> em planícies de deltas e lagunas fluviomarítimas calmas. O soterramento continuado desses leitos orgânicos em meio anóxico impediu a putrefação total e completou a carbonificação gradual.
+            </li>
+            <li>
+              <strong>Distribuição Geográfica e Usos Industriais:</strong> As principais ocorrências econômicas distribuem-se pelo <strong>Rio Grande do Sul</strong> (Jazida de Candiota e Vale do Baixo Jacuí, portadores das maiores reservas em volume, mas com alto teor de cinzas e umidade, empregados na geração carboelétrica em usinas termelétricas de boca de mina) e por <strong>Santa Catarina</strong> (bacia de Criciúma e Tubarão, cujo carvão, após tratamento de lavagem, historicamente forneceu fração metalúrgica para siderurgia e finos térmicos industriais).
+            </li>
+          </ul>
+        </div>
+
+        <!-- Petróleo e Gás Natural -->
+        <div class="mb-6 p-4 border border-slate-200 rounded-lg bg-slate-50">
+          <h4 class="font-bold text-slate-900 text-sm sm:text-base">Petróleo e Gás Natural nas Bacias Marginais</h4>
+          <ul class="list-disc pl-5 mt-2 space-y-2 text-sm text-slate-700">
+            <li>
+              <strong>Idade e Dinâmica Rifte:</strong> A geração do petróleo comercial brasileiro acha-se diretamente atrelada ao estiramento e ruptura do continente Gondwana ao longo dos períodos Jurássico e <span class="grifo">Cretáceo (Era Mesozoica)</span>, prosseguindo com a sedimentação marinha na Era Cenozoica.
+            </li>
+            <li>
+              <strong>Bacias da Margem Passiva e o Pós-Sal:</strong> No contexto da Bacia de Campos e da porção rasa da Bacia de Santos, a produção convencional centrou-se em hidrocarbonetos estocados na seção do <strong>Pós-Sal</strong> (Cretáceo Superior e Paleógeno), cujos reservatórios consistem em <span class="grifo">arenitos turbidíticos</span> depositados em águas profundas marinhas por correntes de turbidez de fundo.
+            </li>
+            <li>
+              <strong>A Província do Pré-Sal:</strong> Situada nas porções ultraprofundas das Bacias de Santos e Campos, representa o maior marco petrolífero nacional contemporâneo. Os campos situam-se sob uma espessa lâmina d'água oceânica (frequentemente superior a 2.000 metros) e sob um pacote de sal evaporítico (halita e anidrita com espessuras de até 2.000 a 3.000 metros) depositado no andar Aptiano (Cretáceo) durante a dessecação proto-atlântica.
+            </li>
+            <li>
+              <strong>Armadilha e Reservatórios do Pré-Sal:</strong> O selo de sal funcionou como um tampão impermeável e excelente condutor térmico, preservando a pressão e retendo os fluidos aprisionados. As rochas-reservatório do Pré-Sal não são arenitos clásticos, mas sim <span class="grifo-verde">rochas carbonáticas microbiais lacustres</span> (estromatólitos calcários gerados por esteiras microbianas em paleolagos salinos pré-abertura oceânica), as quais possuem alta porosidade e permeabilidade, encharcadas de petróleo de alta densidade API (óleo leve e de grande valor comercial).
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- SEÇÃO 5 -->
+      <div class="pt-6">
+        <h2 class="text-xl sm:text-2xl font-bold text-slate-900 pb-2 border-b border-slate-200 mb-4">
+          5. Matriz Didática e Síntese de Alto Rendimento para Provas Objetivas
+        </h2>
+        <p class="mb-4">
+          A banca do concurso de Geografia do IFMG avalia com frequência a correlação entre a cronologia geológica, os processos petrogenéticos e a distribuição espacial dos bens minerais para elaborar assertivas objetivas. O quadro estrutural a seguir estabelece as correspondências diretas indispensáveis para o candidato:
+        </p>
+
+        <!-- TABELA 2: SEM SCROLL HORIZONTAL, QUEBRA AUTOMÁTICA E COBERTURA COMPLETA -->
+        <h4 class="font-bold text-slate-900 text-sm uppercase tracking-wider mb-2">Quadro Sinóptico Estrutural x Recursos x Distratores</h4>
+        <div class="w-full border border-slate-300 rounded-lg overflow-hidden mb-8">
+          <table class="w-full text-xs sm:text-sm text-left border-collapse">
+            <thead class="bg-slate-100 text-slate-900 font-bold border-b border-slate-300">
+              <tr>
+                <th class="p-2 sm:p-2.5 w-[18%] border-r border-slate-300">Compartimento</th>
+                <th class="p-2 sm:p-2.5 w-[16%] border-r border-slate-300">Idade</th>
+                <th class="p-2 sm:p-2.5 w-[20%] border-r border-slate-300">Litologias</th>
+                <th class="p-2 sm:p-2.5 w-[22%] border-r border-slate-300">Recursos Associados</th>
+                <th class="p-2 sm:p-2.5 w-[24%]">Armadilhas da Banca</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-200">
+              <tr class="hover:bg-slate-50 transition">
+                <td class="p-2 sm:p-2.5 font-bold border-r border-slate-200 text-slate-900">
+                  Escudos Cristalinos / Crátons
+                </td>
+                <td class="p-2 sm:p-2.5 border-r border-slate-200 text-slate-700">
+                  <strong>Pré-Cambriano</strong> (Arqueano e Paleoproterozoico)
+                </td>
+                <td class="p-2 sm:p-2.5 border-r border-slate-200 text-slate-700">
+                  Granitos, gnaisses, itabiritos (BIFs), <em>greenstone belts</em>
+                </td>
+                <td class="p-2 sm:p-2.5 border-r border-slate-200 text-slate-700">
+                  <span class="grifo-verde">Minerais metálicos:</span> ferro (Cauê/Carajás), ouro, manganês, cobre, bauxita, nióbio
+                </td>
+                <td class="p-2 sm:p-2.5 text-slate-700">
+                  <span class="grifo-alerta">Distrator:</span> Afirmar que nos escudos antigos formam-se combustíveis fósseis devido à longa estabilidade temporal.
+                </td>
+              </tr>
+              <tr class="hover:bg-slate-50 transition">
+                <td class="p-2 sm:p-2.5 font-bold border-r border-slate-200 text-slate-900">
+                  Faixas Móveis / Dobramentos Antigos
+                </td>
+                <td class="p-2 sm:p-2.5 border-r border-slate-200 text-slate-700">
+                  <strong>Neoproterozoico</strong> (Ciclo Brasiliano)
+                </td>
+                <td class="p-2 sm:p-2.5 border-r border-slate-200 text-slate-700">
+                  Xistos, filitos, quartzitos, mármores, gnaisses
+                </td>
+                <td class="p-2 sm:p-2.5 border-r border-slate-200 text-slate-700">
+                  Rochas ornamentais, minerais industriais, calcário para cimento
+                </td>
+                <td class="p-2 sm:p-2.5 text-slate-700">
+                  <span class="grifo-alerta">Distrator:</span> Rotular as serras litorâneas do leste brasileiro como "dobramentos modernos terciários".
+                </td>
+              </tr>
+              <tr class="hover:bg-slate-50 transition">
+                <td class="p-2 sm:p-2.5 font-bold border-r border-slate-200 text-slate-900">
+                  Bacias Sedimentares Intracratônicas
+                </td>
+                <td class="p-2 sm:p-2.5 border-r border-slate-200 text-slate-700">
+                  <strong>Fanerozoico</strong> (Paleozoico e Mesozoico)
+                </td>
+                <td class="p-2 sm:p-2.5 border-r border-slate-200 text-slate-700">
+                  Arenitos eólicos/fluviais, folhelhos, siltitos, derrames de basalto
+                </td>
+                <td class="p-2 sm:p-2.5 border-r border-slate-200 text-slate-700">
+                  <span class="grifo-verde">Carvão mineral</span> (Permiano / Fm. Rio Bonito), gás natural, Aquífero Guarani
+                </td>
+                <td class="p-2 sm:p-2.5 text-slate-700">
+                  <span class="grifo-alerta">Distrator:</span> Classificar o carvão mineral da Bacia do Paraná como produto da Era Cenozoica ou do Quaternário.
+                </td>
+              </tr>
+              <tr class="hover:bg-slate-50 transition">
+                <td class="p-2 sm:p-2.5 font-bold border-r border-slate-200 text-slate-900">
+                  Bacias Sedimentares Marginais / Rifte
+                </td>
+                <td class="p-2 sm:p-2.5 border-r border-slate-200 text-slate-700">
+                  <strong>Fanerozoico</strong> (Mesozoico-Cretáceo e Cenozoico)
+                </td>
+                <td class="p-2 sm:p-2.5 border-r border-slate-200 text-slate-700">
+                  Carbonatos microbianos lacustres, sal (evaporitos), folhelhos, turbiditos
+                </td>
+                <td class="p-2 sm:p-2.5 border-r border-slate-200 text-slate-700">
+                  <span class="grifo-verde">Hidrocarbonetos fósseis</span> (petróleo leve e gás nas seções Pós-Sal e Pré-Sal)
+                </td>
+                <td class="p-2 sm:p-2.5 text-slate-700">
+                  <span class="grifo-alerta">Distrator:</span> Supor que os reservatórios do Pré-Sal são formados por granitos ou basaltos ígneos perfurados.
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3 class="text-lg font-bold text-slate-900 mt-6 mb-3">Definições Básicas para Lembrar no Dia da Prova</h3>
+        <div class="space-y-3 mb-6">
+          <div class="p-3.5 bg-slate-50 border-l-4 border-slate-700 rounded-r-lg">
+            <p class="text-sm">
+              <strong>Mineral versus Rocha:</strong> O mineral é o composto natural, inorgânico e homogêneo com composição química definida e rede atômica cristalina ordenada (ex.: hematita, quartzo); a rocha é o agregado consolidado de minerais ou matéria vítrea/orgânica natural (ex.: itabirito, granito).
+            </p>
+          </div>
+          <div class="p-3.5 bg-slate-50 border-l-4 border-slate-700 rounded-r-lg">
+            <p class="text-sm">
+              <strong>Texturas das Rochas Ígneas:</strong> O resfriamento lento no interior da crosta origina rochas plutônicas de <span class="grifo">textura fanerítica</span> com cristais visíveis (granito); o resfriamento brusco da lava expelida em superfície consolida rochas vulcânicas de <span class="grifo">textura afanítica ou vítrea</span> sem cristais desenvolvidos (basalto).
+            </p>
+          </div>
+          <div class="p-3.5 bg-slate-50 border-l-4 border-slate-700 rounded-r-lg">
+            <p class="text-sm">
+              <strong>Mecanismos Metamórficos e Feições Estruturais:</strong> O <span class="grifo">metamorfismo regional</span> atua em grandes cinturões colisionais convergentes sob pressão diferencial dirigida e calor, desenvolvendo <strong>foliação e bandamento composicional</strong> (ex.: gnaisse); o <span class="grifo">metamorfismo de contato</span> atua na borda térmica de câmaras magmáticas sem estresse orientado, originando <strong>textura granoblástica maciça e desprovida de foliação</strong> (ex.: mármore derivado de calcário; quartzito derivado de arenito).
+            </p>
+          </div>
+          <div class="p-3.5 bg-slate-50 border-l-4 border-slate-700 rounded-r-lg">
+            <p class="text-sm">
+              <strong>Sequência Cronoestratigráfica Básica:</strong> A ordem temporal decrescente da geologia é subdividida em <span class="grifo">Éon &rarr; Era &rarr; Período &rarr; Época</span>. O Pré-Cambriano agrupa os éons Hadeano, Arqueano e Proterozoico; o Fanerozoico subdivide-se nas eras Paleozoica, Mesozoica e Cenozoica.
+            </p>
+          </div>
+          <div class="p-3.5 bg-slate-50 border-l-4 border-slate-700 rounded-r-lg">
+            <p class="text-sm">
+              <strong>Binômio da Metalogênese e Energia no Subsolo Brasileiro:</strong>
+            </p>
+            <ul class="list-disc pl-5 mt-1 text-sm space-y-1">
+              <li>
+                <strong>Escudos Cristalinos Pré-Cambrianos (36% do Brasil):</strong> Concentram as reservas de <span class="grifo-verde">minerais metálicos</span>. Exemplos: minério de ferro na Formação Cauê / Supergrupo Minas (Quadrilátero Ferrífero/MG) e na Formação Carajás / Grupo Grão Pará (Serra dos Carajás/PA); manganês e ouro em sequências do tipo <em>greenstone belt</em> e BIFs.
+              </li>
+              <li>
+                <strong>Bacias Sedimentares Fanerozoicas (64% do Brasil):</strong> Concentram os <span class="grifo-verde">combustíveis fósseis</span>. Exemplos: carvão mineral permiano na Formação Rio Bonito (Bacia do Paraná) e hidrocarbonetos (petróleo e gás) cretáceos e cenozoicos nas bacias costeiras e no Pré-Sal (Bacias de Campos e Santos).
+              </li>
+            </ul>
+          </div>
+          <div class="p-3.5 bg-slate-50 border-l-4 border-slate-700 rounded-r-lg">
+            <p class="text-sm">
+              <strong>Peculiaridade Tectônica do Brasil:</strong> O país localiza-se no centro da Placa Sul-Americana e <span class="grifo-alerta">não possui dobramentos modernos da Era Cenozoica/Terciária</span>. O relevo atual é esculpido pelo intemperismo e erosão sobre estruturas antigas e desgastadas (escudos e faixas móveis dobradas no Pré-Cambriano) ou sobre áreas sedimentares de deposição.
+            </p>
+          </div>
+        </div>
+
+        <h3 class="text-lg font-bold text-slate-900 mt-6 mb-3">Conclusão</h3>
+        <p class="mb-6">
+          A integração analítica entre a petrologia geral, a cronoestratigrafia histórica e a morfotectônica regional forma o eixo articulador da geografia física indispensável à banca examinadora do IFMG. A retenção da sistemática das rochas segundo <em>Teixeira et al. (2009)</em> articulada à compartimentação geotectônica de <em>Ross (2014)</em> viabiliza a rápida identificação dos distratores nas questões de concurso. A identificação imediata das vinculações causais entre os terrenos arqueanos/paleoproterozoicos e os bens minerais metálicos, em contraste direto com as coberturas sedimentares fanerozoicas portadoras de hidrocarbonetos e carvão fóssil, garante a segurança necessária para o alcance da pontuação máxima na prova objetiva.
+        </p>
+      </div>
+    </article>
+
+    <!-- ÁREA FINAL DO BOTÃO PARA AS QUESTÕES -->
+    <div class="mt-12 pt-8 border-t border-slate-200 flex flex-col items-center justify-center text-center">
+      <div class="max-w-md w-full">
+        <h3 class="text-lg font-bold text-slate-900 mb-1">Pronto para testar a fixação?</h3>
+        <p class="text-xs sm:text-sm text-slate-600 mb-5">
+          Avance para o caderno de questões temáticas para aplicar os conceitos estudados.
+        </p>
+        <a 
+          href="questoes7geo.html" 
+          class="inline-flex items-center justify-center gap-2 w-full sm:w-auto px-8 py-3.5 bg-slate-900 hover:bg-slate-800 text-white font-semibold rounded-lg shadow-md hover:shadow-lg transition duration-200"
+        >
+          <span>Ir para as Questões de Fixação</span>
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+          </svg>
+        </a>
+      </div>
+    </div>
+
+    <!-- RODAPÉ DISCRETO -->
+    <footer class="mt-12 text-center text-xs text-slate-400 py-6">
+      Material de Estudo para o Concurso Público de Professor de Geografia &bull; IFMG
+    </footer>
+
+  </main>
+
+  <!-- Script para gerenciar a fonte do áudio de forma flexível -->
+  <script>
+    function atualizarAudio() {
+      var input = document.getElementById('audioFileName');
+      var audio = document.getElementById('meuPlayerAudio');
+      var source = document.getElementById('sourcePlayer');
+      var status = document.getElementById('audioStatus');
+      
+      var novoNome = input.value.trim();
+      if (!novoNome) {
+        novoNome = 'aula_petrologia.mp3';
+        input.value = novoNome;
+      }
+      
+      source.src = novoNome;
+      audio.load();
+      status.innerHTML = 'Carregando: <span class="font-mono text-slate-700">' + novoNome + '</span>';
+    }
+  </script>
+</body>
+</html>

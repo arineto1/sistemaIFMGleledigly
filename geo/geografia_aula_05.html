@@ -1,0 +1,1135 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fundamentos de Sensoriamento Remoto e Geotecnologias - Concurso IFMG</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- KaTeX para renderização perfeita de equações matemáticas -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body);"></script>
+
+  <style>
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background-color: #ffffff;
+      color: #1e293b;
+    }
+    
+    /* Destaque tipo marca-texto para memorização em concurso */
+    mark, .grifo {
+      background-color: #fef08a; /* Amarelo suave/canário */
+      color: #1c1917;
+      padding: 0.12rem 0.35rem;
+      border-radius: 0.25rem;
+      font-weight: 600;
+      border-bottom: 2px solid #facc15;
+    }
+    
+    .grifo-azul {
+      background-color: #e0f2fe;
+      color: #0369a1;
+      padding: 0.12rem 0.35rem;
+      border-radius: 0.25rem;
+      font-weight: 600;
+    }
+
+    .grifo-alerta {
+      background-color: #fee2e2;
+      color: #991b1b;
+      padding: 0.12rem 0.35rem;
+      border-radius: 0.25rem;
+      font-weight: 600;
+      border-bottom: 2px solid #f87171;
+    }
+
+    /* Tabelas otimizadas sem barra de rolagem horizontal */
+    .table-concurso {
+      width: 100%;
+      border-collapse: collapse;
+      table-layout: fixed;
+      word-wrap: break-word;
+    }
+    
+    .table-concurso th, .table-concurso td {
+      word-break: break-word;
+      overflow-wrap: break-word;
+    }
+
+    /* Custom range slider para o reprodutor */
+    input[type=range] {
+      accent-color: #0284c7;
+    }
+  </style>
+</head>
+<body class="bg-white min-h-screen text-slate-800 antialiased selection:bg-amber-200 selection:text-slate-900">
+
+  <!-- BARRA DE PROGRESSO DE LEITURA NO TOPO -->
+  <div id="progressBar" class="fixed top-0 left-0 h-1.5 bg-amber-500 z-50 w-0 transition-all duration-150"></div>
+
+  <!-- CABEÇALHO PRINCIPAL -->
+  <header class="border-b border-slate-200 bg-white sticky top-0 z-40 shadow-xs">
+    <div class="max-w-5xl mx-auto px-4 py-3 sm:px-6 flex flex-wrap items-center justify-between gap-3">
+      <div class="flex items-center space-x-3">
+        <div class="w-9 h-9 rounded-lg bg-emerald-700 text-white flex items-center justify-center font-bold text-sm shadow-sm">
+          IF
+        </div>
+        <div>
+          <span class="text-xs font-bold tracking-wider uppercase text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
+            Concurso Professor EBTT - Geografia
+          </span>
+          <h2 class="text-xs sm:text-sm font-semibold text-slate-700">Comissão Central do Concurso • Reitoria IFMG</h2>
+        </div>
+      </div>
+      <div class="flex items-center space-x-2">
+        <a href="#questoes-section" class="inline-flex items-center gap-1.5 text-xs sm:text-sm font-semibold px-3 py-1.5 rounded-md bg-amber-500 hover:bg-amber-600 text-slate-950 transition-colors shadow-xs">
+          <i class="fa-solid fa-list-check"></i>
+          <span>Ir para Questões</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- CONTAINER DE CONTEÚDO -->
+  <main class="max-w-5xl mx-auto px-4 py-8 sm:px-6 lg:px-8 space-y-10">
+
+    <!-- TÍTULO DO MÓDULO E METADADOS -->
+    <section class="space-y-4 border-b border-slate-200 pb-8">
+      <div class="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-slate-500">
+        <i class="fa-solid fa-satellite-dish text-emerald-600"></i>
+        <span>Caderno Didático Teórico-Prático &bull; Ementa Completa</span>
+      </div>
+      <h1 class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight leading-tight">
+        Fundamentos de Sensoriamento Remoto e Geotecnologias
+      </h1>
+      <p class="text-base sm:text-lg text-slate-600 leading-relaxed">
+        Material direcionado para a prova objetiva do <strong>IFMG</strong>. Articulação completa entre física das radiações, comportamento dos alvos bióticos e abióticos, sensores orbitais, estruturas matriciais e vetoriais em SIG e geodésia GNSS.
+      </p>
+
+      <!-- REFERENCIAL E FOCO DA PROVA -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-3 pt-2 text-xs sm:text-sm">
+        <div class="p-3 bg-slate-50 border border-slate-200 rounded-lg">
+          <span class="font-bold text-slate-900 flex items-center gap-1.5 mb-1">
+            <i class="fa-solid fa-book-bookmark text-emerald-700"></i> Bibliografia Vinculada
+          </span>
+          <span class="text-slate-700">FITZ, P. R. (2008) • TEIXEIRA, W. et al. (2009).</span>
+        </div>
+        <div class="p-3 bg-amber-50/70 border border-amber-200 rounded-lg">
+          <span class="font-bold text-amber-950 flex items-center gap-1.5 mb-1">
+            <i class="fa-solid fa-bullseye text-amber-700"></i> Foco Mandatório da Banca
+          </span>
+          <span class="text-slate-800">
+            Assinatura da clorofila (absorção VIS / espalhamento NIR); aplicação de Raster (MNT/MDE) vs. Vetorial (Cadastro Fundiário).
+          </span>
+        </div>
+      </div>
+    </section>
+
+    <!-- REPRODUTOR DE ÁUDIO MP3 CONFIGURÁVEL -->
+    <section class="bg-slate-50 border-2 border-slate-300 rounded-2xl p-5 shadow-sm space-y-4">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-200 pb-3">
+        <div class="flex items-center gap-2">
+          <span class="w-8 h-8 rounded-full bg-emerald-600 text-white flex items-center justify-center text-sm shadow-xs">
+            <i class="fa-solid fa-headphones"></i>
+          </span>
+          <div>
+            <h3 class="font-bold text-slate-900 text-base">Audiocaderno de Estudos da Aula</h3>
+            <p class="text-xs text-slate-500">Ouça o áudio da aula enquanto acompanha o texto e as tabelas</p>
+          </div>
+        </div>
+        <div class="text-xs bg-white px-2.5 py-1 rounded-md border border-slate-300 text-slate-600 self-start sm:self-auto flex items-center gap-1">
+          <i class="fa-solid fa-folder-open text-amber-600"></i>
+          <span id="currentFileLabel">Arquivo: audio5geo.mp3</span>
+        </div>
+      </div>
+
+      <!-- ÁREA PARA INSERIR O NOME DO ARQUIVO MP3 -->
+      <div class="bg-white p-3 rounded-xl border border-slate-200 space-y-2">
+        <label for="audioFileNameInput" class="block text-xs font-bold text-slate-700 uppercase tracking-wide">
+          Nome do arquivo MP3 (deve estar na mesma pasta da página):
+        </label>
+        <div class="flex flex-col sm:flex-row gap-2">
+          <div class="relative flex-1">
+            <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-slate-400">
+              <i class="fa-solid fa-file-audio"></i>
+            </span>
+            <input 
+              type="text" 
+              id="audioFileNameInput" 
+              value="audio5geo.mp3" 
+              placeholder="Ex: aula_sensoriamento.mp3" 
+              class="w-full pl-9 pr-3 py-2 text-sm bg-slate-50 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:bg-white text-slate-800 font-mono"
+            >
+          </div>
+          <button 
+            type="button" 
+            id="loadAudioBtn" 
+            class="px-4 py-2 bg-slate-800 hover:bg-slate-900 text-white text-xs sm:text-sm font-semibold rounded-lg transition-colors flex items-center justify-center gap-2 shadow-xs cursor-pointer"
+          >
+            <i class="fa-solid fa-rotate"></i>
+            <span>Carregar Áudio</span>
+          </button>
+        </div>
+        <p class="text-[11px] text-slate-500">
+          Dica: salve o seu arquivo de gravação ou podcast na mesma pasta deste arquivo HTML e digite o nome acima (com a extensão <code>.mp3</code>).
+        </p>
+      </div>
+
+      <!-- CONTROLES DO REPRODUTOR -->
+      <audio id="mainAudioPlayer" preload="metadata">
+        <source id="audioSource" src="audio5geo.mp3" type="audio/mpeg">
+        Seu navegador não suporta o elemento de áudio.
+      </audio>
+
+      <div class="space-y-3 pt-1">
+        <!-- BARRA DE TEMPO -->
+        <div class="space-y-1">
+          <input 
+            type="range" 
+            id="audioProgressBar" 
+            min="0" 
+            max="100" 
+            value="0" 
+            step="0.1" 
+            class="w-full h-2 bg-slate-200 rounded-lg cursor-pointer"
+          >
+          <div class="flex justify-between text-xs font-mono text-slate-500">
+            <span id="currentTimeDisplay">00:00</span>
+            <span id="durationDisplay">--:--</span>
+          </div>
+        </div>
+
+        <!-- BOTÕES DE REPRODUÇÃO E VELOCIDADE -->
+        <div class="flex flex-wrap items-center justify-between gap-3">
+          <div class="flex items-center gap-2">
+            <button 
+              type="button" 
+              id="rewindBtn" 
+              class="w-9 h-9 rounded-lg bg-white border border-slate-300 hover:bg-slate-100 text-slate-700 flex items-center justify-center transition-colors text-xs" 
+              title="Voltar 10s"
+            >
+              <i class="fa-solid fa-rotate-left"></i>
+            </button>
+            <button 
+              type="button" 
+              id="playPauseBtn" 
+              class="px-4 h-9 rounded-lg bg-emerald-700 hover:bg-emerald-800 text-white flex items-center justify-center gap-2 font-bold text-sm shadow-xs transition-colors"
+            >
+              <i id="playIcon" class="fa-solid fa-play"></i>
+              <span id="playText">Reproduzir</span>
+            </button>
+            <button 
+              type="button" 
+              id="forwardBtn" 
+              class="w-9 h-9 rounded-lg bg-white border border-slate-300 hover:bg-slate-100 text-slate-700 flex items-center justify-center transition-colors text-xs" 
+              title="Avançar 10s"
+            >
+              <i class="fa-solid fa-rotate-right"></i>
+            </button>
+          </div>
+
+          <!-- SELETOR DE VELOCIDADE (ACELERAÇÃO PARA ESTUDO) -->
+          <div class="flex items-center gap-1.5">
+            <span class="text-xs font-semibold text-slate-500 uppercase mr-1">Velocidade:</span>
+            <button type="button" class="speed-btn px-2.5 py-1 text-xs font-mono font-semibold rounded bg-emerald-700 text-white transition-colors" data-speed="1.0">1.0x</button>
+            <button type="button" class="speed-btn px-2.5 py-1 text-xs font-mono font-semibold rounded bg-white border border-slate-300 hover:bg-slate-100 text-slate-700 transition-colors" data-speed="1.25">1.25x</button>
+            <button type="button" class="speed-btn px-2.5 py-1 text-xs font-mono font-semibold rounded bg-white border border-slate-300 hover:bg-slate-100 text-slate-700 transition-colors" data-speed="1.5">1.5x</button>
+            <button type="button" class="speed-btn px-2.5 py-1 text-xs font-mono font-semibold rounded bg-white border border-slate-300 hover:bg-slate-100 text-slate-700 transition-colors" data-speed="2.0">2.0x</button>
+          </div>
+        </div>
+
+        <!-- MENSAGEM DE STATUS DO ÁUDIO -->
+        <div id="audioStatusMsg" class="text-xs text-slate-500 italic flex items-center gap-1.5 pt-1">
+          <i class="fa-solid fa-circle-info text-slate-400"></i>
+          <span>Pronto. Se o áudio não tocar, verifique se o arquivo está na pasta local com o nome indicado.</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ÍNDICE DE NAVEGAÇÃO RÁPIDA -->
+    <nav class="bg-slate-50 border border-slate-200 rounded-xl p-4 text-xs sm:text-sm">
+      <span class="font-bold text-slate-800 uppercase tracking-wider block mb-2 text-xs flex items-center gap-1.5">
+        <i class="fa-solid fa-list-ol text-emerald-700"></i> Sumário das Seções da Aula
+      </span>
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2 text-slate-700">
+        <a href="#sec-1" class="hover:text-emerald-700 hover:underline">1. Princípios Físicos da Radiação</a>
+        <a href="#sec-2" class="hover:text-emerald-700 hover:underline">2. Comportamento e Assinaturas Espectrais</a>
+        <a href="#sec-3" class="hover:text-emerald-700 hover:underline">3. Sensores e as Quatro Resoluções</a>
+        <a href="#sec-4" class="hover:text-emerald-700 hover:underline">4. SIG: Modelo Matricial vs. Vetorial</a>
+        <a href="#sec-5" class="hover:text-emerald-700 hover:underline">5. Fundamentos de Geodésia GNSS</a>
+        <a href="#sec-6" class="hover:text-emerald-700 hover:underline font-semibold text-amber-900">6. Tópicos de Memorização Rápida</a>
+        <a href="#sec-7" class="hover:text-emerald-700 hover:underline">7. Glossário Técnico da Prova</a>
+        <a href="#sec-8" class="hover:text-emerald-700 hover:underline font-semibold text-rose-900">8. Mapeamento de Armadilhas do IFMG</a>
+        <a href="#questoes-section" class="hover:text-emerald-700 hover:underline font-bold text-emerald-800">9. Simulado de Questões</a>
+      </div>
+    </nav>
+
+    <!-- CONTEÚDO INTEGRAL: SEÇÃO 1 -->
+    <article id="sec-1" class="space-y-4 pt-4">
+      <div class="border-b border-slate-200 pb-2">
+        <span class="text-xs font-bold text-emerald-700 uppercase tracking-widest">Unidade Teórica 01</span>
+        <h2 class="text-xl sm:text-2xl font-bold text-slate-900">1. Princípios Físicos da Radiação Eletromagnética e Interação Atmosférica</h2>
+      </div>
+
+      <p class="text-justify leading-relaxed text-slate-700">
+        O sensoriamento remoto óptico e orbital baseia-se na captura e quantificação da <mark>radiação eletromagnética (REM)</mark> refletida ou emitida pela superfície planetária. A propagação da radiação no vácuo ocorre de maneira contínua à velocidade da luz (\(c \approx 3 \times 10^8 \text{ m/s}\)), exibindo comportamento duplo ondulatório e corpuscular governado pela relação matemática:
+      </p>
+
+      <div class="bg-slate-50 border border-slate-200 p-3 rounded-lg text-center font-mono text-base text-slate-900">
+        $$c = \lambda \cdot \nu$$
+      </div>
+
+      <p class="text-justify leading-relaxed text-slate-700">
+        onde \(\lambda\) designa o comprimento de onda e \(\nu\) a frequência vibracional. A carga energética associada a um fóton (\(E\)) é diretamente proporcional à sua frequência oscilatória e inversamente proporcional ao seu comprimento de onda, conforme a equação de Planck:
+      </p>
+
+      <div class="bg-slate-50 border border-slate-200 p-3 rounded-lg text-center font-mono text-base text-slate-900">
+        $$E = h \cdot \nu = \frac{h \cdot c}{\lambda}$$
+      </div>
+
+      <div class="p-3 bg-amber-50 border-l-4 border-amber-500 rounded-r-lg text-sm text-amber-950">
+        <strong>Ponto Crítico de Prova:</strong> Na física das radiações, <mark>comprimentos de onda curtos</mark> (raios gama, raios X, ultravioleta) abrigam níveis energéticos substancialmente <strong>superiores</strong> aos de ondas longas (infravermelho e micro-ondas).
+      </div>
+
+      <!-- TABELA 1: FAIXAS ESPECTRAIS -->
+      <div class="space-y-2 pt-2">
+        <h4 class="text-sm font-bold text-slate-900 uppercase tracking-wider flex items-center gap-1.5">
+          <i class="fa-solid fa-table text-emerald-700"></i> Tabela 1: Faixas do Espectro Eletromagnético e Respostas Ambientais
+        </h4>
+        <div class="border border-slate-300 rounded-lg bg-white overflow-hidden shadow-xs">
+          <table class="table-concurso text-xs sm:text-sm text-left divide-y divide-slate-300">
+            <thead class="bg-slate-100 text-slate-900 font-bold">
+              <tr>
+                <th class="p-2 sm:p-3 w-[25%] border-r border-slate-200">Faixa Espectral</th>
+                <th class="p-2 sm:p-3 w-[25%] border-r border-slate-200">Comprimento (\(\lambda\))</th>
+                <th class="p-2 sm:p-3 w-[50%]">Mecanismos Físicos e Resposta</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-200 text-slate-700">
+              <tr>
+                <td class="p-2 sm:p-3 font-semibold text-slate-900 border-r border-slate-200 bg-slate-50/50">Ultravioleta (UV)</td>
+                <td class="p-2 sm:p-3 font-mono border-r border-slate-200">0,01 a 0,40 &mu;m</td>
+                <td class="p-2 sm:p-3">Onda curta; forte dispersão na atmosfera superior; uso em geologia de superfície e detecção de poluentes fluorescentes.</td>
+              </tr>
+              <tr>
+                <td class="p-2 sm:p-3 font-semibold text-slate-900 border-r border-slate-200 bg-slate-50/50">Visível (VIS)</td>
+                <td class="p-2 sm:p-3 font-mono border-r border-slate-200">0,40 a 0,70 &mu;m</td>
+                <td class="p-2 sm:p-3">Percebida pelo olho humano: <mark>Azul (0,4-0,5)</mark>, <mark>Verde (0,5-0,6)</mark> e <mark>Vermelho (0,6-0,7 &mu;m)</mark>. Resposta governada por pigmentos fotossintéticos e óxidos de ferro.</td>
+              </tr>
+              <tr>
+                <td class="p-2 sm:p-3 font-semibold text-slate-900 border-r border-slate-200 bg-slate-50/50">Infravermelho Próximo (NIR)</td>
+                <td class="p-2 sm:p-3 font-mono border-r border-slate-200">0,70 a 1,30 &mu;m</td>
+                <td class="p-2 sm:p-3"><mark>Resposta comandada pela arquitetura interna do mesófilo foliar esponjoso</mark>. Absorção quase nula por água pura; alto espalhamento biológico.</td>
+              </tr>
+              <tr>
+                <td class="p-2 sm:p-3 font-semibold text-slate-900 border-r border-slate-200 bg-slate-50/50">Infravermelho Médio/Curto (SWIR)</td>
+                <td class="p-2 sm:p-3 font-mono border-r border-slate-200">1,30 a 3,00 &mu;m</td>
+                <td class="p-2 sm:p-3">Diagnóstico da <mark>hidratação celular foliar</mark>, umidade do solo e identificação de hidroxilas em argilominerais.</td>
+              </tr>
+              <tr>
+                <td class="p-2 sm:p-3 font-semibold text-slate-900 border-r border-slate-200 bg-slate-50/50">Infravermelho Termal (TIR)</td>
+                <td class="p-2 sm:p-3 font-mono border-r border-slate-200">3,00 a 14,00 &mu;m</td>
+                <td class="p-2 sm:p-3">Sensível à <mark>energia térmica própria emitida pela crosta terrestre</mark>. Mapeamento de calor superficial e ilhas de calor urbanas.</td>
+              </tr>
+              <tr>
+                <td class="p-2 sm:p-3 font-semibold text-slate-900 border-r border-slate-200 bg-slate-50/50">Micro-ondas</td>
+                <td class="p-2 sm:p-3 font-mono border-r border-slate-200">1,00 mm a 1,00 m</td>
+                <td class="p-2 sm:p-3">Utilizada por <mark>sensores ativos (Radar/SAR)</mark>; imune a nuvens e chuvas; sensível à rugosidade superficial e constante dielétrica.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <p class="text-justify leading-relaxed text-slate-700">
+        Ao alcançar a superfície terrestre, o fluxo incidente (\(\Phi_i\)) obedece ao princípio da conservação da energia: divide-se em fluxo refletido (\(\Phi_r\)), absorvido (\(\Phi_a\)) e transmitido (\(\Phi_t\)):
+      </p>
+
+      <div class="bg-slate-50 border border-slate-200 p-3 rounded-lg text-center font-mono text-base text-slate-900">
+        $$\rho(\lambda) + \alpha(\lambda) + \tau(\lambda) = 1$$
+      </div>
+
+      <p class="text-justify leading-relaxed text-slate-700">
+        Em alvos espessos e opacos da litosfera e pedosfera, a transmitância é virtualmente inexistente (\(\tau \approx 0\)), estabelecendo que toda fração não absorvida é obrigatoriamente refletida de volta (\(\rho(\lambda) = 1 - \alpha(\lambda)\)). A <mark>reflectância espectral (\(\rho_\lambda\))</mark> é o percentual entre energia refletida e incidente, sendo a assinatura primordial de reconhecimento dos alvos.
+      </p>
+
+      <div class="space-y-2">
+        <h3 class="text-base font-bold text-slate-900">Processos de Atenuação e Espalhamento Atmosférico</h3>
+        <p class="text-justify leading-relaxed text-slate-700">
+          A atmosfera atenua o sinal eletromagnético via absorção seletiva (\(\text{H}_2\text{O}\), \(\text{CO}_2\), \(\text{O}_3\)) e espalhamento:
+        </p>
+        <ul class="list-disc pl-5 space-y-1.5 text-slate-700 text-sm">
+          <li><strong>Espalhamento de Rayleigh:</strong> Partículas muito menores que o comprimento de onda (\(d \ll \lambda\)), como gases \(N_2\) e \(O_2\). Proporcional a <mark>\(I \propto \lambda^{-4}\)</mark>. Dispersa intensamente a luz azul, tornando o céu azulado e degradando o contraste orbital no visível.</li>
+          <li><strong>Espalhamento de Mie:</strong> Diâmetro da partícula similar ao comprimento de onda (\(d \approx \lambda\)). Ocorre na baixa troposfera com poeira, aerossóis e fuligem de queimadas.</li>
+          <li><strong>Espalhamento Não-seletivo:</strong> Partículas muito maiores que o comprimento da onda (\(d \gg \lambda\)), como gotículas de água nas nuvens. Espalha todos os comprimentos visíveis por igual, conferindo às nuvens a cor branca pura.</li>
+        </ul>
+      </div>
+
+      <div class="p-3 bg-emerald-50 border-l-4 border-emerald-600 rounded-r-lg text-sm text-emerald-950">
+        <strong>Conceito Fundamental: Janelas Atmosféricas</strong> são as faixas do espectro nas quais os gases da atmosfera oferecem <strong>mínima absorção</strong>, permitindo que a radiação passe livremente e atinja os sensores orbitais (destaque para a janela do visível/infravermelho refletido, janelas termais de 8 a 14 &mu;m e toda a janela de micro-ondas).
+      </div>
+    </article>
+
+    <!-- CONTEÚDO INTEGRAL: SEÇÃO 2 -->
+    <article id="sec-2" class="space-y-4 pt-6 border-t border-slate-200">
+      <div class="border-b border-slate-200 pb-2">
+        <span class="text-xs font-bold text-emerald-700 uppercase tracking-widest">Unidade Teórica 02 &bull; Principal Foco da Prova Objetiva</span>
+        <h2 class="text-xl sm:text-2xl font-bold text-slate-900">2. Comportamento Espectral e Assinaturas dos Alvos Naturais</h2>
+      </div>
+
+      <!-- VEGETAÇÃO SADIA -->
+      <div class="space-y-3">
+        <h3 class="text-base sm:text-lg font-bold text-slate-900 flex items-center gap-2">
+          <i class="fa-solid fa-leaf text-emerald-600"></i> Vegetação Vigorosa: O Contraste entre Visível e Infravermelho Próximo
+        </h3>
+        <p class="text-justify leading-relaxed text-slate-700">
+          A curva espectral da vegetação sadia divide-se em domínios anatômicos e biofísicos perfeitamente demarcados:
+        </p>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm">
+          <div class="p-3 bg-slate-50 border border-slate-200 rounded-lg space-y-1.5">
+            <h4 class="font-bold text-slate-900 flex items-center gap-1.5">
+              <span class="w-3 h-3 rounded-full bg-rose-500 inline-block"></span> 1. Espectro Visível (0,40 a 0,70 &mu;m)
+            </h4>
+            <p class="text-slate-700 text-xs sm:text-sm">
+              Regulado exclusivamente pelos <strong>pigmentos fotossintéticos</strong> (clorofilas <em>a</em> e <em>b</em>). A clorofila <mark>absorve fortemente o azul (0,45 &mu;m) e o vermelho (0,65-0,68 &mu;m)</mark>. Apresenta absorção ligeiramente menor no <strong>verde (0,54 &mu;m)</strong>, gerando um pequeno pico residual de reflectância (10% a 15%) que dá a cor verde às folhas.
+            </p>
+          </div>
+
+          <div class="p-3 bg-amber-50 border border-amber-300 rounded-lg space-y-1.5">
+            <h4 class="font-bold text-amber-950 flex items-center gap-1.5">
+              <span class="w-3 h-3 rounded-full bg-amber-500 inline-block"></span> 2. Infravermelho Próximo (0,75 a 1,30 &mu;m)
+            </h4>
+            <p class="text-slate-800 text-xs sm:text-sm">
+              Reflectância <mark>elevadíssima (frequentemente > 50%)</mark>. <strong>ATENÇÃO TOTAL PARA A PROVA:</strong> Essa alta reflectância <strong>NÃO decorre da clorofila</strong>, mas sim da dispersão e refração interna nas interfaces celulares do <mark>mesófilo esponjoso (lacunoso)</mark> e espaços com ar. Evita o superaquecimento letal da folha.
+            </p>
+          </div>
+        </div>
+
+        <p class="text-justify leading-relaxed text-slate-700">
+          A rápida elevação entre 0,68 e 0,75 &mu;m denomina-se <mark>borda do vermelho (red edge)</mark>. No Infravermelho de Onda Curta (SWIR, 1,3 a 2,5 &mu;m), a curva é controlada pelo <strong>teor de água celular</strong>, com vales pronunciados de absorção hídrica em <strong>1,45 &mu;m e 1,94 &mu;m</strong>.
+        </p>
+
+        <!-- FÓRMULA NDVI -->
+        <div class="p-4 bg-slate-50 border border-slate-200 rounded-xl space-y-2">
+          <span class="text-xs font-bold uppercase tracking-wider text-slate-600 block">Índice de Vegetação por Diferença Normalizada (NDVI)</span>
+          <div class="text-center font-mono text-base text-slate-900 py-1">
+            $$\text{NDVI} = \frac{\rho_{\text{NIR}} - \rho_{\text{RED}}}{\rho_{\text{NIR}} + \rho_{\text{RED}}}$$
+          </div>
+          <p class="text-xs text-slate-600 text-center">
+            Vegetação fotossinteticamente vigorosa conjuga altíssimo NIR com quase zero RED, aproximando o índice do limite máximo de <strong>+1,0</strong>.
+          </p>
+        </div>
+      </div>
+
+      <!-- CORPOS HÍDRICOS -->
+      <div class="space-y-2 pt-2">
+        <h3 class="text-base sm:text-lg font-bold text-slate-900 flex items-center gap-2">
+          <i class="fa-solid fa-water text-sky-600"></i> Comportamento Espectral de Corpos Hídricos
+        </h3>
+        <p class="text-justify leading-relaxed text-slate-700">
+          A <strong>água límpida</strong> reflete moderadamente no azul e verde (< 10%), mas torna-se um <mark>absorvedor quase total da radiação a partir do infravermelho próximo (> 0,75 &mu;m)</mark>, apresentando reflectância próxima de zero. Por isso, cursos d'água límpidos aparecem totalmente escuros/pretos em imagens orbitais em bandas de infravermelho.
+        </p>
+        <p class="text-justify leading-relaxed text-slate-700">
+          Na <strong>água turva (com sedimentos minerais em suspensão)</strong>, o retroespalhamento volumétrico nas faixas do visível amplia-se expressivamente, deslocando o pico de reflectância para o amarelo/vermelho (0,6 a 0,7 &mu;m). Em águas com proliferação de algas (fitoplâncton), a presença de clorofila gera absorção no azul e vermelho e discreto pico no verde e no limiar do infravermelho.
+        </p>
+      </div>
+
+      <!-- SOLOS -->
+      <div class="space-y-2 pt-2">
+        <h3 class="text-base sm:text-lg font-bold text-slate-900 flex items-center gap-2">
+          <i class="fa-solid fa-mountain text-amber-700"></i> Comportamento Espectral de Solos
+        </h3>
+        <p class="text-justify leading-relaxed text-slate-700">
+          A curva espectral do <strong>solo seco</strong> exibe padrão <mark>monotônico e continuamente ascendente</mark> a partir do visível em direção ao SWIR. Solos arenosos ricos em quartzo possuem elevado albedo; solos ricos em matéria orgânica rebaixam a curva e escurecem a imagem.
+        </p>
+        <p class="text-justify leading-relaxed text-slate-700">
+          A presença de <strong>umidade</strong> <mark>rebaixa de forma generalizada toda a curva de reflectância</mark> do solo (o solo úmido é sempre mais escuro que o seco), porque a lâmina d'água aprisiona a radiação por reflexão interna. Solos argilosos úmidos mostram vales de absorção de água em 1,4 &mu;m e 1,9 &mu;m e vales de hidroxila em 2,2 &mu;m. Óxidos de ferro (hematita) promovem forte absorção no azul (< 0,55 &mu;m), conferindo aos latossolos tropicais a típica coloração avermelhada.
+        </p>
+      </div>
+
+      <!-- TABELA 2: COMPARATIVO DOS ALVOS ESPACIAIS -->
+      <div class="space-y-2 pt-2">
+        <h4 class="text-sm font-bold text-slate-900 uppercase tracking-wider flex items-center gap-1.5">
+          <i class="fa-solid fa-table text-emerald-700"></i> Tabela 2: Resumo Comparativo das Assinaturas Espectrais dos Alvos
+        </h4>
+        <div class="border border-slate-300 rounded-lg bg-white overflow-hidden shadow-xs">
+          <table class="table-concurso text-xs sm:text-sm text-left divide-y divide-slate-300">
+            <thead class="bg-slate-100 text-slate-900 font-bold">
+              <tr>
+                <th class="p-2 sm:p-3 w-[20%] border-r border-slate-200">Alvo Típico</th>
+                <th class="p-2 sm:p-3 w-[25%] border-r border-slate-200">Visível (0,4 - 0,7 &mu;m)</th>
+                <th class="p-2 sm:p-3 w-[25%] border-r border-slate-200">NIR (0,7 - 1,3 &mu;m)</th>
+                <th class="p-2 sm:p-3 w-[30%]">Fator Físico Determinante</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-200 text-slate-700">
+              <tr>
+                <td class="p-2 sm:p-3 font-semibold text-slate-900 border-r border-slate-200 bg-slate-50/50">Vegetação Sadia</td>
+                <td class="p-2 sm:p-3 border-r border-slate-200">Absorção Azul/Vermelho; reflexão no Verde</td>
+                <td class="p-2 sm:p-3 border-r border-slate-200 font-bold text-emerald-800"><mark>Elevadíssima (> 50%)</mark></td>
+                <td class="p-2 sm:p-3">Clorofila no VIS; <mark>Mesófilo esponjoso</mark> no NIR; Água no SWIR.</td>
+              </tr>
+              <tr>
+                <td class="p-2 sm:p-3 font-semibold text-slate-900 border-r border-slate-200 bg-slate-50/50">Água Límpida</td>
+                <td class="p-2 sm:p-3 border-r border-slate-200">Baixa reflexão no Azul/Verde</td>
+                <td class="p-2 sm:p-3 border-r border-slate-200 font-bold text-slate-900"><mark>Praticamente zero (absorção)</mark></td>
+                <td class="p-2 sm:p-3">Profundidade da lâmina líquida e pureza físico-química.</td>
+              </tr>
+              <tr>
+                <td class="p-2 sm:p-3 font-semibold text-slate-900 border-r border-slate-200 bg-slate-50/50">Água Turva</td>
+                <td class="p-2 sm:p-3 border-r border-slate-200">Alta no Amarelo e Vermelho</td>
+                <td class="p-2 sm:p-3 border-r border-slate-200">Discreta elevação residual</td>
+                <td class="p-2 sm:p-3">Espalhamento provocado por sedimentos minerais e argilas.</td>
+              </tr>
+              <tr>
+                <td class="p-2 sm:p-3 font-semibold text-slate-900 border-r border-slate-200 bg-slate-50/50">Solo Seco</td>
+                <td class="p-2 sm:p-3 border-r border-slate-200">Crescimento contínuo</td>
+                <td class="p-2 sm:p-3 border-r border-slate-200">Média a alta (curva ascendente)</td>
+                <td class="p-2 sm:p-3">Composição mineralógica (quartzo), textura e matéria orgânica.</td>
+              </tr>
+              <tr>
+                <td class="p-2 sm:p-3 font-semibold text-slate-900 border-r border-slate-200 bg-slate-50/50">Solo Úmido</td>
+                <td class="p-2 sm:p-3 border-r border-slate-200"><mark>Curva totalmente rebaixada</mark></td>
+                <td class="p-2 sm:p-3 border-r border-slate-200">Rebaixada uniformemente</td>
+                <td class="p-2 sm:p-3">Água intersticial aprisiona radiação por reflexão interna.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </article>
+
+    <!-- CONTEÚDO INTEGRAL: SEÇÃO 3 -->
+    <article id="sec-3" class="space-y-4 pt-6 border-t border-slate-200">
+      <div class="border-b border-slate-200 pb-2">
+        <span class="text-xs font-bold text-emerald-700 uppercase tracking-widest">Unidade Teórica 03</span>
+        <h2 class="text-xl sm:text-2xl font-bold text-slate-900">3. Sistemas Sensores e as Quatro Resoluções Fundamentais</h2>
+      </div>
+
+      <div class="space-y-3">
+        <h3 class="text-base sm:text-lg font-bold text-slate-900">Sensores Ativos versus Sensores Passivos</h3>
+        <p class="text-justify leading-relaxed text-slate-700">
+          A classificação dos sistemas sensores fundamenta-se na origem da energia eletromagnética registrada:
+        </p>
+        <ul class="list-disc pl-5 space-y-1.5 text-slate-700 text-sm">
+          <li><strong>Sensores Passivos:</strong> Dependem de fontes energéticas externas e naturais. Na faixa óptica, utilizam a <mark>radiação solar refletida</mark> (operando apenas de dia e bloqueados por nuvens); na faixa termal, medem a emissão própria de calor da superfície.</li>
+          <li><strong>Sensores Ativos:</strong> Possuem <mark>fonte própria e artificial de radiação</mark>. Emitem pulsos eletromagnéticos e mensuram a energia retroespalhada. Exemplos: <strong>Radar de Abertura Sintética (SAR)</strong> — opera em micro-ondas, independe da luz solar (dia/noite) e atravessa nuvens e chuvas — e <strong>LiDAR</strong> (pulsos de laser colimado para altimetria precisa).</li>
+        </ul>
+      </div>
+
+      <!-- TABELA 3: SENSORES ATIVOS VS PASSIVOS -->
+      <div class="space-y-2 pt-1">
+        <h4 class="text-sm font-bold text-slate-900 uppercase tracking-wider flex items-center gap-1.5">
+          <i class="fa-solid fa-table text-emerald-700"></i> Tabela 3: Quadro Diferencial de Sistemas Sensores
+        </h4>
+        <div class="border border-slate-300 rounded-lg bg-white overflow-hidden shadow-xs">
+          <table class="table-concurso text-xs sm:text-sm text-left divide-y divide-slate-300">
+            <thead class="bg-slate-100 text-slate-900 font-bold">
+              <tr>
+                <th class="p-2 sm:p-3 w-[25%] border-r border-slate-200">Critério</th>
+                <th class="p-2 sm:p-3 w-[37%] border-r border-slate-200">Sensores Passivos (Ópticos)</th>
+                <th class="p-2 sm:p-3 w-[38%]">Sensores Ativos (Radar / LiDAR)</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-200 text-slate-700">
+              <tr>
+                <td class="p-2 sm:p-3 font-semibold text-slate-900 border-r border-slate-200 bg-slate-50/50">Fonte de Energia</td>
+                <td class="p-2 sm:p-3 border-r border-slate-200">Natural externa (Sol ou emissão térmica terrestre)</td>
+                <td class="p-2 sm:p-3 font-semibold text-slate-900"><mark>Própria e artificial</mark> (feixe gerado pelo sensor)</td>
+              </tr>
+              <tr>
+                <td class="p-2 sm:p-3 font-semibold text-slate-900 border-r border-slate-200 bg-slate-50/50">Dependência Solar</td>
+                <td class="p-2 sm:p-3 border-r border-slate-200">Exigem iluminação diurna para bandas ópticas</td>
+                <td class="p-2 sm:p-3 font-semibold text-slate-900"><mark>Totalmente independentes</mark> (operam dia e noite)</td>
+              </tr>
+              <tr>
+                <td class="p-2 sm:p-3 font-semibold text-slate-900 border-r border-slate-200 bg-slate-50/50">Interferência Atmosférica</td>
+                <td class="p-2 sm:p-3 border-r border-slate-200">Nuvens, névoas e fumaça bloqueiam o sinal</td>
+                <td class="p-2 sm:p-3"><mark>Micro-ondas atravessam nuvens, chuva leve e fumaça</mark></td>
+              </tr>
+              <tr>
+                <td class="p-2 sm:p-3 font-semibold text-slate-900 border-r border-slate-200 bg-slate-50/50">Grandezas Mapeadas</td>
+                <td class="p-2 sm:p-3 border-r border-slate-200">Resposta biofísica, fotossíntese, teores minerais</td>
+                <td class="p-2 sm:p-3">Rugosidade mecânica, altimetria e geometria 3D</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- AS QUATRO RESOLUÇÕES -->
+      <div class="space-y-3 pt-3">
+        <h3 class="text-base sm:text-lg font-bold text-slate-900">As Quatro Resoluções dos Sensores Orbitais</h3>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">
+          <div class="p-3 bg-slate-50 border border-slate-200 rounded-lg space-y-1">
+            <h4 class="font-bold text-slate-900 flex items-center gap-1.5">
+              <i class="fa-solid fa-expand text-emerald-700"></i> 1. Resolução Espacial
+            </h4>
+            <p class="text-xs sm:text-sm text-slate-700">
+              Menor elemento dimensional individualizado no terreno, comandado pelo IFOV (Campo de Visada Instantâneo). Em imagens matriciais, expressa o <mark>tamanho métrico do pixel no solo</mark> (Ex: 10 m no Sentinel-2; 30 m no Landsat-8; 0,5 m no WorldView). Quanto menor a metragem do pixel, maior é a resolução.
+            </p>
+          </div>
+
+          <div class="p-3 bg-slate-50 border border-slate-200 rounded-lg space-y-1">
+            <h4 class="font-bold text-slate-900 flex items-center gap-1.5">
+              <i class="fa-solid fa-rainbow text-emerald-700"></i> 2. Resolução Espectral
+            </h4>
+            <p class="text-xs sm:text-sm text-slate-700">
+              <mark>Número e largura das bandas espectrais</mark> registradas. Divide-se em: <strong>Pancromática</strong> (uma única banda larga com alta resolução espacial), <strong>Multiespectral</strong> (4 a 13 bandas discretas) e <strong>Hiperespectral</strong> (centenas de canais estreitos contíguos de alta sensibilidade química).
+            </p>
+          </div>
+
+          <div class="p-3 bg-slate-50 border border-slate-200 rounded-lg space-y-1">
+            <h4 class="font-bold text-slate-900 flex items-center gap-1.5">
+              <i class="fa-solid fa-sliders text-emerald-700"></i> 3. Resolução Radiométrica
+            </h4>
+            <p class="text-xs sm:text-sm text-slate-700">
+              Capacidade do sensor de discernir variações sutis no fluxo energético recebido. Medida em bits (\(2^n\) níveis de cinza): <mark>8 bits = 256 níveis</mark>; <mark>12 bits = 4.096 níveis</mark>; <mark>16 bits = 65.536 níveis</mark>. Evita saturação de alvos brilhantes e detalha áreas de sombra.
+            </p>
+          </div>
+
+          <div class="p-3 bg-slate-50 border border-slate-200 rounded-lg space-y-1">
+            <h4 class="font-bold text-slate-900 flex items-center gap-1.5">
+              <i class="fa-solid fa-clock-rotate-left text-emerald-700"></i> 4. Resolução Temporal
+            </h4>
+            <p class="text-xs sm:text-sm text-slate-700">
+              <mark>Intervalo de tempo entre passagens sucessivas</mark> do satélite sobre o mesmo ponto da Terra (tempo de revisita). Essencial para monitorar desmatamento em tempo real, expansão urbana, estiagens e queimadas.
+            </p>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- CONTEÚDO INTEGRAL: SEÇÃO 4 -->
+    <article id="sec-4" class="space-y-4 pt-6 border-t border-slate-200">
+      <div class="border-b border-slate-200 pb-2">
+        <span class="text-xs font-bold text-emerald-700 uppercase tracking-widest">Unidade Teórica 04 &bull; Foco Mandatório da Banca</span>
+        <h2 class="text-xl sm:text-2xl font-bold text-slate-900">4. Estruturas de Dados em SIG: Modelo Matricial (Raster) versus Vetorial</h2>
+      </div>
+
+      <p class="text-justify leading-relaxed text-slate-700">
+        Segundo Paulo Roberto Fitz (2008), o mundo real é representado em Sistemas de Informação Geográfica (SIG) por dois modelos computacionais fundamentais. A escolha entre eles decorre estritamente da <strong>natureza do fenômeno geográfico</strong>:
+      </p>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <!-- RASTER -->
+        <div class="p-4 bg-slate-50 border-2 border-slate-200 rounded-xl space-y-2">
+          <span class="text-xs font-extrabold uppercase tracking-wider text-slate-600 block">Estrutura 01: Modelo Matricial (Raster)</span>
+          <h4 class="text-base font-bold text-slate-900">Grade Regular de Células (Pixels)</h4>
+          <p class="text-slate-700 text-xs sm:text-sm text-justify">
+            Espaço dividido em linhas e colunas homogêneas. Cada célula possui um valor numérico (\(Z\)) representativo do atributo.
+          </p>
+          <div class="p-2.5 bg-amber-50 border border-amber-300 rounded text-xs text-amber-950 font-medium">
+            <strong>Aplicação Canônica em Concurso:</strong> <mark>Variáveis contínuas</mark> sem limites abruptos. Ideal para <strong>Modelos Numéricos de Terreno (MNT/MDE)</strong>, mapas de declividade (clinográficos), orientação de encostas, álgebras de mapas e superfícies térmicas e climáticas.
+          </div>
+        </div>
+
+        <!-- VETORIAL -->
+        <div class="p-4 bg-slate-50 border-2 border-slate-200 rounded-xl space-y-2">
+          <span class="text-xs font-extrabold uppercase tracking-wider text-slate-600 block">Estrutura 02: Modelo Vetorial</span>
+          <h4 class="text-base font-bold text-slate-900">Primitivas Geométricas Cartesianas (X, Y)</h4>
+          <p class="text-slate-700 text-xs sm:text-sm text-justify">
+            Modelado por <strong>Pontos</strong> (nascentes, poços), <strong>Linhas</strong> (rios, rodovias) e <strong>Polígonos</strong> (glebas, municípios). Conecta-se a bancos relacionais com controle rigoroso de <strong>topologia</strong>.
+          </p>
+          <div class="p-2.5 bg-emerald-50 border border-emerald-300 rounded text-xs text-emerald-950 font-medium">
+            <strong>Aplicação Canônica em Concurso:</strong> <mark>Feições discretas com limites nítidos</mark>. Obrigatório em <strong>Cadastro Fundiário e Territorial Multifinalitário</strong>, parcelamento imobiliário e divisas jurídicas (onde a pixelização causaria erros perimétricos inaceitáveis).
+          </div>
+        </div>
+      </div>
+
+      <!-- TABELA 4: RASTER VS VETOR -->
+      <div class="space-y-2 pt-2">
+        <h4 class="text-sm font-bold text-slate-900 uppercase tracking-wider flex items-center gap-1.5">
+          <i class="fa-solid fa-table text-emerald-700"></i> Tabela 4: Comparativo Estrutural entre Raster e Vetorial
+        </h4>
+        <div class="border border-slate-300 rounded-lg bg-white overflow-hidden shadow-xs">
+          <table class="table-concurso text-xs sm:text-sm text-left divide-y divide-slate-300">
+            <thead class="bg-slate-100 text-slate-900 font-bold">
+              <tr>
+                <th class="p-2 sm:p-3 w-[22%] border-r border-slate-200">Parâmetro</th>
+                <th class="p-2 sm:p-3 w-[39%] border-r border-slate-200">Modelo Matricial (Raster)</th>
+                <th class="p-2 sm:p-3 w-[39%]">Modelo Vetorial</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-200 text-slate-700">
+              <tr>
+                <td class="p-2 sm:p-3 font-semibold text-slate-900 border-r border-slate-200 bg-slate-50/50">Primitiva Básica</td>
+                <td class="p-2 sm:p-3 border-r border-slate-200">Grade contígua regular de pixels</td>
+                <td class="p-2 sm:p-3">Ponto, Linha e Polígono (coordenadas cartesianas)</td>
+              </tr>
+              <tr>
+                <td class="p-2 sm:p-3 font-semibold text-slate-900 border-r border-slate-200 bg-slate-50/50">Fenômeno Espacial</td>
+                <td class="p-2 sm:p-3 border-r border-slate-200"><mark>Variáveis contínuas</mark> (gradientes sem fronteiras)</td>
+                <td class="p-2 sm:p-3"><mark>Objetos discretos</mark> com contornos e limites definidos</td>
+              </tr>
+              <tr>
+                <td class="p-2 sm:p-3 font-semibold text-slate-900 border-r border-slate-200 bg-slate-50/50">Aplicação Principal</td>
+                <td class="p-2 sm:p-3 border-r border-slate-200 font-bold text-amber-950"><mark>Modelos Numéricos de Terreno (MNT/MDE)</mark>, declividade, fluxos</td>
+                <td class="p-2 sm:p-3 font-bold text-emerald-950"><mark>Cadastro Fundiário</mark>, loteamentos, divisas legais e redes viárias</td>
+              </tr>
+              <tr>
+                <td class="p-2 sm:p-3 font-semibold text-slate-900 border-r border-slate-200 bg-slate-50/50">Topologia</td>
+                <td class="p-2 sm:p-3 border-r border-slate-200">Implícita pela vizinhança geométrica dos pixels</td>
+                <td class="p-2 sm:p-3">Explícita em tabelas relacionais (adjacência, conectividade)</td>
+              </tr>
+              <tr>
+                <td class="p-2 sm:p-3 font-semibold text-slate-900 border-r border-slate-200 bg-slate-50/50">Principal Vício/Risco</td>
+                <td class="p-2 sm:p-3 border-r border-slate-200">Efeito serrilhado (escada) na delimitação de fronteiras lineares</td>
+                <td class="p-2 sm:p-3">Alto processamento em sobreposições poligonais complexas</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </article>
+
+    <!-- CONTEÚDO INTEGRAL: SEÇÃO 5 -->
+    <article id="sec-5" class="space-y-4 pt-6 border-t border-slate-200">
+      <div class="border-b border-slate-200 pb-2">
+        <span class="text-xs font-bold text-emerald-700 uppercase tracking-widest">Unidade Teórica 05</span>
+        <h2 class="text-xl sm:text-2xl font-bold text-slate-900">5. Fundamentos de Sistemas Globais de Navegação por Satélite (GNSS)</h2>
+      </div>
+
+      <p class="text-justify leading-relaxed text-slate-700">
+        Os Sistemas Globais de Navegação por Satélite (GNSS) operam através da técnica de <mark>trilateração espacial</mark> a partir da medição do tempo de viagem do sinal emitido pelo satélite até a antena receptora:
+      </p>
+
+      <div class="bg-slate-50 border border-slate-200 p-3 rounded-lg text-center font-mono text-base text-slate-900">
+        $$\text{Pseudodistância} = \Delta t \times c$$
+      </div>
+
+      <p class="text-justify leading-relaxed text-slate-700">
+        Como os receptores convencionais no solo utilizam relógios de quartzo (sujeitos a pequenas imprecisões frente aos relógios atômicos dos satélites), é introduzido um erro de sincronismo (\(\delta t\)). Dessa forma, para fixar a posição tridimensional com exatidão geodésica, <mark>é obrigatório o rastreio simultâneo de NO MÍNIMO 4 SATÉLITES</mark>, resolvendo o sistema de 4 incógnitas:
+      </p>
+
+      <div class="bg-slate-50 border border-slate-200 p-3 rounded-lg text-center font-mono text-base text-slate-900">
+        $$(X, Y, Z, \delta t)$$
+      </div>
+
+      <div class="space-y-2">
+        <h3 class="text-base font-bold text-slate-900">Os Três Segmentos dos Sistemas GNSS</h3>
+        <ul class="list-disc pl-5 space-y-1.5 text-slate-700 text-sm">
+          <li><strong>Segmento Espacial:</strong> Constelações orbitando a média altitude (MEO, ~20.000 km), garantindo visada de no mínimo 4 satélites sobre qualquer ponto da Terra.</li>
+          <li><strong>Segmento de Controle:</strong> Estações terrestres de monitoramento e a Estação de Controle Mestre, encarregadas de sincronizar os relógios e corrigir as órbitas e efemérides.</li>
+          <li><strong>Segmento do Usuário:</strong> Antenas receptoras, estações geodésicas e softwares de processamento.</li>
+        </ul>
+      </div>
+
+      <!-- TABELA 5: CONSTELAÇÕES GNSS -->
+      <div class="space-y-2 pt-2">
+        <h4 class="text-sm font-bold text-slate-900 uppercase tracking-wider flex items-center gap-1.5">
+          <i class="fa-solid fa-table text-emerald-700"></i> Tabela 5: Constelações Internacionais e Governança
+        </h4>
+        <div class="border border-slate-300 rounded-lg bg-white overflow-hidden shadow-xs">
+          <table class="table-concurso text-xs sm:text-sm text-left divide-y divide-slate-300">
+            <thead class="bg-slate-100 text-slate-900 font-bold">
+              <tr>
+                <th class="p-2 sm:p-3 w-[25%] border-r border-slate-200">Constelação</th>
+                <th class="p-2 sm:p-3 w-[25%] border-r border-slate-200">Origem</th>
+                <th class="p-2 sm:p-3 w-[25%] border-r border-slate-200">Administração</th>
+                <th class="p-2 sm:p-3 w-[25%]">Datum Global</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-200 text-slate-700">
+              <tr>
+                <td class="p-2 sm:p-3 font-semibold text-slate-900 border-r border-slate-200 bg-slate-50/50">GPS (NAVSTAR)</td>
+                <td class="p-2 sm:p-3 border-r border-slate-200">Estados Unidos</td>
+                <td class="p-2 sm:p-3 border-r border-slate-200 font-semibold text-slate-800">Militar (DoD)</td>
+                <td class="p-2 sm:p-3 font-mono">WGS-84</td>
+              </tr>
+              <tr>
+                <td class="p-2 sm:p-3 font-semibold text-slate-900 border-r border-slate-200 bg-slate-50/50">GLONASS</td>
+                <td class="p-2 sm:p-3 border-r border-slate-200">Rússia</td>
+                <td class="p-2 sm:p-3 border-r border-slate-200 font-semibold text-slate-800">Militar (Forças Armadas)</td>
+                <td class="p-2 sm:p-3 font-mono">PZ-90</td>
+              </tr>
+              <tr>
+                <td class="p-2 sm:p-3 font-semibold text-slate-900 border-r border-slate-200 bg-slate-50/50">Galileo</td>
+                <td class="p-2 sm:p-3 border-r border-slate-200">União Europeia</td>
+                <td class="p-2 sm:p-3 border-r border-slate-200 font-bold text-emerald-800"><mark>Estritamente CIVIL</mark></td>
+                <td class="p-2 sm:p-3 font-mono">GTRF</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="p-3 bg-slate-50 border border-slate-200 rounded-lg text-sm text-slate-700">
+        <strong>Métodos de Levantamento:</strong> O <em>Posicionamento Absoluto</em> (isolado) fornece precisão de 3 a 10 m. O <em>Posicionamento Relativo Diferencial (DGPS / RTK)</em> utiliza base geodésica de coordenadas conhecidas (como a rede RBMC/IBGE) e receptor móvel, alcançando <strong>precisão centimétrica/milimétrica</strong>, exigida para a certificação fundiária rural pelo INCRA.
+      </div>
+    </article>
+
+    <!-- CONTEÚDO INTEGRAL: SEÇÃO 6 -->
+    <article id="sec-6" class="space-y-4 pt-6 border-t border-slate-200">
+      <div class="border-b border-slate-200 pb-2">
+        <span class="text-xs font-bold text-amber-700 uppercase tracking-widest">Revisão Ativa</span>
+        <h2 class="text-xl sm:text-2xl font-bold text-slate-900">6. Características Essenciais e Tópicos de Memorização Rápida</h2>
+      </div>
+
+      <div class="space-y-2.5 text-sm sm:text-base text-slate-800">
+        <div class="flex items-start gap-2.5 p-2.5 bg-slate-50 border border-slate-200 rounded-lg">
+          <i class="fa-solid fa-check text-emerald-600 mt-1"></i>
+          <div><strong>Fórmula da Energia do Fóton:</strong> \(E = h \cdot \nu\). Ondas de <mark>menor comprimento possuem maior carga energética</mark>.</div>
+        </div>
+        <div class="flex items-start gap-2.5 p-2.5 bg-slate-50 border border-slate-200 rounded-lg">
+          <i class="fa-solid fa-check text-emerald-600 mt-1"></i>
+          <div><strong>Balanço de Energia da Radiação:</strong> \(\rho + \alpha + \tau = 1\). Em corpos opacos, \(\tau = 0\), logo <mark>\(\rho = 1 - \alpha\)</mark>.</div>
+        </div>
+        <div class="flex items-start gap-2.5 p-2.5 bg-slate-50 border border-slate-200 rounded-lg">
+          <i class="fa-solid fa-check text-emerald-600 mt-1"></i>
+          <div><strong>Espalhamentos Atmosféricos:</strong> <em>Rayleigh</em> (\(I \propto \lambda^{-4}\), gases, céu azul); <em>Mie</em> (aerossóis e poluição); <em>Não-seletivo</em> (gotículas de água em nuvens).</div>
+        </div>
+        <div class="flex items-start gap-2.5 p-2.5 bg-amber-50 border border-amber-300 rounded-lg">
+          <i class="fa-solid fa-star text-amber-600 mt-1"></i>
+          <div><strong>Vegetação Sadia:</strong> Clorofila absorve <mark>Azul e Vermelho</mark> e reflete Verde. No <mark>Infravermelho Próximo (NIR)</mark>, a altíssima reflectância decorre da anatomia do <strong>mesófilo celular esponjoso</strong>, e NÃO da clorofila!</div>
+        </div>
+        <div class="flex items-start gap-2.5 p-2.5 bg-slate-50 border border-slate-200 rounded-lg">
+          <i class="fa-solid fa-check text-emerald-600 mt-1"></i>
+          <div><strong>Água Límpida:</strong> Absorve de forma quase absoluta no <mark>Infravermelho Próximo e Médio (\(\approx 0\%\))</mark>. Aparece preta em bandas de infravermelho.</div>
+        </div>
+        <div class="flex items-start gap-2.5 p-2.5 bg-slate-50 border border-slate-200 rounded-lg">
+          <i class="fa-solid fa-check text-emerald-600 mt-1"></i>
+          <div><strong>Solos:</strong> Solo seco tem curva ascendente monotônica. O <mark>solo úmido rebaixa uniformemente toda a curva de reflectância</mark> devido ao aprisionamento da luz pela água intersticial.</div>
+        </div>
+        <div class="flex items-start gap-2.5 p-2.5 bg-slate-50 border border-slate-200 rounded-lg">
+          <i class="fa-solid fa-check text-emerald-600 mt-1"></i>
+          <div><strong>Sensores Passivos vs. Ativos:</strong> Passivos exigem luz solar refletida; <mark>sensores ativos (Radar/LiDAR) têm fonte própria</mark>, operam dia e noite e o radar atravessa nuvens.</div>
+        </div>
+        <div class="flex items-start gap-2.5 p-2.5 bg-slate-50 border border-slate-200 rounded-lg">
+          <i class="fa-solid fa-check text-emerald-600 mt-1"></i>
+          <div><strong>Quatro Resoluções:</strong> Espacial (tamanho do pixel em metros); Espectral (faixas de ondas); Radiométrica (profundidade de bits \(2^n\)); Temporal (período de revisita).</div>
+        </div>
+        <div class="flex items-start gap-2.5 p-2.5 bg-amber-50 border border-amber-300 rounded-lg">
+          <i class="fa-solid fa-star text-amber-600 mt-1"></i>
+          <div><strong>Raster em SIG:</strong> Grade regular de células para <mark>variáveis contínuas</mark>. Aplicação direta: <strong>Modelos Numéricos de Terreno (MNT/MDE)</strong> e cartas de declividade.</div>
+        </div>
+        <div class="flex items-start gap-2.5 p-2.5 bg-emerald-50 border border-emerald-300 rounded-lg">
+          <i class="fa-solid fa-star text-emerald-700 mt-1"></i>
+          <div><strong>Vetorial em SIG:</strong> Ponto, linha e polígono para <mark>objetos discretos</mark>. Aplicação direta: <strong>Cadastro Fundiário e Multifinalitário</strong> (garante valor jurídico e limites exatos sem pixelização).</div>
+        </div>
+        <div class="flex items-start gap-2.5 p-2.5 bg-slate-50 border border-slate-200 rounded-lg">
+          <i class="fa-solid fa-check text-emerald-600 mt-1"></i>
+          <div><strong>Posicionamento GNSS:</strong> Exige no mínimo <mark>4 satélites simultâneos</mark> para resolver tridimensionalidade e relógio (\(X,Y,Z,\delta t\)). O sistema <strong>Galileo</strong> possui gestão estritamente civil.</div>
+        </div>
+      </div>
+    </article>
+
+    <!-- CONTEÚDO INTEGRAL: SEÇÃO 7 -->
+    <article id="sec-7" class="space-y-4 pt-6 border-t border-slate-200">
+      <div class="border-b border-slate-200 pb-2">
+        <span class="text-xs font-bold text-emerald-700 uppercase tracking-widest">Dicionário Prático</span>
+        <h2 class="text-xl sm:text-2xl font-bold text-slate-900">7. Glossário Técnico de Definições Básicas para o Dia da Prova</h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs sm:text-sm">
+        <div class="p-3 bg-white border border-slate-200 rounded-lg shadow-2xs space-y-1">
+          <span class="font-bold text-slate-900 block">Reflectância Espectral</span>
+          <p class="text-slate-700">Razão percentual entre o fluxo de energia refletido pelo alvo e o fluxo total incidente sobre ele em dado comprimento de onda.</p>
+        </div>
+        <div class="p-3 bg-white border border-slate-200 rounded-lg shadow-2xs space-y-1">
+          <span class="font-bold text-slate-900 block">Janela Atmosférica</span>
+          <p class="text-slate-700">Faixas espectrais com baixa taxa de absorção molecular na atmosfera, permitindo a livre passagem da radiação solar e terrestre.</p>
+        </div>
+        <div class="p-3 bg-amber-50 border border-amber-300 rounded-lg shadow-2xs space-y-1">
+          <span class="font-bold text-amber-950 block"><mark>Mesófilo Esponjoso (Lacunoso)</mark></span>
+          <p class="text-slate-800">Estrutura anatômica interna da folha formada por células e cavidades de ar responsáveis pelo espalhamento mecânico no infravermelho próximo.</p>
+        </div>
+        <div class="p-3 bg-white border border-slate-200 rounded-lg shadow-2xs space-y-1">
+          <span class="font-bold text-slate-900 block">Borda do Vermelho (Red Edge)</span>
+          <p class="text-slate-700">Segmento de rápida inflexão ascendente na reflectância da vegetação entre 0,68 e 0,75 &mu;m, dividindo o VIS e o NIR.</p>
+        </div>
+        <div class="p-3 bg-white border border-slate-200 rounded-lg shadow-2xs space-y-1">
+          <span class="font-bold text-slate-900 block">Sensor Passivo</span>
+          <p class="text-slate-700">Equipamento receptor que depende de fontes externas naturais (luz solar refletida ou calor irradiado pela Terra).</p>
+        </div>
+        <div class="p-3 bg-white border border-slate-200 rounded-lg shadow-2xs space-y-1">
+          <span class="font-bold text-slate-900 block">Sensor Ativo</span>
+          <p class="text-slate-700">Sistema dotado de fonte geradora própria de energia (como pulsos de micro-ondas no radar ou feixes de laser no LiDAR).</p>
+        </div>
+        <div class="p-3 bg-white border border-slate-200 rounded-lg shadow-2xs space-y-1">
+          <span class="font-bold text-slate-900 block">Pixel</span>
+          <p class="text-slate-700">Menor elemento geométrico que compõe uma grade matricial (raster), delimitador da resolução espacial da imagem.</p>
+        </div>
+        <div class="p-3 bg-slate-50 border border-slate-200 rounded-lg shadow-2xs space-y-1">
+          <span class="font-bold text-slate-900 block">Modelo Numérico de Terreno (MNT)</span>
+          <p class="text-slate-700">Estrutura rasterizada com cotas altimétricas que simula matematicamente o relevo e subsidia cálculos de declividade e drenagem.</p>
+        </div>
+        <div class="p-3 bg-white border border-slate-200 rounded-lg shadow-2xs space-y-1">
+          <span class="font-bold text-slate-900 block">Topologia</span>
+          <p class="text-slate-700">Relações espaciais matemáticas de vizinhança, conectividade, contiguidade e contenção entre elementos vetoriais.</p>
+        </div>
+        <div class="p-3 bg-emerald-50 border border-emerald-300 rounded-lg shadow-2xs space-y-1">
+          <span class="font-bold text-emerald-950 block">Cadastro Técnico Fundiário</span>
+          <p class="text-slate-800">Inventário de parcelas territoriais modeladas em polígonos vetoriais fechados para assegurar precisão geométrica e fé pública jurídica.</p>
+        </div>
+        <div class="p-3 bg-white border border-slate-200 rounded-lg shadow-2xs space-y-1">
+          <span class="font-bold text-slate-900 block">Trilateração Espacial</span>
+          <p class="text-slate-700">Técnica geométrica que fixa as coordenadas do receptor medindo o tempo de percurso do sinal de radiofrequência emitido por satélites.</p>
+        </div>
+        <div class="p-3 bg-white border border-slate-200 rounded-lg shadow-2xs space-y-1">
+          <span class="font-bold text-slate-900 block">Constelação Galileo</span>
+          <p class="text-slate-700">Sistema GNSS europeu de controle e governança totalmente civis, em contraposição à gestão militar do GPS e do GLONASS.</p>
+        </div>
+      </div>
+    </article>
+
+    <!-- CONTEÚDO INTEGRAL: SEÇÃO 8 -->
+    <article id="sec-8" class="space-y-4 pt-6 border-t border-slate-200">
+      <div class="border-b border-slate-200 pb-2">
+        <span class="text-xs font-bold text-rose-700 uppercase tracking-widest">Alerta de Prova Objetiva</span>
+        <h2 class="text-xl sm:text-2xl font-bold text-slate-900">8. Mapeamento de Armadilhas Frequentes em Concursos do IFMG</h2>
+      </div>
+
+      <div class="space-y-3">
+        <!-- ARMADILHA 1 -->
+        <div class="p-4 bg-rose-50/70 border-l-4 border-rose-600 rounded-r-lg space-y-1.5">
+          <div class="flex items-center gap-2 text-rose-900 font-bold text-sm">
+            <i class="fa-solid fa-triangle-exclamation"></i>
+            <span>Pegadinha Clássica 01: O Agente da Alta Reflectância no NIR</span>
+          </div>
+          <p class="text-xs sm:text-sm text-slate-800 text-justify">
+            <span class="text-rose-700 font-semibold">[Assertiva Incorreta Típica]:</span> <em>"A vegetação vigorosa apresenta altíssima reflectância na faixa do infravermelho próximo em virtude da intensa atividade fotossintética da clorofila."</em>
+          </p>
+          <p class="text-xs sm:text-sm text-slate-900 bg-white p-2.5 rounded border border-rose-200">
+            <strong>GABARITO CERTO:</strong> <mark>FALSO</mark>. A clorofila atua estritamente na faixa do <strong>VISÍVEL</strong> (absorvendo azul/vermelho). O infravermelho próximo (> 0,75 &mu;m) reflete intensamente em função da <mark>estrutura celular e dos espaços aéreos do mesófilo esponjoso/lacunoso</mark> da folha!
+          </p>
+        </div>
+
+        <!-- ARMADILHA 2 -->
+        <div class="p-4 bg-rose-50/70 border-l-4 border-rose-600 rounded-r-lg space-y-1.5">
+          <div class="flex items-center gap-2 text-rose-900 font-bold text-sm">
+            <i class="fa-solid fa-triangle-exclamation"></i>
+            <span>Pegadinha Clássica 02: Inversão Raster versus Vetorial</span>
+          </div>
+          <p class="text-xs sm:text-sm text-slate-800 text-justify">
+            <span class="text-rose-700 font-semibold">[Assertiva Incorreta Típica]:</span> <em>"Recomenda-se a utilização do modelo matricial (raster) para o cadastro fundiário urbano e rural com vistas a garantir precisão milimétrica nas divisas dos imóveis."</em>
+          </p>
+          <p class="text-xs sm:text-sm text-slate-900 bg-white p-2.5 rounded border border-rose-200">
+            <strong>GABARITO CERTO:</strong> <mark>FALSO</mark>. Para cadastro fundiário e imobiliário adota-se obrigatoriamente a estrutura <strong>VETORIAL</strong> (pontos, linhas e polígonos), pois o formato matricial gera bordas em degrau (pixelização), inviabilizando o perímetro cartorial. O <strong>RASTER</strong> é mandatório para <mark>Modelos Numéricos de Terreno (MNT/MDE)</mark> e fenômenos de superfície contínua.
+          </p>
+        </div>
+
+        <!-- ARMADILHA 3 -->
+        <div class="p-4 bg-rose-50/70 border-l-4 border-rose-600 rounded-r-lg space-y-1.5">
+          <div class="flex items-center gap-2 text-rose-900 font-bold text-sm">
+            <i class="fa-solid fa-triangle-exclamation"></i>
+            <span>Pegadinha Clássica 03: Número Mínimo de Satélites no GNSS</span>
+          </div>
+          <p class="text-xs sm:text-sm text-slate-800 text-justify">
+            <span class="text-rose-700 font-semibold">[Assertiva Incorreta Típica]:</span> <em>"Para determinar a posição tridimensional precisa (latitude, longitude e altitude) de um receptor GPS convencional no solo, o rastreamento de três satélites é plenamente suficiente."</em>
+          </p>
+          <p class="text-xs sm:text-sm text-slate-900 bg-white p-2.5 rounded border border-rose-200">
+            <strong>GABARITO CERTO:</strong> <mark>FALSO</mark>. São necessários no mínimo <mark>QUATRO (4) satélites</mark> simultâneos para solucionar as 4 incógnitas: as três coordenadas espaciais mais o erro do relógio do receptor (\(X, Y, Z, \delta t\)). Três satélites só solucionariam a geometria se o receptor contasse com relógio atômico perfeitamente sincronizado.
+          </p>
+        </div>
+
+        <!-- ARMADILHA 4 -->
+        <div class="p-4 bg-rose-50/70 border-l-4 border-rose-600 rounded-r-lg space-y-1.5">
+          <div class="flex items-center gap-2 text-rose-900 font-bold text-sm">
+            <i class="fa-solid fa-triangle-exclamation"></i>
+            <span>Pegadinha Clássica 04: Governança do Galileo e Radar Orbital</span>
+          </div>
+          <p class="text-xs sm:text-sm text-slate-800 text-justify">
+            <span class="text-rose-700 font-semibold">[Assertiva Incorreta Típica]:</span> <em>"Assim como o NAVSTAR-GPS e o GLONASS, o sistema Galileo da União Europeia é gerenciado e subordinado a um ministério de defesa militar."</em>
+          </p>
+          <p class="text-xs sm:text-sm text-slate-900 bg-white p-2.5 rounded border border-rose-200">
+            <strong>GABARITO CERTO:</strong> <mark>FALSO</mark>. O sistema Galileo foi expressamente concebido sob <mark>governança civil internacional</mark>, ao contrário das origens militares do GPS (EUA) e GLONASS (Rússia). Além disso, lembre-se: <strong>sistemas de Radar são ATIVOS</strong>, operam no escuro e atravessam nuvens.
+          </p>
+        </div>
+      </div>
+    </article>
+
+    <!-- SEÇÃO FINAL: DIRECIONAMENTO PARA QUESTÕES -->
+    <section id="questoes-section" class="pt-8 pb-12 border-t-2 border-slate-300 text-center space-y-6">
+      <div class="max-w-2xl mx-auto space-y-2">
+        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-emerald-100 text-emerald-800">
+          <i class="fa-solid fa-graduation-cap"></i> Próxima Etapa do Treinamento
+        </span>
+        <h3 class="text-2xl sm:text-3xl font-extrabold text-slate-900">
+          Fixação Prática para o Concurso
+        </h3>
+        <p class="text-slate-600 text-sm sm:text-base">
+          Agora que você revisou todos os conceitos, fórmulas, tabelas e pegadinhas da banca do IFMG, exercite os conteúdos com a bateria de simulados.
+        </p>
+      </div>
+
+      <!-- BOTÃO DE DIRECIONAMENTO EXCLUSIVO PARA questoes5geo.html -->
+      <div class="pt-2">
+        <a 
+          href="questoes5geo.html" 
+          id="btnQuestoesConcurso"
+          class="inline-flex items-center justify-center gap-3 px-8 py-4 text-base sm:text-lg font-bold rounded-xl bg-amber-500 hover:bg-amber-600 text-slate-950 shadow-md hover:shadow-lg transition-all transform hover:-translate-y-0.5 active:translate-y-0 focus:outline-none focus:ring-4 focus:ring-amber-300"
+        >
+          <i class="fa-solid fa-file-circle-check text-xl"></i>
+          <span>Avançar para as Questões do Concurso (questoes5geo.html)</span>
+          <i class="fa-solid fa-arrow-right"></i>
+        </a>
+      </div>
+      <p class="text-xs text-slate-400">
+        O link acima redirecionará diretamente para a página <code>questoes5geo.html</code> que você irá configurar em seguida.
+      </p>
+    </section>
+
+  </main>
+
+  <!-- RODAPÉ -->
+  <footer class="border-t border-slate-200 bg-white py-6 text-center text-xs text-slate-500 space-y-1">
+    <p>Concurso Público para Carreira Docente EBTT &bull; Geografia &bull; IFMG</p>
+    <p class="font-mono text-slate-400">Documento de Revisão Otimizado com Fundo Neutro e Tabelas Responsivas</p>
+  </footer>
+
+  <!-- SCRIPT DE GERENCIAMENTO DO ÁUDIO MP3 E PROGRESSO -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Elementos do reprodutor
+      const audio = document.getElementById('mainAudioPlayer');
+      const audioSource = document.getElementById('audioSource');
+      const audioInput = document.getElementById('audioFileNameInput');
+      const loadBtn = document.getElementById('loadAudioBtn');
+      const playPauseBtn = document.getElementById('playPauseBtn');
+      const playIcon = document.getElementById('playIcon');
+      const playText = document.getElementById('playText');
+      const progressBar = document.getElementById('audioProgressBar');
+      const currentTimeDisp = document.getElementById('currentTimeDisplay');
+      const durationDisp = document.getElementById('durationDisplay');
+      const rewindBtn = document.getElementById('rewindBtn');
+      const forwardBtn = document.getElementById('forwardBtn');
+      const speedBtns = document.querySelectorAll('.speed-btn');
+      const statusMsg = document.getElementById('audioStatusMsg');
+      const currentFileLabel = document.getElementById('currentFileLabel');
+
+      // Barra de progresso de leitura da página
+      window.addEventListener('scroll', () => {
+        const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+        const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        const scrolled = (winScroll / height) * 100;
+        document.getElementById('progressBar').style.width = scrolled + '%';
+      });
+
+      // Formatar segundos em mm:ss
+      function formatTime(seconds) {
+        if (isNaN(seconds) || seconds === Infinity) return "--:--";
+        const mins = Math.floor(seconds / 60);
+        const secs = Math.floor(seconds % 60);
+        return `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+      }
+
+      // Atualizar fonte de áudio conforme input do usuário
+      function loadAudioFile() {
+        const filename = audioInput.value.trim();
+        if (!filename) {
+          statusMsg.innerHTML = '<span class="text-rose-600"><i class="fa-solid fa-triangle-exclamation"></i> Por favor, digite o nome do arquivo MP3.</span>';
+          return;
+        }
+
+        audio.pause();
+        audioSource.src = filename;
+        audio.load();
+        
+        currentFileLabel.textContent = `Arquivo: ${filename}`;
+        statusMsg.innerHTML = `<span class="text-emerald-700"><i class="fa-solid fa-check"></i> Arquivo carregado: <strong>${filename}</strong>. Clique em Reproduzir.</span>`;
+        
+        // Reset botões
+        playIcon.className = "fa-solid fa-play";
+        playText.textContent = "Reproduzir";
+        progressBar.value = 0;
+        currentTimeDisp.textContent = "00:00";
+      }
+
+      // Evento de carregar áudio
+      loadBtn.addEventListener('click', loadAudioFile);
+      audioInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') loadAudioFile();
+      });
+
+      // Play / Pause
+      playPauseBtn.addEventListener('click', () => {
+        if (audio.paused) {
+          audio.play().then(() => {
+            playIcon.className = "fa-solid fa-pause";
+            playText.textContent = "Pausar";
+            statusMsg.innerHTML = '<span class="text-emerald-700"><i class="fa-solid fa-volume-high"></i> Reproduzindo aula...</span>';
+          }).catch(err => {
+            statusMsg.innerHTML = `<span class="text-rose-600"><i class="fa-solid fa-circle-exclamation"></i> Não foi possível reproduzir "${audioInput.value}". Verifique se o arquivo está na mesma pasta da página.</span>`;
+          });
+        } else {
+          audio.pause();
+          playIcon.className = "fa-solid fa-play";
+          playText.textContent = "Reproduzir";
+          statusMsg.innerHTML = '<span class="text-slate-500"><i class="fa-solid fa-pause"></i> Áudio pausado.</span>';
+        }
+      });
+
+      // Atualização de tempo e slider
+      audio.addEventListener('timeupdate', () => {
+        if (!isNaN(audio.duration) && audio.duration > 0) {
+          const progress = (audio.currentTime / audio.duration) * 100;
+          progressBar.value = progress;
+          currentTimeDisp.textContent = formatTime(audio.currentTime);
+          durationDisp.textContent = formatTime(audio.duration);
+        }
+      });
+
+      audio.addEventListener('loadedmetadata', () => {
+        durationDisp.textContent = formatTime(audio.duration);
+      });
+
+      audio.addEventListener('ended', () => {
+        playIcon.className = "fa-solid fa-play";
+        playText.textContent = "Reproduzir";
+        progressBar.value = 0;
+        currentTimeDisp.textContent = "00:00";
+        statusMsg.innerHTML = '<span class="text-emerald-700"><i class="fa-solid fa-check-double"></i> Reprodução finalizada.</span>';
+      });
+
+      // Buscar tempo pelo slider
+      progressBar.addEventListener('input', () => {
+        if (!isNaN(audio.duration)) {
+          const seekTime = (progressBar.value / 100) * audio.duration;
+          audio.currentTime = seekTime;
+        }
+      });
+
+      // Botões de voltar e avançar 10s
+      rewindBtn.addEventListener('click', () => {
+        audio.currentTime = Math.max(0, audio.currentTime - 10);
+      });
+
+      forwardBtn.addEventListener('click', () => {
+        if (!isNaN(audio.duration)) {
+          audio.currentTime = Math.min(audio.duration, audio.currentTime + 10);
+        }
+      });
+
+      // Seletor de velocidade
+      speedBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          const speed = parseFloat(btn.dataset.speed);
+          audio.playbackRate = speed;
+
+          speedBtns.forEach(b => {
+            b.classList.remove('bg-emerald-700', 'text-white');
+            b.classList.add('bg-white', 'border', 'border-slate-300', 'text-slate-700');
+          });
+
+          btn.classList.remove('bg-white', 'border', 'border-slate-300', 'text-slate-700');
+          btn.classList.add('bg-emerald-700', 'text-white');
+        });
+      });
+    });
+  </script>
+</body>
+</html>

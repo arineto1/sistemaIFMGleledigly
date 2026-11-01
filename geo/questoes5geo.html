@@ -1,0 +1,1286 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simulado: Fundamentos de Sensoriamento Remoto e Geotecnologias</title>
+  
+  <!-- Tailwind CSS para estilização utilitária -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- KaTeX para renderização tipográfica elegante de equações e notações físicas -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" 
+          onload="renderMathOnLoad()"></script>
+
+  <!-- Google Fonts: Inter para alta legibilidade -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Merriweather:ital,wght@0,300;0,400;0,700;1,300&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            paper: '#FBFBFA',      /* Fundo suave que não cansa a vista */
+            cardbg: '#FFFFFF',
+            ink: '#27272A',         /* Carvão escuro com menor contraste abrasivo que o preto puro */
+            inklight: '#52525B',
+            brand: '#1E3A8A',       /* Azul institucional sóbrio */
+            correctbg: '#ECFDF5',
+            correctborder: '#10B981',
+            wrongbg: '#FEF2F2',
+            wrongborder: '#EF4444'
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            serif: ['Merriweather', 'serif']
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Estilização para leitura relaxante e livre de ofuscamento */
+    body {
+      background-color: #F8F9FA;
+      color: #27272A;
+      font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      text-rendering: optimizeLegibility;
+      -webkit-font-smoothing: antialiased;
+    }
+    
+    .question-statement {
+      line-height: 1.78;
+      letter-spacing: -0.011em;
+    }
+
+    .resolution-content {
+      line-height: 1.82;
+    }
+
+    /* Transição suave nos cards de opções */
+    .option-card {
+      transition: all 0.18s ease-in-out;
+      border: 1.5px solid #E4E4E7;
+      cursor: pointer;
+    }
+
+    .option-card:hover {
+      border-color: #94A3B8;
+      background-color: #F8FAFC;
+    }
+
+    .option-card.selected {
+      border-color: #2563EB;
+      background-color: #EFF6FF;
+    }
+
+    /* Estados de correção pós-envio */
+    .option-card.is-correct {
+      border-color: #10B981 !important;
+      background-color: #ECFDF5 !important;
+      color: #064E3B !important;
+    }
+
+    .option-card.is-wrong {
+      border-color: #EF4444 !important;
+      background-color: #FEF2F2 !important;
+      color: #7F1D1D !important;
+    }
+
+    .option-card.dimmed {
+      opacity: 0.6;
+    }
+
+    /* Tabelas comparativas */
+    .academic-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.88rem;
+    }
+    .academic-table th {
+      background-color: #F1F5F9;
+      color: #1E293B;
+      font-weight: 600;
+      text-align: left;
+      padding: 10px 14px;
+      border: 1px solid #CBD5E1;
+    }
+    .academic-table td {
+      padding: 10px 14px;
+      border: 1px solid #E2E8F0;
+      color: #334155;
+    }
+    .academic-table tr:nth-child(even) {
+      background-color: #F8FAFC;
+    }
+  </style>
+</head>
+<body class="min-h-screen py-8 px-4 sm:px-6 lg:px-8">
+
+  <!-- Container Geral Centralizado com Largura Adequada para Leitura -->
+  <main class="max-w-4xl mx-auto">
+    
+    <!-- Cabeçalho Informativo -->
+    <header class="bg-white rounded-2xl border border-slate-200/90 shadow-sm p-6 sm:p-8 mb-8">
+      <div class="flex flex-wrap items-center justify-between gap-3 mb-4">
+        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wide bg-blue-50 text-blue-800 border border-blue-200">
+          Reitoria IFMG • Banca Comissão Central
+        </span>
+        <span class="text-xs font-medium text-slate-500 bg-slate-100 px-2.5 py-1 rounded-md">
+          Bibliografia: Fitz (2008) &amp; Teixeira et al. (2009)
+        </span>
+      </div>
+
+      <h1 class="text-2xl sm:text-3xl font-bold tracking-tight text-slate-900 leading-snug">
+        Simulado Técnico: Fundamentos de Sensoriamento Remoto e Geotecnologias
+      </h1>
+      
+      <p class="mt-3 text-sm sm:text-base text-slate-600 leading-relaxed">
+        Responda às 10 questões objetivas completas. Ao concluir o simulado, clique no botão ao final para visualizar sua pontuação detalhada e a resolução comentada integrada de cada item na própria página.
+      </p>
+
+      <!-- Barra de Progresso de Respostas -->
+      <div class="mt-6 pt-5 border-t border-slate-100 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div class="flex items-center gap-3">
+          <div class="text-xs font-medium text-slate-600">
+            Respondidas: <span id="answered-count" class="font-bold text-blue-700">0</span> de 10
+          </div>
+          <div class="w-36 sm:w-48 bg-slate-100 rounded-full h-2.5 overflow-hidden">
+            <div id="progress-bar-fill" class="bg-blue-600 h-2.5 rounded-full transition-all duration-300" style="width: 0%"></div>
+          </div>
+        </div>
+
+        <button type="button" onclick="resetQuiz()" class="text-xs text-slate-500 hover:text-red-600 underline font-medium self-start sm:self-auto">
+          Limpar respostas
+        </button>
+      </div>
+    </header>
+
+    <!-- Placa de Resultados (Exibida dinamicamente após finalização) -->
+    <section id="results-panel" class="hidden mb-8 bg-white border border-slate-200 rounded-2xl p-6 sm:p-8 shadow-sm">
+      <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-slate-100 pb-6">
+        <div>
+          <span class="text-xs uppercase tracking-wider font-semibold text-slate-400">Resultado da Avaliação</span>
+          <h2 class="text-2xl font-bold text-slate-900 mt-1 flex items-center gap-2">
+            Desempenho: <span id="score-text" class="text-blue-700 font-extrabold">0/10</span>
+            <span id="score-badge" class="text-xs font-semibold px-2.5 py-1 rounded-full"></span>
+          </h2>
+          <p id="score-feedback" class="text-sm text-slate-600 mt-1.5"></p>
+        </div>
+        <div class="flex gap-2">
+          <a href="#q1" class="text-xs px-3.5 py-2 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 font-medium transition">
+            Revisar Questões
+          </a>
+          <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="text-xs px-3.5 py-2 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-medium transition">
+            Voltar ao Topo
+          </button>
+        </div>
+      </div>
+
+      <!-- Navegador Rápido por Questões (Gabarito Visual) -->
+      <div class="mt-5">
+        <span class="text-xs font-medium text-slate-500 block mb-2">Acesso rápido aos comentários:</span>
+        <div class="grid grid-cols-5 sm:grid-cols-10 gap-2" id="nav-pills-container">
+          <!-- Gerado via JavaScript -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Formulário das 10 Questões -->
+    <form id="quiz-form" onsubmit="return false;">
+      <div class="space-y-8" id="questions-wrapper">
+        
+        <!-- QUESTÃO 1 -->
+        <article id="q1" class="question-container bg-white rounded-2xl border border-slate-200/90 shadow-sm p-6 sm:p-8 scroll-mt-6">
+          <div class="flex items-center justify-between gap-2 mb-4">
+            <span class="text-xs font-bold uppercase tracking-wider text-blue-700 bg-blue-50 border border-blue-200/80 px-2.5 py-1 rounded-md">
+              Questão 01
+            </span>
+            <span class="status-indicator text-xs font-medium text-slate-400">Pendente</span>
+          </div>
+
+          <p class="question-statement text-slate-800 text-base font-normal mb-5">
+            O sensoriamento remoto baseia-se na detecção e na quantificação da radiação eletromagnética (REM) refletida ou emitida pela matéria disposta sobre a superfície terrestre. Durante o percurso entre a fonte emissora primária (a radiação solar incidente), os alvos e os sistemas sensores orbitais, a energia atravessa a atmosfera, sofrendo processos de absorção e espalhamento seletivos. Considerando as leis fundamentais que regem o espectro eletromagnético, o balanço de energia na interface terrestre e a dinâmica das janelas atmosféricas, assinale a alternativa correta:
+          </p>
+
+          <div class="space-y-3 options-group" data-qid="1">
+            <label class="option-card flex items-start gap-3.5 p-3.5 sm:p-4 rounded-xl" data-opt="A">
+              <input type="radio" name="q1_option" value="A" class="mt-1 accent-blue-600">
+              <span class="text-sm text-slate-700 leading-relaxed">
+                <strong>A)</strong> O espalhamento do tipo Rayleigh manifesta-se predominantemente nas faixas das micro-ondas e do infravermelho médio, sendo gerado pelo choque da radiação com partículas em suspensão cujos diâmetros superam amplamente o comprimento de onda incidente.
+              </span>
+            </label>
+
+            <label class="option-card flex items-start gap-3.5 p-3.5 sm:p-4 rounded-xl" data-opt="B">
+              <input type="radio" name="q1_option" value="B" class="mt-1 accent-blue-600">
+              <span class="text-sm text-slate-700 leading-relaxed">
+                <strong>B)</strong> A equação fundamental de conservação da energia radiante incidente em uma superfície, expressa por \(\Phi_i(\lambda) = \Phi_\rho(\lambda) + \Phi_\alpha(\lambda) + \Phi_\tau(\lambda)\), determina que o fluxo incidente total (\(\Phi_i\)) decompõe-se nas parcelas refletida (\(\Phi_\rho\)), absorvida (\(\Phi_\alpha\)) e transmitida (\(\Phi_\tau\)), mantendo a relação adimensional unitária \(\rho(\lambda) + \alpha(\lambda) + \tau(\lambda) = 1\), na qual os coeficientes variam em função do comprimento de onda (\(\lambda\)).
+              </span>
+            </label>
+
+            <label class="option-card flex items-start gap-3.5 p-3.5 sm:p-4 rounded-xl" data-opt="C">
+              <input type="radio" name="q1_option" value="C" class="mt-1 accent-blue-600">
+              <span class="text-sm text-slate-700 leading-relaxed">
+                <strong>C)</strong> As janelas atmosféricas definem-se como porções do espectro eletromagnético nas quais ocorre bloqueio e saturação absortiva total pela ação combinada de vapor de água (\(H_2O\)) e dióxido de carbono (\(CO_2\)), inviabilizando a operação de sistemas sensores orbitais ópticos passivos.
+              </span>
+            </label>
+
+            <label class="option-card flex items-start gap-3.5 p-3.5 sm:p-4 rounded-xl" data-opt="D">
+              <input type="radio" name="q1_option" value="D" class="mt-1 accent-blue-600">
+              <span class="text-sm text-slate-700 leading-relaxed">
+                <strong>D)</strong> A radiação solar que atinge a superfície terrestre é livre de distorções na faixa do visível, concentrando a atenuação provocada por gases traço e aerossóis unicamente no intervalo do infravermelho termal entre \(8{,}0\,\mu\text{m}\) e \(14{,}0\,\mu\text{m}\).
+              </span>
+            </label>
+
+            <label class="option-card flex items-start gap-3.5 p-3.5 sm:p-4 rounded-xl" data-opt="E">
+              <input type="radio" name="q1_option" value="E" class="mt-1 accent-blue-600">
+              <span class="text-sm text-slate-700 leading-relaxed">
+                <strong>E)</strong> A dispersão da radiação em alvos naturais comporta-se estritamente de maneira especular segundo a Lei de Lambert, sendo nula a influência da rugosidade geométrica e da geometria de iluminação sobre os valores de reflectância direcional.
+              </span>
+            </label>
+          </div>
+
+          <!-- BLOCO DE RESOLUÇÃO (EXIBIDO PÓS-ENVIO) -->
+          <div id="res-q1" class="resolution-box hidden mt-6 pt-5 border-t border-slate-200">
+            <div class="bg-slate-50 border border-slate-200/90 rounded-xl p-5 sm:p-6 text-sm text-slate-800 space-y-3">
+              <div class="flex items-center gap-2 text-emerald-800 font-bold text-sm">
+                <svg class="w-5 h-5 text-emerald-600" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                Gabarito Oficial: Alternativa B
+              </div>
+              <p class="resolution-content text-slate-700">
+                <strong>Resolução Comentada:</strong> A física do sensoriamento remoto estabelece que qualquer fluxo radiante incidente (\(\Phi_i\)) ao encontrar um meio físico divide-se estritamente em frações que são refletidas (\(\Phi_\rho\)), absorvidas (\(\Phi_\alpha\)) e transmitidas (\(\Phi_\tau\)) através da matéria, obedecendo ao princípio universal da conservação de energia traduzido pela igualdade \(\Phi_i(\lambda) = \Phi_\rho(\lambda) + \Phi_\alpha(\lambda) + \Phi_\tau(\lambda)\). Ao normalizar cada componente pelo fluxo incidente total, derivam-se as grandezas adimensionais espectrais conhecidas como reflectância (\(\rho\)), absortância (\(\alpha\)) e transmitância (\(\tau\)), cuja somatória totaliza a unidade em qualquer comprimento de onda do espectro.
+              </p>
+              <div class="text-xs text-slate-600 bg-white p-3 rounded-lg border border-slate-200 space-y-1">
+                <p><strong>Por que as outras estão incorretas?</strong></p>
+                <ul class="list-disc list-inside space-y-1 pl-1">
+                  <li><strong>A incorreta:</strong> O espalhamento Rayleigh ocorre quando as partículas são muito menores que o comprimento de onda (\(d \ll \lambda\)), sendo inversamente proporcional a \(\lambda^4\) (forte no azul/visível, desprezível nas micro-ondas).</li>
+                  <li><strong>C incorreta:</strong> Janelas atmosféricas são justamente as faixas onde a atmosfera é <em>transparente</em> (baixa absorção), permitindo a passagem do sinal até o sensor.</li>
+                  <li><strong>D incorreta:</strong> A atmosfera atenua fortemente o visível via espalhamento e absorção por ozônio e vapor d'água.</li>
+                  <li><strong>E incorreta:</strong> Superfícies naturais são predominantemente refletoras difusas ou anisotrópicas, com forte dependência angular e de rugosidade.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- QUESTÃO 2 -->
+        <article id="q2" class="question-container bg-white rounded-2xl border border-slate-200/90 shadow-sm p-6 sm:p-8 scroll-mt-6">
+          <div class="flex items-center justify-between gap-2 mb-4">
+            <span class="text-xs font-bold uppercase tracking-wider text-blue-700 bg-blue-50 border border-blue-200/80 px-2.5 py-1 rounded-md">
+              Questão 02
+            </span>
+            <span class="status-indicator text-xs font-medium text-slate-400">Pendente</span>
+          </div>
+
+          <p class="question-statement text-slate-800 text-base font-normal mb-5">
+            A assinatura espectral da vegetação sadia ao longo do domínio óptico reflete a interação entre a radiação solar incidente e as propriedades bioquímicas e anatômicas do dossel foliar. No que concerne às particularidades da curva de reflectância espectral de folhas verdes vigorosas e às feições diagnósticas nas regiões do visível e do infravermelho, assinale a alternativa correta:
+          </p>
+
+          <div class="space-y-3 options-group" data-qid="2">
+            <label class="option-card flex items-start gap-3.5 p-3.5 sm:p-4 rounded-xl" data-opt="A">
+              <input type="radio" name="q2_option" value="A" class="mt-1 accent-blue-600">
+              <span class="text-sm text-slate-700 leading-relaxed">
+                <strong>A)</strong> No intervalo do espectro visível (\(0{,}4\,\mu\text{m}\) a \(0{,}7\,\mu\text{m}\)), a vegetação vigorosa apresenta expressivos picos de reflectância nas bandas do azul e do vermelho em virtude da ausência de atividade fotossintética nesses comprimentos de onda.
+              </span>
+            </label>
+
+            <label class="option-card flex items-start gap-3.5 p-3.5 sm:p-4 rounded-xl" data-opt="B">
+              <input type="radio" name="q2_option" value="B" class="mt-1 accent-blue-600">
+              <span class="text-sm text-slate-700 leading-relaxed">
+                <strong>B)</strong> A alta reflectância observada na faixa do infravermelho próximo (NIR, \(0{,}7\,\mu\text{m}\) a \(1{,}3\,\mu\text{m}\)) decorre da forte capacidade absortiva da molécula de clorofila alojada nos cloroplastos do tecido fotossintetizante foliar.
+              </span>
+            </label>
+
+            <label class="option-card flex items-start gap-3.5 p-3.5 sm:p-4 rounded-xl" data-opt="C">
+              <input type="radio" name="q2_option" value="C" class="mt-1 accent-blue-600">
+              <span class="text-sm text-slate-700 leading-relaxed">
+                <strong>C)</strong> No infravermelho próximo (NIR, \(0{,}7\,\mu\text{m}\) a \(1{,}3\,\mu\text{m}\)), a reflectância e a transmitância do dossel tornam-se acentuadas devido ao espalhamento e às refrações internas provocadas pelo contraste no índice de refração entre as paredes celulares hidratadas e os espaços intercelulares preenchidos por ar no mesófilo foliar (parênquima lacunoso).
+              </span>
+            </label>
+
+            <label class="option-card flex items-start gap-3.5 p-3.5 sm:p-4 rounded-xl" data-opt="D">
+              <input type="radio" name="q2_option" value="D" class="mt-1 accent-blue-600">
+              <span class="text-sm text-slate-700 leading-relaxed">
+                <strong>D)</strong> Na faixa do infravermelho de ondas curtas (SWIR, \(1{,}3\,\mu\text{m}\) a \(2{,}5\,\mu\text{m}\)), a curva espectral da vegetação independe do conteúdo volumétrico de água, apresentando comportamento estritamente ascendente até o domínio termal.
+              </span>
+            </label>
+
+            <label class="option-card flex items-start gap-3.5 p-3.5 sm:p-4 rounded-xl" data-opt="E">
+              <input type="radio" name="q2_option" value="E" class="mt-1 accent-blue-600">
+              <span class="text-sm text-slate-700 leading-relaxed">
+                <strong>E)</strong> A transição entre o espectro visível e o infravermelho próximo é marcada por um colapso imediato da reflectância foliar denominado <em>red edge</em>, feição que se intensifica quanto maior for a concentração de pigmentos fotossintéticos por unidade de área.
+              </span>
+            </label>
+          </div>
+
+          <!-- BLOCO DE RESOLUÇÃO -->
+          <div id="res-q2" class="resolution-box hidden mt-6 pt-5 border-t border-slate-200">
+            <div class="bg-slate-50 border border-slate-200/90 rounded-xl p-5 sm:p-6 text-sm text-slate-800 space-y-3">
+              <div class="flex items-center gap-2 text-emerald-800 font-bold text-sm">
+                <svg class="w-5 h-5 text-emerald-600" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                Gabarito Oficial: Alternativa C
+              </div>
+              <p class="resolution-content text-slate-700">
+                <strong>Resolução Comentada:</strong> No infravermelho próximo (NIR, \(0{,}7\,\mu\text{m}\) a \(1{,}3\,\mu\text{m}\)), as clorofilas e demais pigmentos são transparentes à REM. A energia penetra a lâmina foliar e sofre múltiplas refrações e espalhamentos nas interfaces ópticas formadas entre as paredes celulares túrgidas e os vazios intercelulares preenchidos por ar no parênquima lacunoso (mesófilo esponjoso). Essa dispersão interna resulta em um patamar de alta reflectância (\(40\%\) a \(50\%\)) e alta transmitância foliar.
+              </p>
+              <div class="text-xs text-slate-600 bg-white p-3 rounded-lg border border-slate-200 space-y-1">
+                <p><strong>Descarte dos distratores:</strong></p>
+                <ul class="list-disc list-inside space-y-1 pl-1">
+                  <li><strong>A:</strong> No visível, a clorofila absorve ativamente fótons nas bandas do azul (\(\approx 0{,}45\,\mu\text{m}\)) e do vermelho (\(\approx 0{,}66\,\mu\text{m}\)), exibindo vales de absorção e apenas um discreto pico no verde (\(\approx 0{,}55\,\mu\text{m}\)).</li>
+                  <li><strong>B:</strong> A clorofila não absorve no NIR; se absorvesse, a folha superaqueceria e desnaturaria suas proteínas vitais.</li>
+                  <li><strong>D:</strong> O SWIR é condicionado diretamente pela absorção da água líquida contida na folha, destacando-se as bandas em \(1{,}45\,\mu\text{m}\) e \(1{,}94\,\mu\text{m}\).</li>
+                  <li><strong>E:</strong> O <em>red edge</em> é um salto abrupto e ascendente de reflectância (\(0{,}68\) a \(0{,}75\,\mu\text{m}\)), não um colapso.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- QUESTÃO 3 -->
+        <article id="q3" class="question-container bg-white rounded-2xl border border-slate-200/90 shadow-sm p-6 sm:p-8 scroll-mt-6">
+          <div class="flex items-center justify-between gap-2 mb-4">
+            <span class="text-xs font-bold uppercase tracking-wider text-blue-700 bg-blue-50 border border-blue-200/80 px-2.5 py-1 rounded-md">
+              Questão 03
+            </span>
+            <span class="status-indicator text-xs font-medium text-slate-400">Pendente</span>
+          </div>
+
+          <p class="question-statement text-slate-800 text-base font-normal mb-5">
+            O comportamento espectral de corpos hídricos continentais e costeiros é condicionado pela presença de constituintes opticamente ativos dissolvidos e em suspensão. Ao correlacionar a assinatura espectral de águas oligotróficas límpidas com a de águas túrbidas portadoras de expressiva carga de sedimentos em suspensão, assinale a alternativa correta:
+          </p>
+
+          <div class="space-y-3 options-group" data-qid="3">
+            <label class="option-card flex items-start gap-3.5 p-3.5 sm:p-4 rounded-xl" data-opt="A">
+              <input type="radio" name="q3_option" value="A" class="mt-1 accent-blue-600">
+              <span class="text-sm text-slate-700 leading-relaxed">
+                <strong>A)</strong> Corpos hídricos límpidos e profundos destacam-se por apresentar reflectância espectral continuamente crescente a partir de \(0{,}7\,\mu\text{m}\), permitindo o mapeamento de limites hidrográficos em bandas do infravermelho próximo devido ao elevado albedo da água pura.
+              </span>
+            </label>
+
+            <label class="option-card flex items-start gap-3.5 p-3.5 sm:p-4 rounded-xl" data-opt="B">
+              <input type="radio" name="q3_option" value="B" class="mt-1 accent-blue-600">
+              <span class="text-sm text-slate-700 leading-relaxed">
+                <strong>B)</strong> A introdução de sedimentos minerais inorgânicos em suspensão intensifica os processos de retroespalhamento volumétrico da radiação eletromagnética, acarretando uma elevação generalizada na reflectância do corpo d'água nas faixas do verde, do vermelho e do infravermelho próximo curto.
+              </span>
+            </label>
+
+            <label class="option-card flex items-start gap-3.5 p-3.5 sm:p-4 rounded-xl" data-opt="C">
+              <input type="radio" name="q3_option" value="C" class="mt-1 accent-blue-600">
+              <span class="text-sm text-slate-700 leading-relaxed">
+                <strong>C)</strong> Águas com elevada proliferação de fitoplâncton eliminam as bandas de absorção características nos comprimentos de onda do azul e do vermelho, igualando seu padrão radiométrico ao de solos arenosos secos.
+              </span>
+            </label>
+
+            <label class="option-card flex items-start gap-3.5 p-3.5 sm:p-4 rounded-xl" data-opt="D">
+              <input type="radio" name="q3_option" value="D" class="mt-1 accent-blue-600">
+              <span class="text-sm text-slate-700 leading-relaxed">
+                <strong>D)</strong> No domínio do infravermelho termal, a água superficial exibe emissividade nula, inviabilizando o levantamento de variações de temperatura por meio de sensores orbitais termais.
+              </span>
+            </label>
+
+            <label class="option-card flex items-start gap-3.5 p-3.5 sm:p-4 rounded-xl" data-opt="E">
+              <input type="radio" name="q3_option" value="E" class="mt-1 accent-blue-600">
+              <span class="text-sm text-slate-700 leading-relaxed">
+                <strong>E)</strong> Corpos d'água límpidos absorvem a totalidade do fluxo luminoso incidente entre \(0{,}4\,\mu\text{m}\) e \(0{,}5\,\mu\text{m}\), dispersando mais de \(80\%\) da energia incidente em comprimentos de onda superiores a \(1{,}2\,\mu\text{m}\).
+              </span>
+            </label>
+          </div>
+
+          <!-- BLOCO DE RESOLUÇÃO -->
+          <div id="res-q3" class="resolution-box hidden mt-6 pt-5 border-t border-slate-200">
+            <div class="bg-slate-50 border border-slate-200/90 rounded-xl p-5 sm:p-6 text-sm text-slate-800 space-y-3">
+              <div class="flex items-center gap-2 text-emerald-800 font-bold text-sm">
+                <svg class="w-5 h-5 text-emerald-600" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                Gabarito Oficial: Alternativa B
+              </div>
+              <p class="resolution-content text-slate-700">
+                <strong>Resolução Comentada:</strong> A água pura absorve intensamente a radiação a partir de \(0{,}7\,\mu\text{m}\), comportando-se como corpo quase negro no infravermelho. Quando materiais particulados minerais em suspensão (sedimentos inorgânicos) ingressam na coluna d'água, atuam como centros difusores que promovem retroespalhamento da radiação. Como resultado, ocorre elevação substancial da curva espectral em todo o visível (com ápice nas bandas do verde e vermelho) e expansão da reflectância na faixa do infravermelho próximo curto.
+              </p>
+              <div class="text-xs text-slate-600 bg-white p-3 rounded-lg border border-slate-200 space-y-1">
+                <p><strong>Descarte dos distratores:</strong></p>
+                <ul class="list-disc list-inside space-y-1 pl-1">
+                  <li><strong>A:</strong> A água límpida absorve a REM no infravermelho próximo, resultando em albedo praticamente nulo (e não elevado).</li>
+                  <li><strong>C:</strong> O fitoplâncton possui clorofila, que justamente produz vales de absorção no azul (\(0{,}44\,\mu\text{m}\)) e no vermelho (\(0{,}67\,\mu\text{m}\)).</li>
+                  <li><strong>D:</strong> A água possui altíssima emissividade termal (\(\varepsilon \approx 0{,}98\text{ a }0{,}99\)), sendo excelente alvo para termometria orbital.</li>
+                  <li><strong>E:</strong> A água límpida transmite a luz no azul-esverdeado e absorve praticamente 100% acima de \(1{,}2\,\mu\text{m}\).</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- QUESTÃO 4 -->
+        <article id="q4" class="question-container bg-white rounded-2xl border border-slate-200/90 shadow-sm p-6 sm:p-8 scroll-mt-6">
+          <div class="flex items-center justify-between gap-2 mb-4">
+            <span class="text-xs font-bold uppercase tracking-wider text-blue-700 bg-blue-50 border border-blue-200/80 px-2.5 py-1 rounded-md">
+              Questão 04
+            </span>
+            <span class="status-indicator text-xs font-medium text-slate-400">Pendente</span>
+          </div>
+
+          <p class="question-statement text-slate-800 text-base font-normal mb-5">
+            A curva de reflectância espectral dos solos depende da interação conjugada de fatores como granulometria, teor de matéria orgânica, presença de óxidos metálicos e quantidade de umidade presente na matriz porosa. Em relação às variações espectrais observadas na transição entre um solo seco e um solo úmido de idêntica composição mineralógica, assinale a alternativa correta:
+          </p>
+
+          <div class="space-y-3 options-group" data-qid="4">
+            <label class="option-card flex items-start gap-3.5 p-3.5 sm:p-4 rounded-xl" data-opt="A">
+              <input type="radio" name="q4_option" value="A" class="mt-1 accent-blue-600">
+              <span class="text-sm text-slate-700 leading-relaxed">
+                <strong>A)</strong> O acréscimo de umidade no solo provoca uma elevação na curva espectral em todo o domínio óptico devido ao efeito de refração da lâmina d'água em torno das frações minerais.
+              </span>
+            </label>
+
+            <label class="option-card flex items-start gap-3.5 p-3.5 sm:p-4 rounded-xl" data-opt="B">
+              <input type="radio" name="q4_option" value="B" class="mt-1 accent-blue-600">
+              <span class="text-sm text-slate-700 leading-relaxed">
+                <strong>B)</strong> O aumento da umidade do solo reduz a reflectância global em decorrência da absorção intrínseca de energia pelas moléculas de água e da alteração nos índices de refração relativos dos grãos, intensificando a concavidade das bandas diagnósticas de absorção centradas em \(1{,}4\,\mu\text{m}\) e \(1{,}9\,\mu\text{m}\).
+              </span>
+            </label>
+
+            <label class="option-card flex items-start gap-3.5 p-3.5 sm:p-4 rounded-xl" data-opt="C">
+              <input type="radio" name="q4_option" value="C" class="mt-1 accent-blue-600">
+              <span class="text-sm text-slate-700 leading-relaxed">
+                <strong>C)</strong> A presença de óxidos de ferro em solos úmidos suprime qualquer feição espectral no visível, tornando a curva espectral plenamente horizontal entre \(0{,}4\,\mu\text{m}\) e \(2{,}5\,\mu\text{m}\).
+              </span>
+            </label>
+
+            <label class="option-card flex items-start gap-3.5 p-3.5 sm:p-4 rounded-xl" data-opt="D">
+              <input type="radio" name="q4_option" value="D" class="mt-1 accent-blue-600">
+              <span class="text-sm text-slate-700 leading-relaxed">
+                <strong>D)</strong> A incorporação de matéria orgânica em solos saturados neutraliza o efeito da atenuação espectral, elevando os níveis de cinza na banda do infravermelho médio.
+              </span>
+            </label>
+
+            <label class="option-card flex items-start gap-3.5 p-3.5 sm:p-4 rounded-xl" data-opt="E">
+              <input type="radio" name="q4_option" value="E" class="mt-1 accent-blue-600">
+              <span class="text-sm text-slate-700 leading-relaxed">
+                <strong>E)</strong> A textura pedológica não interfere na reflectância, de forma que solos argilosos e solos arenosos mantêm idêntica resposta espectral independentemente da dessecação das amostras.
+              </span>
+            </label>
+          </div>
+
+          <!-- BLOCO DE RESOLUÇÃO -->
+          <div id="res-q4" class="resolution-box hidden mt-6 pt-5 border-t border-slate-200">
+            <div class="bg-slate-50 border border-slate-200/90 rounded-xl p-5 sm:p-6 text-sm text-slate-800 space-y-3">
+              <div class="flex items-center gap-2 text-emerald-800 font-bold text-sm">
+                <svg class="w-5 h-5 text-emerald-600" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                Gabarito Oficial: Alternativa B
+              </div>
+              <p class="resolution-content text-slate-700">
+                <strong>Resolução Comentada:</strong> A introdução de água na matriz porosa reduz a reflectância global do solo (efeito de escurecimento). Isso ocorre pela absorção intrínseca de energia pelas moléculas de água e pela redução do contraste do índice de refração relativo grão-água (em comparação com o contraste grão-ar), que propicia maior penetração e retenção do fóton na amostra. Esse fenômeno aprofunda acentuadamente as faixas diagnósticas de absorção por hidroxila e água higroscópica centradas em \(1{,}4\,\mu\text{m}\) e \(1{,}9\,\mu\text{m}\).
+              </p>
+              <div class="text-xs text-slate-600 bg-white p-3 rounded-lg border border-slate-200 space-y-1">
+                <p><strong>Descarte dos distratores:</strong></p>
+                <ul class="list-disc list-inside space-y-1 pl-1">
+                  <li><strong>A:</strong> A umidade rebaixa a curva de reflectância, e não eleva.</li>
+                  <li><strong>C:</strong> Óxidos de ferro (hematita/goethita) geram bandas diagnósticas bem marcadas de absorção por transferência de carga no UV/azul e em torno de \(0{,}9\,\mu\text{m}\).</li>
+                  <li><strong>D:</strong> A matéria orgânica reduz ainda mais a reflectância, somando-se ao efeito de amortecimento óptico da água.</li>
+                  <li><strong>E:</strong> A textura influi diretamente: grânulos menores aumentam o espalhamento retrodisperso no estado seco e solos argilosos retêm mais água, alterando drasticamente a curva.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- QUESTÃO 5 -->
+        <article id="q5" class="question-container bg-white rounded-2xl border border-slate-200/90 shadow-sm p-6 sm:p-8 scroll-mt-6">
+          <div class="flex items-center justify-between gap-2 mb-4">
+            <span class="text-xs font-bold uppercase tracking-wider text-blue-700 bg-blue-50 border border-blue-200/80 px-2.5 py-1 rounded-md">
+              Questão 05
+            </span>
+            <span class="status-indicator text-xs font-medium text-slate-400">Pendente</span>
+          </div>
+
+          <p class="question-statement text-slate-800 text-base font-normal mb-5">
+            Os sistemas sensores remotos são classificados de acordo com a proveniência da radiação eletromagnética empregada para aquisição de imagens da superfície. A respeito das particularidades conceituais e operacionais que distinguem sensores ativos de sensores passivos, assinale a alternativa correta:
+          </p>
+
+          <div class="space-y-3 options-group" data-qid="5">
+            <label class="option-card flex items-start gap-3.5 p-3.5 sm:p-4 rounded-xl" data-opt="A">
+              <input type="radio" name="q5_option" value="A" class="mt-1 accent-blue-600">
+              <span class="text-sm text-slate-700 leading-relaxed">
+                <strong>A)</strong> Sensores passivos operam por emissão própria de ondas contínuas de rádio, o que viabiliza coletas noturnas independentemente da reflectância dos alvos.
+              </span>
+            </label>
+
+            <label class="option-card flex items-start gap-3.5 p-3.5 sm:p-4 rounded-xl" data-opt="B">
+              <input type="radio" name="q5_option" value="B" class="mt-1 accent-blue-600">
+              <span class="text-sm text-slate-700 leading-relaxed">
+                <strong>B)</strong> Os sensores dos sistemas RADAR classificam-se como dispositivos ópticos passivos que captam fótons emitidos na faixa do ultravioleta e necessitam de iluminação solar plena para detecção.
+              </span>
+            </label>
+
+            <label class="option-card flex items-start gap-3.5 p-3.5 sm:p-4 rounded-xl" data-opt="C">
+              <input type="radio" name="q5_option" value="C" class="mt-1 accent-blue-600">
+              <span class="text-sm text-slate-700 leading-relaxed">
+                <strong>C)</strong> Os sistemas LiDAR constituem sensores remotos ativos que emitem pulsos direcionados de radiação laser coerente e computam o tempo de percurso duplo do sinal até o alvo reflector, derivando informações altimétricas tridimensionais da superfície e do dossel vegetal.
+              </span>
+            </label>
+
+            <label class="option-card flex items-start gap-3.5 p-3.5 sm:p-4 rounded-xl" data-opt="D">
+              <input type="radio" name="q5_option" value="D" class="mt-1 accent-blue-600">
+              <span class="text-sm text-slate-700 leading-relaxed">
+                <strong>D)</strong> Satélites dotados de imageadores multiespectrais operam em modo passivo na faixa termal e em modo ativo quando ativam os canais situados no espectro visível.
+              </span>
+            </label>
+
+            <label class="option-card flex items-start gap-3.5 p-3.5 sm:p-4 rounded-xl" data-opt="E">
+              <input type="radio" name="q5_option" value="E" class="mt-1 accent-blue-600">
+              <span class="text-sm text-slate-700 leading-relaxed">
+                <strong>E)</strong> Sensores de micro-ondas baseados em radar de abertura sintética (SAR) exigem a radiação difusa da atmosfera solar para polarizar o sinal retroespalhado a ser captado pelas antenas.
+              </span>
+            </label>
+          </div>
+
+          <!-- BLOCO DE RESOLUÇÃO -->
+          <div id="res-q5" class="resolution-box hidden mt-6 pt-5 border-t border-slate-200">
+            <div class="bg-slate-50 border border-slate-200/90 rounded-xl p-5 sm:p-6 text-sm text-slate-800 space-y-3">
+              <div class="flex items-center gap-2 text-emerald-800 font-bold text-sm">
+                <svg class="w-5 h-5 text-emerald-600" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                Gabarito Oficial: Alternativa C
+              </div>
+              <p class="resolution-content text-slate-700">
+                <strong>Resolução Comentada:</strong> A distinção primária baseia-se na fonte de energia. Sistemas ativos emitem seu próprio sinal de energia artificial para interagir com o alvo. O LiDAR (<em>Light Detection and Ranging</em>) emite feixes de laser em comprimentos de onda ópticos precisos e mede o tempo decorrido entre a emissão do pulso e o retorno do sinal refletido (tempo duplo de trânsito: \(\Delta t = 2d/c\)), gerando nuvens tridimensionais densas de pontos com altimetria rigorosa da vegetação e do terreno.
+              </p>
+              <div class="text-xs text-slate-600 bg-white p-3 rounded-lg border border-slate-200 space-y-1">
+                <p><strong>Descarte dos distratores:</strong></p>
+                <ul class="list-disc list-inside space-y-1 pl-1">
+                  <li><strong>A:</strong> Sensores passivos apenas registram a radiação natural disponível (solar refletida ou térmica emitida), não emitindo sinais próprios.</li>
+                  <li><strong>B:</strong> Sistemas RADAR são sistemas <em>ativos</em> que operam no espectro das micro-ondas.</li>
+                  <li><strong>D:</strong> Câmeras ópticas e multiespectrais orbitais são sistemas exclusivamente passivos tanto no visível quanto no termal.</li>
+                  <li><strong>E:</strong> O radar SAR polariza seu sinal no momento da emissão pela própria antena, independente de luz solar.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- QUESTÃO 6 -->
+        <article id="q6" class="question-container bg-white rounded-2xl border border-slate-200/90 shadow-sm p-6 sm:p-8 scroll-mt-6">
+          <div class="flex items-center justify-between gap-2 mb-4">
+            <span class="text-xs font-bold uppercase tracking-wider text-blue-700 bg-blue-50 border border-blue-200/80 px-2.5 py-1 rounded-md">
+              Questão 06
+            </span>
+            <span class="status-indicator text-xs font-medium text-slate-400">Pendente</span>
+          </div>
+
+          <p class="question-statement text-slate-800 text-base font-normal mb-5">
+            O planejamento e a seleção de produtos cartográficos gerados por sensoriamento remoto exigem a compreensão integrada dos quatro tipos básicos de resolução que caracterizam um sensor orbital. Acerca das resoluções espacial, espectral, radiométrica e temporal, analise as afirmativas a seguir:
+          </p>
+
+          <div class="bg-slate-50 border border-slate-200/80 rounded-xl p-4 sm:p-5 mb-5 text-sm text-slate-700 space-y-2">
+            <p><strong>I.</strong> A resolução espacial correlaciona-se com a área no terreno projetada pelo Campo de Visada Instantâneo (<em>Instantaneous Field of View</em> – IFOV), determinando o limite de detecção dimensional do elemento geométrico da matriz de imagem (<em>pixel</em>).</p>
+            <p><strong>II.</strong> A resolução espectral quantifica o período de tempo necessário para que a plataforma orbital complete sua trajetória e revisite a exata área geográfica anteriormente imageada.</p>
+            <p><strong>III.</strong> A resolução radiométrica define o grau de sensibilidade do conversor analógico-digital em discernir sutis variações no fluxo de radiância espectral, sendo quantificada pelo expoente de base dois (\(2^n\) bits) que parametriza a profundidade dos níveis digitais da imagem.</p>
+            <p><strong>IV.</strong> Sensores hiperespectrais destacam-se por registrar simultaneamente centenas de bandas contíguas e de estreita largura de faixa espectral, o que propicia a extração de perfis radiométricos contínuos para fins de caracterização taxonômica e mineralógica.</p>
+            <p class="pt-1 text-slate-900 font-medium">Estão corretas as afirmativas:</p>
+          </div>
+
+          <div class="space-y-3 options-group" data-qid="6">
+            <label class="option-card flex items-start gap-3.5 p-3.5 sm:p-4 rounded-xl" data-opt="A">
+              <input type="radio" name="q6_option" value="A" class="mt-1 accent-blue-600">
+              <span class="text-sm text-slate-700 leading-relaxed"><strong>A)</strong> I, II e III, apenas.</span>
+            </label>
+            <label class="option-card flex items-start gap-3.5 p-3.5 sm:p-4 rounded-xl" data-opt="B">
+              <input type="radio" name="q6_option" value="B" class="mt-1 accent-blue-600">
+              <span class="text-sm text-slate-700 leading-relaxed"><strong>B)</strong> II e IV, apenas.</span>
+            </label>
+            <label class="option-card flex items-start gap-3.5 p-3.5 sm:p-4 rounded-xl" data-opt="C">
+              <input type="radio" name="q6_option" value="C" class="mt-1 accent-blue-600">
+              <span class="text-sm text-slate-700 leading-relaxed"><strong>C)</strong> I, III e IV, apenas.</span>
+            </label>
+            <label class="option-card flex items-start gap-3.5 p-3.5 sm:p-4 rounded-xl" data-opt="D">
+              <input type="radio" name="q6_option" value="D" class="mt-1 accent-blue-600">
+              <span class="text-sm text-slate-700 leading-relaxed"><strong>D)</strong> I, II, III e IV.</span>
+            </label>
+            <label class="option-card flex items-start gap-3.5 p-3.5 sm:p-4 rounded-xl" data-opt="E">
+              <input type="radio" name="q6_option" value="E" class="mt-1 accent-blue-600">
+              <span class="text-sm text-slate-700 leading-relaxed"><strong>E)</strong> II e III, apenas.</span>
+            </label>
+          </div>
+
+          <!-- BLOCO DE RESOLUÇÃO -->
+          <div id="res-q6" class="resolution-box hidden mt-6 pt-5 border-t border-slate-200">
+            <div class="bg-slate-50 border border-slate-200/90 rounded-xl p-5 sm:p-6 text-sm text-slate-800 space-y-3">
+              <div class="flex items-center gap-2 text-emerald-800 font-bold text-sm">
+                <svg class="w-5 h-5 text-emerald-600" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                Gabarito Oficial: Alternativa C (Afirmativas I, III e IV)
+              </div>
+              <p class="resolution-content text-slate-700">
+                <strong>Resolução Comentada:</strong> 
+                <br>• <strong>I (Correta):</strong> A resolução espacial é regida geometricamente pela projeção no solo do ângulo do IFOV.
+                <br>• <strong>II (Incorreta):</strong> O período de revisita a uma mesma área geográfica define a <em>resolução temporal</em> do sensor, e não a espectral (que quantifica o número e largura das bandas amostradas).
+                <br>• <strong>III (Correta):</strong> A resolução radiométrica quantifica a sensibilidade analógico-digital em bits por pixel (\(2^8 = 256\) níveis de cinza, \(2^{12} = 4096\), etc.).
+                <br>• <strong>IV (Correta):</strong> Sensores hiperespectrais registram centenas de canais estreitos contíguos, gerando curvas espectrais contínuas para identificação mineralógica e botânica precisa.
+              </p>
+            </div>
+          </div>
+        </article>
+
+        <!-- QUESTÃO 7 -->
+        <article id="q7" class="question-container bg-white rounded-2xl border border-slate-200/90 shadow-sm p-6 sm:p-8 scroll-mt-6">
+          <div class="flex items-center justify-between gap-2 mb-4">
+            <span class="text-xs font-bold uppercase tracking-wider text-blue-700 bg-blue-50 border border-blue-200/80 px-2.5 py-1 rounded-md">
+              Questão 07
+            </span>
+            <span class="status-indicator text-xs font-medium text-slate-400">Pendente</span>
+          </div>
+
+          <p class="question-statement text-slate-800 text-base font-normal mb-5">
+            Nos Sistemas de Informação Geográfica (SIG), os modelos de representação matricial (<em>raster</em>) e vetorial definem a forma como as entidades da superfície são armazenadas e analisadas. Sob a perspectiva teórica de Fitz (2008) e de Teixeira et al. (2009), assinale a alternativa que elenca a modelagem espacial cuja implementação computacional fundamenta-se prioritariamente na estrutura matricial:
+          </p>
+
+          <div class="space-y-3 options-group" data-qid="7">
+            <label class="option-card flex items-start gap-3.5 p-3.5 sm:p-4 rounded-xl" data-opt="A">
+              <input type="radio" name="q7_option" value="A" class="mt-1 accent-blue-600">
+              <span class="text-sm text-slate-700 leading-relaxed">
+                <strong>A)</strong> Delimitação cadastral dos vértices de divisa de parcelas rurais com imposição de fechamento poligonal de erro submilimétrico e tabelas de encadeamento notarial.
+              </span>
+            </label>
+
+            <label class="option-card flex items-start gap-3.5 p-3.5 sm:p-4 rounded-xl" data-opt="B">
+              <input type="radio" name="q7_option" value="B" class="mt-1 accent-blue-600">
+              <span class="text-sm text-slate-700 leading-relaxed">
+                <strong>B)</strong> Representação contínua da altimetria por meio de Modelos Digitais de Elevação (MDE), derivação de grades de declividade e aplicação de algoritmos de álgebra de mapas para zoneamento de aptidão física.
+              </span>
+            </label>
+
+            <label class="option-card flex items-start gap-3.5 p-3.5 sm:p-4 rounded-xl" data-opt="C">
+              <input type="radio" name="q7_option" value="C" class="mt-1 accent-blue-600">
+              <span class="text-sm text-slate-700 leading-relaxed">
+                <strong>C)</strong> Modelagem da conectividade topológica orientada nó-arco de malhas viárias urbanas para traçado de rotas mínimas e despacho de veículos de emergência.
+              </span>
+            </label>
+
+            <label class="option-card flex items-start gap-3.5 p-3.5 sm:p-4 rounded-xl" data-opt="D">
+              <input type="radio" name="q7_option" value="D" class="mt-1 accent-blue-600">
+              <span class="text-sm text-slate-700 leading-relaxed">
+                <strong>D)</strong> Cadastro urbano unifamiliar contendo dados fiscais individualizados armazenados puramente em tabelas relacionais independentes de grades georreferenciadas.
+              </span>
+            </label>
+
+            <label class="option-card flex items-start gap-3.5 p-3.5 sm:p-4 rounded-xl" data-opt="E">
+              <input type="radio" name="q7_option" value="E" class="mt-1 accent-blue-600">
+              <span class="text-sm text-slate-700 leading-relaxed">
+                <strong>E)</strong> Vetorização de divisas político-administrativas municipais com coordenadas geodésicas exatas imunes à perda de acurácia imposta pelo tamanho do pixel.
+              </span>
+            </label>
+          </div>
+
+          <!-- BLOCO DE RESOLUÇÃO -->
+          <div id="res-q7" class="resolution-box hidden mt-6 pt-5 border-t border-slate-200">
+            <div class="bg-slate-50 border border-slate-200/90 rounded-xl p-5 sm:p-6 text-sm text-slate-800 space-y-3">
+              <div class="flex items-center gap-2 text-emerald-800 font-bold text-sm">
+                <svg class="w-5 h-5 text-emerald-600" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                Gabarito Oficial: Alternativa B
+              </div>
+              <p class="resolution-content text-slate-700">
+                <strong>Resolução Comentada:</strong> De acordo com Fitz (2008) e Teixeira et al. (2009), a estrutura matricial (<em>raster</em>) divide o espaço em células regulares bidimensionais contíguas, sendo o modelo canônico para a representação de campos e fenômenos contínuos, como a cota altimétrica nos Modelos Digitais de Elevação (MDE/MDT). Sobre essas matrizes aplicam-se com máxima eficiência analítica os algoritmos de declividade, aspecto e a Álgebra de Mapas (operações matemáticas locais, focais e zonais célula a célula).
+              </p>
+              <div class="text-xs text-slate-600 bg-white p-3 rounded-lg border border-slate-200 space-y-1">
+                <p><strong>Por que as demais exigem estrutura vetorial?</strong></p>
+                <ul class="list-disc list-inside space-y-1 pl-1">
+                  <li><strong>A e E:</strong> Divisas cadastrais e político-administrativas são entidades discretas exatas que demandam vetores (polígonos e vértices geodésicos).</li>
+                  <li><strong>C:</strong> Redes de fluxo viário e de utilidades públicas baseiam-se em grafos e topologia vetorial de nós e arcos (linhas).</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- QUESTÃO 8 -->
+        <article id="q8" class="question-container bg-white rounded-2xl border border-slate-200/90 shadow-sm p-6 sm:p-8 scroll-mt-6">
+          <div class="flex items-center justify-between gap-2 mb-4">
+            <span class="text-xs font-bold uppercase tracking-wider text-blue-700 bg-blue-50 border border-blue-200/80 px-2.5 py-1 rounded-md">
+              Questão 08
+            </span>
+            <span class="status-indicator text-xs font-medium text-slate-400">Pendente</span>
+          </div>
+
+          <p class="question-statement text-slate-800 text-base font-normal mb-5">
+            O formato vetorial organiza o espaço geográfico em feições discretas sustentadas por primitivas de pontos, linhas e polígonos amarradas a um sistema geodésico de coordenadas \((X, Y)\). Com base nas análises de Fitz (2008) e de Teixeira et al. (2009), assinale a alternativa que descreve a justificativa metodológica para a aplicação imperativa do formato vetorial no Cadastro Técnico e na Regularização Fundiária:
+          </p>
+
+          <div class="space-y-3 options-group" data-qid="8">
+            <label class="option-card flex items-start gap-3.5 p-3.5 sm:p-4 rounded-xl" data-opt="A">
+              <input type="radio" name="q8_option" value="A" class="mt-1 accent-blue-600">
+              <span class="text-sm text-slate-700 leading-relaxed">
+                <strong>A)</strong> O modelo vetorial modela primordialmente variáveis com distribuição contínua e isotrópica, prescindindo de bancos de dados relacionais e tabelas descritivas.
+              </span>
+            </label>
+
+            <label class="option-card flex items-start gap-3.5 p-3.5 sm:p-4 rounded-xl" data-opt="B">
+              <input type="radio" name="q8_option" value="B" class="mt-1 accent-blue-600">
+              <span class="text-sm text-slate-700 leading-relaxed">
+                <strong>B)</strong> As feições vetoriais poligonais delimitam rigorosamente as divisas jurídicas das parcelas imobiliárias, impedindo inconsistências e sobreposições por meio de regras de topologia espacial e conectando cada lote a registros alfanuméricos de domínio, titularidade e ônus reais.
+              </span>
+            </label>
+
+            <label class="option-card flex items-start gap-3.5 p-3.5 sm:p-4 rounded-xl" data-opt="C">
+              <input type="radio" name="q8_option" value="C" class="mt-1 accent-blue-600">
+              <span class="text-sm text-slate-700 leading-relaxed">
+                <strong>C)</strong> A estrutura vetorial requer menor capacidade de processamento gráfico nas operações de convolução matricial contínua sobre pixels com variações difusas de limites.
+              </span>
+            </label>
+
+            <label class="option-card flex items-start gap-3.5 p-3.5 sm:p-4 rounded-xl" data-opt="D">
+              <input type="radio" name="q8_option" value="D" class="mt-1 accent-blue-600">
+              <span class="text-sm text-slate-700 leading-relaxed">
+                <strong>D)</strong> O sistema vetorial dispensa a parametrização de elipsoides de referência, trabalhando com coordenadas cartesianas arbitrárias sem vínculos a cartas topográficas oficiais.
+              </span>
+            </label>
+
+            <label class="option-card flex items-start gap-3.5 p-3.5 sm:p-4 rounded-xl" data-opt="E">
+              <input type="radio" name="q8_option" value="E" class="mt-1 accent-blue-600">
+              <span class="text-sm text-slate-700 leading-relaxed">
+                <strong>E)</strong> A precisão perimétrica do cadastro fundiário independe de vértices cartográficos, assentando-se preferencialmente na segmentação espectral de imagens orbitais não refinadas.
+              </span>
+            </label>
+          </div>
+
+          <!-- BLOCO DE RESOLUÇÃO -->
+          <div id="res-q8" class="resolution-box hidden mt-6 pt-5 border-t border-slate-200">
+            <div class="bg-slate-50 border border-slate-200/90 rounded-xl p-5 sm:p-6 text-sm text-slate-800 space-y-3">
+              <div class="flex items-center gap-2 text-emerald-800 font-bold text-sm">
+                <svg class="w-5 h-5 text-emerald-600" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                Gabarito Oficial: Alternativa B
+              </div>
+              <p class="resolution-content text-slate-700">
+                <strong>Resolução Comentada:</strong> No Cadastro Técnico e Fundiário, as parcelas territoriais são objetos jurídicos discretos que demandam contornos de alta acurácia geométrica. O modelo vetorial permite implementar regras rígidas de integridade topológica (ex.: polígonos não podem se sobrepor, não podem haver fendas/vazios entre lotes contíguos) e estabelece ligação biunívoca entre cada feição gráfica e tabelas de bancos de dados relacionais que controlam proprietários, certidões imobiliárias, área legal e ônus reais.
+              </p>
+            </div>
+          </div>
+        </article>
+
+        <!-- QUESTÃO 9 -->
+        <article id="q9" class="question-container bg-white rounded-2xl border border-slate-200/90 shadow-sm p-6 sm:p-8 scroll-mt-6">
+          <div class="flex items-center justify-between gap-2 mb-4">
+            <span class="text-xs font-bold uppercase tracking-wider text-blue-700 bg-blue-50 border border-blue-200/80 px-2.5 py-1 rounded-md">
+              Questão 09
+            </span>
+            <span class="status-indicator text-xs font-medium text-slate-400">Pendente</span>
+          </div>
+
+          <p class="question-statement text-slate-800 text-base font-normal mb-5">
+            A parametrização de projetos em SIG envolve escolhas técnicas entre as estruturas matriciais e vetoriais, as quais impõem vantagens e limitações operacionais diretas ao tratamento da geoinformação. A respeito da transição e da funcionalidade desses modelos espaciais de acordo com Fitz (2008) e Teixeira et al. (2009), analise as afirmativas a seguir:
+          </p>
+
+          <div class="bg-slate-50 border border-slate-200/80 rounded-xl p-4 sm:p-5 mb-5 text-sm text-slate-700 space-y-2">
+            <p><strong>I.</strong> A realização de operações de álgebra de mapas e sobreposição (<em>overlay</em>) é facilitada na estrutura matricial, visto que os cruzamentos realizam-se mediante cálculos aritméticos e lógicos entre células geometricamente congruentes.</p>
+            <p><strong>II.</strong> O processo de conversão matricial-vetorial (vetorização) reproduz com suavidade absoluta contornos curvos e linhas diagonais, eliminando anomalias de serrilhamento (<em>aliasing</em>) sem demandar rotinas posteriores de simplificação geométrica.</p>
+            <p><strong>III.</strong> No modelo vetorial, a consistência topológica assegura a avaliação de conectividade de redes, a integridade de fronteiras limítrofes adjacentes e a validação de pertinência espacial sem duplicação de dados gráficos.</p>
+            <p><strong>IV.</strong> Variáveis de variação geográfica difusa e contínua, a exemplo de mapas de isotermas e gradientes hidrológicos, encontram seu modelo estrutural de menor degradação de amostragem na composição vetorial de linhas abertas e desarticuladas.</p>
+            <p class="pt-1 text-slate-900 font-medium">Estão corretas as afirmativas:</p>
+          </div>
+
+          <div class="space-y-3 options-group" data-qid="9">
+            <label class="option-card flex items-start gap-3.5 p-3.5 sm:p-4 rounded-xl" data-opt="A">
+              <input type="radio" name="q9_option" value="A" class="mt-1 accent-blue-600">
+              <span class="text-sm text-slate-700 leading-relaxed"><strong>A)</strong> I e III, apenas.</span>
+            </label>
+            <label class="option-card flex items-start gap-3.5 p-3.5 sm:p-4 rounded-xl" data-opt="B">
+              <input type="radio" name="q9_option" value="B" class="mt-1 accent-blue-600">
+              <span class="text-sm text-slate-700 leading-relaxed"><strong>B)</strong> II e IV, apenas.</span>
+            </label>
+            <label class="option-card flex items-start gap-3.5 p-3.5 sm:p-4 rounded-xl" data-opt="C">
+              <input type="radio" name="q9_option" value="C" class="mt-1 accent-blue-600">
+              <span class="text-sm text-slate-700 leading-relaxed"><strong>C)</strong> I, II e III, apenas.</span>
+            </label>
+            <label class="option-card flex items-start gap-3.5 p-3.5 sm:p-4 rounded-xl" data-opt="D">
+              <input type="radio" name="q9_option" value="D" class="mt-1 accent-blue-600">
+              <span class="text-sm text-slate-700 leading-relaxed"><strong>D)</strong> III e IV, apenas.</span>
+            </label>
+            <label class="option-card flex items-start gap-3.5 p-3.5 sm:p-4 rounded-xl" data-opt="E">
+              <input type="radio" name="q9_option" value="E" class="mt-1 accent-blue-600">
+              <span class="text-sm text-slate-700 leading-relaxed"><strong>E)</strong> I, II, III e IV.</span>
+            </label>
+          </div>
+
+          <!-- BLOCO DE RESOLUÇÃO -->
+          <div id="res-q9" class="resolution-box hidden mt-6 pt-5 border-t border-slate-200">
+            <div class="bg-slate-50 border border-slate-200/90 rounded-xl p-5 sm:p-6 text-sm text-slate-800 space-y-4">
+              <div class="flex items-center gap-2 text-emerald-800 font-bold text-sm">
+                <svg class="w-5 h-5 text-emerald-600" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                Gabarito Oficial: Alternativa A (Afirmativas I e III)
+              </div>
+              <p class="resolution-content text-slate-700">
+                <strong>Resolução Comentada:</strong> 
+                <br>• <strong>I (Correta):</strong> Na estrutura matricial, operações aritméticas e lógicas são diretas porque operam sobre grades regulares com células empilhadas e congruentes.
+                <br>• <strong>II (Incorreta):</strong> A vetorização herda os limites em degrau dos pixels, gerando serrilhamento (<em>aliasing</em>) que exige algoritmos adicionais de suavização (ex: Douglas-Peucker).
+                <br>• <strong>III (Correta):</strong> A estrutura topológica vetorial arco-nó garante que fronteiras comuns pertençam a ambos os polígonos adjacentes sem duplicar linhas e coordenadas no banco de dados.
+                <br>• <strong>IV (Incorreta):</strong> Campos contínuos perdem sua representatividade ao serem fragmentados em linhas soltas; a estrutura raster é o modelo ideal.
+              </p>
+
+              <!-- Tabela Comparativa Matricial vs Vetorial -->
+              <div class="overflow-x-auto pt-2">
+                <p class="text-xs font-semibold text-slate-700 mb-2">Síntese Comparativa (Fitz, 2008 &amp; Teixeira et al., 2009):</p>
+                <table class="academic-table rounded-lg overflow-hidden">
+                  <thead>
+                    <tr>
+                      <th>Critério Conceitual</th>
+                      <th>Estrutura Matricial (Raster)</th>
+                      <th>Estrutura Vetorial</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td class="font-medium">Primitiva Geométrica</td>
+                      <td>Célula bidimensional regular (pixel) em linhas e colunas</td>
+                      <td>Ponto \((X, Y)\), linha poligonal e polígono fechado</td>
+                    </tr>
+                    <tr>
+                      <td class="font-medium">Aplicação Prioritária</td>
+                      <td>Campos contínuos (MDE, declividade, satélite)</td>
+                      <td>Objetos discretos (cadastro fundiário, arruamento)</td>
+                    </tr>
+                    <tr>
+                      <td class="font-medium">Representação Topológica</td>
+                      <td>Implícita pela contiguidade das células adjacentes</td>
+                      <td>Explícita via relações nó-arco e polígonos contíguos</td>
+                    </tr>
+                    <tr>
+                      <td class="font-medium">Processamento Analítico</td>
+                      <td>Álgebra de mapas e filtros de convolução</td>
+                      <td>Sobreposição booleana, buffers e análises de redes</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- QUESTÃO 10 -->
+        <article id="q10" class="question-container bg-white rounded-2xl border border-slate-200/90 shadow-sm p-6 sm:p-8 scroll-mt-6">
+          <div class="flex items-center justify-between gap-2 mb-4">
+            <span class="text-xs font-bold uppercase tracking-wider text-blue-700 bg-blue-50 border border-blue-200/80 px-2.5 py-1 rounded-md">
+              Questão 10
+            </span>
+            <span class="status-indicator text-xs font-medium text-slate-400">Pendente</span>
+          </div>
+
+          <p class="question-statement text-slate-800 text-base font-normal mb-5">
+            Os Sistemas Globais de Navegação por Satélite (GNSS – <em>Global Navigation Satellite Systems</em>) constituem a principal infraestrutura de posicionamento e georreferenciamento de dados espaciais da atualidade. Acerca dos fundamentos técnicos, das constelações orbitais e da modelagem de erros dos sistemas GPS, GLONASS e Galileo, assinale a alternativa correta:
+          </p>
+
+          <div class="space-y-3 options-group" data-qid="10">
+            <label class="option-card flex items-start gap-3.5 p-3.5 sm:p-4 rounded-xl" data-opt="A">
+              <input type="radio" name="q10_option" value="A" class="mt-1 accent-blue-600">
+              <span class="text-sm text-slate-700 leading-relaxed">
+                <strong>A)</strong> O posicionamento por satélite baseado na técnica de medição de pseudodistância necessita da recepção concomitante de sinais de no mínimo quatro satélites para solucionar as incógnitas espaciais tridimensionais do receptor \((X, Y, Z)\) e calcular o desvio temporal intrínseco do seu relógio interno (\(\Delta t\)).
+              </span>
+            </label>
+
+            <label class="option-card flex items-start gap-3.5 p-3.5 sm:p-4 rounded-xl" data-opt="B">
+              <input type="radio" name="q10_option" value="B" class="mt-1 accent-blue-600">
+              <span class="text-sm text-slate-700 leading-relaxed">
+                <strong>B)</strong> A constelação GLONASS, administrada pela Federação Russa, compartilha o mesmo elipsoide geodésico WGS-84 nativo do sistema norte-americano GPS e adota órbitas estacionárias equatoriais de período fixo de 24 horas.
+              </span>
+            </label>
+
+            <label class="option-card flex items-start gap-3.5 p-3.5 sm:p-4 rounded-xl" data-opt="C">
+              <input type="radio" name="q10_option" value="C" class="mt-1 accent-blue-600">
+              <span class="text-sm text-slate-700 leading-relaxed">
+                <strong>C)</strong> O sistema europeu Galileo foi projetado para atuar sob controle militar estrito, operando sob acesso encriptado de uso privativo governamental que impossibilita serviços abertos para aplicações civis e geodésicas.
+              </span>
+            </label>
+
+            <label class="option-card flex items-start gap-3.5 p-3.5 sm:p-4 rounded-xl" data-opt="D">
+              <input type="radio" name="q10_option" value="D" class="mt-1 accent-blue-600">
+              <span class="text-sm text-slate-700 leading-relaxed">
+                <strong>D)</strong> As plataformas espaciais da constelação GPS orbitam na faixa da baixa órbita terrestre (LEO), a altitudes inferiores a 800 km, o que extingue atrasos de refração causados pelo conteúdo total de elétrons da ionosfera.
+              </span>
+            </label>
+
+            <label class="option-card flex items-start gap-3.5 p-3.5 sm:p-4 rounded-xl" data-opt="E">
+              <input type="radio" name="q10_option" value="E" class="mt-1 accent-blue-600">
+              <span class="text-sm text-slate-700 leading-relaxed">
+                <strong>E)</strong> Os sinais de rádio emitidos pelos satélites GNSS trafegam no vácuo e pela atmosfera em velocidade constante, de sorte que a precisão milimétrica independe de frequências portadoras duplas e de modelagens de atraso troposférico.
+              </span>
+            </label>
+          </div>
+
+          <!-- BLOCO DE RESOLUÇÃO -->
+          <div id="res-q10" class="resolution-box hidden mt-6 pt-5 border-t border-slate-200">
+            <div class="bg-slate-50 border border-slate-200/90 rounded-xl p-5 sm:p-6 text-sm text-slate-800 space-y-4">
+              <div class="flex items-center gap-2 text-emerald-800 font-bold text-sm">
+                <svg class="w-5 h-5 text-emerald-600" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                Gabarito Oficial: Alternativa A
+              </div>
+              <p class="resolution-content text-slate-700">
+                <strong>Resolução Comentada:</strong> O posicionamento absoluto via satélite determina a posição da antena por trilateração a partir do tempo decorrido do sinal. Como os relógios atômicos dos satélites são extremamente precisos e o oscilador de quartzo do receptor em solo possui um erro de sincronismo (\(\Delta t\)), existem 4 incógnitas matemáticas a serem calculadas: as 3 coordenadas tridimensionais do receptor \((X, Y, Z)\) e o erro temporal do relógio (\(\Delta t\)). Portanto, exige-se no mínimo a observação simultânea de 4 satélites com boa geometria espacial (GDOP favorável).
+              </p>
+              
+              <div class="text-xs text-slate-600 bg-white p-3 rounded-lg border border-slate-200 space-y-1">
+                <p><strong>Descarte dos distratores:</strong></p>
+                <ul class="list-disc list-inside space-y-1 pl-1">
+                  <li><strong>B incorreta:</strong> O GLONASS utiliza nativamente o referencial <strong>PZ-90</strong> (não o WGS-84) e não possui satélites de navegação geoestacionários.</li>
+                  <li><strong>C incorreta:</strong> O Galileo foi desenvolvido sob administração civil pela União Europeia/ESA, oferecendo serviço aberto de posicionamento mundial de livre acesso.</li>
+                  <li><strong>D incorreta:</strong> O GPS opera em órbita média (MEO) a cerca de \(20.200\text{ km}\) de altitude.</li>
+                  <li><strong>E incorreta:</strong> Os sinais sofrem atrasos ionosféricos (dispersivos) e troposféricos (refrativos), exigindo rastreio em dupla frequência (L1/L2) para correções milimétricas.</li>
+                </ul>
+              </div>
+
+              <!-- Tabela Comparativa de Constelações GNSS -->
+              <div class="overflow-x-auto pt-2">
+                <p class="text-xs font-semibold text-slate-700 mb-2">Quadro Técnico Comparativo das Constelações:</p>
+                <table class="academic-table rounded-lg overflow-hidden">
+                  <thead>
+                    <tr>
+                      <th>Parâmetro</th>
+                      <th>NAVSTAR-GPS</th>
+                      <th>GLONASS</th>
+                      <th>Galileo</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td class="font-medium">Origem / Gestão</td>
+                      <td>EUA (Defesa / Space Force)</td>
+                      <td>Rússia (Roscosmos / VKS)</td>
+                      <td>União Europeia / ESA (Civil)</td>
+                    </tr>
+                    <tr>
+                      <td class="font-medium">Elipsoide / Referência</td>
+                      <td>WGS-84</td>
+                      <td>PZ-90</td>
+                      <td>GTRF</td>
+                    </tr>
+                    <tr>
+                      <td class="font-medium">Altitude Média (MEO)</td>
+                      <td>\(\approx 20.200\text{ km}\)</td>
+                      <td>\(\approx 19.100\text{ km}\)</td>
+                      <td>\(\approx 23.222\text{ km}\)</td>
+                    </tr>
+                    <tr>
+                      <td class="font-medium">Planos Orbitais</td>
+                      <td>6 planos (55° inclinação)</td>
+                      <td>3 planos (64,8° inclinação)</td>
+                      <td>3 planos (56° inclinação)</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </article>
+
+      </div>
+
+      <!-- Barra de Envio / Ação Central -->
+      <div class="mt-10 bg-white rounded-2xl border border-slate-200/90 shadow-sm p-6 sm:p-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div>
+          <h3 class="font-semibold text-slate-900 text-base">Pronto para submeter sua prova?</h3>
+          <p class="text-xs sm:text-sm text-slate-500">
+            Você poderá rever todas as questões, verificar seus acertos e analisar os comentários da banca.
+          </p>
+        </div>
+
+        <div class="flex items-center gap-3 w-full sm:w-auto">
+          <button type="button" id="btn-submit" onclick="submitQuiz()" class="w-full sm:w-auto px-6 py-3.5 bg-blue-700 hover:bg-blue-800 active:bg-blue-900 text-white font-semibold text-sm rounded-xl shadow-sm transition">
+            Finalizar Simulado e Ver Resoluções
+          </button>
+        </div>
+      </div>
+    </form>
+
+    <!-- Rodapé -->
+    <footer class="mt-12 text-center text-xs text-slate-400 py-6">
+      <p>Material de Estudo para Concursos Públicos • Padrão de Arguição Reitoria IFMG</p>
+      <p class="mt-1">Fundamentos Físicos de Sensoriamento Remoto, SIG e GNSS</p>
+    </footer>
+
+  </main>
+
+  <!-- Lógica Vanilla JavaScript -->
+  <script>
+    // Gabarito Oficial Definido
+    const officialAnswers = {
+      1: 'B',
+      2: 'C',
+      3: 'B',
+      4: 'B',
+      5: 'C',
+      6: 'C',
+      7: 'B',
+      8: 'B',
+      9: 'A',
+      10: 'A'
+    };
+
+    let userAnswers = {};
+    let isSubmitted = false;
+
+    // Inicialização ao carregar a página
+    document.addEventListener('DOMContentLoaded', () => {
+      initCardSelectionEvents();
+      updateProgress();
+    });
+
+    // Renderizador seguro KaTeX
+    function renderMathOnLoad() {
+      if (window.renderMathInElement) {
+        renderMathInElement(document.body, {
+          delimiters: [
+            { left: '$$', right: '$$', display: true },
+            { left: '\\[', right: '\\]', display: true },
+            { left: '\\(', right: '\\)', display: false },
+            { left: '$', right: '$', display: false }
+          ],
+          throwOnError: false
+        });
+      }
+    }
+
+    // Gerencia o clique no card de cada alternativa
+    function initCardSelectionEvents() {
+      const optionCards = document.querySelectorAll('.option-card');
+      
+      optionCards.forEach(card => {
+        card.addEventListener('click', function(e) {
+          if (isSubmitted) return; // Trava após envio
+
+          const radio = this.querySelector('input[type="radio"]');
+          const group = this.closest('.options-group');
+          const qid = group.getAttribute('data-qid');
+          const val = this.getAttribute('data-opt');
+
+          // Desmarca outros cards da mesma questão
+          group.querySelectorAll('.option-card').forEach(c => c.classList.remove('selected'));
+          
+          // Marca o atual
+          this.classList.add('selected');
+          radio.checked = true;
+
+          // Atualiza estado do usuário
+          userAnswers[qid] = val;
+
+          // Atualiza o indicador do cabeçalho da questão
+          const container = document.getElementById('q' + qid);
+          const indicator = container.querySelector('.status-indicator');
+          if (indicator) {
+            indicator.textContent = 'Respondida (Opção ' + val + ')';
+            indicator.className = 'status-indicator text-xs font-semibold text-blue-600 bg-blue-50 px-2 py-0.5 rounded';
+          }
+
+          updateProgress();
+        });
+      });
+    }
+
+    // Atualiza barra de progresso
+    function updateProgress() {
+      const answeredCount = Object.keys(userAnswers).length;
+      document.getElementById('answered-count').textContent = answeredCount;
+      const pct = (answeredCount / 10) * 100;
+      document.getElementById('progress-bar-fill').style.width = pct + '%';
+    }
+
+    // Finaliza o Simulado e Revela as Resoluções
+    function submitQuiz() {
+      const answeredCount = Object.keys(userAnswers).length;
+
+      // Mensagem visual caso haja pendências
+      if (answeredCount < 10) {
+        const confirmMsg = `Você respondeu apenas ${answeredCount} das 10 questões. Deseja finalizar mesmo assim?`;
+        // Criar um diálogo customizado sem usar confirm()
+        showNoticeModal(confirmMsg, () => {
+          proceedSubmission();
+        });
+        return;
+      }
+
+      proceedSubmission();
+    }
+
+    function proceedSubmission() {
+      isSubmitted = true;
+      let score = 0;
+
+      // Desabilita radios
+      document.querySelectorAll('input[type="radio"]').forEach(r => r.disabled = true);
+
+      // Avaliação de cada questão
+      for (let i = 1; i <= 10; i++) {
+        const correct = officialAnswers[i];
+        const chosen = userAnswers[i];
+        const group = document.querySelector(`.options-group[data-qid="${i}"]`);
+        const qContainer = document.getElementById(`q${i}`);
+        const resBox = document.getElementById(`res-q${i}`);
+
+        // Exibe bloco de resolução
+        if (resBox) {
+          resBox.classList.remove('hidden');
+        }
+
+        // Estiliza as alternativas
+        const cards = group.querySelectorAll('.option-card');
+        cards.forEach(card => {
+          const optVal = card.getAttribute('data-opt');
+          card.classList.remove('selected');
+
+          if (optVal === correct) {
+            // Marca a correta sempre em verde
+            card.classList.add('is-correct');
+          } else if (optVal === chosen && chosen !== correct) {
+            // Marca o erro do candidato em vermelho
+            card.classList.add('is-wrong');
+          } else {
+            // Diminui ênfase dos demais distratores
+            card.classList.add('dimmed');
+          }
+        });
+
+        // Atualiza status no cabeçalho da questão
+        const indicator = qContainer.querySelector('.status-indicator');
+        if (chosen === correct) {
+          score++;
+          indicator.textContent = 'Acertou ✓';
+          indicator.className = 'status-indicator text-xs font-bold text-emerald-700 bg-emerald-50 border border-emerald-200 px-2.5 py-0.5 rounded';
+        } else {
+          indicator.textContent = chosen ? 'Incorreta ✕' : 'Em branco ✕';
+          indicator.className = 'status-indicator text-xs font-bold text-rose-700 bg-rose-50 border border-rose-200 px-2.5 py-0.5 rounded';
+        }
+      }
+
+      // Painel de Resultados Superior
+      const resultsPanel = document.getElementById('results-panel');
+      resultsPanel.classList.remove('hidden');
+      
+      const scoreText = document.getElementById('score-text');
+      scoreText.textContent = `${score} / 10`;
+
+      const scoreBadge = document.getElementById('score-badge');
+      const scoreFeedback = document.getElementById('score-feedback');
+      const percentage = (score / 10) * 100;
+
+      if (percentage >= 80) {
+        scoreBadge.textContent = 'Excelente (Aprovado)';
+        scoreBadge.className = 'text-xs font-semibold px-2.5 py-1 rounded-full bg-emerald-100 text-emerald-800';
+        scoreFeedback.textContent = 'Parabéns! Seu domínio conceitual sobre o espectro eletromagnético, SIG e constelações GNSS atende com destaque ao padrão da banca.';
+      } else if (percentage >= 60) {
+        scoreBadge.textContent = 'Bom Desempenho';
+        scoreBadge.className = 'text-xs font-semibold px-2.5 py-1 rounded-full bg-blue-100 text-blue-800';
+        scoreFeedback.textContent = 'Você obteve pontuação para classificação. Revise os pontos comentados sobre topologia matricial/vetorial e propriedades da clorofila.';
+      } else {
+        scoreBadge.textContent = 'Necessita Revisão';
+        scoreBadge.className = 'text-xs font-semibold px-2.5 py-1 rounded-full bg-amber-100 text-amber-800';
+        scoreFeedback.textContent = 'Recomendamos uma leitura aprofundada dos tópicos de reflectância e geometria GNSS nas bibliografias vinculadas de Fitz e Teixeira.';
+      }
+
+      // Cria os marcadores/pills de navegação rápida
+      buildNavPills();
+
+      // Ajusta o botão inferior
+      const submitBtn = document.getElementById('btn-submit');
+      submitBtn.textContent = 'Simulado Finalizado';
+      submitBtn.disabled = true;
+      submitBtn.className = 'w-full sm:w-auto px-6 py-3.5 bg-slate-300 text-slate-500 font-semibold text-sm rounded-xl cursor-not-allowed';
+
+      // Reexecuta KaTeX para garantir renderização de fórmulas na resolução
+      renderMathOnLoad();
+
+      // Rola a tela até o painel de resultados
+      resultsPanel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    // Criação dos botões de navegação rápida para cada questão
+    function buildNavPills() {
+      const container = document.getElementById('nav-pills-container');
+      container.innerHTML = '';
+
+      for (let i = 1; i <= 10; i++) {
+        const correct = officialAnswers[i];
+        const chosen = userAnswers[i];
+        const isRight = chosen === correct;
+
+        const a = document.createElement('a');
+        a.href = `#q${i}`;
+        a.className = `flex flex-col items-center justify-center p-2 rounded-lg border text-xs font-bold transition ${
+          isRight 
+            ? 'bg-emerald-50 border-emerald-300 text-emerald-800 hover:bg-emerald-100' 
+            : 'bg-rose-50 border-rose-300 text-rose-800 hover:bg-rose-100'
+        }`;
+        a.innerHTML = `<span>Q${i}</span><span class="text-[10px] font-normal">${isRight ? '✓' : '✕'}</span>`;
+        container.appendChild(a);
+      }
+    }
+
+    // Reinicia o simulado
+    function resetQuiz() {
+      userAnswers = {};
+      isSubmitted = false;
+
+      // Reseta inputs
+      document.querySelectorAll('input[type="radio"]').forEach(r => {
+        r.checked = false;
+        r.disabled = false;
+      });
+
+      // Reseta cards
+      document.querySelectorAll('.option-card').forEach(c => {
+        c.className = 'option-card flex items-start gap-3.5 p-3.5 sm:p-4 rounded-xl';
+      });
+
+      // Oculta resoluções
+      document.querySelectorAll('.resolution-box').forEach(b => b.classList.add('hidden'));
+
+      // Reseta indicadores
+      document.querySelectorAll('.status-indicator').forEach(ind => {
+        ind.textContent = 'Pendente';
+        ind.className = 'status-indicator text-xs font-medium text-slate-400';
+      });
+
+      // Esconde painel de resultados
+      document.getElementById('results-panel').classList.add('hidden');
+
+      // Reseta botão
+      const submitBtn = document.getElementById('btn-submit');
+      submitBtn.textContent = 'Finalizar Simulado e Ver Resoluções';
+      submitBtn.disabled = false;
+      submitBtn.className = 'w-full sm:w-auto px-6 py-3.5 bg-blue-700 hover:bg-blue-800 active:bg-blue-900 text-white font-semibold text-sm rounded-xl shadow-sm transition';
+
+      updateProgress();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Caixa de mensagem/aviso estilizada (sem uso de confirm() nativo)
+    function showNoticeModal(message, onConfirm) {
+      const overlay = document.createElement('div');
+      overlay.className = 'fixed inset-0 z-50 bg-slate-900/40 backdrop-blur-sm flex items-center justify-center p-4';
+      overlay.id = 'notice-modal';
+
+      overlay.innerHTML = `
+        <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-xl border border-slate-200 space-y-4">
+          <div class="flex items-center gap-3 text-amber-600">
+            <svg class="w-6 h-6 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+            <h4 class="text-base font-semibold text-slate-900">Aviso de Finalização</h4>
+          </div>
+          <p class="text-sm text-slate-600 leading-relaxed">${message}</p>
+          <div class="flex justify-end gap-3 pt-2">
+            <button id="modal-cancel-btn" class="px-4 py-2 rounded-lg text-xs font-semibold text-slate-600 hover:bg-slate-100 transition">
+              Continuar Respondendo
+            </button>
+            <button id="modal-confirm-btn" class="px-4 py-2 rounded-lg text-xs font-semibold bg-blue-700 hover:bg-blue-800 text-white transition">
+              Finalizar Mesmo Assim
+            </button>
+          </div>
+        </div>
+      `;
+
+      document.body.appendChild(overlay);
+
+      document.getElementById('modal-cancel-btn').onclick = () => overlay.remove();
+      document.getElementById('modal-confirm-btn').onclick = () => {
+        overlay.remove();
+        onConfirm();
+      };
+    }
+  </script>
+</body>
+</html>

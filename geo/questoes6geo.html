@@ -1,0 +1,797 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simulado: Estrutura Geológica e Dinâmica Interna da Terra - IFMG</title>
+  <!-- Tailwind CSS para estilização moderna e responsiva -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts: Inter para interface e Lora/Merriweather para tipografia de leitura confortável -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Inter:wght@400;500;600;700&family=Lora:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            paper: '#FBFBF9',
+            cardBg: '#FFFFFF',
+            ink: '#1E293B',
+            mutedInk: '#475569',
+            warmBorder: '#E2E8F0',
+            brand: '#1B4D3E', /* Verde institucional sóbrio */
+            brandLight: '#E8F3EE',
+            accent: '#B45309',
+            correctBg: '#F0FDF4',
+            correctBorder: '#16A34A',
+            wrongBg: '#FEF2F2',
+            wrongBorder: '#DC2626'
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            serif: ['Lora', 'serif'],
+            title: ['Cinzel', 'serif']
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Estilos personalizados focados no conforto óptico e leitura contínua prolongada */
+    body {
+      background-color: #F8F8F5;
+      color: #1E293B;
+      font-feature-settings: "kern", "liga", "clig";
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Scroll suave */
+    html {
+      scroll-behavior: smooth;
+    }
+
+    /* Estilização customizada de inputs de rádio para ergonomia de toque e clique */
+    .custom-radio {
+      appearance: none;
+      -webkit-appearance: none;
+      width: 1.25rem;
+      height: 1.25rem;
+      border: 2px solid #94A3B8;
+      border-radius: 50%;
+      outline: none;
+      display: grid;
+      place-content: center;
+      transition: all 0.2s ease-in-out;
+      flex-shrink: 0;
+      margin-top: 0.2rem;
+      background-color: #FFFFFF;
+    }
+    .custom-radio::before {
+      content: "";
+      width: 0.65rem;
+      height: 0.65rem;
+      border-radius: 50%;
+      transform: scale(0);
+      transition: 120ms transform ease-in-out;
+      box-shadow: inset 1em 1em #1B4D3E;
+    }
+    .custom-radio:checked {
+      border-color: #1B4D3E;
+    }
+    .custom-radio:checked::before {
+      transform: scale(1);
+    }
+
+    /* Opção de clique com foco acessível */
+    .option-label {
+      cursor: pointer;
+      transition: background-color 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+    }
+    .option-label:hover:not(.locked) {
+      background-color: #F1F5F9;
+      border-color: #CBD5E1;
+    }
+
+    /* Efeitos de pós-finalização */
+    .option-label.selected-correct {
+      background-color: #ECFDF5 !important;
+      border-color: #059669 !important;
+      color: #065F46 !important;
+    }
+    .option-label.selected-wrong {
+      background-color: #FEF2F2 !important;
+      border-color: #DC2626 !important;
+      color: #991B1B !important;
+    }
+    .option-label.show-correct-target {
+      background-color: #F0FDF4 !important;
+      border-color: #10B981 !important;
+      border-style: dashed !important;
+    }
+
+    /* Tabela responsiva com bom contraste para a questão 6 */
+    .content-table th, .content-table td {
+      border: 1px solid #CBD5E1;
+      padding: 0.6rem 0.85rem;
+    }
+    .content-table th {
+      background-color: #F1F5F9;
+      color: #0F172A;
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body class="min-h-screen text-ink font-sans flex flex-col justify-between">
+
+  <!-- BARRA DE TOPO FIXA / CABEÇALHO SUPERIOR -->
+  <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-warmBorder shadow-xs">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between">
+      <div>
+        <span class="inline-block px-2.5 py-0.5 rounded text-xs font-semibold uppercase tracking-wider bg-emerald-100 text-emerald-800 border border-emerald-200">
+          IFMG • Reitoria
+        </span>
+        <h1 class="text-sm sm:text-base font-semibold text-slate-800 line-clamp-1 mt-0.5">
+          Estrutura Geológica e Dinâmica Interna da Terra
+        </h1>
+      </div>
+
+      <!-- Medidor de progresso das respostas -->
+      <div class="flex items-center gap-3">
+        <div class="text-right hidden sm:block">
+          <div class="text-xs text-mutedInk">Respondidas</div>
+          <div class="text-xs font-bold text-slate-800" id="progressText">0 de 10</div>
+        </div>
+        <div class="w-24 sm:w-32 bg-slate-200 h-2 rounded-full overflow-hidden">
+          <div id="progressBar" class="bg-brand h-full w-0 transition-all duration-300"></div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- CONTEÚDO PRINCIPAL -->
+  <main class="max-w-4xl w-full mx-auto px-4 sm:px-6 py-8 flex-grow">
+    
+    <!-- APRESENTAÇÃO INSTITUCIONAL DA PROVA -->
+    <div class="bg-cardBg border border-warmBorder rounded-xl p-6 sm:p-8 mb-8 shadow-sm">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between border-b border-slate-200 pb-4 mb-4 gap-2">
+        <div>
+          <span class="text-xs font-bold uppercase tracking-widest text-slate-500 font-title">Caderno de Questões</span>
+          <h2 class="text-2xl font-serif font-bold text-slate-900 mt-0.5">Prova Objetiva de Geologia e Geomorfologia</h2>
+        </div>
+        <div class="text-xs font-medium text-slate-600 bg-slate-100 px-3 py-1.5 rounded-lg border border-slate-200 self-start sm:self-auto">
+          Banca: Comissão Central IFMG
+        </div>
+      </div>
+
+      <div class="text-sm text-slate-600 space-y-2 font-serif leading-relaxed">
+        <p>
+          <strong>Ementa Avaliada:</strong> Camadas composicionais e mecânicas da Terra; descontinuidades sísmicas globais; Deriva Continental (Wegener) e Tectônica de Placas; limites convergentes, divergentes e conservativos; tectonismo endógeno: orogênese (dobramentos e falhas) e epirogênese (isostasia e oscilações do nível de base).
+        </p>
+        <p class="text-xs text-slate-500 font-sans">
+          <strong>Bibliografia de Referência:</strong> TEIXEIRA et al. (2009); CHRISTOPHERSON & BIRKELAND (2017).
+        </p>
+      </div>
+
+      <!-- Dica de instrução -->
+      <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs text-slate-500">
+        <span>Selecione uma alternativa por questão. O gabarito e a resolução completa serão mantidos nesta mesma página ao finalizar.</span>
+      </div>
+    </div>
+
+    <!-- NAVEGADOR RÁPIDO DE QUESTÕES -->
+    <nav aria-label="Navegação rápida" class="mb-8">
+      <div class="text-xs font-semibold text-slate-500 mb-2 uppercase tracking-wide">Pular diretamente para questão:</div>
+      <div class="flex flex-wrap gap-2" id="quickJumpContainer">
+        <!-- Gerado via JS: botões 1 a 10 -->
+      </div>
+    </nav>
+
+    <!-- LISTA DE QUESTÕES DO SIMULADO -->
+    <form id="quizForm" onsubmit="event.preventDefault();">
+      <div id="questionsContainer" class="space-y-8">
+        <!-- Renderizado dinamicamente pelo JavaScript com o conteúdo exato das 10 questões -->
+      </div>
+
+      <!-- BOTÃO DE AÇÃO / FINALIZAÇÃO -->
+      <div id="actionsPanel" class="mt-10 p-6 bg-cardBg border border-warmBorder rounded-xl shadow-sm text-center">
+        <div id="submitMessage" class="hidden mb-4 p-3 bg-amber-50 border border-amber-200 text-amber-900 text-sm rounded-lg">
+          Você ainda possui questões em branco. Deseja finalizar o simulado mesmo assim?
+        </div>
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+          <button type="button" id="btnSubmitQuiz" onclick="submitQuiz()" class="w-full sm:w-auto px-8 py-3.5 bg-brand hover:bg-[#153e32] active:bg-[#0f2e25] text-white font-medium text-base rounded-lg transition-colors shadow-sm flex items-center justify-center gap-2">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            Finalizar Simulado e Ver Resoluções
+          </button>
+          <button type="button" id="btnResetQuiz" onclick="resetQuiz()" class="hidden w-full sm:w-auto px-6 py-3.5 bg-white border border-slate-300 hover:bg-slate-50 text-slate-700 font-medium text-base rounded-lg transition-colors">
+            Refazer Simulado
+          </button>
+        </div>
+      </div>
+    </form>
+
+    <!-- SEÇÃO FINAL: RELATÓRIO DE DESEMPENHO E ESTATÍSTICAS -->
+    <section id="resultsSection" class="hidden mt-10 pt-4" aria-live="polite">
+      <div class="bg-cardBg border-2 border-brand/20 rounded-2xl p-6 sm:p-8 shadow-md">
+        <div class="text-center max-w-xl mx-auto">
+          <span class="px-3 py-1 bg-emerald-50 text-emerald-800 rounded-full text-xs font-semibold uppercase tracking-wider border border-emerald-200">
+            Simulado Concluído
+          </span>
+          <h3 class="text-2xl sm:text-3xl font-serif font-bold text-slate-900 mt-2">Relatório de Desempenho</h3>
+          <p class="text-sm text-mutedInk mt-1">Confira seu aproveitamento nas 10 questões de Geologia da Reitoria do IFMG.</p>
+
+          <!-- Painel com número de acertos -->
+          <div class="my-6 p-6 bg-slate-50 border border-slate-200 rounded-xl flex items-center justify-around">
+            <div class="text-center">
+              <div class="text-3xl sm:text-4xl font-extrabold text-brand" id="scoreDisplay">0/10</div>
+              <div class="text-xs uppercase font-semibold text-slate-500 mt-1">Pontuação Final</div>
+            </div>
+            <div class="h-12 w-px bg-slate-200"></div>
+            <div class="text-center">
+              <div class="text-3xl sm:text-4xl font-extrabold text-slate-800" id="percentDisplay">0%</div>
+              <div class="text-xs uppercase font-semibold text-slate-500 mt-1">Aproveitamento</div>
+            </div>
+          </div>
+
+          <div id="feedbackText" class="text-sm text-slate-700 leading-relaxed font-serif mb-6"></div>
+
+          <!-- Botões de ação pós resultado -->
+          <div class="flex flex-wrap items-center justify-center gap-3">
+            <button onclick="scrollToQuestion(1)" class="px-5 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs sm:text-sm font-semibold rounded-lg transition-colors">
+              Revisar Questão por Questão
+            </button>
+            <button onclick="resetQuiz()" class="px-5 py-2.5 bg-brand hover:bg-[#153e32] text-white text-xs sm:text-sm font-semibold rounded-lg transition-colors">
+              Reiniciar Simulado
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- RODAPÉ DISCRETO -->
+  <footer class="mt-16 border-t border-warmBorder bg-white py-6 text-center text-xs text-slate-500">
+    <div class="max-w-4xl mx-auto px-4">
+      Questões elaboradas em estrita aderência ao padrão da Banca da Reitoria do IFMG.<br>
+      Fontes teóricas: TEIXEIRA et al. (2009) e CHRISTOPHERSON & BIRKELAND (2017).
+    </div>
+  </footer>
+
+  <!-- DADOS E LÓGICA DO SIMULADO EM JAVASCRIPT PURO -->
+  <script>
+    // BASE DE DADOS COMPLETA COM AS 10 QUESTÕES E SUAS RESOLUÇÕES NA ÍNTEGRA
+    const quizData = [
+      {
+        id: 1,
+        topic: "Camadas Composicionais e Mecânicas da Terra",
+        statement: `No âmbito da geofísica e da geomorfologia estrutural, a compartimentação do interior terrestre é interpretada a partir de dois referenciais teóricos complementares: o modelo geoquímico-composicional e o modelo físico-reológico. De acordo com os fundamentos estabelecidos por Teixeira et al. (2009) e Christopherson & Birkeland (2017), assinale a alternativa que correlaciona corretamente as camadas definidas por suas propriedades mecânicas com suas respectivas características dinâmicas e seus substratos composicionais:`,
+        options: [
+          { letter: "A", text: "A litosfera compreende a crosta e a totalidade do manto superior, configurando uma camada contínua de elevada plasticidade que flutua passivamente sobre a porção fluida do manto inferior." },
+          { letter: "B", text: "A astenosfera situa-se inteiramente no manto inferior, comportando-se como um sólido cristalino de alta rigidez que impede a deflagração de fluxos convectivos e a dissipação de energia térmica." },
+          { letter: "C", text: "A mesosfera corresponde à porção do manto localizada entre a base da astenosfera e o limite do núcleo externo, mantendo-se sólida apesar das altas temperaturas térmicas em razão das severas pressões confinantes sobrejacentes." },
+          { letter: "D", text: "A endosfera restringe-se à crosta continental félsica rica em silício e alumínio, sendo caracterizada por deformações puramente rúpteis e pela reflexão integral das ondas de cisalhamento." },
+          { letter: "E", text: "A litosfera oceânica possui espessura volumétrica superior à litosfera continental, refletindo a menor densidade média dos seus basaltos toleíticos em relação aos granitos continentais." }
+        ],
+        correct: "C",
+        resolution: `<strong>Gabarito Oficial: C</strong><br><br>
+        <strong>Resolução Comentada:</strong><br>
+        O modelo reológico divide o interior da Terra de acordo com a resposta física das rochas às pressões confinantes e temperaturas reinantes, individualizando litosfera, astenosfera, mesosfera e endosfera (núcleo externo líquido e interno sólido). A <strong>mesosfera</strong> compreende o manto médio e inferior, posicionando-se entre a base da zona plástica astenosférica (aproximadamente 660 km) e a interface manto-núcleo (2.900 km). Conquanto as temperaturas térmicas na mesosfera sejam extremamente elevadas, a magnitude das pressões litostáticas exercidas pelas camadas superiores eleva consideravelmente o ponto de fusão das associações de silicatos peridotíticos e óxidos, garantindo rigidez mecânica predominantemente sólida a essa camada profunda.<br><br>
+        <em>Análise das alternativas incorretas:</em><br>
+        • <strong>A está incorreta:</strong> A litosfera abrange unicamente a crosta terrestre e a fração termicamente fria e rígida do topo do manto superior (o manto litosférico), exibindo rigidez mecânica e não comportamento de alta plasticidade.<br>
+        • <strong>B está incorreta:</strong> A astenosfera situa-se no manto superior (em profundidades que variam tipicamente entre 100 km e 660 km), comportando-se plasticamente em regime de ductilidade e estado de fusão parcial intergranular, o que viabiliza as células convectivas de calor mantélico.<br>
+        • <strong>D está incorreta:</strong> Endosfera é o termo mecânico correspondente ao núcleo terrestre composto prioritariamente por ferro e níquel (NiFe), não guardando relação com a crosta continental félsica superficial rica em silício e alumínio (SiAl).<br>
+        • <strong>E está incorreta:</strong> A litosfera oceânica é volumétrica e dimensionalmente mais delgada (5 a 100 km) do que a continental (100 a 250 km), sendo estruturada por rochas máficas densas de composição basáltico-gabroica (~3,0 g/cm³).`
+      },
+      {
+        id: 2,
+        topic: "Descontinuidades Sísmicas Globais e Propagação de Ondas",
+        statement: `O conhecimento a respeito do gradiente térmico, da densidade e do estado físico das camadas profundas do planeta decorre prioritariamente da análise sismológica da refração e da velocidade das ondas mecânicas no interior da Terra. No que tange ao comportamento das ondas primárias (P) e secundárias (S) e às descontinuidades de Mohorovičić e de Gutenberg, assinale a alternativa correta:`,
+        options: [
+          { letter: "A", text: "A descontinuidade de Mohorovičić separa a crosta do manto superior, sendo demarcada por um aumento expressivo e abrupto na velocidade de propagação de ambas as ondas P e S." },
+          { letter: "B", text: "A descontinuidade de Gutenberg localiza-se a aproximadamente 2.900 km de profundidade, assinalando a passagem do manto rochoso para o núcleo externo, onde as ondas P são completamente bloqueadas por ser um meio líquido." },
+          { letter: "C", text: "As ondas S constituem ondas de compressão longitudinal capazes de atravessar fluidos, razão pela qual se propagam livremente pelo núcleo externo líquido até refratarem no núcleo interno." },
+          { letter: "D", text: "A descontinuidade de Mohorovičić estabelece o contato físico entre o núcleo externo líquido e o núcleo interno sólido, interrompendo bruscamente a propagação das ondas superficiais de Rayleigh." },
+          { letter: "E", text: "A descontinuidade de Gutenberg delimita a crosta continental da crosta oceânica, correspondendo à profundidade na qual a densidade das rochas sofre decréscimo em decorrência do aumento de pressão." }
+        ],
+        correct: "A",
+        resolution: `<strong>Gabarito Oficial: A</strong><br><br>
+        <strong>Resolução Comentada:</strong><br>
+        A <strong>descontinuidade de Mohorovičić (Moho)</strong>, identificada em 1909 pelo sismólogo croata Andrija Mohorovičić, marca a fronteira física e composicional entre a crosta terrestre (de menor densidade e natureza granítica/basáltica) e o manto superior ultrabásico constituído por peridotitos. Devido ao acréscimo abrupto de densidade e, primordialmente, dos módulos elásticos de incompressibilidade e rigidez das rochas peridotíticas mantélicas, a travessia das ondas sísmicas compressionais (P) e de cisalhamento (S) através da Moho provoca um salto repentino de velocidade de propagação: as ondas P, que trafegam na base da crosta a cerca de 6,5 a 7,0 km/s, aceleram para marcas superiores a 8,0 km/s no manto imediato.<br><br>
+        <em>Análise das alternativas incorretas:</em><br>
+        • <strong>B está incorreta:</strong> Ao atingirem a descontinuidade de Gutenberg (2.900 km), são as ondas transversais secundárias (S) que sofrem anulação completa devido ao estado líquido do núcleo externo, ao passo que as ondas longitudinais primárias (P) conseguem se refratar no meio fluido, sofrendo apenas desaceleração de velocidade.<br>
+        • <strong>C está incorreta:</strong> As ondas S são ondas de cisalhamento/transversais; como os fluidos não resistem ao cisalhamento mecânico (módulo de rigidez nulo), as ondas S não se propagam em líquidos.<br>
+        • <strong>D está incorreta:</strong> O contato entre núcleo externo líquido e núcleo interno sólido é a descontinuidade de Lehmann (5.150 km), e não a Moho.<br>
+        • <strong>E está incorreta:</strong> Gutenberg delimita o manto do núcleo externo a 2.900 km de profundidade, onde a densidade sobe abruptamente de ~5,6 g/cm³ para mais de 9,9 g/cm³.`
+      },
+      {
+        id: 3,
+        topic: "Deriva Continental e Tectônica de Placas",
+        statement: `Em 1915, Alfred Wegener publicou sua tese sobre o deslocamento horizontal das massas continentais a partir da fragmentação da Pangeia, formulação que enfrentou forte resistência da comunidade geológica da época até ser validada e reformulada pela Tectônica de Placas no século XX. Sobre o arcabouço comprobatório da Deriva Continental e a transição paradigmática para a Teoria da Tectônica de Placas, assinale a alternativa correta:`,
+        options: [
+          { letter: "A", text: "Wegener demonstrou que as forças de maré e o movimento centrífugo de fuga polar eram plenamente capazes de impulsionar a massa continental sobre o basalto oceânico, solucionando a dinâmica mecânica do movimento." },
+          { letter: "B", text: "O mapeamento das faixas fósseis do réptil de água doce Mesosaurus e da flora fóssil de gimnospermas Glossopteris em estratos correlacionáveis da África e da América do Sul constituiu uma das evidências paleontológicas da união pretérita das massas emersas." },
+          { letter: "C", text: "A tectônica de placas refutou a hipótese do paleomagnetismo e da inversão magnética registrada no fundo oceânico, comprovando a fixidez secular do assoalho oceânico em relação aos continentes." },
+          { letter: "D", text: "As pesquisas batimétricas e geofísicas do pós-Segunda Guerra Mundial identificaram que os sedimentos marinhos mais espessos e as rochas ígneas mais antigas concentram-se no topo das cristas das cordilheiras meso-oceânicas." },
+          { letter: "E", text: "O motor da movimentação das placas tectônicas baseia-se unicamente na rotação diferencial do núcleo sólido da Terra, descartando qualquer papel das células de convecção térmica geradas no manto astenosférico." }
+        ],
+        correct: "B",
+        resolution: `<strong>Gabarito Oficial: B</strong><br><br>
+        <strong>Resolução Comentada:</strong><br>
+        A tese da Deriva Continental de Wegener reuniu dados geológicos, paleoclimáticos e paleontológicos expressivos. O reconhecimento de fósseis de animais de água doce incapazes de travessias oceânicas, como o réptil <em>Mesosaurus brasiliensis</em> (presente na Formação Irati da Bacia do Paraná e na Bacia de Karoo na África do Sul), juntamente com a flora fóssil <em>Glossopteris</em> em estratos do Gondwana (América do Sul, África, Índia, Austrália e Antártica), constituiu prova inequívoca da ligação continental pretérita.<br><br>
+        <em>Análise das alternativas incorretas:</em><br>
+        • <strong>A está incorreta:</strong> A fraqueza física dos motores sugeridos por Wegener (forças de maré e fuga polar) foi a principal causa da rejeição inicial de sua tese pela física da época.<br>
+        • <strong>C está incorreta:</strong> O paleomagnetismo e as anomalias magnéticas em faixas simétricas no fundo oceânico comprovaram a expansão contínua do assoalho oceânico.<br>
+        • <strong>D está incorreta:</strong> No topo das cristas meso-oceânicas os sedimentos são ausentes ou mínimos e as rochas são recentes; a espessura e idade dos sedimentos aumentam com o distanciamento da crista.<br>
+        • <strong>E está incorreta:</strong> O motor geodinâmico aceito decorre do fluxo térmico convectivo mantélico associado à tração da placa mergulhante nas fossas (<em>slab pull</em>).`
+      },
+      {
+        id: 4,
+        topic: "Limites Divergentes, Rifteamento e Dorsais Oceânicas",
+        statement: `Os limites de placas divergentes configuram cinturões de esforços distensivos associados à expansão e à renovação crustal global. A respeito da evolução cinemática do rifteamento continental e da dinâmica estrutural das dorsais oceânicas, assinale a alternativa correta:`,
+        options: [
+          { letter: "A", text: "O rifteamento continental representa um estágio prévio de ruptura litosférica, no qual falhamentos normais geram sistemas de depressões do tipo gráben, a exemplo do Vale do Rift no Leste Africano." },
+          { letter: "B", text: "A Dorsal Mesoatlântica exemplifica uma borda de placa destrutiva, caracterizada pela subducção contínua de crosta oceânica e pelo consequente encurtamento do oceano Atlântico." },
+          { letter: "C", text: "O relevo vulcânico submarino das dorsais oceânicas decorre exclusivamente de processos orogenéticos colisionais entre a crosta continental granítica e a crosta oceânica sedimentar." },
+          { letter: "D", text: "As zonas de rifteamento continental são marcadas pela total ausência de anomalias térmicas e sismos rasos, uma vez que a deformação distensiva impede a ascensão de câmaras magmáticas básicas." },
+          { letter: "E", text: "O Mar Vermelho é classificado geologicamente como uma fossa oceânica profunda gerada pela obducção da Placa Arábica sobre a margem continental do Chifre Africano." }
+        ],
+        correct: "A",
+        resolution: `<strong>Gabarito Oficial: A</strong><br><br>
+        <strong>Resolução Comentada:</strong><br>
+        O ciclo tectônico de fragmentação continental principia pela instalação de plumas térmicas mantélicas e esforços trativos horizontais que adelgaçam a crosta. Esse estiramento fratura a litosfera através de falhas normais escalonadas, originando fossas tectônicas de abatimento (<em>grábens</em>) ladeadas por blocos soerguidos (<em>horsts</em>), com vulcanismo e bacias lacustres alinhadas, exatamente como observado no complexo do Vale do Rift no Leste Africano.<br><br>
+        <em>Análise das alternativas incorretas:</em><br>
+        • <strong>B está incorreta:</strong> A Dorsal Mesoatlântica é uma borda construtiva (divergente), onde nova crosta basáltica é continuamente gerada, ampliando o Atlântico.<br>
+        • <strong>C está incorreta:</strong> O relevo das dorsais decorre de vulcanismo basáltico efusivo e subsidência térmica, sem relação com compressão orogenética colisional.<br>
+        • <strong>D está incorreta:</strong> Riftes apresentam fluxo de calor muito elevado e sismicidade frequente de foco raso.<br>
+        • <strong>E está incorreta:</strong> O Mar Vermelho é uma bacia oceânica jovem e incipiente gerada por rifteamento divergente ativo, e não uma fossa de subducção/obducção.`
+      },
+      {
+        id: 5,
+        topic: "Limites Convergentes Oceano-Continente e Orogênese Andina",
+        statement: `A borda ocidental do continente sul-americano é marcada por uma expressiva atividade sísmica e magmática associada a esforços tectônicos compressionais. Considerando a interação mecânica entre a Placa de Nazca e a Placa Sul-Americana e a consequente estruturação da Cordilheira dos Andes, assinale a alternativa correta:`,
+        options: [
+          { letter: "A", text: "A formação dos Andes decorre de um limite convergente do tipo continente-continente, processo análogo ao cinturão de dobramentos do Himalaia que extingue o arco vulcânico superficial." },
+          { letter: "B", text: "A interação tectônica entre as placas caracteriza-se pela subducção da crosta oceânica mais densa da Placa de Nazca sob a crosta continental da Placa Sul-Americana, formando uma fossa oceânica profunda, um prisma de acreção e um arco magmático andino." },
+          { letter: "C", text: "O mecanismo geodinâmico dominante na margem andina é o deslizamento conservativo transformante, no qual as placas se deslocam paralelamente sem formação de zonas de fusão parcial no manto." },
+          { letter: "D", text: "A Fossa do Peru-Chile resulta do alastramento divergente do fundo submarino por acreção basáltica contínua, impulsionando a crosta continental sul-americana para o oeste." },
+          { letter: "E", text: "O encurtamento litosférico verificado nos Andes é induzido exclusivamente por forças isostáticas gravitacionais de subsidência sedimentar marinha, dispensando tensões geradas pela dinâmica de convecção do manto." }
+        ],
+        correct: "B",
+        resolution: `<strong>Gabarito Oficial: B</strong><br><br>
+        <strong>Resolução Comentada:</strong><br>
+        A orogênese andina é o clássico exemplo mundial de convergência do tipo litosfera oceânica contra litosfera continental. A Placa de Nazca (oceânica, máfica e mais densa) flexiona-se e mergulha sob a borda ocidental da Placa Sul-Americana (félsica e menos densa) na Fossa do Peru-Chile. Esse processo raspa sedimentos marinhos formando um prisma de acreção e introduz minerais hidratados em profundidade, liberando fluidos que diminuem o ponto de fusão do manto peridotítico sobrejacente e alimentam o exuberante arco magmático vulcânico dos Andes.<br><br>
+        <em>Análise das alternativas incorretas:</em><br>
+        • <strong>A está incorreta:</strong> É limite convergente oceano-continente dotado de intenso arco vulcânico ativo, ao passo que colisões continente-continente (Himalaia) inibem arcos vulcânicos efusivos.<br>
+        • <strong>C está incorreta:</strong> A margem andina é compressional frontal/oblíqua convergente com subducção e sismicidade profunda (zona de Benioff), e não limite conservativo.<br>
+        • <strong>D está incorreta:</strong> A Fossa do Peru-Chile é feição morfológica de subducção, e não de rifteamento divergente.<br>
+        • <strong>E está incorreta:</strong> O encurtamento crustal é induzido diretamente pelo empuxo e convergência tectônica horizontal do manto astenosférico.`
+      },
+      {
+        id: 6,
+        topic: "Associação entre Tipos de Limites e Feições Resultantes",
+        statement: `A variedade morfológica das zonas de convergência litosférica decorre essencialmente dos contrastes de densidade, idade e composição das placas em rota de colisão. Considere duas situações geotectônicas hipotéticas:
+<br><br>
+• <strong>Situação I:</strong> Convergência entre duas placas de litosfera oceânica, na qual a placa mais antiga e densa mergulha sob a litosfera oceânica mais jovem.<br>
+• <strong>Situação II:</strong> Convergência e colisão frontal entre duas placas portadoras de crosta continental de baixa densidade relativa, impedindo o mergulho contínuo de qualquer uma das massas no manto superior.
+<br><br>
+Assinale a alternativa que relaciona corretamente os ambientes e as feições geológicas resultantes das Situações I e II, respectivamente:`,
+        options: [
+          { letter: "A", text: "Dorsal meso-oceânica com vale de rifte (I); Falha transformante continental com deslizamento direcional puro (II)." },
+          { letter: "B", text: "Fossa submarina profunda associada a arco de ilhas vulcânicas (I); Cinturão orogenético colisional com expressivo espessamento crustal e dobramentos (II)." },
+          { letter: "C", text: "Bacia sedimentar intracratônica estável (I); Depressão tectônica costeira com subsidência térmica pura (II)." },
+          { letter: "D", text: "Rifte continental com lagos endorreicos (I); Arco magmático continental vulcânico do tipo andino com subducção ativa contínua (II)." },
+          { letter: "E", text: "Complexo ofiolítico de retroarco intraoceânico estrito (I); Limite divergente com esfilamento crustal basáltico (II)." }
+        ],
+        correct: "B",
+        resolution: `<strong>Gabarito Oficial: B</strong><br><br>
+        <strong>Resolução Comentada:</strong><br>
+        • <strong>Situação I (Convergência Oceano-Oceano):</strong> A placa oceânica mais antiga, fria e densa sofre subducção sob a placa mais jovem. Isso gera uma depressão abissal (fossa oceânica) e magmatismo que constrói um arco curvo de ilhas vulcânicas (ex.: Fossa das Marianas, Ilhas Aleutas, Japão).<br>
+        • <strong>Situação II (Convergência Continente-Continente):</strong> Ambas as crostas continentais possuem densidade baixa em relação ao manto peridotítico, impedindo que qualquer uma afunde continuamente na astenosfera. A compressão mecânica resulta em esmagamento, espessamento crustal extremo, escamas de falhas de cavalgamento e dobramentos colisionais monumentais (ex.: Cordilheira do Himalaia).<br><br>
+        <div class="overflow-x-auto my-3">
+          <table class="content-table text-xs w-full bg-white rounded">
+            <thead>
+              <tr>
+                <th>Regime Tectônico</th>
+                <th>Interação Mecânica</th>
+                <th>Feições Geológicas Típicas</th>
+                <th>Exemplos Globais</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Divergente Continental</strong></td>
+                <td>Distensão em crosta félsica com afinamento</td>
+                <td>Rift valleys, falhas normais, grábens e lagos</td>
+                <td>Vale do Rift Leste Africano</td>
+              </tr>
+              <tr>
+                <td><strong>Divergente Oceânico</strong></td>
+                <td>Separação de placas e ascensão mantélica</td>
+                <td>Dorsais submarinas, rifte axial, basalto novo</td>
+                <td>Dorsal Mesoatlântica</td>
+              </tr>
+              <tr>
+                <td><strong>Convergente Oceano-Continente</strong></td>
+                <td>Subducção de crosta máfica sob félsica</td>
+                <td>Fossa abissal, prisma de acreção, arco magmático</td>
+                <td>Cordilheira dos Andes</td>
+              </tr>
+              <tr>
+                <td><strong>Convergente Oceano-Oceano</strong></td>
+                <td>Subducção de litosfera oceânica mais densa</td>
+                <td>Fossa submarina profunda e arcos de ilhas vulcânicas</td>
+                <td>Fossa das Marianas / Aleutas</td>
+              </tr>
+              <tr>
+                <td><strong>Convergente Continente-Continente</strong></td>
+                <td>Colisão frontal entre duas crostas flutuantes</td>
+                <td>Espessamento crustal monumental, cavalgamentos</td>
+                <td>Cordilheira do Himalaia</td>
+              </tr>
+              <tr>
+                <td><strong>Transformante / Conservativo</strong></td>
+                <td>Cisalhamento horizontal sem criação/destruição</td>
+                <td>Falhas transcorrentes, sismos rasos frequentes</td>
+                <td>Falha de San Andreas</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>`
+      },
+      {
+        id: 7,
+        topic: "Limites Conservativos/Transformantes e Falha de San Andreas",
+        statement: `Os limites de placas conservativos ou transformantes possuem papel geométrico e geodinâmico de articulação entre outros regimes tectônicos regionais. A respeito da cinemática desses limites e das propriedades da Falha de San Andreas, na América do Norte, assinale a alternativa correta:`,
+        options: [
+          { letter: "A", text: "Os limites transformantes promovem a contínua fusão da litosfera subjacente, consumindo volumes volumosos de crosta continental através de zonas profundas de subducção." },
+          { letter: "B", text: "A movimentação tectônica ao longo desses limites é marcada pelo deslizamento horizontal paralelo entre os blocos de placas, sem criação nem destruição significativa de massa litosférica superficial." },
+          { letter: "C", text: "A Falha de San Andreas constitui um exemplo de borda convergente entre a Placa Euroasiática e a Placa Norte-Americana, responsável por espessar a margem oeste do continente." },
+          { letter: "D", text: "A sismicidade associada aos limites transformantes continentais decorre prioritariamente de focos sísmicos hiperprofundos, situados a mais de 500 km no interior do manto inferior." },
+          { letter: "E", text: "As tensões transformantes geram sistematicamente extensos arcos de ilhas vulcânicas andesíticas, decorrentes da expulsão de fluidos do manto litosférico tracionado." }
+        ],
+        correct: "B",
+        resolution: `<strong>Gabarito Oficial: B</strong><br><br>
+        <strong>Resolução Comentada:</strong><br>
+        Os <strong>limites transformantes ou conservativos</strong>, definidos por J. Tuzo Wilson, acomodam tensões de cisalhamento puro. Nesses contatos, as placas litosféricas deslocam-se lateralmente de forma paralela ao plano da falha, não havendo subducção (destruição de litosfera) nem abertura de assoalho magmático basáltico (criação de litosfera). A área superficial da litosfera terrestre é assim conservada.<br><br>
+        <em>Análise das alternativas incorretas:</em><br>
+        • <strong>A está incorreta:</strong> Não há subducção ou consumo de litosfera em limites conservativos típicos.<br>
+        • <strong>C está incorreta:</strong> A Falha de San Andreas é uma falha transformante direcional dextral entre a Placa do Pacífico e a Placa Norte-Americana, sem relação com a Placa Euroasiática.<br>
+        • <strong>D está incorreta:</strong> Os sismos transformantes em terra firme são de foco raso (geralmente até 15-20 km de profundidade), provocados pelo atrito rúptil elástico na crosta superficial.<br>
+        • <strong>E está incorreta:</strong> Arcos vulcânicos exigem zonas de subducção com fusão por fluidos mantélicos, inexistentes em falhamentos transformantes puros.`
+      },
+      {
+        id: 8,
+        topic: "Obducção Geotectônica e Complexos Ofiolíticos",
+        statement: `O processo de obducção geotectônica desempenha papel determinante na elucidação dos ciclos orogênicos passados e na reconstituição paleogeográfica dos continentes. Com fundamento nos preceitos teóricos de Teixeira et al. (2009), define-se obducção como:`,
+        options: [
+          { letter: "A", text: "O afundamento da litosfera oceânica nas camadas astenosféricas de menor viscosidade, gerando fossas abissais e metamorfismo regional de alta temperatura." },
+          { letter: "B", text: "O soerguimento isostático vertical que acomete grandes escudos cristalinos após fases erosivas, mantendo inalterada a horizontalidade das camadas rochosas." },
+          { letter: "C", text: "O cavalgamento mecânico anômalo de fatias da crosta oceânica máfica e de rochas ultramáficas do manto superior sobre uma margem continental durante eventos de convergência colisional." },
+          { letter: "D", text: "O desmoronamento gravitacional dos topos de dorsais oceânicas por falhas normais axiais geradas pelo alívio de esforços verticais." },
+          { letter: "E", text: "A intrusão plutônica de grandes batólitos graníticos félsicos no interior de bacias sedimentares cratônicas estáveis." }
+        ],
+        correct: "C",
+        resolution: `<strong>Gabarito Oficial: C</strong><br><br>
+        <strong>Resolução Comentada:</strong><br>
+        Conforme definido por Teixeira et al. (2009), a <strong>obducção</strong> é o cavalgamento tectônico anômalo de escamas e fragmentos da litosfera oceânica (crosta máfica e rochas do manto superior) sobre a margem de um continente em zonas de colisão orogenética. Em vez de sofrer subducção normal rumo ao manto, fatias de crosta oceânica são erguidas e empurradas sobre a crosta continental emersa, preservando sequências litológicas completas de peridotitos, gabros, diques basálticos e <em>pillow lavas</em> denominadas <strong>complexos ofiolíticos</strong>.<br><br>
+        <em>Análise das alternativas incorretas:</em><br>
+        • <strong>A define subducção:</strong> É o afundamento normal da crosta densa no manto.<br>
+        • <strong>B define epirogênese isostática positiva:</strong> Soerguimento de escudos por alívio erosivo.<br>
+        • <strong>D define falhamento distensivo extensional de crista oceânica.</strong><br>
+        • <strong>E define magmatismo granítico intrusivo cratônico.</strong>`
+      },
+      {
+        id: 9,
+        topic: "Tectonismo Orogenético: Dobramentos e Falhamentos",
+        statement: `O tectonismo orogenético distingue-se por atuar mediante esforços horizontais tangenciais em faixas móveis lineares, provocando deformações estruturais plásticas e rúpteis nas rochas da litosfera. Sobre o comportamento reológico dos materiais rochosos e as feições de dobramento e falhamento associadas aos regimes de esforço crustal, assinale a alternativa correta:`,
+        options: [
+          { letter: "A", text: "Em regimes orogenéticos compressionais, rochas sob condições dúcteis de pressão confinante e temperatura sofrem dobramentos estruturais, ao passo que sob condições rúpteis superficiais prevalecem falhas inversas e cavalgamentos." },
+          { letter: "B", text: "As falhas normais ou distensivas resultam de fortes pressões compressivas horizontais, cenário em que o bloco do teto é empurrado verticalmente para cima em relação ao muro." },
+          { letter: "C", text: "As estruturas de gráben e horst constituem dobras sinclinais e anticlinais formadas durante eventos colisionais de encerramento de bacias marinhas." },
+          { letter: "D", text: "O esforço cisalhante puro associado às falhas de empurrão atua estritamente em direção vertical, promovendo a formação de fossas continentais sem qualquer deformação lateral das rochas." },
+          { letter: "E", text: "As dobras antiformes caracterizam-se exclusivamente por núcleos de rochas sedimentares jovens, enquanto as sinformes expõem sempre escudos arqueanos não deformados." }
+        ],
+        correct: "A",
+        resolution: `<strong>Gabarito Oficial: A</strong><br><br>
+        <strong>Resolução Comentada:</strong><br>
+        O tectonismo orogenético opera primordialmente sob esforços compressionais horizontais. Sob elevadas pressões confinantes e temperaturas em profundidade, o comportamento mecânico das rochas é dúctil/plástico, desenvolvendo encurtamentos por dobramentos contínuos (anticlinais e sinclinais). Em contrapartida, em níveis crustais rasos onde as rochas respondem de forma frágil/rúptil, as tensões compressionais provocam ruptura com empurrão mecânico: formam-se falhas inversas e cavalgamentos (onde o bloco teto se desloca para cima em relação ao muro).<br><br>
+        <em>Análise das alternativas incorretas:</em><br>
+        • <strong>B está incorreta:</strong> Falhas normais originam-se em regimes distensivos (trativos), onde o teto escorrega para baixo em relação ao muro.<br>
+        • <strong>C está incorreta:</strong> <em>Grábens</em> e <em>horsts</em> são blocos falhados por falhas normais distensivas, e não dobras compressionais.<br>
+        • <strong>D está incorreta:</strong> Falhas de empurrão são feições compressionais oblíquas/horizontais de cavalgamento, e não cisalhamentos estritamente verticais.<br>
+        • <strong>E está incorreta:</strong> Antiforma refere-se à geometria convexa voltada para cima; na dobra anticlinal tradicional, as rochas do núcleo são estratigraficamente as mais antigas.`
+      },
+      {
+        id: 10,
+        topic: "Epirogênese, Isostasia e Dinâmica do Nível de Base Fluvial",
+        statement: `Os movimentos verticais da litosfera continental em áreas cratônicas estáveis são explicados pelos processos de epirogênese e pelo princípio do equilíbrio isostático. As variações tectônicas e eustáticas no relevo continental exercem influência direta na dinâmica morfogenética fluvial ao alterarem o nível de base dos rios. A respeito desses processos dinâmicos, analise as seguintes afirmativas:
+<br><br>
+<strong>I.</strong> O princípio da isostasia postula a flutuação hidrostática da litosfera sobre o manto plástico subjacente; logo, o desnudamento erosivo de uma cadeia montanhosa alivia a sobrecarga crustal e acarreta um soerguimento epirogenético compensatório.<br>
+<strong>II.</strong> O rebaixamento do nível de base relativo de uma bacia hidrográfica, quer por soerguimento epirogenético do continente ou por regressão marinha eustática, reativa o potencial erosivo da drenagem, intensificando a incisão linear vertical e o recuo das rupturas de declive.<br>
+<strong>III.</strong> O avanço e o acúmulo contínuo de espessas calotas de gelo sobre massas continentais durante períodos glaciais provocam o soerguimento epirogenético positivo imediato da crosta litosférica em decorrência do aumento do empuxo astenosférico.
+<br><br>
+Está(ão) correta(s) apenas a(s) afirmativa(s):`,
+        options: [
+          { letter: "A", text: "I." },
+          { letter: "B", text: "III." },
+          { letter: "C", text: "I e II." },
+          { letter: "D", text: "II e III." },
+          { letter: "E", text: "I, II e III." }
+        ],
+        correct: "C",
+        resolution: `<strong>Gabarito Oficial: C</strong><br><br>
+        <strong>Resolução Comentada:</strong><br>
+        • <strong>Afirmativa I está CORRETA:</strong> De acordo com a teoria da isostasia (princípio do empuxo de Arquimedes), a litosfera menos densa flutua no manto viscoso astenosférico. O desnudamento erosivo de relevos elevados remove sobrecarga de massa rochosa, promovendo um soerguimento compensatório gradual (epirogênese isostática positiva).<br>
+        • <strong>Afirmativa II está CORRETA:</strong> O nível de base é o limite altimétrico inferior até o qual um rio pode erodir. Um rebaixamento relativo do nível de base (seja por queda eustática do nível do mar ou por soerguimento epirogenético das terras) eleva a energia potencial do canal, deflagrando rejuvenescimento fluvial, entalhamento vertical acelerado da calha e formação de gargantas e terraços.<br>
+        • <strong>Afirmativa III está INCORRETA:</strong> A deposição de espessas geleiras adiciona peso substancial sobre a crosta continental, gerando subsidência glácio-isostática (afundamento vertical da litosfera). O soerguimento só ocorre quando o gelo derrete durante períodos interglaciais, fenômeno denominado rebote isostático pós-glacial.`
+      }
+    ];
+
+    // ESTADO DA APLICAÇÃO
+    const userAnswers = {}; // Armazena { questionId: selectedLetter }
+    let isSubmitted = false;
+
+    // INICIALIZAÇÃO DA PÁGINA
+    window.onload = function() {
+      buildQuickJumpNav();
+      renderQuestions();
+      updateProgressBar();
+    };
+
+    // CONSTRUIR NAVEGAÇÃO RÁPIDA DE BOTÕES (1 a 10)
+    function buildQuickJumpNav() {
+      const nav = document.getElementById('quickJumpContainer');
+      nav.innerHTML = '';
+      quizData.forEach(q => {
+        const btn = document.createElement('button');
+        btn.id = `jumpBtn-${q.id}`;
+        btn.type = 'button';
+        btn.className = 'w-8 h-8 rounded-lg text-xs font-semibold flex items-center justify-center transition-all bg-white border border-slate-300 text-slate-700 hover:border-slate-400';
+        btn.textContent = q.id < 10 ? `0${q.id}` : q.id;
+        btn.onclick = () => scrollToQuestion(q.id);
+        nav.appendChild(btn);
+      });
+    }
+
+    // RENDERIZAR TODAS AS QUESTÕES
+    function renderQuestions() {
+      const container = document.getElementById('questionsContainer');
+      container.innerHTML = '';
+
+      quizData.forEach((q) => {
+        const card = document.createElement('article');
+        card.id = `questionCard-${q.id}`;
+        card.className = 'bg-cardBg border border-warmBorder rounded-xl p-5 sm:p-7 shadow-xs transition-all duration-300';
+
+        // Cabeçalho da questão
+        let cardHtml = `
+          <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 pb-3 mb-4">
+            <div class="flex items-center gap-2">
+              <span class="px-2.5 py-1 bg-slate-100 text-slate-800 text-xs font-bold rounded-md">
+                Questão ${q.id < 10 ? '0' + q.id : q.id}
+              </span>
+              <span class="text-xs text-slate-500 font-medium">IFMG • Geologia e Tectônica</span>
+            </div>
+            <span class="text-xs text-slate-600 bg-slate-50 px-2 py-0.5 rounded border border-slate-200">
+              ${q.topic}
+            </span>
+          </div>
+
+          <!-- Enunciado com tipografia serifada de alto conforto visual -->
+          <div class="font-serif text-slate-800 text-base sm:text-lg leading-relaxed mb-6">
+            ${q.statement}
+          </div>
+
+          <!-- Lista de alternativas -->
+          <div class="space-y-3" role="radiogroup" aria-labelledby="label-q${q.id}">
+        `;
+
+        // Renderizar opções A, B, C, D, E
+        q.options.forEach(opt => {
+          cardHtml += `
+            <label id="optLabel-${q.id}-${opt.letter}" class="option-label flex items-start gap-3 p-3.5 sm:p-4 rounded-xl border border-slate-200 bg-white">
+              <input 
+                type="radio" 
+                name="question-${q.id}" 
+                value="${opt.letter}" 
+                class="custom-radio"
+                onchange="selectOption(${q.id}, '${opt.letter}')"
+              >
+              <div class="text-sm sm:text-base leading-snug">
+                <span class="font-bold text-slate-900 inline-block mr-1.5">${opt.letter})</span>
+                <span class="text-slate-800">${opt.text}</span>
+              </div>
+            </label>
+          `;
+        });
+
+        cardHtml += `</div>`;
+
+        // Bloco de Resolução e Gabarito (oculto até a finalização, mas situado na mesma página!)
+        cardHtml += `
+          <div id="resolutionBlock-${q.id}" class="hidden mt-6 pt-5 border-t border-slate-200">
+            <div class="p-4 sm:p-6 bg-slate-50 border border-slate-200 rounded-xl">
+              <div class="flex items-center justify-between mb-3">
+                <span class="text-xs font-bold uppercase tracking-wider text-emerald-800 bg-emerald-100 border border-emerald-200 px-2.5 py-1 rounded">
+                  Gabarito Oficial: Alternativa ${q.correct}
+                </span>
+                <span id="userStatusBadge-${q.id}" class="text-xs font-semibold px-2.5 py-1 rounded"></span>
+              </div>
+              <div class="text-sm font-serif text-slate-800 leading-relaxed space-y-2">
+                ${q.resolution}
+              </div>
+            </div>
+          </div>
+        `;
+
+        card.innerHTML = cardHtml;
+        container.appendChild(card);
+      });
+    }
+
+    // REGISTRAR SELEÇÃO DO USUÁRIO
+    function selectOption(questionId, letter) {
+      if (isSubmitted) return; // Bloquear alterações após finalizar
+
+      userAnswers[questionId] = letter;
+
+      // Destacar visualmente o card selecionado
+      const options = ['A', 'B', 'C', 'D', 'E'];
+      options.forEach(opt => {
+        const label = document.getElementById(`optLabel-${questionId}-${opt}`);
+        if (opt === letter) {
+          label.classList.add('bg-slate-50', 'border-brand', 'ring-1', 'ring-brand');
+        } else {
+          label.classList.remove('bg-slate-50', 'border-brand', 'ring-1', 'ring-brand');
+        }
+      });
+
+      // Atualizar botão na barra de navegação rápida
+      const jumpBtn = document.getElementById(`jumpBtn-${questionId}`);
+      if (jumpBtn) {
+        jumpBtn.classList.remove('bg-white', 'text-slate-700', 'border-slate-300');
+        jumpBtn.classList.add('bg-slate-800', 'text-white', 'border-slate-800');
+      }
+
+      updateProgressBar();
+    }
+
+    // ATUALIZAR BARRA DE PROGRESSO
+    function updateProgressBar() {
+      const answeredCount = Object.keys(userAnswers).length;
+      const total = quizData.length;
+      const pct = (answeredCount / total) * 100;
+
+      document.getElementById('progressText').textContent = `${answeredCount} de ${total}`;
+      document.getElementById('progressBar').style.width = `${pct}%`;
+    }
+
+    // ROLAGEM SUAVE PARA UMA DETERMINADA QUESTÃO
+    function scrollToQuestion(id) {
+      const card = document.getElementById(`questionCard-${id}`);
+      if (card) {
+        const yOffset = -80; // compensar header fixo
+        const y = card.getBoundingClientRect().top + window.pageYOffset + yOffset;
+        window.scrollTo({ top: y, behavior: 'smooth' });
+      }
+    }
+
+    // FINALIZAR SIMULADO E EXIBIR RESOLUÇÕES
+    function submitQuiz() {
+      const answeredCount = Object.keys(userAnswers).length;
+      const total = quizData.length;
+
+      // Se houver questões não respondidas, alerta no painel antes de forçar
+      const warningMsg = document.getElementById('submitMessage');
+      if (answeredCount < total && warningMsg.classList.contains('hidden')) {
+        warningMsg.classList.remove('hidden');
+        warningMsg.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        return;
+      }
+
+      isSubmitted = true;
+      let correctCount = 0;
+
+      // Desabilitar todas as opções e estilizar respostas certas e erradas
+      quizData.forEach(q => {
+        const userAnswer = userAnswers[q.id];
+        const isCorrect = userAnswer === q.correct;
+        if (isCorrect) correctCount++;
+
+        const card = document.getElementById(`questionCard-${q.id}`);
+        const resolution = document.getElementById(`resolutionBlock-${q.id}`);
+        const statusBadge = document.getElementById(`userStatusBadge-${q.id}`);
+        const jumpBtn = document.getElementById(`jumpBtn-${q.id}`);
+
+        // Exibir bloco de resolução detalhada na própria questão
+        resolution.classList.remove('hidden');
+
+        // Configurar selo de status da questão
+        if (isCorrect) {
+          card.classList.add('border-emerald-300', 'bg-emerald-50/20');
+          statusBadge.textContent = 'Você Acertou!';
+          statusBadge.className = 'text-xs font-semibold px-2.5 py-1 rounded bg-emerald-100 text-emerald-800 border border-emerald-200';
+          if (jumpBtn) {
+            jumpBtn.className = 'w-8 h-8 rounded-lg text-xs font-semibold flex items-center justify-center transition-all bg-emerald-600 text-white border border-emerald-700';
+          }
+        } else {
+          card.classList.add('border-rose-200', 'bg-rose-50/15');
+          statusBadge.textContent = userAnswer ? `Você marcou (${userAnswer}) - Incorreto` : 'Questão em branco';
+          statusBadge.className = 'text-xs font-semibold px-2.5 py-1 rounded bg-rose-100 text-rose-800 border border-rose-200';
+          if (jumpBtn) {
+            jumpBtn.className = 'w-8 h-8 rounded-lg text-xs font-semibold flex items-center justify-center transition-all bg-rose-600 text-white border border-rose-700';
+          }
+        }
+
+        // Destacar e bloquear visualmente cada rádio
+        ['A', 'B', 'C', 'D', 'E'].forEach(letter => {
+          const label = document.getElementById(`optLabel-${q.id}-${letter}`);
+          const radio = label.querySelector('input');
+          radio.disabled = true;
+          label.classList.add('locked');
+          label.classList.remove('ring-1', 'ring-brand');
+
+          if (letter === q.correct) {
+            // Marcação clara do gabarito correto
+            label.classList.add('selected-correct');
+          } else if (letter === userAnswer && !isCorrect) {
+            // Marcação em vermelho da escolha errada do usuário
+            label.classList.add('selected-wrong');
+          }
+        });
+      });
+
+      // Atualizar e exibir seção de resultados consolidados
+      const percent = Math.round((correctCount / total) * 100);
+      document.getElementById('scoreDisplay').textContent = `${correctCount}/${total}`;
+      document.getElementById('percentDisplay').textContent = `${percent}%`;
+
+      const feedback = document.getElementById('feedbackText');
+      if (percent >= 80) {
+        feedback.innerHTML = `<strong>Excelente desempenho!</strong> Você demonstrou domínio consistente sobre a estrutura litosférica, descontinuidades de Moho e Gutenberg, dinâmica de placas divergentes, convergentes e transformantes, bem como os processos de isostasia e epirogênese requeridos no concurso do IFMG.`;
+      } else if (percent >= 60) {
+        feedback.innerHTML = `<strong>Bom rendimento!</strong> Você atingiu a média de aprovação nos conteúdos gerais, mas vale a pena revisar atentamente as resoluções sobre limites colisionais, obducção e a influência do nível de base na dinâmica fluvial.`;
+      } else {
+        feedback.innerHTML = `<strong>Aproveitamento que requer revisão.</strong> Recomendamos a leitura detida das resoluções comentadas de cada questão abaixo para reforçar os conceitos de Teixeira et al. (2009) e Christopherson & Birkeland (2017).`;
+      }
+
+      // Alternar botões e exibir resultados
+      document.getElementById('btnSubmitQuiz').classList.add('hidden');
+      document.getElementById('btnResetQuiz').classList.remove('hidden');
+      document.getElementById('submitMessage').classList.add('hidden');
+      
+      const resultsSection = document.getElementById('resultsSection');
+      resultsSection.classList.remove('hidden');
+      resultsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    // REINICIAR O SIMULADO
+    function resetQuiz() {
+      // Limpar estado
+      for (const key in userAnswers) {
+        delete userAnswers[key];
+      }
+      isSubmitted = false;
+
+      // Reconstruir componentes
+      buildQuickJumpNav();
+      renderQuestions();
+      updateProgressBar();
+
+      // Ajustar visibilidade de botões
+      document.getElementById('btnSubmitQuiz').classList.remove('hidden');
+      document.getElementById('btnResetQuiz').classList.add('hidden');
+      document.getElementById('submitMessage').classList.add('hidden');
+      document.getElementById('resultsSection').classList.add('hidden');
+
+      // Rolar suavemente para o topo
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  </script>
+</body>
+</html>
