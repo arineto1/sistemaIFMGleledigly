@@ -1,0 +1,1418 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simulado de Pedologia — IFMG</title>
+  <style>
+    /* Reset & Variáveis de Cor para Leitura Confortável (Fundo Claro / Off-White) */
+    :root {
+      --bg-page: #FBFBFA;
+      --bg-card: #FFFFFF;
+      --bg-subtle: #F4F4F1;
+      --text-main: #1F2937;
+      --text-muted: #4B5563;
+      --text-light: #6B7280;
+      --border-color: #E2E4DE;
+      --border-focus: #2563EB;
+      --primary: #2C5282;
+      --primary-light: #EBF4FF;
+      --accent: #92400E;
+      --accent-bg: #FEF3C7;
+      --success-text: #166534;
+      --success-bg: #DCFCE7;
+      --success-border: #86EFAC;
+      --error-text: #991B1B;
+      --error-bg: #FEE2E2;
+      --error-border: #FCA5A5;
+      --neutral-badge: #E5E7EB;
+      --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05);
+      --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.07);
+      --font-body: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      --font-serif: "Charter", "Bitstream Charter", "Sitka Text", "Cambria", Georgia, serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-page);
+      color: var(--text-main);
+      font-family: var(--font-body);
+      line-height: 1.7;
+      font-size: 16px;
+      -webkit-font-smoothing: antialiased;
+      padding-bottom: 80px;
+    }
+
+    /* Container Principal - Largura otimizada para conforto visual e leitura fluida */
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 24px 20px;
+    }
+
+    /* Cabeçalho */
+    header {
+      background-color: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 32px 28px;
+      margin-bottom: 24px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .badge-header {
+      display: inline-block;
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--primary);
+      background-color: var(--primary-light);
+      padding: 4px 10px;
+      border-radius: 6px;
+      margin-bottom: 12px;
+    }
+
+    h1 {
+      font-size: 1.75rem;
+      font-weight: 800;
+      line-height: 1.3;
+      color: #111827;
+      margin-bottom: 12px;
+    }
+
+    .header-desc {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+
+    .header-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-top: 18px;
+      padding-top: 16px;
+      border-top: 1px dashed var(--border-color);
+      font-size: 0.85rem;
+      color: var(--text-light);
+    }
+
+    .header-meta span strong {
+      color: var(--text-main);
+    }
+
+    /* Barra de Progresso Superior Fixa/Aderente */
+    .progress-bar-sticky {
+      position: sticky;
+      top: 12px;
+      z-index: 100;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(8px);
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      padding: 12px 18px;
+      margin-bottom: 28px;
+      box-shadow: var(--shadow-md);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .progress-info {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      white-space: nowrap;
+    }
+
+    .progress-track {
+      flex: 1;
+      height: 8px;
+      background: var(--bg-subtle);
+      border-radius: 999px;
+      overflow: hidden;
+      border: 1px solid var(--border-color);
+    }
+
+    .progress-fill {
+      height: 100%;
+      width: 0%;
+      background: var(--primary);
+      transition: width 0.3s ease;
+      border-radius: 999px;
+    }
+
+    /* Cartões das Questões */
+    .question-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 28px 24px;
+      margin-bottom: 28px;
+      box-shadow: var(--shadow-sm);
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .question-card:hover {
+      border-color: #cbd5e1;
+    }
+
+    .question-card.answered {
+      border-left: 5px solid var(--primary);
+    }
+
+    .question-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+
+    .q-number {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .q-status-tag {
+      font-size: 0.78rem;
+      font-weight: 600;
+      padding: 3px 8px;
+      border-radius: 6px;
+      background: var(--bg-subtle);
+      color: var(--text-light);
+    }
+
+    .q-enunciado {
+      font-family: var(--font-serif);
+      font-size: 1.05rem;
+      color: #1a202c;
+      line-height: 1.75;
+      margin-bottom: 20px;
+      text-align: justify;
+    }
+
+    .q-enunciado ul {
+      margin: 12px 0 16px 24px;
+    }
+
+    .q-enunciado li {
+      margin-bottom: 8px;
+    }
+
+    .q-data-box {
+      background: var(--bg-subtle);
+      border-left: 3px solid var(--primary);
+      padding: 12px 18px;
+      border-radius: 0 8px 8px 0;
+      margin: 14px 0 18px 0;
+      font-family: var(--font-body);
+      font-size: 0.95rem;
+    }
+
+    .q-data-box ul {
+      list-style-type: disc;
+      margin-left: 20px;
+      margin-top: 6px;
+    }
+
+    /* Alternativas */
+    .options-group {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .option-label {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 12px 16px;
+      background-color: var(--bg-card);
+      border: 1.5px solid var(--border-color);
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 0.98rem;
+      line-height: 1.55;
+      color: var(--text-main);
+      transition: all 0.15s ease;
+    }
+
+    .option-label:hover {
+      background-color: #F8FAFC;
+      border-color: #94A3B8;
+    }
+
+    .option-label input[type="radio"] {
+      margin-top: 4px;
+      accent-color: var(--primary);
+      width: 17px;
+      height: 17px;
+      flex-shrink: 0;
+    }
+
+    .option-text {
+      flex: 1;
+    }
+
+    /* Estados Pós-Finalização nas Alternativas */
+    .option-label.user-selected-wrong {
+      background-color: var(--error-bg) !important;
+      border-color: var(--error-border) !important;
+      color: var(--error-text) !important;
+      font-weight: 500;
+    }
+
+    .option-label.is-correct-answer {
+      background-color: var(--success-bg) !important;
+      border-color: var(--success-border) !important;
+      color: var(--success-text) !important;
+      font-weight: 600;
+      position: relative;
+    }
+
+    .option-label.is-correct-answer::after {
+      content: "✓ Gabarito Oficial";
+      display: inline-block;
+      margin-left: 8px;
+      font-size: 0.75rem;
+      background: var(--success-text);
+      color: #fff;
+      padding: 1px 6px;
+      border-radius: 4px;
+      vertical-align: middle;
+    }
+
+    .option-label.user-selected-wrong::after {
+      content: "✕ Sua escolha";
+      display: inline-block;
+      margin-left: 8px;
+      font-size: 0.75rem;
+      background: var(--error-text);
+      color: #fff;
+      padding: 1px 6px;
+      border-radius: 4px;
+      vertical-align: middle;
+    }
+
+    /* Bloco da Resolução Comentada (Embutido após envio) */
+    .resolution-box {
+      display: none;
+      margin-top: 24px;
+      padding: 20px 22px;
+      border-radius: 8px;
+      background-color: #F8FAFC;
+      border: 1px solid #CBD5E1;
+      border-left: 5px solid var(--primary);
+    }
+
+    .resolution-title {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .resolution-content {
+      font-size: 0.95rem;
+      color: #334155;
+      line-height: 1.7;
+    }
+
+    .resolution-content p {
+      margin-bottom: 12px;
+    }
+
+    .resolution-content p:last-child {
+      margin-bottom: 0;
+    }
+
+    /* Tabelas Pedológicas nas Resoluções */
+    .table-responsive {
+      overflow-x: auto;
+      margin: 14px 0;
+      border-radius: 8px;
+      border: 1px solid #E2E8F0;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.88rem;
+      text-align: left;
+      background: #FFFFFF;
+    }
+
+    th {
+      background-color: #F1F5F9;
+      color: #1E293B;
+      padding: 10px 14px;
+      font-weight: 600;
+      border-bottom: 1px solid #CBD5E1;
+    }
+
+    td {
+      padding: 10px 14px;
+      border-bottom: 1px solid #E2E8F0;
+      color: #334155;
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    tr:nth-child(even) {
+      background-color: #F8FAFC;
+    }
+
+    /* Botão de Finalizar & Ações */
+    .actions-bar {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      margin: 36px 0;
+    }
+
+    .btn {
+      appearance: none;
+      border: none;
+      outline: none;
+      font-family: inherit;
+      font-size: 1.05rem;
+      font-weight: 700;
+      padding: 14px 36px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-primary {
+      background-color: var(--primary);
+      color: #FFFFFF;
+      box-shadow: 0 4px 6px rgba(44, 82, 130, 0.2);
+    }
+
+    .btn-primary:hover {
+      background-color: #1E3A8A;
+      box-shadow: 0 6px 12px rgba(44, 82, 130, 0.28);
+      transform: translateY(-1px);
+    }
+
+    .btn-secondary {
+      background-color: #FFFFFF;
+      border: 1.5px solid var(--border-color);
+      color: var(--text-main);
+    }
+
+    .btn-secondary:hover {
+      background-color: var(--bg-subtle);
+      border-color: #94A3B8;
+    }
+
+    /* Seção de Resultado e Desempenho */
+    .results-section {
+      display: none;
+      background: #FFFFFF;
+      border: 1.5px solid var(--border-color);
+      border-radius: 14px;
+      padding: 32px 24px;
+      margin-bottom: 36px;
+      box-shadow: var(--shadow-md);
+      text-align: center;
+      animation: fadeIn 0.4s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .score-circle {
+      display: inline-flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      border: 6px solid var(--primary);
+      margin: 16px auto;
+    }
+
+    .score-num {
+      font-size: 2.4rem;
+      font-weight: 800;
+      line-height: 1;
+      color: var(--primary);
+    }
+
+    .score-total {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--text-light);
+    }
+
+    .results-msg {
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+      color: #111827;
+    }
+
+    .results-feedback {
+      font-size: 0.98rem;
+      color: var(--text-muted);
+      max-width: 600px;
+      margin: 0 auto 20px auto;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      max-width: 500px;
+      margin: 20px auto;
+    }
+
+    .stat-card {
+      background: var(--bg-subtle);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 12px;
+    }
+
+    .stat-val {
+      font-size: 1.3rem;
+      font-weight: 700;
+    }
+
+    .stat-card.correct .stat-val { color: var(--success-text); }
+    .stat-card.wrong .stat-val { color: var(--error-text); }
+    .stat-card.rate .stat-val { color: var(--primary); }
+
+    .stat-label {
+      font-size: 0.78rem;
+      color: var(--text-light);
+      text-transform: uppercase;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+    }
+
+    /* Modal / Toast sem uso de alert() */
+    .toast-msg {
+      display: none;
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #1E293B;
+      color: #FFFFFF;
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      font-weight: 500;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+      z-index: 1000;
+    }
+
+    /* Responsividade */
+    @media (max-width: 640px) {
+      .container {
+        padding: 16px 12px;
+      }
+      header {
+        padding: 24px 18px;
+      }
+      h1 {
+        font-size: 1.4rem;
+      }
+      .question-card {
+        padding: 20px 16px;
+      }
+      .stats-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    
+    <!-- Cabeçalho -->
+    <header>
+      <span class="badge-header">Simulado Oficial • 10 Questões</span>
+      <h1>Fundamentos de Pedologia</h1>
+      <p class="header-desc">
+        Caderno de prova temática elaborado rigorosamente no perfil da <strong>Banca Comissão Central de Concurso Público da Reitoria do IFMG</strong>. Abrange gênese, morfologia, física e química do solo, Sistema Brasileiro de Classificação de Solos (SiBCS) e processos de degradação da terra.
+      </p>
+      <div class="header-meta">
+        <span><strong>Foco:</strong> Diferenciação Latossolo vs Argissolo | Arenização vs Desertificação</span>
+        <span><strong>Bibliografia:</strong> TEIXEIRA et al. (2009); ROSS (2014)</span>
+      </div>
+    </header>
+
+    <!-- Barra Superior de Acompanhamento -->
+    <div class="progress-bar-sticky" id="progressSticky">
+      <div class="progress-info" id="progressCounter">0 de 10 respondidas</div>
+      <div class="progress-track">
+        <div class="progress-fill" id="progressFill"></div>
+      </div>
+    </div>
+
+    <!-- Área de Resultados (Visível após finalização) -->
+    <div class="results-section" id="resultsCard">
+      <div class="score-circle">
+        <span class="score-num" id="scoreValue">0</span>
+        <span class="score-total">de 10</span>
+      </div>
+      <h2 class="results-msg" id="resultsTitle">Desempenho no Simulado</h2>
+      <p class="results-feedback" id="resultsDesc">Confira abaixo o detalhamento dos seus acertos e as resoluções comentadas completas de cada questão.</p>
+      
+      <div class="stats-grid">
+        <div class="stat-card correct">
+          <div class="stat-val" id="statCorrect">0</div>
+          <div class="stat-label">Acertos</div>
+        </div>
+        <div class="stat-card wrong">
+          <div class="stat-val" id="statWrong">0</div>
+          <div class="stat-label">Erros</div>
+        </div>
+        <div class="stat-card rate">
+          <div class="stat-val" id="statRate">0%</div>
+          <div class="stat-label">Aproveitamento</div>
+        </div>
+      </div>
+
+      <div style="margin-top: 16px;">
+        <button class="btn btn-secondary" onclick="reiniciarSimulado()">↺ Refazer Simulado</button>
+      </div>
+    </div>
+
+    <!-- Formulário do Quiz com as 10 Questões -->
+    <form id="quizForm">
+
+      <!-- Questão 01 -->
+      <div class="question-card" id="card-q1">
+        <div class="question-header">
+          <div class="q-number">Questão 01</div>
+          <div class="q-status-tag" id="status-q1">Pendente</div>
+        </div>
+        <div class="q-enunciado">
+          Com base na teoria dos fatores e processos de formação do solo apresentada por Teixeira et al. (2009) e discutida por Ross (2014), a pedogênese resulta da interação dinâmica entre cinco fatores clássicos postulados por Hans Jenny: material de origem, clima, organismos vivos, relevo e tempo. Sob a ótica funcional da pedologia contemporânea, esses fatores desempenham papéis diferenciados no aporte de energia, redistribuição hídrica e desenvolvimento do perfil.<br><br>
+          Acerca do papel e da classificação funcional desses fatores de formação, assinale a alternativa <strong>CORRETA</strong>:
+        </div>
+        <div class="options-group">
+          <label class="option-label" data-q="1" data-opt="A">
+            <input type="radio" name="q1" value="A">
+            <div class="option-text"><strong>A)</strong> O clima e os organismos vivos são classificados como fatores controladores, pois exercem controle estrutural sobre a taxa de erosão linear e sobre a compartimentação geomorfológica das bacias hidrográficas.</div>
+          </label>
+          <label class="option-label" data-q="1" data-opt="B">
+            <input type="radio" name="q1" value="B">
+            <div class="option-text"><strong>B)</strong> O relevo atua como fator modificador e controlador, influenciando o balanço de radiação e a dinâmica hídrica superficial e subsuperficial por meio da declividade e orientação das vertentes, sem afetar as taxas de infiltração.</div>
+          </label>
+          <label class="option-label" data-q="1" data-opt="C">
+            <input type="radio" name="q1" value="C">
+            <div class="option-text"><strong>C)</strong> O material de origem e o tempo cronológico são categorizados como fatores passivos, fornecendo a base material e a duração temporal sobre as quais a energia bioclimática atua na diferenciação dos horizontes pedogenéticos.</div>
+          </label>
+          <label class="option-label" data-q="1" data-opt="D">
+            <input type="radio" name="q1" value="D">
+            <div class="option-text"><strong>D)</strong> O tempo cronológico é classificado como um fator ativo, uma vez que o grau de maturidade pedogenética de qualquer perfil é determinado unicamente pelo número absoluto de anos transcorridos desde o início do intemperismo.</div>
+          </label>
+          <label class="option-label" data-q="1" data-opt="E">
+            <input type="radio" name="q1" value="E">
+            <div class="option-text"><strong>E)</strong> Os organismos vivos atuam estritamente como fatores passivos na pedogênese tropical, limitando-se à proteção mecânica superficial contra o impacto cinético das gotas de chuva.</div>
+          </label>
+        </div>
+        <div class="resolution-box" id="res-q1">
+          <div class="resolution-title">📖 Resolução Comentada — Questão 01 (Gabarito: C)</div>
+          <div class="resolution-content">
+            <p><strong>A alternativa C é a correta.</strong> Segundo a fundamentação clássica de Hans Jenny e a sistematização apresentada por Teixeira et al. (2009) e Ross (2014), os fatores de formação do solo são agrupados de acordo com sua função na pedogênese em fatores ativos, fatores modificadores ou controladores e fatores passivos. O clima e os organismos vivos configuram os fatores ativos, pois representam as fontes primárias de matéria e de energia térmica, cinética e bioquímica que acionam e sustentam as transformações químicas, a alteração mineralógica e a síntese biológica no regolito. O relevo atua como fator modificador e controlador, condicionando a distribuição e o balanço local de água e radiação na paisagem. O material de origem e o tempo cronológico operam funcionalmente como fatores passivos. O material de origem fornece o substrato mineral de partida (arcabouço geoquímico e granulométrico inicial), enquanto o tempo cronológico é o intervalo contínuo no qual a energia dos fatores ativos atua sob o controle do relevo, não fornecendo matéria nem energia por si próprio.</p>
+            <p><strong>Análise dos distratores:</strong><br>
+            • <em>A incorreta:</em> O clima e os organismos são definidos como fatores ativos, não controladores.<br>
+            • <em>B incorreta:</em> A declividade e a forma da encosta afetam diretamente a partição entre escoamento e infiltração de água.<br>
+            • <em>D incorreta:</em> O tempo é estritamente passivo; a maturidade do solo depende da intensidade bioclimática e não apenas dos anos transcorridos.<br>
+            • <em>E incorreta:</em> Os organismos possuem papel bioquímico ativo (síntese de húmus, secreção de ácidos, ciclagem biogeoquímica).</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Questão 02 -->
+      <div class="question-card" id="card-q2">
+        <div class="question-header">
+          <div class="q-number">Questão 02</div>
+          <div class="q-status-tag" id="status-q2">Pendente</div>
+        </div>
+        <div class="q-enunciado">
+          No âmbito da gênese pedológica, os processos fundamentais operam de forma conjugada e contínua no perfil, sendo sintetizados em quatro classes gerais de dinâmica físico-química: adições, perdas (remoções), transformações e translocações. A respeito desses processos pedogenéticos fundamentais e de suas feições diagnósticas no perfil, assinale a alternativa <strong>CORRETA</strong>:
+        </div>
+        <div class="options-group">
+          <label class="option-label" data-q="2" data-opt="A">
+            <input type="radio" name="q2" value="A">
+            <div class="option-text"><strong>A)</strong> A lixiviação constitui um mecanismo típico de translocação, no qual cátions trocáveis e ânions migram de horizontes superiores para inferiores, acumulando-se obrigatoriamente no interior do solum pedogenético.</div>
+          </label>
+          <label class="option-label" data-q="2" data-opt="B">
+            <input type="radio" name="q2" value="B">
+            <div class="option-text"><strong>B)</strong> A eluviação expressa a remoção e saída mecânica de coloides minerais ou matéria orgânica de um horizonte, enquanto a iluviação caracteriza a deposição e o acúmulo desses materiais em um horizonte subjacente, configurando processos de translocação interna no perfil.</div>
+          </label>
+          <label class="option-label" data-q="2" data-opt="C">
+            <input type="radio" name="q2" value="C">
+            <div class="option-text"><strong>C)</strong> A transformação mineralógica no perfil limita-se à desagregação física de fragmentos de quartzo, não envolvendo reações de hidrólise nem a neoformação de argilominerais secundários a partir de silicatos primários.</div>
+          </label>
+          <label class="option-label" data-q="2" data-opt="D">
+            <input type="radio" name="q2" value="D">
+            <div class="option-text"><strong>D)</strong> A adição restringe-se exclusivamente ao acúmulo superficial de serapilheira e resíduos vegetais sobre o horizonte A, excluindo qualquer contribuição decorrente de deposição de poeiras eólicas, cinzas ou aportes fluviais e coluviais.</div>
+          </label>
+          <label class="option-label" data-q="2" data-opt="E">
+            <input type="radio" name="q2" value="E">
+            <div class="option-text"><strong>E)</strong> A formação de horizontes álbicos e espódicos é impulsionada primordialmente pelo processo de adição biológica autóctone, inexistindo translocação vertical ou perda de compostos no perfil.</div>
+          </label>
+        </div>
+        <div class="resolution-box" id="res-q2">
+          <div class="resolution-title">📖 Resolução Comentada — Questão 02 (Gabarito: B)</div>
+          <div class="resolution-content">
+            <p><strong>A alternativa B é a correta.</strong> No conjunto de processos pedogenéticos fundamentais expostos por Teixeira et al. (2009), a eluviação e a iluviação integram a classe geral das translocações. A eluviação compreende o transporte mecânico ou a saída de constituintes finos (fração argila dispersa, matéria orgânica ou hidróxidos) de um horizonte superficial ou subsuperficial (tipicamente os horizontes A ou E), ao passo que a iluviação expressa a entrada e deposição dessas frações em um horizonte receptor posicionado em profundidade (caracterizando horizontes B iluviais, como o B textural). Como os materiais carreados permanecem no interior do perfil pedogenético, configuram uma reorganização espacial interna inerente à translocação.</p>
+            <p><strong>Análise dos distratores:</strong><br>
+            • <em>A incorreta:</em> A lixiviação é um mecanismo de perda (remoção para fora do solum, atingindo o lençol freático), e não de mera translocação.<br>
+            • <em>C incorreta:</em> A transformação abrange profundas reações químicas como a hidrólise de minerais primários e a neoformação de argilas 1:1 e óxidos de ferro e alumínio.<br>
+            • <em>D incorreta:</em> O processo de adição também engloba deposição eólica, sedimentação aluvial em várzeas e coluvionamento em encostas.<br>
+            • <em>E incorreta:</em> Horizontes álbicos e espódicos dependem essencialmente de forte eluviação e iluviação de complexos organometálicos (podzolização).</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Questão 03 -->
+      <div class="question-card" id="card-q3">
+        <div class="question-header">
+          <div class="q-number">Questão 03</div>
+          <div class="q-status-tag" id="status-q3">Pendente</div>
+        </div>
+        <div class="q-enunciado">
+          As frações granulométricas da terra fina seca ao ar (TFSA: areia grossa, areia fina, silte e argila) determinam a classe textural do solo, enquanto o arranjo dessas partículas primárias sob a ação de agentes cimentantes define a estrutura pedológica. A interação entre textura e estrutura condiciona diretamente a distribuição do espaço poroso, a aeração e o comportamento hidrodinâmico.<br><br>
+          Sobre as propriedades físicas dos solos tropicais e subtropicais abordadas por Teixeira et al. (2009) e Ross (2014), assinale a alternativa <strong>CORRETA</strong>:
+        </div>
+        <div class="options-group">
+          <label class="option-label" data-q="3" data-opt="A">
+            <input type="radio" name="q3" value="A">
+            <div class="option-text"><strong>A)</strong> Solos argilosos exibem, por definição teórica, predominância absoluta de macroporos, o que lhes confere condutividade hidráulica saturada sistematicamente superior à observada em solos arenosos desprovidos de estrutura.</div>
+          </label>
+          <label class="option-label" data-q="3" data-opt="B">
+            <input type="radio" name="q3" value="B">
+            <div class="option-text"><strong>B)</strong> A estrutura do tipo microagregada granular ("pó de café"), característica de horizontes oxídicos com avançado intemperismo, proporciona expressiva macroporosidade e rápida permeabilidade, a despeito dos elevados teores gravimétricos de argila.</div>
+          </label>
+          <label class="option-label" data-q="3" data-opt="C">
+            <input type="radio" name="q3" value="C">
+            <div class="option-text"><strong>C)</strong> A fração silte apresenta alta capacidade de troca catiônica e grande superfície específica, atuando como o principal agente coloidal responsável pela estabilização da estrutura em solos intemperizados.</div>
+          </label>
+          <label class="option-label" data-q="3" data-opt="D">
+            <input type="radio" name="q3" value="D">
+            <div class="option-text"><strong>D)</strong> A permeabilidade do solo é inversamente proporcional ao volume de macroporos, sendo a retenção de água governada unicamente pela microporosidade textural induzida pelos grãos de areia quartzoza.</div>
+          </label>
+          <label class="option-label" data-q="3" data-opt="E">
+            <input type="radio" name="q3" value="E">
+            <div class="option-text"><strong>E)</strong> As unidades estruturais prismáticas e colunares de grandes dimensões proporcionam infiltração vertical excessivamente veloz e uniforme, impedindo o acúmulo temporário de água e o escoamento superficial.</div>
+          </label>
+        </div>
+        <div class="resolution-box" id="res-q3">
+          <div class="resolution-title">📖 Resolução Comentada — Questão 03 (Gabarito: B)</div>
+          <div class="resolution-content">
+            <p><strong>A alternativa B é a correta.</strong> Em solos oxídicos altamente intemperizados descritos por Teixeira et al. (2009) e Ross (2014), a concentração expressiva de sesquióxidos de ferro e alumínio (como hematita, goethita e gibbsita) atua como um potente cimento coloidal entre os argilominerais cauliníticos. Essa cimentação eletrostática conduz à gênese da estrutura microagregada granular, popularmente descrita em campo como "pó de café". Macroscopicamente, esses agregados diminutos e extremamente estáveis comportam-se como grânulos de areia média ou fina, criando um volume excepcional de macroporos intergranulares livres, o que confere ao horizonte elevada condutividade hidráulica saturada e rápida permeabilidade vertical, mesmo diante de proporções de argila frequentemente superiores a 60% na fração terra fina.</p>
+            <p><strong>Análise dos distratores:</strong><br>
+            • <em>A incorreta:</em> Solos argilosos comuns possuem predominância de microporos, tendo normalmente menor condutividade saturada que solos arenosos quartzosos.<br>
+            • <em>C incorreta:</em> O silte tem partículas quimicamente inertes, baixa área superficial e baixíssima CTC.<br>
+            • <em>D incorreta:</em> A permeabilidade é diretamente proporcional à presença e continuidade de macroporos.<br>
+            • <em>E incorreta:</em> Estruturas prismáticas e colunares densas estão associadas a horizontes adensados ou ricos em sódio (plânico/nátrico), restringindo a drenagem interna.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Questão 04 -->
+      <div class="question-card" id="card-q4">
+        <div class="question-header">
+          <div class="q-number">Questão 04</div>
+          <div class="q-status-tag" id="status-q4">Pendente</div>
+        </div>
+        <div class="q-enunciado">
+          A avaliação da fertilidade e do comportamento químico do solo fundamenta-se na dinâmica de sua fração coloidal, envolvendo propriedades como pH, complexo de troca catiônica, saturação por bases (V%) e dinâmica de lixiviação. A capacidade de troca de cátions a pH 7,0 (Valor T) e a soma de bases trocáveis (Valor S) balizam distinções diagnósticas fundamentais no Sistema Brasileiro de Classificação de Solos (SiBCS).<br><br>
+          Considere um horizonte diagnóstico subsuperficial mineral com os seguintes dados analíticos de laboratório:
+        </div>
+        <div class="q-data-box">
+          <strong>Dados Laboratoriais de Amostra de Solo:</strong>
+          <ul>
+            <li>Cálcio trocável (Ca<sup>2+</sup>): 1,2 cmol<sub>c</sub>·kg<sup>-1</sup></li>
+            <li>Magnésio trocável (Mg<sup>2+</sup>): 0,6 cmol<sub>c</sub>·kg<sup>-1</sup></li>
+            <li>Potássio trocável (K<sup>+</sup>): 0,2 cmol<sub>c</sub>·kg<sup>-1</sup></li>
+            <li>Sódio trocável (Na<sup>+</sup>): 0,0 cmol<sub>c</sub>·kg<sup>-1</sup></li>
+            <li>Acidez potencial (H + Al): 4,2 cmol<sub>c</sub>·kg<sup>-1</sup></li>
+            <li>Teor total de argila: 400 g·kg<sup>-1</sup> (40%)</li>
+          </ul>
+        </div>
+        <div class="q-enunciado">
+          Com base nos dados analíticos e nos critérios químicos e taxonômicos do SiBCS, assinale a alternativa <strong>CORRETA</strong>:
+        </div>
+        <div class="options-group">
+          <label class="option-label" data-q="4" data-opt="A">
+            <input type="radio" name="q4" value="A">
+            <div class="option-text"><strong>A)</strong> O horizonte é caracterizado quimicamente como eutrófico, visto que a soma de bases trocáveis atinge valor absoluto superior a 1,5 cmol<sub>c</sub>·kg<sup>-1</sup>.</div>
+          </label>
+          <label class="option-label" data-q="4" data-opt="B">
+            <input type="radio" name="q4" value="B">
+            <div class="option-text"><strong>B)</strong> O horizonte apresenta saturação por bases (V%) de aproximadamente 32,3%, sendo classificado como distrófico, e possui atividade da fração argila (Valor T<sub>argila</sub>) de 15,5 cmol<sub>c</sub>·kg<sup>-1</sup>, categorizando-se como argila de atividade baixa (Tb).</div>
+          </label>
+          <label class="option-label" data-q="4" data-opt="C">
+            <input type="radio" name="q4" value="C">
+            <div class="option-text"><strong>C)</strong> O horizonte apresenta saturação por bases (V%) igual a 60,0%, caracterizando caráter eutrófico associado à argila de atividade alta (Ta).</div>
+          </label>
+          <label class="option-label" data-q="4" data-opt="D">
+            <input type="radio" name="q4" value="D">
+            <div class="option-text"><strong>D)</strong> A capacidade de troca catiônica a pH 7,0 desse horizonte é estritamente independente das variações de acidez e das cargas dependentes de pH geradas pelos oxi-hidróxidos de ferro e alumínio.</div>
+          </label>
+          <label class="option-label" data-q="4" data-opt="E">
+            <input type="radio" name="q4" value="E">
+            <div class="option-text"><strong>E)</strong> A atividade da fração argila calculada é de 35,0 cmol<sub>c</sub>·kg<sup>-1</sup> de argila, definindo uma argila de atividade alta (Ta) e indicando predomínio de esmectitas expansivas.</div>
+          </label>
+        </div>
+        <div class="resolution-box" id="res-q4">
+          <div class="resolution-title">📖 Resolução Comentada — Questão 04 (Gabarito: B)</div>
+          <div class="resolution-content">
+            <p><strong>A alternativa B é a correta.</strong> O enquadramento analítico apoia-se nas formulações oficiais de química do solo integradas ao Sistema Brasileiro de Classificação de Solos (SiBCS / Embrapa; Teixeira et al., 2009):</p>
+            <div class="table-responsive">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Parâmetro Químico</th>
+                    <th>Expressão de Cálculo</th>
+                    <th>Determinação Analítica</th>
+                    <th>Classificação SiBCS</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>Soma de Bases (S)</strong></td>
+                    <td>Ca<sup>2+</sup> + Mg<sup>2+</sup> + K<sup>+</sup> + Na<sup>+</sup></td>
+                    <td>1,2 + 0,6 + 0,2 + 0,0 = <strong>2,0 cmol<sub>c</sub>·kg<sup>-1</sup></strong></td>
+                    <td>Caracterização do complexo básico</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Capacidade de Troca (T)</strong></td>
+                    <td>S + (H + Al)</td>
+                    <td>2,0 + 4,2 = <strong>6,2 cmol<sub>c</sub>·kg<sup>-1</sup></strong></td>
+                    <td>CTC potencial a pH 7,0</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Saturação por Bases (V%)</strong></td>
+                    <td>(S / T) × 100</td>
+                    <td>(2,0 / 6,2) × 100 ≈ <strong>32,26%</strong></td>
+                    <td><strong>Distrófico</strong> (V% &lt; 50%)</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Atividade da Argila (T<sub>argila</sub>)</strong></td>
+                    <td>(T / argila %) × 100</td>
+                    <td>(6,2 / 40) × 100 = <strong>15,5 cmol<sub>c</sub>·kg<sup>-1</sup></strong></td>
+                    <td><strong>Argila de atividade baixa (Tb)</strong> (&lt; 27 cmol<sub>c</sub>·kg<sup>-1</sup>)</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p>Como a saturação por bases é 32,26% (&lt; 50%), o solo possui caráter distrófico. Como o T da fração argila é 15,5 (&lt; 27 cmol<sub>c</sub>·kg<sup>-1</sup>), trata-se de argila de atividade baixa (Tb).</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Questão 05 -->
+      <div class="question-card" id="card-q5">
+        <div class="question-header">
+          <div class="q-number">Questão 05</div>
+          <div class="q-status-tag" id="status-q5">Pendente</div>
+        </div>
+        <div class="q-enunciado">
+          No Sistema Brasileiro de Classificação de Solos (SiBCS), os horizontes diagnósticos superficiais e subsuperficiais expressam morfologias e composições físico-químicas padronizadas resultantes da conjugação de fatores e processos pedogenéticos.<br><br>
+          Analise as afirmativas a seguir sobre os horizontes diagnósticos:
+          <ul>
+            <li><strong>I.</strong> O horizonte B latossólico (Bw) apresenta avançado estádio de intemperização, com mineralogia dominada por sesquióxidos de ferro e alumínio e/ou caulinita, argila de atividade baixa (Tb), relação silte/argila baixa e estrutura microagregada com cerosidade no máximo pouca e fraca.</li>
+            <li><strong>II.</strong> O horizonte B textural (Bt) requer, obrigatoriamente, um decréscimo contínuo no teor gravimétrico de argila do horizonte A para o horizonte subjacente, causado por desagregação coloidal autóctone e ausência de iluviação.</li>
+            <li><strong>III.</strong> O horizonte B espódico (Bhs, Bs ou Bh) caracteriza-se pela acumulação iluvial de compostos orgânicos associados a alumínio amorfo, acompanhados ou não por ferro, posicionando-se frequentemente sob um horizonte eluvial empobrecido (E álbico).</li>
+            <li><strong>IV.</strong> O horizonte B incipiente (Bi) manifesta alteração física e química inicial do material de origem, expressando diferenciação morfológica e estrutural insuficiente para atender aos requisitos de um horizonte B latossólico ou textural, mantendo comumente teores apreciáveis de minerais primários alteráveis e relação silte/argila mais elevada.</li>
+          </ul>
+          Estão <strong>CORRETAS</strong> as afirmativas:
+        </div>
+        <div class="options-group">
+          <label class="option-label" data-q="5" data-opt="A">
+            <input type="radio" name="q5" value="A">
+            <div class="option-text"><strong>A)</strong> I e II, apenas.</div>
+          </label>
+          <label class="option-label" data-q="5" data-opt="B">
+            <input type="radio" name="q5" value="B">
+            <div class="option-text"><strong>B)</strong> III e IV, apenas.</div>
+          </label>
+          <label class="option-label" data-q="5" data-opt="C">
+            <input type="radio" name="q5" value="C">
+            <div class="option-text"><strong>C)</strong> I, III e IV, apenas.</div>
+          </label>
+          <label class="option-label" data-q="5" data-opt="D">
+            <input type="radio" name="q5" value="D">
+            <div class="option-text"><strong>D)</strong> II, III e IV, apenas.</div>
+          </label>
+          <label class="option-label" data-q="5" data-opt="E">
+            <input type="radio" name="q5" value="E">
+            <div class="option-text"><strong>E)</strong> I, II, III e IV.</div>
+          </label>
+        </div>
+        <div class="resolution-box" id="res-q5">
+          <div class="resolution-title">📖 Resolução Comentada — Questão 05 (Gabarito: C)</div>
+          <div class="resolution-content">
+            <p><strong>A alternativa C é a correta</strong>, pois reúne as proposições I, III e IV como tecnicamente verdadeiras.</p>
+            <p>• <strong>Proposição I (Verdadeira):</strong> Resume a diagnose oficial do horizonte Bw: intemperismo avançado, dessilificação acentuada, predomínio de caulinita e oxi-hidróxidos de ferro e alumínio, atividade Tb, baixa relação silte/argila e microagregação ("pó de café").<br>
+            • <strong>Proposição II (Falsa):</strong> O horizonte Bt exige <em>aumento</em> (gradiente textural ascendente no perfil) no teor de argila do horizonte A (ou E) para o B subjacente, impulsionado por eluviação e iluviação mecânica com presença característica de cerosidade.<br>
+            • <strong>Proposição III (Verdadeira):</strong> O horizonte B espódico resulta do acúmulo iluvial de substâncias húmicas complexadas com alumínio e/ou ferro sob um horizonte E álbico.<br>
+            • <strong>Proposição IV (Verdadeira):</strong> O horizonte Bi reflete intemperização inicial a moderada, apresentando mineralogia com minerais primários alteráveis e relação silte/argila superior à dos Latossolos.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Questão 06 -->
+      <div class="question-card" id="card-q6">
+        <div class="question-header">
+          <div class="q-number">Questão 06</div>
+          <div class="q-status-tag" id="status-q6">Pendente</div>
+        </div>
+        <div class="q-enunciado">
+          A discriminação pedológica e geomorfológica entre as ordens dos Latossolos e dos Argissolos representa um dos eixos mais estratégicos do mapeamento pedológico e do planejamento do uso da terra no território brasileiro. Essas duas ordens ocupam grande parte das paisagens tropicais e subtropicais, apresentando comportamentos hidrodinâmicos e suscetibilidades à erosão contrastantes.<br><br>
+          A respeito da diferenciação técnica, morfológica e conservacionista entre Latossolos e Argissolos, assinale a alternativa <strong>CORRETA</strong>:
+        </div>
+        <div class="options-group">
+          <label class="option-label" data-q="6" data-opt="A">
+            <input type="radio" name="q6" value="A">
+            <div class="option-text"><strong>A)</strong> Os Latossolos são solos pouco profundos e imperfeitamente drenados, caracterizados por descontinuidade textural abrupta entre os horizontes superficiais e subsuperficiais, o que potencializa movimentos de massa translacionais em relevos tabulares.</div>
+          </label>
+          <label class="option-label" data-q="6" data-opt="B">
+            <input type="radio" name="q6" value="B">
+            <div class="option-text"><strong>B)</strong> Os Argissolos são solos de perfil homogêneo e sem gradiente textural vertical, caracterizados pela presença obrigatória de horizonte B latossólico espesso, o que lhes confere elevada resistência natural contra a formação de voçorocas em vertentes dissecadas.</div>
+          </label>
+          <label class="option-label" data-q="6" data-opt="C">
+            <input type="radio" name="q6" value="C">
+            <div class="option-text"><strong>C)</strong> Os Latossolos apresentam horizonte B latossólico (Bw) muito intemperizado, estrutura em microagregados de elevada permeabilidade e transições graduais ou difusas, enquanto os Argissolos exibem horizonte B textural (Bt) com gradiente de argila pronunciado em relação ao horizonte A (ou E), resultando em contraste hidráulico que favorece o fluxo subsuperficial lateral e potencializa a suscetibilidade à erosão hídrica em sulcos e voçorocas.</div>
+          </label>
+          <label class="option-label" data-q="6" data-opt="D">
+            <input type="radio" name="q6" value="D">
+            <div class="option-text"><strong>D)</strong> Ambos os solos apresentam estrutura física semelhante e idêntica erodibilidade intrínseca, diferenciando-se unicamente pela saturação por bases (V%), a qual deve ser compulsoriamente superior a 80% nos Latossolos e inferior a 20% nos Argissolos.</div>
+          </label>
+          <label class="option-label" data-q="6" data-opt="E">
+            <input type="radio" name="q6" value="E">
+            <div class="option-text"><strong>E)</strong> A presença frequente de cerosidade em quantidades moderada a abundante recobrindo agregados estruturais em blocos é o critério micromorfológico e de campo primordial para caracterizar o horizonte B latossólico.</div>
+          </label>
+        </div>
+        <div class="resolution-box" id="res-q6">
+          <div class="resolution-title">📖 Resolução Comentada — Questão 06 (Gabarito: C)</div>
+          <div class="resolution-content">
+            <p><strong>A alternativa C é a correta.</strong> A tabela comparativa sintetiza com rigor as distinções diagnósticas e comportamentais entre Latossolos e Argissolos:</p>
+            <div class="table-responsive">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Atributo Diferencial</th>
+                    <th>Latossolos (Bw)</th>
+                    <th>Argissolos (Bt)</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>Horizonte Subsuperficial</strong></td>
+                    <td>B latossólico, espesso (&gt; 50 cm), muito intemperizado</td>
+                    <td>B textural, com nítida iluviação de argila coloidal</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Transição entre Horizontes</strong></td>
+                    <td>Gradual ou difusa, sem quebra textural</td>
+                    <td>Clara ou abrupta, com gradiente de argila (B/A)</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Estrutura Dominante</strong></td>
+                    <td>Granular muito pequena (microagregação oxídica)</td>
+                    <td>Blocos subangulares e angulares ou prismática</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Cerosidade nos Agregados</strong></td>
+                    <td>Ausente ou no máximo pouca e fraca</td>
+                    <td>Comumente moderada a abundante (brilho graxo)</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Hidrodinâmica e Permeabilidade</strong></td>
+                    <td>Drenagem homogênea e rápida em todo o solum</td>
+                    <td>Contraste hidráulico entre camadas superficiais e Bt</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Suscetibilidade à Erosão</strong></td>
+                    <td>Menor erodibilidade física; predomina erosão laminar</td>
+                    <td>Alta erodibilidade hídrica; geração intensa de voçorocas</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p>Nos Argissolos, a infiltração rápida pela camada arenosa A/E encontra impedimento na frente do horizonte Bt, gerando fluxo hipodérmico lateral (<em>throughflow</em>) que satura a camada de contato e deflagra ravinas e voçorocas de grande magnitude.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Questão 07 -->
+      <div class="question-card" id="card-q7">
+        <div class="question-header">
+          <div class="q-number">Questão 07</div>
+          <div class="q-status-tag" id="status-q7">Pendente</div>
+        </div>
+        <div class="q-enunciado">
+          No contexto do SiBCS (Embrapa) e da compartimentação das paisagens analisada por Ross (2014), os solos de evolução inicial e intermediária desempenham papel relevante na dinâmica das encostas e dos relevos dissecados. A classificação das classes Neossolos e Cambissolos exige a compreensão dos limites morfológicos e genéticos impostos pelos horizontes diagnósticos.<br><br>
+          Sobre as características que definem e distinguem Neossolos e Cambissolos, assinale a alternativa <strong>CORRETA</strong>:
+        </div>
+        <div class="options-group">
+          <label class="option-label" data-q="7" data-opt="A">
+            <input type="radio" name="q7" value="A">
+            <div class="option-text"><strong>A)</strong> Os Neossolos são solos altamente evoluídos pedogeneticamente, desenvolvidos sobre superfícies geomorfológicas antigas e estáveis, contendo horizonte B textural sobreposto a rochas magmáticas ácidas.</div>
+          </label>
+          <label class="option-label" data-q="7" data-opt="B">
+            <input type="radio" name="q7" value="B">
+            <div class="option-text"><strong>B)</strong> Os Cambissolos são solos constituídos por material mineral que apresentam horizonte diagnóstico subsuperficial B incipiente (Bi) subjacente a qualquer tipo de horizonte superficial (exceto hístico com espessura diagnóstica para Organossolo e A chernozêmico quando conjugado com saturação e atividade altas), refletindo moderado estádio de intemperismo e estruturação.</div>
+          </label>
+          <label class="option-label" data-q="7" data-opt="C">
+            <input type="radio" name="q7" value="C">
+            <div class="option-text"><strong>C)</strong> Os Neossolos Litólicos caracterizam-se pela presença de horizonte B incipiente espesso apoiado diretamente sobre horizonte B espódico consolidado.</div>
+          </label>
+          <label class="option-label" data-q="7" data-opt="D">
+            <input type="radio" name="q7" value="D">
+            <div class="option-text"><strong>D)</strong> Os Cambissolos caracterizam-se pela ausência completa de horizontes subsuperficiais diferenciados, apresentando exclusivamente camadas C sedimentares estratificadas de deposição aluvial pura.</div>
+          </label>
+          <label class="option-label" data-q="7" data-opt="E">
+            <input type="radio" name="q7" value="E">
+            <div class="option-text"><strong>E)</strong> A presença de contato lítico a menos de 50 cm da superfície do terreno desqualifica o enquadramento na ordem dos Neossolos, forçando a classificação do perfil como Latossolo Raso.</div>
+          </label>
+        </div>
+        <div class="resolution-box" id="res-q7">
+          <div class="resolution-title">📖 Resolução Comentada — Questão 07 (Gabarito: B)</div>
+          <div class="resolution-content">
+            <p><strong>A alternativa B é a correta.</strong> Conforme os critérios do SiBCS, os Cambissolos reúnem solos minerais que apresentam obrigatoriamente horizonte diagnóstico B incipiente (Bi) subjacente a qualquer horizonte superficial, respeitadas as exceções normativas relativas a solos com caráter chernozêmico completo ou horizontes hísticos diagnósticos de Organossolos. O horizonte Bi reflete alterações físicas e químicas intermediárias (formação inicial de estrutura em blocos e diferenciação de cor em relação à rocha matriz), sem atingir a intensidade de transformação de um Bw nem a iluviação de argila de um Bt.</p>
+            <p><strong>Análise dos distratores:</strong><br>
+            • <em>A incorreta:</em> Neossolos são solos jovens/pouco evoluídos que carecem de qualquer horizonte B diagnóstico.<br>
+            • <em>C incorreta:</em> Neossolos Litólicos têm contato lítico a menos de 50 cm e não possuem horizonte B diagnóstico.<br>
+            • <em>D incorreta:</em> A ausência total de horizontes diagnósticos em camadas aluviais estratificadas define os Neossolos Flúvicos, não os Cambissolos.<br>
+            • <em>E incorreta:</em> Não existe a classe "Latossolo Raso" no SiBCS; a presença de contato lítico a menos de 50 cm define os Neossolos Litólicos.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Questão 08 -->
+      <div class="question-card" id="card-q8">
+        <div class="question-header">
+          <div class="q-number">Questão 08</div>
+          <div class="q-status-tag" id="status-q8">Pendente</div>
+        </div>
+        <div class="q-enunciado">
+          A ordem dos Espodossolos agrupa solos formados por mecanismos pedogenéticos específicos de translocação e iluviação de compostos químicos, comumente associados a materiais arenosos em relevos planos de restingas litorâneas ou depressões de bacias sedimentares continentais.<br><br>
+          Considerando os processos pedogenéticos, os horizontes diagnósticos e a morfologia típica dos Espodossolos abordados no SiBCS e na literatura pedológica, assinale a alternativa <strong>CORRETA</strong>:
+        </div>
+        <div class="options-group">
+          <label class="option-label" data-q="8" data-opt="A">
+            <input type="radio" name="q8" value="A">
+            <div class="option-text"><strong>A)</strong> O principal processo genético responsável pela diferenciação do perfil nos Espodossolos é a latolização, responsável pela remoção completa de ferro e alumínio e acúmulo de sílica coloidal.</div>
+          </label>
+          <label class="option-label" data-q="8" data-opt="B">
+            <input type="radio" name="q8" value="B">
+            <div class="option-text"><strong>B)</strong> O horizonte diagnóstico subsuperficial obrigatório nos Espodossolos é o B textural, definido pela presença conspícua de cerosidade e domínio de argilas expansivas do tipo 2:1.</div>
+          </label>
+          <label class="option-label" data-q="8" data-opt="C">
+            <input type="radio" name="q8" value="C">
+            <div class="option-text"><strong>C)</strong> O perfil típico de um Espodossolo exibe a sequência morfológica de horizontes A - E álbico - B espódico, no qual o horizonte E expressa forte eluviação com perda de pigmentos e o horizonte B espódico expressa a iluviação e concentração de matéria orgânica e alumínio, associados ou não ao ferro.</div>
+          </label>
+          <label class="option-label" data-q="8" data-opt="D">
+            <input type="radio" name="q8" value="D">
+            <div class="option-text"><strong>D)</strong> O horizonte B espódico apresenta-se invariavelmente friável ou solto, não admitindo cimentação química por complexos organometálicos em nenhuma circunstância morfológica.</div>
+          </label>
+          <label class="option-label" data-q="8" data-opt="E">
+            <input type="radio" name="q8" value="E">
+            <div class="option-text"><strong>E)</strong> Os Espodossolos exibem capacidade de troca de cátions condicionada unicamente por sesquióxidos de ferro cristalinos, sendo desprovidos de frações orgânicas ao longo de todo o perfil pedogenético.</div>
+          </label>
+        </div>
+        <div class="resolution-box" id="res-q8">
+          <div class="resolution-title">📖 Resolução Comentada — Questão 08 (Gabarito: C)</div>
+          <div class="resolution-content">
+            <p><strong>A alternativa C é a correta.</strong> A gênese característica dos Espodossolos (antigos Podzóis) é orientada pelo processo de podzolização: compostos orgânicos solúveis e ácidos quelam cátions de ferro e alumínio, promovendo sua eluviação a partir do horizonte A/E. Isso origina uma camada empobrecida e clara, o horizonte E álbico (composto essencialmente de grãos limpos de quartzo). Em subsuperfície, ao atingir uma descontinuidade físico-química ou zona de lençol freático, ocorre a precipitação desses quelatos, gerando o horizonte B espódico (Bhs, Bs ou Bh), caracterizado pela cor escura ou brunada decorrente do acúmulo de matéria orgânica e alumínio/ferro amorfos.</p>
+            <p><strong>Análise dos distratores:</strong><br>
+            • <em>A incorreta:</em> O processo fundamental é a podzolização; latolização é o processo formador de Latossolos.<br>
+            • <em>B incorreta:</em> O horizonte obrigatório é o B espódico, não o B textural.<br>
+            • <em>D incorreta:</em> O horizonte B espódico pode apresentar forte cimentação por matéria orgânica e sesquióxidos, constituindo horizontes endurecidos contínuos (ortstein).<br>
+            • <em>E incorreta:</em> A matéria orgânica é componente diagnóstico central do horizonte B espódico.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Questão 09 -->
+      <div class="question-card" id="card-q9">
+        <div class="question-header">
+          <div class="q-number">Questão 09</div>
+          <div class="q-status-tag" id="status-q9">Pendente</div>
+        </div>
+        <div class="q-enunciado">
+          A degradação das terras no território brasileiro manifesta-se por meio de dinâmicas geomorfológicas, climáticas e antrópicas com expressões espaciais e pedológicas distintas. Nas obras de Teixeira et al. (2009) e Ross (2014), estabelece-se a distinção conceitual, morfodinâmica e geográfica rigorosa entre os fenômenos de <strong>arenização</strong> e de <strong>desertificação</strong>.<br><br>
+          A respeito da distinção genética, climática e regional entre arenização e desertificação no território brasileiro, assinale a alternativa <strong>CORRETA</strong>:
+        </div>
+        <div class="options-group">
+          <label class="option-label" data-q="9" data-opt="A">
+            <input type="radio" name="q9" value="A">
+            <div class="option-text"><strong>A)</strong> A arenização é restrita às depressões semiáridas do Sertão Nordestino, sendo deflagrada pela escassez hídrica contínua e pela concentração de sais em Neossolos Flúvicos e Vertissolos.</div>
+          </label>
+          <label class="option-label" data-q="9" data-opt="B">
+            <input type="radio" name="q9" value="B">
+            <div class="option-text"><strong>B)</strong> A desertificação ocorre predominantemente em clima subtropical úmido no sudoeste do Rio Grande do Sul, deflagrada pela perda mecânica de coloides argilosos devido ao pisoteio intensivo de rebanhos bovinos sobre Latossolos Vermelhos eutróficos.</div>
+          </label>
+          <label class="option-label" data-q="9" data-opt="C">
+            <input type="radio" name="q9" value="C">
+            <div class="option-text"><strong>C)</strong> A arenização desenvolve-se na porção meridional do Brasil (com destaque para o Sudoeste Rio-Grandense) sob clima subtropical com pluviosidade regular e moderada a elevada, consistindo no retrabalhamento e na exposição de sedimentos arenosos friáveis e inconsolidados por processos hídricos e eólicos, intensificados pelo sobrepastoreio; já a desertificação incide no Semiárido brasileiro sob regime de aridez climática e déficit hídrico acentuado, correspondendo à degradação biológica e pedológica ampla das terras secas.</div>
+          </label>
+          <label class="option-label" data-q="9" data-opt="D">
+            <input type="radio" name="q9" value="D">
+            <div class="option-text"><strong>D)</strong> Ambos os processos decorrem unicamente da couraça de laterização de rochas ígneas básicas, dependendo de secas plurianuais prolongadas para que se inicie a desagregação das frações de areia.</div>
+          </label>
+          <label class="option-label" data-q="9" data-opt="E">
+            <input type="radio" name="q9" value="E">
+            <div class="option-text"><strong>E)</strong> A desertificação define-se geomorfologicamente pelo deslocamento de dunas eólicas móveis em litorais marinhos, ao passo que a arenização refere-se exclusivamente ao esgotamento de macro e micronutrientes causado pela aplicação excessiva de calcário.</div>
+          </label>
+        </div>
+        <div class="resolution-box" id="res-q9">
+          <div class="resolution-title">📖 Resolução Comentada — Questão 09 (Gabarito: C)</div>
+          <div class="resolution-content">
+            <p><strong>A alternativa C é a correta.</strong> A discriminação conceitual e regional entre arenização e desertificação é clara na literatura (Ross, 2014; Teixeira et al., 2009):</p>
+            <div class="table-responsive">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Parâmetro Comparativo</th>
+                    <th>Arenização</th>
+                    <th>Desertificação</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>Região Geográfica</strong></td>
+                    <td>Sudoeste do Rio Grande do Sul (Bioma Pampa)</td>
+                    <td>Semiárido Brasileiro (Sertão Nordestino e Norte de MG)</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Regime Climático</strong></td>
+                    <td>Subtropical úmido (chuvas anuais de 1.400 a 1.800 mm)</td>
+                    <td>Semiárido com déficit hídrico acentuado e secas periódicas</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Substrato Geológico</strong></td>
+                    <td>Arenitos friáveis inconsolidados (Formações Botucatu/Guará)</td>
+                    <td>Embasamento cristalino raso ou coberturas sedimentares secas</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Dinâmica do Processo</strong></td>
+                    <td>Remoção de cobertura herbácea e retrabalhamento hídrico/eólico dos bancos de areia</td>
+                    <td>Perda progressiva da capacidade produtiva e da cobertura biológica das terras secas</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Pressão Antrópica</strong></td>
+                    <td>Sobrepastoreio e pisoteio bovino sobre campos arenosos frágeis</td>
+                    <td>Desmatamento da Caatinga, sobrepastejo caprino e queimadas</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p>Portanto, a arenização no Rio Grande do Sul <em>não</em> é um deserto por seca climática, mas um fenômeno morfogenético de dinâmica de areias em clima chuvoso, ao passo que a desertificação se vincula obrigatoriamente a zonas áridas, semiáridas e subúmidas secas.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Questão 10 -->
+      <div class="question-card" id="card-q10">
+        <div class="question-header">
+          <div class="q-number">Questão 10</div>
+          <div class="q-status-tag" id="status-q10">Pendente</div>
+        </div>
+        <div class="q-enunciado">
+          Os solos sob exploração agropecuária ou submetidos a pressões morfogenéticas antrópicas sofrem diferentes formas de degradação física e química. Entre as principais alterações adversas que afetam a qualidade ambiental do substrato pedológico destacam-se a compactação mecânica, a salinização e a laterização (plintitização/petroplintitização).<br><br>
+          Sobre a dinâmica desses processos de degradação do solo, assinale a alternativa <strong>CORRETA</strong>:
+        </div>
+        <div class="options-group">
+          <label class="option-label" data-q="10" data-opt="A">
+            <input type="radio" name="q10" value="A">
+            <div class="option-text"><strong>A)</strong> A compactação mecânica acarreta o colapso e a redução seletiva da macroporosidade em decorrência do tráfego sistemático de maquinário agrícola pesado ou do pisoteio excessivo de animais, elevando a densidade aparente do solo e diminuindo a condutividade hidráulica e a taxa de infiltração hídrica.</div>
+          </label>
+          <label class="option-label" data-q="10" data-opt="B">
+            <input type="radio" name="q10" value="B">
+            <div class="option-text"><strong>B)</strong> A laterização acelerada decorre do acúmulo superficial de sais solúveis de sódio e magnésio induzido pelo manejo de irrigação artificial sem sistema de drenagem eficiente em bacias sedimentares semiáridas.</div>
+          </label>
+          <label class="option-label" data-q="10" data-opt="C">
+            <input type="radio" name="q10" value="C">
+            <div class="option-text"><strong>C)</strong> A salinização caracteriza-se pelo endurecimento e cimentação irreversível de mosqueados ricos em sesquióxidos de ferro quando submetidos a ciclos alternados de umedecimento e dessecação.</div>
+          </label>
+          <label class="option-label" data-q="10" data-opt="D">
+            <input type="radio" name="q10" value="D">
+            <div class="option-text"><strong>D)</strong> A compactação antrópica atua favoravelmente nas propriedades físicas do perfil, ampliando a continuidade dos macroporos e eliminando os riscos de escoamento superficial concentrado em encostas íngremes.</div>
+          </label>
+          <label class="option-label" data-q="10" data-opt="E">
+            <input type="radio" name="q10" value="E">
+            <div class="option-text"><strong>E)</strong> O processo de salinização concentra-se tipicamente em solos profundos de áreas perúmidas com pluviosidade superior a 2.500 mm anuais, nas quais a intensa drenagem vertical retém cátions alcalinos nas camadas superficiais do solo.</div>
+          </label>
+        </div>
+        <div class="resolution-box" id="res-q10">
+          <div class="resolution-title">📖 Resolução Comentada — Questão 10 (Gabarito: A)</div>
+          <div class="resolution-content">
+            <p><strong>A alternativa A é a correta.</strong> A compactação do solo resulta de pressões mecânicas excessivas que superam sua capacidade de sustentação estrutural. Esse estresse destrói seletivamente a <strong>macroporosidade</strong> (poros responsáveis pelo fluxo rápido e aeração), promovendo o adensamento das partículas, o que resulta no aumento substancial da <strong>densidade do solo</strong>. Com a macroporosidade comprometida, a condutividade hidráulica saturada e a taxa de infiltração caem bruscamente, gerando escoamento superficial acelerado (<em>run-off</em>) e erosão laminar e em sulcos.</p>
+            <p><strong>Análise dos distratores:</strong><br>
+            • <em>B incorreta:</em> O acúmulo de sais de sódio por irrigação artificial deficitária é a salinização, e não laterização.<br>
+            • <em>C incorreta:</em> O endurecimento de mosqueados ricos em ferro por alternância de umedecimento e secagem define a laterização/petroplintitização (formação de couraça/canga).<br>
+            • <em>D incorreta:</em> A compactação degrada a física estrutural, reduz os macroporos e amplifica o escoamento erosivo.<br>
+            • <em>E incorreta:</em> Em climas perúmidos (&gt; 2.500 mm), a lixiviação é severa e lava as bases do perfil, impedindo a salinização (que requer forte evapotranspiração potencial excedendo a chuva).</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Barra de Ação -->
+      <div class="actions-bar" id="actionsBar">
+        <button type="button" class="btn btn-primary" id="btnSubmit" onclick="finalizarQuiz()">
+          Finalizar Simulado e Ver Resoluções
+        </button>
+        <span style="font-size: 0.88rem; color: var(--text-light);">
+          * Todas as questões serão conferidas instantaneamente com a divulgação do gabarito e resolução detalhada na mesma página.
+        </span>
+      </div>
+
+    </form>
+
+  </div>
+
+  <!-- Notificação Flutuante (Substituto Amigável ao alert) -->
+  <div class="toast-msg" id="toastMessage"></div>
+
+  <script>
+    // Gabarito Oficial das 10 Questões
+    const GABARITO = {
+      1: "C",
+      2: "B",
+      3: "B",
+      4: "B",
+      5: "C",
+      6: "C",
+      7: "B",
+      8: "C",
+      9: "C",
+      10: "A"
+    };
+
+    const TOTAL_QUESTOES = 10;
+    let quizFinalizado = false;
+
+    // Toast amigável no lugar de alert()
+    function showToast(mensagem, duracao = 3200) {
+      const toast = document.getElementById("toastMessage");
+      toast.innerText = mensagem;
+      toast.style.display = "block";
+      setTimeout(() => {
+        toast.style.display = "none";
+      }, duracao);
+    }
+
+    // Monitora a seleção de opções pelo usuário para atualizar a barra de progresso
+    document.querySelectorAll('.option-label input[type="radio"]').forEach(radio => {
+      radio.addEventListener('change', function() {
+        if (quizFinalizado) return;
+
+        const qNum = this.name.replace('q', '');
+        const card = document.getElementById(`card-q${qNum}`);
+        const statusTag = document.getElementById(`status-q${qNum}`);
+
+        if (card && statusTag) {
+          card.classList.add('answered');
+          statusTag.innerText = "Respondida";
+          statusTag.style.background = "#EBF4FF";
+          statusTag.style.color = "#2563EB";
+        }
+
+        atualizarProgresso();
+      });
+    });
+
+    function atualizarProgresso() {
+      let respondidas = 0;
+      for (let i = 1; i <= TOTAL_QUESTOES; i++) {
+        const checked = document.querySelector(`input[name="q${i}"]:checked`);
+        if (checked) respondidas++;
+      }
+
+      const counter = document.getElementById('progressCounter');
+      const fill = document.getElementById('progressFill');
+      const pct = (respondidas / TOTAL_QUESTOES) * 100;
+
+      counter.innerText = `${respondidas} de ${TOTAL_QUESTOES} respondidas`;
+      fill.style.width = `${pct}%`;
+    }
+
+    // Finalizar Quiz e Revelar Resoluções
+    function finalizarQuiz() {
+      // Coleta respostas
+      let respondidas = 0;
+      let acertos = 0;
+      const userAnswers = {};
+
+      for (let i = 1; i <= TOTAL_QUESTOES; i++) {
+        const checked = document.querySelector(`input[name="q${i}"]:checked`);
+        if (checked) {
+          respondidas++;
+          userAnswers[i] = checked.value;
+        } else {
+          userAnswers[i] = null;
+        }
+      }
+
+      if (respondidas < TOTAL_QUESTOES) {
+        const faltantes = TOTAL_QUESTOES - respondidas;
+        showToast(`Atenção: Você ainda possui ${faltantes} questão(ões) pendente(s). Verifique suas respostas!`);
+      }
+
+      quizFinalizado = true;
+
+      // Desabilita radios e aplica estilos de gabarito e resolução
+      for (let i = 1; i <= TOTAL_QUESTOES; i++) {
+        const gabaritoCorreto = GABARITO[i];
+        const userChoice = userAnswers[i];
+        const statusTag = document.getElementById(`status-q${i}`);
+        const card = document.getElementById(`card-q${i}`);
+        const resBox = document.getElementById(`res-q${i}`);
+
+        // Mostra a caixa de resolução
+        if (resBox) resBox.style.display = 'block';
+
+        // Desabilita todas as opções dessa questão
+        const radios = document.querySelectorAll(`input[name="q${i}"]`);
+        radios.forEach(r => r.disabled = true);
+
+        // Estiliza os rótulos
+        const labels = card.querySelectorAll('.option-label');
+        labels.forEach(label => {
+          const optVal = label.getAttribute('data-opt');
+          label.style.cursor = 'default';
+
+          // Marca o gabarito oficial em verde
+          if (optVal === gabaritoCorreto) {
+            label.classList.add('is-correct-answer');
+          }
+
+          // Se o usuário marcou esta e estava errada, marca em vermelho
+          if (userChoice && userChoice === optVal && userChoice !== gabaritoCorreto) {
+            label.classList.add('user-selected-wrong');
+          }
+        });
+
+        // Atualiza a tag de status da questão
+        if (userChoice === gabaritoCorreto) {
+          acertos++;
+          statusTag.innerText = "Correta ✓";
+          statusTag.style.background = "var(--success-bg)";
+          statusTag.style.color = "var(--success-text)";
+          card.style.borderLeft = "5px solid #166534";
+        } else {
+          statusTag.innerText = userChoice ? "Incorreta ✕" : "Em branco ⚠";
+          statusTag.style.background = "var(--error-bg)";
+          statusTag.style.color = "var(--error-text)";
+          card.style.borderLeft = "5px solid #DC2626";
+        }
+      }
+
+      // Atualiza o painel de resultados
+      const erros = TOTAL_QUESTOES - acertos;
+      const aproveitamento = Math.round((acertos / TOTAL_QUESTOES) * 100);
+
+      document.getElementById('scoreValue').innerText = acertos;
+      document.getElementById('statCorrect').innerText = acertos;
+      document.getElementById('statWrong').innerText = erros;
+      document.getElementById('statRate').innerText = `${aproveitamento}%`;
+
+      const resultsTitle = document.getElementById('resultsTitle');
+      const resultsDesc = document.getElementById('resultsDesc');
+
+      if (aproveitamento >= 80) {
+        resultsTitle.innerText = "Excelente Desempenho!";
+        resultsDesc.innerText = `Você dominou a prova com ${aproveitamento}% de acertos. As resoluções comentadas de cada questão já estão disponíveis logo abaixo de cada enunciado.`;
+      } else if (aproveitamento >= 60) {
+        resultsTitle.innerText = "Bom Resultado!";
+        resultsDesc.innerText = `Você atingiu ${aproveitamento}% de acertos. Revise com atenção a diferenciação entre Latossolos e Argissolos e os processos de degradação nas resoluções comentadas abaixo.`;
+      } else {
+        resultsTitle.innerText = "Resultado para Estudo e Fixação";
+        resultsDesc.innerText = `Você acertou ${aproveitamento}%. Aproveite as resoluções comentadas detalhadas em cada questão para reforçar a teoria do SiBCS e a bibliografia de Teixeira e Ross.`;
+      }
+
+      // Mostra o card de resultados
+      const resultsCard = document.getElementById('resultsCard');
+      resultsCard.style.display = 'block';
+
+      // Oculta botão de finalizar para evitar duplo envio
+      document.getElementById('actionsBar').style.display = 'none';
+
+      // Rola a página suavemente até o painel de resultados
+      resultsCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    // Reiniciar o simulado para praticar novamente
+    function reiniciarSimulado() {
+      quizFinalizado = false;
+      document.getElementById('quizForm').reset();
+
+      // Esconde resultados e reexibe botão
+      document.getElementById('resultsCard').style.display = 'none';
+      document.getElementById('actionsBar').style.display = 'flex';
+
+      // Reseta todas as questões
+      for (let i = 1; i <= TOTAL_QUESTOES; i++) {
+        const card = document.getElementById(`card-q${i}`);
+        const statusTag = document.getElementById(`status-q${i}`);
+        const resBox = document.getElementById(`res-q${i}`);
+
+        if (resBox) resBox.style.display = 'none';
+        if (card) {
+          card.classList.remove('answered');
+          card.style.borderLeft = '1px solid var(--border-color)';
+        }
+        if (statusTag) {
+          statusTag.innerText = 'Pendente';
+          statusTag.style.background = 'var(--bg-subtle)';
+          statusTag.style.color = 'var(--text-light)';
+        }
+
+        // Reabilita inputs e remove classes
+        const radios = document.querySelectorAll(`input[name="q${i}"]`);
+        radios.forEach(r => r.disabled = false);
+
+        const labels = card.querySelectorAll('.option-label');
+        labels.forEach(label => {
+          label.classList.remove('is-correct-answer', 'user-selected-wrong');
+          label.style.cursor = 'pointer';
+        });
+      }
+
+      atualizarProgresso();
+
+      // Rola para o topo suavemente
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      showToast("Simulado reiniciado com sucesso!");
+    }
+  </script>
+</body>
+</html>

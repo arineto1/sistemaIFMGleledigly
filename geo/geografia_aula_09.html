@@ -1,0 +1,958 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Geomorfologia do Brasil: Classificação e Compartimentação de Ross</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Merriweather:ital,wght@0,300;0,400;0,700;1,300&display=swap" rel="stylesheet">
+  
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #ffffff;
+      color: #1e293b; /* Slate 800 - alta legibilidade sem o contraste excessivo do preto puro */
+      line-height: 1.75;
+    }
+
+    .font-reading {
+      font-family: 'Inter', sans-serif;
+    }
+
+    /* Grifo padrão marca-texto suave */
+    mark.highlight {
+      background-color: #fef08a; /* Amarelo pastel suave */
+      color: #0f172a;
+      padding: 0.12rem 0.35rem;
+      border-radius: 0.25rem;
+      font-weight: 600;
+    }
+
+    mark.highlight-green {
+      background-color: #dcfce7; /* Verde pastel suave para diferenciação */
+      color: #064e3b;
+      padding: 0.12rem 0.35rem;
+      border-radius: 0.25rem;
+      font-weight: 600;
+    }
+
+    mark.highlight-blue {
+      background-color: #e0f2fe; /* Azul pastel suave */
+      color: #0c4a6e;
+      padding: 0.12rem 0.35rem;
+      border-radius: 0.25rem;
+      font-weight: 600;
+    }
+
+    /* Ajuste de tabelas para garantir quebras e zero scroll horizontal */
+    table {
+      table-layout: fixed;
+      width: 100%;
+      word-wrap: break-word;
+      overflow-wrap: break-word;
+    }
+  </style>
+</head>
+<body class="bg-white min-h-screen">
+
+  <!-- TOPO: Barra Superior Institucional Neutra -->
+  <header class="border-b border-slate-200 bg-white sticky top-0 z-40">
+    <div class="max-w-5xl mx-auto px-4 py-3 flex flex-wrap justify-between items-center gap-2">
+      <div class="flex items-center space-x-2">
+        <span class="inline-flex items-center px-2.5 py-0.5 rounded text-xs font-semibold bg-slate-100 text-slate-700 border border-slate-200">
+          IFMG • Professor EBTT
+        </span>
+        <span class="text-xs text-slate-500 font-medium hidden sm:inline">Geografia Física & Geomorfologia</span>
+      </div>
+      <div class="flex items-center space-x-3">
+        <a href="#tabelas" class="text-xs font-medium text-slate-600 hover:text-slate-900 transition-colors">Tabelas</a>
+        <a href="#depressoes" class="text-xs font-medium text-slate-600 hover:text-slate-900 transition-colors">Depressões</a>
+        <a href="#memorizacao" class="text-xs font-medium text-slate-600 hover:text-slate-900 transition-colors">Dicas de Prova</a>
+        <a href="questoes8geo.html" class="inline-flex items-center text-xs font-semibold px-3 py-1.5 rounded-md bg-slate-800 text-white hover:bg-slate-900 transition">
+          Questões &rarr;
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- CONTAINER PRINCIPAL -->
+  <main class="max-w-5xl mx-auto px-4 sm:px-6 py-8">
+
+    <!-- REPRODUTOR DE ÁUDIO CONFIGURÁVEL -->
+    <section class="mb-10 p-5 bg-white border border-slate-300 rounded-xl shadow-sm">
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-4 border-b border-slate-200">
+        <div>
+          <div class="flex items-center space-x-2">
+            <svg class="w-5 h-5 text-slate-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
+            </svg>
+            <h2 class="text-base font-bold text-slate-900 tracking-tight">Reprodutor de Áudio da Aula (MP3)</h2>
+          </div>
+          <p class="text-xs text-slate-500 mt-0.5">Ouça o resumo narrado enquanto acompanha o texto e as tabelas comparativas.</p>
+        </div>
+
+        <!-- Campo para digitar/alterar o arquivo de áudio -->
+        <div class="flex items-center gap-2">
+          <label for="audioFileName" class="text-xs font-semibold text-slate-600 whitespace-nowrap">Arquivo:</label>
+          <div class="relative flex items-center">
+            <input 
+              type="text" 
+              id="audioFileName" 
+              value="audio9geo.mp3" 
+              placeholder="ex: audio_aula.mp3"
+              class="text-xs px-3 py-1.5 bg-slate-50 border border-slate-300 rounded-l-md focus:bg-white focus:outline-none focus:ring-1 focus:ring-slate-500 w-48 sm:w-56"
+            >
+            <button 
+              onclick="updateAudioSource()" 
+              title="Carregar este arquivo de áudio"
+              class="text-xs px-3 py-1.5 bg-slate-700 hover:bg-slate-900 text-white font-medium rounded-r-md transition-colors"
+            >
+              Carregar
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Player de Áudio e Controles de Velocidade -->
+      <div class="mt-4 flex flex-col sm:flex-row items-center gap-4">
+        <audio id="audioPlayer" controls class="w-full h-10 accent-slate-800">
+          <source id="audioSource" src="audio9geo.mp3" type="audio/mpeg">
+          Seu navegador não suporta reprodução de áudio em HTML5.
+        </audio>
+
+        <!-- Seletor de velocidade para estudo ágil -->
+        <div class="flex items-center space-x-1 shrink-0 bg-slate-100 p-1 rounded-md border border-slate-200">
+          <span class="text-[11px] font-bold text-slate-500 px-1.5 uppercase">Velocidade:</span>
+          <button onclick="setAudioSpeed(1.0)" class="speed-btn px-2 py-0.5 text-xs font-semibold rounded bg-white text-slate-800 shadow-sm border border-slate-300">1x</button>
+          <button onclick="setAudioSpeed(1.25)" class="speed-btn px-2 py-0.5 text-xs font-semibold rounded text-slate-600 hover:bg-white">1.25x</button>
+          <button onclick="setAudioSpeed(1.5)" class="speed-btn px-2 py-0.5 text-xs font-semibold rounded text-slate-600 hover:bg-white">1.5x</button>
+          <button onclick="setAudioSpeed(2.0)" class="speed-btn px-2 py-0.5 text-xs font-semibold rounded text-slate-600 hover:bg-white">2x</button>
+        </div>
+      </div>
+      <div id="audioStatusMsg" class="mt-2 text-[11px] text-slate-500 italic">
+        * Para reproduzir, certifique-se de que o arquivo <strong id="currentFileLabel">audio9geo.mp3</strong> esteja salvo na mesma pasta deste arquivo HTML.
+      </div>
+    </section>
+
+    <!-- CABEÇALHO DO TEMA -->
+    <header class="mb-10 pb-6 border-b border-slate-200">
+      <div class="inline-block px-3 py-1 rounded bg-slate-100 text-slate-700 text-xs font-bold uppercase tracking-wider mb-2">
+        Apostila Teórica & Roteiro de Alta Performance
+      </div>
+      <h1 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight leading-tight">
+        Geomorfologia do Brasil: Evolução Epistemológica e a Compartimentação de Jurandyr Ross
+      </h1>
+      <p class="mt-4 text-slate-600 text-base leading-relaxed">
+        A evolução do pensamento geomorfológico aplicado ao território brasileiro reflete o avanço sistemático dos métodos de sensoriamento remoto, a superação de determinismos puramente topográficos e a consolidação de teorias que articulam <mark class="highlight">tectônica antiga</mark>, <mark class="highlight">paleoclimas</mark> e <mark class="highlight">dinâmicas de denudação diferencial</mark>. O mapeamento do relevo nacional transitou de uma abordagem estritamente hipsométrica para concepções processuais de base morfodinâmica e, finalmente, para a compartimentação morfoclimática, estrutural e temporal. A análise da compartimentação proposta por Jurandyr Ross, amparada nos dados do Projeto Radambrasil e na teoria das morfoestruturas e morfoesculturas, constitui o eixo analítico central de provas de concursos para o magistério superior e a carreira docente de Ensino Básico, Técnico e Tecnológico (EBTT).
+      </p>
+    </header>
+
+    <!-- SEÇÃO 1: EVOLUÇÃO HISTÓRICA DAS CLASSIFICAÇÕES -->
+    <section class="mb-12">
+      <div class="flex items-center space-x-3 mb-4">
+        <span class="w-8 h-8 rounded-full bg-slate-800 text-white font-bold flex items-center justify-center text-sm">1</span>
+        <h2 class="text-2xl font-bold text-slate-900 tracking-tight">Evolução Histórica das Classificações do Relevo Brasileiro</h2>
+      </div>
+
+      <p class="text-slate-700 mb-6 leading-relaxed">
+        O arcabouço descritivo e explicativo das formas da superfície brasileira consolidou-se a partir de três propostas teóricas sucessivas no decorrer do século XX: o modelo topográfico de <mark class="highlight">Aroldo de Azevedo (década de 1940)</mark>, o modelo morfoclimático e genético de <mark class="highlight">Aziz Nacib Ab'Sáber (décadas de 1950 e 1960)</mark> e a matriz morfoestrutural de <mark class="highlight">Jurandyr Ross (décadas de 1980 e 1990)</mark>.
+      </p>
+
+      <!-- Subseção Azevedo -->
+      <div class="mb-6 bg-white p-5 border border-slate-200 rounded-lg">
+        <h3 class="text-lg font-bold text-slate-900 mb-2 flex items-center">
+          <span class="w-2.5 h-2.5 rounded-full bg-slate-400 mr-2"></span>
+          O Critério Hipsométrico de Aroldo de Azevedo (1949)
+        </h3>
+        <p class="text-slate-700 text-sm leading-relaxed mb-3">
+          Na década de 1940, Aroldo de Azevedo formulou a primeira divisão geomorfológica sistemática do território brasileiro. Em razão da incipiência cartográfica da época, seu método adotou o <mark class="highlight">critério hipsométrico rígido</mark>, fixando um patamar altimétrico métrico arbitrário para categorizar as macroformas:
+        </p>
+        <ul class="space-y-2 text-sm text-slate-700 pl-4 border-l-2 border-slate-300 mb-3">
+          <li>
+            <strong class="text-slate-900">Planaltos:</strong> superfícies de topografia levemente acidentada ou ondulada cujas cotas altimétricas <mark class="highlight">ultrapassavam a altitude de 200 metros</mark>.
+          </li>
+          <li>
+            <strong class="text-slate-900">Planícies:</strong> superfícies aplainadas situadas obrigatoriamente <mark class="highlight">abaixo da cota altimétrica de 200 metros</mark> em relação ao nível do mar.
+          </li>
+        </ul>
+        <p class="text-slate-700 text-sm leading-relaxed">
+          Azevedo dividiu o país em apenas <strong>oito compartimentos</strong>: quatro planaltos (Guianas, Central, Atlântico e Meridional) e quatro planícies (Amazônica, Costeira ou Litorânea, do Pantanal e Sul-Rio-Grandense ou Gaúcha). Sob essa métrica altimétrica estrita, <mark class="highlight">59% da extensão territorial foi enquadrada como planáltica e expressivos 41% como planície</mark>. Esse modelo superdimensionou a área das planícies nacionais, sobretudo na Amazônia ocidental, ao confundir baixos platôs sedimentares tabulares com planícies de inundação.
+        </p>
+      </div>
+
+      <!-- Subseção Ab'Sáber -->
+      <div class="mb-8 bg-white p-5 border border-slate-200 rounded-lg">
+        <h3 class="text-lg font-bold text-slate-900 mb-2 flex items-center">
+          <span class="w-2.5 h-2.5 rounded-full bg-slate-400 mr-2"></span>
+          O Critério Morfoclimático e Genético de Aziz Nacib Ab'Sáber (1958/1964)
+        </h3>
+        <p class="text-slate-700 text-sm leading-relaxed mb-3">
+          Entre as décadas de 1950 e 1960, Aziz Nacib Ab'Sáber reformulou as bases conceituais da geomorfologia brasileira, integrando os estudos de dinâmica das vertentes e paleoclimas aos processos morfogenéticos quaternários. Ab'Sáber abandonou os limites altimétricos rígidos e formulou sua classificação ancorado no <mark class="highlight">balanço morfodinâmico</mark> entre as taxas de desagregação denudacional e as de sedimentação agradação:
+        </p>
+        <ul class="space-y-2 text-sm text-slate-700 pl-4 border-l-2 border-slate-300 mb-3">
+          <li>
+            <strong class="text-slate-900">Planalto:</strong> compartimento do relevo de topografia variada — seja aplainada, colinosa ou serrana — no qual <mark class="highlight">os processos de erosão superam os processos de sedimentação (Erosão &gt; Sedimentação)</mark>. Funciona geologicamente como área de desnudamento / área fonte de sedimentos.
+          </li>
+          <li>
+            <strong class="text-slate-900">Planície:</strong> compartimento fisionomicamente plano no qual <mark class="highlight">os processos de sedimentação e deposição superam os processos de desgaste erosivo (Sedimentação &gt; Erosão)</mark>. Funciona como área receptora de aluviões fluviais, marinhos ou lacustres.
+          </li>
+        </ul>
+        <p class="text-slate-700 text-sm leading-relaxed">
+          A abordagem morfogenética de Ab'Sáber reduziu significativamente a área cartografada como planície. O autor individualizou as planícies fluviais das superfícies sedimentares soerguidas, passando o relevo brasileiro a ser dividido em <strong>dez macrocompartimentos</strong>: sete planaltos (Guianas, Central, Meridional, Nordestino, Maranhão-Piauí, Serras e Planaltos do Leste e Sudeste, e Uruguaio-Sul-Rio-Grandense) e três planícies (Amazônica, Pantanal Mato-Grossense e Terras Baixas Costeiras). Na classificação ab'saberiana, os planaltos passaram a ocupar <mark class="highlight">75% da superfície e as planícies 25%</mark>.
+        </p>
+      </div>
+
+      <!-- TABELA COMPARATIVA DAS 3 CLASSIFICAÇÕES -->
+      <div id="tabelas" class="mb-4">
+        <h4 class="text-sm font-bold text-slate-900 uppercase tracking-wider mb-2 text-slate-700">
+          Quadro Comparativo: Evolução das Classificações do Relevo Nacional
+        </h4>
+        <div class="border border-slate-300 rounded-lg overflow-hidden bg-white">
+          <table class="w-full text-left text-xs sm:text-sm">
+            <thead>
+              <tr class="bg-slate-100 border-b border-slate-300 text-slate-900 font-bold">
+                <th class="w-1/4 p-2 sm:p-3 border-r border-slate-300">Variáveis Comparativas</th>
+                <th class="w-1/4 p-2 sm:p-3 border-r border-slate-300">Aroldo de Azevedo (1949)</th>
+                <th class="w-1/4 p-2 sm:p-3 border-r border-slate-300">Aziz Nacib Ab'Sáber (1958/64)</th>
+                <th class="w-1/4 p-2 sm:p-3">Jurandyr Ross (1989/95)</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-200 text-slate-800">
+              <tr>
+                <td class="p-2 sm:p-3 font-semibold bg-slate-50 border-r border-slate-200">Critério Epistemológico Dominante</td>
+                <td class="p-2 sm:p-3 border-r border-slate-200"><mark class="highlight">Hipsométrico e topográfico estrito</mark> (cota fixa de 200 metros).</td>
+                <td class="p-2 sm:p-3 border-r border-slate-200"><mark class="highlight">Morfodinâmico e morfoclimático</mark> (balanço de Erosão vs. Sedimentação).</td>
+                <td class="p-2 sm:p-3"><mark class="highlight">Morfoestrutura, morfoescultura e morfocronologia</mark> (tempo geológico e processos).</td>
+              </tr>
+              <tr>
+                <td class="p-2 sm:p-3 font-semibold bg-slate-50 border-r border-slate-200">Instrumental Cartográfico</td>
+                <td class="p-2 sm:p-3 border-r border-slate-200">Perfis de nivelamento expedicionários e cartas de escala reduzida.</td>
+                <td class="p-2 sm:p-3 border-r border-slate-200">Observações de campo, análise estratigráfica e paleoclimas quaternários.</td>
+                <td class="p-2 sm:p-3">Radar de Abertura Sintética (SLAR) do <mark class="highlight">Projeto Radambrasil</mark> e satélites.</td>
+              </tr>
+              <tr>
+                <td class="p-2 sm:p-3 font-semibold bg-slate-50 border-r border-slate-200">Macroformas Distinguidas</td>
+                <td class="p-2 sm:p-3 border-r border-slate-200">Planaltos e Planícies (2 macroformas).</td>
+                <td class="p-2 sm:p-3 border-r border-slate-200">Planaltos e Planícies (2 macroformas).</td>
+                <td class="p-2 sm:p-3"><mark class="highlight">Planaltos, Depressões e Planícies</mark> (3 macroformas).</td>
+              </tr>
+              <tr>
+                <td class="p-2 sm:p-3 font-semibold bg-slate-50 border-r border-slate-200">Total de Unidades</td>
+                <td class="p-2 sm:p-3 border-r border-slate-200"><mark class="highlight">8 unidades</mark> (4 planaltos e 4 planícies).</td>
+                <td class="p-2 sm:p-3 border-r border-slate-200"><mark class="highlight">10 unidades</mark> (7 planaltos e 3 planícies).</td>
+                <td class="p-2 sm:p-3"><mark class="highlight">28 unidades</mark> (11 planaltos, 11 depressões, 6 planícies).</td>
+              </tr>
+              <tr>
+                <td class="p-2 sm:p-3 font-semibold bg-slate-50 border-r border-slate-200">Distribuição Espacial Proporcional</td>
+                <td class="p-2 sm:p-3 border-r border-slate-200">59% Planaltos / 41% Planícies.</td>
+                <td class="p-2 sm:p-3 border-r border-slate-200">75% Planaltos / 25% Planícies.</td>
+                <td class="p-2 sm:p-3"><mark class="highlight">~95% Planaltos e Depressões / apenas ~5% Planícies restritas</mark>.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- SEÇÃO 2: FUNDAMENTOS TEÓRICOS DE JURANDYR ROSS -->
+    <section class="mb-12">
+      <div class="flex items-center space-x-3 mb-4">
+        <span class="w-8 h-8 rounded-full bg-slate-800 text-white font-bold flex items-center justify-center text-sm">2</span>
+        <h2 class="text-2xl font-bold text-slate-900 tracking-tight">Fundamentos Teóricos da Classificação de Jurandyr Ross</h2>
+      </div>
+
+      <p class="text-slate-700 leading-relaxed mb-4">
+        A compartimentação geomorfológica elaborada por Jurandyr Ross fundamentou-se no vasto levantamento cartográfico aerotransportado conduzido pelo <mark class="highlight">Projeto Radambrasil</mark> entre 1970 e 1985. Operando por meio de radares de abertura sintética (SLAR - <em>Side-Looking Airborne Radar</em>), o programa superou a perene cobertura nebulosa da Amazônia e detalhou a rugosidade geomorfológica e litológica de todo o território brasileiro.
+      </p>
+
+      <p class="text-slate-700 leading-relaxed mb-6">
+        Apoiando-se nos aportes teóricos da escola russa de Innokenti Guerassimov (1946) e Yu. Mescerjakov (1968), Ross estabeleceu uma integração conceitual estruturada sobre <mark class="highlight">três matrizes analíticas essenciais</mark>:
+      </p>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+        <div class="p-4 bg-white border border-slate-300 rounded-lg">
+          <div class="text-xs font-bold uppercase text-slate-500 tracking-wider mb-1">Pilar 1 (Endógeno)</div>
+          <h4 class="text-base font-bold text-slate-900 mb-2">Morfoestrutura</h4>
+          <p class="text-xs text-slate-700 leading-relaxed">
+            Define a gênese tectônica e o arcabouço geológico litológico gerado pelas <mark class="highlight">forças endógenas</mark> (estruturas cratônicas estáveis, grandes bacias sedimentares intracratônicas e orógenos metamórficos pré-cambrianos). Estabelece a resistência ou susceptibilidade das rochas aos agentes denudacionais.
+          </p>
+        </div>
+
+        <div class="p-4 bg-white border border-slate-300 rounded-lg">
+          <div class="text-xs font-bold uppercase text-slate-500 tracking-wider mb-1">Pilar 2 (Exógeno)</div>
+          <h4 class="text-base font-bold text-slate-900 mb-2">Morfoescultura</h4>
+          <p class="text-xs text-slate-700 leading-relaxed">
+            Representa a fisionomia externa e os compartimentos modelados diferencialmente pelas <mark class="highlight">forças exógenas</mark> (dinâmica climática, intemperismo físico e químico, ação fluvial e pluvial) sobre o substrato geológico. São as formas esculpidas visíveis na paisagem geomorfológica atual.
+          </p>
+        </div>
+
+        <div class="p-4 bg-white border border-slate-300 rounded-lg">
+          <div class="text-xs font-bold uppercase text-slate-500 tracking-wider mb-1">Pilar 3 (Tempo Geológico)</div>
+          <h4 class="text-base font-bold text-slate-900 mb-2">Morfocronologia</h4>
+          <p class="text-xs text-slate-700 leading-relaxed">
+            Investiga a idade relativa e a sucessão de eventos geoclimáticos pretéritos que esculpiram as formas atuais, diferenciando relevos de origens poligenéticas e antigas <mark class="highlight">superfícies de aplainamento terciárias</mark> daquelas esculpidas nos ciclos bioclimáticos quaternários.
+          </p>
+        </div>
+      </div>
+
+      <!-- O SISTEMA HIERÁRQUICO DOS SEIS TÁXONS -->
+      <div class="mb-4">
+        <h3 class="text-xl font-bold text-slate-900 mb-2">O Sistema Hierárquico dos Seis Táxons Geomorfológicos</h3>
+        <p class="text-slate-700 text-sm leading-relaxed mb-4">
+          Para unificar as diferentes escalas de investigação da cartografia geomorfológica, Ross desenvolveu uma taxonomia decrescente em <strong>seis níveis hierarquicamente aninhados</strong>, nos quais as categorias de maior abrangência espacial englobam as menores:
+        </p>
+
+        <!-- Tabela dos 6 Táxons -->
+        <div class="border border-slate-300 rounded-lg overflow-hidden bg-white">
+          <table class="w-full text-left text-xs sm:text-sm">
+            <thead>
+              <tr class="bg-slate-100 border-b border-slate-300 text-slate-900 font-bold">
+                <th class="w-1/6 p-2 sm:p-3 border-r border-slate-300">Nível Taxonômico</th>
+                <th class="w-2/6 p-2 sm:p-3 border-r border-slate-300">Denominação & Definição</th>
+                <th class="w-1/6 p-2 sm:p-3 border-r border-slate-300">Escala / Foco</th>
+                <th class="w-2/6 p-2 sm:p-3">Exemplos Típicos no Brasil</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-200 text-slate-800">
+              <tr>
+                <td class="p-2 sm:p-3 font-bold text-slate-900 bg-slate-50 border-r border-slate-200">1º Táxon</td>
+                <td class="p-2 sm:p-3 border-r border-slate-200 font-medium">
+                  <mark class="highlight">Unidade Morfoestrutural</mark><br>
+                  <span class="text-xs text-slate-600">Grandes domínios geotectônicos condicionados pelas forças endógenas.</span>
+                </td>
+                <td class="p-2 sm:p-3 border-r border-slate-200 text-xs">Continental / Regional (1:1.000.000+)</td>
+                <td class="p-2 sm:p-3 text-xs">Bacia Sedimentar do Paraná; Cráton do São Francisco; Cinturão Ribeira.</td>
+              </tr>
+              <tr>
+                <td class="p-2 sm:p-3 font-bold text-slate-900 bg-slate-50 border-r border-slate-200">2º Táxon</td>
+                <td class="p-2 sm:p-3 border-r border-slate-200 font-medium">
+                  <mark class="highlight">Unidade Morfoescultural</mark><br>
+                  <span class="text-xs text-slate-600">Compartimentos gerados pela atuação climática erosiva sobre a morfoestrutura. Corresponde aos 28 compartimentos.</span>
+                </td>
+                <td class="p-2 sm:p-3 border-r border-slate-200 text-xs">Regional (1:1.000.000 a 1:500.000)</td>
+                <td class="p-2 sm:p-3 text-xs">Planalto da Borborema; Depressão Sertaneja; Planície do Pantanal.</td>
+              </tr>
+              <tr>
+                <td class="p-2 sm:p-3 font-bold text-slate-900 bg-slate-50 border-r border-slate-200">3º Táxon</td>
+                <td class="p-2 sm:p-3 border-r border-slate-200 font-medium">
+                  <mark class="highlight">Unidade Morfológica (Padrão de Formas Semelhantes)</mark><br>
+                  <span class="text-xs text-slate-600">Agrupamentos fisionômicos homogêneos dentro da morfoescultura.</span>
+                </td>
+                <td class="p-2 sm:p-3 border-r border-slate-200 text-xs">Sub-regional (1:250.000 a 1:100.000)</td>
+                <td class="p-2 sm:p-3 text-xs">Padrão de Mares de Morros; Campos de Colinas Dissecadas; Chapadas Tubulares.</td>
+              </tr>
+              <tr>
+                <td class="p-2 sm:p-3 font-bold text-slate-900 bg-slate-50 border-r border-slate-200">4º Táxon</td>
+                <td class="p-2 sm:p-3 border-r border-slate-200 font-medium">
+                  <mark class="highlight">Tipos de Formas Individualizadas</mark><br>
+                  <span class="text-xs text-slate-600">Individualização geométrica e fisionômica de uma feição singular.</span>
+                </td>
+                <td class="p-2 sm:p-3 border-r border-slate-200 text-xs">Local (1:50.000 a 1:25.000)</td>
+                <td class="p-2 sm:p-3 text-xs">Um morro testemunho; Uma escarpa de falha; Uma colina isolada.</td>
+              </tr>
+              <tr>
+                <td class="p-2 sm:p-3 font-bold text-slate-900 bg-slate-50 border-r border-slate-200">5º Táxon</td>
+                <td class="p-2 sm:p-3 border-r border-slate-200 font-medium">
+                  <mark class="highlight">Tipos de Vertentes</mark><br>
+                  <span class="text-xs text-slate-600">Segmentos geométricos e dinâmicos de uma vertente individualizada.</span>
+                </td>
+                <td class="p-2 sm:p-3 border-r border-slate-200 text-xs">Setorial / Encosta (1:10.000 a 1:5.000)</td>
+                <td class="p-2 sm:p-3 text-xs">Setor de topo convexo; Face retilínea; Rampa basal côncava coluvial.</td>
+              </tr>
+              <tr>
+                <td class="p-2 sm:p-3 font-bold text-slate-900 bg-slate-50 border-r border-slate-200">6º Táxon</td>
+                <td class="p-2 sm:p-3 border-r border-slate-200 font-medium">
+                  <mark class="highlight">Formas de Processos Atuais / Microrrelevo</mark><br>
+                  <span class="text-xs text-slate-600">Feições métricas produzidas pela dinâmica ativa contemporânea ou antrópica.</span>
+                </td>
+                <td class="p-2 sm:p-3 border-r border-slate-200 text-xs">Detalhe Métrico (1:1.000 ou maior)</td>
+                <td class="p-2 sm:p-3 text-xs">Voçorocas ativas; Ravinamentos pluviais; Cicatrizes de escorregamento.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- SEÇÃO 3: OS 28 COMPARTIMENTOS DO RELEVO -->
+    <section class="mb-12">
+      <div class="flex items-center space-x-3 mb-4">
+        <span class="w-8 h-8 rounded-full bg-slate-800 text-white font-bold flex items-center justify-center text-sm">3</span>
+        <h2 class="text-2xl font-bold text-slate-900 tracking-tight">A Compartimentação do Relevo em 28 Unidades Morfoesculturais</h2>
+      </div>
+
+      <p class="text-slate-700 leading-relaxed mb-6">
+        A aplicação prática dessa matriz analítica gerou a divisão do espaço geomorfológico nacional em <strong>28 compartimentos morfoesculturais</strong> (2º Táxon), compostos por <mark class="highlight">11 Planaltos</mark>, <mark class="highlight">11 Depressões</mark> e <mark class="highlight">6 Planícies</mark>.
+      </p>
+
+      <!-- Detalhamento dos 11 Planaltos -->
+      <div class="mb-6 p-5 border border-slate-200 rounded-lg bg-white">
+        <h3 class="text-lg font-bold text-slate-900 mb-2">1. Os 11 Planaltos</h3>
+        <p class="text-slate-700 text-sm leading-relaxed mb-4">
+          Segundo Ross, os planaltos constituem relevos residuais de superfície irregular, com altitudes predominantemente superiores a 200 ou 300 metros, delimitados por rupturas de declive (escarpas) e modelados por processos denudacionais em que a <mark class="highlight">erosão supera a deposição</mark>. Conforme a morfoestrutura de sustentação (1º táxon), Ross agrupou os 11 planaltos em <strong>três famílias genéticas</strong>:
+        </p>
+
+        <div class="space-y-3 text-xs sm:text-sm text-slate-700">
+          <div class="p-3 bg-slate-50 border border-slate-200 rounded">
+            <strong class="text-slate-900 block font-semibold mb-1">A) Planaltos em Bacias Sedimentares (4 unidades):</strong>
+            Estruturas estratificadas sedimentares dissecadas sob a forma de chapadas, cuestas e platôs tabulares.
+            <ul class="list-disc list-inside mt-1 space-y-0.5 text-slate-600">
+              <li><strong>Planalto da Amazônia Oriental:</strong> compartimento sedimentar dissecado no leste da calha amazônica.</li>
+              <li><strong>Planaltos e Chapadas da Bacia do Parnaíba:</strong> relevos tabulares situados no Meio-Norte e interior nordestino.</li>
+              <li><strong>Planaltos e Chapadas da Bacia do Paraná:</strong> extensos chapadões e relevos em cuesta desenvolvidos sobre arenitos paleomesozoicos e derrames basálticos vulcânicos.</li>
+              <li><strong>Planaltos e Chapadas dos Parecis:</strong> superfícies tabulares cretáceas que funcionam como divisores hidrográfico-topográficos no Centro-Oeste.</li>
+            </ul>
+          </div>
+
+          <div class="p-3 bg-slate-50 border border-slate-200 rounded">
+            <strong class="text-slate-900 block font-semibold mb-1">B) Planaltos Residuais em Intrusões e Coberturas da Plataforma / Crátons (2 unidades):</strong>
+            Maciços graníticos ou metamórficos resistentes que se mantiveram elevados em decorrência de denudação diferencial crônica.
+            <ul class="list-disc list-inside mt-1 space-y-0.5 text-slate-600">
+              <li><strong>Planaltos Residuais Norte-Amazônicos:</strong> sustentam os alinhamentos serranos da fronteira setentrional (Serras do Imeri, Parima, Pacaraima), onde se situam o Pico da Neblina e o Pico 31 de Março.</li>
+              <li><strong>Planaltos Residuais Sul-Amazônicos:</strong> blocos e serras mineralizadas pré-cambrianas que se projetam no sul do Cráton Amazônico (ex.: Serra dos Carajás e Serra do Cachimbo).</li>
+            </ul>
+          </div>
+
+          <div class="p-3 bg-slate-50 border border-slate-200 rounded">
+            <strong class="text-slate-900 block font-semibold mb-1">C) Planaltos em Cinturões Orogênicos / Dobramentos Antigos (5 unidades):</strong>
+            Faixas móveis metamórficas pré-cambrianas dobradas no ciclo Brasiliano, intensamente falhadas e desgastadas.
+            <ul class="list-disc list-inside mt-1 space-y-0.5 text-slate-600">
+              <li><strong>Planaltos e Serras do Atlântico Leste-Sudeste:</strong> domínio dos "mares de morros", alinhamentos serranos (Mantiqueira, Serra do Mar) e vales estruturais profundos.</li>
+              <li><strong>Planaltos e Serras de Goiás-Minas:</strong> estruturas arqueadas e cinturões dobrados que compreendem a Serra da Canastra e a Serra do Espinhaço.</li>
+              <li><strong>Serras Residuais do Alto Paraguai:</strong> cristas quartzíticas e maciços residuais antigos na borda do Pantanal (como as Serras de Bodoquena e Província Serrana).</li>
+              <li><strong>Planalto da Borborema:</strong> maciço cristalino residual falhado no Nordeste oriental, atuando como anteparo topográfico a barlavento.</li>
+              <li><strong>Planalto Sul-Rio-Grandense:</strong> conhecido como Escudo Sul-Rio-Grandense, constituído por rochas cristalinas dissecadas em colinas suaves (coxilhas) e baixas serras.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Detalhamento das 11 Depressões -->
+      <div class="mb-6 p-5 border border-slate-200 rounded-lg bg-white">
+        <h3 class="text-lg font-bold text-slate-900 mb-2">2. As 11 Depressões</h3>
+        <p class="text-slate-700 text-sm leading-relaxed mb-2">
+          As depressões constituem superfícies com suave declividade ou moderadamente aplainadas, situadas em patamares altimétricos mais rebaixados que os planaltos vizinhos (altitudes dominantes entre 100 e 500 metros), moldadas por ciclos contínuos de <mark class="highlight">erosão denudacional diferencial</mark>. Integram essa classe:
+        </p>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs sm:text-sm text-slate-700 pt-2">
+          <div class="flex items-center space-x-2"><span class="w-1.5 h-1.5 rounded-full bg-slate-500"></span><span>Depressão da Amazônia Ocidental</span></div>
+          <div class="flex items-center space-x-2"><span class="w-1.5 h-1.5 rounded-full bg-slate-500"></span><span>Depressão Marginal Norte-Amazônica</span></div>
+          <div class="flex items-center space-x-2"><span class="w-1.5 h-1.5 rounded-full bg-slate-500"></span><span>Depressão Marginal Sul-Amazônica</span></div>
+          <div class="flex items-center space-x-2"><span class="w-1.5 h-1.5 rounded-full bg-slate-500"></span><span>Depressão do Araguaia</span></div>
+          <div class="flex items-center space-x-2"><span class="w-1.5 h-1.5 rounded-full bg-slate-500"></span><span>Depressão Cuiabana</span></div>
+          <div class="flex items-center space-x-2"><span class="w-1.5 h-1.5 rounded-full bg-slate-500"></span><span>Depressão do Alto Paraguai-Guaporé</span></div>
+          <div class="flex items-center space-x-2"><span class="w-1.5 h-1.5 rounded-full bg-slate-500"></span><span>Depressão do Miranda</span></div>
+          <div class="flex items-center space-x-2"><span class="w-1.5 h-1.5 rounded-full bg-slate-500"></span><span>Depressão Sertaneja e do São Francisco</span></div>
+          <div class="flex items-center space-x-2"><span class="w-1.5 h-1.5 rounded-full bg-slate-500"></span><span>Depressão do Tocantins</span></div>
+          <div class="flex items-center space-x-2"><span class="w-1.5 h-1.5 rounded-full bg-slate-500"></span><span>Depressão Periférica da Borda Leste da Bacia do Paraná</span></div>
+          <div class="flex items-center space-x-2 sm:col-span-2"><span class="w-1.5 h-1.5 rounded-full bg-slate-500"></span><span>Depressão Periférica Sul-Rio-Grandense</span></div>
+        </div>
+      </div>
+
+      <!-- Detalhamento das 6 Planícies -->
+      <div class="mb-8 p-5 border border-slate-200 rounded-lg bg-white">
+        <h3 class="text-lg font-bold text-slate-900 mb-2">3. As 6 Planícies</h3>
+        <p class="text-slate-700 text-sm leading-relaxed mb-3">
+          As planícies correspondem a superfícies de topografia predominantemente horizontal, com cotas raramente superiores a 100 metros de altitude, estruturadas sobre coberturas inconsolidadas geradas no <mark class="highlight">período Quaternário (Cenozoico)</mark>. Ocorrem exclusivamente em áreas onde os <mark class="highlight">processos de acumulação sedimentar sobrepujam os de desgaste (Sedimentação &gt; Erosão)</mark>:
+        </p>
+        <ul class="space-y-1.5 text-xs sm:text-sm text-slate-700 pl-4 border-l-2 border-slate-300">
+          <li><strong>Planície do Rio Amazonas:</strong> estreita calha de várzeas e diques marginais ao longo do eixo fluvial principal e baixos afluentes.</li>
+          <li><strong>Planície do Rio Araguaia:</strong> planície aluvial interiorana que envolve a bacia fluvial e a Ilha do Bananal.</li>
+          <li><strong>Planície e Pantanal do Rio Guaporé:</strong> faixa aluvial e inundável na transição de Rondônia com o Mato Grosso.</li>
+          <li><strong>Planície e Pantanal Mato-Grossense:</strong> ampla bacia de decantação sedimentar quaternária ativa drenada pelo Rio Paraguai.</li>
+          <li><strong>Planície da Lagoa dos Patos e Mirim:</strong> faixa sedimentar costeira e lagunar no litoral sul-rio-grandense.</li>
+          <li><strong>Planícies e Tabuleiros Litorâneos:</strong> cordões litorâneos marinhos e faixas costeiras associadas aos tabuleiros da Formação Barreiras.</li>
+        </ul>
+      </div>
+
+      <!-- TABELA GERAL DAS 28 UNIDADES (AJUSTADA SEM SCROLL HORIZONTAL) -->
+      <div class="mb-4">
+        <h4 class="text-sm font-bold text-slate-900 uppercase tracking-wider mb-2">
+          Matriz Oficial das 28 Unidades Morfoesculturais de Ross
+        </h4>
+        <div class="border border-slate-300 rounded-lg overflow-hidden bg-white">
+          <table class="w-full text-left text-xs sm:text-sm">
+            <thead>
+              <tr class="bg-slate-100 border-b border-slate-300 text-slate-900 font-bold">
+                <th class="w-10 sm:w-12 p-2 sm:p-2.5 text-center border-r border-slate-300">Nº</th>
+                <th class="w-4/12 sm:w-4/12 p-2 sm:p-2.5 border-r border-slate-300">Unidade Morfoescultural</th>
+                <th class="w-4/12 sm:w-4/12 p-2 sm:p-2.5 border-r border-slate-300">Estrutura Morfoestrutural (1º Táxon)</th>
+                <th class="w-4/12 sm:w-4/12 p-2 sm:p-2.5">Posição e Estados</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-200 text-slate-800 leading-tight">
+              <!-- Planaltos 1 a 11 -->
+              <tr class="bg-slate-50/50">
+                <td class="p-2 sm:p-2.5 text-center font-bold text-slate-900 border-r border-slate-200">01</td>
+                <td class="p-2 sm:p-2.5 font-semibold text-slate-900 border-r border-slate-200">Planalto da Amazônia Oriental</td>
+                <td class="p-2 sm:p-2.5 border-r border-slate-200">Bacia Sedimentar Paleozoica/Mesozoica</td>
+                <td class="p-2 sm:p-2.5">Norte (PA, AP)</td>
+              </tr>
+              <tr>
+                <td class="p-2 sm:p-2.5 text-center font-bold text-slate-900 border-r border-slate-200">02</td>
+                <td class="p-2 sm:p-2.5 font-semibold text-slate-900 border-r border-slate-200">Planaltos e Chapadas da Bacia do Parnaíba</td>
+                <td class="p-2 sm:p-2.5 border-r border-slate-200">Bacia Sedimentar Intracratônica</td>
+                <td class="p-2 sm:p-2.5">Nordeste/Norte (MA, PI, TO, CE, BA)</td>
+              </tr>
+              <tr class="bg-slate-50/50">
+                <td class="p-2 sm:p-2.5 text-center font-bold text-slate-900 border-r border-slate-200">03</td>
+                <td class="p-2 sm:p-2.5 font-semibold text-slate-900 border-r border-slate-200">Planaltos e Chapadas da Bacia do Paraná</td>
+                <td class="p-2 sm:p-2.5 border-r border-slate-200">Bacia Sedimentar com Derrames Vulcânicos</td>
+                <td class="p-2 sm:p-2.5">Centro-Sul (SP, PR, SC, RS, MS, GO, MG)</td>
+              </tr>
+              <tr>
+                <td class="p-2 sm:p-2.5 text-center font-bold text-slate-900 border-r border-slate-200">04</td>
+                <td class="p-2 sm:p-2.5 font-semibold text-slate-900 border-r border-slate-200">Planaltos e Chapadas dos Parecis</td>
+                <td class="p-2 sm:p-2.5 border-r border-slate-200">Cobertura Sedimentar Cretácea</td>
+                <td class="p-2 sm:p-2.5">Centro-Oeste (MT, RO)</td>
+              </tr>
+              <tr class="bg-slate-50/50">
+                <td class="p-2 sm:p-2.5 text-center font-bold text-slate-900 border-r border-slate-200">05</td>
+                <td class="p-2 sm:p-2.5 font-semibold text-slate-900 border-r border-slate-200">Planaltos Residuais Norte-Amazônicos</td>
+                <td class="p-2 sm:p-2.5 border-r border-slate-200">Escudo Cristalino das Guianas (Cráton)</td>
+                <td class="p-2 sm:p-2.5">Extremo Norte (RR, AM, AP)</td>
+              </tr>
+              <tr>
+                <td class="p-2 sm:p-2.5 text-center font-bold text-slate-900 border-r border-slate-200">06</td>
+                <td class="p-2 sm:p-2.5 font-semibold text-slate-900 border-r border-slate-200">Planaltos Residuais Sul-Amazônicos</td>
+                <td class="p-2 sm:p-2.5 border-r border-slate-200">Escudo Cristalino Central (Cráton)</td>
+                <td class="p-2 sm:p-2.5">Norte e Centro-Oeste (PA, MT, RO)</td>
+              </tr>
+              <tr class="bg-slate-50/50">
+                <td class="p-2 sm:p-2.5 text-center font-bold text-slate-900 border-r border-slate-200">07</td>
+                <td class="p-2 sm:p-2.5 font-semibold text-slate-900 border-r border-slate-200">Planaltos e Serras do Atlântico Leste-Sudeste</td>
+                <td class="p-2 sm:p-2.5 border-r border-slate-200">Cinturão Móvel Metamórfico Neoproterozoico</td>
+                <td class="p-2 sm:p-2.5">Faixa Costeira (MG, RJ, ES, SP, PR, SC, BA)</td>
+              </tr>
+              <tr>
+                <td class="p-2 sm:p-2.5 text-center font-bold text-slate-900 border-r border-slate-200">08</td>
+                <td class="p-2 sm:p-2.5 font-semibold text-slate-900 border-r border-slate-200">Planaltos e Serras de Goiás-Minas</td>
+                <td class="p-2 sm:p-2.5 border-r border-slate-200">Cinturão Orogênico Antigo Dobrado</td>
+                <td class="p-2 sm:p-2.5">Centro-Oeste e Sudeste (GO, DF, MG)</td>
+              </tr>
+              <tr class="bg-slate-50/50">
+                <td class="p-2 sm:p-2.5 text-center font-bold text-slate-900 border-r border-slate-200">09</td>
+                <td class="p-2 sm:p-2.5 font-semibold text-slate-900 border-r border-slate-200">Serras Residuais do Alto Paraguai</td>
+                <td class="p-2 sm:p-2.5 border-r border-slate-200">Orógeno Metamórfico Dobrado Pré-Cambriano</td>
+                <td class="p-2 sm:p-2.5">Centro-Oeste (MT, MS)</td>
+              </tr>
+              <tr>
+                <td class="p-2 sm:p-2.5 text-center font-bold text-slate-900 border-r border-slate-200">10</td>
+                <td class="p-2 sm:p-2.5 font-semibold text-slate-900 border-r border-slate-200">Planalto da Borborema</td>
+                <td class="p-2 sm:p-2.5 border-r border-slate-200">Maciço Cristalino Falhado</td>
+                <td class="p-2 sm:p-2.5">Nordeste Oriental (PE, PB, RN, AL)</td>
+              </tr>
+              <tr class="bg-slate-50/50">
+                <td class="p-2 sm:p-2.5 text-center font-bold text-slate-900 border-r border-slate-200">11</td>
+                <td class="p-2 sm:p-2.5 font-semibold text-slate-900 border-r border-slate-200">Planalto Sul-Rio-Grandense</td>
+                <td class="p-2 sm:p-2.5 border-r border-slate-200">Escudo Cristalino Antigo (Escudo Gaúcho)</td>
+                <td class="p-2 sm:p-2.5">Extremo Sul (RS)</td>
+              </tr>
+
+              <!-- Depressões 12 a 22 -->
+              <tr>
+                <td class="p-2 sm:p-2.5 text-center font-bold text-slate-900 border-r border-slate-200">12</td>
+                <td class="p-2 sm:p-2.5 font-semibold text-slate-900 border-r border-slate-200">Depressão da Amazônia Ocidental</td>
+                <td class="p-2 sm:p-2.5 border-r border-slate-200">Bacia Sedimentar Cenozoica Dissecada</td>
+                <td class="p-2 sm:p-2.5">Norte (AM, AC)</td>
+              </tr>
+              <tr class="bg-slate-50/50">
+                <td class="p-2 sm:p-2.5 text-center font-bold text-slate-900 border-r border-slate-200">13</td>
+                <td class="p-2 sm:p-2.5 font-semibold text-slate-900 border-r border-slate-200">Depressão Marginal Norte-Amazônica</td>
+                <td class="p-2 sm:p-2.5 border-r border-slate-200">Margem de Bacia sobre Escudo Cristalino</td>
+                <td class="p-2 sm:p-2.5">Norte Setentrional (AM, RR, PA)</td>
+              </tr>
+              <tr>
+                <td class="p-2 sm:p-2.5 text-center font-bold text-slate-900 border-r border-slate-200">14</td>
+                <td class="p-2 sm:p-2.5 font-semibold text-slate-900 border-r border-slate-200">Depressão Marginal Sul-Amazônica</td>
+                <td class="p-2 sm:p-2.5 border-r border-slate-200">Margem de Bacia sobre Escudo Cristalino</td>
+                <td class="p-2 sm:p-2.5">Norte e Centro-Oeste (PA, MT, RO)</td>
+              </tr>
+              <tr class="bg-slate-50/50">
+                <td class="p-2 sm:p-2.5 text-center font-bold text-slate-900 border-r border-slate-200">15</td>
+                <td class="p-2 sm:p-2.5 font-semibold text-slate-900 border-r border-slate-200">Depressão do Araguaia</td>
+                <td class="p-2 sm:p-2.5 border-r border-slate-200">Fossa Tectônica Antiga Dissecada</td>
+                <td class="p-2 sm:p-2.5">Centro-Oeste e Norte (TO, GO, MT)</td>
+              </tr>
+              <tr>
+                <td class="p-2 sm:p-2.5 text-center font-bold text-slate-900 border-r border-slate-200">16</td>
+                <td class="p-2 sm:p-2.5 font-semibold text-slate-900 border-r border-slate-200">Depressão Cuiabana</td>
+                <td class="p-2 sm:p-2.5 border-r border-slate-200">Rebaixamento Pediplanado Interplanáltico</td>
+                <td class="p-2 sm:p-2.5">Centro-Oeste (MT)</td>
+              </tr>
+              <tr class="bg-slate-50/50">
+                <td class="p-2 sm:p-2.5 text-center font-bold text-slate-900 border-r border-slate-200">17</td>
+                <td class="p-2 sm:p-2.5 font-semibold text-slate-900 border-r border-slate-200">Depressão do Alto Paraguai-Guaporé</td>
+                <td class="p-2 sm:p-2.5 border-r border-slate-200">Borda Intracratônica Erodida</td>
+                <td class="p-2 sm:p-2.5">Centro-Oeste e Norte (MT, RO)</td>
+              </tr>
+              <tr>
+                <td class="p-2 sm:p-2.5 text-center font-bold text-slate-900 border-r border-slate-200">18</td>
+                <td class="p-2 sm:p-2.5 font-semibold text-slate-900 border-r border-slate-200">Depressão do Miranda</td>
+                <td class="p-2 sm:p-2.5 border-r border-slate-200">Cristalino Rebaixado por Pediplanação</td>
+                <td class="p-2 sm:p-2.5">Centro-Oeste (MS)</td>
+              </tr>
+              <tr class="bg-slate-50/50">
+                <td class="p-2 sm:p-2.5 text-center font-bold text-slate-900 border-r border-slate-200">19</td>
+                <td class="p-2 sm:p-2.5 font-semibold text-slate-900 border-r border-slate-200">Depressão Sertaneja e do São Francisco</td>
+                <td class="p-2 sm:p-2.5 border-r border-slate-200">Pediplano Interplanáltico Semiárido</td>
+                <td class="p-2 sm:p-2.5">Nordeste e Sudeste (CE, RN, PB, PE, BA, MG)</td>
+              </tr>
+              <tr>
+                <td class="p-2 sm:p-2.5 text-center font-bold text-slate-900 border-r border-slate-200">20</td>
+                <td class="p-2 sm:p-2.5 font-semibold text-slate-900 border-r border-slate-200">Depressão do Tocantins</td>
+                <td class="p-2 sm:p-2.5 border-r border-slate-200">Faixa Denudada Marginal Pré-Cambriana</td>
+                <td class="p-2 sm:p-2.5">Norte e Centro-Oeste (TO, GO, PA)</td>
+              </tr>
+              <tr class="bg-slate-50/50">
+                <td class="p-2 sm:p-2.5 text-center font-bold text-slate-900 border-r border-slate-200">21</td>
+                <td class="p-2 sm:p-2.5 font-semibold text-slate-900 border-r border-slate-200">Depressão Periférica Borda Leste Bacia Paraná</td>
+                <td class="p-2 sm:p-2.5 border-r border-slate-200">Contato Bacia Sedimentar x Escudo Cristalino</td>
+                <td class="p-2 sm:p-2.5">Sudeste e Sul (SP, PR, SC)</td>
+              </tr>
+              <tr>
+                <td class="p-2 sm:p-2.5 text-center font-bold text-slate-900 border-r border-slate-200">22</td>
+                <td class="p-2 sm:p-2.5 font-semibold text-slate-900 border-r border-slate-200">Depressão Periférica Sul-Rio-Grandense</td>
+                <td class="p-2 sm:p-2.5 border-r border-slate-200">Contato Bacia Sedimentar x Escudo Cristalino</td>
+                <td class="p-2 sm:p-2.5">Sul (RS - Vales do Jacuí e Ibicuí)</td>
+              </tr>
+
+              <!-- Planícies 23 a 28 -->
+              <tr class="bg-slate-50/50">
+                <td class="p-2 sm:p-2.5 text-center font-bold text-slate-900 border-r border-slate-200">23</td>
+                <td class="p-2 sm:p-2.5 font-semibold text-slate-900 border-r border-slate-200">Planície do Rio Amazonas</td>
+                <td class="p-2 sm:p-2.5 border-r border-slate-200">Depósitos Fluviais e Várzeas Holocênicas</td>
+                <td class="p-2 sm:p-2.5">Norte (Calhas do Solimões e Amazonas)</td>
+              </tr>
+              <tr>
+                <td class="p-2 sm:p-2.5 text-center font-bold text-slate-900 border-r border-slate-200">24</td>
+                <td class="p-2 sm:p-2.5 font-semibold text-slate-900 border-r border-slate-200">Planície do Rio Araguaia</td>
+                <td class="p-2 sm:p-2.5 border-r border-slate-200">Depósitos Aluvionares Quaternários</td>
+                <td class="p-2 sm:p-2.5">Centro-Oeste e Norte (Ilha do Bananal / TO, GO)</td>
+              </tr>
+              <tr class="bg-slate-50/50">
+                <td class="p-2 sm:p-2.5 text-center font-bold text-slate-900 border-r border-slate-200">25</td>
+                <td class="p-2 sm:p-2.5 font-semibold text-slate-900 border-r border-slate-200">Planície e Pantanal do Rio Guaporé</td>
+                <td class="p-2 sm:p-2.5 border-r border-slate-200">Sedimentação Flúvio-Lacustre Quaternária</td>
+                <td class="p-2 sm:p-2.5">Norte e Centro-Oeste (RO, MT)</td>
+              </tr>
+              <tr>
+                <td class="p-2 sm:p-2.5 text-center font-bold text-slate-900 border-r border-slate-200">26</td>
+                <td class="p-2 sm:p-2.5 font-semibold text-slate-900 border-r border-slate-200">Planície e Pantanal Mato-Grossense</td>
+                <td class="p-2 sm:p-2.5 border-r border-slate-200">Agradação Flúvio-Lacustre Cenozoica</td>
+                <td class="p-2 sm:p-2.5">Centro-Oeste (MT, MS)</td>
+              </tr>
+              <tr class="bg-slate-50/50">
+                <td class="p-2 sm:p-2.5 text-center font-bold text-slate-900 border-r border-slate-200">27</td>
+                <td class="p-2 sm:p-2.5 font-semibold text-slate-900 border-r border-slate-200">Planície da Lagoa dos Patos e Mirim</td>
+                <td class="p-2 sm:p-2.5 border-r border-slate-200">Agradação Marinha, Lagunar e Eólica</td>
+                <td class="p-2 sm:p-2.5">Litoral Sul (RS)</td>
+              </tr>
+              <tr>
+                <td class="p-2 sm:p-2.5 text-center font-bold text-slate-900 border-r border-slate-200">28</td>
+                <td class="p-2 sm:p-2.5 font-semibold text-slate-900 border-r border-slate-200">Planícies e Tabuleiros Litorâneos</td>
+                <td class="p-2 sm:p-2.5 border-r border-slate-200">Sedimentos Marinhos e Formação Barreiras</td>
+                <td class="p-2 sm:p-2.5">Faixas Costeiras (Norte, Nordeste e Sudeste)</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- SEÇÃO 4: GÊNESE E CLASSIFICAÇÃO DAS DEPRESSÕES BRASILEIRAS -->
+    <section id="depressoes" class="mb-12">
+      <div class="flex items-center space-x-3 mb-4">
+        <span class="w-8 h-8 rounded-full bg-slate-800 text-white font-bold flex items-center justify-center text-sm">4</span>
+        <h2 class="text-2xl font-bold text-slate-900 tracking-tight">Gênese e Classificação das Depressões Brasileiras</h2>
+      </div>
+
+      <p class="text-slate-700 leading-relaxed mb-6">
+        A diferenciação taxonômica das depressões constitui o <mark class="highlight">elemento mais cobrado em provas objetivas de Geografia Física</mark>. O entendimento das razões pelas quais tais feições são classificadas como relativas, bem como de sua gênese diferencial e sua distribuição espacial ao longo das bordas das bacias sedimentares, é crucial para gabaritar o concurso.
+      </p>
+
+      <!-- Conceito: Absolutas vs Relativas -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+        <div class="p-4 bg-white border border-slate-300 rounded-lg">
+          <h4 class="text-base font-bold text-slate-900 mb-2">Depressão Absoluta</h4>
+          <p class="text-xs sm:text-sm text-slate-700 leading-relaxed">
+            Área continental cuja cota altimétrica situa-se <mark class="highlight">abaixo do nível do mar (altitude negativa)</mark>, como verificado no Mar Morto (-430 m) ou no Vale da Morte (-86 m).<br>
+            <strong class="text-slate-900 mt-2 block font-semibold text-red-700">Atenção para a prova: NÃO existem depressões absolutas emersas no território brasileiro.</strong>
+          </p>
+        </div>
+
+        <div class="p-4 bg-white border border-slate-300 rounded-lg">
+          <h4 class="text-base font-bold text-slate-900 mb-2">Depressão Relativa</h4>
+          <p class="text-xs sm:text-sm text-slate-700 leading-relaxed">
+            Superfície com altitude <mark class="highlight">positiva em relação ao nível do mar</mark> (em média entre 100 m e 500 m), porém <mark class="highlight">altimetricamente rebaixada em comparação aos planaltos adjacentes</mark> que a circundam.<br>
+            <strong class="text-slate-900 mt-2 block font-semibold text-emerald-800">Todas as 11 depressões catalogadas por Jurandyr Ross no Brasil são RELATIVAS.</strong>
+          </p>
+        </div>
+      </div>
+
+      <p class="text-slate-700 text-sm leading-relaxed mb-6">
+        A gênese das depressões brasileiras não decorre de fossas orogenéticas ativas ou afundamentos cenozoicos modernos, pois o Brasil situa-se no interior estável da Placa Sul-Americana. Elas decorrem de <mark class="highlight">processos denudacionais de pediplanação ao longo de dezenas de milhões de anos</mark>, sob climas alternantes semiáridos e úmidos (Paleógeno-Neógeno). O recuo paralelo de escarpas e a ação intempérica diferencial removeram as camadas litológicas menos resistentes, rebaixando o relevo entre os maciços cristalinos e os planaltos sedimentares.
+      </p>
+
+      <!-- AS TRÊS SUBDIVISÕES GENÉTICAS -->
+      <h3 class="text-lg font-bold text-slate-900 mb-3">As Três Famílias Genéticas de Depressões Relativas</h3>
+
+      <div class="space-y-4 mb-6 text-sm text-slate-700">
+        <!-- 1. Periféricas -->
+        <div class="p-4 bg-white border border-slate-200 rounded-lg">
+          <h4 class="font-bold text-slate-900 mb-1 flex items-center">
+            <span class="w-2 h-2 rounded-full bg-slate-700 mr-2"></span>
+            1. Depressões Periféricas
+          </h4>
+          <p class="leading-relaxed mb-2">
+            Formadas diretamente nas <mark class="highlight">zonas de contato litológico e estrutural entre bacias sedimentares paleomesozoicas e as bordas de escudos cristalinos pré-cambrianos</mark>. A erosão diferencial desgasta as camadas sedimentares basais menos resistentes da bacia, escavando uma calha deprimida longitudinal. O relevo resultante é caracterizado pelo clássico perfil de <strong>cuestas escarpadas</strong> com cornijas basálticas voltadas para a depressão de um lado e colinas cristalinas do outro.
+          </p>
+          <div class="text-xs bg-slate-50 p-2.5 rounded border border-slate-200 text-slate-800">
+            <strong>Exemplos Clássicos de Prova:</strong> 
+            <em>Depressão Periférica da Borda Leste da Bacia do Paraná</em> (contato das cuestas paulistas com a Serra do Mar/Mantiqueira) e <em>Depressão Periférica Sul-Rio-Grandense</em> (calhas dos rios Jacuí e Ibicuí, entre as escarpas basálticas da Serra Geral e o Escudo Sul-Rio-Grandense).
+          </div>
+        </div>
+
+        <!-- 2. Marginais -->
+        <div class="p-4 bg-white border border-slate-200 rounded-lg">
+          <h4 class="font-bold text-slate-900 mb-1 flex items-center">
+            <span class="w-2 h-2 rounded-full bg-slate-700 mr-2"></span>
+            2. Depressões Marginais
+          </h4>
+          <p class="leading-relaxed mb-2">
+            Acompanham os limites periféricos das grandes bacias sedimentares intracratônicas, mas foram <mark class="highlight">entalhadas sobre os terrenos cristalinos e metamórficos pré-cambrianos dos escudos que contornam essas bacias</mark>. Os rios e a denudação rebaixaram a periferia dos blocos cristalinos adjacentes aos sedimentos da bacia.
+          </p>
+          <div class="text-xs bg-slate-50 p-2.5 rounded border border-slate-200 text-slate-800">
+            <strong>Exemplos Clássicos de Prova:</strong> 
+            <em>Depressão Marginal Norte-Amazônica</em> (ao norte da Bacia Amazônica, intermediando com os Planaltos Residuais das Guianas) e <em>Depressão Marginal Sul-Amazônica</em> (ao sul da Bacia Amazônica, intermediando com o Cráton Guaporé/Brasil-Central).
+          </div>
+        </div>
+
+        <!-- 3. Interplanálticas -->
+        <div class="p-4 bg-white border border-slate-200 rounded-lg">
+          <h4 class="font-bold text-slate-900 mb-1 flex items-center">
+            <span class="w-2 h-2 rounded-full bg-slate-700 mr-2"></span>
+            3. Depressões Interplanálticas
+          </h4>
+          <p class="leading-relaxed mb-2">
+            Superfícies denudadas situadas <mark class="highlight">no interior de blocos e maciços planálticos, circundadas inteiramente por relevos de cotas altimétricas mais altas</mark>. Foram esculpidas predominantemente por pediplanação semiárida ou subúmida, mantendo <em>inselbergs</em> e cristas de quartzo como relevos testemunhos isolados.
+          </p>
+          <div class="text-xs bg-slate-50 p-2.5 rounded border border-slate-200 text-slate-800">
+            <strong>Exemplos Clássicos de Prova:</strong> 
+            <em>Depressão Sertaneja e do São Francisco</em> (a maior do país, encravada entre a Borborema, as Chapadas do Parnaíba e a Serra do Espinhaço), <em>Depressão Cuiabana</em> (entre a Chapada dos Guimarães e os Parecis), <em>Depressão do Araguaia</em> e <em>Depressão do Tocantins</em>.
+          </div>
+        </div>
+      </div>
+
+      <!-- TABELA COMPARATIVA DAS DEPRESSÕES (SEM SCROLL) -->
+      <div class="mb-4">
+        <h4 class="text-sm font-bold text-slate-900 uppercase tracking-wider mb-2">
+          Síntese Comparativa das Depressões Relativas Brasileiras
+        </h4>
+        <div class="border border-slate-300 rounded-lg overflow-hidden bg-white">
+          <table class="w-full text-left text-xs sm:text-sm">
+            <thead>
+              <tr class="bg-slate-100 border-b border-slate-300 text-slate-900 font-bold">
+                <th class="w-3/12 p-2 sm:p-2.5 border-r border-slate-300">Categoria Genética</th>
+                <th class="w-4/12 p-2 sm:p-2.5 border-r border-slate-300">Posição Geológica e Estrutural</th>
+                <th class="w-5/12 p-2 sm:p-2.5">Principais Ocorrências em Provas</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-200 text-slate-800 leading-tight">
+              <tr>
+                <td class="p-2 sm:p-2.5 font-bold text-slate-900 bg-slate-50 border-r border-slate-200">Depressões Periféricas</td>
+                <td class="p-2 sm:p-2.5 border-r border-slate-200">
+                  <mark class="highlight">Contato direto</mark> entre bordas de bacias sedimentares e escudos cristalinos, acompanhadas por front de cuestas.
+                </td>
+                <td class="p-2 sm:p-2.5">
+                  • Depressão Periférica Borda Leste Bacia Paraná (Paulista)<br>
+                  • Depressão Periférica Sul-Rio-Grandense (Vales Jacuí/Ibicuí)
+                </td>
+              </tr>
+              <tr class="bg-slate-50/50">
+                <td class="p-2 sm:p-2.5 font-bold text-slate-900 bg-slate-50 border-r border-slate-200">Depressões Marginais</td>
+                <td class="p-2 sm:p-2.5 border-r border-slate-200">
+                  Entalhadas <mark class="highlight">sobre escudos cristalinos</mark> que marginam grandes bacias sedimentares intracratônicas.
+                </td>
+                <td class="p-2 sm:p-2.5">
+                  • Depressão Marginal Norte-Amazônica<br>
+                  • Depressão Marginal Sul-Amazônica
+                </td>
+              </tr>
+              <tr>
+                <td class="p-2 sm:p-2.5 font-bold text-slate-900 bg-slate-50 border-r border-slate-200">Depressões Interplanálticas</td>
+                <td class="p-2 sm:p-2.5 border-r border-slate-200">
+                  Encravadas <mark class="highlight">inteiramente no interior de maciços planálticos</mark> de altitudes mais elevadas, com inselbergs.
+                </td>
+                <td class="p-2 sm:p-2.5">
+                  • Depressão Sertaneja e do São Francisco<br>
+                  • Depressão Cuiabana<br>
+                  • Depressão do Araguaia e Depressão do Tocantins
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- SEÇÃO 5: SÍNTESE DE MEMORIZAÇÃO PARA PROVA OBJETIVA -->
+    <section id="memorizacao" class="mb-12">
+      <div class="flex items-center space-x-3 mb-4">
+        <span class="w-8 h-8 rounded-full bg-slate-800 text-white font-bold flex items-center justify-center text-sm">5</span>
+        <h2 class="text-2xl font-bold text-slate-900 tracking-tight">Síntese de Memorização Rápida para o Dia da Prova</h2>
+      </div>
+
+      <!-- Tópicos Diretos de Fixação -->
+      <div class="mb-8 p-5 bg-white border border-slate-300 rounded-lg">
+        <h3 class="text-base font-bold text-slate-900 mb-3 uppercase tracking-wide">
+          Pontos Críticos em Tópicos Curtos para Acerto Imediato
+        </h3>
+        <ul class="space-y-3 text-xs sm:text-sm text-slate-700">
+          <li class="flex items-start">
+            <span class="text-slate-900 font-bold mr-2">1.</span>
+            <span><strong class="text-slate-900">Histórico em 3 Nomes:</strong> Aroldo de Azevedo = critério <mark class="highlight">hipsométrico fixo em 200m</mark> (8 unidades); Aziz Ab'Sáber = critério <mark class="highlight">morfoclimático do balanço erosão vs sedimentação</mark> (10 unidades); Jurandyr Ross = <mark class="highlight">Radambrasil + morfoestrutura + morfoescultura + morfocronologia</mark> (28 unidades: 11-11-6).</span>
+          </li>
+          <li class="flex items-start">
+            <span class="text-slate-900 font-bold mr-2">2.</span>
+            <span><strong class="text-slate-900">Zero Depressões Absolutas:</strong> Todas as 11 depressões brasileiras catalogadas por Ross são <mark class="highlight">relativas</mark> (cotas entre 100m e 500m acima do nível do mar), moldadas por ciclos contínuos de erosão diferencial e pediplanação.</span>
+          </li>
+          <li class="flex items-start">
+            <span class="text-slate-900 font-bold mr-2">3.</span>
+            <span><strong class="text-slate-900">Planícies Reduzidas a 5%:</strong> Na classificação de Ross, as planícies ocupam apenas <mark class="highlight">~5% do território nacional</mark> e limitam-se a faixas quaternárias aluviais ou costeiras com sedimentação ativa superior à erosão. A Amazônia é majoritariamente depressão e planalto, não planície!</span>
+          </li>
+          <li class="flex items-start">
+            <span class="text-slate-900 font-bold mr-2">4.</span>
+            <span><strong class="text-slate-900">Inexistência de Dobramentos Modernos:</strong> O relevo brasileiro não possui dobramentos modernos (terciários/andinos). As serras mais altas do país enquadram-se como <mark class="highlight">Planaltos em Cinturões Orogênicos Antigos</mark> (dobramentos pré-cambrianos reativados por falhas tectônicas).</span>
+          </li>
+          <li class="flex items-start">
+            <span class="text-slate-900 font-bold mr-2">5.</span>
+            <span><strong class="text-slate-900">Sequência dos 6 Táxons (Macro para Micro):</strong> 1º Táxon = <mark class="highlight">Morfoestrutura</mark> &rarr; 2º Táxon = <mark class="highlight">Morfoescultura</mark> (os 28 compartimentos) &rarr; 3º Táxon = <mark class="highlight">Unidade Morfológica</mark> (padrão de relevos) &rarr; 4º Táxon = <mark class="highlight">Forma Individualizada</mark> &rarr; 5º Táxon = <mark class="highlight">Tipos de Vertentes</mark> &rarr; 6º Táxon = <mark class="highlight">Processos Atuais / Microrrelevo</mark> (voçorocas).</span>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Pegadinhas Recorrentes de Bancas -->
+      <div class="p-5 bg-white border border-slate-300 rounded-lg">
+        <h3 class="text-base font-bold text-slate-900 mb-3 uppercase tracking-wide">
+          Pegadinhas Recorrentes e Correção Técnica
+        </h3>
+
+        <div class="space-y-4 text-xs sm:text-sm">
+          <div class="border-l-4 border-slate-400 pl-3">
+            <div class="font-bold text-slate-900">Pegadinha 1: A natureza da Depressão da Borda Leste do Paraná (Paulista)</div>
+            <p class="text-slate-700 mt-1">
+              <strong>Afirmativa da Banca:</strong> "A Depressão Periférica Paulista é uma planície sedimentar de inundação."<br>
+              <strong class="text-slate-900">Gabarito Correto:</strong> <span class="text-emerald-800 font-medium">ERRADA.</span> É uma <mark class="highlight">depressão periférica relativa</mark>, escavada no contato litológico entre as rochas sedimentares paleomesozoicas da Bacia do Paraná e o escudo cristalino litorâneo, dominada por processos erosivos e relevo em cuesta.
+            </p>
+          </div>
+
+          <div class="border-l-4 border-slate-400 pl-3">
+            <div class="font-bold text-slate-900">Pegadinha 2: Classificação genética da Depressão Sertaneja</div>
+            <p class="text-slate-700 mt-1">
+              <strong>Afirmativa da Banca:</strong> "A Depressão Sertaneja é classificada como marginal por margear a costa do Nordeste."<br>
+              <strong class="text-slate-900">Gabarito Correto:</strong> <span class="text-emerald-800 font-medium">ERRADA.</span> A Depressão Sertaneja e do São Francisco é uma <mark class="highlight">depressão interplanáltica</mark>, encravada entre os blocos planálticos da Borborema a leste, Bacia do Parnaíba a oeste e Serra do Espinhaço ao sul.
+            </p>
+          </div>
+
+          <div class="border-l-4 border-slate-400 pl-3">
+            <div class="font-bold text-slate-900">Pegadinha 3: Posição taxonômica dos Tabuleiros Litorâneos</div>
+            <p class="text-slate-700 mt-1">
+              <strong>Afirmativa da Banca:</strong> "Na classificação de Ross, os tabuleiros litorâneos constituem planaltos sedimentares residuais."<br>
+              <strong class="text-slate-900">Gabarito Correto:</strong> <span class="text-emerald-800 font-medium">ERRADA.</span> Na classificação oficial das 28 unidades, os tabuleiros costeiros integram o compartimento 28: <mark class="highlight">Planícies e Tabuleiros Litorâneos</mark>, agrupados com as planícies marinhas devido à baixíssima declividade e proximidade costeira do Grupo Barreiras.
+            </p>
+          </div>
+
+          <div class="border-l-4 border-slate-400 pl-3">
+            <div class="font-bold text-slate-900">Pegadinha 4: Critério conceitual de Jurandyr Ross</div>
+            <p class="text-slate-700 mt-1">
+              <strong>Afirmativa da Banca:</strong> "A classificação de Ross foi norteada principalmente por limites hipsométricos rígidos (altitudes acima ou abaixo de 200m)."<br>
+              <strong class="text-slate-900">Gabarito Correto:</strong> <span class="text-emerald-800 font-medium">ERRADA.</span> O critério hipsométrico rígido de 200m foi formulado por <mark class="highlight">Aroldo de Azevedo em 1949</mark>. Jurandyr Ross fundamentou seu modelo no <mark class="highlight">trinômio morfoestrutura, morfoescultura e morfocronologia</mark>, utilizando a altimetria apenas como indicativo secundário subordinado à gênese geológica.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- BLOCO FINAL: DIRECIONAMENTO PARA O BANCO DE QUESTÕES -->
+    <section class="mt-14 pt-8 border-t border-slate-200 text-center">
+      <div class="max-w-xl mx-auto p-6 bg-white border border-slate-300 rounded-2xl shadow-sm">
+        <span class="inline-block p-2 bg-slate-100 rounded-full mb-3 text-slate-700">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
+          </svg>
+        </span>
+        <h3 class="text-xl font-bold text-slate-900 mb-2">Pronto para Fixar o Conteúdo?</h3>
+        <p class="text-xs sm:text-sm text-slate-600 mb-6">
+          Teste seus conhecimentos práticos com o caderno de questões específicas da banca e consolide os pontos decisivos da compartimentação de Ross.
+        </p>
+        <a 
+          href="questoes9geo.html" 
+          class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-sm font-bold rounded-lg text-white bg-slate-900 hover:bg-slate-800 active:bg-slate-950 transition-all shadow-sm group"
+        >
+          <span>Ir para o Caderno de Questões</span>
+          <svg class="ml-2 w-4 h-4 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+          </svg>
+        </a>
+      </div>
+      <p class="text-[11px] text-slate-400 mt-6">
+        Material didático estruturado para o Concurso Público do IFMG • Bibliografia de Referência: ROSS (2014) &amp; AB'SÁBER (2003).
+      </p>
+    </section>
+
+  </main>
+
+  <!-- JAVASCRIPT: CONTROLE DO ÁUDIO E VELOCIDADE -->
+  <script>
+    // Atualização da fonte do áudio digitada pelo usuário
+    function updateAudioSource() {
+      const input = document.getElementById('audioFileName');
+      const player = document.getElementById('audioPlayer');
+      const source = document.getElementById('audioSource');
+      const label = document.getElementById('currentFileLabel');
+      
+      let fileName = input.value.trim();
+      if (!fileName) {
+        fileName = 'audio9geo.mp3';
+        input.value = fileName;
+      }
+      
+      source.src = fileName;
+      label.textContent = fileName;
+      
+      // Recarrega o player com o novo arquivo
+      player.load();
+      
+      const statusMsg = document.getElementById('audioStatusMsg');
+      statusMsg.innerHTML = '<span class="text-emerald-700 font-medium">✓ Arquivo "' + fileName + '" carregado no player. Pressione Play para ouvir.</span>';
+    }
+
+    // Alteração de velocidade de reprodução
+    function setAudioSpeed(speed) {
+      const player = document.getElementById('audioPlayer');
+      player.playbackRate = speed;
+
+      // Atualiza estilo dos botões
+      const buttons = document.querySelectorAll('.speed-btn');
+      buttons.forEach(btn => {
+        if (parseFloat(btn.textContent) === speed || (speed === 1.0 && btn.textContent === '1x')) {
+          btn.className = 'speed-btn px-2 py-0.5 text-xs font-semibold rounded bg-white text-slate-800 shadow-sm border border-slate-300';
+        } else {
+          btn.className = 'speed-btn px-2 py-0.5 text-xs font-semibold rounded text-slate-600 hover:bg-white';
+        }
+      });
+    }
+
+    // Listener para carregar com tecla Enter no input
+    document.getElementById('audioFileName').addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') {
+        updateAudioSource();
+      }
+    });
+  </script>
+</body>
+</html>

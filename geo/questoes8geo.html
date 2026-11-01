@@ -1,0 +1,1418 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simulado: Geomorfologia Geral – Processos Morfogenéticos e Relevo | IFMG</title>
+
+  <!-- MathJax para renderização de equações físico-químicas e geológicas -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      },
+      options: {
+        skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+  <style>
+    /* Variáveis focadas em leitura prolongada e conforto óptico */
+    :root {
+      --bg-body: #f8fafc;
+      --bg-surface: #ffffff;
+      --bg-subtle: #f1f5f9;
+      --border-color: #cbd5e1;
+      --border-light: #e2e8f0;
+      --text-primary: #1e293b;
+      --text-secondary: #475569;
+      --text-muted: #64748b;
+      --primary-color: #1e3a8a;
+      --primary-hover: #1e40af;
+      --primary-light: #eff6ff;
+      --success-bg: #ecfdf5;
+      --success-border: #10b981;
+      --success-text: #065f46;
+      --danger-bg: #fef2f2;
+      --danger-border: #ef4444;
+      --danger-text: #991b1b;
+      --warning-bg: #fffbeb;
+      --warning-text: #92400e;
+      --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.06);
+      --shadow-md: 0 4px 14px rgba(15, 23, 42, 0.06);
+      --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Helvetica Neue", Arial, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-body);
+      color: var(--text-primary);
+      font-family: var(--font-family);
+      font-size: 16.5px;
+      line-height: 1.75;
+      letter-spacing: -0.011em;
+      padding-bottom: 5rem;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .container {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 2.5rem 1.25rem;
+    }
+
+    /* Cabeçalho Institucional */
+    .header-box {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-light);
+      border-radius: 12px;
+      padding: 2.25rem 2rem;
+      margin-bottom: 2rem;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .badge-tag {
+      display: inline-block;
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      background: var(--primary-light);
+      color: var(--primary-color);
+      padding: 0.35rem 0.8rem;
+      border-radius: 6px;
+      margin-bottom: 0.9rem;
+    }
+
+    .exam-title {
+      font-size: 1.65rem;
+      font-weight: 800;
+      color: var(--text-primary);
+      line-height: 1.3;
+      margin-bottom: 0.75rem;
+    }
+
+    .exam-meta {
+      font-size: 0.95rem;
+      color: var(--text-secondary);
+      border-top: 1px solid var(--border-light);
+      padding-top: 1rem;
+      margin-top: 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+    }
+
+    .exam-meta strong {
+      color: var(--text-primary);
+    }
+
+    /* Barra de Progresso */
+    .progress-bar-container {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-light);
+      border-radius: 10px;
+      padding: 1rem 1.5rem;
+      margin-bottom: 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 1rem;
+      z-index: 50;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .progress-label {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+    }
+
+    .progress-track {
+      width: 45%;
+      height: 9px;
+      background-color: var(--border-light);
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      width: 0%;
+      background-color: var(--primary-color);
+      border-radius: 999px;
+      transition: width 0.3s ease;
+    }
+
+    /* Cards das Questões */
+    .question-block {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-light);
+      border-radius: 14px;
+      padding: 2.25rem 2rem;
+      margin-bottom: 2.25rem;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .question-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.25rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid var(--border-light);
+    }
+
+    .question-index {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: var(--primary-color);
+    }
+
+    .question-badge-status {
+      font-size: 0.8rem;
+      font-weight: 600;
+      padding: 0.25rem 0.65rem;
+      border-radius: 999px;
+      background: var(--bg-subtle);
+      color: var(--text-muted);
+    }
+
+    .question-statement {
+      font-size: 1.05rem;
+      color: var(--text-primary);
+      text-align: justify;
+      margin-bottom: 1.5rem;
+      line-height: 1.8;
+    }
+
+    /* Tabela de Associação (Questão 06) */
+    .table-wrapper {
+      overflow-x: auto;
+      margin: 1.5rem 0;
+      border-radius: 8px;
+      border: 1px solid var(--border-light);
+    }
+
+    .custom-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.95rem;
+      text-align: left;
+    }
+
+    .custom-table th {
+      background-color: var(--bg-subtle);
+      color: var(--text-primary);
+      font-weight: 700;
+      padding: 0.9rem 1rem;
+      border-bottom: 2px solid var(--border-light);
+    }
+
+    .custom-table td {
+      padding: 0.85rem 1rem;
+      border-bottom: 1px solid var(--border-light);
+      color: var(--text-secondary);
+      vertical-align: top;
+      line-height: 1.6;
+    }
+
+    .custom-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    /* Grupo de Opções */
+    .options-container {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+    }
+
+    .option-card {
+      display: flex;
+      align-items: flex-start;
+      padding: 1rem 1.25rem;
+      background: var(--bg-surface);
+      border: 1.5px solid var(--border-light);
+      border-radius: 10px;
+      cursor: pointer;
+      position: relative;
+      transition: all 0.2s ease;
+    }
+
+    .option-card:hover {
+      background: #fafafa;
+      border-color: #cbd5e1;
+    }
+
+    .option-radio {
+      position: absolute;
+      opacity: 0;
+      cursor: pointer;
+    }
+
+    .option-bullet {
+      width: 28px;
+      height: 28px;
+      min-width: 28px;
+      border-radius: 50%;
+      border: 1.5px solid var(--border-color);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--text-secondary);
+      margin-right: 1rem;
+      margin-top: 0.15rem;
+      background: #ffffff;
+      transition: all 0.2s ease;
+    }
+
+    .option-card.selected {
+      border-color: var(--primary-color);
+      background-color: var(--primary-light);
+    }
+
+    .option-card.selected .option-bullet {
+      border-color: var(--primary-color);
+      background-color: var(--primary-color);
+      color: #ffffff;
+    }
+
+    .option-text-content {
+      flex: 1;
+      font-size: 0.98rem;
+      line-height: 1.65;
+      color: var(--text-primary);
+    }
+
+    /* Estilos pós-correção nas alternativas */
+    .option-card.correct-highlight {
+      border-color: var(--success-border) !important;
+      background-color: var(--success-bg) !important;
+    }
+
+    .option-card.correct-highlight .option-bullet {
+      border-color: var(--success-border) !important;
+      background-color: var(--success-border) !important;
+      color: #ffffff !important;
+    }
+
+    .option-card.incorrect-highlight {
+      border-color: var(--danger-border) !important;
+      background-color: var(--danger-bg) !important;
+    }
+
+    .option-card.incorrect-highlight .option-bullet {
+      border-color: var(--danger-border) !important;
+      background-color: var(--danger-border) !important;
+      color: #ffffff !important;
+    }
+
+    /* Painel de Resolução Comentada */
+    .resolution-box {
+      display: none;
+      margin-top: 1.75rem;
+      padding: 1.5rem 1.75rem;
+      background-color: var(--bg-subtle);
+      border: 1px solid var(--border-light);
+      border-left: 5px solid var(--primary-color);
+      border-radius: 8px;
+      animation: fadeIn 0.4s ease-in-out;
+    }
+
+    .resolution-header {
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: var(--primary-color);
+      margin-bottom: 0.85rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .resolution-text {
+      font-size: 0.97rem;
+      line-height: 1.75;
+      color: var(--text-primary);
+      text-align: justify;
+    }
+
+    .resolution-text ul {
+      margin: 0.75rem 0 0.5rem 1.5rem;
+    }
+
+    .resolution-text li {
+      margin-bottom: 0.45rem;
+    }
+
+    /* Botão Principal de Conclusão */
+    .finish-section {
+      text-align: center;
+      margin: 3.5rem 0 2rem;
+    }
+
+    .btn-finish {
+      background-color: var(--primary-color);
+      color: #ffffff;
+      font-size: 1.1rem;
+      font-weight: 700;
+      padding: 1.1rem 2.8rem;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      box-shadow: 0 4px 14px rgba(30, 58, 138, 0.25);
+      transition: all 0.2s ease;
+    }
+
+    .btn-finish:hover {
+      background-color: var(--primary-hover);
+      box-shadow: 0 6px 18px rgba(30, 58, 138, 0.35);
+      transform: translateY(-1px);
+    }
+
+    .btn-secondary {
+      background-color: #ffffff;
+      color: var(--text-primary);
+      font-size: 0.95rem;
+      font-weight: 600;
+      padding: 0.75rem 1.5rem;
+      border: 1.5px solid var(--border-color);
+      border-radius: 8px;
+      cursor: pointer;
+      margin: 0.35rem;
+      transition: all 0.2s ease;
+    }
+
+    .btn-secondary:hover {
+      background-color: var(--bg-subtle);
+    }
+
+    /* Modal/Painel Final de Resultados */
+    #score-summary-panel {
+      display: none;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-light);
+      border-radius: 14px;
+      padding: 2.5rem;
+      margin-top: 3rem;
+      box-shadow: var(--shadow-md);
+      animation: slideDown 0.5s ease-out;
+    }
+
+    .score-banner {
+      text-align: center;
+      padding-bottom: 2rem;
+      border-bottom: 1px solid var(--border-light);
+      margin-bottom: 2rem;
+    }
+
+    .score-value {
+      font-size: 3.25rem;
+      font-weight: 900;
+      color: var(--primary-color);
+      line-height: 1;
+      margin-bottom: 0.4rem;
+    }
+
+    .score-sub {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+      margin-bottom: 1rem;
+    }
+
+    .feedback-pill {
+      display: inline-block;
+      font-size: 0.95rem;
+      font-weight: 600;
+      padding: 0.45rem 1.25rem;
+      border-radius: 999px;
+    }
+
+    .feedback-pill.high {
+      background: var(--success-bg);
+      color: var(--success-text);
+    }
+
+    .feedback-pill.med {
+      background: var(--warning-bg);
+      color: var(--warning-text);
+    }
+
+    .feedback-pill.low {
+      background: var(--danger-bg);
+      color: var(--danger-text);
+    }
+
+    .gabarito-summary-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+      gap: 0.75rem;
+      margin-top: 1.25rem;
+    }
+
+    .gabarito-tile {
+      padding: 0.85rem;
+      border-radius: 8px;
+      border: 1px solid var(--border-light);
+      text-align: center;
+      background: var(--bg-subtle);
+    }
+
+    .gabarito-tile.hit {
+      border-color: var(--success-border);
+      background-color: var(--success-bg);
+      color: var(--success-text);
+    }
+
+    .gabarito-tile.miss {
+      border-color: var(--danger-border);
+      background-color: var(--danger-bg);
+      color: var(--danger-text);
+    }
+
+    .tile-num {
+      font-size: 0.85rem;
+      font-weight: 700;
+      display: block;
+      margin-bottom: 0.25rem;
+    }
+
+    .tile-correct {
+      font-size: 1.2rem;
+      font-weight: 800;
+    }
+
+    .tile-user {
+      font-size: 0.75rem;
+      margin-top: 0.2rem;
+    }
+
+    /* Modal Informativo Customizado (Substitui window.confirm/alert) */
+    .custom-modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.45);
+      z-index: 9999;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+      backdrop-filter: blur(4px);
+    }
+
+    .custom-modal-content {
+      background: var(--bg-surface);
+      border-radius: 12px;
+      max-width: 480px;
+      width: 100%;
+      padding: 2rem;
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2);
+      text-align: center;
+    }
+
+    .modal-actions {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-top: 1.75rem;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes slideDown {
+      from { opacity: 0; transform: translateY(14px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 640px) {
+      .container {
+        padding: 1rem;
+      }
+      .question-block, .header-box, #score-summary-panel {
+        padding: 1.5rem 1.25rem;
+      }
+      .progress-track {
+        width: 35%;
+      }
+      .exam-title {
+        font-size: 1.35rem;
+      }
+      .btn-finish {
+        width: 100%;
+        padding: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+
+    <!-- Cabeçalho Oficial do Simulado -->
+    <header class="header-box">
+      <div class="badge-tag">Concurso Público Docente EBTT</div>
+      <h1 class="exam-title">Geomorfologia Geral – Processos Morfogenéticos e Relevo</h1>
+      <div class="exam-meta">
+        <div><strong>Banca Examinadora:</strong> Comissão Central de Concurso Público da Reitoria do IFMG</div>
+        <div><strong>Foco da Prova Objetiva:</strong> Diferenciação do predomínio intempérico (químico x físico); anatomia de cuestas; dinâmica de movimentos de massa em encostas ocupadas.</div>
+        <div><strong>Bibliografia Vinculada:</strong> CHRISTOPHERSON & BIRKELAND (2017); ROSS (2014); TEIXEIRA et al. (2009).</div>
+      </div>
+    </header>
+
+    <!-- Rastreador de Progresso Sticky -->
+    <div class="progress-bar-container">
+      <span class="progress-label" id="progress-text">Progresso: 0 de 10 respondidas</span>
+      <div class="progress-track">
+        <div class="progress-fill" id="progress-fill"></div>
+      </div>
+    </div>
+
+    <!-- Lista de Questões do Simulado -->
+    <form id="quiz-form">
+
+      <!-- QUESTÃO 01 -->
+      <article class="question-block" id="block-q1">
+        <div class="question-top">
+          <span class="question-index">Questão 01</span>
+          <span class="question-badge-status" id="badge-q1">Pendente</span>
+        </div>
+        <p class="question-statement">
+          No âmbito da geomorfologia exógena e da dinâmica da alteração intempérica, as taxas e as modalidades dominantes de intemperismo são condicionadas pela disponibilidade de energia térmica e pelos regimes pluviométricos zonais. O diagrama morfoclimático de Louis Peltier sistematiza as relações de interdependência entre precipitação média anual, temperatura média do ar e a intensidade relativa dos processos mecânicos e químicos de alteração da rocha. Com base nos postulados de Christopherson & Birkeland (2017) e Teixeira et al. (2009), assinale a afirmativa correta sobre a diferenciação espacial do intemperismo:
+        </p>
+        <div class="options-container">
+          <label class="option-card" onclick="selectAnswer(1, 'A')">
+            <input type="radio" name="q1" value="A" class="option-radio">
+            <div class="option-bullet">A</div>
+            <div class="option-text-content">Nas regiões tropicais e equatoriais hiperúmidas, as elevadas temperaturas aliadas ao contínuo excedente hídrico aceleram a cinética das reações biogeoquímicas, com destaque para a hidrólise profunda dos silicatos e a lixiviação acentuada de bases e sílica, gerando perfis de alteração espessos dominados por argilominerais 1:1 e hidróxidos metálicos residuais.</div>
+          </label>
+          <label class="option-card" onclick="selectAnswer(1, 'B')">
+            <input type="radio" name="q1" value="B" class="option-radio">
+            <div class="option-bullet">B</div>
+            <div class="option-text-content">Nos domínios hiperáridos subtropicais, a pronunciada amplitude térmica diária potencializa as reações químicas de dissolução e oxidação em subsuperfície, uma vez que o calor diurno atua como catalisador suficiente para suplantar a ausência quase absoluta de água intersticial livre.</div>
+          </label>
+          <label class="option-card" onclick="selectAnswer(1, 'C')">
+            <input type="radio" name="q1" value="C" class="option-radio">
+            <div class="option-bullet">C</div>
+            <div class="option-text-content">Em ambientes polares e periglaciais, o mecanismo de crioclastia atua de forma secundária e inexpressiva, haja vista que a subsidência térmica contínua cristaliza permanentemente a água nos poros litológicos sem permitir flutuações ao redor do ponto de congelamento necessárias para a fragmentação.</div>
+          </label>
+          <label class="option-card" onclick="selectAnswer(1, 'D')">
+            <input type="radio" name="q1" value="D" class="option-radio">
+            <div class="option-bullet">D</div>
+            <div class="option-text-content">A termoclastia define-se como um mecanismo de alteração química primária operante em litologias sedimentares pelíticas, no qual choques térmicos alternados quebram as ligações iônicas do quartzo e provocam a formação autóctone de minerais carbonáticos e evaporíticos solúveis.</div>
+          </label>
+          <label class="option-card" onclick="selectAnswer(1, 'E')">
+            <input type="radio" name="q1" value="E" class="option-radio">
+            <div class="option-bullet">E</div>
+            <div class="option-text-content">A atuação do intemperismo químico nos domínios semiáridos prevalece sobre o intemperismo físico mecânico em virtude da ausência de manto vegetal, condição que viabiliza o contato molecular desimpedido da atmosfera seca com as interfaces cristalinas das rochas frescas.</div>
+          </label>
+        </div>
+        <div class="resolution-box" id="res-box-q1">
+          <div class="resolution-header">💡 Resolução da Questão 01 – Gabarito: A</div>
+          <div class="resolution-text">
+            O gabarito é a <strong>Alternativa A</strong>. Em regiões de climas tropicais e equatoriais úmidos, a combinação contínua de elevada precipitação e temperaturas médias anuais superiores a 20 °C catalisa a intensidade do intemperismo químico. Segundo o diagrama morfoclimático de Louis Peltier e as análises de Christopherson & Birkeland (2017) e Teixeira et al. (2009), o calor atua na aceleração da cinética reacional e a abundância de água fornece os reagentes necessários para a hidrólise dos silicatos. Esse ambiente biogeoquímico promove a lixiviação profunda de cátions trocáveis ($\text{K}^+, \text{Na}^+, \text{Ca}^{2+}, \text{Mg}^{2+}$) e a dessilicificação progressiva, propiciando a gênese de solos profundos e mantos intempéricos caracterizados pela presença dominante de argilominerais resistentes do grupo 1:1 (caulinita) e hidróxidos metálicos residuais de ferro e alumínio (como goethita, hematita e gibbsita).
+            <br><br>
+            A análise das proposições incorretas evidencia distorções conceituais:
+            <ul>
+              <li><strong>B está incorreta:</strong> A escassez de água líquida em desertos inibe o intemperismo químico, tornando predominantes os processos físicos mecânicos.</li>
+              <li><strong>C está incorreta:</strong> A crioclastia (gelifração) é tipicamente ativa em ambientes periglaciais onde ocorrem ciclos repetidos de congelamento e degelo, com a água aumentando em cerca de 9% seu volume físico nas fraturas.</li>
+              <li><strong>D está incorreta:</strong> A termoclastia é um processo de intemperismo puramente físico mecânico, fundamentado na dilatação e contração diferencial dos cristais minerais sujeitos a fortes amplitudes térmicas diárias, sem gerar quebra de ligações moleculares silicatadas para conversão química em carbonatos ou evaporitos.</li>
+              <li><strong>E está incorreta:</strong> Em climas semiáridos é o intemperismo físico mecânico que sobressai em relação às transformações químicas devido à carência de umidade.</li>
+            </ul>
+          </div>
+        </div>
+      </article>
+
+      <!-- QUESTÃO 02 -->
+      <article class="question-block" id="block-q2">
+        <div class="question-top">
+          <span class="question-index">Questão 02</span>
+          <span class="question-badge-status" id="badge-q2">Pendente</span>
+        </div>
+        <p class="question-statement">
+          A degradação química dos minerais constituintes das rochas decorre de desequilíbrios termodinâmicos estabelecidos quando minerais formados sob altas pressões e temperaturas crustais entram em contato com fluidos superficiais e gases atmosféricos. Acerca das reações e dos processos envolvidos no intemperismo químico (hidratação, hidrólise, dissolução e oxidação), abordados por Teixeira et al. (2009), analise as seguintes proposições:
+          <br><br>
+          <strong>I.</strong> A hidratação consiste na absorção molecular estequiométrica de água na estrutura cristalográfica de um mineral sem que haja a decomposição iônica da molécula de $\text{H}_2\text{O}$, acarretando expansão volumétrica de sua rede, a exemplo da conversão da anidrita em gipsita.<br>
+          <strong>II.</strong> A hidrólise constitui a principal reação de intemperismo químico em ambientes tropicais, ocorrendo pela clivagem da molécula de água em íons $\text{H}^+$ e $\text{OH}^-$, em que o próton hidrogênio ataca a rede de aluminossilicatos primários e substitui cátions metálicos solúveis, originando fases secundárias como caulinitas e esmectitas.<br>
+          <strong>III.</strong> A oxidação corresponde ao processo no qual determinados íons perdem elétrons na presença de oxigênio livre ou dissolvido, sendo amplamente diagnóstica na transformação do ferro ferroso ($\text{Fe}^{2+}$), presente em biotitas e piroxênios, em ferro férrico ($\text{Fe}^{3+}$), o que desestabiliza a estabilidade cristalina original e gera pigmentações avermelhadas e amareladas por hematita e goethita.<br>
+          <strong>IV.</strong> A dissolução é um mecanismo restrito aos sais evaporíticos clorados, tornando-se incapaz de mobilizar minerais de carbonato de cálcio mesmo quando associada à acidificação provocada pela presença de dióxido de carbono dissolvido nas águas pluviais.
+          <br><br>
+          Está correto o que se afirma em:
+        </p>
+        <div class="options-container">
+          <label class="option-card" onclick="selectAnswer(2, 'A')">
+            <input type="radio" name="q2" value="A" class="option-radio">
+            <div class="option-bullet">A</div>
+            <div class="option-text-content">I e IV, apenas.</div>
+          </label>
+          <label class="option-card" onclick="selectAnswer(2, 'B')">
+            <input type="radio" name="q2" value="B" class="option-radio">
+            <div class="option-bullet">B</div>
+            <div class="option-text-content">II e III, apenas.</div>
+          </label>
+          <label class="option-card" onclick="selectAnswer(2, 'C')">
+            <input type="radio" name="q2" value="C" class="option-radio">
+            <div class="option-bullet">C</div>
+            <div class="option-text-content">I, II e III, apenas.</div>
+          </label>
+          <label class="option-card" onclick="selectAnswer(2, 'D')">
+            <input type="radio" name="q2" value="D" class="option-radio">
+            <div class="option-bullet">D</div>
+            <div class="option-text-content">II, III e IV, apenas.</div>
+          </label>
+          <label class="option-card" onclick="selectAnswer(2, 'E')">
+            <input type="radio" name="q2" value="E" class="option-radio">
+            <div class="option-bullet">E</div>
+            <div class="option-text-content">I, II, III e IV.</div>
+          </label>
+        </div>
+        <div class="resolution-box" id="res-box-q2">
+          <div class="resolution-header">💡 Resolução da Questão 02 – Gabarito: C</div>
+          <div class="resolution-text">
+            O gabarito é a <strong>Alternativa C</strong>. O intemperismo químico altera o estado físico e mineralógico da litosfera mediante processos aquosos fundamentais.
+            <ul>
+              <li><strong>Proposição I (Verdadeira):</strong> A hidratação envolve a anexação estrutural de moléculas neutras de água na matriz cristalina mineral, sem quebra do solvente em hidrônio ou hidroxila, como ocorre tipicamente no par anidrita-gipsita ($\text{CaSO}_4 + 2\text{H}_2\text{O} \rightarrow \text{CaSO}_4 \cdot 2\text{H}_2\text{O}$), processo que gera expressiva expansão volumétrica.</li>
+              <li><strong>Proposição II (Verdadeira):</strong> A hidrólise constitui a rota mais expressiva de alteração nos trópicos úmidos, sendo governada pela dissociação da água e pela ação do íon hidrogênio, que desloca e substitui cátions metálicos da estrutura silicatada de feldspatos e micas, liberando sílica e bases solúveis e neoformando argilas secundárias.</li>
+              <li><strong>Proposição III (Verdadeira):</strong> A oxidação geológica é caracterizada pela perda de elétrons de cátions metálicos sob a ação de oxigênio dissolvido, promovendo a transformação de ferro ferroso ($\text{Fe}^{2+}$) em ferro férrico ($\text{Fe}^{3+}$) e conferindo tonalidades ocráceas e avermelhadas ao regolito decorrentes da formação de óxidos insolúveis.</li>
+              <li><strong>Proposição IV (Incorreta):</strong> A dissolução não atua apenas em sais evaporíticos; ela é o mecanismo basilar da geomorfologia cárstica ao atuar sobre rochas carbonáticas através da ação do ácido carbônico diluído ($\text{CO}_2 + \text{H}_2\text{O} \rightleftharpoons \text{H}_2\text{CO}_3$), o qual reage com o carbonato de cálcio insolúvel ($\text{CaCO}_3$) convertendo-o em bicarbonato de cálcio solúvel [$\text{Ca(HCO}_3)_2$].</li>
+            </ul>
+          </div>
+        </div>
+      </article>
+
+      <!-- QUESTÃO 03 -->
+      <article class="question-block" id="block-q3">
+        <div class="question-top">
+          <span class="question-index">Questão 03</span>
+          <span class="question-badge-status" id="badge-q3">Pendente</span>
+        </div>
+        <p class="question-statement">
+          A dinâmica do escoamento hídrico superficial sobre vertentes submetidas ao impacto das precipitações pluviais estabelece uma sucessão morfodinâmica de feições erosivas que condicionam a remoção, o transporte e a incisão linear do manto de intemperismo.
+          <br><br>
+          No que tange aos mecanismos e à morfometria das feições de incisão pluvial, assinale a opção que caracteriza com exatidão a diferenciação funcional e estrutural entre ravinas e voçorocas:
+        </p>
+        <div class="options-container">
+          <label class="option-card" onclick="selectAnswer(3, 'A')">
+            <input type="radio" name="q3" value="A" class="option-radio">
+            <div class="option-bullet">A</div>
+            <div class="option-text-content">As ravinas iniciam-se como descolamentos plásticos em blocos sustentados por recalques freáticos basais, ao passo que as voçorocas constituem canais microscópicos e temporários que são extintos espontaneamente na transição do período chuvoso para o seco.</div>
+          </label>
+          <label class="option-card" onclick="selectAnswer(3, 'B')">
+            <input type="radio" name="q3" value="B" class="option-radio">
+            <div class="option-bullet">B</div>
+            <div class="option-text-content">As ravinas são incisões lineares desenvolvidas pelo escoamento superficial concentrado que atingem o saprolito ou a base do perfil pedológico, distinguindo-se das voçorocas pelo fato de que estas últimas aprofundam seu canal até interceptar o lençol freático, passando a conjugar fluxos de retorno subterrâneos (<em>piping</em>) e colapsos de borda por liquefação e solapamento hidrodinâmico.</div>
+          </label>
+          <label class="option-card" onclick="selectAnswer(3, 'C')">
+            <input type="radio" name="q3" value="C" class="option-radio">
+            <div class="option-bullet">C</div>
+            <div class="option-text-content">As voçorocas restringem-se ao horizonte orgânico superficial do solo sem ultrapassar trinta centímetros de profundidade, enquanto as ravinas correspondem a ravinamentos quilométricos condicionados exclusivamente por subsidências cársticas profundas.</div>
+          </label>
+          <label class="option-card" onclick="selectAnswer(3, 'D')">
+            <input type="radio" name="q3" value="D" class="option-radio">
+            <div class="option-bullet">D</div>
+            <div class="option-text-content">O escoamento em lençol (<em>sheetwash</em>) decorre unicamente de processos de infiltração subsuperficial profunda, tornando-se hidraulicamente desconectado das incisões em ravinas que se desenvolvem nas cabeceiras de drenagem.</div>
+          </label>
+          <label class="option-card" onclick="selectAnswer(3, 'E')">
+            <input type="radio" name="q3" value="E" class="option-radio">
+            <div class="option-bullet">E</div>
+            <div class="option-text-content">O salpicamento (<em>splash</em>) gerado pelo choque cinético das gotas de chuva atua como fator de aumento da rugosidade e de desobstrução porosa dos solos, inibindo a consolidação do encrostamento superficial que deflagra incisões concentradas.</div>
+          </label>
+        </div>
+        <div class="resolution-box" id="res-box-q3">
+          <div class="resolution-header">💡 Resolução da Questão 03 – Gabarito: B</div>
+          <div class="resolution-text">
+            O gabarito é a <strong>Alternativa B</strong>. A mecânica erosiva pluvial evolui a partir da desagregação inicial provocada pelo choque mecânico das gotas d'água (<em>splash</em>), progredindo para o escoamento superficial laminar e, subsequentemente, concentrado. As ravinas representam canais lineares de incisão nítida esculpidos pelo escoamento superficial torrencial concentrado que transpõem os horizontes pedológicos mais superficiais e adentram os horizontes inferiores ou saprolíticos.
+            <br><br>
+            Contudo, a passagem funcional e diagnóstica para a voçoroca dá-se no instante em que a incisão linear atinge a profundidade correspondente ao nível de base local do lençol freático ou do fluxo hídrico subterrâneo permanente ou sazonal. A partir dessa interceptação hidrogeológica, os processos erosivos deixam de ser puramente superficiais e incorporam forças de percolação mecânica interna (<em>piping</em>), colapsos de margens por liquefação e descalçamento de vertentes em virtude da exfiltração da água nos horizontes basais do perfil, ampliando a erosão em ordens de grandeza espaciais e volumétricas.
+            <br><br>
+            As demais afirmativas estão incorretas:
+            <ul>
+              <li><strong>A:</strong> Inverte a escala das formas.</li>
+              <li><strong>C:</strong> Limita a profundidade das voçorocas a trinta centímetros de forma errônea, ignorando sua escala métrica e decamétrica.</li>
+              <li><strong>D:</strong> Ignora que o escoamento em lençol antecede hidraulicamente a formação de canais e ravinamentos.</li>
+              <li><strong>E:</strong> Atribui ao salpicamento um efeito desobstrutivo dos poros, quando na realidade o impacto das gotas desagrega agregados finos e provoca o selamento superficial dos poros (<em>crusting</em>), diminuindo a infiltração e acelerando o escoamento superficial.</li>
+            </ul>
+          </div>
+        </div>
+      </article>
+
+      <!-- QUESTÃO 04 -->
+      <article class="question-block" id="block-q4">
+        <div class="question-top">
+          <span class="question-index">Questão 04</span>
+          <span class="question-badge-status" id="badge-q4">Pendente</span>
+        </div>
+        <p class="question-statement">
+          Na geomorfologia fluvial descrita por Christopherson & Birkeland (2017) e Ross (2014), o perfil longitudinal dos cursos de água tende ao equilíbrio dinâmico entre a vazão líquida, a carga detrítica transportada e o gradiente topográfico imposto pela dinâmica do nível de base.
+          <br><br>
+          Considerando os conceitos de nível de base, canais meandrantes e evolução de terraços fluviais, assinale a afirmativa correta:
+        </p>
+        <div class="options-container">
+          <label class="option-card" onclick="selectAnswer(4, 'A')">
+            <input type="radio" name="q4" value="A" class="option-radio">
+            <div class="option-bullet">A</div>
+            <div class="option-text-content">O nível de base geral é estabelecido pela cota média dos oceanos, funcionando como o limite altitudinal inferior abaixo do qual a incisão linear mecânica e o aprofundamento vertical dos canais fluviais não podem operar de maneira contínua.</div>
+          </label>
+          <label class="option-card" onclick="selectAnswer(4, 'B')">
+            <input type="radio" name="q4" value="B" class="option-radio">
+            <div class="option-bullet">B</div>
+            <div class="option-text-content">O rebaixamento eustático do nível de base atenua o gradiente hidráulico dos rios e interrompe a incisão linear no leito, promovendo deposição generalizada e soterramento aluvial ao longo de todo o perfil da drenagem.</div>
+          </label>
+          <label class="option-card" onclick="selectAnswer(4, 'C')">
+            <input type="radio" name="q4" value="C" class="option-radio">
+            <div class="option-bullet">C</div>
+            <div class="option-text-content">Nos canais meandrantes, a desaceleração máxima do fluxo e a consequente deposição sedimentar de pontal (<em>point bar</em>) situam-se na margem externa côncava da curva, enquanto a incisão e o solapamento erosivo concentram-se na margem interna convexa.</div>
+          </label>
+          <label class="option-card" onclick="selectAnswer(4, 'D')">
+            <input type="radio" name="q4" value="D" class="option-radio">
+            <div class="option-bullet">D</div>
+            <div class="option-text-content">Os terraços fluviais escalonados decorrem da estagnação da drenagem provocada por subsidência crustal contínua sob regime de agradação mecânica em que não ocorrem episódios de rejuvenescimento fluvial.</div>
+          </label>
+          <label class="option-card" onclick="selectAnswer(4, 'E')">
+            <input type="radio" name="q4" value="E" class="option-radio">
+            <div class="option-bullet">E</div>
+            <div class="option-text-content">A interceptação do perfil longitudinal por soleiras litológicas cristalinas resistentes suprime os níveis de base locais, padronizando a velocidade de transporte aluvial uniformemente desde a cabeceira até a foz.</div>
+          </label>
+        </div>
+        <div class="resolution-box" id="res-box-q4">
+          <div class="resolution-header">💡 Resolução da Questão 04 – Gabarito: A</div>
+          <div class="resolution-text">
+            O gabarito é a <strong>Alternativa A</strong>. Na obra de Christopherson & Birkeland (2017) e no quadro teórico de Ross (2014), o nível de base é definido como o limite de profundidade até o qual um rio consegue degradar seu leito por incisão mecânica vertical. O nível do mar atua como o nível de base geral, pois impõe a cota altimétrica limite absoluta para o aprofundamento das redes de drenagem exorreicas que deságuam no oceano.
+            <br><br>
+            As demais alternativas são incorretas com base nas seguintes justificativas:
+            <ul>
+              <li><strong>B está incorreta:</strong> O rebaixamento eustático do nível de base aumenta a energia potencial gravitacional do rio, reativando sua capacidade mecânica de incisão linear e entalhe vertical, deflagrando o rejuvenescimento fluvial e gerando feições como vales encaixados e quebras de gradiente longitudinal.</li>
+              <li><strong>C está incorreta:</strong> Nos meandros fluviais, a máxima velocidade da corrente e a força centrífuga concentram-se na margem externa côncava da curva, provocando erosão lateral contínua e recuo de margem, ao passo que a margem interna convexa abriga menores velocidades do fluxo, permitindo a sedimentação de areias e cascalhos na forma de bancos ou barras de pontal (<em>point bars</em>).</li>
+              <li><strong>D está incorreta:</strong> Os terraços fluviais em degraus representam antigas planícies de inundação que foram abandonadas em cotas superiores em resposta a sucessivos episódios de incisão e rejuvenescimento fluvial associados a rebaixamentos do nível de base ou soerguimentos tectônicos, e não a estagnação com entulhamento passivo.</li>
+              <li><strong>E está incorreta:</strong> Soleiras litológicas configuram níveis de base locais ou temporários, retendo a incisão a montante e impedindo a uniformidade de velocidade ao longo da calha.</li>
+            </ul>
+          </div>
+        </div>
+      </article>
+
+      <!-- QUESTÃO 05 -->
+      <article class="question-block" id="block-q5">
+        <div class="question-top">
+          <span class="question-index">Questão 05</span>
+          <span class="question-badge-status" id="badge-q5">Pendente</span>
+        </div>
+        <p class="question-statement">
+          A esculturação do relevo sob a influência da atmosfera em movimento e das oscilações da hidrodinâmica oceânica reflete regimes hidrodinâmicos e termodinâmicos distintos. Em bacias áridas e na interface litorânea, os processos de erosão mecânica e de transporte detrítico produzem feições diagnósticas.
+          <br><br>
+          Acerca dos processos eólicos e marinhos abordados na obra de Christopherson & Birkeland (2017), assinale a afirmativa correta:
+        </p>
+        <div class="options-container">
+          <label class="option-card" onclick="selectAnswer(5, 'A')">
+            <input type="radio" name="q5" value="A" class="option-radio">
+            <div class="option-bullet">A</div>
+            <div class="option-text-content">A deflação eólica define-se pela esmerilação mecânica e polimento abrasivo dos paredões rochosos proporcionados pelo impacto contínuo de partículas silicatadas impulsionadas pelo vento.</div>
+          </label>
+          <label class="option-card" onclick="selectAnswer(5, 'B')">
+            <input type="radio" name="q5" value="B" class="option-radio">
+            <div class="option-bullet">B</div>
+            <div class="option-text-content">Os pavimentos desérticos (<em>regs</em>) são estruturados pela deflação eólica continuada, na qual a remoção diferencial e a dispersão dos grãos finos (silte e areia fina) deixam remanescente uma couraça superficial de fragmentos grosseiros, seixos e cascalhos angulosos.</div>
+          </label>
+          <label class="option-card" onclick="selectAnswer(5, 'C')">
+            <input type="radio" name="q5" value="C" class="option-radio">
+            <div class="option-bullet">C</div>
+            <div class="option-text-content">As arribas ou falésias ativas são geoformas costeiras estritamente agradacionais, originadas pela subsidência isostática de dunas marinhas cimentadas em ambientes de calmaria de ondas.</div>
+          </label>
+          <label class="option-card" onclick="selectAnswer(5, 'D')">
+            <input type="radio" name="q5" value="D" class="option-radio">
+            <div class="option-bullet">D</div>
+            <div class="option-text-content">A formação de uma praia retrogradante decorre da prevalência da corrasão eólica marinha em detrimento da energia longitudinal das correntes de deriva litorânea e da refração das ondas.</div>
+          </label>
+          <label class="option-card" onclick="selectAnswer(5, 'E')">
+            <input type="radio" name="q5" value="E" class="option-radio">
+            <div class="option-bullet">E</div>
+            <div class="option-text-content">Os ventifatos e os <em>yardangs</em> constituem feições residuais esculpidas por abrasão hidráulica marinha durante as transgressões marinhas quaternárias em paleocostas secas.</div>
+          </label>
+        </div>
+        <div class="resolution-box" id="res-box-q5">
+          <div class="resolution-header">💡 Resolução da Questão 05 – Gabarito: B</div>
+          <div class="resolution-text">
+            O gabarito é a <strong>Alternativa B</strong>. O processo de deflação eólica define-se pela ação mecânica de seleção, mobilização e suspensão dos sedimentos de menor granulometria superficial (silte, argila e areia fina) pelos fluxos turbulentos do vento. A exaustão e o carreamento contínuo das partículas finas em áreas desérticas ou semiáridas desprovidas de cobertura vegetal acabam concentrando os clastos, cascalhos e seixos angulosos mais pesados na superfície residual, dando origem ao pavimento desértico (denominado <em>reg</em> na terminologia do Saara).
+            <br><br>
+            A análise das alternativas distratoras mostra que:
+            <ul>
+              <li><strong>A está incorreta:</strong> Incorre em erro terminológico clássico ao definir a deflação como o desgaste por atrito e lixamento das rochas, quando tal processo abrasivo de impacto das partículas contra obstáculos sólidos é denominado <em>corrasão</em> ou abrasão eólica.</li>
+              <li><strong>C está incorreta:</strong> Classifica erroneamente falésias como formas agradacionais, quando constituem relevos litorâneos escarpados e de evolução erosiva.</li>
+              <li><strong>D está incorreta:</strong> Desconsidera os princípios da hidrodinâmica costeira descritos por Christopherson & Birkeland (2017), uma vez que praias retrogradantes sofrem encurtamento pela prevalência do ataque destrutivo de frentes de ondas marinhas e pelo desbalanço sedimentar de correntes longitudinais de deriva litorânea, e não por corrasão eólica.</li>
+              <li><strong>E está incorreta:</strong> Associa ventifatos e <em>yardangs</em> à ação marinha transgressiva, quando são produtos da ação do vento (corrasão eólica abrasiva) em ambientes continentais subaéreos.</li>
+            </ul>
+          </div>
+        </div>
+      </article>
+
+      <!-- QUESTÃO 06 -->
+      <article class="question-block" id="block-q6">
+        <div class="question-top">
+          <span class="question-index">Questão 06</span>
+          <span class="question-badge-status" id="badge-q6">Pendente</span>
+        </div>
+        <p class="question-statement">
+          A instabilidade de vertentes decorre da atuação da gravidade sobre mantos regolíticos e maciços rochosos, manifestando-se por meio de movimentos de massa com velocidades, geometrias e regimes reológicos contrastantes.
+          <br><br>
+          Associe a modalidade de movimento de massa elencada na Coluna 1 com a sua respectiva tipologia geomorfológica e dinâmica mecânica indicada na Coluna 2:
+        </p>
+
+        <div class="table-wrapper">
+          <table class="custom-table">
+            <thead>
+              <tr>
+                <th style="width: 32%;">Coluna 1: Processo de Vertente</th>
+                <th style="width: 68%;">Coluna 2: Características Dinâmicas e Diagnóstico</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>(1) Rastejo (<em>creep</em>)</strong></td>
+                <td>( &nbsp; ) Ruptura com superfície de cisalhamento essencialmente planar, controlada por descontinuidades estruturais preexistentes da rocha ou pelo contato mecânico e hidráulico entre solo e substrato rochoso.</td>
+              </tr>
+              <tr>
+                <td><strong>(2) Escorregamento rotacional (<em>slump</em>)</strong></td>
+                <td>( &nbsp; ) Deformação plástica e contínua extremamente lenta da cobertura pedológica superficial, sem superfície de ruptura individualizada evidente, associada à expansão e retração periódica de argilas e ao pisoteio animal.</td>
+              </tr>
+              <tr>
+                <td><strong>(3) Escorregamento translacional</strong></td>
+                <td>( &nbsp; ) Deslocamento rápido ao longo de uma superfície de ruptura curva e côncava, gerando feições de abatimento da crista, degraus de falhamento escalonados e basculamento rotativo reverso dos blocos de vertente.</td>
+              </tr>
+              <tr>
+                <td><strong>(4) Corrida de massa (<em>debris flow</em>)</strong></td>
+                <td>( &nbsp; ) Movimento de massa com comportamento reológico de fluido viscoso turbulento de alta densidade, mobilizando blocos rochosos e sedimentos ao longo de canais de drenagem sob saturação hídrica severa.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p class="question-statement" style="margin-bottom: 1rem;">
+          Assinale a alternativa que apresenta a sequência correta de preenchimento dos parênteses, de cima para baixo:
+        </p>
+
+        <div class="options-container">
+          <label class="option-card" onclick="selectAnswer(6, 'A')">
+            <input type="radio" name="q6" value="A" class="option-radio">
+            <div class="option-bullet">A</div>
+            <div class="option-text-content">3 – 1 – 2 – 4</div>
+          </label>
+          <label class="option-card" onclick="selectAnswer(6, 'B')">
+            <input type="radio" name="q6" value="B" class="option-radio">
+            <div class="option-bullet">B</div>
+            <div class="option-text-content">2 – 3 – 1 – 4</div>
+          </label>
+          <label class="option-card" onclick="selectAnswer(6, 'C')">
+            <input type="radio" name="q6" value="C" class="option-radio">
+            <div class="option-bullet">C</div>
+            <div class="option-text-content">3 – 4 – 2 – 1</div>
+          </label>
+          <label class="option-card" onclick="selectAnswer(6, 'D')">
+            <input type="radio" name="q6" value="D" class="option-radio">
+            <div class="option-bullet">D</div>
+            <div class="option-text-content">1 – 2 – 3 – 4</div>
+          </label>
+          <label class="option-card" onclick="selectAnswer(6, 'E')">
+            <input type="radio" name="q6" value="E" class="option-radio">
+            <div class="option-bullet">E</div>
+            <div class="option-text-content">4 – 1 – 3 – 2</div>
+          </label>
+        </div>
+        <div class="resolution-box" id="res-box-q6">
+          <div class="resolution-header">💡 Resolução da Questão 06 – Gabarito: A</div>
+          <div class="resolution-text">
+            O gabarito é a <strong>Alternativa A</strong>. A associação entre as dinâmicas de movimento de massa e as definições morfológicas consagradas pela literatura geotécnica e geomorfológica atende à seguinte sequência lógica:
+            <ul>
+              <li><strong>(3) Escorregamento translacional:</strong> Envolve o deslocamento rápido de material geológico ao longo de superfícies de ruptura planares condicionadas por fraquezas estruturais, como juntas de estratificação, xistosidade, foliação metamórfica ou o contato direto entre saprolito e topo da rocha sã não intemperizada.</li>
+              <li><strong>(1) Rastejo (<em>creep</em>):</strong> Caracteriza-se como uma movimentação contínua e lenta de regolito superficial sem que exista uma superfície de cisalhamento discreta, perceptível no médio e longo prazo pela deformação progressiva em postes, mourões e troncos vegetais basculados.</li>
+              <li><strong>(2) Escorregamento rotacional (<em>slump</em>):</strong> O plano de cisalhamento tem forma encurvada e côncava, impondo uma rotação reversa aos blocos colapsados e estruturando degraus de abatimento na morfologia do talude.</li>
+              <li><strong>(4) Corrida de massa (<em>debris flow</em>):</strong> Delimita os fluxos torrenciais viscosos e hiperconcentrados deflagrados a partir da saturação por água em bacias de drenagem montanhosas e propagadas em calhas com velocidade elevada e alto poder destrutivo de transporte de sedimentos e matacões.</li>
+            </ul>
+            Essa cadeia analítica confirma que a ordem correta de preenchimento dos parênteses da Coluna 2 é estritamente <strong>3 – 1 – 2 – 4</strong>.
+          </div>
+        </div>
+      </article>
+
+      <!-- QUESTÃO 07 -->
+      <article class="question-block" id="block-q7">
+        <div class="question-top">
+          <span class="question-index">Questão 07</span>
+          <span class="question-badge-status" id="badge-q7">Pendente</span>
+        </div>
+        <p class="question-statement">
+          Em centros urbanos inseridos em terrenos declivosos de relevos escarpados tropicais, a ocupação desordenada de encostas e taludes constitui um condicionante socioespacial de deflagração de movimentos de massa. Conforme abordado por Teixeira et al. (2009) e Ross (2014), a estabilidade de uma vertente é regida pelo balanço mecânico entre as tensões cisalhantes e a resistência ao cisalhamento do solo exposta na equação de Mohr-Coulomb e Terzaghi: $\tau = c' + (\sigma_n - u) \tan \phi'$, em que $c'$ representa a coesão efetiva, $\sigma_n$ a tensão normal total, $u$ a poropressão neutra da água e $\phi'$ o ângulo de atrito interno.
+          <br><br>
+          A respeito da intervenção antrópica e da deflagração mecânica de rupturas em encostas ocupadas, assinale a afirmativa correta:
+        </p>
+        <div class="options-container">
+          <label class="option-card" onclick="selectAnswer(7, 'A')">
+            <input type="radio" name="q7" value="A" class="option-radio">
+            <div class="option-bullet">A</div>
+            <div class="option-text-content">O desmatamento da cobertura florestal em médias e altas vertentes acentua a estabilidade mecânica dos solos, tendo em vista que suprime o peso das árvores e amplia a resistência adesiva proporcionada pelas raízes necrosadas.</div>
+          </label>
+          <label class="option-card" onclick="selectAnswer(7, 'B')">
+            <input type="radio" name="q7" value="B" class="option-radio">
+            <div class="option-bullet">B</div>
+            <div class="option-text-content">A abertura de cortes verticais no sopé das encostas atenua os vetores de tração cisalhante atuantes sobre o talude e preserva o maciço superior contra rupturas translacionais.</div>
+          </label>
+          <label class="option-card" onclick="selectAnswer(7, 'C')">
+            <input type="radio" name="q7" value="C" class="option-radio">
+            <div class="option-bullet">C</div>
+            <div class="option-text-content">O lançamento contínuo de águas servidas domésticas e as deficiências de drenagem pluvial elevam os valores de poropressão neutra ($u$) nos vazios dos solos, reduzindo a tensão efetiva ($\sigma'_n = \sigma_n - u$) e, consequentemente, rebaixando a resistência intrínseca ao cisalhamento até o colapso do talude.</div>
+          </label>
+          <label class="option-card" onclick="selectAnswer(7, 'D')">
+            <input type="radio" name="q7" value="D" class="option-radio">
+            <div class="option-bullet">D</div>
+            <div class="option-text-content">A deposição desregulada de aterros e depósitos tecnogênicos nas cristas dos taludes anula a ação do vetor gravitacional instabilizador, travando a propagação de superfícies de descolamento rotacional.</div>
+          </label>
+          <label class="option-card" onclick="selectAnswer(7, 'E')">
+            <input type="radio" name="q7" value="E" class="option-radio">
+            <div class="option-bullet">E</div>
+            <div class="option-text-content">As edificações autoconstruídas bloqueiam integralmente a infiltração de água superficial, deslocando os horizontes potenciais de cisalhamento para fora da camada de alteração saprolítica.</div>
+          </label>
+        </div>
+        <div class="resolution-box" id="res-box-q7">
+          <div class="resolution-header">💡 Resolução da Questão 07 – Gabarito: C</div>
+          <div class="resolution-text">
+            O gabarito é a <strong>Alternativa C</strong>. A mecânica da estabilidade de encostas e taludes submetidos a ocupações antrópicas é explicada pela interação entre geometria de corte e balanço de tensões efetivas. Conforme demonstrado pelo postulado de Terzaghi e pela equação de cisalhamento de Mohr-Coulomb:
+            $$\tau = c' + (\sigma_n - u) \tan \phi'$$
+            a resistência mecânica interna de um solo aos esforços cisalhantes instabilizadores depende da tensão efetiva normal ($\sigma'_n = \sigma_n - u$) transferida de grão a grão. A ocupação desordenada em encostas introduz cargas fluíquidas artificiais contínuas por meio de fossas rudimentares, vazamentos de redes hidrossanitárias e lançamento direto de águas servidas nas vertentes. Essa saturação antrópica eleva os valores da pressão neutra de água nos poros (poropressão $u$), o que acarreta a redução da tensão efetiva normal ($\sigma'_n$). Sem suporte friccional entre os grãos de solo, a resistência intrínseca ao cisalhamento cai abaixo da tensão cisalhante motora imposta pelo peso da encosta, gerando o colapso estrutural e a deflagração do escorregamento.
+            <br><br>
+            Em contrapartida:
+            <ul>
+              <li><strong>A:</strong> O desmatamento remove a coesão radicular mecânica e cessa a remoção de água por evapotranspiração, reduzindo a estabilidade e elevando o risco geomorfológico.</li>
+              <li><strong>B:</strong> Cortes na base de encostas descalçam o pé do talude e aumentam a altura e o ângulo da vertente, subtraindo a força de confinamento mecânico que sustentava o maciço.</li>
+              <li><strong>D:</strong> A deposição de aterros soltos no topo sobrecarrega o topo da coluna de solo com massa gravitacional instabilizadora adicional.</li>
+              <li><strong>E:</strong> Construções de periferia não impedem a infiltração de água nem desviam rupturas para a rocha sã subjacente, sendo comumente englobadas pelo deslizamento do manto saprolítico saturado.</li>
+            </ul>
+          </div>
+        </div>
+      </article>
+
+      <!-- QUESTÃO 08 -->
+      <article class="question-block" id="block-q8">
+        <div class="question-top">
+          <span class="question-index">Questão 08</span>
+          <span class="question-badge-status" id="badge-q8">Pendente</span>
+        </div>
+        <p class="question-statement">
+          As cuestas são morfoestruturas esculpidas pela erosão diferencial sobre bacias sedimentares intracratônicas caracterizadas por sucessões de estratos com resistências mecânicas desiguais e mergulhos monoclinais ou homoclinais suaves.
+          <br><br>
+          Considerando a anatomia geomorfológica das cuestas e a classificação das redes de drenagem associadas (ROSS, 2014; TEIXEIRA et al., 2009), assinale a alternativa correta:
+        </p>
+        <div class="options-container">
+          <label class="option-card" onclick="selectAnswer(8, 'A')">
+            <input type="radio" name="q8" value="A" class="option-radio">
+            <div class="option-bullet">A</div>
+            <div class="option-text-content">O <em>front</em> da cuesta constitui uma vertente suave e aplainada cuja orientação e declividade coincidem com o sentido do mergulho geológico dos estratos sedimentares.</div>
+          </label>
+          <label class="option-card" onclick="selectAnswer(8, 'B')">
+            <input type="radio" name="q8" value="B" class="option-radio">
+            <div class="option-bullet">B</div>
+            <div class="option-text-content">O <em>dorso</em> ou <em>reverso</em> da cuesta é caracterizado por um alinhamento escarpado abrupto dotado de cornijas rochosas mantidas pelas camadas litológicas mais tenras.</div>
+          </label>
+          <label class="option-card" onclick="selectAnswer(8, 'C')">
+            <input type="radio" name="q8" value="C" class="option-radio">
+            <div class="option-bullet">C</div>
+            <div class="option-text-content">A <em>depressão periférica</em> localiza-se na borda interna da bacia, estabelecendo-se como uma faixa ortoclinal deprimida escavada por erosão diferencial nas camadas litoestratigráficas menos resistentes, interposta entre o front da cuesta e os terrenos cristalinos adjacentes.</div>
+          </label>
+          <label class="option-card" onclick="selectAnswer(8, 'D')">
+            <input type="radio" name="q8" value="D" class="option-radio">
+            <div class="option-bullet">D</div>
+            <div class="option-text-content">A simetria morfológica das vertentes de uma cuesta é viabilizada pelo mergulho verticalizado das camadas, o que iguala as forças cinéticas de recuo paralelo entre as escarpas opostas.</div>
+          </label>
+          <label class="option-card" onclick="selectAnswer(8, 'E')">
+            <input type="radio" name="q8" value="E" class="option-radio">
+            <div class="option-bullet">E</div>
+            <div class="option-text-content">A drenagem cataclinal corre em sentido oposto ao mergulho das camadas sedimentares, atuando frontalmente no desmonte e recuo erosivo da cornija do reverso estrutural da bacia.</div>
+          </label>
+        </div>
+        <div class="resolution-box" id="res-box-q8">
+          <div class="resolution-header">💡 Resolução da Questão 08 – Gabarito: C</div>
+          <div class="resolution-text">
+            O gabarito é a <strong>Alternativa C</strong>. As cuestas constituem formas morfoestruturais assimétricas que emergem nas bordas de bacias sedimentares quando estratos rochosos com resistências díspares ao intemperismo mergulham suavemente (em geral entre 1° e 15°) numa mesma direção monoclinal. O reverso ou dorso acompanha o caimento suave do estrato duro, ao passo que a vertente oposta rompe esse perfil abruptamente na forma de um alinhamento escarpado denominado <em>front</em>.
+            <br><br>
+            A depressão periférica esculpe-se precisamente entre o front da cuesta e o rebordo das terras altas do embasamento cristalino adjacente à bacia. Essa depressão é talhada pela drenagem subsequente (ortoclinal) em rochas sedimentares paleozoicas ou mesozoicas mecanicamente menos resistentes e mais suscetíveis à denudação intempérica e fluvial.
+            <br><br>
+            As opções restantes apresentam erros estruturais e geomorfológicos:
+            <ul>
+              <li><strong>A:</strong> O <em>front</em> não é suave nem coincide com o mergulho dos estratos, correspondendo à escarpa íngreme e regressiva da cuesta.</li>
+              <li><strong>B:</strong> O <em>dorso</em> constitui o declive suave de inclinação concordante com a geometria dos estratos litológicos resistentes, e não o escarpamento.</li>
+              <li><strong>D:</strong> A simetria morfológica é incompatível com cuestas; estratos com inclinações verticalizadas geram cristas ou relevos do tipo <em>hogback</em>, enquanto estratos horizontais produzem platôs, chapadas e mesas simétricas.</li>
+              <li><strong>E:</strong> A drenagem cataclinal corre paralelamente e a favor do sentido de mergulho dos estratos rochosos, orientando-se para o interior do reverso estrutural da bacia, ao contrário da drenagem anaclinal, que drena em sentido inverso.</li>
+            </ul>
+          </div>
+        </div>
+      </article>
+
+      <!-- QUESTÃO 09 -->
+      <article class="question-block" id="block-q9">
+        <div class="question-top">
+          <span class="question-index">Questão 09</span>
+          <span class="question-badge-status" id="badge-q9">Pendente</span>
+        </div>
+        <p class="question-statement">
+          A morfogênese e a compartimentação regional do relevo brasileiro envolvem feições tabulares e residuais que atestam a interação entre morfoestrutura litológica e paleoclimas cenozóicos.
+          <br><br>
+          Acerca dos fundamentos genéticos e das características anatômicas que distinguem chapadas de <em>inselbergs</em>, assinale a afirmativa correta:
+        </p>
+        <div class="options-container">
+          <label class="option-card" onclick="selectAnswer(9, 'A')">
+            <input type="radio" name="q9" value="A" class="option-radio">
+            <div class="option-bullet">A</div>
+            <div class="option-text-content">As chapadas são relevos residuais monolitoclásticos esculpidos estritamente sobre diques e soleiras ígneas pós-tectônicas de dobramentos brasilianos.</div>
+          </label>
+          <label class="option-card" onclick="selectAnswer(9, 'B')">
+            <input type="radio" name="q9" value="B" class="option-radio">
+            <div class="option-bullet">B</div>
+            <div class="option-text-content">Os <em>inselbergs</em> são relevos residuais com vertentes escarpadas e formatos acentuadamente cônicos ou dômicos que se projetam sobre superfícies de aplainamento (pediplanos), resultando da resistência diferencial à alteração mecânica e química de litologias ígneas ou metamórficas maciças em climas semiáridos ou sob paleofases de aridificação.</div>
+          </label>
+          <label class="option-card" onclick="selectAnswer(9, 'C')">
+            <input type="radio" name="q9" value="C" class="option-radio">
+            <div class="option-bullet">C</div>
+            <div class="option-text-content">As chapadas e os <em>inselbergs</em> refletem formas de sedimentação coluvionar associadas a calotas glaciais pleistocênicas continentais que recobriram o Cráton do São Francisco.</div>
+          </label>
+          <label class="option-card" onclick="selectAnswer(9, 'D')">
+            <input type="radio" name="q9" value="D" class="option-radio">
+            <div class="option-bullet">D</div>
+            <div class="option-text-content">As chapadas e os <em>inselbergs</em> apresentam morfogênese idêntica, diferenciando-se unicamente pela espessura das carapaças ferruginosas lateríticas que sustentam os ápices aguçados dos <em>inselbergs</em>.</div>
+          </label>
+          <label class="option-card" onclick="selectAnswer(9, 'E')">
+            <input type="radio" name="q9" value="E" class="option-radio">
+            <div class="option-bullet">E</div>
+            <div class="option-text-content">As chapadas estruturam-se sobre camadas sedimentares horizontais ou sub-horizontais em bacias interiores, sustentadas no topo por estratos litológicos resistentes ou coberturas pedogenéticas duras que preservam superfícies cimeiras aplainadas delimitadas por escarpas.</div>
+          </label>
+        </div>
+        <div class="resolution-box" id="res-box-q9">
+          <div class="resolution-header">💡 Resolução da Questão 09 – Gabarito: E</div>
+          <div class="resolution-text">
+            O gabarito é a <strong>Alternativa E</strong>. No quadro conceitual de Ross (2014) e Teixeira et al. (2009), as chapadas constituem morfoestruturas tabulares de topos aplainados que ocorrem em bacias sedimentares no interior do território brasileiro. Sua arquitetura é condicionada pelo arranjo horizontal ou sub-horizontal dos estratos geológicos sedimentares (estratificação concordante tabular), em que o horizonte superior é sustentado por camadas litológicas resistentes à erosão (como arenitos cimentados ou carapaças lateríticas duras cenozóicas), sendo delimitado por vertentes que se desnudam na forma de escarpas íngremes.
+            <br><br>
+            Por sua vez, os <em>inselbergs</em> são relevos residuais monolíticos de formato agudo ou dômico (como os <em>bornhardts</em>) talhados predominantemente em rochas ígneas graníticas ou complexos gnáissicos do embasamento cristalino pré-cambriano. Sua exposição na paisagem regional do semiárido brasileiro decorre do descalçamento diferencial e do rebaixamento de pedimentos por aplainamento erosivo e etchplanação, onde a rocha ígnea massiva resistiu à degradação biogeoquímica em virtude da baixa densidade de fraturamento estrutural em comparação aos terrenos alterados circundantes.
+            <br><br>
+            As outras alternativas são errôneas porque:
+            <ul>
+              <li>Não há vínculos genéticos de chapadas ou <em>inselbergs</em> com morfogênese glacial no território cratônico brasileiro durante o Quaternário.</li>
+              <li><em>Inselbergs</em> não possuem topos planos nem guardam simetria estrutural com chapadas sedimentares horizontais.</li>
+              <li>As chapadas não se associam a diques ígneos pós-tectônicos de cinturões de dobramentos brasilianos, e sim à horizontalidade de estratos sedimentares.</li>
+            </ul>
+          </div>
+        </div>
+      </article>
+
+      <!-- QUESTÃO 10 -->
+      <article class="question-block" id="block-q10">
+        <div class="question-top">
+          <span class="question-index">Questão 10</span>
+          <span class="question-badge-status" id="badge-q10">Pendente</span>
+        </div>
+        <p class="question-statement">
+          A morfometria transversal de vales fornece parâmetros diagnósticos para a identificação do agente geomórfico exógeno que atuou ou atua com maior vigor sobre o modelado do relevo.
+          <br><br>
+          A respeito dos processos morfogenéticos que originam vales com perfil transversal em "V" e vales em forma de "U", assinale a afirmativa correta:
+        </p>
+        <div class="options-container">
+          <label class="option-card" onclick="selectAnswer(10, 'A')">
+            <input type="radio" name="q10" value="A" class="option-radio">
+            <div class="option-bullet">A</div>
+            <div class="option-text-content">Vales com perfil em "V" são modelados primordialmente pela passagem de geleiras de vale que concentram a abrasão tridimensional na base do talude sob escoamento subsuperficial estagnado.</div>
+          </label>
+          <label class="option-card" onclick="selectAnswer(10, 'B')">
+            <input type="radio" name="q10" value="B" class="option-radio">
+            <div class="option-bullet">B</div>
+            <div class="option-text-content">Vales em "U" resultam de incisão eólica abrasiva contínua em cânions estruturais, na qual rajadas de vento desgastam as vertentes laterais de maneira idêntica à do talvegue.</div>
+          </label>
+          <label class="option-card" onclick="selectAnswer(10, 'C')">
+            <input type="radio" name="q10" value="C" class="option-radio">
+            <div class="option-bullet">C</div>
+            <div class="option-text-content">Os vales com perfil transversal em "V" formam-se sob predomínio de incisão vertical mecânica provocada pelo fluxo fluvial linear em setores de alto gradiente, superando a taxa de atenuação das encostas, ao passo que os vales em "U" decorrem da erosão glacial, em que línguas de gelo em movimento alargam, aprofundam e retificam a calha rochosa por abrasão e arrancamento.</div>
+          </label>
+          <label class="option-card" onclick="selectAnswer(10, 'D')">
+            <input type="radio" name="q10" value="D" class="option-radio">
+            <div class="option-bullet">D</div>
+            <div class="option-text-content">Os vales glaciais em "U" desenvolvem fundos convexos e estreitos decorrentes de soterramento contínuo por cinzas vulcânicas eólico-sedimentadas.</div>
+          </label>
+          <label class="option-card" onclick="selectAnswer(10, 'E')">
+            <input type="radio" name="q10" value="E" class="option-radio">
+            <div class="option-bullet">E</div>
+            <div class="option-text-content">A geometria em "V" indica que as vertentes laterais recuaram paralelamente sob paleoclimas secos sem entalhe vertical do curso d'água.</div>
+          </label>
+        </div>
+        <div class="resolution-box" id="res-box-q10">
+          <div class="resolution-header">💡 Resolução da Questão 10 – Gabarito: C</div>
+          <div class="resolution-text">
+            O gabarito é a <strong>Alternativa C</strong>. O perfil transversal de um vale constitui uma feição indicativa da intensidade relativa e da natureza mecânica do agente exógeno entalhador. Vales com perfil transversal anguloso em "V" formam-se em ambientes onde a energia de escoamento fluvial linear superficial é expressiva em relação à velocidade de alargamento e recuo das vertentes. Nas seções de alta energia e declividade (estágios de incisão vertical ativa), o fluxo hidráulico dos rios entalha a calha para baixo no sentido do talvegue com maior celeridade do que os processos de intemperismo e escoamento difuso conseguem suavizar e alargar os flancos adjacentes, estruturando uma seção em "V" aguda.
+            <br><br>
+            Em contraposição, os vales com perfil transversal em "U" (calhas glaciais) originam-se da morfodinâmica glacial. O avanço de espessas geleiras de montanha exerce pressões estáticas e dinâmicas nas rochas do leito. A combinação da abrasão basal pelos clastos aprisionados na base do gelo com o processo de arrancamento mecânico em bloco (<em>plucking</em>) escava o assoalho e as vertentes simultaneamente. Esse processo alarga e aplaina o assoalho do vale, esculpindo paredes rochosas quase verticais com transições basais côncavas, o que delineia o clássico perfil em calha em "U".
+            <br><br>
+            As demais alternativas estão incorretas:
+            <ul>
+              <li>As calhas em "V" não são modeladas por geleiras de vale.</li>
+              <li>A corrasão eólica subaérea não possui densidade cinética ou confinamento para aplainar fundos de cânions na morfologia em "U".</li>
+              <li>A morfologia em "U" não decorre do entulhamento sedimentar de cinzas vulcânicas ou poeiras de <em>loess</em>.</li>
+              <li>Perfis em "V" não são produtos de recuo paralelo de vertentes em climas secos desprovidos de cursos de água encaixados.</li>
+            </ul>
+          </div>
+        </div>
+      </article>
+
+      <!-- Botão de Finalização Principal -->
+      <div class="finish-section">
+        <button type="button" class="btn-finish" id="btn-submit" onclick="requestFinishQuiz()">
+          Finalizar Simulado e Corrigir Questões
+        </button>
+      </div>
+
+    </form>
+
+    <!-- Seção de Apuração de Desempenho e Gabarito Final -->
+    <section id="score-summary-panel">
+      <div class="score-banner">
+        <div class="score-value" id="final-score">0 / 10</div>
+        <div class="score-sub" id="final-percentage">Aproveitamento: 0%</div>
+        <div class="feedback-pill" id="final-feedback">Avaliação</div>
+      </div>
+
+      <h3 style="font-size: 1.25rem; font-weight: 700; color: var(--text-primary); margin-bottom: 0.35rem;">
+        Gabarito Consolidado & Resumo de Acertos
+      </h3>
+      <p style="font-size: 0.95rem; color: var(--text-secondary); margin-bottom: 1rem;">
+        As resoluções analíticas detalhadas de cada uma das 10 questões foram reveladas acima no próprio corpo da prova.
+      </p>
+
+      <div class="gabarito-summary-grid" id="tiles-container">
+        <!-- Gerado via script -->
+      </div>
+
+      <div style="text-align: center; margin-top: 2.5rem; padding-top: 1.5rem; border-top: 1px solid var(--border-light);">
+        <button type="button" class="btn-secondary" onclick="window.scrollTo({ top: 0, behavior: 'smooth' })">
+          Subir ao Topo da Prova ↑
+        </button>
+        <button type="button" class="btn-secondary" onclick="restartQuiz()">
+          Reiniciar Simulado ⟳
+        </button>
+        <button type="button" class="btn-secondary" onclick="window.print()">
+          Imprimir / Salvar em PDF 🖨️
+        </button>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- Modal Customizado de Alerta/Confirmação (Sem alert ou confirm nativos) -->
+  <div class="custom-modal-overlay" id="confirm-modal">
+    <div class="custom-modal-content">
+      <h3 style="font-size: 1.3rem; margin-bottom: 0.75rem; color: var(--text-primary);" id="modal-title">Confirmação</h3>
+      <p style="color: var(--text-secondary); font-size: 0.98rem; line-height: 1.6;" id="modal-message">Mensagem do modal</p>
+      <div class="modal-actions">
+        <button type="button" class="btn-secondary" id="modal-btn-cancel">Continuar Respondendo</button>
+        <button type="button" class="btn-finish" style="padding: 0.75rem 1.75rem; font-size: 0.95rem;" id="modal-btn-proceed">Finalizar Agora</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Gabarito Oficial extraído do documento original
+    const GABARITO_OFICIAL = {
+      1: 'A',
+      2: 'C',
+      3: 'B',
+      4: 'A',
+      5: 'B',
+      6: 'A',
+      7: 'C',
+      8: 'C',
+      9: 'E',
+      10: 'C'
+    };
+
+    const TOTAL_Q = 10;
+    const userAnswers = {};
+
+    function selectAnswer(qIndex, letter) {
+      userAnswers[qIndex] = letter;
+
+      // Atualiza estilo dos cards da questão
+      const block = document.getElementById(`block-q${qIndex}`);
+      const cards = block.querySelectorAll('.option-card');
+      cards.forEach(card => {
+        const input = card.querySelector('.option-radio');
+        if (input.value === letter) {
+          card.classList.add('selected');
+        } else {
+          card.classList.remove('selected');
+        }
+      });
+
+      // Atualiza badge de status da questão
+      const badge = document.getElementById(`badge-q${qIndex}`);
+      badge.textContent = `Marcada (${letter})`;
+      badge.style.background = 'var(--primary-light)';
+      badge.style.color = 'var(--primary-color)';
+
+      // Atualiza barra de progresso
+      updateProgressBar();
+    }
+
+    function updateProgressBar() {
+      const answeredCount = Object.keys(userAnswers).length;
+      document.getElementById('progress-text').textContent = 
+        `Progresso: ${answeredCount} de ${TOTAL_Q} respondidas`;
+      const pct = (answeredCount / TOTAL_Q) * 100;
+      document.getElementById('progress-fill').style.width = `${pct}%`;
+    }
+
+    function requestFinishQuiz() {
+      const answeredCount = Object.keys(userAnswers).length;
+      if (answeredCount < TOTAL_Q) {
+        const remaining = TOTAL_Q - answeredCount;
+        showCustomModal(
+          'Questões em Branco',
+          `Você ainda tem ${remaining} questão(ões) sem resposta. Deseja finalizar o simulado e gerar as resoluções mesmo assim?`,
+          function() {
+            closeCustomModal();
+            executeGrading();
+          }
+        );
+      } else {
+        executeGrading();
+      }
+    }
+
+    function executeGrading() {
+      let hits = 0;
+      const tilesContainer = document.getElementById('tiles-container');
+      tilesContainer.innerHTML = '';
+
+      for (let i = 1; i <= TOTAL_Q; i++) {
+        const correct = GABARITO_OFICIAL[i];
+        const userChoice = userAnswers[i] || null;
+        const isCorrect = userChoice === correct;
+
+        if (isCorrect) hits++;
+
+        // 1. Marca visualmente as alternativas
+        const block = document.getElementById(`block-q${i}`);
+        const cards = block.querySelectorAll('.option-card');
+
+        cards.forEach(card => {
+          const val = card.querySelector('.option-radio').value;
+          if (val === correct) {
+            card.classList.add('correct-highlight');
+          }
+          if (userChoice && userChoice !== correct && val === userChoice) {
+            card.classList.add('incorrect-highlight');
+          }
+          // Desabilita interatividade futura
+          card.onclick = null;
+          card.style.cursor = 'default';
+        });
+
+        // 2. Atualiza badge da questão
+        const badge = document.getElementById(`badge-q${i}`);
+        if (isCorrect) {
+          badge.textContent = 'Acertou ✓';
+          badge.style.background = 'var(--success-bg)';
+          badge.style.color = 'var(--success-text)';
+        } else {
+          badge.textContent = userChoice ? 'Errou ✕' : 'Em branco ✕';
+          badge.style.background = 'var(--danger-bg)';
+          badge.style.color = 'var(--danger-text)';
+        }
+
+        // 3. Revela a resolução analítica no bloco da questão
+        const resBox = document.getElementById(`res-box-q${i}`);
+        resBox.style.display = 'block';
+
+        // 4. Cria o item no resumo consolidado de desempenho
+        const tile = document.createElement('div');
+        tile.className = `gabarito-tile ${isCorrect ? 'hit' : 'miss'}`;
+        tile.innerHTML = `
+          <span class="tile-num">Q${i < 10 ? '0' + i : i}</span>
+          <span class="tile-correct">${correct}</span>
+          <div class="tile-user">
+            ${userChoice ? (isCorrect ? 'Sua: ' + userChoice : 'Marcou: ' + userChoice) : 'Em branco'}
+          </div>
+        `;
+        tilesContainer.appendChild(tile);
+      }
+
+      // Preenche o painel de pontuação
+      const percentage = Math.round((hits / TOTAL_Q) * 100);
+      document.getElementById('final-score').textContent = `${hits} / ${TOTAL_Q}`;
+      document.getElementById('final-percentage').textContent = `Aproveitamento: ${percentage}%`;
+
+      const feedback = document.getElementById('final-feedback');
+      if (percentage >= 80) {
+        feedback.textContent = 'Excelente! Rendimento de alto nível para a banca do IFMG.';
+        feedback.className = 'feedback-pill high';
+      } else if (percentage >= 60) {
+        feedback.textContent = 'Bom rendimento. Revise os detalhes conceituais nas resoluções comentadas.';
+        feedback.className = 'feedback-pill med';
+      } else {
+        feedback.textContent = 'Abaixo do esperado. Aprofunde o estudo nos tópicos indicados na bibliografia.';
+        feedback.className = 'feedback-pill low';
+      }
+
+      // Desabilita botão de submissão
+      const submitBtn = document.getElementById('btn-submit');
+      submitBtn.disabled = true;
+      submitBtn.style.opacity = '0.6';
+      submitBtn.style.cursor = 'not-allowed';
+      submitBtn.textContent = 'Simulado Finalizado e Corrigido';
+
+      // Revela a seção de resultados e rola a tela até ela
+      const resultsSection = document.getElementById('score-summary-panel');
+      resultsSection.style.display = 'block';
+      resultsSection.scrollIntoView({ behavior: 'smooth' });
+
+      // Atualiza fórmulas matemáticas no MathJax
+      if (window.MathJax && window.MathJax.typesetPromise) {
+        MathJax.typesetPromise();
+      }
+    }
+
+    // Modal Customizado (Substitui confirm/alert)
+    function showCustomModal(title, msg, onConfirm) {
+      const modal = document.getElementById('confirm-modal');
+      document.getElementById('modal-title').textContent = title;
+      document.getElementById('modal-message').textContent = msg;
+
+      const proceedBtn = document.getElementById('modal-btn-proceed');
+      const cancelBtn = document.getElementById('modal-btn-cancel');
+
+      proceedBtn.onclick = onConfirm;
+      cancelBtn.onclick = closeCustomModal;
+
+      modal.style.display = 'flex';
+    }
+
+    function closeCustomModal() {
+      document.getElementById('confirm-modal').style.display = 'none';
+    }
+
+    function restartQuiz() {
+      showCustomModal(
+        'Reiniciar Simulado',
+        'Deseja recarregar o simulado e limpar todas as marcações?',
+        function() {
+          window.location.reload();
+        }
+      );
+    }
+  </script>
+</body>
+</html>

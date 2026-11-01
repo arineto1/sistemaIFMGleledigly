@@ -1,0 +1,891 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Geomorfologia Geral – Processos Morfogenéticos e Relevo | IFMG</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- KaTeX para renderização de fórmulas matemáticas e químicas -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js" 
+          onload="renderMathInElement(document.body, {delimiters: [{left: '$$', right: '$$', display: true}, {left: '$', right: '$', display: false}]});"></script>
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Merriweather:ital,wght@0,300;0,400;0,700;1,300&display=swap" rel="stylesheet">
+  
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #ffffff;
+      color: #1a202c;
+      -webkit-font-smoothing: antialiased;
+    }
+    .prose-custom {
+      font-family: 'Merriweather', serif;
+      font-size: 1.05rem;
+      line-height: 1.85;
+      color: #27272a;
+    }
+    /* Estilo de Grifo de Alto Rendimento */
+    mark, .grifo {
+      background-color: #fef08a; /* amarelo suave de marca-texto */
+      color: #111827;
+      padding: 0.12rem 0.35rem;
+      border-radius: 0.25rem;
+      font-weight: 600;
+      box-decoration-break: clone;
+      -webkit-box-decoration-break: clone;
+    }
+    .grifo-destaque {
+      background-color: #fde68a;
+      border-bottom: 2px solid #f59e0b;
+      color: #0f172a;
+      padding: 0.12rem 0.35rem;
+      border-radius: 0.25rem;
+      font-weight: 700;
+    }
+    .grifo-alerta {
+      background-color: #ffedd5;
+      border-bottom: 2px solid #ea580c;
+      color: #7c2d12;
+      padding: 0.12rem 0.35rem;
+      border-radius: 0.25rem;
+      font-weight: 700;
+    }
+    /* Tabelas 100% integradas sem rolagem horizontal */
+    .table-fixed-wrap {
+      width: 100%;
+      table-layout: fixed;
+      border-collapse: collapse;
+      word-break: break-word;
+      overflow-wrap: break-word;
+      hyphens: auto;
+    }
+    .table-fixed-wrap th, .table-fixed-wrap td {
+      vertical-align: top;
+      word-wrap: break-word;
+    }
+  </style>
+</head>
+<body class="bg-white min-h-screen text-neutral-900 selection:bg-amber-200">
+
+  <!-- BARRA DE TOPO INFORMATIVA -->
+  <header class="border-b border-neutral-200 bg-neutral-50 sticky top-0 z-40">
+    <div class="max-w-4xl mx-auto px-4 py-3 flex flex-wrap items-center justify-between gap-3">
+      <div class="flex items-center space-x-2">
+        <span class="bg-neutral-800 text-white text-xs font-bold px-2.5 py-1 rounded">IFMG</span>
+        <span class="text-xs font-semibold text-neutral-700 tracking-wide uppercase">Concurso Docente EBTT • Geografia</span>
+      </div>
+      <div class="text-xs text-neutral-600 font-medium">
+        Banca Examinadora IFMG • Módulo Didático-Técnico
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-4xl mx-auto px-4 sm:px-6 py-8">
+
+    <!-- CABEÇALHO DO TEMA -->
+    <section class="border-b border-neutral-300 pb-8 mb-8">
+      <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-neutral-100 text-neutral-800 text-xs font-semibold mb-3 border border-neutral-300">
+        <span>Ementa Oficial do Concurso</span>
+      </div>
+      <h1 class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-neutral-950 tracking-tight leading-tight mb-4">
+        Morfogênese Exógena e Evolução do Relevo: Mecanismos Morfodinâmicos, Vertentes e Modelados Estruturais
+      </h1>
+      <p class="text-sm sm:text-base text-neutral-700 font-medium leading-relaxed">
+        <strong>Foco da Prova Objetiva:</strong> Diferenciação do predomínio intempérico (químico × físico/mecânico), dinâmica morfoestrutural de cuestas (front, dorso e depressão), deflagração de movimentos de massa em encostas ocupadas e feições erosivas.
+      </p>
+      <div class="mt-3 flex flex-wrap gap-2 text-xs text-neutral-600">
+        <span class="bg-neutral-100 px-2.5 py-1 rounded border border-neutral-200"><strong>Bibliografia:</strong> CHRISTOPHERSON & BIRKELAND (2017)</span>
+        <span class="bg-neutral-100 px-2.5 py-1 rounded border border-neutral-200">ROSS (2014)</span>
+        <span class="bg-neutral-100 px-2.5 py-1 rounded border border-neutral-200">TEIXEIRA et al. (2009)</span>
+      </div>
+    </section>
+
+    <!-- PAINEL REPRODUTOR DE ÁUDIO MP3 -->
+    <section class="bg-neutral-50 border-2 border-neutral-300 rounded-2xl p-5 mb-10 shadow-sm">
+      <div class="flex items-center justify-between flex-wrap gap-3 mb-3">
+        <div class="flex items-center gap-2">
+          <div class="w-8 h-8 rounded-lg bg-neutral-900 text-white flex items-center justify-center font-bold text-sm">
+            🎧
+          </div>
+          <div>
+            <h2 class="text-base font-bold text-neutral-900 leading-none">Reprodutor de Áudio da Aula</h2>
+            <p class="text-xs text-neutral-600 mt-1">Ouça a explanação teórica enquanto acompanha o material grifado</p>
+          </div>
+        </div>
+        <!-- Velocidades de Reprodução -->
+        <div class="flex items-center gap-1 bg-white border border-neutral-300 rounded-lg p-1 text-xs font-semibold">
+          <span class="text-neutral-500 px-1 text-[11px]">Velocidade:</span>
+          <button onclick="changeSpeed(1.0)" id="btn-1x" class="px-2 py-0.5 rounded bg-neutral-900 text-white transition-colors">1x</button>
+          <button onclick="changeSpeed(1.25)" id="btn-125x" class="px-2 py-0.5 rounded hover:bg-neutral-200 transition-colors">1.25x</button>
+          <button onclick="changeSpeed(1.5)" id="btn-15x" class="px-2 py-0.5 rounded hover:bg-neutral-200 transition-colors">1.5x</button>
+          <button onclick="changeSpeed(2.0)" id="btn-2x" class="px-2 py-0.5 rounded hover:bg-neutral-200 transition-colors">2x</button>
+        </div>
+      </div>
+
+      <!-- Configuração do nome do arquivo MP3 -->
+      <div class="bg-white border border-neutral-200 rounded-xl p-3 mb-3">
+        <label for="audioFileName" class="block text-xs font-bold text-neutral-700 uppercase tracking-wider mb-1">
+          Arquivo MP3 local (deve estar na mesma pasta deste arquivo HTML):
+        </label>
+        <div class="flex gap-2">
+          <input 
+            type="text" 
+            id="audioFileName" 
+            value="audio8geo.mp3" 
+            placeholder="Digite o nome do arquivo, ex: audio8geo.mp3"
+            class="flex-1 text-sm bg-neutral-50 border border-neutral-300 rounded-lg px-3 py-2 text-neutral-900 font-mono focus:outline-none focus:ring-2 focus:ring-neutral-800"
+          >
+          <button 
+            type="button" 
+            onclick="updateAudioSource()"
+            class="bg-neutral-900 hover:bg-neutral-800 text-white text-xs font-bold px-4 py-2 rounded-lg transition-colors flex items-center gap-1 shadow-sm"
+          >
+            Carregar Áudio
+          </button>
+        </div>
+        <p id="audioStatus" class="text-xs text-neutral-500 mt-1.5 flex items-center gap-1">
+          <span class="inline-block w-2 h-2 rounded-full bg-emerald-500"></span>
+          Fonte atual configurada: <span id="currentSourceLabel" class="font-mono font-semibold text-neutral-800">audio8geo.mp3</span>
+        </p>
+      </div>
+
+      <!-- Player de Áudio Nativo HTML5 -->
+      <audio id="audioPlayer" controls class="w-full h-11 accent-neutral-900 rounded-lg bg-neutral-100">
+        <source id="audioSource" src="audio8geo.mp3" type="audio/mpeg">
+        Seu navegador não suporta a tag de áudio HTML5.
+      </audio>
+    </section>
+
+    <!-- INTRODUÇÃO TEÓRICA -->
+    <article class="prose-custom mb-12">
+      <p class="mb-4">
+        A superfície terrestre constitui uma interface dinâmica governada pela interação constante entre os <mark>processos endógenos</mark>, responsáveis pela criação das macroestruturas litosféricas, e os <mark>processos exógenos</mark>, encarregados da esculturação, denudação e redistribuição contínua de matéria. A compreensão aprofundada da morfogênese exige apreender o intemperismo não como um evento isolado, mas como a <span class="grifo-destaque">fase preparatória basilar</span> que condiciona a erosão, o transporte e a sedimentação nos diferentes domínios morfoclimáticos continentais.
+      </p>
+    </article>
+
+    <!-- SEÇÃO 1: AGENTES EXÓGENOS E DIFERENCIAÇÃO MORFOCLIMÁTICA -->
+    <section class="mb-14">
+      <div class="flex items-center gap-2 mb-3">
+        <span class="w-2.5 h-6 bg-neutral-900 rounded-full"></span>
+        <h2 class="text-xl sm:text-2xl font-bold text-neutral-950">
+          Dinâmica dos Agentes Exógenos e Diferenciação Morfoclimática do Intemperismo
+        </h2>
+      </div>
+
+      <div class="prose-custom mb-6">
+        <p class="mb-4">
+          Os agentes exógenos derivam primordialmente da <mark>conversão da energia solar incidente</mark> e da dissipação da <mark>energia potencial gravitacional</mark>. A radiação solar impulsiona a circulação geral da atmosfera e o ciclo hidrológico, disponibilizando água em diferentes estados físicos e amplitudes térmicas que atuam diretamente sobre as massas rochosas expostas à litosfera superficial.
+        </p>
+        <p class="mb-4">
+          O intemperismo subdivide-se em processos físicos (mecânicos) e químicos (bioquímicos), cuja preponderância espacial e temporal é controlada diretamente pelo <span class="grifo-destaque">balanço hídrico e térmico regional</span>. Nos <mark>domínios tropicais e equatoriais úmidos</mark>, a constância térmica em patamares elevados associada a altos índices pluviométricos acelera exponencialmente a cinética das reações químicas aquosas. Esse quadro estimula a <span class="grifo-destaque">hidrólise generalizada de silicatos</span> e a lixiviação intensa de bases trocáveis, originando saprólitos espessos, <mark>mantos de intemperismo profundos (frequentemente ultrapassando dezenas de metros)</mark> e perfis de solo maduros e senis dominados por argilominerais do grupo 1:1 (caulinita) e sesquióxidos de ferro e alumínio.
+        </p>
+        <p class="mb-4">
+          Em contrapartida, nos <mark>domínios secos (áridos e semiáridos)</mark> e <mark>frios (glaciais e periglaciais)</mark>, a <span class="grifo-alerta">restrição severa de água líquida livre atua como fator limitante</span> para a maioria das reações hidroquímicas. Sob condições de aridez, as amplitudes térmicas diárias extremas transferem tensões mecânicas para a rocha por meio da dilatação diferencial de seus minerais constituintes. Nos ambientes polares e periglaciais, a oscilação térmica em torno do ponto de congelamento faz com que as mudanças de fase da água funcionem como cunhas hidráulicas ativas. Como consequência, essas regiões apresentam <span class="grifo-destaque">mantos de alteração rasos, solos esqueléticos e incipientes (neossolos litólicos)</span>, além de vertentes dominantemente rochosas recobertas por clastos angulares autóctones gerados exclusivamente por fragmentação mecânica.
+        </p>
+      </div>
+
+      <!-- TABELA 1: SEM SCROLL HORIZONTAL -->
+      <div class="border border-neutral-300 rounded-xl overflow-hidden shadow-xs mb-4">
+        <div class="bg-neutral-100 px-4 py-2 border-b border-neutral-300 text-xs font-bold uppercase tracking-wider text-neutral-800">
+          Quadro 1: Domínios Morfoclimáticos e Tipos de Intemperismo (Memorização de Prova)
+        </div>
+        <table class="table-fixed-wrap w-full text-xs sm:text-sm text-neutral-800 bg-white">
+          <thead class="bg-neutral-100 text-neutral-900 font-bold border-b border-neutral-300">
+            <tr>
+              <th class="p-2 sm:p-3 text-left w-[22%] border-r border-neutral-200">Domínio Morfoclimático</th>
+              <th class="p-2 sm:p-3 text-left w-[18%] border-r border-neutral-200">Balanço Hídrico/Térmico</th>
+              <th class="p-2 sm:p-3 text-left w-[20%] border-r border-neutral-200">Intemperismo Prevalente</th>
+              <th class="p-2 sm:p-3 text-left w-[20%] border-r border-neutral-200">Regolito e Solo</th>
+              <th class="p-2 sm:p-3 text-left w-[20%]">Expressão Residual</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-neutral-200">
+            <tr class="hover:bg-neutral-50">
+              <td class="p-2 sm:p-3 font-semibold text-neutral-950 border-r border-neutral-200">Tropical e Subtropical Úmido</td>
+              <td class="p-2 sm:p-3 border-r border-neutral-200">Precipitação elevada e calor contínuo</td>
+              <td class="p-2 sm:p-3 border-r border-neutral-200 font-semibold text-neutral-900"><mark>Químico profundo</mark> (hidrólise, lixiviação, oxidação)</td>
+              <td class="p-2 sm:p-3 border-r border-neutral-200">Manto espesso (&gt;10 m); latossolos e argissolos</td>
+              <td class="p-2 sm:p-3">Relevo mamelonar, morros em <mark>meia-laranja</mark>, rampas coluviais</td>
+            </tr>
+            <tr class="hover:bg-neutral-50">
+              <td class="p-2 sm:p-3 font-semibold text-neutral-950 border-r border-neutral-200">Árido e Semiárido</td>
+              <td class="p-2 sm:p-3 border-r border-neutral-200">Déficit hídrico severo; alta amplitude térmica diária</td>
+              <td class="p-2 sm:p-3 border-r border-neutral-200 font-semibold text-neutral-900"><mark>Físico-mecânico</mark> (termoclastia e haloclastia)</td>
+              <td class="p-2 sm:p-3 border-r border-neutral-200">Manto raso, incipiente, pedregoso (neossolos litólicos)</td>
+              <td class="p-2 sm:p-3">Pediplanos, escarpas retilíneas desnudas e <mark>inselbergs</mark></td>
+            </tr>
+            <tr class="hover:bg-neutral-50">
+              <td class="p-2 sm:p-3 font-semibold text-neutral-950 border-r border-neutral-200">Polar e Periglacial</td>
+              <td class="p-2 sm:p-3 border-r border-neutral-200">Frio contínuo; ciclos de congelamento/degelo</td>
+              <td class="p-2 sm:p-3 border-r border-neutral-200 font-semibold text-neutral-900"><mark>Físico-mecânico</mark> (<span class="grifo-destaque">crioclastia/gelivação</span>)</td>
+              <td class="p-2 sm:p-3 border-r border-neutral-200">Ausência de regolito químico; acumulação de tálus</td>
+              <td class="p-2 sm:p-3">Campos de blocos (<em>felsenmeer</em>) e vertentes escarpadas</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- SEÇÃO 2: MECANISMOS FUNDAMENTAIS DO INTEMPERISMO -->
+    <section class="mb-14">
+      <div class="flex items-center gap-2 mb-3">
+        <span class="w-2.5 h-6 bg-neutral-900 rounded-full"></span>
+        <h2 class="text-xl sm:text-2xl font-bold text-neutral-950">
+          Mecanismos Fundamentais do Intemperismo Físico e Químico
+        </h2>
+      </div>
+
+      <div class="prose-custom mb-6">
+        <p class="mb-4">
+          A transformação das rochas submetidas às condições termodinâmicas da superfície envolve processos específicos de quebra mecânica e alteração de fases minerais.
+        </p>
+
+        <h3 class="text-lg sm:text-xl font-bold text-neutral-900 mt-6 mb-3 font-sans flex items-center gap-2">
+          <span class="text-sm bg-neutral-200 text-neutral-900 px-2 py-0.5 rounded font-mono font-bold">1</span>
+          Processos Físico-Mecânicos
+        </h3>
+        <p class="mb-4">
+          O intemperismo mecânico <span class="grifo-destaque">reduz o tamanho médio dos fragmentos rochosos preservando a composição mineralógica e química original da rocha sã</span>. Ao fracionar a rocha em clastos progressivamente menores, a área superficial específica por unidade de volume amplia-se de modo exponencial, facilitando a penetração de soluções aquosas e o ataque químico posterior.
+        </p>
+        <ul class="list-disc pl-6 space-y-3 mb-6">
+          <li>
+            <strong>Termoclastia:</strong> Decorre da <mark>fadiga térmica gerada pela dilatação e contração contínua e anisotrópica dos minerais</mark>. Como os minerais formadores de rochas (quartzo, plagioclásios, feldspatos potássicos, micas) exibem coeficientes de expansão volumétrica desiguais quando aquecidos e a rocha possui condutividade térmica baixa, geram-se gradientes de tensão elástica entre o núcleo frio e a periferia aquecida pelo sol. Essa alternância cíclica gera microfissuras paralelas e perpendiculares à superfície do afloramento, desencadeando a desagregação granular e o <mark>descascamento esfoliativo laminar</mark>.
+          </li>
+          <li>
+            <strong>Crioclastia (ou Gelivação):</strong> Processo característico de regiões de alta latitude ou altitude elevada, associado à <span class="grifo-destaque">expansão de cerca de 9% que a água sofre ao passar do estado líquido para o sólido</span> no interior de trincas, diáclases e poros rochosos. O confinamento do gelo em crescimento no interior das fendas gera pressões de expansão elevadas contra as paredes rochosas, fraturando o maciço por tração e desprendendo blocos angulares que alimentam os depósitos de tálus no sopé das encostas.
+          </li>
+          <li>
+            <strong>Alívio de Pressão (Descompressão Litostática):</strong> Ocorre quando rochas formadas sob elevadas pressões em grandes profundidades litosféricas (maciços plutônicos graníticos e migmatíticos) chegam aos níveis superficiais devido à <mark>remoção contínua das camadas sobrejacentes por denudação erosiva</mark>. A diminuição da carga estática induz a expansão elástica da massa rochosa para cima, gerando juntas de alívio e fraturamento curvilíneo suborizontal paralelo ao modelado da vertente.
+          </li>
+        </ul>
+
+        <h3 class="text-lg sm:text-xl font-bold text-neutral-900 mt-6 mb-3 font-sans flex items-center gap-2">
+          <span class="text-sm bg-neutral-200 text-neutral-900 px-2 py-0.5 rounded font-mono font-bold">2</span>
+          Processos Químicos
+        </h3>
+        <p class="mb-4">
+          O intemperismo químico decompõe as espécies minerais termodinamicamente instáveis nas condições oxidantes, hidratadas e despressurizadas da superfície, <mark>sintetizando novas fases minerais estáveis e liberando íons livres para a solução do solo</mark>.
+        </p>
+        <ul class="list-disc pl-6 space-y-4 mb-6">
+          <li>
+            <strong>Hidratação:</strong> Consiste na <mark>adsorção molecular de água na malha cristalina</mark> de um mineral sem destruição de sua estrutura primária, porém provocando expansão volumétrica de retículo, enfraquecimento mecânico e preparação do mineral para reações químicas subsequentes. O caso clássico ocorre na conversão da anidrita em gipsita:
+            <div class="my-2 p-3 bg-neutral-100 rounded-lg text-center font-mono text-sm border border-neutral-300">
+              $$\mathrm{CaSO_4 + 2H_2O \longrightarrow CaSO_4 \cdot 2H_2O}$$
+            </div>
+          </li>
+          <li>
+            <strong>Hidrólise:</strong> <span class="grifo-destaque">Reação química de alteração mais expressiva nos domínios continentais</span>, controlando a decomposição dos silicatos formadores das principais rochas ígneas e metamórficas da crosta. A hidrólise ocorre pelo ataque iônico dos prótons $\mathrm{H^+}$ e hidroxilas $\mathrm{OH^-}$ presentes na água (naturalmente acidificada pela dissolução de $\mathrm{CO_2}$ atmosférico e ácidos orgânicos) sobre a estrutura mineralógica. Os íons de hidrogênio substituem os cátions básicos ($\mathrm{K^+}$, $\mathrm{Na^+}$, $\mathrm{Ca^{2+}}$, $\mathrm{Mg^{2+}}$) na rede cristalina, destruindo os tetraedros de sílica e gerando novos minerais secundários (<mark>neogênese de argilas</mark>):
+            <div class="my-2 p-3 bg-neutral-100 rounded-lg text-center font-mono text-sm border border-neutral-300">
+              $$\mathrm{4KAlSi_3O_8 + 4H^+ + 2H_2O \longrightarrow Al_4Si_4O_{10}(OH)_8 + 4K^+ + 8SiO_2}$$
+            </div>
+          </li>
+          <li>
+            <strong>Dissolução (Solução):</strong> Reação em que um mineral dissolve-se integralmente em meio aquoso, transportando seus componentes na forma de íons em solução. Destaca-se na formação de <mark>relevos cársticos</mark> desenvolvidos sobre rochas carbonáticas, onde a calcita ($\mathrm{CaCO_3}$) é atacada pelo ácido carbônico ($\mathrm{H_2CO_3}$) gerado pela interação entre água e dióxido de carbono, convertendo-se em bicarbonato solúvel carreado pelo fluxo subterrâneo:
+            <div class="my-2 p-3 bg-neutral-100 rounded-lg text-center font-mono text-sm border border-neutral-300">
+              $$\mathrm{CaCO_3 + H_2O + CO_2 \rightleftharpoons Ca^{2+} + 2HCO_3^-}$$
+            </div>
+          </li>
+          <li>
+            <strong>Oxidação:</strong> Reação induzida pela <mark>transferência de elétrons mediada pelo oxigênio dissolvido</mark> sobre minerais portadores de cátions em estado de baixa valência, prioritariamente o ferro ferroso ($\mathrm{Fe^{2+}}$), que é oxidado a ferro férrico ($\mathrm{Fe^{3+}}$). Esse processo desestabiliza minerais máficos e silicatos ferromagnesianos (olivinas, piroxênios, anfibólios e biotitas), precipitando compostos insolúveis de hidróxidos e óxidos de ferro, como a <mark>hematita ($\mathrm{Fe_2O_3}$)</mark> e a <mark>goethita ($\mathrm{FeO(OH)}$)</mark>, que conferem pigmentações avermelhadas e ocres aos solos tropicais.
+          </li>
+        </ul>
+      </div>
+
+      <!-- TABELA 2: SEM SCROLL HORIZONTAL -->
+      <div class="border border-neutral-300 rounded-xl overflow-hidden shadow-xs mb-4">
+        <div class="bg-neutral-100 px-4 py-2 border-b border-neutral-300 text-xs font-bold uppercase tracking-wider text-neutral-800">
+          Quadro 2: Reações Químicas do Intemperismo, Reagentes e Produtos Diagnósticos
+        </div>
+        <table class="table-fixed-wrap w-full text-xs sm:text-sm text-neutral-800 bg-white">
+          <thead class="bg-neutral-100 text-neutral-900 font-bold border-b border-neutral-300">
+            <tr>
+              <th class="p-2 sm:p-3 text-left w-[18%] border-r border-neutral-200">Processo</th>
+              <th class="p-2 sm:p-3 text-left w-[18%] border-r border-neutral-200">Reagente Principal</th>
+              <th class="p-2 sm:p-3 text-left w-[20%] border-r border-neutral-200">Minerais Vulneráveis</th>
+              <th class="p-2 sm:p-3 text-left w-[22%] border-r border-neutral-200">Minerais Secundários / Produtos</th>
+              <th class="p-2 sm:p-3 text-left w-[22%]">Formas e Solos Resultantes</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-neutral-200">
+            <tr class="hover:bg-neutral-50">
+              <td class="p-2 sm:p-3 font-semibold text-neutral-950 border-r border-neutral-200">Hidratação</td>
+              <td class="p-2 sm:p-3 border-r border-neutral-200">Molécula de água ($\mathrm{H_2O}$)</td>
+              <td class="p-2 sm:p-3 border-r border-neutral-200">Anidrita e certos óxidos</td>
+              <td class="p-2 sm:p-3 border-r border-neutral-200">Gipsita; <mark>expansão de rede cristalina</mark></td>
+              <td class="p-2 sm:p-3">Desagregação mecânica associada ao ganho de volume</td>
+            </tr>
+            <tr class="hover:bg-neutral-50">
+              <td class="p-2 sm:p-3 font-semibold text-neutral-950 border-r border-neutral-200">Hidrólise</td>
+              <td class="p-2 sm:p-3 border-r border-neutral-200">Íons $\mathrm{H^+}$ e $\mathrm{OH^-}$ em água ácida</td>
+              <td class="p-2 sm:p-3 border-r border-neutral-200">Feldspatos, micas e piroxênios</td>
+              <td class="p-2 sm:p-3 border-r border-neutral-200"><mark>Caulinita</mark>, esmectitas e sílica livre</td>
+              <td class="p-2 sm:p-3"><mark>Manto profundo de alteração</mark> e latossolos tropicais</td>
+            </tr>
+            <tr class="hover:bg-neutral-50">
+              <td class="p-2 sm:p-3 font-semibold text-neutral-950 border-r border-neutral-200">Dissolução</td>
+              <td class="p-2 sm:p-3 border-r border-neutral-200">Ácido carbônico ($\mathrm{H_2CO_3}$)</td>
+              <td class="p-2 sm:p-3 border-r border-neutral-200">Carbonatos (calcita e dolomita)</td>
+              <td class="p-2 sm:p-3 border-r border-neutral-200">Cátions $\mathrm{Ca^{2+}}$, $\mathrm{Mg^{2+}}$ e $\mathrm{HCO_3^-}$ em solução</td>
+              <td class="p-2 sm:p-3"><mark>Relevo cárstico</mark>: dolinas, cavernas e sumidouros</td>
+            </tr>
+            <tr class="hover:bg-neutral-50">
+              <td class="p-2 sm:p-3 font-semibold text-neutral-950 border-r border-neutral-200">Oxidação</td>
+              <td class="p-2 sm:p-3 border-r border-neutral-200">Oxigênio livre ($\mathrm{O_2}$)</td>
+              <td class="p-2 sm:p-3 border-r border-neutral-200">Silicatos máficos, pirita e magnetita</td>
+              <td class="p-2 sm:p-3 border-r border-neutral-200"><mark>Hematita</mark>, goethita e limonita ($\mathrm{Fe^{3+}}$)</td>
+              <td class="p-2 sm:p-3"><mark>Couraças lateríticas</mark> e horizontes avermelhados</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- SEÇÃO 3: EROSÃO E TRANSPORTE -->
+    <section class="mb-14">
+      <div class="flex items-center gap-2 mb-3">
+        <span class="w-2.5 h-6 bg-neutral-900 rounded-full"></span>
+        <h2 class="text-xl sm:text-2xl font-bold text-neutral-950">
+          Dinâmica Erosiva e Transporte de Sedimentos nos Domínios Físicos
+        </h2>
+      </div>
+
+      <div class="prose-custom mb-6">
+        <p class="mb-4">
+          A erosão diferencia-se do intemperismo por congregar o <span class="grifo-destaque">desprendimento mecânico de materiais e seu transporte ativo por meio de fluidos cinéticos</span> (água superficial, fluxos canalizados, vento e trens de ondas costeiras).
+        </p>
+
+        <h3 class="text-base sm:text-lg font-bold text-neutral-900 mt-5 mb-2 font-sans">
+          A) Domínio Pluvial (Evolução das Incisões Hídricas)
+        </h3>
+        <p class="mb-3">
+          A ação das chuvas sobre os solos desprotegidos inicia-se pelo efeito do <mark>salpicamento (splash)</mark>, no qual o impacto das gotas transfere energia cinética diretamente sobre os agregados superficiais. Esse impacto destrói a microestrutura do solo, projeta grânulos a pequenas distâncias e obstrui os microporos superficiais por <mark>selamento pedológico</mark>, o que diminui a taxa de infiltração basal da água e induz o escoamento superficial.
+        </p>
+        <p class="mb-3">
+          Quando a precipitação supera a capacidade de infiltração, estabelece-se o <mark>escoamento superficial em lençol (escoamento laminar ou hortoniano)</mark>, caracterizado por uma lâmina delgada e contínua que transporta sedimentos finos por tração e suspensão. A rugosidade morfológica da vertente converge essa lâmina para microcanais lineares, gerando a <mark>erosão em sulcos</mark>.
+        </p>
+        <p class="mb-4">
+          À medida que o volume e a capacidade cisalhante da água aumentam na encosta, os sulcos evoluem para <mark>ravinas</mark>, canais erosivos incisos no regolito que já não podem ser suavizados por práticas agrícolas rotineiras, mas cuja dinâmica ainda se restringe à ação superficial do escoamento pluvial. O estágio terminal da morfogênese pluvial é a <span class="grifo-destaque">voçoroca</span>, incisão profunda de grande amplitude dimensional que <span class="grifo-alerta">atinge a superfície freática local</span>. Nesse ponto, o fluxo torrencial de superfície associa-se a processos de subsidência mecânica e transporte subterrâneo de sedimentos (<mark>piping</mark>), colapsando as paredes laterais por solapamento basal e desenvolvendo cabeceiras ramificadas e escarpadas.
+        </p>
+
+        <h3 class="text-base sm:text-lg font-bold text-neutral-900 mt-5 mb-2 font-sans">
+          B) Domínio Fluvial (Nível de Base, Meandros e Terraços)
+        </h3>
+        <p class="mb-3">
+          A evolução dos sistemas fluviais é balizada pelo conceito de <span class="grifo-destaque">nível de base da erosão</span>, definido como o patamar altimétrico abaixo do qual um rio deixa de ter competência mecânica para aprofundar verticalmente seu próprio talvegue. O <mark>nível de base geral ou absoluto coincide com o nível médio dos mares globais</mark>, enquanto soleiras litológicas, represamentos lacustres e confluências hidrográficas funcionam como níveis de base locais ou temporários ao longo do perfil longitudinal do canal.
+        </p>
+        <p class="mb-3">
+          Em trechos aluviais de baixo gradiente hidráulico, a corrente d'água ajusta seu transporte sedimentar configurando padrões meandrantes. O fluxo helicoidal da água gera velocidades assimétricas na secção transversal do canal: as maiores velocidades incidem contra a <mark>margem côncava externa, erodindo-a ativamente (cutbank)</mark>, enquanto na <mark>margem convexa interna, onde as velocidades decrescem, acumulam-se bancos arenosos denominados barras em pontal (point bars)</mark>. O estrangulamento progressivo do colo desses meandros induz o atalho do canal e o isolamento de meandros abandonados (<em>oxbow lakes</em>).
+        </p>
+        <p class="mb-4">
+          A oscilação eustática negativa do nível dos oceanos ou o soerguimento epirogênico regional rebaixa o nível de base, reativando a incisão linear do curso fluvial e dissecando a antiga planície de inundação. Essa <span class="grifo-destaque">planície fóssil, abandonada em uma cota topográfica superior à calha atual, constitui um terraço fluvial</span>. Os terraços fluviais configuram-se como <mark>emparelhados</mark> quando o entalhamento vertical é simétrico e rápido, ou <mark>desemparelhados</mark> quando a incisão vertical ocorre de maneira concomitante à migração meândrica lateral.
+        </p>
+
+        <h3 class="text-base sm:text-lg font-bold text-neutral-900 mt-5 mb-2 font-sans">
+          C) Domínio Eólico (Deflação versus Corrasão)
+        </h3>
+        <ul class="list-disc pl-6 space-y-3 mb-4">
+          <li>
+            <strong>Deflação:</strong> Consiste na <mark>varredura mecânica, suspensão e remoção das frações sedimentares mais finas</mark> (silte, argila e areia fina) pelo fluxo turbulento do vento. O arraste contínuo desses sedimentos seleciona a superfície, preservando apenas fragmentos grosseiros e cascalhos que a energia eólica não consegue transportar. Essa dinâmica origina superfícies pedregosas residuais conhecidas como <span class="grifo-destaque">pavimentos desérticos (regs)</span>, além de depressões topográficas fechadas (depressões de deflação).
+          </li>
+          <li>
+            <strong>Corrasão (ou Abrasão Eólica):</strong> Processo morfogenético de <mark>desgaste mecânico, atrito e polimento de massas rochosas aflorantes</mark> gerado pelo impacto repetitivo de grãos de quartzo transportados pelo vento em regime de <mark>saltação</mark>. Como o salto dos grãos de areia raramente ultrapassa um a dois metros acima da superfície do solo, a abrasão concentra-se na base das rochas, gerando seixos com faces planas talhadas pelo vento (<mark>ventifactos</mark>), cristas rochosas assimétricas e aerodinâmicas (<mark>yardangs</mark>) e blocos residuais estreitados na base (pedestais ou rochas em cogumelo).
+          </li>
+        </ul>
+
+        <h3 class="text-base sm:text-lg font-bold text-neutral-900 mt-5 mb-2 font-sans">
+          D) Domínio Marinho (Arribas/Falésias e Praias)
+        </h3>
+        <ul class="list-disc pl-6 space-y-3 mb-4">
+          <li>
+            <strong>Falésias (ou Arribas):</strong> Escarpas rochosas íngremes a verticais esculpidas pela ação marinha. As <mark>falésias vivas ou ativas</mark> mantêm contato mecânico direto com a hidrodinâmica litorânea: as ondas quebram na base da encosta e escavam um <span class="grifo-destaque">entalhe de solapamento basal (wave-cut notch)</span>. A perda progressiva de apoio geométrico induz o cisalhamento e o tombamento gravitacional da cornija rochosa superior, provocando o recuo contínuo da escarpa em direção ao continente e deixando em seu sopé uma superfície horizontalizada esculpida em rocha sã, a <mark>plataforma de abrasão marinha</mark>. As <mark>falésias mortas ou inativas</mark> correspondem a escarpas que perderam contato com o embate das águas em decorrência de variações regressivas do nível relativo do mar ou pela progradação de planícies costeiras sedimentares.
+          </li>
+          <li>
+            <strong>Praias:</strong> Formas deposicionais móveis geradas pelo acúmulo de partículas clásticas incoerentes (areias quartzosas, fragmentos conchíferos e cascalhos) retrabalhadas incessantemente pela dinâmica de espraiamento (<em>swash</em>) e refluxo (<em>backwash</em>) das ondas, complementadas pelas correntes longitudinais de deriva litorânea. Apresentam setores morfológicos diagnósticos: a <mark>antepraia</mark> (faixa submersa sob ação constante das ondas), o <mark>estirâncio</mark> (zona intermareal sujeita ao vaivém das marés) e a <mark>pós-praia</mark> (bermas arenosas secas superiores atingidas apenas durante marés de sizígia ou ressacas meteorológicas).
+          </li>
+        </ul>
+      </div>
+
+      <!-- TABELA 3: SEM SCROLL HORIZONTAL -->
+      <div class="border border-neutral-300 rounded-xl overflow-hidden shadow-xs mb-4">
+        <div class="bg-neutral-100 px-4 py-2 border-b border-neutral-300 text-xs font-bold uppercase tracking-wider text-neutral-800">
+          Quadro 3: Domínios de Erosão, Mecanismos Dinâmicos e Feições Diagnósticas
+        </div>
+        <table class="table-fixed-wrap w-full text-xs sm:text-sm text-neutral-800 bg-white">
+          <thead class="bg-neutral-100 text-neutral-900 font-bold border-b border-neutral-300">
+            <tr>
+              <th class="p-2 sm:p-3 text-left w-[18%] border-r border-neutral-200">Domínio Dinâmico</th>
+              <th class="p-2 sm:p-3 text-left w-[20%] border-r border-neutral-200">Processo de Descolamento</th>
+              <th class="p-2 sm:p-3 text-left w-[22%] border-r border-neutral-200">Modo de Transporte</th>
+              <th class="p-2 sm:p-3 text-left w-[20%] border-r border-neutral-200">Feição Erosiva Típica</th>
+              <th class="p-2 sm:p-3 text-left w-[20%]">Feição Deposicional / Residual</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-neutral-200">
+            <tr class="hover:bg-neutral-50">
+              <td class="p-2 sm:p-3 font-semibold text-neutral-950 border-r border-neutral-200">Pluvial</td>
+              <td class="p-2 sm:p-3 border-r border-neutral-200">Impacto por gotas (<mark>splash</mark>)</td>
+              <td class="p-2 sm:p-3 border-r border-neutral-200">Escoamento laminar e turbulento em filetes</td>
+              <td class="p-2 sm:p-3 border-r border-neutral-200">Ravinas e <span class="grifo-alerta">voçorocas (com piping)</span></td>
+              <td class="p-2 sm:p-3">Cones de dejeção e rampas coluviais</td>
+            </tr>
+            <tr class="hover:bg-neutral-50">
+              <td class="p-2 sm:p-3 font-semibold text-neutral-950 border-r border-neutral-200">Fluvial</td>
+              <td class="p-2 sm:p-3 border-r border-neutral-200">Tensão de cisalhamento do escoamento</td>
+              <td class="p-2 sm:p-3 border-r border-neutral-200">Carga de fundo (tração/saltação), suspensão e solução</td>
+              <td class="p-2 sm:p-3 border-r border-neutral-200">Vales em "V" e <mark>cutbanks</mark> em meandros</td>
+              <td class="p-2 sm:p-3">Barras em pontal (<mark>point bars</mark>) e <mark>terraços fluviais</mark></td>
+            </tr>
+            <tr class="hover:bg-neutral-50">
+              <td class="p-2 sm:p-3 font-semibold text-neutral-950 border-r border-neutral-200">Eólico</td>
+              <td class="p-2 sm:p-3 border-r border-neutral-200">Arraste por turbilhonamento e saltos</td>
+              <td class="p-2 sm:p-3 border-r border-neutral-200">Saltação (areias) e suspensão (poeiras/loess)</td>
+              <td class="p-2 sm:p-3 border-r border-neutral-200">Depressões de deflação, <mark>yardangs</mark> e ventifactos</td>
+              <td class="p-2 sm:p-3">Pavimentos desérticos (<mark>regs</mark>) e campos de dunas</td>
+            </tr>
+            <tr class="hover:bg-neutral-50">
+              <td class="p-2 sm:p-3 font-semibold text-neutral-950 border-r border-neutral-200">Marinho</td>
+              <td class="p-2 sm:p-3 border-r border-neutral-200"><mark>Solapamento basal</mark> por choque de ondas</td>
+              <td class="p-2 sm:p-3 border-r border-neutral-200">Deriva litorânea longitudinal e refluxo costeiro</td>
+              <td class="p-2 sm:p-3 border-r border-neutral-200"><mark>Falésias ativas</mark> e plataforma de abrasão</td>
+              <td class="p-2 sm:p-3">Praias (antepraia, estirâncio, pós-praia) e restingas</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- SEÇÃO 4: VERTENTES E MOVIMENTOS DE MASSA -->
+    <section class="mb-14">
+      <div class="flex items-center gap-2 mb-3">
+        <span class="w-2.5 h-6 bg-neutral-900 rounded-full"></span>
+        <h2 class="text-xl sm:text-2xl font-bold text-neutral-950">
+          Dinâmica de Vertentes e Mecânica dos Movimentos de Massa
+        </h2>
+      </div>
+
+      <div class="prose-custom mb-6">
+        <p class="mb-4">
+          A evolução das encostas envolve um balanço mecânico entre a <mark>tensão de cisalhamento imposta pela componente tangencial do peso da massa</mark> sobre o talude e a <mark>resistência ao cisalhamento mobilizável pelo solo e regolito</mark>.
+        </p>
+        <p class="mb-4">
+          A resistência ao cisalhamento ($\tau_r$) em meios particulados é regida pelo critério de <span class="grifo-destaque">Mohr-Coulomb</span>:
+        </p>
+        <div class="my-3 p-4 bg-neutral-100 rounded-xl text-center border border-neutral-300 font-mono text-base">
+          $$\tau_r = c' + (\sigma - u) \tan\phi'$$
+        </div>
+        <p class="text-xs sm:text-sm text-neutral-600 mb-4 text-center font-sans">
+          Onde $c'$ expressa a <mark>coesão efetiva</mark>, $\sigma$ é a <mark>tensão normal total</mark> decorrente da sobrecarga, $u$ é a <mark>poropressão neutra</mark> da água nos poros e $\phi'$ é o <mark>ângulo de atrito interno</mark>.
+        </p>
+        <p class="mb-4">
+          A relação entre forças resistentes e atuantes é sintetizada pelo <span class="grifo-destaque">Fator de Segurança ($FS = \tau_r / \tau_a$)</span>; o colapso e a deformação rápida da vertente são deflagrados sempre que o índice atinge <span class="grifo-alerta">valores iguais ou inferiores a 1,0</span>.
+        </p>
+
+        <h3 class="text-base sm:text-lg font-bold text-neutral-900 mt-6 mb-3 font-sans">
+          Tipologia Fundamental dos Movimentos Gravitacionais de Massa
+        </h3>
+        <ul class="list-disc pl-6 space-y-4 mb-6">
+          <li>
+            <strong>Rastejo (<em>Creep</em>):</strong> <span class="grifo-destaque">Deformação contínua, descendente e imperceptível a olho nu, com taxas milimétricas a centimétricas anuais</span>, restrita à cobertura regolítica superficial e solos coluviais. O mecanismo responde a tensões de cisalhamento inferiores à resistência de ruptura, impulsionado por ciclos sucessivos de umedecimento e dessecação e expansões térmicas. Os marcadores de campo para a prova incluem: <mark>curvatura côncava dos troncos de árvores (fototropismo compensatório)</mark>, alinhamentos de cercas deformados, <mark>inclinação para jusante de postes e muros</mark> e degraus de pisoteio (<mark>terracetes</mark>).
+          </li>
+          <li>
+            <strong>Quedas e Rasgamentos (<em>Falls</em> e <em>Topples</em>):</strong> <mark>Desprendimentos rápidos de blocos ou massas rochosas que se desarticulam de escarpas verticais</mark> ou cornijas com pendente próxima a $90^\circ$. O desprendimento ocorre em queda livre, com choques mecânicos e fragmentação no trajeto. O <span class="grifo-destaque">rasgamento (topple)</span> envolve a rotação do bloco para a frente em torno de uma base de apoio pivotante antes da queda, condicionado por fraturas subverticais. A deposição basal acumula depósitos coluviais angulares (<mark>tálus</mark>).
+          </li>
+          <li>
+            <strong>Escorregamentos Translacionais (Planares):</strong> Rupturas rápidas e destrutivas em que a massa de solo e regolito <span class="grifo-destaque">desliza ao longo de uma superfície de cisalhamento planar ou retilínea pré-existente</span>. Essa descontinuidade coincide com o <mark>contato estrutural entre o horizonte saprolítico permeável e a rocha cristalina sã subjacente</mark>, ou com planos de fraqueza geológica orientados a favor do declive da encosta. O material descolado preserva parte de sua organização interna original antes de se desagregar no sopé.
+          </li>
+          <li>
+            <strong>Escorregamentos Rotacionais (<em>Slumps</em>):</strong> Deslocamentos de blocos de solo ou saprólito ao longo de uma <span class="grifo-destaque">superfície de cisalhamento curva, côncava para cima (spoon-shaped)</span>, muito frequentes em solos profundos, espessos e mecanicamente homogêneos ou em aterros de engenharia. O deslocamento imprime um <mark>basculamento retrógrado ao topo do bloco, girando-o para trás em direção à encosta</mark> e gerando escarpas de abatimento escalonadas na cabeceira (<em>head scarps</em>) e um lóbulo abaulado de compressão no pé do talude (<em>toe</em>).
+          </li>
+          <li>
+            <strong>Corridas de Massa (Lama e Detritos / <em>Mudflows</em> e <em>Debris Flows</em>):</strong> Movimentos de massa rápidos a extremamente violentos com <span class="grifo-alerta">comportamento mecânico de fluido não newtoniano viscoso</span> e de alta densidade. Ocorrem quando o solo atinge saturação hidrológica crítica, liquidificando a matriz sedimentar. As corridas <mark>canalizam-se nos talvegues fluviais com alto poder destrutivo</mark>, arrastando matacões rochosos métricos, solo e árvores por quilômetros de distância até sua desaceleração nas planícies e leques aluviais.
+          </li>
+        </ul>
+
+        <h3 class="text-base sm:text-lg font-bold text-neutral-900 mt-6 mb-3 font-sans">
+          Deflagração de Movimentos de Massa em Encostas Ocupadas (Foco em Questões Urbanas)
+        </h3>
+        <p class="mb-4">
+          A urbanização espontânea em encostas de morros tropicais altera drasticamente os parâmetros do modelo de Mohr-Coulomb através da conjugação de fatores antrópicos:
+        </p>
+        <ul class="list-disc pl-6 space-y-3 mb-6">
+          <li>
+            <strong>Alteração da Geometria do Terreno (Cortes e Aterros):</strong> Aberturas de cortes verticais na meia-encosta removem a massa rochosa ou pedológica de sustentação do sopé da vertente (<mark>descalçamento de talude</mark>). Ao mesmo tempo, a deposição de aterros soltos e entulho no topo das encostas adiciona sobrecargas mecânicas em setores instáveis, elevando a tensão tangencial atuante ($\tau_a$).
+          </li>
+          <li>
+            <strong>Elevação Crítica da Poropressão Neutra ($u$):</strong> A ocupação sem infraestrutura de saneamento básico conduz ao <mark>descarte de águas servidas e esgotos diretamente nas fraturas e no regolito da encosta</mark>. Durante eventos de chuva concentrada, a água infiltrada eleva o lençol freático e anula a sucção matricial nos poros do solo. Conforme o <span class="grifo-alerta">postulado de Terzaghi ($\sigma' = \sigma - u$)</span>, a elevação da poropressão positiva ($u$) <mark>reduz drasticamente a tensão normal efetiva interparticular ($\sigma'$), anulando o atrito interno do solo</mark> e deflagrando o colapso instantâneo do maciço.
+          </li>
+          <li>
+            <strong>Supressão da Cobertura Vegetal Arbórea:</strong> O desmatamento elimina a copa das árvores responsável pela interceptação mecânica da chuva, expondo o solo ao salpicamento e aumentando a taxa de recarga hídrica subterrânea. Elimina-se também a <mark>trama radicular profunda das árvores, que atua como ancoragem mecânica primária</mark> do horizonte móvel sobre as fraturas da rocha.
+          </li>
+          <li>
+            <strong>Concentração Induzida do Escoamento Superficial:</strong> A impermeabilização do solo por telhados, calçadas e arruamentos sem redes coletoras canaliza o escoamento torrencial superficial diretamente sobre as faces dos cortes artificiais e aterros, acelerando a erosão remontante e induzindo o colapso das vertentes ocupadas.
+          </li>
+        </ul>
+      </div>
+
+      <!-- TABELA 4: SEM SCROLL HORIZONTAL -->
+      <div class="border border-neutral-300 rounded-xl overflow-hidden shadow-xs mb-4">
+        <div class="bg-neutral-100 px-4 py-2 border-b border-neutral-300 text-xs font-bold uppercase tracking-wider text-neutral-800">
+          Quadro 4: Tipologias de Movimentos de Massa e Dinâmica Antrópica Deflagradora
+        </div>
+        <table class="table-fixed-wrap w-full text-xs sm:text-sm text-neutral-800 bg-white">
+          <thead class="bg-neutral-100 text-neutral-900 font-bold border-b border-neutral-300">
+            <tr>
+              <th class="p-2 sm:p-3 text-left w-[18%] border-r border-neutral-200">Tipologia</th>
+              <th class="p-2 sm:p-3 text-left w-[22%] border-r border-neutral-200">Geometria da Ruptura</th>
+              <th class="p-2 sm:p-3 text-left w-[18%] border-r border-neutral-200">Cinemática</th>
+              <th class="p-2 sm:p-3 text-left w-[20%] border-r border-neutral-200">Comportamento do Meio</th>
+              <th class="p-2 sm:p-3 text-left w-[22%]">Gatilho Antrópico Principal</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-neutral-200">
+            <tr class="hover:bg-neutral-50">
+              <td class="p-2 sm:p-3 font-semibold text-neutral-950 border-r border-neutral-200">Rastejo (<em>Creep</em>)</td>
+              <td class="p-2 sm:p-3 border-r border-neutral-200">Superficial e difusa; sem plano fixo</td>
+              <td class="p-2 sm:p-3 border-r border-neutral-200 font-semibold"><mark>Extremamente lenta</mark> (mm a cm/ano)</td>
+              <td class="p-2 sm:p-3 border-r border-neutral-200">Deformação plástica e contínua do regolito</td>
+              <td class="p-2 sm:p-3">Sobrecarga de construções sobre o topo da encosta</td>
+            </tr>
+            <tr class="hover:bg-neutral-50">
+              <td class="p-2 sm:p-3 font-semibold text-neutral-950 border-r border-neutral-200">Rasgamento / Queda</td>
+              <td class="p-2 sm:p-3 border-r border-neutral-200">Planos de fraturas subverticais</td>
+              <td class="p-2 sm:p-3 border-r border-neutral-200 font-semibold">Extremamente rápida; queda livre</td>
+              <td class="p-2 sm:p-3 border-r border-neutral-200">Desprendimento e rotação de blocos rígidos</td>
+              <td class="p-2 sm:p-3"><mark>Cortes verticais</mark> que eliminam suporte de base</td>
+            </tr>
+            <tr class="hover:bg-neutral-50">
+              <td class="p-2 sm:p-3 font-semibold text-neutral-950 border-r border-neutral-200">Escorregamento Translacional</td>
+              <td class="p-2 sm:p-3 border-r border-neutral-200 font-semibold"><mark>Planar e retilínea</mark> (contato regolito-rocha)</td>
+              <td class="p-2 sm:p-3 border-r border-neutral-200 font-semibold">Rápida a muito rápida; em bloco</td>
+              <td class="p-2 sm:p-3 border-r border-neutral-200">Saturação basal com <span class="grifo-alerta">aumento de poropressão ($u$)</span></td>
+              <td class="p-2 sm:p-3">Lançamento de <mark>fossas e esgotos</mark> em fraturas</td>
+            </tr>
+            <tr class="hover:bg-neutral-50">
+              <td class="p-2 sm:p-3 font-semibold text-neutral-950 border-r border-neutral-200">Escorregamento Rotacional</td>
+              <td class="p-2 sm:p-3 border-r border-neutral-200 font-semibold"><mark>Curva, côncava para cima</mark> (em colher)</td>
+              <td class="p-2 sm:p-3 border-r border-neutral-200 font-semibold">Moderada a rápida; <mark>giro retrógrado</mark></td>
+              <td class="p-2 sm:p-3 border-r border-neutral-200">Solos homogêneos, plásticos e espessos</td>
+              <td class="p-2 sm:p-3">Corte na base conjugado a <mark>aterros soltos no topo</mark></td>
+            </tr>
+            <tr class="hover:bg-neutral-50">
+              <td class="p-2 sm:p-3 font-semibold text-neutral-950 border-r border-neutral-200">Corrida de Lama / Detritos</td>
+              <td class="p-2 sm:p-3 border-r border-neutral-200">Sem plano definido; calhas e talvegues</td>
+              <td class="p-2 sm:p-3 border-r border-neutral-200 font-semibold">Extremamente rápida e violenta</td>
+              <td class="p-2 sm:p-3 border-r border-neutral-200 font-semibold"><mark>Fluido não newtoniano</mark> de alta densidade</td>
+              <td class="p-2 sm:p-3">Desmatamento de topos e canalização de fluxos</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- SEÇÃO 5: MORFOESTRUTURAS E MODELADOS -->
+    <section class="mb-14">
+      <div class="flex items-center gap-2 mb-3">
+        <span class="w-2.5 h-6 bg-neutral-900 rounded-full"></span>
+        <h2 class="text-xl sm:text-2xl font-bold text-neutral-950">
+          Morfoestruturas, Morfoesculturas e Modelados de Relevo
+        </h2>
+      </div>
+
+      <div class="prose-custom mb-6">
+        <p class="mb-4">
+          A organização do relevo em escala regional reflete a relação entre a disposição estratigráfica da crosta (<mark>morfoestrutura</mark>) e o trabalho da denudação erosiva operada ao longo do tempo geológico (<mark>morfoescultura</mark>).
+        </p>
+
+        <h3 class="text-base sm:text-lg font-bold text-neutral-900 mt-6 mb-3 font-sans">
+          A) A Dinâmica Morfoestrutural das Cuestas
+        </h3>
+        <p class="mb-3">
+          As cuestas são <span class="grifo-destaque">relevos dissimétricos ou assimétricos condicionados por estruturas monoclinais</span>, nas quais camadas sedimentares ou derrames vulcânicos intercalam litologias de resistências desiguais ao intemperismo, <mark>mergulhando suavemente em um único sentido sob ângulos entre $1^\circ$ e $15^\circ$</mark>. A assimetria topográfica de uma cuesta decorre da resistência diferencial entre estratos sobrepostos:
+        </p>
+        <ul class="list-disc pl-6 space-y-3 mb-4">
+          <li>
+            <strong>Front (Frente da Cuesta):</strong> <span class="grifo-destaque">Escarpa íngreme voltada em sentido contrário à inclinação tectônica das camadas monoclinais</span>. Sua dinâmica divide-se em:
+            <ul class="list-[circle] pl-6 mt-1 space-y-1">
+              <li><em>Cornija:</em> Parede rochosa abrupta e subvertical no topo da escarpa, <mark>sustentada pela camada litológica mais resistente</mark> (basaltos, arenitos silicificados, quartzitos ou calcários duros).</li>
+              <li><em>Talude Basal:</em> Rampa de perfil côncavo no sopé da cornija, <mark>esculpida sobre estratos sedimentares mais brandos e friáveis</mark> (folhelhos, siltitos ou arenitos argilosos), atuando como zona de trânsito e acumulação de clastos desprendidos da cornija.</li>
+            </ul>
+          </li>
+          <li>
+            <strong>Dorso (Reverso da Cuesta):</strong> <span class="grifo-destaque">Vertente extensa e de inclinação suave que desce concordantemente no mesmo sentido do mergulho das camadas geológicas</span>. Sua inclinação coincide com o topo da camada resistente, exibindo dissecação erosiva atenuada em relação ao front.
+          </li>
+          <li>
+            <strong>Depressão Periférica:</strong> Faixa de relevo rebaixada que se estende paralela ao sopé do front da cuesta. <mark>Escavada pela drenagem subsequente instalada na zona de contato litológico entre as rochas cristalinas mais antigas do embasamento e os pacotes sedimentares menos resistentes da borda da bacia</mark> (exemplo clássico: Depressão Periférica Paulista e Paranaense).
+          </li>
+          <li>
+            <strong>Morros Testemunhos (<em>Outliers</em>):</strong> Elevações residuais isoladas que pontilham a depressão periférica em frente à escarpa da cuesta. Representam <mark>remanescentes da cornija resistente que atestam a antiga continuidade da camada</mark> e o recuo erosivo paralelo do front ao longo do tempo geológico.
+          </li>
+          <li>
+            <strong>Cuestas versus Hogbacks (Ponto Decisivo de Prova):</strong> Quando a inclinação tectônica dos estratos for suave ($&lt;15^\circ$), desenvolve-se uma <mark>cuesta (relevo assimétrico, com flanco escarpado e dorso suave)</mark>. Caso os estratos geológicos tenham sido basculados por esforços tectônicos sob ângulos acentuados ($&gt;30^\circ$ a $45^\circ$), a forma resultante passa a ser uma crista simétrica ou <span class="grifo-destaque">hogback</span>, na qual <span class="grifo-alerta">tanto a frente quanto o reverso exibem vertentes com inclinações abruptas e semelhantes</span>.
+          </li>
+        </ul>
+
+        <h3 class="text-base sm:text-lg font-bold text-neutral-900 mt-6 mb-3 font-sans">
+          B) Chapadas e Tabuleiros
+        </h3>
+        <p class="mb-3">
+          Relevos tabulares sustentados por <mark>estruturas geológicas horizontais ou sub-horizontais (mergulho inferior a $1^\circ$)</mark>, representativos de coberturas sedimentares de bacias paleozoicas ou mesocenozoicas:
+        </p>
+        <ul class="list-disc pl-6 space-y-2 mb-4">
+          <li>
+            <strong>Chapadas:</strong> Relevos de <span class="grifo-destaque">topo tabular extenso e horizontalizado situados em cotas altimétricas expressivas</span>, delimitados por bordas escarpadas esculpidas pelo recuo remontante da rede de drenagem. O topo plano é preservado pela presença de estratos de alta resistência, como carapaças lateríticas e couraças ferruginosas cenozóicas, arenitos silicificados ou horizontes calcificados (ex: Chapadas do Araripe, dos Guimarães e do Parnaíba).
+          </li>
+          <li>
+            <strong>Tabuleiros:</strong> Platôs tabulares horizontalizados, mas <mark>instalados em baixas altitudes junto à orla costeira e vales fluviais</mark>, esculpidos sobre sedimentos pouco consolidados de idade terciária (destacando-se a Formação Barreiras no litoral brasileiro).
+          </li>
+        </ul>
+
+        <h3 class="text-base sm:text-lg font-bold text-neutral-900 mt-6 mb-3 font-sans">
+          C) Inselbergs e Teoria da Dupla Planificação
+        </h3>
+        <p class="mb-3">
+          Relevos residuais que se projetam isoladamente sobre superfícies aplainadas circundantes (pediplanos ou pedimentos), constituindo feições marcantes de áreas cratônicas cristalinas formadas por rochas ígneas e metamórficas coerentes (granitos, sienitos e gnaisses maciços).
+        </p>
+        <p class="mb-4">
+          A gênese dos inselbergs é explicada pela <span class="grifo-destaque">teoria da dupla planificação</span> associada a flutuações paleoclimáticas durante o Quaternário:
+        </p>
+        <ol class="list-decimal pl-6 space-y-2 mb-4">
+          <li>
+            <strong>1ª Fase (<mark>Etching</mark>):</strong> Em fases pretéritas sob clima tropical úmido, desenvolveu-se uma alteração química profunda e desigual na zona vadosa. As massas rochosas com maior densidade de diáclases foram intensamente decompostas pela hidrólise, enquanto <mark>núcleos rochosos compactos e pouco fraturados permaneceram íntegros no subsolo</mark>.
+          </li>
+          <li>
+            <strong>2ª Fase (<mark>Stripping</mark>):</strong> Na fase paleoclimática subsequente, sob clima árido ou semiárido com cobertura vegetal aberta, o escoamento superficial laminar e a pediplanação <mark>removeram o saprólito incoerente (desnudamento mecânico)</mark>, exumando esses núcleos rochosos resistentes na forma de cúpulas e esporões graníticos (<em>bornhardts</em>).
+          </li>
+        </ol>
+
+        <h3 class="text-base sm:text-lg font-bold text-neutral-900 mt-6 mb-3 font-sans">
+          D) Morfogênese de Vales: Vales em "V" versus Vales em "U"
+        </h3>
+        <p class="mb-3">
+          A geometria transversal dos vales reflete a mecânica do agente de incisão e transporte que operou na drenagem regional:
+        </p>
+        <ul class="list-disc pl-6 space-y-3 mb-4">
+          <li>
+            <strong>Vales em "V" (Vales Fluviais Vivos):</strong> Característicos de <mark>cursos d'água fluviais em regimes de alto gradiente topográfico e alta energia hidrodinâmica</mark>. A energia cinética do rio atua preferencialmente no aprofundamento vertical do leito por cavitação e abrasão de fundo (<em>downcutting</em>). Simultaneamente, o escoamento pluvial e os pequenos escorregamentos desestabilizam as encostas laterais, afunilando o vale em formato estreito de "V".
+          </li>
+          <li>
+            <strong>Vales em "U" (Vales Glaciais ou Artesas):</strong> Resultam da <mark>modelagem erosiva de antigas geleiras de vale (glaciares alpinos)</mark>. A língua de gelo preenche a calha topográfica preexistente, exercendo pressões basais e laterais maciças. O gelo combinado com detritos rochosos em sua sola promove abrasão e arrancamento rochoso (<em>plucking</em>), <span class="grifo-destaque">alargando o fundo do vale e aplainando-o</span>, enquanto trunca as encostas laterais, gerando um perfil parabólico em "U" de paredes verticais.
+          </li>
+        </ul>
+      </div>
+
+      <!-- TABELA 5: SEM SCROLL HORIZONTAL -->
+      <div class="border border-neutral-300 rounded-xl overflow-hidden shadow-xs mb-4">
+        <div class="bg-neutral-100 px-4 py-2 border-b border-neutral-300 text-xs font-bold uppercase tracking-wider text-neutral-800">
+          Quadro 5: Morfoestruturas, Geometria das Encostas e Controles Geológicos
+        </div>
+        <table class="table-fixed-wrap w-full text-xs sm:text-sm text-neutral-800 bg-white">
+          <thead class="bg-neutral-100 text-neutral-900 font-bold border-b border-neutral-300">
+            <tr>
+              <th class="p-2 sm:p-3 text-left w-[18%] border-r border-neutral-200">Forma</th>
+              <th class="p-2 sm:p-3 text-left w-[24%] border-r border-neutral-200">Controle Estrutural Litosférico</th>
+              <th class="p-2 sm:p-3 text-left w-[28%] border-r border-neutral-200">Geometria das Vertentes</th>
+              <th class="p-2 sm:p-3 text-left w-[30%]">Processo Escultor Preponderante</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-neutral-200">
+            <tr class="hover:bg-neutral-50">
+              <td class="p-2 sm:p-3 font-semibold text-neutral-950 border-r border-neutral-200">Cuesta</td>
+              <td class="p-2 sm:p-3 border-r border-neutral-200">Monoclinal suave (<mark>$1^\circ$ a $15^\circ$</mark>) com litologias alternadas</td>
+              <td class="p-2 sm:p-3 border-r border-neutral-200 font-semibold"><span class="grifo-destaque">Assimétrica</span>: front escarpado e dorso concordante</td>
+              <td class="p-2 sm:p-3">Recuo paralelo de escarpa e dissecação na depressão periférica</td>
+            </tr>
+            <tr class="hover:bg-neutral-50">
+              <td class="p-2 sm:p-3 font-semibold text-neutral-950 border-r border-neutral-200">Hogback</td>
+              <td class="p-2 sm:p-3 border-r border-neutral-200">Camadas dobradas com mergulho íngreme (<mark>$&gt;30^\circ$ a $45^\circ$</mark>)</td>
+              <td class="p-2 sm:p-3 border-r border-neutral-200 font-semibold"><span class="grifo-alerta">Simétrica</span>: duas vertentes de declividade acentuada</td>
+              <td class="p-2 sm:p-3">Erosão linear diferencial em flancos de dobras exumadas</td>
+            </tr>
+            <tr class="hover:bg-neutral-50">
+              <td class="p-2 sm:p-3 font-semibold text-neutral-950 border-r border-neutral-200">Chapada</td>
+              <td class="p-2 sm:p-3 border-r border-neutral-200">Estratificação horizontal ou sub-horizontal (<mark>$&lt;1^\circ$</mark>)</td>
+              <td class="p-2 sm:p-3 border-r border-neutral-200"><mark>Topo plano tabular</mark> delimitado por escarpas abruptas</td>
+              <td class="p-2 sm:p-3">Dissecação fluvial e recuo remontante das bordas de bacia</td>
+            </tr>
+            <tr class="hover:bg-neutral-50">
+              <td class="p-2 sm:p-3 font-semibold text-neutral-950 border-r border-neutral-200">Inselberg</td>
+              <td class="p-2 sm:p-3 border-r border-neutral-200">Maciços cristalinos com <mark>baixa densidade de fraturas</mark></td>
+              <td class="p-2 sm:p-3 border-r border-neutral-200">Vertentes convexas a verticais (cúpulas/<em>bornhardts</em>)</td>
+              <td class="p-2 sm:p-3"><mark>Dupla planificação</mark>: alteração (<mark>etching</mark>) + remoção (<mark>stripping</mark>)</td>
+            </tr>
+            <tr class="hover:bg-neutral-50">
+              <td class="p-2 sm:p-3 font-semibold text-neutral-950 border-r border-neutral-200">Vale em "V"</td>
+              <td class="p-2 sm:p-3 border-r border-neutral-200">Fraturamento crustal e drenagem em alto gradiente</td>
+              <td class="p-2 sm:p-3 border-r border-neutral-200">Vertentes convergentes para um leito estreito</td>
+              <td class="p-2 sm:p-3"><mark>Incisão fluvial vertical de fundo</mark> conjugada a colúvios</td>
+            </tr>
+            <tr class="hover:bg-neutral-50">
+              <td class="p-2 sm:p-3 font-semibold text-neutral-950 border-r border-neutral-200">Vale em "U"</td>
+              <td class="p-2 sm:p-3 border-r border-neutral-200">Calhas e bacias pré-glaciais retrabalhadas</td>
+              <td class="p-2 sm:p-3 border-r border-neutral-200">Vertentes subverticais e <mark>fundo de vale aplanado</mark></td>
+              <td class="p-2 sm:p-3"><mark>Abrasão e arrancamento basal</mark> por geleiras de montanha</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- SEÇÃO 6: MATRIZ CONCEITUAL PARA ACERTO RÁPIDO EM PROVAS -->
+    <section class="mb-14 bg-neutral-50 border-2 border-neutral-300 rounded-2xl p-6 sm:p-8">
+      <div class="flex items-center gap-2 mb-4">
+        <span class="w-3 h-7 bg-neutral-900 rounded-full"></span>
+        <h2 class="text-xl sm:text-2xl font-bold text-neutral-950">
+          Matriz Conceitual e Pontos Críticos para Provas Objetivas (Gabarito Garantido)
+        </h2>
+      </div>
+      <p class="text-sm text-neutral-700 mb-6">
+        Revise os confrontos conceituais mais recorrentes nas bancas federais de concurso público (IFMG, EBTT e Universidades Federais):
+      </p>
+
+      <div class="space-y-4 text-sm sm:text-base">
+        <div class="p-3 bg-white border border-neutral-200 rounded-xl">
+          <h4 class="font-bold text-neutral-900 mb-1 text-sm uppercase tracking-wide">1. Físico versus Químico nos Climas Terrestres</h4>
+          <p class="text-neutral-800 leading-relaxed">
+            A distinção primordial reside na <mark>integridade da rede cristalina</mark>. <span class="grifo-destaque">Termoclastia</span> (deserto: fadiga térmica sem água) e <span class="grifo-destaque">crioclastia</span> (polar: expansão mecânica de cerca de 9% da água ao congelar) fracionam a rocha sem gerar novas espécies minerais. Já a <span class="grifo-destaque">hidrólise</span> (clima tropical úmido e quente) ataca a estrutura dos silicatos com íons $\mathrm{H^+}$ e $\mathrm{OH^-}$, gerando <mark>neogênese de argilas (caulinita)</mark> e espessos mantos saprolíticos.
+          </p>
+        </div>
+
+        <div class="p-3 bg-white border border-neutral-200 rounded-xl">
+          <h4 class="font-bold text-neutral-900 mb-1 text-sm uppercase tracking-wide">2. Hierarquia da Erosão Pluvial</h4>
+          <p class="text-neutral-800 leading-relaxed">
+            Memorize a sequência exata de campo: <mark>Impacto por gotas (Splash)</mark> $\rightarrow$ <mark>Escoamento laminar hortoniano</mark> $\rightarrow$ <mark>Erosão em sulcos</mark> $\rightarrow$ <mark>Ravinas</mark> $\rightarrow$ <span class="grifo-alerta">Voçorocas</span>. Lembre-se: a voçoroca diferencia-se da ravina por <mark>atingir o nível freático</mark>, deflagrando solapamento basal e <mark>transporte por tubificação subterrânea (piping)</mark>.
+          </p>
+        </div>
+
+        <div class="p-3 bg-white border border-neutral-200 rounded-xl">
+          <h4 class="font-bold text-neutral-900 mb-1 text-sm uppercase tracking-wide">3. Nível de Base, Meandros e Terraços</h4>
+          <p class="text-neutral-800 leading-relaxed">
+            O nível de base geral é o nível do mar. O rebaixamento do nível de base induz <mark>incisão vertical do rio</mark>, abandonando antigas planícies de inundação que passam a constituir <mark>terraços fluviais</mark>. Nos meandros, a <mark>erosão ocorre no corte externo côncavo (cutbank)</mark> e a <mark>deposição ocorre no lobo interno convexo (point bar)</mark>.
+          </p>
+        </div>
+
+        <div class="p-3 bg-white border border-neutral-200 rounded-xl">
+          <h4 class="font-bold text-neutral-900 mb-1 text-sm uppercase tracking-wide">4. Deflação versus Corrasão</h4>
+          <p class="text-neutral-800 leading-relaxed">
+            <mark>Deflação</mark> é o processo de varredura mecânica das partículas finas, gerando depressões e <mark>pavimentos desérticos pedregosos (regs)</mark>. <mark>Corrasão</mark> é o atrito e abrasão por grãos de areia em saltação, esculpindo <mark>ventifactos e yardangs</mark>.
+          </p>
+        </div>
+
+        <div class="p-3 bg-white border border-neutral-200 rounded-xl">
+          <h4 class="font-bold text-neutral-900 mb-1 text-sm uppercase tracking-wide">5. Diagnóstico Rápido de Movimentos de Massa</h4>
+          <p class="text-neutral-800 leading-relaxed">
+            • <strong>Rastejo (<em>Creep</em>):</strong> Lento, milimétrico, contínuo; diagnosticado por <mark>postes e cercas inclinados</mark> e <mark>troncos de árvores curvados</mark>.<br>
+            • <strong>Escorregamento Translacional:</strong> Ruptura em <mark>superfície retilínea/planar</mark>, geralmente no contato regolito/rocha sã impermeável.<br>
+            • <strong>Escorregamento Rotacional (<em>Slump</em>):</strong> Ruptura em <mark>superfície curva côncava</mark>, com <mark>basculamento retrógrado</mark> do bloco e escarpas escalonadas.<br>
+            • <strong>Corrida de Detritos/Lama:</strong> Comportamento de <mark>fluido não newtoniano viscoso</mark>, alta velocidade e canalização em calhas fluviais.
+          </p>
+        </div>
+
+        <div class="p-3 bg-white border border-neutral-200 rounded-xl">
+          <h4 class="font-bold text-neutral-900 mb-1 text-sm uppercase tracking-wide">6. O Mecanismo Físico das Encostas Urbanas (Postulado de Terzaghi)</h4>
+          <p class="text-neutral-800 leading-relaxed">
+            O fator fundamental que deflagra escorregamentos urbanos em períodos de chuva intensa é a <span class="grifo-alerta">anulação da tensão normal efetiva ($\sigma' = \sigma - u$)</span> causada pela elevação exponencial da <mark>poropressão da água ($u$)</mark> nos poros do regolito e pelo lançamento clandestino de esgotos, combinada ao <mark>descalçamento da base por cortes artificiais</mark> e sobrecarga de aterros soltos no topo.
+          </p>
+        </div>
+
+        <div class="p-3 bg-white border border-neutral-200 rounded-xl">
+          <h4 class="font-bold text-neutral-900 mb-1 text-sm uppercase tracking-wide">7. Anatomia da Cuesta e Comparação com Hogback</h4>
+          <p class="text-neutral-800 leading-relaxed">
+            • <strong>Cuesta:</strong> Camadas com mergulho suave ($1^\circ$ a $15^\circ$); <mark>relevo dissimétrico (assimétrico)</mark>.<br>
+            • <strong>Front:</strong> Escarpa abrupta em <mark>sentido contrário ao mergulho das camadas</mark>, sustentada pela cornija resistente sobre o talude basal brando.<br>
+            • <strong>Dorso:</strong> Rampa suave em <mark>sentido concordante ao mergulho das camadas</mark>.<br>
+            • <strong>Depressão Periférica:</strong> Faixa deprimida no sopé do front, no contato do cristalino com as bordas da bacia sedimentar.<br>
+            • <strong>Hogback:</strong> Camadas com mergulho íngreme ($&gt;30^\circ$ a $45^\circ$); vertentes de <mark>declividades simétricas</mark> em ambos os flancos.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ÁREA DE TRANSIÇÃO E BOTÃO DE QUESTÕES -->
+    <section class="border-t-2 border-neutral-300 pt-10 pb-16 text-center">
+      <div class="max-w-xl mx-auto">
+        <h3 class="text-xl font-bold text-neutral-950 mb-2">Pronto para testar a retenção dos conceitos?</h3>
+        <p class="text-sm text-neutral-600 mb-6">
+          Acesse a seção de fixação e questões objetivas simuladas no padrão da Banca Central de Concursos do IFMG.
+        </p>
+        <a 
+          href="questoes8geo.html" 
+          class="inline-flex items-center justify-center gap-3 px-8 py-4 bg-neutral-900 hover:bg-neutral-800 text-white font-bold text-base rounded-xl transition-all shadow-md hover:shadow-lg active:scale-95 group"
+        >
+          <span>Acessar Questões de Fixação</span>
+          <span class="group-hover:translate-x-1 transition-transform font-mono text-lg">→</span>
+        </a>
+        <div class="mt-3 text-xs text-neutral-500 font-mono">
+          Destino: questoes8geo.html
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- RODAPÉ COMPACTO -->
+  <footer class="border-t border-neutral-200 bg-neutral-50 py-6 text-center text-xs text-neutral-600">
+    <div class="max-w-4xl mx-auto px-4">
+      <p class="font-semibold text-neutral-800">Tutor Especialista Concurso IFMG • Geografia Física & Geomorfologia</p>
+      <p class="mt-1 text-neutral-500">Desenvolvido com padrão editorial neutro, legibilidade otimizada e foco em aprovação.</p>
+    </div>
+  </footer>
+
+  <!-- SCRIPT DO REPRODUTOR DE ÁUDIO -->
+  <script>
+    // Atualização dinâmica da fonte do áudio
+    function updateAudioSource() {
+      const fileNameInput = document.getElementById('audioFileName');
+      const audioPlayer = document.getElementById('audioPlayer');
+      const audioSource = document.getElementById('audioSource');
+      const currentSourceLabel = document.getElementById('currentSourceLabel');
+      const statusElement = document.getElementById('audioStatus');
+      
+      const newFileName = fileNameInput.value.trim();
+
+      if (!newFileName) {
+        statusElement.innerHTML = '<span class="inline-block w-2 h-2 rounded-full bg-red-500"></span> <span class="text-red-700 font-medium">Por favor, digite o nome de um arquivo MP3 válido.</span>';
+        return;
+      }
+
+      // Atualiza o source e recarrega
+      audioSource.src = newFileName;
+      audioPlayer.load();
+      currentSourceLabel.textContent = newFileName;
+
+      statusElement.innerHTML = `<span class="inline-block w-2 h-2 rounded-full bg-emerald-500"></span> Fonte atualizada para: <span class="font-mono font-semibold text-neutral-900">${newFileName}</span>`;
+    }
+
+    // Permitir carregar ao pressionar Enter no input
+    document.getElementById('audioFileName').addEventListener('keydown', function(event) {
+      if (event.key === 'Enter') {
+        event.preventDefault();
+        updateAudioSource();
+      }
+    });
+
+    // Controle de velocidade de reprodução
+    function changeSpeed(speed) {
+      const player = document.getElementById('audioPlayer');
+      player.playbackRate = speed;
+
+      // Atualiza botões
+      const buttons = {
+        1.0: document.getElementById('btn-1x'),
+        1.25: document.getElementById('btn-125x'),
+        1.5: document.getElementById('btn-15x'),
+        2.0: document.getElementById('btn-2x')
+      };
+
+      for (const [key, btn] of Object.entries(buttons)) {
+        if (parseFloat(key) === speed) {
+          btn.className = "px-2 py-0.5 rounded bg-neutral-900 text-white transition-colors font-bold";
+        } else {
+          btn.className = "px-2 py-0.5 rounded hover:bg-neutral-200 text-neutral-800 transition-colors";
+        }
+      }
+    }
+  </script>
+</body>
+</html>

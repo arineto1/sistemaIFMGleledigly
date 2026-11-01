@@ -1,0 +1,937 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fundamentos de Pedologia | Concurso IFMG - Geografia</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- KaTeX para renderização de fórmulas físico-químicas e equações pedológicas -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js" 
+          onload="renderMathInElement(document.body, {delimiters: [{left: '$$', right: '$$', display: true}, {left: '$', right: '$', display: false}]});"></script>
+
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background-color: #ffffff;
+      color: #1e293b; /* Slate-800: contraste excelente e descanso visual */
+      line-height: 1.75;
+    }
+    
+    /* Grifos e Realces de Estudo */
+    .grifo {
+      background-color: #fef08a; /* Amarelo pastel suave (amber/yellow-200) */
+      color: #0f172a;
+      font-weight: 600;
+      padding: 0.12rem 0.35rem;
+      border-radius: 0.25rem;
+    }
+
+    .grifo-verde {
+      background-color: #dcfce7; /* Verde menta suave */
+      color: #14532d;
+      font-weight: 600;
+      padding: 0.12rem 0.35rem;
+      border-radius: 0.25rem;
+    }
+
+    .grifo-azul {
+      background-color: #e0f2fe; /* Azul claro suave */
+      color: #0c4a6e;
+      font-weight: 600;
+      padding: 0.12rem 0.35rem;
+      border-radius: 0.25rem;
+    }
+
+    /* Tabelas auto-ajustáveis sem scroll horizontal */
+    table {
+      table-layout: fixed;
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th, td {
+      word-wrap: break-word;
+      overflow-wrap: break-word;
+      hyphens: auto;
+    }
+
+    /* Estilização suave de barras de áudio nativas */
+    audio::-webkit-media-controls-panel {
+      background-color: #f8fafc;
+    }
+  </style>
+</head>
+<body class="bg-white text-slate-800 antialiased selection:bg-amber-200 selection:text-slate-900">
+
+  <!-- BARRA SUPERIOR INSTITUCIONAL -->
+  <header class="border-b border-slate-200 bg-white sticky top-0 z-30 shadow-xs">
+    <div class="max-w-5xl mx-auto px-4 py-3 flex flex-col sm:flex-row items-center justify-between gap-2">
+      <div class="flex items-center gap-3">
+        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-slate-100 text-slate-800 border border-slate-300">
+          CONCURSO IFMG
+        </span>
+        <span class="text-xs sm:text-sm font-semibold text-slate-600">
+          Magistério EBTT • Geografia • Banca Reitoria IFMG
+        </span>
+      </div>
+      <a href="#questoes-section" class="text-xs font-semibold text-slate-700 hover:text-emerald-700 underline underline-offset-4 transition-colors">
+        Ir direto para Questões ↓
+      </a>
+    </div>
+  </header>
+
+  <!-- CONTAINER PRINCIPAL -->
+  <main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-10">
+
+    <!-- CABEÇALHO DO TÍTULO E EMENTA -->
+    <section class="border-b border-slate-200 pb-8 space-y-4">
+      <h1 class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight leading-tight">
+        Fundamentos de Pedologia: Teoria Pedogenética, SiBCS e Parâmetros Diagnósticos
+      </h1>
+      <p class="text-base sm:text-lg text-slate-600 font-normal leading-relaxed">
+        Material técnico e didático estruturado estritamente segundo as referências de <span class="font-semibold text-slate-800">TEIXEIRA et al. (2009)</span> e <span class="font-semibold text-slate-800">ROSS (2014)</span>, com foco nos gatilhos de acerto para a prova objetiva da Banca IFMG.
+      </p>
+
+      <!-- CARD DO REPRODUTOR DE ÁUDIO -->
+      <div class="mt-6 p-5 bg-white border-2 border-slate-200 rounded-xl shadow-xs space-y-4">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center text-slate-700 border border-slate-300 shrink-0">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"/>
+              </svg>
+            </div>
+            <div>
+              <h2 class="text-sm font-bold text-slate-900 uppercase tracking-wide">Áudio da Aula / Resumo Guiado</h2>
+              <p class="text-xs text-slate-500">Ouça o áudio da aula enquanto estuda os tópicos e tabelas abaixo</p>
+            </div>
+          </div>
+          
+          <div class="text-xs text-slate-500 bg-slate-100 px-3 py-1.5 rounded-lg border border-slate-200">
+            Arquivo padrão vinculado: <code class="font-mono text-slate-800 font-bold" id="currentAudioName">audio10geo.mp3</code>
+          </div>
+        </div>
+
+        <!-- Player de Áudio HTML5 -->
+        <audio id="audioElement" controls class="w-full h-11 rounded-lg">
+          <source id="audioSource" src="audio10geo.mp3" type="audio/mpeg">
+          Seu navegador não suporta reprodução direta de áudio HTML5.
+        </audio>
+
+        <!-- Campo Configurável para alterar o nome do arquivo MP3 na mesma pasta -->
+        <div class="pt-2 border-t border-slate-100 flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
+          <label for="audioFileNameInput" class="text-xs font-medium text-slate-600 whitespace-nowrap">
+            Trocar arquivo MP3 local:
+          </label>
+          <input 
+            type="text" 
+            id="audioFileNameInput" 
+            placeholder="Exemplo: minha_aula.mp3" 
+            value="audio10geo.mp3"
+            class="flex-1 text-xs px-3 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-slate-400 bg-white text-slate-800 font-mono"
+          />
+          <button 
+            type="button" 
+            onclick="atualizarAudio()"
+            class="px-4 py-2 bg-slate-800 text-white text-xs font-semibold rounded-lg hover:bg-slate-700 active:scale-98 transition-all">
+            Carregar Áudio
+          </button>
+        </div>
+        <p class="text-[11px] text-slate-600 leading-normal">
+          <strong>Como usar:</strong> Coloque o arquivo de áudio (formato <code>.mp3</code>) na mesma pasta deste arquivo HTML. Digite o nome exato do arquivo no campo acima e clique em "Carregar Áudio".
+        </p>
+      </div>
+    </section>
+
+    <!-- INTRODUÇÃO EPISTEMOLÓGICA -->
+    <section class="space-y-3">
+      <p class="text-justify text-slate-700 leading-relaxed">
+        A Pedologia constitui um dos eixos estruturantes da Geografia Física e das geociências, investigando o solo enquanto <mark class="grifo">corpo natural, tridimensional, dinâmico e integrado</mark> aos fluxos de matéria e energia da paisagem. No âmbito dos concursos para o magistério federal do <mark class="grifo-azul">Instituto Federal de Minas Gerais (IFMG)</mark>, a abordagem pedológica privilegia a compreensão dos fatores de gênese, a identificação dos processos de diferenciação de horizontes diagnósticos, as propriedades físico-químicas e as respostas morfológicas frente à degradação antrópica.
+      </p>
+    </section>
+
+    <!-- BLOCO 1: FATORES E PROCESSOS -->
+    <section class="space-y-6 pt-4 border-t border-slate-200">
+      <div class="border-l-4 border-slate-800 pl-3">
+        <h2 class="text-xl sm:text-2xl font-bold text-slate-900">
+          1. Fatores de Formação e Processos Pedogenéticos Fundamentais
+        </h2>
+        <p class="text-xs sm:text-sm text-slate-600">Origem, dinâmica evolutiva e vetores atuantes no perfil do solo</p>
+      </div>
+
+      <p class="text-justify text-slate-700">
+        A formação do solo representa o produto da alteração física, desagregação mecânica e decomposição química de um substrato rochoso ou sedimentar inconsolidado, submetido à ação do clima e de agentes biológicos ao longo do tempo.
+      </p>
+
+      <!-- Fatores de Hans Jenny -->
+      <div class="space-y-3">
+        <h3 class="text-lg font-bold text-slate-900 flex items-center gap-2">
+          <span>Fatores de Formação do Solo (Equação de Hans Jenny)</span>
+        </h3>
+        <p class="text-sm text-slate-700">
+          A concepção pedogenética fundamenta-se na equação estabelecida por Hans Jenny, expressa formalmente por <span class="font-mono font-bold text-slate-900 bg-slate-100 px-2 py-0.5 rounded border border-slate-300">$$S = f(cl, o, r, p, t)$$</span>, em que a evolução das características do solo resulta da interação interdependente de cinco fatores:
+        </p>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-3 pt-2">
+          <div class="p-4 bg-white border border-slate-200 rounded-lg shadow-xs space-y-1">
+            <h4 class="font-bold text-sm text-slate-900 flex items-center gap-1.5">
+              <span class="w-2 h-2 rounded-full bg-slate-800"></span>
+              Clima ($cl$) — <span class="text-xs uppercase text-slate-600 font-semibold">Agente Ativo Preponderante</span>
+            </h4>
+            <p class="text-xs text-slate-700 text-justify">
+              A precipitação pluviométrica comanda o balanço hídrico, a lixiviação geoquímica e os fluxos de percolação vertical e lateral. A temperatura regula a energia cinética das reações, <mark class="grifo">acelerando a hidrólise e oxidação</mark> e controlando a taxa de mineralização da matéria orgânica.
+            </p>
+          </div>
+
+          <div class="p-4 bg-white border border-slate-200 rounded-lg shadow-xs space-y-1">
+            <h4 class="font-bold text-sm text-slate-900 flex items-center gap-1.5">
+              <span class="w-2 h-2 rounded-full bg-slate-800"></span>
+              Organismos Vivos ($o$) — <span class="text-xs uppercase text-slate-600 font-semibold">Agente Ativo</span>
+            </h4>
+            <p class="text-xs text-slate-700 text-justify">
+              Responsáveis pela bioturbação mecânica, aeração, síntese e incorporação de compostos húmicos (<mark class="grifo">melanização</mark>) e ciclagem contínua de nutrientes essenciais na interface com a biomassa vegetal.
+            </p>
+          </div>
+
+          <div class="p-4 bg-white border border-slate-200 rounded-lg shadow-xs space-y-1">
+            <h4 class="font-bold text-sm text-slate-900 flex items-center gap-1.5">
+              <span class="w-2 h-2 rounded-full bg-slate-800"></span>
+              Relevo ($r$) — <span class="text-xs uppercase text-slate-600 font-semibold">Agente Condicionador / Distribuidor</span>
+            </h4>
+            <p class="text-xs text-slate-700 text-justify">
+              Agente passivo e redistribuidor da energia gravitacional e da umidade. Condiciona o equilíbrio entre infiltração e escoamento superficial. <mark class="grifo">Topos planos favorecem infiltração profunda</mark> (solos espessos); vertentes íngremes aceleram a denudação mecânica contínua, mantendo solos rasos.
+            </p>
+          </div>
+
+          <div class="p-4 bg-white border border-slate-200 rounded-lg shadow-xs space-y-1">
+            <h4 class="font-bold text-sm text-slate-900 flex items-center gap-1.5">
+              <span class="w-2 h-2 rounded-full bg-slate-800"></span>
+              Material de Origem ($p$) — <span class="text-xs uppercase text-slate-600 font-semibold">Agente Passivo Gerador</span>
+            </h4>
+            <p class="text-xs text-slate-700 text-justify">
+              Substrato litológico primário ou sedimento inconsolidado que fornece o arcabouço mineralógico inicial, determinando a textura primária e a reserva mineral. <mark class="grifo">Rochas félsicas geram solos arenosos</mark>; rochas máficas ricas em ferromagnesianos formam solos argilosos e férteis.
+            </p>
+          </div>
+
+          <div class="p-4 bg-white border border-slate-200 rounded-lg shadow-xs md:col-span-2 space-y-1">
+            <h4 class="font-bold text-sm text-slate-900 flex items-center gap-1.5">
+              <span class="w-2 h-2 rounded-full bg-slate-800"></span>
+              Tempo ($t$) — <span class="text-xs uppercase text-slate-600 font-semibold">Fator Passivo Integrador</span>
+            </h4>
+            <p class="text-xs text-slate-700 text-justify">
+              Expressa a duração cronológica e cumulativa de atuação dos agentes intempéricos. Diferencia <mark class="grifo">solos jovens (incipientes, rasos, ricos em minerais primários)</mark> de <mark class="grifo">solos senis (profundos, lixiviados, altamente oxídicos e intemperizados)</mark>.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Processos Pedogenéticos de Simonson -->
+      <div class="space-y-3 pt-2">
+        <h3 class="text-lg font-bold text-slate-900">
+          Processos Pedogenéticos Fundamentais (Roy Simonson)
+        </h3>
+        <p class="text-xs sm:text-sm text-slate-700 text-justify">
+          A diferenciação dos horizontes resulta do balanço contínuo de quatro processos dinâmicos gerais:
+        </p>
+
+        <ul class="space-y-2 text-xs sm:text-sm text-slate-700">
+          <li class="p-3 bg-white border border-slate-200 rounded-lg flex items-start gap-2">
+            <span class="font-bold text-slate-900 shrink-0">1. Adições:</span>
+            <span>Aporte de matéria externa ao perfil, como serapilheira vegetal, poeiras eólicas e deposições aluviais periódicas.</span>
+          </li>
+          <li class="p-3 bg-white border border-slate-200 rounded-lg flex items-start gap-2">
+            <span class="font-bold text-slate-900 shrink-0">2. Perdas:</span>
+            <span>Remoção definitiva de matéria para fora dos limites do solo: <mark class="grifo">lixiviação profunda de bases solúveis</mark>, erosão superficial laminar e desgasificação biológica.</span>
+          </li>
+          <li class="p-3 bg-white border border-slate-200 rounded-lg flex items-start gap-2">
+            <span class="font-bold text-slate-900 shrink-0">3. Translocações:</span>
+            <span>Deslocamentos mecânicos ou hidrológicos de coloides no perfil: compreende a <mark class="grifo">eluviação</mark> (saída/empobrecimento do estrato superior) e a <mark class="grifo">iluviação</mark> (depósito e acúmulo no estrato subsuperficial).</span>
+          </li>
+          <li class="p-3 bg-white border border-slate-200 rounded-lg flex items-start gap-2">
+            <span class="font-bold text-slate-900 shrink-0">4. Transformações:</span>
+            <span>Alterações químicas e mineralógicas <em>in situ</em>: hidrólise de silicatos, neoformação de argilas 1:1 (<mark class="grifo">caulinitização</mark>), oxidação de ferro/alumínio e humificação.</span>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- BLOCO 2: MORFOLOGIA E HORIZONTES -->
+    <section class="space-y-6 pt-4 border-t border-slate-200">
+      <div class="border-l-4 border-slate-800 pl-3">
+        <h2 class="text-xl sm:text-2xl font-bold text-slate-900">
+          2. Morfologia e Perfil do Solo: Horizontes Diagnósticos
+        </h2>
+        <p class="text-xs sm:text-sm text-slate-600">Critérios morfológicos no Sistema Brasileiro de Classificação de Solos (SiBCS)</p>
+      </div>
+
+      <!-- Horizontes Mestres -->
+      <div class="space-y-2">
+        <h3 class="text-base font-bold text-slate-900">Estrutura dos Horizontes Mestres no Perfil</h3>
+        <div class="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-7 gap-2 text-center text-xs">
+          <div class="p-2 border border-slate-300 rounded-lg bg-white">
+            <strong class="block text-slate-900 text-sm">O</strong>
+            <span class="text-slate-600">Orgânico aeróbio em terra firme</span>
+          </div>
+          <div class="p-2 border border-slate-300 rounded-lg bg-white">
+            <strong class="block text-slate-900 text-sm">H</strong>
+            <span class="text-slate-600">Orgânico hídrico saturado de água</span>
+          </div>
+          <div class="p-2 border border-slate-300 rounded-lg bg-white">
+            <strong class="block text-slate-900 text-sm">A</strong>
+            <span class="text-slate-600">Mineral superficial escurecido por M.O.</span>
+          </div>
+          <div class="p-2 border border-slate-300 rounded-lg bg-white">
+            <strong class="block text-slate-900 text-sm">E</strong>
+            <span class="text-slate-600">Mineral de perda/eluvial claro (álbico)</span>
+          </div>
+          <div class="p-2 border border-slate-300 rounded-lg bg-white">
+            <strong class="block text-slate-900 text-sm">B</strong>
+            <span class="text-slate-600">Subsuperficial diagnóstico alterado</span>
+          </div>
+          <div class="p-2 border border-slate-300 rounded-lg bg-white">
+            <strong class="block text-slate-900 text-sm">C</strong>
+            <span class="text-slate-600">Material inconsolidado / alterita</span>
+          </div>
+          <div class="p-2 border border-slate-300 rounded-lg bg-white">
+            <strong class="block text-slate-900 text-sm">R</strong>
+            <span class="text-slate-600">Substrato rochoso contínuo</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Horizontes Diagnósticos Superficiais (A) -->
+      <div class="space-y-3">
+        <h3 class="text-base font-bold text-slate-900">Horizontes Diagnósticos Superficiais (A)</h3>
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 text-xs sm:text-sm">
+          <div class="p-3 border border-slate-200 rounded-lg bg-white space-y-1">
+            <h4 class="font-bold text-slate-900">A Chernizêmico</h4>
+            <p class="text-slate-700">Espesso, escuro, muito estruturado, rico em matéria orgânica e <mark class="grifo">saturação por bases elevada ($V\% \ge 65\%$)</mark>. Alta fertilidade intrínseca.</p>
+          </div>
+          <div class="p-3 border border-slate-200 rounded-lg bg-white space-y-1">
+            <h4 class="font-bold text-slate-900">A Proeminente</h4>
+            <p class="text-slate-700">Morfologia similar ao chernizêmico na cor e estrutura espessa, porém <mark class="grifo">quimicamente distrófico ($V\% < 50\%$)</mark> na maior parte de sua extensão.</p>
+          </div>
+          <div class="p-3 border border-slate-200 rounded-lg bg-white space-y-1">
+            <h4 class="font-bold text-slate-900">A Húmico</h4>
+            <p class="text-slate-700">Espesso e escuro, decorrente do acúmulo lento de biomassa em <mark class="grifo">climas frios e úmidos de altitude</mark>, com forte acidez e baixa saturação.</p>
+          </div>
+          <div class="p-3 border border-slate-200 rounded-lg bg-white space-y-1">
+            <h4 class="font-bold text-slate-900">A Moderado</h4>
+            <p class="text-slate-700">Atributos e espessura medianos; horizonte modal mais disperso e abundante no território geográfico brasileiro.</p>
+          </div>
+          <div class="p-3 border border-slate-200 rounded-lg bg-white space-y-1">
+            <h4 class="font-bold text-slate-900">A Fraco</h4>
+            <p class="text-slate-700">Pouco espesso, cor clara, teores muito baixos de matéria orgânica e agregados incipientes. Típico de ambientes secos ou fortemente degradados.</p>
+          </div>
+          <div class="p-3 border border-slate-200 rounded-lg bg-white space-y-1">
+            <h4 class="font-bold text-slate-900">A Antrópico</h4>
+            <p class="text-slate-700">Transformado pela ocupação humana pré-histórica ou histórica com restos cerâmicos, carvão e teores altíssimos de fósforo (ex.: Terra Preta de Índio).</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Horizontes Diagnósticos Subsuperficiais (B) -->
+      <div class="space-y-4">
+        <h3 class="text-base font-bold text-slate-900">
+          Horizontes Diagnósticos Subsuperficiais (Critério Central do SiBCS)
+        </h3>
+        <p class="text-xs sm:text-sm text-slate-700 text-justify">
+          No SiBCS, a definição taxonômica primária das grandes classes repousa fundamentalmente na gênese e na morfologia do horizonte B:
+        </p>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs sm:text-sm">
+          <div class="p-4 border-2 border-slate-200 rounded-lg bg-white space-y-2">
+            <div class="flex items-center justify-between">
+              <h4 class="font-bold text-slate-900 text-base">Horizonte B latossólico ($Bw$)</h4>
+              <span class="px-2 py-0.5 rounded text-xs font-bold bg-slate-100 text-slate-800 border border-slate-300">Latossolos</span>
+            </div>
+            <p class="text-slate-700 text-justify">
+              Resultante de <mark class="grifo">intemperismo químico extremo e dessilificação</mark> sob regime quente e úmido. Perda quase integral de sílica primária com retenção residual de caulinita e oxihidróxidos de ferro e alumínio. Caracteriza-se por <mark class="grifo">ausência de gradiente textural relevante</mark>, ausência ou vestígios de cerosidade, espessura métrica e estrutura microgranular agregada típica (<mark class="grifo">"pó de café"</mark>), que propicia excelente macroporosidade e rápida permeabilidade.
+            </p>
+          </div>
+
+          <div class="p-4 border-2 border-slate-200 rounded-lg bg-white space-y-2">
+            <div class="flex items-center justify-between">
+              <h4 class="font-bold text-slate-900 text-base">Horizonte B textural ($Bt$)</h4>
+              <span class="px-2 py-0.5 rounded text-xs font-bold bg-slate-100 text-slate-800 border border-slate-300">Argissolos</span>
+            </div>
+            <p class="text-slate-700 text-justify">
+              Formado pela nítida <mark class="grifo">eluviação de argila da superfície e sua iluviação em profundidade</mark>. Exige <mark class="grifo">gradiente textural nítido ($B/A > 1,5$ ou transição abrupta)</mark>, presença obrigatória de cerosidade (películas brilhantes de argila orientada nos agregados) e estrutura em blocos ou prismas. Ocorre acentuada restrição física à infiltração na transição dos horizontes.
+            </p>
+          </div>
+
+          <div class="p-4 border-2 border-slate-200 rounded-lg bg-white space-y-2">
+            <div class="flex items-center justify-between">
+              <h4 class="font-bold text-slate-900 text-base">Horizonte B espódico ($Bhs$ / $Bs$)</h4>
+              <span class="px-2 py-0.5 rounded text-xs font-bold bg-slate-100 text-slate-800 border border-slate-300">Espodossolos</span>
+            </div>
+            <p class="text-slate-700 text-justify">
+              Originado pelo processo de <mark class="grifo">podzolização</mark>, onde ácidos orgânicos móveis quelam ferro e alumínio do horizonte A/E, translocando-os para baixo. Repousa sob horizonte E álbico esbranquiçado, exibindo coloração escura a brunada e frequente cimentação química consolidada.
+            </p>
+          </div>
+
+          <div class="p-4 border-2 border-slate-200 rounded-lg bg-white space-y-2">
+            <div class="flex items-center justify-between">
+              <h4 class="font-bold text-slate-900 text-base">Horizonte B incipiente ($Bi$)</h4>
+              <span class="px-2 py-0.5 rounded text-xs font-bold bg-slate-100 text-slate-800 border border-slate-300">Cambissolos</span>
+            </div>
+            <p class="text-slate-700 text-justify">
+              Estrato em <mark class="grifo">estágio inicial de alteração morfológica e estrutural</mark>. Não possui o avanço intempérico do Bw nem a iluviação de argila do Bt. Preserva teores expressivos de silte e minerais primários alteráveis, associado a relevos movimentados.
+            </p>
+          </div>
+        </div>
+
+        <!-- TABELA 1: HORIZONTES DIAGNÓSTICOS SUBSUPERFICIAIS (TOTALMENTE AJUSTADA SEM SCROLL) -->
+        <div class="border border-slate-200 rounded-xl overflow-hidden bg-white shadow-xs mt-4">
+          <div class="bg-slate-50 px-3 py-2 border-b border-slate-200">
+            <h4 class="font-bold text-xs uppercase tracking-wider text-slate-700">
+              Tabela Comparativa: Horizontes Diagnósticos Subsuperficiais
+            </h4>
+          </div>
+          <table class="w-full text-[11px] sm:text-xs">
+            <thead>
+              <tr class="bg-slate-100 border-b border-slate-200 text-slate-800 text-left font-bold">
+                <th class="p-2 w-[22%]">Parâmetro</th>
+                <th class="p-2 w-[20%]">Horizonte $Bw$</th>
+                <th class="p-2 w-[20%]">Horizonte $Bt$</th>
+                <th class="p-2 w-[19%]">Horizonte $Bhs$</th>
+                <th class="p-2 w-[19%]">Horizonte $Bi$</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-200 text-slate-700">
+              <tr>
+                <td class="p-2 font-semibold text-slate-900 bg-slate-50">Processo Principal</td>
+                <td class="p-2">Ferralitização / Latolização</td>
+                <td class="p-2">Iluviação de argila</td>
+                <td class="p-2">Podzolização (quelação)</td>
+                <td class="p-2">Alteração inicial <em>in situ</em></td>
+              </tr>
+              <tr>
+                <td class="p-2 font-semibold text-slate-900 bg-slate-50">Gradiente Textural</td>
+                <td class="p-2">Ausente ou inexpressivo</td>
+                <td class="p-2 font-semibold text-slate-900">Pronunciado ($B/A > 1,5$)</td>
+                <td class="p-2">Sem gradiente argiloso</td>
+                <td class="p-2">Inexpressivo</td>
+              </tr>
+              <tr>
+                <td class="p-2 font-semibold text-slate-900 bg-slate-50">Cerosidade</td>
+                <td class="p-2">Ausente ou vestigial</td>
+                <td class="p-2 font-semibold text-slate-900">Comum a abundante</td>
+                <td class="p-2">Ausente</td>
+                <td class="p-2">Ausente a incipiente</td>
+              </tr>
+              <tr>
+                <td class="p-2 font-semibold text-slate-900 bg-slate-50">Estrutura</td>
+                <td class="p-2">Microgranular ("pó de café")</td>
+                <td class="p-2">Blocos ou prismas</td>
+                <td class="p-2">Grãos simples ou cimentada</td>
+                <td class="p-2">Blocos fracos</td>
+              </tr>
+              <tr>
+                <td class="p-2 font-semibold text-slate-900 bg-slate-50">Intemperismo</td>
+                <td class="p-2">Muito avançado (argila $Tb$)</td>
+                <td class="p-2">Intermediário a avançado</td>
+                <td class="p-2">Variável (meio arenoso ácido)</td>
+                <td class="p-2">Baixo a moderado (rico em silte)</td>
+              </tr>
+              <tr>
+                <td class="p-2 font-semibold text-slate-900 bg-slate-50">Classe SiBCS</td>
+                <td class="p-2 font-bold text-slate-900">Latossolos</td>
+                <td class="p-2 font-bold text-slate-900">Argissolos</td>
+                <td class="p-2 font-bold text-slate-900">Espodossolos</td>
+                <td class="p-2 font-bold text-slate-900">Cambissolos</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- BLOCO 3: PROPRIEDADES FÍSICAS E QUÍMICAS -->
+    <section class="space-y-6 pt-4 border-t border-slate-200">
+      <div class="border-l-4 border-slate-800 pl-3">
+        <h2 class="text-xl sm:text-2xl font-bold text-slate-900">
+          3. Propriedades Físicas e Químicas do Solo
+        </h2>
+        <p class="text-xs sm:text-sm text-slate-600">Dinâmica mecânica, coloidal e balanço de nutrientes</p>
+      </div>
+
+      <!-- Físicas -->
+      <div class="space-y-3">
+        <h3 class="text-lg font-bold text-slate-900">Propriedades Físicas</h3>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs sm:text-sm">
+          <div class="p-4 border border-slate-200 rounded-lg bg-white space-y-1">
+            <h4 class="font-bold text-slate-900">Textura (Granulometria da TFSA)</h4>
+            <p class="text-slate-700 text-justify">
+              Refere-se à terra fina seca ao ar ($< 2{,}0\ \text{mm}$):
+              <br>• <strong class="text-slate-900">Areia</strong> ($2{,}0 - 0{,}05\ \text{mm}$): inerte, quartzo dominante, garante macroporosidade.
+              <br>• <strong class="text-slate-900">Silte</strong> ($0{,}05 - 0{,}002\ \text{mm}$): erodibilidade severa, forma crostas laminares.
+              <br>• <strong class="text-slate-900">Argila</strong> ($< 0{,}002\ \text{mm}$): fração coloidal ativa com cargas elétricas, retenção de água e agregação.
+            </p>
+          </div>
+
+          <div class="p-4 border border-slate-200 rounded-lg bg-white space-y-1">
+            <h4 class="font-bold text-slate-900">Estrutura (Arranjo Espacial)</h4>
+            <p class="text-slate-700 text-justify">
+              Agrupamento mútuo das frações minerais cimentadas por matéria orgânica e óxidos:
+              <br>• <strong class="text-slate-900">Granular:</strong> esferas de alta aeração.
+              <br>• <strong class="text-slate-900">Blocos (angulares/subangulares):</strong> típicos de horizontes $Bt$.
+              <br>• <strong class="text-slate-900">Prismática/Colunar:</strong> associada a argilas sódicas.
+              <br>• <strong class="text-slate-900">Laminar:</strong> placas horizontais (comum sob compactação).
+              <br>• <strong class="text-slate-900">Grãos simples ou Maciça:</strong> sem agregação.
+            </p>
+          </div>
+
+          <div class="p-4 border border-slate-200 rounded-lg bg-white space-y-1">
+            <h4 class="font-bold text-slate-900">Permeabilidade e Porosidade</h4>
+            <p class="text-slate-700 text-justify">
+              Regida pelo equilíbrio entre <mark class="grifo">macroporos</mark> (aeração e condução gravitacional) e <mark class="grifo">microporos</mark> (retenção hídrica). Solos microagregados latossólicos drenam como areia; solos com horizontes B densos desaceleram a condutividade hidráulica vertical.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Químicas -->
+      <div class="space-y-3">
+        <h3 class="text-lg font-bold text-slate-900">Propriedades Químicas e Índices de Diagnóstico</h3>
+        <p class="text-xs sm:text-sm text-slate-700">
+          Fundamentos obrigatórios para interpretação agronômica e enquadramento taxonômico no SiBCS:
+        </p>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 text-xs sm:text-sm">
+          <div class="p-3 border border-slate-200 rounded-lg bg-white space-y-1">
+            <span class="font-bold text-slate-900 block">pH e Acidez</span>
+            <p class="text-slate-700">Mede os íons de $\text{H}^+$ livres. Em solos tropicais intensamente lavados, o pH varia de $4{,}0$ a $5{,}5$, definindo ambiente ácido com alumínio fitotóxico livre.</p>
+          </div>
+
+          <div class="p-3 border border-slate-200 rounded-lg bg-white space-y-1">
+            <span class="font-bold text-slate-900 block">Soma de Bases ($\mathrm{SB}$)</span>
+            <div class="font-mono text-[11px] bg-slate-100 p-1 rounded border border-slate-200">
+              $\mathrm{SB} = \mathrm{Ca}^{2+} + \mathrm{Mg}^{2+} + \mathrm{K}^{+} + \mathrm{Na}^{+}$
+            </div>
+            <p class="text-slate-600 text-xs">Cátions básicos trocáveis retidos nos coloides.</p>
+          </div>
+
+          <div class="p-3 border border-slate-200 rounded-lg bg-white space-y-1">
+            <span class="font-bold text-slate-900 block">CTC Efetiva ($t$) e Potencial ($T$)</span>
+            <div class="font-mono text-[11px] bg-slate-100 p-1 rounded border border-slate-200">
+              $t = \mathrm{SB} + \mathrm{Al}^{3+}$<br>
+              $T = \mathrm{SB} + (\mathrm{H}^{+} + \mathrm{Al}^{3+})$
+            </div>
+            <p class="text-slate-600 text-xs">Capacidade total de retenção de cátions do solo.</p>
+          </div>
+
+          <div class="p-3 border-2 border-slate-300 rounded-lg bg-white space-y-1">
+            <span class="font-bold text-slate-900 block">Saturação por Bases ($V\%$)</span>
+            <div class="font-mono text-xs bg-slate-100 p-1 rounded border border-slate-200 font-bold">
+              $V\% = (\mathrm{SB} / T) \times 100$
+            </div>
+            <p class="text-slate-800 text-xs mt-1">
+              • <mark class="grifo-verde">Eutrófico:</mark> $V\% \ge 50\%$ (alta fertilidade).<br>
+              • <mark class="grifo">Distrófico:</mark> $V\% < 50\%$ (baixa fertilidade).
+            </p>
+          </div>
+
+          <div class="p-3 border-2 border-slate-300 rounded-lg bg-white space-y-1">
+            <span class="font-bold text-slate-900 block">Saturação por Alumínio ($m\%$)</span>
+            <div class="font-mono text-xs bg-slate-100 p-1 rounded border border-slate-200 font-bold">
+              $m\% = (\mathrm{Al}^{3+} / t) \times 100$
+            </div>
+            <p class="text-slate-800 text-xs mt-1">
+              • <mark class="grifo">Caráter Alítico:</mark> $m\% \ge 50\%$, configurando forte toxicidade às raízes.
+            </p>
+          </div>
+
+          <div class="p-3 border border-slate-200 rounded-lg bg-white space-y-1">
+            <span class="font-bold text-slate-900 block">Processo de Lixiviação</span>
+            <p class="text-slate-700">Arrasto contínuo de íons solúveis pelas águas de percolação, promovendo acidificação e enriquecimento relativo por óxidos insolúveis.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- BLOCO 4: O SiBCS -->
+    <section class="space-y-6 pt-4 border-t border-slate-200">
+      <div class="border-l-4 border-slate-800 pl-3">
+        <h2 class="text-xl sm:text-2xl font-bold text-slate-900">
+          4. O SiBCS: As Cinco Classes Centrais do Edital
+        </h2>
+        <p class="text-xs sm:text-sm text-slate-600">Descrição detalhada das ordens prioritárias para a Reitoria do IFMG</p>
+      </div>
+
+      <div class="space-y-4">
+        <!-- Latossolos -->
+        <div class="p-4 border border-slate-200 rounded-xl bg-white space-y-2 shadow-xs">
+          <div class="flex flex-wrap items-center justify-between gap-2">
+            <h3 class="text-base sm:text-lg font-bold text-slate-900">Latossolos (Ordem dos Latossolos)</h3>
+            <span class="text-xs font-semibold px-2 py-0.5 rounded bg-slate-100 text-slate-700 border border-slate-300">~31% do Território Nacional</span>
+          </div>
+          <p class="text-xs sm:text-sm text-slate-700 text-justify">
+            Solos minerais profundos resultantes de intemperismo químico tropical prolongado (latolização severa). Ocupam os planaltos e chapadões do Brasil Central e do Sudeste.
+            Apresentam perfil do tipo <mark class="grifo font-mono">A–Bw–C</mark>, <mark class="grifo">muito espessos (> 2,0 m)</mark>, sem gradiente textural significativo entre A e Bw. Possuem <mark class="grifo">estrutura microgranular ("pó de café")</mark>, conferindo um comportamento paradoxal: embora muito argilosos, possuem permeabilidade altíssima. Quimicamente são muito ácidos, distróficos, com argila de baixa atividade ($Tb$) e alta fixação de fósforo.
+          </p>
+        </div>
+
+        <!-- Argissolos -->
+        <div class="p-4 border border-slate-200 rounded-xl bg-white space-y-2 shadow-xs">
+          <div class="flex flex-wrap items-center justify-between gap-2">
+            <h3 class="text-base sm:text-lg font-bold text-slate-900">Argissolos (Ordem dos Argissolos)</h3>
+            <span class="text-xs font-semibold px-2 py-0.5 rounded bg-slate-100 text-slate-700 border border-slate-300">~24% do Território Nacional</span>
+          </div>
+          <p class="text-xs sm:text-sm text-slate-700 text-justify">
+            Segunda ordem em extensão no país, comuns em relevos colinosos e dissecados.
+            Perfil morfológico típico <mark class="grifo font-mono">A–E–Bt–C</mark>, caracterizado obrigatoriamente pela presença de <mark class="grifo">horizonte B textural ($Bt$)</mark> com cerosidade nítida e aumento expressivo de argila em relação ao horizonte A.
+            Devido ao forte contraste físico (topo arenoso sobre subsolo argiloso denso), a água tem dificuldade de penetrar no Bt, acumulando-se e deflagrando fluxo subsuperficial concentrado (<em>piping</em>), o que torna os Argissolos os <mark class="grifo">campeões em suscetibilidade à erosão acelerada (sulcos, ravinas e voçorocas)</mark>.
+          </p>
+        </div>
+
+        <!-- Neossolos -->
+        <div class="p-4 border border-slate-200 rounded-xl bg-white space-y-2 shadow-xs">
+          <div class="flex flex-wrap items-center justify-between gap-2">
+            <h3 class="text-base sm:text-lg font-bold text-slate-900">Neossolos (Solos Pouco Evoluídos)</h3>
+            <span class="text-xs font-semibold px-2 py-0.5 rounded bg-slate-100 text-slate-700 border border-slate-300">Sem Horizonte B Diagnóstico</span>
+          </div>
+          <p class="text-xs sm:text-sm text-slate-700 text-justify">
+            Solos jovens e rasos, formados por perfil do tipo <mark class="grifo font-mono">A–C–R ou A–R</mark>. Dividem-se em:
+            <br>• <strong class="text-slate-900">Neossolos Litólicos:</strong> muito rasos ($< 20\ \text{cm}$ de profundidade sobre rocha sã contínua), típicos de escarpas íngremes e topos de serras onde a erosão supera a formação do solo.
+            <br>• <strong class="text-slate-900">Neossolos Quartzarênicos:</strong> profundos, homogêneos, formados quase que exclusivamente por areias quartzosas, sem agregação e muito permeáveis.
+            <br>• <strong class="text-slate-900">Neossolos Flúvicos:</strong> derivados de sedimentos aluviais recentes em planícies fluviais com estratificação sedimentar visível.
+          </p>
+        </div>
+
+        <!-- Cambissolos -->
+        <div class="p-4 border border-slate-200 rounded-xl bg-white space-y-2 shadow-xs">
+          <div class="flex flex-wrap items-center justify-between gap-2">
+            <h3 class="text-base sm:text-lg font-bold text-slate-900">Cambissolos (Solos em Transição Morfogenética)</h3>
+            <span class="text-xs font-semibold px-2 py-0.5 rounded bg-slate-100 text-slate-700 border border-slate-300">Horizonte Bi</span>
+          </div>
+          <p class="text-xs sm:text-sm text-slate-700 text-justify">
+            Solos estruturados no perfil <mark class="grifo font-mono">A–Bi–C</mark>, de profundidade média a delgada. Apresentam horizonte B incipiente ($Bi$), com reserva relevante de minerais primários alteráveis e silte. Ocorrem frequentemente em relevos ondulados a montanhosos, impondo limites mecânicos ao maquinário agrícola e apresentando risco de deslizamentos de encostas.
+          </p>
+        </div>
+
+        <!-- Espodossolos -->
+        <div class="p-4 border border-slate-200 rounded-xl bg-white space-y-2 shadow-xs">
+          <div class="flex flex-wrap items-center justify-between gap-2">
+            <h3 class="text-base sm:text-lg font-bold text-slate-900">Espodossolos (Podzóis Tropicais)</h3>
+            <span class="text-xs font-semibold px-2 py-0.5 rounded bg-slate-100 text-slate-700 border border-slate-300">Horizonte Bhs</span>
+          </div>
+          <p class="text-xs sm:text-sm text-slate-700 text-justify">
+            Caracterizados pela sequência morfológica <mark class="grifo font-mono">A–E (álbico)–Bhs (espódico)</mark>. A lixiviação ácida em substrato arenoso transporta matéria orgânica e alumínio/ferro do topo para o subsolo, deixando um horizonte E descolorido e um horizonte subsuperficial escuro, cimentado e endurecido. Ocorrem em restingas litorâneas e na Bacia do Alto Rio Negro (Amazônia).
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- BLOCO 5: FOCO DA PROVA - LATOSSOLO VS ARGISSOLO -->
+    <section class="space-y-6 pt-4 border-t border-slate-200">
+      <div class="border-l-4 border-slate-800 pl-3">
+        <span class="text-xs font-bold uppercase tracking-wider text-amber-800 bg-amber-100 px-2 py-0.5 rounded">Foco Máximo do Concurso</span>
+        <h2 class="text-xl sm:text-2xl font-bold text-slate-900 mt-1">
+          5. Diferenciação Técnica: Latossolos versus Argissolos
+        </h2>
+        <p class="text-xs sm:text-sm text-slate-600">Parâmetros decisivos para pontuar nas questões objetivas da banca</p>
+      </div>
+
+      <p class="text-justify text-slate-700 text-xs sm:text-sm leading-relaxed">
+        A diferenciação entre Latossolos e Argissolos é o tema clássico de concursos federais de Geografia. Enquanto o <mark class="grifo">Latossolo possui estabilidade estrutural garantida pela microagregação de óxidos</mark>, o <mark class="grifo">Argissolo possui suscetibilidade mecânica severa decorrente da descontinuidade de permeabilidade entre o topo arenoso e o subsolo argiloso denso</mark>.
+      </p>
+
+      <!-- TABELA 2: LATOSSOLOS VS ARGISSOLOS (AJUSTE TOTAL SEM SCROLL HORIZONTAL) -->
+      <div class="border border-slate-200 rounded-xl overflow-hidden bg-white shadow-xs">
+        <table class="w-full text-[11px] sm:text-xs">
+          <thead>
+            <tr class="bg-slate-100 border-b border-slate-200 text-slate-900 font-bold">
+              <th class="p-2 sm:p-2.5 w-[30%] text-left">Atributo Diagnóstico</th>
+              <th class="p-2 sm:p-2.5 w-[35%] text-left">Latossolos (Horizonte $Bw$)</th>
+              <th class="p-2 sm:p-2.5 w-[35%] text-left">Argissolos (Horizonte $Bt$)</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-200 text-slate-700">
+            <tr>
+              <td class="p-2 sm:p-2.5 font-bold text-slate-900 bg-slate-50">Horizonte Diagnóstico</td>
+              <td class="p-2 sm:p-2.5 font-semibold text-slate-900">B latossólico ($Bw$)</td>
+              <td class="p-2 sm:p-2.5 font-semibold text-slate-900">B textural ($Bt$)</td>
+            </tr>
+            <tr>
+              <td class="p-2 sm:p-2.5 font-bold text-slate-900 bg-slate-50">Gradiente Textural ($B/A$)</td>
+              <td class="p-2 sm:p-2.5">Inexistente / homogêneo</td>
+              <td class="p-2 sm:p-2.5 font-bold text-slate-900">Obrigatório ($B/A > 1,5$)</td>
+            </tr>
+            <tr>
+              <td class="p-2 sm:p-2.5 font-bold text-slate-900 bg-slate-50">Presença de Cerosidade</td>
+              <td class="p-2 sm:p-2.5">Ausente ou apenas vestigial</td>
+              <td class="p-2 sm:p-2.5 font-semibold text-slate-900">Comum a abundante nas faces</td>
+            </tr>
+            <tr>
+              <td class="p-2 sm:p-2.5 font-bold text-slate-900 bg-slate-50">Padrão Estrutural</td>
+              <td class="p-2 sm:p-2.5 font-semibold text-slate-900">Microgranular ("pó de café")</td>
+              <td class="p-2 sm:p-2.5">Blocos angulares ou prismas</td>
+            </tr>
+            <tr>
+              <td class="p-2 sm:p-2.5 font-bold text-slate-900 bg-slate-50">Profundidade do Solo</td>
+              <td class="p-2 sm:p-2.5 font-semibold text-slate-900">Muito profundos ($> 2{,}0\ \text{m}$)</td>
+              <td class="p-2 sm:p-2.5">Moderada a profunda com adensamento</td>
+            </tr>
+            <tr>
+              <td class="p-2 sm:p-2.5 font-bold text-slate-900 bg-slate-50">Infiltração de Água</td>
+              <td class="p-2 sm:p-2.5">Infiltração rápida e contínua</td>
+              <td class="p-2 sm:p-2.5">Infiltra no topo e é barrada no $Bt$</td>
+            </tr>
+            <tr>
+              <td class="p-2 sm:p-2.5 font-bold text-slate-900 bg-slate-50">Risco de Voçorocamento</td>
+              <td class="p-2 sm:p-2.5">Baixo em superfícies planas</td>
+              <td class="p-2 sm:p-2.5 font-bold text-red-950 bg-red-50/50">Altíssimo (sulcos e voçorocas)</td>
+            </tr>
+            <tr>
+              <td class="p-2 sm:p-2.5 font-bold text-slate-900 bg-slate-50">Relevo Típico</td>
+              <td class="p-2 sm:p-2.5">Planos e chapadões tabulares</td>
+              <td class="p-2 sm:p-2.5">Relevos ondulados a dissecados</td>
+            </tr>
+            <tr>
+              <td class="p-2 sm:p-2.5 font-bold text-slate-900 bg-slate-50">Mecanização Agrícola</td>
+              <td class="p-2 sm:p-2.5 font-semibold text-slate-900">Muito alta (topografia plana)</td>
+              <td class="p-2 sm:p-2.5">Limitada por declive e adensamento</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- BLOCO 6: DEGRADAÇÃO DO SOLO -->
+    <section class="space-y-6 pt-4 border-t border-slate-200">
+      <div class="border-l-4 border-slate-800 pl-3">
+        <h2 class="text-xl sm:text-2xl font-bold text-slate-900">
+          6. Degradação do Solo e Dinâmicas Morfoclimáticas
+        </h2>
+        <p class="text-xs sm:text-sm text-slate-600">Patologias morfoestruturais e geoquímicas resultantes do uso inadequado</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs sm:text-sm">
+        <!-- Laterização -->
+        <div class="p-4 border border-slate-200 rounded-lg bg-white space-y-1">
+          <h3 class="font-bold text-slate-900 text-sm">Laterização</h3>
+          <p class="text-slate-700 text-justify">
+            Enriquecimento residual por <mark class="grifo">oxihidróxidos de ferro e alumínio</mark> decorrente da perda contínua de sílica (dessilificação). A oscilação do lençol freático gera mosqueados macios de <mark class="grifo">plintita</mark>. Sob desmatamento e erosão, a plintita é exposta ao sol e desseca irreversivelmente, formando couraças pétreas estéreis chamadas <mark class="grifo">petroplintitas</mark> ou crostas lateríticas.
+          </p>
+        </div>
+
+        <!-- Salinização -->
+        <div class="p-4 border border-slate-200 rounded-lg bg-white space-y-1">
+          <h3 class="font-bold text-slate-900 text-sm">Salinização</h3>
+          <p class="text-slate-700 text-justify">
+            Acúmulo de sais solúveis de sódio, cálcio e magnésio no horizonte superficial. Típica de <mark class="grifo">regiões áridas e semiáridas</mark> onde a <mark class="grifo">evapotranspiração potencial excede a pluviosidade</mark>. É agravada pela irrigação artificial sem sistema de drenagem eficiente, gerando ascensão capilar de água que evapora e cristaliza os sais, provocando estresse osmótico nas raízes.
+          </p>
+        </div>
+
+        <!-- Compactação -->
+        <div class="p-4 border border-slate-200 rounded-lg bg-white space-y-1">
+          <h3 class="font-bold text-slate-900 text-sm">Compactação</h3>
+          <p class="text-slate-700 text-justify">
+            Degradação exclusivamente física e mecânica causada pelo tráfego de maquinário pesado e pisoteio contínuo do gado sob umidade inadequada. Resulta na <mark class="grifo">destruição dos macroporos</mark>, aumento da densidade aparente e formação de barreiras endurecidas do tipo <mark class="grifo">"pé-de-arado"</mark> (<em>hardpan</em>), acelerando o escoamento superficial laminar e a erosão.
+          </p>
+        </div>
+      </div>
+
+      <!-- DISTINÇÃO: ARENIZAÇÃO VS DESERTIFICAÇÃO -->
+      <div class="space-y-4 pt-3">
+        <div class="bg-slate-50 border border-slate-200 rounded-xl p-4 space-y-2">
+          <span class="text-xs font-bold uppercase tracking-wider text-slate-700 bg-white border border-slate-300 px-2 py-0.5 rounded">
+            Distinção Conceitual Obrigatória
+          </span>
+          <h3 class="text-base sm:text-lg font-bold text-slate-900">
+            Arenização (Sul do País) versus Desertificação (Semiárido Brasileiro)
+          </h3>
+          <p class="text-xs sm:text-sm text-slate-700 text-justify leading-relaxed">
+            A banca cobra repetidamente essa diferenciação para checar se o candidato compreende que <mark class="grifo">arenização não é processo de seca climática</mark>, ao passo que a desertificação está formalmente atrelada ao déficit hídrico permanente em terras secas.
+          </p>
+        </div>
+
+        <!-- TABELA 3: ARENIZAÇÃO VS DESERTIFICAÇÃO (AJUSTE TOTAL SEM SCROLL HORIZONTAL) -->
+        <div class="border border-slate-200 rounded-xl overflow-hidden bg-white shadow-xs">
+          <table class="w-full text-[11px] sm:text-xs">
+            <thead>
+              <tr class="bg-slate-100 border-b border-slate-200 text-slate-900 font-bold">
+                <th class="p-2 sm:p-2.5 w-[28%] text-left">Parâmetro de Comparação</th>
+                <th class="p-2 sm:p-2.5 w-[36%] text-left">Arenização (Sul do Brasil)</th>
+                <th class="p-2 sm:p-2.5 w-[36%] text-left">Desertificação (Semiárido)</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-200 text-slate-700">
+              <tr>
+                <td class="p-2 sm:p-2.5 font-bold text-slate-900 bg-slate-50">Localização e Bioma</td>
+                <td class="p-2 sm:p-2.5 font-semibold text-slate-900">Sudoeste do Rio Grande do Sul (Bioma Pampa)</td>
+                <td class="p-2 sm:p-2.5 font-semibold text-slate-900">Sertão Nordestino e Norte de MG (Caatinga)</td>
+              </tr>
+              <tr>
+                <td class="p-2 sm:p-2.5 font-bold text-slate-900 bg-slate-50">Condição Climática</td>
+                <td class="p-2 sm:p-2.5 font-semibold text-slate-900">Subtropical Úmido ($1.400 - 1.700\ \text{mm/ano}$)</td>
+                <td class="p-2 sm:p-2.5 font-semibold text-slate-900">Semiárido e Subúmido Seco ($< 800\ \text{mm/ano}$)</td>
+              </tr>
+              <tr>
+                <td class="p-2 sm:p-2.5 font-bold text-slate-900 bg-slate-50">Balanço Hídrico</td>
+                <td class="p-2 sm:p-2.5">Positivo (ausência de aridez)</td>
+                <td class="p-2 sm:p-2.5">Negativo (déficit hídrico prolongado)</td>
+              </tr>
+              <tr>
+                <td class="p-2 sm:p-2.5 font-bold text-slate-900 bg-slate-50">Material de Origem</td>
+                <td class="p-2 sm:p-2.5">Arenitos inconsolidados (Formação Botucatu)</td>
+                <td class="p-2 sm:p-2.5">Embasamento cristalino e solos rasos</td>
+              </tr>
+              <tr>
+                <td class="p-2 sm:p-2.5 font-bold text-slate-900 bg-slate-50">Ordem de Solo</td>
+                <td class="p-2 sm:p-2.5">Neossolos Quartzarênicos (areias profundas)</td>
+                <td class="p-2 sm:p-2.5">Luvissolos Crômicos e Neossolos Litólicos</td>
+              </tr>
+              <tr>
+                <td class="p-2 sm:p-2.5 font-bold text-slate-900 bg-slate-50">Mecanismo Central</td>
+                <td class="p-2 sm:p-2.5">Retrabalhamento hídrico e eólico sobre areia friável</td>
+                <td class="p-2 sm:p-2.5">Colapso total da bioprodutividade e salinização</td>
+              </tr>
+              <tr>
+                <td class="p-2 sm:p-2.5 font-bold text-slate-900 bg-slate-50">Agravante Antrópico</td>
+                <td class="p-2 sm:p-2.5">Sobrepastoreio e pisoteio de bovinos na Campanha</td>
+                <td class="p-2 sm:p-2.5">Corte raso da Caatinga (carvão) e queimadas contínuas</td>
+              </tr>
+              <tr>
+                <td class="p-2 sm:p-2.5 font-bold text-slate-900 bg-slate-50">Autoras Referência</td>
+                <td class="p-2 sm:p-2.5">Dirce Suertegaray (citada em Ross e Teixeira)</td>
+                <td class="p-2 sm:p-2.5">Convenção das Nações Unidas (UNCCD)</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- BLOCO 7: SÍNTESE ESTRUTURADA PARA MEMORIZAÇÃO -->
+    <section class="space-y-4 pt-4 border-t border-slate-200">
+      <div class="border-l-4 border-slate-800 pl-3">
+        <h2 class="text-xl sm:text-2xl font-bold text-slate-900">
+          7. Síntese Direta para Memorização Rápida no Dia da Prova
+        </h2>
+        <p class="text-xs sm:text-sm text-slate-600">Pontos de corte conceituais para gabaritar a prova da banca</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs sm:text-sm">
+        <div class="p-3 bg-white border border-slate-200 rounded-lg space-y-2">
+          <div class="flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-slate-800"></span>
+            <strong class="text-slate-900">Gênese e Fatores de Formação</strong>
+          </div>
+          <ul class="space-y-1.5 text-slate-700 pl-2">
+            <li>• <mark class="grifo">Clima e Organismos</mark> = agentes ATIVOS.</li>
+            <li>• <mark class="grifo">Relevo</mark> = agente CONDICIONADOR/distribuidor de água.</li>
+            <li>• <mark class="grifo">Material de Origem e Tempo</mark> = agentes PASSIVOS.</li>
+            <li>• Processos de Simonson: <mark class="grifo">Adição, Perda, Translocação e Transformação</mark>.</li>
+          </ul>
+        </div>
+
+        <div class="p-3 bg-white border border-slate-200 rounded-lg space-y-2">
+          <div class="flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-slate-800"></span>
+            <strong class="text-slate-900">Horizontes Diagnósticos</strong>
+          </div>
+          <ul class="space-y-1.5 text-slate-700 pl-2">
+            <li>• <mark class="grifo">Horizonte Bw (Latossolos):</mark> profundo, microgranular ("pó de café"), permeabilidade alta, sem gradiente textural, argila de baixa atividade ($Tb$).</li>
+            <li>• <mark class="grifo">Horizonte Bt (Argissolos):</mark> gradiente textural obrigatório ($B/A > 1,5$), cerosidade evidente, blocos angulares, suscetível a voçorocas.</li>
+            <li>• <mark class="grifo">Horizonte Bhs (Espodossolos):</mark> podzolização, acúmulo de matéria orgânica e sesquióxidos sob horizonte E álbico esbranquiçado.</li>
+            <li>• <mark class="grifo">Horizonte Bi (Cambissolos):</mark> B incipiente, pouco intemperizado, rico em silte.</li>
+          </ul>
+        </div>
+
+        <div class="p-3 bg-white border border-slate-200 rounded-lg space-y-2">
+          <div class="flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-slate-800"></span>
+            <strong class="text-slate-900">Índices Químicos SiBCS</strong>
+          </div>
+          <ul class="space-y-1.5 text-slate-700 pl-2">
+            <li>• <mark class="grifo-verde">$V\% \ge 50\%$</mark> $\rightarrow$ Solo <strong>EUTRÓFICO</strong> (alta fertilidade natural).</li>
+            <li>• <mark class="grifo">$V\% < 50\%$</mark> $\rightarrow$ Solo <strong>DISTRÓFICO</strong> (baixa reserva de bases).</li>
+            <li>• <mark class="grifo">$m\% \ge 50\%$</mark> $\rightarrow$ Caráter <strong>ALÍTICO</strong> (toxicidade por $\text{Al}^{3+}$).</li>
+          </ul>
+        </div>
+
+        <div class="p-3 bg-white border border-slate-200 rounded-lg space-y-2">
+          <div class="flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-slate-800"></span>
+            <strong class="text-slate-900">Dinâmicas de Degradação</strong>
+          </div>
+          <ul class="space-y-1.5 text-slate-700 pl-2">
+            <li>• <mark class="grifo">Arenização:</mark> Rio Grande do Sul (Pampa), clima Subtropical Úmido, solos arenosos (Neossolos Quartzarênicos) e pecuária extensiva.</li>
+            <li>• <mark class="grifo">Desertificação:</mark> Semiárido/Caatinga, clima seco com déficit hídrico crônico, desmatamento da mata branca e colapso biológico.</li>
+            <li>• <mark class="grifo">Laterização:</mark> dessilificação tropical com endurecimento irreversível da plintita em petroplintita exposta.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- SEÇÃO FINAL: BOTÃO DE QUESTÕES -->
+    <section id="questoes-section" class="pt-8 pb-12 border-t-2 border-slate-200 text-center space-y-4">
+      <div class="max-w-xl mx-auto space-y-2">
+        <h3 class="text-lg sm:text-xl font-bold text-slate-900">
+          Pronto para testar a retenção deste conteúdo?
+        </h3>
+        <p class="text-xs sm:text-sm text-slate-600">
+          Acesse a página de questões exclusivas para exercitar os itens cobrados em provas anteriores da comissão examinadora.
+        </p>
+      </div>
+
+      <div class="pt-2">
+        <a 
+          href="questoes10geo.html" 
+          class="inline-flex items-center justify-center gap-3 px-8 py-4 bg-slate-900 hover:bg-slate-800 text-white font-bold text-sm sm:text-base rounded-xl shadow-md hover:shadow-lg transform active:scale-95 transition-all">
+          <span>Praticar com Questões da Banca</span>
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+          </svg>
+        </a>
+      </div>
+      
+      <p class="text-[11px] text-slate-600">
+        O link redireciona diretamente para o arquivo <code>questoes10geo.html</code> na mesma pasta.
+      </p>
+    </section>
+
+  </main>
+
+  <!-- RODAPÉ DISCRETO -->
+  <footer class="border-t border-slate-200 bg-white py-6 text-center text-xs text-slate-600">
+    <div class="max-w-5xl mx-auto px-4">
+      <p>Material de Preparação para Professor EBTT de Geografia — Comissão Permanente de Concurso IFMG.</p>
+      <p class="mt-1 font-mono text-[11px] text-slate-600">Fundamentos de Pedologia • TEIXEIRA et al. (2009) & ROSS (2014)</p>
+    </div>
+  </footer>
+
+  <!-- SCRIPT PARA CONTROLE DO PLAYER DE ÁUDIO -->
+  <script>
+    function atualizarAudio() {
+      const input = document.getElementById('audioFileNameInput');
+      const audioPlayer = document.getElementById('audioElement');
+      const audioSource = document.getElementById('audioSource');
+      const labelCurrent = document.getElementById('currentAudioName');
+
+      let novoNome = input.value.trim();
+      if (!novoNome) {
+        novoNome = 'audio10geo.mp3';
+        input.value = novoNome;
+      }
+
+      // Atualiza a fonte do áudio
+      audioSource.src = novoNome;
+      audioPlayer.load();
+      labelCurrent.textContent = novoNome;
+    }
+  </script>
+</body>
+</html>

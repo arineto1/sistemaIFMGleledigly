@@ -1,0 +1,1240 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simulado: Geomorfologia do Brasil – Classificação de Ross (IFMG)</title>
+  <!-- Tailwind CSS para design responsivo e fluidez -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Fonte Inter e Merriweather para máxima legibilidade e conforto visual -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Merriweather:ital,wght@0,300;0,400;0,700;1,300;1,400&display=swap" rel="stylesheet">
+  <!-- Font Awesome para ícones semânticos -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <style>
+    /* Configurações para conforto óptico prolongado (Paper-like readability) */
+    :root {
+      --bg-warm: #FBFBFA;
+      --card-bg: #FFFFFF;
+      --text-main: #262626;
+      --text-muted: #52525B;
+      --border-soft: #E4E4E7;
+      --accent-olive: #3B5A45;
+      --correct-green: #15803D;
+      --correct-bg: #F0FDF4;
+      --wrong-red: #B91C1C;
+      --wrong-bg: #FEF2F2;
+    }
+
+    body {
+      background-color: var(--bg-warm);
+      color: var(--text-main);
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      text-rendering: optimizeLegibility;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .prose-reading {
+      font-family: 'Merriweather', Georgia, serif;
+      font-size: 1.0625rem; /* 17px */
+      line-height: 1.8;
+      color: #27272A;
+    }
+
+    .font-sans-ui {
+      font-family: 'Inter', sans-serif;
+    }
+
+    /* Estilo refinado para as alternativas de resposta */
+    .option-card {
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      cursor: pointer;
+      border: 1.5px solid var(--border-soft);
+      background-color: #FFFFFF;
+    }
+
+    .option-card:hover {
+      border-color: #A1A1AA;
+      background-color: #FAF9F7;
+    }
+
+    .option-card.selected {
+      border-color: #3B5A45;
+      background-color: #F4F7F4;
+      box-shadow: 0 0 0 1px #3B5A45;
+    }
+
+    /* Estilos de correção pós-envio */
+    .option-card.correct-answer {
+      border-color: var(--correct-green) !important;
+      background-color: var(--correct-bg) !important;
+      color: #14532D;
+    }
+
+    .option-card.wrong-selected {
+      border-color: var(--wrong-red) !important;
+      background-color: var(--wrong-bg) !important;
+      color: #7F1D1D;
+    }
+
+    .option-card.neutral-dimmed {
+      opacity: 0.65;
+    }
+
+    /* Scrollbar sutil */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #F4F4F5;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #D4D4D8;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #A1A1AA;
+    }
+  </style>
+</head>
+<body class="min-h-screen pb-20 selection:bg-emerald-100 selection:text-emerald-900">
+
+  <!-- Barra Fixa Superior com Progresso e Navegação Rápida -->
+  <header class="sticky top-0 z-40 bg-[#FBFBFA]/95 backdrop-blur-md border-b border-zinc-200 shadow-xs">
+    <div class="max-w-4xl mx-auto px-4 py-3 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <span class="w-8 h-8 rounded-lg bg-zinc-800 text-white flex items-center justify-center font-bold text-sm">
+          IF
+        </span>
+        <div>
+          <h1 class="text-xs font-semibold text-zinc-500 uppercase tracking-wider">IFMG • Carreira EBTT</h1>
+          <p class="text-sm font-bold text-zinc-800 truncate max-w-[210px] sm:max-w-xs md:max-w-md">Geomorfologia: Classificação de Ross</p>
+        </div>
+      </div>
+      <div class="flex items-center gap-4">
+        <div class="text-right">
+          <span class="text-xs text-zinc-500 font-medium">Progresso</span>
+          <p id="progress-text" class="text-sm font-bold text-zinc-800">0 / 10</p>
+        </div>
+        <div class="w-24 sm:w-32 bg-zinc-200 h-2.5 rounded-full overflow-hidden">
+          <div id="progress-bar" class="bg-[#3B5A45] h-full w-0 transition-all duration-300"></div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-4xl mx-auto px-4 pt-8">
+    <!-- Cabeçalho Informativo da Prova -->
+    <section class="bg-white rounded-2xl p-6 sm:p-8 border border-zinc-200 shadow-sm mb-10">
+      <div class="flex flex-wrap items-center gap-2 mb-3">
+        <span class="px-2.5 py-1 rounded-md bg-zinc-100 text-zinc-700 text-xs font-semibold uppercase tracking-wider">Simulado Especializado</span>
+        <span class="px-2.5 py-1 rounded-md bg-emerald-50 text-emerald-800 text-xs font-semibold">10 Questões Inéditas</span>
+        <span class="px-2.5 py-1 rounded-md bg-stone-100 text-stone-700 text-xs font-medium">Ross (2014) • Ab'Sáber (2003)</span>
+      </div>
+      <h2 class="text-2xl sm:text-3xl font-serif font-bold text-zinc-900 mb-3 tracking-tight">
+        Geomorfologia do Brasil: Compartimentação e Taxonomia de Ross
+      </h2>
+      <p class="text-zinc-600 text-sm sm:text-base leading-relaxed mb-4">
+        Caderno de questões formulado no rigor metodológico da <strong>Comissão Central de Concurso Público da Reitoria do IFMG</strong>. Selecione uma alternativa por questão. Ao final, clique em <strong>"Finalizar e Corrigir Simulado"</strong> para visualizar seu desempenho e as fundamentações teóricas completas mantidas nesta mesma página.
+      </p>
+      <div class="flex items-center gap-4 text-xs font-medium text-zinc-500 pt-3 border-t border-zinc-100">
+        <span><i class="fa-regular fa-clock mr-1.5"></i>Tempo estimado: 40-50 min</span>
+        <span><i class="fa-solid fa-book-open mr-1.5"></i>Fundo óptico com redução de brilho</span>
+      </div>
+    </section>
+
+    <!-- FORMULÁRIO COM AS 10 QUESTÕES COMPLETAS -->
+    <form id="quiz-form" onsubmit="event.preventDefault();" class="space-y-12">
+
+      <!-- ================= QUESTÃO 01 ================= -->
+      <article id="card-q1" class="question-container bg-white rounded-2xl p-6 sm:p-8 border border-zinc-200 shadow-sm transition-all duration-300">
+        <div class="flex items-center justify-between gap-4 mb-4">
+          <span class="px-3 py-1 bg-zinc-100 text-zinc-800 text-xs font-bold rounded-lg tracking-wide">QUESTÃO 01</span>
+          <span id="badge-q1" class="hidden text-xs font-bold px-2.5 py-1 rounded-md"></span>
+        </div>
+        
+        <p class="prose-reading mb-6">
+          A historiografia da geomorfologia brasileira ao longo do século XX é caracterizada por transformações metodológicas substanciais na interpretação das macroformas do território nacional. Em 1949, Aroldo de Azevedo propôs uma compartimentação pioneira, posteriormente revista e aprofundada por Aziz Nacib Ab'Sáber entre as décadas de 1950 e 1960. A partir da década de 1980, com a integração dos produtos de sensoriamento remoto por radar do Projeto Radambrasil, Jurandyr Ross redefiniu a taxonomia do relevo brasileiro.
+        </p>
+        <p class="font-sans-ui text-sm font-semibold text-zinc-800 mb-5">
+          Considerando os critérios operacionais e as premissas epistemológicas que balizaram as propostas de Azevedo, Ab'Sáber e Ross, assinale a alternativa correta:
+        </p>
+
+        <div class="space-y-3" role="radiogroup" aria-label="Alternativas da Questão 1">
+          <label class="option-card flex items-start gap-4 p-4 rounded-xl text-sm" onclick="selectOption(1, 'A')">
+            <input type="radio" name="q1" value="A" class="mt-1 sr-only">
+            <span class="w-6 h-6 rounded-full border border-zinc-300 flex items-center justify-center font-semibold text-xs shrink-0 text-zinc-600 bg-zinc-50">A</span>
+            <span class="leading-relaxed text-zinc-800">Aroldo de Azevedo estruturou seu modelo em critérios essencialmente morfoclimáticos, categorizando as bacias sedimentares como áreas de depressão contínua em virtude das variações térmicas cenozóicas.</span>
+          </label>
+          <label class="option-card flex items-start gap-4 p-4 rounded-xl text-sm" onclick="selectOption(1, 'B')">
+            <input type="radio" name="q1" value="B" class="mt-1 sr-only">
+            <span class="w-6 h-6 rounded-full border border-zinc-300 flex items-center justify-center font-semibold text-xs shrink-0 text-zinc-600 bg-zinc-50">B</span>
+            <span class="leading-relaxed text-zinc-800">Aziz Ab'Sáber estabeleceu a isópita de 200 metros como linha altimétrica obrigatória para separar planaltos e planícies, descartando a predominância dos processos morfogenéticos de erosão e acumulação.</span>
+          </label>
+          <label class="option-card flex items-start gap-4 p-4 rounded-xl text-sm" onclick="selectOption(1, 'C')">
+            <input type="radio" name="q1" value="C" class="mt-1 sr-only">
+            <span class="w-6 h-6 rounded-full border border-zinc-300 flex items-center justify-center font-semibold text-xs shrink-0 text-zinc-600 bg-zinc-50">C</span>
+            <span class="leading-relaxed text-zinc-800">Jurandyr Ross consolidou sua compartimentação a partir da articulação conceitual de três parâmetros analíticos: a morfoestrutura, a morfoescultura e a morfocronologia.</span>
+          </label>
+          <label class="option-card flex items-start gap-4 p-4 rounded-xl text-sm" onclick="selectOption(1, 'D')">
+            <input type="radio" name="q1" value="D" class="mt-1 sr-only">
+            <span class="w-6 h-6 rounded-full border border-zinc-300 flex items-center justify-center font-semibold text-xs shrink-0 text-zinc-600 bg-zinc-50">D</span>
+            <span class="leading-relaxed text-zinc-800">A classificação de Ab'Sáber definiu os planaltos como feições onde o balanço deposicional de sedimentos supera a desnudação mecânica, delimitando sete planícies e três planaltos.</span>
+          </label>
+          <label class="option-card flex items-start gap-4 p-4 rounded-xl text-sm" onclick="selectOption(1, 'E')">
+            <input type="radio" name="q1" value="E" class="mt-1 sr-only">
+            <span class="w-6 h-6 rounded-full border border-zinc-300 flex items-center justify-center font-semibold text-xs shrink-0 text-zinc-600 bg-zinc-50">E</span>
+            <span class="leading-relaxed text-zinc-800">Os levantamentos do Projeto Radambrasil levaram Jurandyr Ross a suprimir a categoria geomorfológica de depressão, agrupando todo o relevo do país em platôs tabulares cristalinos e planícies litorâneas fluviomarinhas.</span>
+          </label>
+        </div>
+
+        <!-- Bloco de Resolução Oculto Inicialmente -->
+        <div id="res-q1" class="hidden mt-6 pt-6 border-t border-zinc-200">
+          <div class="bg-amber-50/50 border border-amber-200/70 rounded-xl p-5 text-sm">
+            <div class="flex items-center gap-2 text-amber-900 font-bold mb-2">
+              <i class="fa-solid fa-graduation-cap"></i> Resolução Comentada (Gabarito: C)
+            </div>
+            <p class="text-zinc-700 leading-relaxed">
+              A proposição <strong>C</strong> estabelece com fidelidade a base metodológica construída por Jurandyr Ross entre as décadas de 1980 e 1990, amplamente consolidada em Ross (2014). O autor fundamentou sua classificação na integração de três conceitos primordiais: a <strong>morfoestrutura</strong>, referente ao arcabouço geológico e ao contexto geotectônico herdado; a <strong>morfoescultura</strong>, associada à ação dos agentes exógenos climáticos do presente e do passado na esculturação do relevo; e a <strong>morfocronologia</strong>, encarregada de situar a sucessão temporal dos eventos geológicos e geomorfológicos ao longo do tempo profundo.
+            </p>
+            <p class="text-zinc-600 text-xs mt-2">
+              <em>Erros das demais:</em> (A) Aroldo usou critério hipsométrico (cota de 200m). (B) Ab'Sáber rejeitou a isópita rígida em favor do balanço morfoclimático de erosão x sedimentação. (D) Nos planaltos de Ab'Sáber, a erosão supera a sedimentação. (E) O Radambrasil permitiu justamente a inclusão das 11 depressões relativas.
+            </p>
+          </div>
+        </div>
+      </article>
+
+      <!-- ================= QUESTÃO 02 ================= -->
+      <article id="card-q2" class="question-container bg-white rounded-2xl p-6 sm:p-8 border border-zinc-200 shadow-sm transition-all duration-300">
+        <div class="flex items-center justify-between gap-4 mb-4">
+          <span class="px-3 py-1 bg-zinc-100 text-zinc-800 text-xs font-bold rounded-lg tracking-wide">QUESTÃO 02</span>
+          <span id="badge-q2" class="hidden text-xs font-bold px-2.5 py-1 rounded-md"></span>
+        </div>
+        
+        <p class="prose-reading mb-4">
+          Na obra <em>Geografia do Brasil</em>, Ross (2014) conceitua as depressões como feições fundamentais para o entendimento do modelado brasileiro, reconhecendo 11 macrocompartimentos dessa natureza. Do ponto de vista morfogenético e hipsométrico, a inclusão desse relevo decorre da identificação de processos erosivos de longo curso.
+        </p>
+
+        <div class="bg-zinc-50 border border-zinc-200 rounded-xl p-4 mb-5 text-sm text-zinc-800 space-y-2">
+          <p class="font-medium text-zinc-900 mb-1">Avalie as assertivas a respeito da caracterização e gênese das depressões brasileiras:</p>
+          <p><strong>I.</strong> O relevo continental brasileiro não possui depressões absolutas, haja vista a ausência de áreas emersas situadas abaixo do nível médio dos oceanos.</p>
+          <p><strong>II.</strong> As depressões mapeadas por Jurandyr Ross são feições relativas, geradas por processos erosivos e denudacionais contínuos ao longo do Cenozoico, em cotas rebaixadas em relação aos planaltos circunvizinhos.</p>
+          <p><strong>III.</strong> As depressões brasileiras caracterizam-se pelo predomínio de processos agradacionais e acumulação ininterrupta de sedimentos inconsolidados marinhos e lacustres do período Quaternário.</p>
+          <p><strong>IV.</strong> Essas superfícies deprimidas instalaram-se preferencialmente nas bordas das bacias sedimentares e em zonas de contato litoestrutural de menor resistência mecânica e química ao intemperismo diferencial.</p>
+        </div>
+
+        <p class="font-sans-ui text-sm font-semibold text-zinc-800 mb-5">
+          Estão corretas apenas as assertivas:
+        </p>
+
+        <div class="space-y-3" role="radiogroup" aria-label="Alternativas da Questão 2">
+          <label class="option-card flex items-start gap-4 p-4 rounded-xl text-sm" onclick="selectOption(2, 'A')">
+            <input type="radio" name="q2" value="A" class="mt-1 sr-only">
+            <span class="w-6 h-6 rounded-full border border-zinc-300 flex items-center justify-center font-semibold text-xs shrink-0 text-zinc-600 bg-zinc-50">A</span>
+            <span class="leading-relaxed text-zinc-800">I e III.</span>
+          </label>
+          <label class="option-card flex items-start gap-4 p-4 rounded-xl text-sm" onclick="selectOption(2, 'B')">
+            <input type="radio" name="q2" value="B" class="mt-1 sr-only">
+            <span class="w-6 h-6 rounded-full border border-zinc-300 flex items-center justify-center font-semibold text-xs shrink-0 text-zinc-600 bg-zinc-50">B</span>
+            <span class="leading-relaxed text-zinc-800">II e IV.</span>
+          </label>
+          <label class="option-card flex items-start gap-4 p-4 rounded-xl text-sm" onclick="selectOption(2, 'C')">
+            <input type="radio" name="q2" value="C" class="mt-1 sr-only">
+            <span class="w-6 h-6 rounded-full border border-zinc-300 flex items-center justify-center font-semibold text-xs shrink-0 text-zinc-600 bg-zinc-50">C</span>
+            <span class="leading-relaxed text-zinc-800">I, II e IV.</span>
+          </label>
+          <label class="option-card flex items-start gap-4 p-4 rounded-xl text-sm" onclick="selectOption(2, 'D')">
+            <input type="radio" name="q2" value="D" class="mt-1 sr-only">
+            <span class="w-6 h-6 rounded-full border border-zinc-300 flex items-center justify-center font-semibold text-xs shrink-0 text-zinc-600 bg-zinc-50">D</span>
+            <span class="leading-relaxed text-zinc-800">I, III e IV.</span>
+          </label>
+          <label class="option-card flex items-start gap-4 p-4 rounded-xl text-sm" onclick="selectOption(2, 'E')">
+            <input type="radio" name="q2" value="E" class="mt-1 sr-only">
+            <span class="w-6 h-6 rounded-full border border-zinc-300 flex items-center justify-center font-semibold text-xs shrink-0 text-zinc-600 bg-zinc-50">E</span>
+            <span class="leading-relaxed text-zinc-800">II, III e IV.</span>
+          </label>
+        </div>
+
+        <div id="res-q2" class="hidden mt-6 pt-6 border-t border-zinc-200">
+          <div class="bg-amber-50/50 border border-amber-200/70 rounded-xl p-5 text-sm">
+            <div class="flex items-center gap-2 text-amber-900 font-bold mb-2">
+              <i class="fa-solid fa-graduation-cap"></i> Resolução Comentada (Gabarito: C)
+            </div>
+            <p class="text-zinc-700 leading-relaxed">
+              A assertiva <strong>C</strong> reúne corretamente os itens <strong>I, II e IV</strong>. O item I é verdadeiro porque, no vocabulário geomorfológico formal, uma depressão é dita <em>absoluta</em> exclusivamente quando sua cota altimétrica se encontra abaixo do nível zero do mar, o que não ocorre no Brasil. O item II é verdadeiro ao apontar que todas as 11 depressões reconhecidas por Ross são relativas, situadas entre 100 e 500 metros, dissecadas por longos ciclos erosivos ao longo do Cenozoico e rebaixadas em relação aos planaltos vizinhos. O item IV é correto ao explicitar que se instalaram em faixas de menor resistência litoestrutural.
+            </p>
+            <p class="text-zinc-600 text-xs mt-2">
+              <em>Erro do item III:</em> Superfícies com predomínio de agradação e sedimentação inconsolidada recente quaternária são <strong>planícies</strong>, e não depressões. Nas depressões, o processo dominante é a denudação erosiva.
+            </p>
+          </div>
+        </div>
+      </article>
+
+      <!-- ================= QUESTÃO 03 ================= -->
+      <article id="card-q3" class="question-container bg-white rounded-2xl p-6 sm:p-8 border border-zinc-200 shadow-sm transition-all duration-300">
+        <div class="flex items-center justify-between gap-4 mb-4">
+          <span class="px-3 py-1 bg-zinc-100 text-zinc-800 text-xs font-bold rounded-lg tracking-wide">QUESTÃO 03</span>
+          <span id="badge-q3" class="hidden text-xs font-bold px-2.5 py-1 rounded-md"></span>
+        </div>
+        
+        <p class="prose-reading mb-4">
+          As 11 depressões relativas mapeadas na compartimentação de Jurandyr Ross subdividem-se em três tipologias genéticas: periféricas, marginais e interplanálticas. Cada subgrupo expressa arranjos espaciais e contatos morfoestruturais específicos.
+        </p>
+        <p class="font-sans-ui text-sm font-semibold text-zinc-800 mb-3">
+          Associe as tipologias de depressões descritas na primeira coluna aos seus respectivos processos formadores e ocorrências regionais:
+        </p>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-5 text-sm">
+          <div class="bg-zinc-50 border border-zinc-200 p-4 rounded-xl">
+            <span class="text-xs font-bold uppercase text-zinc-500 tracking-wider block mb-2">Tipologias de Depressão</span>
+            <ul class="space-y-1.5 font-medium text-zinc-800">
+              <li><strong>1.</strong> Depressões Marginais</li>
+              <li><strong>2.</strong> Depressões Periféricas</li>
+              <li><strong>3.</strong> Depressões Interplanálticas</li>
+            </ul>
+          </div>
+          <div class="bg-zinc-50 border border-zinc-200 p-4 rounded-xl">
+            <span class="text-xs font-bold uppercase text-zinc-500 tracking-wider block mb-2">Características Fisiográficas</span>
+            <div class="space-y-3 text-zinc-700 text-xs sm:text-sm">
+              <p><strong>( &nbsp; )</strong> Acompanham faixas de contato de discordância litoestrutural entre terrenos sedimentares de bacias paleo-mesozoicas e formações pré-cambrianas do embasamento cristalino, exibindo frequentemente degraus escarpados de cuestas, a exemplo da Borda Leste da Bacia do Paraná.</p>
+              <p><strong>( &nbsp; )</strong> Bordejam as margens de bacias sedimentares fanerozoicas, esculpidas predominantemente em faixas de terrenos cratônicos adjacentes sob regimes erosivos prolongados, como ocorre nas bordas norte e sul da bacia sedimentar amazônica.</p>
+              <p><strong>( &nbsp; )</strong> Encontram-se encravadas entre blocos de planaltos e cristas serranas mais elevadas, desenvolvendo-se em núcleos cristalinos ou dobramentos antigos a partir de fases pretéritas de pediplanação, a exemplo da Depressão Sertaneja e do São Francisco.</p>
+            </div>
+          </div>
+        </div>
+
+        <p class="font-sans-ui text-sm font-semibold text-zinc-800 mb-5">
+          A sequência correta dessa associação, de cima para baixo, é:
+        </p>
+
+        <div class="space-y-3" role="radiogroup" aria-label="Alternativas da Questão 3">
+          <label class="option-card flex items-start gap-4 p-4 rounded-xl text-sm" onclick="selectOption(3, 'A')">
+            <input type="radio" name="q3" value="A" class="mt-1 sr-only">
+            <span class="w-6 h-6 rounded-full border border-zinc-300 flex items-center justify-center font-semibold text-xs shrink-0 text-zinc-600 bg-zinc-50">A</span>
+            <span class="leading-relaxed text-zinc-800">1 – 2 – 3.</span>
+          </label>
+          <label class="option-card flex items-start gap-4 p-4 rounded-xl text-sm" onclick="selectOption(3, 'B')">
+            <input type="radio" name="q3" value="B" class="mt-1 sr-only">
+            <span class="w-6 h-6 rounded-full border border-zinc-300 flex items-center justify-center font-semibold text-xs shrink-0 text-zinc-600 bg-zinc-50">B</span>
+            <span class="leading-relaxed text-zinc-800">2 – 1 – 3.</span>
+          </label>
+          <label class="option-card flex items-start gap-4 p-4 rounded-xl text-sm" onclick="selectOption(3, 'C')">
+            <input type="radio" name="q3" value="C" class="mt-1 sr-only">
+            <span class="w-6 h-6 rounded-full border border-zinc-300 flex items-center justify-center font-semibold text-xs shrink-0 text-zinc-600 bg-zinc-50">C</span>
+            <span class="leading-relaxed text-zinc-800">3 – 1 – 2.</span>
+          </label>
+          <label class="option-card flex items-start gap-4 p-4 rounded-xl text-sm" onclick="selectOption(3, 'D')">
+            <input type="radio" name="q3" value="D" class="mt-1 sr-only">
+            <span class="w-6 h-6 rounded-full border border-zinc-300 flex items-center justify-center font-semibold text-xs shrink-0 text-zinc-600 bg-zinc-50">D</span>
+            <span class="leading-relaxed text-zinc-800">2 – 3 – 1.</span>
+          </label>
+          <label class="option-card flex items-start gap-4 p-4 rounded-xl text-sm" onclick="selectOption(3, 'E')">
+            <input type="radio" name="q3" value="E" class="mt-1 sr-only">
+            <span class="w-6 h-6 rounded-full border border-zinc-300 flex items-center justify-center font-semibold text-xs shrink-0 text-zinc-600 bg-zinc-50">E</span>
+            <span class="leading-relaxed text-zinc-800">1 – 3 – 2.</span>
+          </label>
+        </div>
+
+        <div id="res-q3" class="hidden mt-6 pt-6 border-t border-zinc-200">
+          <div class="bg-amber-50/50 border border-amber-200/70 rounded-xl p-5 text-sm">
+            <div class="flex items-center gap-2 text-amber-900 font-bold mb-2">
+              <i class="fa-solid fa-graduation-cap"></i> Resolução Comentada (Gabarito: B)
+            </div>
+            <p class="text-zinc-700 leading-relaxed">
+              A associação correta é <strong>2 – 1 – 3 (Alternativa B)</strong>. O primeiro item descreve as <strong>Depressões Periféricas (2)</strong>, formadas em zonas de contato litoestrutural entre bacias sedimentares e escudos cristalinos antigos (ex: Borda Leste da Bacia do Paraná). O segundo item define as <strong>Depressões Marginais (1)</strong>, que margeiam as bordas externas das bacias sedimentares (ex: Marginais Norte e Sul-Amazônicas). O terceiro item retrata as <strong>Depressões Interplanálticas (3)</strong>, encravadas entre maciços e planaltos cristalinos sob processos de pediplanação semiárida (ex: Depressão Sertaneja e do São Francisco).
+            </p>
+          </div>
+        </div>
+      </article>
+
+      <!-- ================= QUESTÃO 04 ================= -->
+      <article id="card-q4" class="question-container bg-white rounded-2xl p-6 sm:p-8 border border-zinc-200 shadow-sm transition-all duration-300">
+        <div class="flex items-center justify-between gap-4 mb-4">
+          <span class="px-3 py-1 bg-zinc-100 text-zinc-800 text-xs font-bold rounded-lg tracking-wide">QUESTÃO 04</span>
+          <span id="badge-q4" class="hidden text-xs font-bold px-2.5 py-1 rounded-md"></span>
+        </div>
+        
+        <p class="prose-reading mb-5">
+          A abordagem metodológica formulada por Jurandyr Ross (1992, 2014) propõe uma compartimentação geomorfológica organizada em seis níveis de detalhamento ou táxons hierárquicos operacionais, compatibilizando a escala analítica à predominância das forças endógenas ou exógenas no relevo.
+        </p>
+        <p class="font-sans-ui text-sm font-semibold text-zinc-800 mb-5">
+          A respeito da estrutura taxonômica de Ross, assinale a opção correta:
+        </p>
+
+        <div class="space-y-3" role="radiogroup" aria-label="Alternativas da Questão 4">
+          <label class="option-card flex items-start gap-4 p-4 rounded-xl text-sm" onclick="selectOption(4, 'A')">
+            <input type="radio" name="q4" value="A" class="mt-1 sr-only">
+            <span class="w-6 h-6 rounded-full border border-zinc-300 flex items-center justify-center font-semibold text-xs shrink-0 text-zinc-600 bg-zinc-50">A</span>
+            <span class="leading-relaxed text-zinc-800">O 1º Táxon corresponde à Unidade Morfoestrutural, definida pela matriz geodinâmica maior e pelo arcabouço tectônico regional, a exemplo das bacias sedimentares e das plataformas cratônicas.</span>
+          </label>
+          <label class="option-card flex items-start gap-4 p-4 rounded-xl text-sm" onclick="selectOption(4, 'B')">
+            <input type="radio" name="q4" value="B" class="mt-1 sr-only">
+            <span class="w-6 h-6 rounded-full border border-zinc-300 flex items-center justify-center font-semibold text-xs shrink-0 text-zinc-600 bg-zinc-50">B</span>
+            <span class="leading-relaxed text-zinc-800">O 2º Táxon circunscreve as vertentes individuais, analisadas pontualmente em escalas cartográficas de semi-detalhe (1:25.000) para monitoramento de processos de rastejo de encosta.</span>
+          </label>
+          <label class="option-card flex items-start gap-4 p-4 rounded-xl text-sm" onclick="selectOption(4, 'C')">
+            <input type="radio" name="q4" value="C" class="mt-1 sr-only">
+            <span class="w-6 h-6 rounded-full border border-zinc-300 flex items-center justify-center font-semibold text-xs shrink-0 text-zinc-600 bg-zinc-50">C</span>
+            <span class="leading-relaxed text-zinc-800">O 3º Táxon designa as feições puramente tecnogênicas antrópicas, como cavas de mineração e cortes de estradas, suprimindo o papel das formas naturais de morros e colinas.</span>
+          </label>
+          <label class="option-card flex items-start gap-4 p-4 rounded-xl text-sm" onclick="selectOption(4, 'D')">
+            <input type="radio" name="q4" value="D" class="mt-1 sr-only">
+            <span class="w-6 h-6 rounded-full border border-zinc-300 flex items-center justify-center font-semibold text-xs shrink-0 text-zinc-600 bg-zinc-50">D</span>
+            <span class="leading-relaxed text-zinc-800">O 4º Táxon refere-se às megaestruturas continentais globais, estabelecendo a correlação morfotectônica direta com a teoria da tectônica de placas.</span>
+          </label>
+          <label class="option-card flex items-start gap-4 p-4 rounded-xl text-sm" onclick="selectOption(4, 'E')">
+            <input type="radio" name="q4" value="E" class="mt-1 sr-only">
+            <span class="w-6 h-6 rounded-full border border-zinc-300 flex items-center justify-center font-semibold text-xs shrink-0 text-zinc-600 bg-zinc-50">E</span>
+            <span class="leading-relaxed text-zinc-800">O 6º Táxon engloba as grandes Unidades Morfoesculturais (os 28 compartimentos do relevo brasileiro, subdivididos em planaltos, depressões e planícies).</span>
+          </label>
+        </div>
+
+        <div id="res-q4" class="hidden mt-6 pt-6 border-t border-zinc-200">
+          <div class="bg-amber-50/50 border border-amber-200/70 rounded-xl p-5 text-sm">
+            <div class="flex items-center gap-2 text-amber-900 font-bold mb-2">
+              <i class="fa-solid fa-graduation-cap"></i> Resolução Comentada (Gabarito: A)
+            </div>
+            <p class="text-zinc-700 leading-relaxed">
+              A alternativa <strong>A</strong> é a correta. No sistema taxonômico de Ross:
+              <br>• <strong>1º Táxon:</strong> Unidade Morfoestrutural (bacias sedimentares, crátons, faixas móveis dobradas).
+              <br>• <strong>2º Táxon:</strong> Unidade Morfoescultural (os 28 compartimentos do relevo: planaltos, depressões e planícies).
+              <br>• <strong>3º Táxon:</strong> Padrões de formas semelhantes (morros mamelonares, chapadas, cristas paralelas).
+              <br>• <strong>4º Táxon:</strong> Formas de relevo individualizadas (uma colina, um inselberg isolado).
+              <br>• <strong>5º Táxon:</strong> Setores de vertentes (topo, encosta, sopé).
+              <br>• <strong>6º Táxon:</strong> Microrrelevos e processos atuais (ravinas, voçorocas, feições tecnogênicas).
+            </p>
+          </div>
+        </div>
+      </article>
+
+      <!-- ================= QUESTÃO 05 ================= -->
+      <article id="card-q5" class="question-container bg-white rounded-2xl p-6 sm:p-8 border border-zinc-200 shadow-sm transition-all duration-300">
+        <div class="flex items-center justify-between gap-4 mb-4">
+          <span class="px-3 py-1 bg-zinc-100 text-zinc-800 text-xs font-bold rounded-lg tracking-wide">QUESTÃO 05</span>
+          <span id="badge-q5" class="hidden text-xs font-bold px-2.5 py-1 rounded-md"></span>
+        </div>
+        
+        <p class="prose-reading mb-4">
+          No modelo de compartimentação de Ross (2014), os 11 Planaltos identificados representam terrenos antigos onde os processos denudacionais superam a sedimentação, dividindo-se geneticamente segundo suas matrizes litoestruturais.
+        </p>
+
+        <!-- Tabela Estrutural Original do Documento -->
+        <div class="overflow-x-auto mb-5 border border-zinc-200 rounded-xl">
+          <table class="w-full text-left text-sm">
+            <thead class="bg-zinc-50 border-b border-zinc-200 text-xs font-semibold uppercase text-zinc-600">
+              <tr>
+                <th class="p-3 sm:p-4">Estrutura Geológica Dominante</th>
+                <th class="p-3 sm:p-4">Unidade Morfoescultural (Planalto)</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-zinc-200 text-zinc-800 font-medium">
+              <tr>
+                <td class="p-3 sm:p-4 text-zinc-700">Bacia Sedimentar Intracratônica</td>
+                <td class="p-3 sm:p-4">Planaltos e Chapadas da Bacia do Paraná</td>
+              </tr>
+              <tr>
+                <td class="p-3 sm:p-4 text-zinc-700">Faixa Móvel / Dobramentos Antigos</td>
+                <td class="p-3 sm:p-4">Planaltos e Serras do Atlântico Leste-Sudeste</td>
+              </tr>
+              <tr>
+                <td class="p-3 sm:p-4 text-zinc-700">Cráton / Coberturas Residuais</td>
+                <td class="p-3 sm:p-4">Planaltos Residuais Norte-Amazônicos</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p class="font-sans-ui text-sm font-semibold text-zinc-800 mb-5">
+          Com base nas características orográficas e genéticas das unidades apresentadas na matriz teórica acima, é correto afirmar que:
+        </p>
+
+        <div class="space-y-3" role="radiogroup" aria-label="Alternativas da Questão 5">
+          <label class="option-card flex items-start gap-4 p-4 rounded-xl text-sm" onclick="selectOption(5, 'A')">
+            <input type="radio" name="q5" value="A" class="mt-1 sr-only">
+            <span class="w-6 h-6 rounded-full border border-zinc-300 flex items-center justify-center font-semibold text-xs shrink-0 text-zinc-600 bg-zinc-50">A</span>
+            <span class="leading-relaxed text-zinc-800">Os Planaltos e Chapadas da Bacia do Paraná são estruturados sobre terrenos cristalinos arqueanos indiferenciados, sem manifestação de rochas vulcânicas ou coberturas sedimentares estratificadas.</span>
+          </label>
+          <label class="option-card flex items-start gap-4 p-4 rounded-xl text-sm" onclick="selectOption(5, 'B')">
+            <input type="radio" name="q5" value="B" class="mt-1 sr-only">
+            <span class="w-6 h-6 rounded-full border border-zinc-300 flex items-center justify-center font-semibold text-xs shrink-0 text-zinc-600 bg-zinc-50">B</span>
+            <span class="leading-relaxed text-zinc-800">Os Planaltos e Serras do Atlântico Leste-Sudeste sustentam-se sobre cinturões orogênicos proterozoicos intensamente metamorfoseados e fraturados, com forte dissecação em mares de morros e alinhamentos de cristas serranas.</span>
+          </label>
+          <label class="option-card flex items-start gap-4 p-4 rounded-xl text-sm" onclick="selectOption(5, 'C')">
+            <input type="radio" name="q5" value="C" class="mt-1 sr-only">
+            <span class="w-6 h-6 rounded-full border border-zinc-300 flex items-center justify-center font-semibold text-xs shrink-0 text-zinc-600 bg-zinc-50">C</span>
+            <span class="leading-relaxed text-zinc-800">Os Planaltos Residuais Norte-Amazônicos configuram áreas de subsidência tectônica quaternária, caracterizadas por relevos aplainados homogêneos e ausência de cotas altimétricas expressivas.</span>
+          </label>
+          <label class="option-card flex items-start gap-4 p-4 rounded-xl text-sm" onclick="selectOption(5, 'D')">
+            <input type="radio" name="q5" value="D" class="mt-1 sr-only">
+            <span class="w-6 h-6 rounded-full border border-zinc-300 flex items-center justify-center font-semibold text-xs shrink-0 text-zinc-600 bg-zinc-50">D</span>
+            <span class="leading-relaxed text-zinc-800">Os Planaltos e Chapadas da Bacia do Parnaíba integram a morfoestrutura dos cinturões orogênicos brasilianos, exibindo cristas dobradas sem relevo tabular.</span>
+          </label>
+          <label class="option-card flex items-start gap-4 p-4 rounded-xl text-sm" onclick="selectOption(5, 'E')">
+            <input type="radio" name="q5" value="E" class="mt-1 sr-only">
+            <span class="w-6 h-6 rounded-full border border-zinc-300 flex items-center justify-center font-semibold text-xs shrink-0 text-zinc-600 bg-zinc-50">E</span>
+            <span class="leading-relaxed text-zinc-800">O Planalto da Borborema constitui uma planície aluvial de afundamento crustal recente, cujas cotas altimétricas médias situam-se invariavelmente abaixo de 50 metros.</span>
+          </label>
+        </div>
+
+        <div id="res-q5" class="hidden mt-6 pt-6 border-t border-zinc-200">
+          <div class="bg-amber-50/50 border border-amber-200/70 rounded-xl p-5 text-sm">
+            <div class="flex items-center gap-2 text-amber-900 font-bold mb-2">
+              <i class="fa-solid fa-graduation-cap"></i> Resolução Comentada (Gabarito: B)
+            </div>
+            <p class="text-zinc-700 leading-relaxed">
+              A alternativa <strong>B</strong> é perfeita. Os Planaltos e Serras do Atlântico Leste-Sudeste apoiam-se sobre os cinturões orogênicos proterozoicos do Ciclo Brasiliano (Cinturão Ribeira, Mantiqueira, etc.), com forte metamorfismo, dobramentos e falhamentos, esculpidos em mares de morros dissecados e cristas serranas alongadas.
+            </p>
+            <p class="text-zinc-600 text-xs mt-2">
+              <em>Inconsistências das outras:</em> (A) Bacia do Paraná é sedimentar com vulcanismo basáltico (Serra Geral). (C) Planaltos Residuais Norte-Amazônicos contêm os pontos culminantes do Brasil (Pico da Neblina), sobre escudos antigos. (D) Bacia do Parnaíba é sedimentar intracratônica com relevo tabular. (E) Borborema é um maciço residual cristalino elevado (muitas áreas acima de 800-1000m).
+            </p>
+          </div>
+        </div>
+      </article>
+
+      <!-- ================= QUESTÃO 06 ================= -->
+      <article id="card-q6" class="question-container bg-white rounded-2xl p-6 sm:p-8 border border-zinc-200 shadow-sm transition-all duration-300">
+        <div class="flex items-center justify-between gap-4 mb-4">
+          <span class="px-3 py-1 bg-zinc-100 text-zinc-800 text-xs font-bold rounded-lg tracking-wide">QUESTÃO 06</span>
+          <span id="badge-q6" class="hidden text-xs font-bold px-2.5 py-1 rounded-md"></span>
+        </div>
+        
+        <p class="prose-reading mb-5">
+          Em contraste marcante com as propostas clássicas de Aroldo de Azevedo e Aziz Ab'Sáber, a classificação de Jurandyr Ross reconheceu apenas 6 compartimentos de Planície em todo o território nacional. Aziz Ab'Sáber (2003) já alertava para a inadequação empírica de rotular toda a Hiléia Amazônica como uma grande planície contínua.
+        </p>
+        <p class="font-sans-ui text-sm font-semibold text-zinc-800 mb-5">
+          A contração espacial das unidades de planície no sistema de Jurandyr Ross decorre do fato de que:
+        </p>
+
+        <div class="space-y-3" role="radiogroup" aria-label="Alternativas da Questão 6">
+          <label class="option-card flex items-start gap-4 p-4 rounded-xl text-sm" onclick="selectOption(6, 'A')">
+            <input type="radio" name="q6" value="A" class="mt-1 sr-only">
+            <span class="w-6 h-6 rounded-full border border-zinc-300 flex items-center justify-center font-semibold text-xs shrink-0 text-zinc-600 bg-zinc-50">A</span>
+            <span class="leading-relaxed text-zinc-800">Apenas as superfícies planas com sedimentação aluvial, lacustre ou marinha ativa e depósitos inconsolidados vinculados ao período Quaternário foram enquadradas como planícies típicas.</span>
+          </label>
+          <label class="option-card flex items-start gap-4 p-4 rounded-xl text-sm" onclick="selectOption(6, 'B')">
+            <input type="radio" name="q6" value="B" class="mt-1 sr-only">
+            <span class="w-6 h-6 rounded-full border border-zinc-300 flex items-center justify-center font-semibold text-xs shrink-0 text-zinc-600 bg-zinc-50">B</span>
+            <span class="leading-relaxed text-zinc-800">O Projeto Radambrasil constatou que a Amazônia brasileira é constituída inteiramente por cadeias orogênicas dobradas de idade terciária com vulcanismo ativo.</span>
+          </label>
+          <label class="option-card flex items-start gap-4 p-4 rounded-xl text-sm" onclick="selectOption(6, 'C')">
+            <input type="radio" name="q6" value="C" class="mt-1 sr-only">
+            <span class="w-6 h-6 rounded-full border border-zinc-300 flex items-center justify-center font-semibold text-xs shrink-0 text-zinc-600 bg-zinc-50">C</span>
+            <span class="leading-relaxed text-zinc-800">O critério hipsométrico de Ross delimitou as planícies exclusivamente em cotas topográficas superiores a 800 metros de altitude.</span>
+          </label>
+          <label class="option-card flex items-start gap-4 p-4 rounded-xl text-sm" onclick="selectOption(6, 'D')">
+            <input type="radio" name="q6" value="D" class="mt-1 sr-only">
+            <span class="w-6 h-6 rounded-full border border-zinc-300 flex items-center justify-center font-semibold text-xs shrink-0 text-zinc-600 bg-zinc-50">D</span>
+            <span class="leading-relaxed text-zinc-800">As planícies foram mapeadas unicamente na faixa litorânea oriental do país, desconsiderando as várzeas da Bacia Amazônica e do Pantanal.</span>
+          </label>
+          <label class="option-card flex items-start gap-4 p-4 rounded-xl text-sm" onclick="selectOption(6, 'E')">
+            <input type="radio" name="q6" value="E" class="mt-1 sr-only">
+            <span class="w-6 h-6 rounded-full border border-zinc-300 flex items-center justify-center font-semibold text-xs shrink-0 text-zinc-600 bg-zinc-50">E</span>
+            <span class="leading-relaxed text-zinc-800">As coberturas de platôs sedimentares do Grupo Barreiras do Terciário foram redefinidas como planícies meândricas de deposição contínua.</span>
+          </label>
+        </div>
+
+        <div id="res-q6" class="hidden mt-6 pt-6 border-t border-zinc-200">
+          <div class="bg-amber-50/50 border border-amber-200/70 rounded-xl p-5 text-sm">
+            <div class="flex items-center gap-2 text-amber-900 font-bold mb-2">
+              <i class="fa-solid fa-graduation-cap"></i> Resolução Comentada (Gabarito: A)
+            </div>
+            <p class="text-zinc-700 leading-relaxed">
+              A alternativa <strong>A</strong> explica a redução para apenas 6 planícies. Para Jurandyr Ross, planície exige não apenas topografia plana, mas <strong>sedimentação ativa</strong> com sedimentos inconsolidados ou semi-inconsolidados estritamente do <strong>período Quaternário</strong> (marinhos, fluviais ou lacustres). Os platôs terciários da Amazônia e os Tabuleiros Costeiros (Grupo Barreiras) foram reclassificados como planaltos sedimentares ou depressões por já apresentarem consolidação e incisão erosiva.
+            </p>
+          </div>
+        </div>
+      </article>
+
+      <!-- ================= QUESTÃO 07 ================= -->
+      <article id="card-q7" class="question-container bg-white rounded-2xl p-6 sm:p-8 border border-zinc-200 shadow-sm transition-all duration-300">
+        <div class="flex items-center justify-between gap-4 mb-4">
+          <span class="px-3 py-1 bg-zinc-100 text-zinc-800 text-xs font-bold rounded-lg tracking-wide">QUESTÃO 07</span>
+          <span id="badge-q7" class="hidden text-xs font-bold px-2.5 py-1 rounded-md"></span>
+        </div>
+        
+        <p class="prose-reading mb-4">
+          Considere a sequência morfológica transversal que se estende do leste para o oeste no estado de São Paulo, abrangendo o contato entre o Planalto Atlântico e a Bacia do Paraná:
+        </p>
+
+        <!-- Diagrama Sequencial do Perfil Paulista -->
+        <div class="bg-zinc-50 border border-zinc-200 rounded-xl p-4 mb-5 text-center">
+          <div class="flex flex-wrap items-center justify-center gap-2 text-xs sm:text-sm font-semibold text-zinc-800">
+            <span class="bg-white px-3 py-1.5 rounded-lg border border-zinc-200 shadow-xs">Planalto Atlântico (Cristalino)</span>
+            <i class="fa-solid fa-arrow-right text-zinc-400"></i>
+            <span class="bg-emerald-50 text-emerald-900 px-3 py-1.5 rounded-lg border border-emerald-200">Depressão Periférica Paulista</span>
+            <i class="fa-solid fa-arrow-right text-zinc-400"></i>
+            <span class="bg-white px-3 py-1.5 rounded-lg border border-zinc-200 shadow-xs">Frente de Cuesta</span>
+            <i class="fa-solid fa-arrow-right text-zinc-400"></i>
+            <span class="bg-white px-3 py-1.5 rounded-lg border border-zinc-200 shadow-xs">Planalto Ocidental (Arenito-Basáltico)</span>
+          </div>
+        </div>
+
+        <p class="font-sans-ui text-sm font-semibold text-zinc-800 mb-5">
+          A análise do perfil geomorfológico estrutural desse trecho permite afirmar corretamente que:
+        </p>
+
+        <div class="space-y-3" role="radiogroup" aria-label="Alternativas da Questão 7">
+          <label class="option-card flex items-start gap-4 p-4 rounded-xl text-sm" onclick="selectOption(7, 'A')">
+            <input type="radio" name="q7" value="A" class="mt-1 sr-only">
+            <span class="w-6 h-6 rounded-full border border-zinc-300 flex items-center justify-center font-semibold text-xs shrink-0 text-zinc-600 bg-zinc-50">A</span>
+            <span class="leading-relaxed text-zinc-800">A Depressão Periférica Paulista foi entalhada pelo desgaste erosivo sobre rochas sedimentares paleozoicas de menor resistência mecânica, situando-se topograficamente rebaixada entre o cristalino a leste e as escarpas de cuesta a oeste.</span>
+          </label>
+          <label class="option-card flex items-start gap-4 p-4 rounded-xl text-sm" onclick="selectOption(7, 'B')">
+            <input type="radio" name="q7" value="B" class="mt-1 sr-only">
+            <span class="w-6 h-6 rounded-full border border-zinc-300 flex items-center justify-center font-semibold text-xs shrink-0 text-zinc-600 bg-zinc-50">B</span>
+            <span class="leading-relaxed text-zinc-800">A frente de cuesta é caracterizada por declives estruturais muito suaves onde predominam processos agradacionais fluviomarinhos.</span>
+          </label>
+          <label class="option-card flex items-start gap-4 p-4 rounded-xl text-sm" onclick="selectOption(7, 'C')">
+            <input type="radio" name="q7" value="C" class="mt-1 sr-only">
+            <span class="w-6 h-6 rounded-full border border-zinc-300 flex items-center justify-center font-semibold text-xs shrink-0 text-zinc-600 bg-zinc-50">C</span>
+            <span class="leading-relaxed text-zinc-800">O Planalto Ocidental paulista constitui uma depressão absoluta, cujo rebaixamento crustal manteve sua superfície abaixo do nível do mar.</span>
+          </label>
+          <label class="option-card flex items-start gap-4 p-4 rounded-xl text-sm" onclick="selectOption(7, 'D')">
+            <input type="radio" name="q7" value="D" class="mt-1 sr-only">
+            <span class="w-6 h-6 rounded-full border border-zinc-300 flex items-center justify-center font-semibold text-xs shrink-0 text-zinc-600 bg-zinc-50">D</span>
+            <span class="leading-relaxed text-zinc-800">As depressões periféricas inexistem na porção meridional e oriental do Brasil, sendo feições exclusivas da Depressão da Amazônia Ocidental.</span>
+          </label>
+          <label class="option-card flex items-start gap-4 p-4 rounded-xl text-sm" onclick="selectOption(7, 'E')">
+            <input type="radio" name="q7" value="E" class="mt-1 sr-only">
+            <span class="w-6 h-6 rounded-full border border-zinc-300 flex items-center justify-center font-semibold text-xs shrink-0 text-zinc-600 bg-zinc-50">E</span>
+            <span class="leading-relaxed text-zinc-800">As rochas magmáticas intrusivas e metamórficas do cristalino possuem erosibilidade muito superior à dos arenitos inconsolidados, gerando vales sinclinais na borda da bacia.</span>
+          </label>
+        </div>
+
+        <div id="res-q7" class="hidden mt-6 pt-6 border-t border-zinc-200">
+          <div class="bg-amber-50/50 border border-amber-200/70 rounded-xl p-5 text-sm">
+            <div class="flex items-center gap-2 text-amber-900 font-bold mb-2">
+              <i class="fa-solid fa-graduation-cap"></i> Resolução Comentada (Gabarito: A)
+            </div>
+            <p class="text-zinc-700 leading-relaxed">
+              A alternativa <strong>A</strong> descreve com perfeição a evolução morfoestrutural paulista. A Depressão Periférica Paulista foi esculpida na faixa de contato discordante, onde sedimentos paleozoicos friáveis do Grupo Tubarão sofreram erosão mais rápida do que o cristalino resistente (a leste) e os basaltos e arenitos com capas duras da Formação Serra Geral (a oeste), formando uma calha deprimida ladeada por frentes escarpadas de cuestas.
+            </p>
+          </div>
+        </div>
+      </article>
+
+      <!-- ================= QUESTÃO 08 ================= -->
+      <article id="card-q8" class="question-container bg-white rounded-2xl p-6 sm:p-8 border border-zinc-200 shadow-sm transition-all duration-300">
+        <div class="flex items-center justify-between gap-4 mb-4">
+          <span class="px-3 py-1 bg-zinc-100 text-zinc-800 text-xs font-bold rounded-lg tracking-wide">QUESTÃO 08</span>
+          <span id="badge-q8" class="hidden text-xs font-bold px-2.5 py-1 rounded-md"></span>
+        </div>
+        
+        <p class="prose-reading mb-5">
+          Na obra <em>Os Domínios de Natureza no Brasil: potencialidades paisagísticas</em> (2003), Aziz Nacib Ab'Sáber analisa a evolução morfoclimática do semiárido brasileiro, salientando o papel das paleovergências climáticas na esculturação das superfícies secas. Essa área nuclear corresponde, na compartimentação de Ross (2014), à Depressão Sertaneja e do São Francisco.
+        </p>
+        <p class="font-sans-ui text-sm font-semibold text-zinc-800 mb-5">
+          Acerca dos processos morfogenéticos, da dinâmica morfodinâmica e das feições estruturais dominantes na Depressão Sertaneja e do São Francisco, assinale a opção correta:
+        </p>
+
+        <div class="space-y-3" role="radiogroup" aria-label="Alternativas da Questão 8">
+          <label class="option-card flex items-start gap-4 p-4 rounded-xl text-sm" onclick="selectOption(8, 'A')">
+            <input type="radio" name="q8" value="A" class="mt-1 sr-only">
+            <span class="w-6 h-6 rounded-full border border-zinc-300 flex items-center justify-center font-semibold text-xs shrink-0 text-zinc-600 bg-zinc-50">A</span>
+            <span class="leading-relaxed text-zinc-800">A depressão configura uma extensa superfície de pediplanação entalhada em rochas cristalinas sob climas semiáridos pretéritos e atuais, com presença conspícua de relevos residuais resistentes conhecidos como inselbergs.</span>
+          </label>
+          <label class="option-card flex items-start gap-4 p-4 rounded-xl text-sm" onclick="selectOption(8, 'B')">
+            <input type="radio" name="q8" value="B" class="mt-1 sr-only">
+            <span class="w-6 h-6 rounded-full border border-zinc-300 flex items-center justify-center font-semibold text-xs shrink-0 text-zinc-600 bg-zinc-50">B</span>
+            <span class="leading-relaxed text-zinc-800">O compartimento sertanejo exibe modelado esculpido por processos glaciais do quaternário antigo, com predomínio de morenas e vales suspensos em "U".</span>
+          </label>
+          <label class="option-card flex items-start gap-4 p-4 rounded-xl text-sm" onclick="selectOption(8, 'C')">
+            <input type="radio" name="q8" value="C" class="mt-1 sr-only">
+            <span class="w-6 h-6 rounded-full border border-zinc-300 flex items-center justify-center font-semibold text-xs shrink-0 text-zinc-600 bg-zinc-50">C</span>
+            <span class="leading-relaxed text-zinc-800">O relevo da depressão é caracterizado por uma fossa tectônica recente preenchida por espessos estratos sedimentares inconsolidados de drenagem lacustre permanente.</span>
+          </label>
+          <label class="option-card flex items-start gap-4 p-4 rounded-xl text-sm" onclick="selectOption(8, 'D')">
+            <input type="radio" name="q8" value="D" class="mt-1 sr-only">
+            <span class="w-6 h-6 rounded-full border border-zinc-300 flex items-center justify-center font-semibold text-xs shrink-0 text-zinc-600 bg-zinc-50">D</span>
+            <span class="leading-relaxed text-zinc-800">O intemperismo químico profundo atuou de forma homogênea no sertão, originando Latossolos muito espessos e homogêneos que anulam o controle estrutural das rochas.</span>
+          </label>
+          <label class="option-card flex items-start gap-4 p-4 rounded-xl text-sm" onclick="selectOption(8, 'E')">
+            <input type="radio" name="q8" value="E" class="mt-1 sr-only">
+            <span class="w-6 h-6 rounded-full border border-zinc-300 flex items-center justify-center font-semibold text-xs shrink-0 text-zinc-600 bg-zinc-50">E</span>
+            <span class="leading-relaxed text-zinc-800">O compartimento da Depressão Sertaneja corresponde a um planalto orogênico moderno com cotas altimétricas uniformemente superiores a 1.500 metros.</span>
+          </label>
+        </div>
+
+        <div id="res-q8" class="hidden mt-6 pt-6 border-t border-zinc-200">
+          <div class="bg-amber-50/50 border border-amber-200/70 rounded-xl p-5 text-sm">
+            <div class="flex items-center gap-2 text-amber-900 font-bold mb-2">
+              <i class="fa-solid fa-graduation-cap"></i> Resolução Comentada (Gabarito: A)
+            </div>
+            <p class="text-zinc-700 leading-relaxed">
+              A alternativa <strong>A</strong> retrata com precisão o clássico pediplano sertanejo consagrado por Aziz Ab'Sáber (2003) e classificado por Ross (2014) como Depressão Sertaneja e do São Francisco. Sob condições semiáridas prolongadas no Cenozóico, o intemperismo físico mecânico e o escoamento superficial laminar desnudaram amplos setores cristalinos, preservando monólitos rochosos resistentes como formas residuais (<em>inselbergs</em>).
+            </p>
+            <p class="text-zinc-600 text-xs mt-2">
+              <em>Erros das demais:</em> Não houve glaciações pleistocênicas no Brasil (B); não é fossa tectônica com sedimentos espessos quaternários (C); os solos sertanejos são rasos e pedregosos (Neossolos/Luvisolos), não Latossolos profundos (D); e as altitudes são baixas a medianas (200 a 500m), nunca 1.500m (E).
+            </p>
+          </div>
+        </div>
+      </article>
+
+      <!-- ================= QUESTÃO 09 ================= -->
+      <article id="card-q9" class="question-container bg-white rounded-2xl p-6 sm:p-8 border border-zinc-200 shadow-sm transition-all duration-300">
+        <div class="flex items-center justify-between gap-4 mb-4">
+          <span class="px-3 py-1 bg-zinc-100 text-zinc-800 text-xs font-bold rounded-lg tracking-wide">QUESTÃO 09</span>
+          <span id="badge-q9" class="hidden text-xs font-bold px-2.5 py-1 rounded-md"></span>
+        </div>
+        
+        <p class="prose-reading mb-5">
+          O relevo de Minas Gerais apresenta notável compartimentação geológica e topográfica em razão do contato entre o Cráton do São Francisco, as faixas dobradas proterozoicas e as bordas de bacias sedimentares. Na sistemática dos 28 compartimentos de Ross (2014), diferentes macroformas convergem no território mineiro.
+        </p>
+        <p class="font-sans-ui text-sm font-semibold text-zinc-800 mb-5">
+          Assinale a opção que relaciona corretamente um compartimento de relevo de Jurandyr Ross presente em território mineiro às suas características fisiográficas:
+        </p>
+
+        <div class="space-y-3" role="radiogroup" aria-label="Alternativas da Questão 9">
+          <label class="option-card flex items-start gap-4 p-4 rounded-xl text-sm" onclick="selectOption(9, 'A')">
+            <input type="radio" name="q9" value="A" class="mt-1 sr-only">
+            <span class="w-6 h-6 rounded-full border border-zinc-300 flex items-center justify-center font-semibold text-xs shrink-0 text-zinc-600 bg-zinc-50">A</span>
+            <span class="leading-relaxed text-zinc-800">Depressão Cuiabana: ocupa a totalidade da bacia hidrográfica do Rio Doce em Minas Gerais, caracterizando-se por aluviões holocênicas marinhas.</span>
+          </label>
+          <label class="option-card flex items-start gap-4 p-4 rounded-xl text-sm" onclick="selectOption(9, 'B')">
+            <input type="radio" name="q9" value="B" class="mt-1 sr-only">
+            <span class="w-6 h-6 rounded-full border border-zinc-300 flex items-center justify-center font-semibold text-xs shrink-0 text-zinc-600 bg-zinc-50">B</span>
+            <span class="leading-relaxed text-zinc-800">Planaltos e Serras de Goiás-Minas: estruturam-se sobre a Faixa Brasília e porções do Espinhaço ocidental, exibindo cristas quartzíticas dobradas, chapadões dissecados e forte controle estrutural.</span>
+          </label>
+          <label class="option-card flex items-start gap-4 p-4 rounded-xl text-sm" onclick="selectOption(9, 'C')">
+            <input type="radio" name="q9" value="C" class="mt-1 sr-only">
+            <span class="w-6 h-6 rounded-full border border-zinc-300 flex items-center justify-center font-semibold text-xs shrink-0 text-zinc-600 bg-zinc-50">C</span>
+            <span class="leading-relaxed text-zinc-800">Planície do Pantanal Mineiro: estende-se linearmente ao longo do Rio Grande, originada por subsidência crustal ativa durante o Paleógeno.</span>
+          </label>
+          <label class="option-card flex items-start gap-4 p-4 rounded-xl text-sm" onclick="selectOption(9, 'D')">
+            <input type="radio" name="q9" value="D" class="mt-1 sr-only">
+            <span class="w-6 h-6 rounded-full border border-zinc-300 flex items-center justify-center font-semibold text-xs shrink-0 text-zinc-600 bg-zinc-50">D</span>
+            <span class="leading-relaxed text-zinc-800">Planalto da Amazônia Oriental: conforma a unidade de relevo cristalino do Planalto de Poços de Caldas e do Vale do Jequitinhonha.</span>
+          </label>
+          <label class="option-card flex items-start gap-4 p-4 rounded-xl text-sm" onclick="selectOption(9, 'E')">
+            <input type="radio" name="q9" value="E" class="mt-1 sr-only">
+            <span class="w-6 h-6 rounded-full border border-zinc-300 flex items-center justify-center font-semibold text-xs shrink-0 text-zinc-600 bg-zinc-50">E</span>
+            <span class="leading-relaxed text-zinc-800">Depressão da Amazônia Ocidental: estende-se pelos vales encaixados do Quadrilátero Ferrífero até a divisa com o estado do Espírito Santo.</span>
+          </label>
+        </div>
+
+        <div id="res-q9" class="hidden mt-6 pt-6 border-t border-zinc-200">
+          <div class="bg-amber-50/50 border border-amber-200/70 rounded-xl p-5 text-sm">
+            <div class="flex items-center gap-2 text-amber-900 font-bold mb-2">
+              <i class="fa-solid fa-graduation-cap"></i> Resolução Comentada (Gabarito: B)
+            </div>
+            <p class="text-zinc-700 leading-relaxed">
+              A resposta correta é a <strong>B</strong>. O compartimento dos <strong>Planaltos e Serras de Goiás-Minas</strong> situa-se exatamente na borda ocidental de Minas Gerais e leste de Goiás, ancorado na Faixa Brasília e em metassedimentos proterozoicos (quartzitos e xistos) do Espinhaço e Canastra, exibindo forte rugosidade topográfica e alinhamentos de cristas.
+            </p>
+            <p class="text-zinc-600 text-xs mt-2">
+              <em>Erros geográficos crassos:</em> Depressão Cuiabana fica no MT; não existe "Pantanal Mineiro" na taxonomia de Ross; Planalto da Amazônia Oriental e Depressão da Amazônia Ocidental estão situados no bioma amazônico (PA, MA, AM, AC), sem qualquer relação com Poços de Caldas ou Quadrilátero Ferrífero.
+            </p>
+          </div>
+        </div>
+      </article>
+
+      <!-- ================= QUESTÃO 10 ================= -->
+      <article id="card-q10" class="question-container bg-white rounded-2xl p-6 sm:p-8 border border-zinc-200 shadow-sm transition-all duration-300">
+        <div class="flex items-center justify-between gap-4 mb-4">
+          <span class="px-3 py-1 bg-zinc-100 text-zinc-800 text-xs font-bold rounded-lg tracking-wide">QUESTÃO 10</span>
+          <span id="badge-q10" class="hidden text-xs font-bold px-2.5 py-1 rounded-md"></span>
+        </div>
+        
+        <p class="prose-reading mb-4">
+          No esquema analítico proposto por Jurandyr Ross (1995, 2014), a relação entre o 1º Táxon (Unidade Morfoestrutural) e o 2º Táxon (Unidade Morfoescultural) estabelece a dependência das formas de relevo em relação ao seu arcabouço tectônico-estratigráfico subjacente.
+        </p>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-5 text-sm">
+          <div class="bg-zinc-50 border border-zinc-200 p-4 rounded-xl">
+            <span class="text-xs font-bold uppercase text-zinc-500 tracking-wider block mb-2">1º Táxon – Unidade Morfoestrutural</span>
+            <ul class="space-y-2 text-zinc-800 font-medium">
+              <li><strong>I.</strong> Bacias Sedimentares Fanerozoicas intracratônicas</li>
+              <li><strong>II.</strong> Cinturões Orogênicos Antigos dobrados do Pré-Cambriano</li>
+              <li><strong>III.</strong> Coberturas Residuais e Intrusões Cristalinas de Plataforma</li>
+            </ul>
+          </div>
+          <div class="bg-zinc-50 border border-zinc-200 p-4 rounded-xl">
+            <span class="text-xs font-bold uppercase text-zinc-500 tracking-wider block mb-2">2º Táxon – Unidade Morfoescultural</span>
+            <ul class="space-y-2 text-zinc-800">
+              <li><strong>P.</strong> Planaltos e Chapadas da Bacia do Parnaíba</li>
+              <li><strong>Q.</strong> Planaltos Residuais Sul-Amazônicos</li>
+              <li><strong>R.</strong> Planaltos e Serras do Atlântico Leste-Sudeste</li>
+            </ul>
+          </div>
+        </div>
+
+        <p class="font-sans-ui text-sm font-semibold text-zinc-800 mb-5">
+          A correlação genética correta entre a morfoestrutura e o compartimento morfoescultural resultante é:
+        </p>
+
+        <div class="space-y-3" role="radiogroup" aria-label="Alternativas da Questão 10">
+          <label class="option-card flex items-start gap-4 p-4 rounded-xl text-sm" onclick="selectOption(10, 'A')">
+            <input type="radio" name="q10" value="A" class="mt-1 sr-only">
+            <span class="w-6 h-6 rounded-full border border-zinc-300 flex items-center justify-center font-semibold text-xs shrink-0 text-zinc-600 bg-zinc-50">A</span>
+            <span class="leading-relaxed text-zinc-800">I – P ; II – R ; III – Q.</span>
+          </label>
+          <label class="option-card flex items-start gap-4 p-4 rounded-xl text-sm" onclick="selectOption(10, 'B')">
+            <input type="radio" name="q10" value="B" class="mt-1 sr-only">
+            <span class="w-6 h-6 rounded-full border border-zinc-300 flex items-center justify-center font-semibold text-xs shrink-0 text-zinc-600 bg-zinc-50">B</span>
+            <span class="leading-relaxed text-zinc-800">I – Q ; II – P ; III – R.</span>
+          </label>
+          <label class="option-card flex items-start gap-4 p-4 rounded-xl text-sm" onclick="selectOption(10, 'C')">
+            <input type="radio" name="q10" value="C" class="mt-1 sr-only">
+            <span class="w-6 h-6 rounded-full border border-zinc-300 flex items-center justify-center font-semibold text-xs shrink-0 text-zinc-600 bg-zinc-50">C</span>
+            <span class="leading-relaxed text-zinc-800">I – R ; II – Q ; III – P.</span>
+          </label>
+          <label class="option-card flex items-start gap-4 p-4 rounded-xl text-sm" onclick="selectOption(10, 'D')">
+            <input type="radio" name="q10" value="D" class="mt-1 sr-only">
+            <span class="w-6 h-6 rounded-full border border-zinc-300 flex items-center justify-center font-semibold text-xs shrink-0 text-zinc-600 bg-zinc-50">D</span>
+            <span class="leading-relaxed text-zinc-800">I – P ; II – Q ; III – R.</span>
+          </label>
+          <label class="option-card flex items-start gap-4 p-4 rounded-xl text-sm" onclick="selectOption(10, 'E')">
+            <input type="radio" name="q10" value="E" class="mt-1 sr-only">
+            <span class="w-6 h-6 rounded-full border border-zinc-300 flex items-center justify-center font-semibold text-xs shrink-0 text-zinc-600 bg-zinc-50">E</span>
+            <span class="leading-relaxed text-zinc-800">I – R ; II – P ; III – Q.</span>
+          </label>
+        </div>
+
+        <div id="res-q10" class="hidden mt-6 pt-6 border-t border-zinc-200">
+          <div class="bg-amber-50/50 border border-amber-200/70 rounded-xl p-5 text-sm">
+            <div class="flex items-center gap-2 text-amber-900 font-bold mb-2">
+              <i class="fa-solid fa-graduation-cap"></i> Resolução Comentada (Gabarito: A)
+            </div>
+            <p class="text-zinc-700 leading-relaxed">
+              A correspondência perfeita é <strong>I – P ; II – R ; III – Q (Alternativa A)</strong>:
+              <br>• <strong>I – P:</strong> Bacia Sedimentar Fanerozoica dá origem morfoescultural aos <em>Planaltos e Chapadas da Bacia do Parnaíba</em> (relevo tabular em camadas horizontais).
+              <br>• <strong>II – R:</strong> Cinturões Orogênicos Antigos dobrados fundamentam os <em>Planaltos e Serras do Atlântico Leste-Sudeste</em> (forte controle tectônico em rochas metamórficas).
+              <br>• <strong>III – Q:</strong> Coberturas Residuais e Intrusões de Plataforma sustentam os <em>Planaltos Residuais Sul-Amazônicos</em> (corpos graníticos e coberturas isoladas por denudação).
+            </p>
+          </div>
+        </div>
+      </article>
+
+      <!-- BOTÃO DE AÇÃO / FINALIZAÇÃO -->
+      <div class="text-center pt-4">
+        <button type="button" id="btn-submit" onclick="finishQuiz()" class="inline-flex items-center gap-3 px-8 py-4 rounded-xl bg-[#3B5A45] hover:bg-[#2e4736] text-white font-semibold text-base shadow-sm hover:shadow-md transition-all active:scale-[0.99] cursor-pointer">
+          <i class="fa-solid fa-circle-check"></i>
+          <span>Finalizar e Corrigir Simulado</span>
+        </button>
+      </div>
+    </form>
+
+    <!-- PAINEL DE RESULTADOS E RESOLUÇÕES CONSOLIDADAS (APARECE QUANDO FINALIZADO) -->
+    <section id="results-panel" class="hidden mt-16 pt-10 border-t-2 border-zinc-200">
+      
+      <!-- Card Geral com Desempenho -->
+      <div class="bg-white rounded-2xl p-6 sm:p-8 border border-zinc-200 shadow-sm mb-12">
+        <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+          <div class="text-center md:text-left">
+            <span class="px-3 py-1 rounded-full bg-zinc-100 text-zinc-700 text-xs font-semibold uppercase tracking-wider">Resultado da Avaliação</span>
+            <h3 id="result-title" class="text-2xl sm:text-3xl font-serif font-bold text-zinc-900 mt-2">Relatório de Desempenho</h3>
+            <p id="result-feedback" class="text-zinc-600 text-sm mt-1">Veja abaixo o detalhamento dos seus acertos e as justificativas teóricas de cada questão.</p>
+          </div>
+
+          <div class="flex items-center gap-4 bg-zinc-50 border border-zinc-200 p-5 rounded-2xl shrink-0">
+            <div class="w-16 h-16 rounded-full flex items-center justify-center text-2xl font-bold bg-[#3B5A45] text-white" id="score-circle">
+              0
+            </div>
+            <div>
+              <div class="text-2xl font-extrabold text-zinc-900"><span id="score-num">0</span> <span class="text-zinc-400 text-lg font-normal">/ 10</span></div>
+              <div id="score-percentage" class="text-xs font-semibold text-zinc-500">0% de aproveitamento</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Grade Rápida do Gabarito -->
+        <div class="mt-8 pt-6 border-t border-zinc-100">
+          <h4 class="text-xs font-bold uppercase tracking-wider text-zinc-400 mb-3">Tabela Resumo de Respostas</h4>
+          <div class="grid grid-cols-2 sm:grid-cols-5 md:grid-cols-10 gap-2" id="quick-grid">
+            <!-- Gerado via Javascript -->
+          </div>
+        </div>
+
+        <div class="mt-6 flex flex-wrap gap-3 justify-center md:justify-start">
+          <button onclick="window.scrollTo({ top: 0, behavior: 'smooth' })" class="px-4 py-2 rounded-lg bg-zinc-100 hover:bg-zinc-200 text-zinc-800 text-xs font-semibold transition-all">
+            <i class="fa-solid fa-arrow-up mr-1.5"></i> Rever no Formulário
+          </button>
+          <button onclick="resetQuiz()" class="px-4 py-2 rounded-lg bg-zinc-800 hover:bg-zinc-900 text-white text-xs font-semibold transition-all">
+            <i class="fa-solid fa-rotate-right mr-1.5"></i> Refazer Simulado
+          </button>
+        </div>
+      </div>
+
+      <!-- SEÇÃO EXAUSTIVA DE RESOLUÇÕES COMENTADAS (CONFORME O DOCUMENTO) -->
+      <div class="space-y-8">
+        <div class="border-b border-zinc-200 pb-3">
+          <span class="text-xs font-bold uppercase tracking-widest text-emerald-800">Documento Integral</span>
+          <h3 class="text-2xl font-serif font-bold text-zinc-900">Gabarito Oficial e Resoluções Comentadas</h3>
+          <p class="text-zinc-600 text-sm">Fundamentação conceitual com base em Ross (2014) e Ab'Sáber (2003).</p>
+        </div>
+
+        <!-- Resolução 01 -->
+        <div class="bg-white rounded-2xl p-6 sm:p-7 border border-zinc-200 shadow-sm">
+          <div class="flex items-center justify-between mb-3">
+            <span class="font-bold text-sm text-zinc-900">Questão 01 — Alternativa Correta: <span class="text-emerald-700 font-extrabold">C</span></span>
+            <span class="text-xs text-zinc-500 font-medium">Historiografia do Relevo</span>
+          </div>
+          <div class="prose-reading text-sm text-zinc-700 space-y-2">
+            <p>
+              A proposição <strong>C</strong> estabelece com fidelidade a base metodológica construída por Jurandyr Ross entre as décadas de 1980 e 1990, amplamente consolidada em Ross (2014). O autor fundamentou sua classificação na integração de três conceitos primordiais: a <strong>morfoestrutura</strong>, referente ao arcabouço geológico e ao contexto geotectônico herdado; a <strong>morfoescultura</strong>, associada à ação dos agentes exógenos climáticos do presente e do passado na esculturação do relevo; e a <strong>morfocronologia</strong>, encarregada de situar a sucessão temporal dos eventos geológicos e geomorfológicos ao longo do tempo profundo.
+            </p>
+            <p>
+              O equívoco da proposição A reside em atribuir a Aroldo de Azevedo (1949) um critério morfoclimático e a identificação de depressões; Azevedo utilizou um critério marcadamente topográfico e hipsométrico, estabelecendo a isópita de 200 metros para separar planaltos de planícies e reconhecendo apenas oito unidades territoriais. A proposição B incorre em erro inverso, pois foi Aziz Ab'Sáber quem superou a barreira altimétrica rígida dos 200 metros de Azevedo, substituindo-a pelo balanço morfogenético entre os processos de erosão e sedimentação. A assertiva D contraria a conceituação de Ab'Sáber, na qual os planaltos são caracterizados pela prevalência da erosão sobre a sedimentação. Por fim, a proposição E é incorreta porque o Projeto Radambrasil serviu de base justamente para Jurandyr Ross individualizar e consagrar as depressões relativas no mapa geomorfológico nacional, ampliando a divisão territorial para 28 compartimentos.
+            </p>
+          </div>
+        </div>
+
+        <!-- Resolução 02 -->
+        <div class="bg-white rounded-2xl p-6 sm:p-7 border border-zinc-200 shadow-sm">
+          <div class="flex items-center justify-between mb-3">
+            <span class="font-bold text-sm text-zinc-900">Questão 02 — Alternativa Correta: <span class="text-emerald-700 font-extrabold">C</span></span>
+            <span class="text-xs text-zinc-500 font-medium">Gênese das Depressões Relativas</span>
+          </div>
+          <div class="prose-reading text-sm text-zinc-700 space-y-2">
+            <p>
+              A assertiva <strong>C</strong> reúne corretamente os itens I, II e IV. O item I é verdadeiro porque, no vocabulário geomorfológico formal, uma depressão é dita <em>absoluta</em> exclusivamente quando sua cota altimétrica se encontra abaixo do nível zero internacional do mar. O relevo continental brasileiro não possui nenhuma superfície emersa negativa em relação ao nível do mar, inviabilizando a existência de depressões absolutas em território nacional. O item II é verdadeiro ao apontar que todas as 11 depressões reconhecidas por Ross são depressões relativas, definidas como superfícies rebaixadas situadas entre 100 e 500 metros de altitude, dissecadas por longos ciclos de erosão e pediplanação ao longo da Era Cenozoica e posicionadas topograficamente abaixo dos blocos de planaltos vizinhos. O item IV também é correto ao explicitar que essas superfícies se estabeleceram preferencialmente em litologias sedimentares frágeis ou zonas de contato de discordância entre bacias sedimentares e escudos cristalinos, onde o intemperismo diferencial facilitou o rebaixamento topográfico.
+            </p>
+            <p>
+              A assertiva descarta acertadamente o item III, que contém uma contradição de gênese morfológica: superfícies caracterizadas por agradação contínua e sedimentação inconsolidada recente do Quaternário constituem, por definição teórica estrita, compartimentos de planície, e não de depressão. Nas depressões relativas do relevo brasileiro, o balanço morfodinâmico é dominado pela desnudação e pelo desgaste erosivo.
+            </p>
+          </div>
+        </div>
+
+        <!-- Resolução 03 -->
+        <div class="bg-white rounded-2xl p-6 sm:p-7 border border-zinc-200 shadow-sm">
+          <div class="flex items-center justify-between mb-3">
+            <span class="font-bold text-sm text-zinc-900">Questão 03 — Alternativa Correta: <span class="text-emerald-700 font-extrabold">B</span></span>
+            <span class="text-xs text-zinc-500 font-medium">Tipologias de Depressões (2 – 1 – 3)</span>
+          </div>
+          <div class="prose-reading text-sm text-zinc-700 space-y-2">
+            <p>
+              A associação correta expressa na proposição <strong>B</strong> reflete a taxonomia desenvolvida por Ross (2014) para ordenar a morfogênese das 11 depressões brasileiras. O primeiro enunciado descreve conceitualmente as <strong>Depressões Periféricas (2)</strong>, caracterizadas pela sua gênese ligada a faixas de contato litoestrutural entre bacias sedimentares fanerozoicas e embasamentos cristalinos pré-cambrianos. Nesses setores, a erosão desbastou preferencialmente as camadas sedimentares basais menos resistentes, gerando corredores deprimidos delimitados lateralmente pelo relevo cristalino e pela frente escarpada de cuestas, cujo exemplo mais representativo é a Depressão Periférica da Borda Leste da Bacia do Paraná.
+            </p>
+            <p>
+              O segundo enunciado define as <strong>Depressões Marginais (1)</strong>, as quais margeiam as bordas externas das bacias sedimentares intracratônicas, entalhadas em terrenos cratônicos e faixas móveis que foram dissecados e rebaixados em torno das coberturas sedimentares, englobando as depressões Marginais Norte e Sul-Amazônicas. O terceiro enunciado refere-se às <strong>Depressões Interplanálticas (3)</strong>, compartimentos encravados no interior de maciços rochosos mais elevados, modelados predominantemente sobre o embasamento ígneo-metamórfico em decorrência de episódios paleoclimáticos de semiaridez que geraram amplas superfícies de pediplanação com testemunhos residuais, conforme tipificado na Depressão Sertaneja e do São Francisco.
+            </p>
+          </div>
+        </div>
+
+        <!-- Resolução 04 -->
+        <div class="bg-white rounded-2xl p-6 sm:p-7 border border-zinc-200 shadow-sm">
+          <div class="flex items-center justify-between mb-3">
+            <span class="font-bold text-sm text-zinc-900">Questão 04 — Alternativa Correta: <span class="text-emerald-700 font-extrabold">A</span></span>
+            <span class="text-xs text-zinc-500 font-medium">Os 6 Táxons Morfológicos de Ross</span>
+          </div>
+          <div class="prose-reading text-sm text-zinc-700 space-y-2">
+            <p>
+              A proposição <strong>A</strong> é a única correta ao correlacionar adequadamente o 1º Táxon do sistema geomorfológico de Jurandyr Ross à Unidade Morfoestrutural. Esse táxon fundamental decorre diretamente da dinâmica endógena e da geologia histórica regional, englobando as macroestruturas da crosta, tais como as bacias sedimentares fanerozoicas, as plataformas cratônicas consolidadas e os cinturões orogênicos antigos.
+            </p>
+            <p>
+              A análise das proposições incorretas evidencia distorções nas correspondências escalares propostas pelo autor: o 2º Táxon compreende as Unidades Morfoesculturais (os 28 compartimentos do relevo brasileiro); o 3º Táxon designa os Padrões de Formas de Relevo Semelhantes; o 4º Táxon refere-se aos Tipos de Formas de Relevo individualizadas (uma colina singular, um inselberg); o 5º Táxon corresponde aos Setores de Vertentes (segmentos de topo, rampa e sopé de encosta); e o 6º Táxon abrange os Microrrelevos e Processos Dinâmicos Atuais (feições métricas como ravinas, sulcos, voçorocas e feições tecnogênicas ativas).
+            </p>
+          </div>
+        </div>
+
+        <!-- Resolução 05 -->
+        <div class="bg-white rounded-2xl p-6 sm:p-7 border border-zinc-200 shadow-sm">
+          <div class="flex items-center justify-between mb-3">
+            <span class="font-bold text-sm text-zinc-900">Questão 05 — Alternativa Correta: <span class="text-emerald-700 font-extrabold">B</span></span>
+            <span class="text-xs text-zinc-500 font-medium">Morfoestrutura dos 11 Planaltos</span>
+          </div>
+          <div class="prose-reading text-sm text-zinc-700 space-y-2">
+            <p>
+              A proposição <strong>B</strong> atende perfeitamente à caracterização geomorfológica e geotectônica dos Planaltos e Serras do Atlântico Leste-Sudeste. Essa vasta unidade morfoescultural assenta-se sobre o Cinturão Orogênico Ribeira e faixas móveis pré-cambrianas associadas ao Ciclo Brasiliano, englobando litologias ígneas e metamórficas (como gnaisses, micaxistos, quartzitos e granitos intrusivos) intensamente falhadas e dobradas. A esculturação exógena sob paleoclimas úmidos e tropicais esculpiu um relevo montanhoso e colinoso dissecado em "meias-laranjas" (mares de morros de Ab'Sáber) intercalado a grandes escarpas serranas, como as serras do Mar, da Mantiqueira e do Espinhaço.
+            </p>
+            <p>
+              As alternativas restantes contêm incompatibilidades morfoestruturais: a assertiva A erra ao associar a Bacia do Paraná a terrenos cristalinos arqueanos expostos, pois se trata de uma bacia sedimentar com derrames basálticos; a assertiva C falseia ao apontar subsidência quaternária aos Planaltos Residuais Norte-Amazônicos (são terrenos cratônicos antigos com as maiores cotas do país); a assertiva D descaracteriza a Bacia do Parnaíba (bacia sedimentar tabular); e a assertiva E erra completamente ao chamar o Planalto da Borborema de planície costeira ou aluvial submersa.
+            </p>
+          </div>
+        </div>
+
+        <!-- Resolução 06 -->
+        <div class="bg-white rounded-2xl p-6 sm:p-7 border border-zinc-200 shadow-sm">
+          <div class="flex items-center justify-between mb-3">
+            <span class="font-bold text-sm text-zinc-900">Questão 06 — Alternativa Correta: <span class="text-emerald-700 font-extrabold">A</span></span>
+            <span class="text-xs text-zinc-500 font-medium">Critério Estrito para as 6 Planícies</span>
+          </div>
+          <div class="prose-reading text-sm text-zinc-700 space-y-2">
+            <p>
+              A proposição <strong>A</strong> resume o princípio morfogenético adotado por Jurandyr Ross a partir dos relatórios do Projeto Radambrasil. Em Ross (2014), uma área só pode ser categorizada genuinamente como planície se apresentar topografia essencialmente aplainada ou pouco dissecada, em que o balanço morfodinâmico registre domínio absoluto da deposição sobre o desgaste, e cuja constituição litológica seja formada por sedimentos inconsolidados ou semi-inconsolidados depositados estritamente durante o período Quaternário (Pleistoceno e Holoceno) por dinâmica marinha, lacustre ou aluvial.
+            </p>
+            <p>
+              Por esse rigor conceitual, os amplos tabuleiros sedimentares do Grupo Barreiras do Terciário no litoral e as vastas superfícies sedimentares terciárias dissecadas da Bacia Amazônica deixaram de ser tratados como planícies e foram reclassificados como planaltos sedimentares ou depressões relativas, restringindo a área das planícies a apenas 6 unidades bem delimitadas (Pantanal, calha do Rio Amazonas, litoral quaternário, trechos do Araguaia e Guaporé).
+            </p>
+          </div>
+        </div>
+
+        <!-- Resolução 07 -->
+        <div class="bg-white rounded-2xl p-6 sm:p-7 border border-zinc-200 shadow-sm">
+          <div class="flex items-center justify-between mb-3">
+            <span class="font-bold text-sm text-zinc-900">Questão 07 — Alternativa Correta: <span class="text-emerald-700 font-extrabold">A</span></span>
+            <span class="text-xs text-zinc-500 font-medium">Perfil Geomorfológico Paulista</span>
+          </div>
+          <div class="prose-reading text-sm text-zinc-700 space-y-2">
+            <p>
+              A proposição <strong>A</strong> analisa corretamente a dinâmica estratigráfica e estrutural do perfil paulista. A Depressão Periférica Paulista constitui o exemplo clássico de depressão esculpida em zona de contato morfoestrutural. Nesse setor, a erosão pós-cretácea atuou de forma seletiva desbastando os estratos sedimentares paleozoicos e mesozoicos pouco resistentes do Grupo Tubarão e formações associadas da borda da Bacia do Paraná. O rebaixamento diferencial entalhou um amplo corredor topográfico deprimido em relação ao bloco de montanhas do embasamento cristalino a leste (Planalto Atlântico) e às escarpas íngremes sustentadas pelos arenitos e rochas basálticas resistentes da Formação Serra Geral a oeste (frente de cuesta).
+            </p>
+          </div>
+        </div>
+
+        <!-- Resolução 08 -->
+        <div class="bg-white rounded-2xl p-6 sm:p-7 border border-zinc-200 shadow-sm">
+          <div class="flex items-center justify-between mb-3">
+            <span class="font-bold text-sm text-zinc-900">Questão 08 — Alternativa Correta: <span class="text-emerald-700 font-extrabold">A</span></span>
+            <span class="text-xs text-zinc-500 font-medium">Depressão Sertaneja e Inselbergs</span>
+          </div>
+          <div class="prose-reading text-sm text-zinc-700 space-y-2">
+            <p>
+              A proposição <strong>A</strong> traduz os consensos estabelecidos por Aziz Ab'Sáber (2003) e Jurandyr Ross (2014) acerca do domínio das caatingas e da Depressão Sertaneja e do São Francisco. Trata-se de uma vasta superfície de aplainamento (pediplano) esculpida predominantemente sobre o embasamento cristalino pré-cambriano, cuja gênese decorre de sucessivos pulsos climáticos secos e semiáridos ao longo do Cenozóico. Sob essas condições áridas pretéritas, a ação combinada do intemperismo físico e do escoamento superficial em lençol desbastou as rochas menos coesas, rebaixando a topografia regional e isolando maciços rochosos mais homogêneos e resistentes que permaneceram como relevos residuais sob a forma de <em>inselbergs</em>.
+            </p>
+          </div>
+        </div>
+
+        <!-- Resolução 09 -->
+        <div class="bg-white rounded-2xl p-6 sm:p-7 border border-zinc-200 shadow-sm">
+          <div class="flex items-center justify-between mb-3">
+            <span class="font-bold text-sm text-zinc-900">Questão 09 — Alternativa Correta: <span class="text-emerald-700 font-extrabold">B</span></span>
+            <span class="text-xs text-zinc-500 font-medium">Compartimentos de Relevo em Minas Gerais</span>
+          </div>
+          <div class="prose-reading text-sm text-zinc-700 space-y-2">
+            <p>
+              A proposição <strong>B</strong> descreve perfeitamente o arranjo morfoestrutural e fisiográfico dos <strong>Planaltos e Serras de Goiás-Minas</strong>. No território de Minas Gerais, esse compartimento abrange as faixas ocidentais do estado e a transição com Goiás, instalando-se sobre os dobramentos proterozoicos da Faixa Brasília e setores do Supergrupo Espinhaço. A unidade exibe grande diversidade litológica com metassedimentos resistentes como quartzitos, filitos e xistos, conferindo ao relevo cristas aguçadas, escarpas falhadas e alinhamentos de serras que intercalam vales dissecados com expressiva rugosidade topográfica.
+            </p>
+          </div>
+        </div>
+
+        <!-- Resolução 10 -->
+        <div class="bg-white rounded-2xl p-6 sm:p-7 border border-zinc-200 shadow-sm">
+          <div class="flex items-center justify-between mb-3">
+            <span class="font-bold text-sm text-zinc-900">Questão 10 — Alternativa Correta: <span class="text-emerald-700 font-extrabold">A</span></span>
+            <span class="text-xs text-zinc-500 font-medium">Correlação Morfoestrutura x Morfoescultura</span>
+          </div>
+          <div class="prose-reading text-sm text-zinc-700 space-y-2">
+            <p>
+              A proposição <strong>A</strong> expressa a correlação genética e escalar estabelecida por Ross (2014) entre a morfoestrutura de base (1º Táxon) e os compartimentos morfoesculturais resultantes do trabalho exógeno da denudação (2º Táxon). A Bacia Sedimentar Fanerozoica do Parnaíba (I) sustenta uma das mais nítidas morfologias tabulares do Nordeste e Centro-Norte, os <strong>Planaltos e Chapadas da Bacia do Parnaíba (P)</strong>. Os Cinturões Orogênicos Antigos dobrados do Pré-Cambriano (II) constituem o arcabouço estrutural dos <strong>Planaltos e Serras do Atlântico Leste-Sudeste (R)</strong>. As Coberturas Residuais e Intrusões Cristalinas de Plataforma (III) sustentam os <strong>Planaltos Residuais Sul-Amazônicos (Q)</strong>, onde a erosão diferencial preservou blocos e platôs soerguidos em meio a depressões circunvizinhas.
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Caixa de Diálogo Customizada (Substitui alert() de forma elegante) -->
+  <div id="custom-modal" class="fixed inset-0 z-50 bg-black/40 backdrop-blur-xs flex items-center justify-center p-4 hidden">
+    <div class="bg-white rounded-2xl max-w-md w-full p-6 border border-zinc-200 shadow-xl">
+      <div class="w-12 h-12 rounded-full bg-amber-100 text-amber-800 flex items-center justify-center text-xl mx-auto mb-4">
+        <i class="fa-solid fa-triangle-exclamation"></i>
+      </div>
+      <h3 class="text-lg font-bold text-zinc-900 text-center mb-2" id="modal-title">Questões Pendentes</h3>
+      <p class="text-sm text-zinc-600 text-center mb-6" id="modal-desc">Você ainda não respondeu a todas as questões. Deseja finalizar mesmo assim?</p>
+      <div class="flex items-center gap-3">
+        <button onclick="closeModal()" class="flex-1 px-4 py-2.5 rounded-xl border border-zinc-200 font-semibold text-xs text-zinc-700 hover:bg-zinc-100 transition-all">
+          Continuar Respondendo
+        </button>
+        <button onclick="proceedSubmission()" class="flex-1 px-4 py-2.5 rounded-xl bg-[#3B5A45] hover:bg-[#2e4736] font-semibold text-xs text-white transition-all">
+          Finalizar Mesmo Assim
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Lógica JavaScript Pura -->
+  <script>
+    // Gabarito Oficial
+    const ANSWER_KEY = {
+      1: 'C',
+      2: 'C',
+      3: 'B',
+      4: 'A',
+      5: 'B',
+      6: 'A',
+      7: 'A',
+      8: 'A',
+      9: 'B',
+      10: 'A'
+    };
+
+    // Estado das Respostas do Usuário
+    const userAnswers = {
+      1: null,
+      2: null,
+      3: null,
+      4: null,
+      5: null,
+      6: null,
+      7: null,
+      8: null,
+      9: null,
+      10: null
+    };
+
+    let quizFinished = false;
+
+    // Seleção de alternativa com feedback visual no card
+    function selectOption(qNum, optionLetter) {
+      if (quizFinished) return; // Impede alteração após finalizado
+
+      userAnswers[qNum] = optionLetter;
+      const card = document.getElementById(`card-q${qNum}`);
+      const options = card.querySelectorAll('.option-card');
+
+      options.forEach(opt => {
+        const input = opt.querySelector('input');
+        if (input.value === optionLetter) {
+          input.checked = true;
+          opt.classList.add('selected');
+        } else {
+          opt.classList.remove('selected');
+        }
+      });
+
+      updateProgress();
+    }
+
+    // Atualiza barra de progresso no topo
+    function updateProgress() {
+      const answeredCount = Object.values(userAnswers).filter(val => val !== null).length;
+      document.getElementById('progress-text').innerText = `${answeredCount} / 10`;
+      const pct = (answeredCount / 10) * 100;
+      document.getElementById('progress-bar').style.width = `${pct}%`;
+    }
+
+    // Verifica se há questões sem resposta
+    function finishQuiz() {
+      const unanswered = Object.entries(userAnswers).filter(([_, val]) => val === null);
+      if (unanswered.length > 0) {
+        document.getElementById('modal-title').innerText = `Atenção: ${unanswered.length} pendente(s)`;
+        document.getElementById('modal-desc').innerText = `Você ainda não selecionou alternativas para as seguintes questões: ${unanswered.map(u => u[0]).join(', ')}. Deseja concluir a correção agora?`;
+        document.getElementById('custom-modal').classList.remove('hidden');
+      } else {
+        proceedSubmission();
+      }
+    }
+
+    function closeModal() {
+      document.getElementById('custom-modal').classList.add('hidden');
+    }
+
+    // Processamento da Correção e Exibição de Resoluções
+    function proceedSubmission() {
+      closeModal();
+      quizFinished = true;
+
+      let score = 0;
+      const quickGrid = document.getElementById('quick-grid');
+      quickGrid.innerHTML = '';
+
+      for (let i = 1; i <= 10; i++) {
+        const selected = userAnswers[i];
+        const correct = ANSWER_KEY[i];
+        const isCorrect = (selected === correct);
+
+        if (isCorrect) score++;
+
+        // Elementos do card de cada questão
+        const card = document.getElementById(`card-q${i}`);
+        const badge = document.getElementById(`badge-q${i}`);
+        const resBlock = document.getElementById(`res-q${i}`);
+
+        // Revela o bloco explicativo debaixo de cada questão respondida
+        resBlock.classList.remove('hidden');
+
+        // Configura o badge do card
+        badge.classList.remove('hidden');
+        if (isCorrect) {
+          badge.className = 'text-xs font-bold px-2.5 py-1 rounded-md bg-emerald-100 text-emerald-800';
+          badge.innerHTML = '<i class="fa-solid fa-check mr-1"></i> Resposta Correta';
+          card.classList.add('border-emerald-300');
+        } else {
+          badge.className = 'text-xs font-bold px-2.5 py-1 rounded-md bg-rose-100 text-rose-800';
+          badge.innerHTML = `<i class="fa-solid fa-xmark mr-1"></i> Incorreta (Gabarito: ${correct})`;
+          card.classList.add('border-rose-300');
+        }
+
+        // Estiliza as alternativas da questão
+        const optionCards = card.querySelectorAll('.option-card');
+        optionCards.forEach(opt => {
+          const val = opt.querySelector('input').value;
+          opt.classList.remove('selected');
+
+          if (val === correct) {
+            opt.classList.add('correct-answer');
+          } else if (val === selected && !isCorrect) {
+            opt.classList.add('wrong-selected');
+          } else {
+            opt.classList.add('neutral-dimmed');
+          }
+        });
+
+        // Constrói item da grade resumo de respostas
+        const gridItem = document.createElement('div');
+        gridItem.className = `p-2.5 rounded-xl text-center border text-xs font-semibold ${
+          isCorrect 
+            ? 'bg-emerald-50 border-emerald-200 text-emerald-800' 
+            : 'bg-rose-50 border-rose-200 text-rose-800'
+        }`;
+        gridItem.innerHTML = `
+          <div class="text-[10px] text-zinc-500">Q${i < 10 ? '0' + i : i}</div>
+          <div class="text-sm font-bold">${selected || '—'} <span class="text-[10px] text-zinc-400 font-normal">(${correct})</span></div>
+        `;
+        quickGrid.appendChild(gridItem);
+      }
+
+      // Painel Consolidado de Resultados
+      document.getElementById('score-num').innerText = score;
+      document.getElementById('score-circle').innerText = `${score}`;
+      const pctScore = (score / 10) * 100;
+      document.getElementById('score-percentage').innerText = `${pctScore}% de acertos`;
+
+      const titleEl = document.getElementById('result-title');
+      const feedbackEl = document.getElementById('feedbackEl');
+      if (score >= 8) {
+        titleEl.innerText = 'Desempenho Excelente!';
+      } else if (score >= 6) {
+        titleEl.innerText = 'Bom Desempenho!';
+      } else {
+        titleEl.innerText = 'Revisão Recomendada';
+      }
+
+      // Desabilita o botão de finalizar
+      const submitBtn = document.getElementById('btn-submit');
+      submitBtn.classList.add('opacity-50', 'pointer-events-none');
+      submitBtn.innerHTML = '<i class="fa-solid fa-check-double"></i><span>Simulado Corrigido</span>';
+
+      // Mostra o painel inferior de resultados com animação suave
+      const resultsPanel = document.getElementById('results-panel');
+      resultsPanel.classList.remove('hidden');
+      resultsPanel.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    // Reiniciar simulado para nova tentativa
+    function resetQuiz() {
+      for (let i = 1; i <= 10; i++) {
+        userAnswers[i] = null;
+        const card = document.getElementById(`card-q${i}`);
+        card.classList.remove('border-emerald-300', 'border-rose-300');
+        
+        const badge = document.getElementById(`badge-q${i}`);
+        badge.classList.add('hidden');
+
+        const resBlock = document.getElementById(`res-q${i}`);
+        resBlock.classList.add('hidden');
+
+        const options = card.querySelectorAll('.option-card');
+        options.forEach(opt => {
+          opt.className = 'option-card flex items-start gap-4 p-4 rounded-xl text-sm';
+          opt.querySelector('input').checked = false;
+        });
+      }
+
+      quizFinished = false;
+      updateProgress();
+
+      const submitBtn = document.getElementById('btn-submit');
+      submitBtn.classList.remove('opacity-50', 'pointer-events-none');
+      submitBtn.innerHTML = '<i class="fa-solid fa-circle-check"></i><span>Finalizar e Corrigir Simulado</span>';
+
+      document.getElementById('results-panel').classList.add('hidden');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  </script>
+</body>
+</html>
