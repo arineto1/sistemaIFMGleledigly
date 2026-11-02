@@ -26,6 +26,10 @@
       --duo-blue-shadow: #1899d6;
       --duo-blue-light: #ddf4ff;
       --duo-blue-text: #1178ab;
+
+      /* Duolingo Orange Palette (Destaque Prova Dissertativa) */
+      --duo-orange: #ff9600;
+      --duo-orange-shadow: #cc7800;
     }
 
     * {
@@ -45,6 +49,52 @@
     .container {
       max-width: 1200px;
       margin: 0 auto;
+    }
+
+    /* Botão Grande de Acesso - Temas Dissertativa */
+    .top-cta-wrapper {
+      margin-bottom: 28px;
+      display: flex;
+      justify-content: center;
+      width: 100%;
+    }
+
+    .btn-dissertativa {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      width: 100%;
+      max-width: 720px;
+      padding: 20px 30px;
+      background: var(--duo-orange);
+      box-shadow: 0 8px 0 var(--duo-orange-shadow);
+      color: #ffffff;
+      font-family: inherit;
+      font-size: 1.3rem;
+      font-weight: 900;
+      text-decoration: none;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      border-radius: 22px;
+      text-align: center;
+      transition: transform 0.08s ease, box-shadow 0.08s ease, filter 0.15s ease;
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .btn-dissertativa:hover {
+      filter: brightness(1.06);
+    }
+
+    .btn-dissertativa:active {
+      transform: translateY(6px);
+      box-shadow: 0 2px 0 var(--duo-orange-shadow);
+    }
+
+    .btn-dissertativa .btn-icon {
+      font-size: 1.7rem;
+      line-height: 1;
     }
 
     /* Top Banner Header */
@@ -281,12 +331,24 @@
       header h1 {
         font-size: 1.7rem;
       }
+      .btn-dissertativa {
+        font-size: 1.05rem;
+        padding: 16px 20px;
+      }
     }
   </style>
 </head>
 <body>
 
   <div class="container">
+    <!-- Botão de Acesso à Prova Dissertativa -->
+    <div class="top-cta-wrapper">
+      <a href="dissertativa/menudissertativa.html" class="btn-dissertativa" title="Acessar temas dissertaiva.html">
+        <span class="btn-icon">📝</span>
+        <span>Acessar Temas Dissertativa</span>
+      </a>
+    </div>
+
     <header>
       <div class="badge-top">Plano de Estudos</div>
       <h1>Concurso IFMG</h1>

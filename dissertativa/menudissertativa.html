@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Menu de Dissertativas - Geografia</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+    .topic-card {
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .topic-card:hover {
+      transform: translateY(-3px);
+    }
+  </style>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen selection:bg-indigo-500 selection:text-white">
+
+  <!-- Cabeçalho Principal -->
+  <header class="border-b border-slate-800/80 bg-slate-900/60 backdrop-blur sticky top-0 z-30">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 py-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-600 to-sky-400 flex items-center justify-center text-white shadow-lg shadow-indigo-500/25">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+          </svg>
+        </div>
+        <div>
+          <h1 class="text-lg font-bold text-white tracking-tight">Portal de Dissertativas</h1>
+          <p class="text-xs text-slate-400">Controle de estudo e navegação temática de Geografia</p>
+        </div>
+      </div>
+
+      <!-- Resumo rápido e Ação de Limpeza -->
+      <div class="flex items-center gap-3 text-xs w-full sm:w-auto justify-between sm:justify-end">
+        <div class="flex items-center gap-2 bg-slate-800/80 px-3 py-1.5 rounded-lg border border-slate-700/60">
+          <span class="text-slate-400">Acessados:</span>
+          <span id="stat-accessed" class="font-bold text-emerald-400">0/10</span>
+        </div>
+        <button 
+          id="btn-reset-modal"
+          class="flex items-center gap-1.5 bg-slate-800 hover:bg-rose-950/40 text-slate-300 hover:text-rose-300 px-3 py-1.5 rounded-lg border border-slate-700/60 hover:border-rose-700/50 transition-colors">
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+          </svg>
+          Limpar Histórico
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Conteúdo Principal -->
+  <main class="max-w-6xl mx-auto px-4 sm:px-6 py-8">
+    
+    <!-- Barra de busca e filtros -->
+    <div class="mb-8 flex flex-col md:flex-row gap-4 items-stretch md:items-center justify-between">
+      <div class="relative flex-1">
+        <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-500">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+          </svg>
+        </div>
+        <input 
+          type="text" 
+          id="search-input"
+          placeholder="Pesquisar tema por palavra-chave..." 
+          class="w-full bg-slate-900 border border-slate-800 rounded-xl pl-10 pr-4 py-2.5 text-sm text-slate-200 placeholder-slate-500 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-all">
+      </div>
+
+      <!-- Filtros Rápidos -->
+      <div class="flex items-center gap-2 overflow-x-auto pb-1 md:pb-0 text-xs">
+        <button data-filter="all" class="filter-btn active-filter bg-indigo-600 text-white px-3 py-2 rounded-lg font-medium whitespace-nowrap shadow-sm">
+          Todos (10)
+        </button>
+        <button data-filter="visited" class="filter-btn bg-slate-800/80 hover:bg-slate-700 text-slate-300 px-3 py-2 rounded-lg font-medium whitespace-nowrap transition-colors">
+          Acessados recentemente
+        </button>
+        <button data-filter="unvisited" class="filter-btn bg-slate-800/80 hover:bg-slate-700 text-slate-300 px-3 py-2 rounded-lg font-medium whitespace-nowrap transition-colors">
+          Não iniciados
+        </button>
+      </div>
+    </div>
+
+    <!-- Grid com os 10 Botões dos Temas -->
+    <div id="topics-grid" class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5">
+      <!-- Inserido dinamicamente via JS -->
+    </div>
+
+    <!-- Mensagem de lista vazia na busca -->
+    <div id="empty-state" class="hidden text-center py-16">
+      <div class="w-12 h-12 mx-auto rounded-full bg-slate-800 text-slate-500 flex items-center justify-center mb-3">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+        </svg>
+      </div>
+      <p class="text-slate-400 font-medium">Nenhum tema encontrado com o termo buscado.</p>
+      <button onclick="document.getElementById('search-input').value = ''; filterTopics();" class="mt-2 text-xs text-indigo-400 hover:underline">Limpar busca</button>
+    </div>
+
+  </main>
+
+  <!-- Rodapé -->
+  <footer class="border-t border-slate-900 mt-12 py-6 text-center text-xs text-slate-500">
+    <p>O tempo de acesso é atualizado automaticamente e gravado no navegador via LocalStorage.</p>
+  </footer>
+
+  <!-- Modal de Confirmação para Limpeza de Histórico -->
+  <div id="modal-reset" class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4 opacity-0 pointer-events-none transition-opacity duration-200">
+    <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 max-w-sm w-full shadow-2xl transform scale-95 transition-transform duration-200" id="modal-box">
+      <div class="w-12 h-12 rounded-full bg-rose-500/10 text-rose-400 flex items-center justify-center mb-4">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
+        </svg>
+      </div>
+      <h3 class="text-base font-bold text-white mb-1">Zerar histórico de acessos?</h3>
+      <p class="text-xs text-slate-400 leading-relaxed mb-6">Todos os contadores de tempo de estudo salvos no seu navegador serão apagados e retornarão para "Nunca acessado".</p>
+      <div class="flex items-center justify-end gap-3">
+        <button id="btn-cancel-reset" class="px-4 py-2 text-xs font-semibold text-slate-400 hover:text-white bg-slate-800 hover:bg-slate-700 rounded-xl transition-colors">
+          Cancelar
+        </button>
+        <button id="btn-confirm-reset" class="px-4 py-2 text-xs font-semibold text-white bg-rose-600 hover:bg-rose-500 rounded-xl shadow-lg shadow-rose-600/25 transition-all">
+          Sim, zerar dados
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast de Notificação -->
+  <div id="toast" class="fixed bottom-6 right-6 z-50 transform translate-y-16 opacity-0 transition-all duration-300 pointer-events-none bg-slate-900 border border-slate-700 text-slate-200 text-xs px-4 py-3 rounded-xl shadow-2xl flex items-center gap-2">
+    <span id="toast-icon"></span>
+    <span id="toast-message">Mensagem</span>
+  </div>
+
+  <script>
+    // Definição dos 10 Temas com nomes resumidos para a URL
+    const topics = [
+      {
+        id: 1,
+        title: "Globalização e reprimarização da economia brasileira",
+        slug: "globalizacao-reprimarizacao",
+        category: "Geoeconomia",
+        badgeColor: "emerald"
+      },
+      {
+        id: 2,
+        title: "Produção do espaço urbano e segregação espacial",
+        slug: "producao-espaco-urbano",
+        category: "Espaço Urbano",
+        badgeColor: "sky"
+      },
+      {
+        id: 3,
+        title: "O papel do BRICS no cenário atual",
+        slug: "papel-brics",
+        category: "Geopolítica",
+        badgeColor: "indigo"
+      },
+      {
+        id: 4,
+        title: "Tecnologias atuais aplicadas à cartografia",
+        slug: "tecnologias-cartografia",
+        category: "Cartografia & SIG",
+        badgeColor: "amber"
+      },
+      {
+        id: 5,
+        title: "A revolução informacional no espaço geográfico",
+        slug: "revolucao-informacional",
+        category: "Redes & Sociedade",
+        badgeColor: "cyan"
+      },
+      {
+        id: 6,
+        title: "Epistemologia da Geografia e o debate sociedade e natureza",
+        slug: "epistemologia-geografia",
+        category: "Teoria do Conhecimento",
+        badgeColor: "purple"
+      },
+      {
+        id: 7,
+        title: "Emergência climática e adaptação das cidades",
+        slug: "emergencia-climatica",
+        category: "Climatologia & Cidades",
+        badgeColor: "rose"
+      },
+      {
+        id: 8,
+        title: "O meio técnico-científico-informacional e a produção agropecuária brasileira",
+        slug: "meio-tecnico-agropecuaria",
+        category: "Geografia Agrária",
+        badgeColor: "teal"
+      },
+      {
+        id: 9,
+        title: "Domínios morfoclimáticos e conflitos socioambientais",
+        slug: "dominios-morfoclimaticos",
+        category: "Biogeografia",
+        badgeColor: "orange"
+      },
+      {
+        id: 10,
+        title: "Formação, estrutura e dinâmica da população brasileira",
+        slug: "populacao-brasileira",
+        category: "Demografia",
+        badgeColor: "blue"
+      }
+    ];
+
+    // Chave prefixo usada no localStorage
+    const STORAGE_PREFIX = "dissertativa_tempo_";
+
+    // Utilitário de Storage seguro (com fallback em memória)
+    const storage = {
+      get: (key) => {
+        try {
+          return localStorage.getItem(key);
+        } catch (e) {
+          return window._fallbackStorage?.[key] || null;
+        }
+      },
+      set: (key, val) => {
+        try {
+          localStorage.setItem(key, val);
+        } catch (e) {
+          window._fallbackStorage = window._fallbackStorage || {};
+          window._fallbackStorage[key] = val;
+        }
+      },
+      remove: (key) => {
+        try {
+          localStorage.removeItem(key);
+        } catch (e) {
+          if (window._fallbackStorage) delete window._fallbackStorage[key];
+        }
+      }
+    };
+
+    // Formatação amigável do tempo decorrido desde o último acesso
+    function formatTimeElapsed(timestamp) {
+      if (!timestamp) {
+        return {
+          text: "Nunca acessado",
+          isNever: true,
+          badgeClass: "bg-slate-800 text-slate-400 border-slate-700"
+        };
+      }
+
+      const now = Date.now();
+      const diffMs = now - parseInt(timestamp, 10);
+      
+      if (diffMs < 0 || isNaN(diffMs)) {
+        return {
+          text: "Acessado agora",
+          isNever: false,
+          badgeClass: "bg-emerald-950/70 text-emerald-300 border-emerald-800/80"
+        };
+      }
+
+      const diffSec = Math.floor(diffMs / 1000);
+      const diffMin = Math.floor(diffSec / 60);
+      const diffHours = Math.floor(diffMin / 60);
+      const diffDays = Math.floor(diffHours / 24);
+
+      let text = "";
+      if (diffSec < 45) {
+        text = "Acessado há poucos segundos";
+      } else if (diffMin < 60) {
+        text = `Acessado há ${diffMin} ${diffMin === 1 ? 'minuto' : 'minutos'}`;
+      } else if (diffHours < 24) {
+        const remainingMin = diffMin % 60;
+        text = `Acessado há ${diffHours}h ${remainingMin > 0 ? remainingMin + 'm' : ''}`;
+      } else if (diffDays < 30) {
+        const remainingHours = diffHours % 24;
+        text = `Acessado há ${diffDays} ${diffDays === 1 ? 'dia' : 'dias'}${remainingHours > 0 ? ' e ' + remainingHours + 'h' : ''}`;
+      } else {
+        const dateObj = new Date(parseInt(timestamp, 10));
+        text = `Acessado em ${dateObj.toLocaleDateString('pt-BR')}`;
+      }
+
+      return {
+        text: text,
+        isNever: false,
+        badgeClass: "bg-indigo-950/60 text-indigo-300 border-indigo-800/80"
+      };
+    }
+
+    // Renderiza os cards de botões na grade
+    function renderTopics(filteredTopics = topics) {
+      const grid = document.getElementById("topics-grid");
+      const emptyState = document.getElementById("empty-state");
+
+      if (filteredTopics.length === 0) {
+        grid.innerHTML = "";
+        emptyState.classList.remove("hidden");
+        return;
+      }
+
+      emptyState.classList.add("hidden");
+      grid.innerHTML = "";
+
+      let accessedCount = 0;
+
+      filteredTopics.forEach((topic) => {
+        const storedTime = storage.get(STORAGE_PREFIX + topic.slug);
+        if (storedTime) accessedCount++;
+        const timeData = formatTimeElapsed(storedTime);
+
+        const card = document.createElement("div");
+        card.className = "topic-card bg-slate-900/90 border border-slate-800/90 hover:border-indigo-500/50 rounded-2xl p-5 flex flex-col justify-between shadow-lg shadow-black/30 relative overflow-hidden group";
+
+        card.innerHTML = `
+          <!-- Indicador decorativo de tema -->
+          <div class="flex items-start justify-between gap-3 mb-3">
+            <div class="flex items-center gap-2">
+              <span class="w-6 h-6 rounded-lg bg-slate-800 text-slate-300 font-mono text-xs font-bold flex items-center justify-center border border-slate-700/60">
+                ${String(topic.id).padStart(2, '0')}
+              </span>
+              <span class="text-[11px] font-semibold uppercase tracking-wider text-slate-400 bg-slate-800/50 px-2.5 py-0.5 rounded-md border border-slate-800">
+                ${topic.category}
+              </span>
+            </div>
+            <span class="text-[10px] text-slate-500 font-mono bg-slate-950/60 px-2 py-0.5 rounded border border-slate-800/80">
+              dissertativa/${topic.slug}.html
+            </span>
+          </div>
+
+          <!-- Título da Aula -->
+          <div class="mb-4">
+            <h2 class="text-sm sm:text-base font-semibold text-slate-100 group-hover:text-indigo-200 transition-colors leading-snug">
+              ${topic.title}
+            </h2>
+          </div>
+
+          <!-- Ação do Botão Principal -->
+          <div class="mt-auto pt-2">
+            <a 
+              href="dissertativa/${topic.slug}.html"
+              data-slug="${topic.slug}"
+              data-title="${topic.title}"
+              class="topic-btn w-full bg-gradient-to-r from-indigo-600 to-indigo-700 hover:from-indigo-500 hover:to-indigo-600 active:scale-[0.98] text-white font-medium text-xs sm:text-sm py-2.5 px-4 rounded-xl flex items-center justify-center gap-2 transition-all shadow-md shadow-indigo-900/30">
+              <span>Acessar Dissertativa</span>
+              <svg class="w-4 h-4 transform group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+              </svg>
+            </a>
+
+            <!-- Contador de Tempo Embaixo do Botão -->
+            <div class="mt-3 pt-2.5 border-t border-slate-800/80 flex items-center justify-between text-xs">
+              <div class="flex items-center gap-1.5 text-slate-400">
+                <svg class="w-3.5 h-3.5 ${timeData.isNever ? 'text-slate-500' : 'text-indigo-400'}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+                <span class="text-[11px] font-medium text-slate-400">Status de estudo:</span>
+              </div>
+              <span id="counter-${topic.slug}" class="counter-badge inline-flex items-center px-2 py-0.5 rounded-md text-[11px] font-medium border ${timeData.badgeClass}">
+                ${timeData.text}
+              </span>
+            </div>
+          </div>
+        `;
+
+        grid.appendChild(card);
+      });
+
+      // Vincula clique para registrar acesso e atualizar contador imediatamente
+      document.querySelectorAll(".topic-btn").forEach(btn => {
+        btn.addEventListener("click", function(e) {
+          const slug = this.getAttribute("data-slug");
+          const title = this.getAttribute("data-title");
+          
+          // Registra o timestamp no localStorage
+          const now = Date.now();
+          storage.set(STORAGE_PREFIX + slug, now.toString());
+
+          // Atualiza o contador na tela
+          const counterEl = document.getElementById("counter-" + slug);
+          if (counterEl) {
+            counterEl.textContent = "Acessado agora";
+            counterEl.className = "counter-badge inline-flex items-center px-2 py-0.5 rounded-md text-[11px] font-medium border bg-emerald-950/70 text-emerald-300 border-emerald-800/80";
+          }
+
+          updateStats();
+          showToast(`Acessando: ${title}`);
+        });
+      });
+
+      updateStats();
+    }
+
+    // Atualiza contadores em tempo real a cada 10 segundos
+    function refreshCounters() {
+      topics.forEach(topic => {
+        const counterEl = document.getElementById("counter-" + topic.slug);
+        if (counterEl) {
+          const storedTime = storage.get(STORAGE_PREFIX + topic.slug);
+          const timeData = formatTimeElapsed(storedTime);
+          counterEl.textContent = timeData.text;
+          counterEl.className = `counter-badge inline-flex items-center px-2 py-0.5 rounded-md text-[11px] font-medium border ${timeData.badgeClass}`;
+        }
+      });
+      updateStats();
+    }
+
+    // Atualiza estatística geral do cabeçalho
+    function updateStats() {
+      let count = 0;
+      topics.forEach(t => {
+        if (storage.get(STORAGE_PREFIX + t.slug)) count++;
+      });
+      const statEl = document.getElementById("stat-accessed");
+      if (statEl) {
+        statEl.textContent = `${count}/${topics.length}`;
+      }
+    }
+
+    // Filtros e busca
+    let currentFilter = "all";
+
+    function filterTopics() {
+      const searchTerm = document.getElementById("search-input").value.toLowerCase().trim();
+
+      const result = topics.filter(t => {
+        const matchesSearch = t.title.toLowerCase().includes(searchTerm) || 
+                              t.category.toLowerCase().includes(searchTerm) ||
+                              t.slug.toLowerCase().includes(searchTerm);
+
+        const storedTime = storage.get(STORAGE_PREFIX + t.slug);
+        let matchesFilter = true;
+
+        if (currentFilter === "visited") {
+          matchesFilter = !!storedTime;
+        } else if (currentFilter === "unvisited") {
+          matchesFilter = !storedTime;
+        }
+
+        return matchesSearch && matchesFilter;
+      });
+
+      renderTopics(result);
+    }
+
+    // Configuração dos botões de filtro
+    document.querySelectorAll(".filter-btn").forEach(btn => {
+      btn.addEventListener("click", function() {
+        document.querySelectorAll(".filter-btn").forEach(b => {
+          b.classList.remove("active-filter", "bg-indigo-600", "text-white");
+          b.classList.add("bg-slate-800/80", "text-slate-300");
+        });
+        this.classList.add("active-filter", "bg-indigo-600", "text-white");
+        this.classList.remove("bg-slate-800/80", "text-slate-300");
+        
+        currentFilter = this.getAttribute("data-filter");
+        filterTopics();
+      });
+    });
+
+    document.getElementById("search-input").addEventListener("input", filterTopics);
+
+    // Sistema de Modal para Limpeza de Histórico
+    const modal = document.getElementById("modal-reset");
+    const modalBox = document.getElementById("modal-box");
+    const openModalBtn = document.getElementById("btn-reset-modal");
+    const closeModalBtn = document.getElementById("btn-cancel-reset");
+    const confirmModalBtn = document.getElementById("btn-confirm-reset");
+
+    function openModal() {
+      modal.classList.remove("opacity-0", "pointer-events-none");
+      modalBox.classList.remove("scale-95");
+      modalBox.classList.add("scale-100");
+    }
+
+    function closeModal() {
+      modal.classList.add("opacity-0", "pointer-events-none");
+      modalBox.classList.remove("scale-100");
+      modalBox.classList.add("scale-95");
+    }
+
+    openModalBtn.addEventListener("click", openModal);
+    closeModalBtn.addEventListener("click", closeModal);
+    modal.addEventListener("click", (e) => {
+      if (e.target === modal) closeModal();
+    });
+
+    confirmModalBtn.addEventListener("click", function() {
+      topics.forEach(t => {
+        storage.remove(STORAGE_PREFIX + t.slug);
+      });
+      closeModal();
+      filterTopics();
+      showToast("Histórico de estudos zerado com sucesso!");
+    });
+
+    // Toast personalizado
+    function showToast(message) {
+      const toast = document.getElementById("toast");
+      const msgEl = document.getElementById("toast-message");
+      msgEl.textContent = message;
+      toast.classList.remove("translate-y-16", "opacity-0", "pointer-events-none");
+      
+      setTimeout(() => {
+        toast.classList.add("translate-y-16", "opacity-0", "pointer-events-none");
+      }, 3500);
+    }
+
+    // Inicialização da Página
+    window.onload = function() {
+      renderTopics();
+      // Atualiza os contadores automaticamente a cada 15 segundos
+      setInterval(refreshCounters, 15000);
+    };
+  </script>
+</body>
+</html>
