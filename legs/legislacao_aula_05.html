@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lei nº 8.112/1990 - Preparatório Concurso IFMG</title>
+  <!-- Tailwind CSS via CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #ffffff;
+      color: #0f172a;
+      -webkit-font-smoothing: antialiased;
+    }
+    /* Estilos de marca-texto de alta legibilidade para estudo */
+    mark.highlight-yellow {
+      background-color: #fef08a;
+      color: #713f12;
+      padding: 0.12rem 0.35rem;
+      border-radius: 0.25rem;
+      font-weight: 600;
+    }
+    mark.highlight-green {
+      background-color: #dcfce7;
+      color: #14532d;
+      padding: 0.12rem 0.35rem;
+      border-radius: 0.25rem;
+      font-weight: 600;
+    }
+    mark.highlight-red {
+      background-color: #fee2e2;
+      color: #7f1d1d;
+      padding: 0.12rem 0.35rem;
+      border-radius: 0.25rem;
+      font-weight: 600;
+    }
+    mark.highlight-blue {
+      background-color: #e0f2fe;
+      color: #0c4a6e;
+      padding: 0.12rem 0.35rem;
+      border-radius: 0.25rem;
+      font-weight: 600;
+    }
+    /* Quebra de palavras segura em tabelas para impedir scroll horizontal */
+    .table-fixed-wrap {
+      table-layout: fixed;
+      width: 100%;
+      word-wrap: break-word;
+      overflow-wrap: break-word;
+    }
+  </style>
+</head>
+<body class="bg-white min-h-screen text-slate-900 selection:bg-amber-200 selection:text-slate-900">
+
+  <!-- Container Central -->
+  <main class="max-w-4xl mx-auto px-4 py-8 sm:px-6 lg:px-8">
+
+    <!-- Cabeçalho Institucional -->
+    <header class="border-b border-slate-200 pb-6 mb-8">
+      <div class="inline-flex items-center gap-2 px-3 py-1 bg-slate-100 text-slate-700 text-xs font-semibold rounded-full uppercase tracking-wider mb-3">
+        <span>Concurso Público IFMG</span>
+        <span>•</span>
+        <span>Docente EBTT - Geografia</span>
+      </div>
+      <h1 class="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-slate-900 tracking-tight leading-tight">
+        Regime Jurídico dos Servidores Públicos Federais (Lei nº 8.112/1990)
+      </h1>
+      <p class="mt-2 text-base sm:text-lg text-slate-600 leading-relaxed">
+        Estabilidade, Vacância e Movimentação Funcional aplicadas aos Institutos Federais. Dispositivos: Arts. 20 a 23, 33 a 35, 36 e 37.
+      </p>
+    </header>
+
+    <!-- Módulo Reprodutor de Áudio MP3 -->
+    <section class="bg-slate-50 border border-slate-300 rounded-2xl p-5 mb-10 shadow-sm">
+      <div class="flex items-center justify-between flex-wrap gap-2 mb-3">
+        <div class="flex items-center gap-2">
+          <svg class="w-5 h-5 text-emerald-700" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M18 3a1 1 0 00-1.196-.98l-10 2A1 1 0 006 5v9.114A4.369 4.369 0 005 14c-1.657 0-3 .895-3 2s1.343 2 3 2 3-.895 3-2V7.82l8-1.6v5.894A4.37 4.37 0 0015 12c-1.657 0-3 .895-3 2s1.343 2 3 2 3-.895 3-2V3z"/>
+          </svg>
+          <span class="text-sm font-bold text-slate-800 uppercase tracking-wide">Áudio-Aula da Disciplina</span>
+        </div>
+        <span class="text-xs bg-white text-slate-600 px-2.5 py-1 rounded-md border border-slate-200">
+          Execução Local
+        </span>
+      </div>
+
+      <!-- Configuração do Arquivo de Áudio -->
+      <div class="mb-4">
+        <label for="audioFileName" class="block text-xs font-semibold text-slate-700 mb-1">
+          Nome do arquivo MP3 (deve estar na mesma pasta deste arquivo HTML):
+        </label>
+        <div class="flex flex-col sm:flex-row gap-2">
+          <input 
+            type="text" 
+            id="audioFileName" 
+            value="audio4legs.mp3" 
+            placeholder="exemplo: audio4legs.mp3"
+            class="flex-1 px-3 py-2 text-sm bg-white border border-slate-300 rounded-lg text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-600 focus:border-transparent font-mono"
+          />
+          <button 
+            type="button" 
+            id="btnCarregarAudio" 
+            class="px-4 py-2 bg-slate-900 hover:bg-slate-800 text-white text-sm font-semibold rounded-lg transition-colors flex items-center justify-center gap-1.5"
+          >
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+            </svg>
+            Carregar Áudio
+          </button>
+        </div>
+        <p id="audioStatus" class="text-xs text-slate-500 mt-1">Pronto para reproduzir: <strong class="text-slate-700 font-mono" id="currentTrackLabel">audio4legs.mp3</strong></p>
+      </div>
+
+      <!-- Player Nativo HTML5 -->
+      <audio id="audioPlayer" controls class="w-full h-11 focus:outline-none">
+        <source id="audioSource" src="audio5legs.mp3" type="audio/mpeg">
+        Seu navegador não suporta reprodução de áudio HTML5.
+      </audio>
+    </section>
+
+    <!-- Artigo Principal da Aula -->
+    <article class="space-y-10 text-slate-800 text-base leading-relaxed">
+
+      <!-- Contextualização Geral -->
+      <section class="border-l-4 border-slate-900 pl-4 py-1">
+        <p class="text-slate-800 text-justify">
+          O regime jurídico dos servidores públicos civis da União, instituído pela Lei nº 8.112/1990, estabelece as diretrizes normativas fundamentais aplicáveis aos servidores federais do magistério básico, técnico e tecnológico e aos técnicos-administrativos em educação. Na estrutura organizacional dos Institutos Federais de Educação, Ciência e Tecnologia, que se constituem como <mark class="highlight-blue">autarquias federais de regime especial</mark> detentoras de autonomia administrativa e orçamentária, a incidência dos dispositivos relativos ao estágio probatório, à aquisição de estabilidade, às formas de vacância e à movimentação de pessoal assume conformação técnica específica. O domínio sistemático dos <mark class="highlight-yellow">artigos 20 a 37 da Lei nº 8.112/1990</mark>, cotejado com a jurisprudência uniformizada dos tribunais superiores e as exigências recorrentes da Comissão Central de Concurso Público do Instituto Federal de Minas Gerais (IFMG), exige uma diferenciação exata de conceitos com base na literalidade e na interpretação institucional.
+        </p>
+      </section>
+
+      <!-- SEÇÃO 1: Estágio Probatório e Estabilidade -->
+      <section class="space-y-6">
+        <div class="border-b border-slate-200 pb-2">
+          <h2 class="text-xl sm:text-2xl font-bold text-slate-900 flex items-center gap-2">
+            <span class="w-2.5 h-6 bg-slate-900 rounded-sm"></span>
+            1. Estágio Probatório e Estabilidade Constitucional
+          </h2>
+        </div>
+
+        <p class="text-justify">
+          O ingresso em cargo público efetivo da carreira docente decorre de aprovação prévia em concurso público de provas e títulos, aperfeiçoando-se a investidura com a posse e iniciando-se o vínculo funcional no efetivo exercício. A partir desse momento, deflagra-se o período no qual a aptidão, a dedicação e o perfil disciplinar do docente recém-empossado são submetidos a escrutínio formal.
+        </p>
+
+        <!-- Subseção 1.1: Divergência -->
+        <div class="space-y-3">
+          <h3 class="text-lg font-bold text-slate-900">
+            A Divergência Entre a Literalidade da Lei nº 8.112/1990 e o Artigo 41 da Constituição Federal
+          </h3>
+          <p class="text-justify">
+            A análise da duração do estágio probatório revela uma assimetria formal entre o texto da lei estatutária e a ordem constitucional vigente. O <mark class="highlight-yellow">artigo 20, caput, da Lei nº 8.112/1990</mark> assinala que, ao entrar em exercício, o servidor nomeado para cargo de provimento efetivo fica submetido a estágio probatório pelo período de <mark class="highlight-yellow">24 (vinte e quatro) meses</mark>. Todavia, a promulgação da <mark class="highlight-green">Emenda Constitucional nº 19/1998</mark> modificou o artigo 41 da Constituição Federal de 1988, ampliando expressamente de 2 (dois) para <mark class="highlight-green">3 (três) anos</mark> o tempo de efetivo exercício mandatório para a aquisição da estabilidade funcional.
+          </p>
+          <p class="text-justify">
+            Diante desse cenário, consolidou-se na jurisprudência do <mark class="highlight-blue">Supremo Tribunal Federal e do Superior Tribunal de Justiça</mark> o entendimento vinculante de que o prazo do estágio probatório é de <mark class="highlight-green">3 (três) anos (36 meses)</mark>, uma vez que a avaliação do estágio probatório constitui condição material indispensável para a consolidação da estabilidade, descabendo dissociação temporal entre ambos os institutos. No âmbito regulamentar dos Institutos Federais, a exemplo do IFMG, a aferição do desempenho docente obedece rigorosamente a ciclos que perfazem a totalidade dos 36 meses de exercício probante.
+          </p>
+        </div>
+
+        <!-- Tabela 1: Sem rolagem horizontal -->
+        <div class="border border-slate-300 rounded-xl overflow-hidden shadow-sm my-4">
+          <div class="bg-slate-100 px-4 py-2 border-b border-slate-300 font-bold text-xs uppercase tracking-wider text-slate-700">
+            Tabela 1: Parâmetros do Estágio Probatório e Estabilidade
+          </div>
+          <table class="table-fixed-wrap divide-y divide-slate-200 text-xs sm:text-sm">
+            <thead class="bg-slate-50 text-slate-800 font-bold">
+              <tr>
+                <th class="p-2 sm:p-3 text-left w-1/4 border-r border-slate-200">Parâmetro</th>
+                <th class="p-2 sm:p-3 text-left w-1/4 border-r border-slate-200">Texto Lei 8.112/90</th>
+                <th class="p-2 sm:p-3 text-left w-1/4 border-r border-slate-200">Regra Constitucional / STF / STJ</th>
+                <th class="p-2 sm:p-3 text-left w-1/4">Aplicação no IFMG</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-200 bg-white">
+              <tr>
+                <td class="p-2 sm:p-3 font-semibold text-slate-900 border-r border-slate-200">Duração Temporal</td>
+                <td class="p-2 sm:p-3 border-r border-slate-200"><mark class="highlight-yellow">24 meses</mark><br><span class="text-slate-500 text-xs">(Art. 20, caput)</span></td>
+                <td class="p-2 sm:p-3 border-r border-slate-200"><mark class="highlight-green">3 anos / 36 meses</mark><br><span class="text-slate-500 text-xs">(Art. 41 CF/88; Súmula STF/STJ)</span></td>
+                <td class="p-2 sm:p-3">36 meses com ciclos periódicos de avaliação docente</td>
+              </tr>
+              <tr>
+                <td class="p-2 sm:p-3 font-semibold text-slate-900 border-r border-slate-200">Requisito de Aquisição</td>
+                <td class="p-2 sm:p-3 border-r border-slate-200">Cumprimento do período probatório</td>
+                <td class="p-2 sm:p-3 border-r border-slate-200">3 anos de efetivo exercício + avaliação especial</td>
+                <td class="p-2 sm:p-3">Comissão de Avaliação de Desempenho Docente</td>
+              </tr>
+              <tr>
+                <td class="p-2 sm:p-3 font-semibold text-slate-900 border-r border-slate-200">Comissão Avaliadora</td>
+                <td class="p-2 sm:p-3 border-r border-slate-200">Comissão constituída para essa finalidade (Art. 20, § 1º)</td>
+                <td class="p-2 sm:p-3 border-r border-slate-200">Avaliação especial obrigatória (Art. 41, § 4º, CF)</td>
+                <td class="p-2 sm:p-3">Comissão de Avaliação de Estágio Probatório Docente (CAEPD)</td>
+              </tr>
+              <tr>
+                <td class="p-2 sm:p-3 font-semibold text-slate-900 border-r border-slate-200">Prazo de Homologação</td>
+                <td class="p-2 sm:p-3 border-r border-slate-200"><mark class="highlight-yellow">4 meses antes</mark> do término do período</td>
+                <td class="p-2 sm:p-3 border-r border-slate-200">Previamente ao ato declaratório formal</td>
+                <td class="p-2 sm:p-3">Submissão aos órgãos diretivos e à Reitoria</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Subseção 1.2: Fatores Avaliativos -->
+        <div class="space-y-4">
+          <h3 class="text-lg font-bold text-slate-900">
+            Fatores Avaliativos do Estágio Probatório
+          </h3>
+          <p class="text-justify">
+            A verificação da conformidade do servidor com os misteres do cargo não pode revestir-se de discricionariedade subjetiva do avaliador. O <mark class="highlight-yellow">artigo 20, incisos I a V, da Lei nº 8.112/1990</mark> traz um rol taxativo dos fatores a serem observados pela comissão designada:
+          </p>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">
+            <div class="border border-slate-200 p-3 rounded-lg bg-white">
+              <span class="font-bold text-slate-900 block mb-1">I – <mark class="highlight-yellow">A</mark>ssiduidade:</span>
+              <p class="text-slate-600 text-xs sm:text-sm">Regularidade da presença física no posto de trabalho e cumprimento integral dos horários e da jornada semanal de trabalho.</p>
+            </div>
+            <div class="border border-slate-200 p-3 rounded-lg bg-white">
+              <span class="font-bold text-slate-900 block mb-1">II – <mark class="highlight-yellow">DI</mark>sciplina:</span>
+              <p class="text-slate-600 text-xs sm:text-sm">Observância irrestrita às prescrições legais, aos regimentos institucionais internos e aos comandos funcionais das chefias hierárquicas.</p>
+            </div>
+            <div class="border border-slate-200 p-3 rounded-lg bg-white">
+              <span class="font-bold text-slate-900 block mb-1">III – <mark class="highlight-yellow">CA</mark>pacidade de iniciativa:</span>
+              <p class="text-slate-600 text-xs sm:text-sm">Grau de autonomia, postura proativa na resolução de entraves funcionais e proposição fundamentada de melhorias setoriais.</p>
+            </div>
+            <div class="border border-slate-200 p-3 rounded-lg bg-white">
+              <span class="font-bold text-slate-900 block mb-1">IV – <mark class="highlight-yellow">PRO</mark>dutividade:</span>
+              <p class="text-slate-600 text-xs sm:text-sm">Desempenho quantitativo e qualitativo das atividades inerentes ao plano de trabalho e atendimento tempestivo às demandas com eficácia e segurança.</p>
+            </div>
+            <div class="border border-slate-200 p-3 rounded-lg bg-white sm:col-span-2">
+              <span class="font-bold text-slate-900 block mb-1">V – <mark class="highlight-yellow">RES</mark>ponsabilidade:</span>
+              <p class="text-slate-600 text-xs sm:text-sm">Grau de compromisso com o patrimônio público, o sigilo profissional, o zelo pelos bens colocados à disposição e a resposta perante eventuais prejuízos causados à Administração.</p>
+            </div>
+          </div>
+
+          <!-- Mnemônico de Prova -->
+          <div class="bg-amber-50 border-l-4 border-amber-500 p-4 rounded-r-lg">
+            <h4 class="font-bold text-amber-950 text-sm flex items-center gap-1.5">
+              <span>⚡ Mnemônico Obrigatório para a Prova:</span>
+              <span class="font-mono bg-amber-200 px-2 py-0.5 rounded text-amber-900">ADICA-PRO-RES</span>
+            </h4>
+            <p class="text-xs sm:text-sm text-amber-900 mt-1 leading-relaxed">
+              <strong>A</strong>ssiduidade | <strong>DI</strong>sciplina | <strong>CA</strong>pacidade de iniciativa | <strong>PRO</strong>dutividade | <strong>RES</strong>ponsabilidade.<br>
+              <mark class="highlight-red">Atenção à pegadinha:</mark> Os termos <em>"eficiência"</em>, <em>"pontualidade"</em> ou <em>"idoneidade moral"</em> <strong>NÃO</strong> constam no rol taxativo do artigo 20 da 8.112/90!
+            </p>
+          </div>
+        </div>
+
+        <!-- Subseção 1.3: Tramitação e Reprovação -->
+        <div class="space-y-3">
+          <h3 class="text-lg font-bold text-slate-900">
+            Tramitação da Avaliação e Consequências da Reprovação
+          </h3>
+          <p class="text-justify">
+            O parágrafo 1º do artigo 20 determina que, exatamente <mark class="highlight-yellow">4 (quatro) meses antes</mark> de findar o período do estágio probatório, a comissão avaliadora deve submeter à homologação da autoridade competente o resultado formal do processo avaliativo. Durante todo o rito, assegura-se ao servidor o exercício amplo do contraditório e da ampla defesa técnica.
+          </p>
+          <p class="text-justify">
+            Caso o servidor não atinja os índices mínimos exigidos e seja homologada a sua inabilitação, o ordenamento prevê duas saídas jurídicas:
+          </p>
+          <ul class="list-disc list-inside space-y-2 text-slate-800 text-sm sm:text-base">
+            <li>
+              <strong>Servidor sem vínculo estável prévio:</strong> Ocorre a sua <mark class="highlight-red">exoneração de ofício</mark>. A exoneração neste contexto ostenta natureza meramente resolutiva da relação funcional e <mark class="highlight-yellow">não representa aplicação de penalidade disciplinar</mark>, não gerando ficha desabonadora nem impedimento de prestar novo concurso público.
+            </li>
+            <li>
+              <strong>Servidor detentor de estabilidade em outro cargo público federal:</strong> O servidor inabilitado adquire o direito de ser <mark class="highlight-green">reconduzido</mark> ao cargo de provimento efetivo anteriormente ocupado nos quadros federais, com respaldo no <mark class="highlight-blue">artigo 20, § 2º, c/c o artigo 29, inciso I, da Lei nº 8.112/1990</mark>.
+            </li>
+          </ul>
+        </div>
+
+        <!-- Subseção 1.4: Licenças, Afastamentos e Suspensão -->
+        <div class="space-y-3">
+          <h3 class="text-lg font-bold text-slate-900">
+            Licenças, Afastamentos e Suspensão da Contagem
+          </h3>
+          <p class="text-justify">
+            O servidor público em estágio probatório tem restrições quanto aos tipos de licença e afastamentos que pode usufruir. Conforme o <mark class="highlight-yellow">artigo 20, §§ 4º e 5º</mark>, admitem-se unicamente as seguintes situações de concessão e suspensão:
+          </p>
+          <div class="space-y-2 text-sm sm:text-base">
+            <div class="p-3 border border-slate-200 rounded-lg bg-slate-50">
+              <strong class="text-slate-900 block mb-1">Afastamentos permitidos:</strong>
+              <p class="text-slate-700 text-xs sm:text-sm text-justify">
+                Podem ser concedidas as licenças para tratamento de saúde pessoal, por motivo de acidente em serviço ou doença profissional, por motivo de doença em pessoa da família, por motivo de afastamento do cônjuge ou companheiro, para prestação de serviço militar, para atividade política, para exercício de mandato eletivo, para estudo ou missão no exterior e para participação em curso de formação decorrente de aprovação em concurso público federal.
+              </p>
+            </div>
+            <div class="p-3 border border-slate-200 rounded-lg bg-slate-50">
+              <strong class="text-slate-900 block mb-1">Causas formais de suspensão da contagem:</strong>
+              <p class="text-slate-700 text-xs sm:text-sm text-justify">
+                A contagem do estágio probatório fica <mark class="highlight-yellow">obrigatoriamente suspensa</mark> durante a fruição de licença por motivo de doença em pessoa da família superior a 30 dias (art. 83), licença para acompanhar cônjuge com exercício provisório (art. 84, § 1º), licença para atividade política durante a fase com remuneração integral pré-eleitoral (art. 86), afastamento para estudo ou missão oficial no exterior (art. 96) e na hipótese de frequência a curso de formação previsto como fase de certame federal (art. 20, § 5º). Cessado o impedimento legal, a contagem dos 36 meses é retomada exatamente do ponto em que parou.
+              </p>
+            </div>
+            <div class="p-3 border border-red-200 rounded-lg bg-red-50">
+              <strong class="text-red-950 block mb-1">Licenças absolutamente vedadas no probatório:</strong>
+              <p class="text-red-900 text-xs sm:text-sm text-justify">
+                O servidor em estágio probatório <mark class="highlight-red">NÃO PODE</mark> pleitear a <strong>licença para o trato de assuntos particulares</strong> (art. 91) nem a <strong>licença para capacitação funcional</strong> (art. 87), uma vez que ambos os institutos demandam a aquisição antecedente da estabilidade no cargo público federal.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Subseção 1.5: Perda do Cargo -->
+        <div class="space-y-3">
+          <h3 class="text-lg font-bold text-slate-900">
+            Hipóteses de Perda do Cargo pelo Servidor Estável
+          </h3>
+          <p class="text-justify">
+            A estabilidade conferida pelo artigo 41 da Constituição Federal e pelo artigo 21 da Lei nº 8.112/1990 não gera inamovibilidade absoluta nem impede a demissão ou desligamento em circunstâncias taxativas. A perda do cargo por servidor estável condiciona-se estritamente às seguintes ocorrências:
+          </p>
+          <ul class="list-disc list-inside space-y-1.5 text-slate-800 text-sm sm:text-base">
+            <li><mark class="highlight-yellow">Sentença judicial transitada em julgado</mark>;</li>
+            <li><mark class="highlight-yellow">Processo administrativo disciplinar (PAD)</mark> no qual lhe tenha sido assegurada ampla defesa;</li>
+            <li><mark class="highlight-yellow">Procedimento de avaliação periódica de desempenho</mark>, com rito traçado em lei complementar federal, preservada a ampla defesa (Art. 41, § 1º, III, CF/88);</li>
+            <li><mark class="highlight-yellow">Adequação aos limites orçamentários</mark> de gastos com pessoal ativo e inativo da União, por força do artigo 169, § 4º, da Constituição Federal.</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- SEÇÃO 2: Formas de Vacância -->
+      <section class="space-y-6 pt-4 border-t border-slate-200">
+        <div class="border-b border-slate-200 pb-2">
+          <h2 class="text-xl sm:text-2xl font-bold text-slate-900 flex items-center gap-2">
+            <span class="w-2.5 h-6 bg-slate-900 rounded-sm"></span>
+            2. Formas de Vacância do Cargo Público
+          </h2>
+        </div>
+
+        <p class="text-justify">
+          A vacância consubstancia o fato ou o ato administrativo pelo qual um determinado cargo público tem cessada a sua ocupação, tornando-se formalmente desprovido de titular.
+        </p>
+
+        <!-- Subseção 2.1: Rol Taxativo -->
+        <div class="space-y-3">
+          <h3 class="text-lg font-bold text-slate-900">
+            Rol Taxativo do Artigo 33 e Expurgo de Figuras Revogadas
+          </h3>
+          <p class="text-justify">
+            Conforme estabelece o <mark class="highlight-yellow">artigo 33 da Lei nº 8.112/1990</mark>, a vacância decorre de sete hipóteses vigentes: <mark class="highlight-yellow">exoneração, demissão, promoção, readaptação, aposentadoria, posse em outro cargo inacumulável e falecimento</mark>.
+          </p>
+          <p class="text-justify">
+            As figuras jurídicas outrora denominadas <em>"transferência"</em> e <em>"ascensão funcional"</em> perderam eficácia e vigência em decorrência do julgamento da <mark class="highlight-blue">Ação Direta de Inconstitucionalidade nº 837 pelo STF</mark> e da subsequente edição da <mark class="highlight-red">Súmula Vinculante 43</mark>, que consolidou a nulidade absoluta de qualquer ato de provimento derivado horizontal que invista o servidor em carreira diversa daquela para a qual prestou concurso público.
+          </p>
+        </div>
+
+        <!-- Subseção 2.2: O Duplo Fenômeno -->
+        <div class="space-y-3">
+          <h3 class="text-lg font-bold text-slate-900">
+            O Duplo Fenômeno: Provimento e Vacância Concomitantes
+          </h3>
+          <p class="text-justify">
+            No Direito Administrativo, certas hipóteses operam simultaneamente como provimento derivado de uma nova posição funcional e desocupação da posição antecedente. Compreender essa mecânica evita erros comuns em provas que exigem a correlação entre ingresso e desligamento:
+          </p>
+          <ul class="list-disc list-inside space-y-2 text-slate-800 text-sm sm:text-base">
+            <li>
+              <strong>A Promoção:</strong> Constitui o deslocamento vertical do titular ao nível ou classe imediatamente superior no âmbito de sua respectiva carreira. Ao ascender de nível funcional, o servidor preenche a nova posição na estrutura e simultaneamente deixa vago o patamar anterior da hierarquia.
+            </li>
+            <li>
+              <strong>A Readaptação:</strong> Traduz-se na investidura do servidor em cargo de atribuições e responsabilidades compatíveis com a limitação que tenha sofrido em sua capacidade física ou mental, verificada em inspeção de saúde oficial (art. 24 c/c art. 33, inciso IV). Trata-se de um ato protetivo que simultaneamente extingue a titularidade sobre o cargo anterior que se tornou inviável e investe formalmente o servidor em nova titularidade compatível.
+            </li>
+          </ul>
+        </div>
+
+        <!-- Tabela 2: Provimento vs Vacância (Sem rolagem horizontal) -->
+        <div class="border border-slate-300 rounded-xl overflow-hidden shadow-sm my-4">
+          <div class="bg-slate-100 px-4 py-2 border-b border-slate-300 font-bold text-xs uppercase tracking-wider text-slate-700">
+            Tabela 2: Formas Funcionais - Relação de Provimento versus Vacância
+          </div>
+          <table class="table-fixed-wrap divide-y divide-slate-200 text-xs sm:text-sm">
+            <thead class="bg-slate-50 text-slate-800 font-bold">
+              <tr>
+                <th class="p-2 sm:p-3 text-left w-1/4 border-r border-slate-200">Forma Funcional</th>
+                <th class="p-2 sm:p-3 text-center w-1/5 border-r border-slate-200">Provimento?</th>
+                <th class="p-2 sm:p-3 text-center w-1/5 border-r border-slate-200">Vacância?</th>
+                <th class="p-2 sm:p-3 text-left w-auto">Fundamento Legal (8.112/90)</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-200 bg-white">
+              <tr>
+                <td class="p-2 sm:p-3 font-semibold text-slate-900 border-r border-slate-200">Nomeação</td>
+                <td class="p-2 sm:p-3 text-center border-r border-slate-200"><mark class="highlight-green">Sim (Originária)</mark></td>
+                <td class="p-2 sm:p-3 text-center border-r border-slate-200"><span class="text-slate-400 font-semibold">Não</span></td>
+                <td class="p-2 sm:p-3">Art. 8º, inciso I</td>
+              </tr>
+              <tr>
+                <td class="p-2 sm:p-3 font-semibold text-slate-900 border-r border-slate-200">Exoneração</td>
+                <td class="p-2 sm:p-3 text-center border-r border-slate-200"><span class="text-slate-400 font-semibold">Não</span></td>
+                <td class="p-2 sm:p-3 text-center border-r border-slate-200"><mark class="highlight-yellow">Sim</mark></td>
+                <td class="p-2 sm:p-3">Art. 33, inciso I</td>
+              </tr>
+              <tr>
+                <td class="p-2 sm:p-3 font-semibold text-slate-900 border-r border-slate-200">Demissão</td>
+                <td class="p-2 sm:p-3 text-center border-r border-slate-200"><span class="text-slate-400 font-semibold">Não</span></td>
+                <td class="p-2 sm:p-3 text-center border-r border-slate-200"><mark class="highlight-yellow">Sim</mark></td>
+                <td class="p-2 sm:p-3">Art. 33, inciso II</td>
+              </tr>
+              <tr class="bg-amber-50/40">
+                <td class="p-2 sm:p-3 font-bold text-slate-900 border-r border-slate-200">Promoção</td>
+                <td class="p-2 sm:p-3 text-center border-r border-slate-200"><mark class="highlight-green">Sim (Derivado)</mark></td>
+                <td class="p-2 sm:p-3 text-center border-r border-slate-200"><mark class="highlight-green">Sim (Duplo)</mark></td>
+                <td class="p-2 sm:p-3">Art. 8º, II c/c Art. 33, III</td>
+              </tr>
+              <tr class="bg-amber-50/40">
+                <td class="p-2 sm:p-3 font-bold text-slate-900 border-r border-slate-200">Readaptação</td>
+                <td class="p-2 sm:p-3 text-center border-r border-slate-200"><mark class="highlight-green">Sim (Derivado)</mark></td>
+                <td class="p-2 sm:p-3 text-center border-r border-slate-200"><mark class="highlight-green">Sim (Duplo)</mark></td>
+                <td class="p-2 sm:p-3">Art. 8º, III c/c Art. 33, IV</td>
+              </tr>
+              <tr>
+                <td class="p-2 sm:p-3 font-semibold text-slate-900 border-r border-slate-200">Aposentadoria</td>
+                <td class="p-2 sm:p-3 text-center border-r border-slate-200"><span class="text-slate-400 font-semibold">Não</span></td>
+                <td class="p-2 sm:p-3 text-center border-r border-slate-200"><mark class="highlight-yellow">Sim</mark></td>
+                <td class="p-2 sm:p-3">Art. 33, inciso V</td>
+              </tr>
+              <tr>
+                <td class="p-2 sm:p-3 font-semibold text-slate-900 border-r border-slate-200">Posse em outro cargo inacumulável</td>
+                <td class="p-2 sm:p-3 text-center border-r border-slate-200"><span class="text-slate-400 font-semibold">Não</span></td>
+                <td class="p-2 sm:p-3 text-center border-r border-slate-200"><mark class="highlight-yellow">Sim</mark></td>
+                <td class="p-2 sm:p-3">Art. 33, inciso VIII</td>
+              </tr>
+              <tr>
+                <td class="p-2 sm:p-3 font-semibold text-slate-900 border-r border-slate-200">Falecimento</td>
+                <td class="p-2 sm:p-3 text-center border-r border-slate-200"><span class="text-slate-400 font-semibold">Não</span></td>
+                <td class="p-2 sm:p-3 text-center border-r border-slate-200"><mark class="highlight-yellow">Sim</mark></td>
+                <td class="p-2 sm:p-3">Art. 33, inciso IX</td>
+              </tr>
+              <tr>
+                <td class="p-2 sm:p-3 font-semibold text-slate-900 border-r border-slate-200">Reversão / Reintegração / Recondução</td>
+                <td class="p-2 sm:p-3 text-center border-r border-slate-200"><mark class="highlight-blue">Sim (Derivados)</mark></td>
+                <td class="p-2 sm:p-3 text-center border-r border-slate-200"><span class="text-slate-400 font-semibold">Não</span></td>
+                <td class="p-2 sm:p-3">Art. 8º, incisos IV, VI e VII</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Subseção 2.3: Exoneração vs Demissão -->
+        <div class="space-y-3">
+          <h3 class="text-lg font-bold text-slate-900">
+            Distinção Dogmática entre Exoneração e Demissão
+          </h3>
+          <p class="text-justify">
+            O afastamento de um servidor de sua vaga pode revestir-se de natureza meramente formal ou punitiva. As bancas avaliadoras exigem precisão na distinção entre esses dois institutos:
+          </p>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="border border-slate-300 rounded-xl p-4 bg-slate-50">
+              <h4 class="font-bold text-slate-900 mb-2 flex items-center gap-1.5">
+                <span class="w-2 h-2 rounded-full bg-slate-700"></span>
+                Exoneração (Arts. 34 e 35)
+              </h4>
+              <p class="text-xs sm:text-sm text-slate-700 mb-2 font-medium">
+                <mark class="highlight-yellow">NÃO É PENALIDADE / NÃO TEM NATUREZA PUNITIVA</mark>
+              </p>
+              <ul class="text-xs sm:text-sm text-slate-700 space-y-1 list-disc list-inside">
+                <li><strong>A pedido:</strong> Por manifestação de vontade voluntária do servidor.</li>
+                <li><strong>De ofício:</strong> Quando não satisfeitas as condições do estágio probatório (art. 34, parágrafo único, I).</li>
+                <li><strong>De ofício:</strong> Quando, empossado, não entrar em exercício no prazo legal de 15 dias (art. 34, parágrafo único, II).</li>
+                <li><strong>Cargo em comissão:</strong> A juízo da autoridade competente (<em>ad nutum</em>) ou a pedido do servidor (art. 35).</li>
+              </ul>
+            </div>
+
+            <div class="border border-red-200 rounded-xl p-4 bg-red-50/50">
+              <h4 class="font-bold text-red-950 mb-2 flex items-center gap-1.5">
+                <span class="w-2 h-2 rounded-full bg-red-600"></span>
+                Demissão (Arts. 127 e 132)
+              </h4>
+              <p class="text-xs sm:text-sm text-red-900 mb-2 font-medium">
+                <mark class="highlight-red">É A MAIS GRAVE SANÇÃO DISCIPLINAR PUNITIVA</mark>
+              </p>
+              <ul class="text-xs sm:text-sm text-red-900 space-y-1 list-disc list-inside">
+                <li>Aplicada em decorrência de infração funcional grave (improbidade, abandono de cargo por mais de 30 dias consecutivos, inassiduidade habitual, corrupção).</li>
+                <li>Exige obrigatoriamente a instauração de Processo Administrativo Disciplinar (PAD) com ampla defesa e contraditório.</li>
+                <li>Pode acarretar incompatibilização para nova investidura pelo prazo de 5 anos ou impedimento definitivo.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Subseção 2.4: Posse em Cargo Inacumulável e Recondução -->
+        <div class="space-y-3">
+          <h3 class="text-lg font-bold text-slate-900">
+            Posse em Outro Cargo Inacumulável e o Direito à Recondução
+          </h3>
+          <p class="text-justify">
+            A vacância fundada no <mark class="highlight-yellow">artigo 33, inciso VIII</mark>, constitui um mecanismo protetivo para o servidor estável. Quando aprovado em certame para nova investidura que conflite com o regime de vedação de acúmulo de cargos públicos traçado no artigo 37, inciso XVI, da Constituição, o servidor não deve requerer exoneração, mas solicitar formalmente a declaração de <mark class="highlight-yellow">vacância por posse em outro cargo inacumulável</mark>.
+          </p>
+          <p class="text-justify">
+            A relevância prática e concursal desse instituto vincula-se ao mecanismo da <mark class="highlight-green">recondução (artigo 29 da Lei nº 8.112/1990)</mark>:
+          </p>
+          <div class="space-y-2 text-sm sm:text-base border-l-2 border-emerald-600 pl-4 py-1">
+            <p><strong>Conceito de Recondução:</strong> É o retorno do servidor estável ao cargo anteriormente ocupado na esfera federal.</p>
+            <p><strong>Causas determinantes:</strong> Decorre de <mark class="highlight-yellow">inabilitação no estágio probatório</mark> relativo a outro cargo público federal ou de <mark class="highlight-yellow">desistência expressa</mark> apresentada antes da homologação desse estágio (<mark class="highlight-blue">Súmula 16 da AGU</mark>), bem como da reintegração do anterior ocupante do cargo de origem.</p>
+            <p><strong>Condição de estabilidade prévia:</strong> O servidor que pleiteia vacância por posse em outro cargo inacumulável para resguardar a recondução <mark class="highlight-red">precisa ser detentor de estabilidade plena no cargo federal de partida</mark>. Se ainda estiver em probatório e tomar posse em outro cargo inacumulável, seu vínculo primitivo é desfeito de forma definitiva sem recondução.</p>
+            <p><strong>Ocupação do cargo primitivo:</strong> Caso a vaga de origem tenha sido provida durante a ausência temporária do servidor reconduzido, este deverá ser aproveitado em outro cargo com atribuições e vencimentos equivalentes, ou posto em disponibilidade remunerada proporcional até regular aproveitamento (art. 29, parágrafo único c/c art. 30).</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- SEÇÃO 3: Movimentação de Pessoal -->
+      <section class="space-y-6 pt-4 border-t border-slate-200">
+        <div class="border-b border-slate-200 pb-2">
+          <h2 class="text-xl sm:text-2xl font-bold text-slate-900 flex items-center gap-2">
+            <span class="w-2.5 h-6 bg-slate-900 rounded-sm"></span>
+            3. Movimentação de Pessoal: Remoção versus Redistribuição
+          </h2>
+        </div>
+
+        <p class="text-justify">
+          A alocação de servidores nas unidades e entidades da Administração Pública Federal distingue os institutos que movimentam o indivíduo daqueles que deslocam estruturalmente o próprio cargo.
+        </p>
+
+        <!-- Subseção 3.1: Remoção -->
+        <div class="space-y-3">
+          <h3 class="text-lg font-bold text-slate-900">
+            Remoção (Artigo 36 da Lei nº 8.112/1990)
+          </h3>
+          <p class="text-justify">
+            A remoção consiste no deslocamento do <mark class="highlight-yellow">SERVIDOR</mark>, a pedido ou de ofício, no âmbito do <mark class="highlight-yellow">MESMO QUADRO DE PESSOAL</mark>, com ou sem mudança de sede funcional (artigo 36, <em>caput</em>).
+          </p>
+          <p class="text-justify">
+            Na remoção, a titularidade e o código orçamentário da vaga mantêm-se inalterados na lotação original da instituição. O que se move no espaço geográfico é a pessoa física do servidor público. Por definição legal estrita, a remoção dá-se unicamente dentro da mesma pessoa jurídica de direito público (mesmo quadro funcional). A título ilustrativo, no âmbito do Instituto Federal de Minas Gerais, configura-se remoção a transferência de um docente lotado no <mark class="highlight-blue">Campus São João Evangelista para o Campus Sabará</mark>.
+          </p>
+          
+          <div class="bg-slate-50 border border-slate-200 rounded-xl p-4 space-y-3">
+            <h4 class="font-bold text-slate-900 text-sm">Modalidades de Remoção (Parágrafo único do art. 36):</h4>
+            <ul class="space-y-2 text-xs sm:text-sm text-slate-700">
+              <li>
+                <strong>I – De ofício:</strong> No interesse exclusivo e discricionário da Administração Pública, motivada pela necessidade do serviço acadêmico ou operacional.
+              </li>
+              <li>
+                <strong>II – A pedido, a critério da Administração:</strong> Ato eminentemente discricionário, condicionado à conveniência e oportunidade da Reitoria.
+              </li>
+              <li>
+                <strong>III – A pedido, independentemente do interesse da Administração:</strong> Modalidade de <mark class="highlight-green">ato vinculado</mark> (a autoridade é obrigada a conceder caso preenchidos os requisitos objetivos taxativos):
+                <div class="pl-4 mt-1 space-y-1 text-slate-800">
+                  <p>• <strong>Alínea a:</strong> Para acompanhar cônjuge ou companheiro, também servidor público civil ou militar de qualquer Poder da União, Estados, DF ou Municípios, deslocado de ofício no interesse da Administração;</p>
+                  <p>• <strong>Alínea b:</strong> Por motivo de saúde do próprio servidor, cônjuge, companheiro ou dependente que viva às suas expensas, condicionado à perícia por junta médica oficial;</p>
+                  <p>• <strong>Alínea c:</strong> Em virtude de aprovação em processo seletivo interno de remoção, promovido obrigatoriamente quando a demanda superar as vagas disponíveis.</p>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Subseção 3.2: Redistribuição -->
+        <div class="space-y-3">
+          <h3 class="text-lg font-bold text-slate-900">
+            Redistribuição (Artigo 37 da Lei nº 8.112/1990)
+          </h3>
+          <p class="text-justify">
+            A redistribuição representa o deslocamento permanente do <mark class="highlight-yellow">CARGO PÚBLICO EFETIVO (ocupado ou vago)</mark>, no âmbito do quadro geral de pessoal, para outro órgão ou entidade autônoma pertencente ao <mark class="highlight-yellow">MESMO PODER</mark>, cujos planos de cargos e vencimentos guardem estrita equivalência e identidade, observado de modo indeclinável o interesse institucional da Administração (artigo 37, <em>caput</em>).
+          </p>
+          <p class="text-justify">
+            Na redistribuição, verifica-se a modificação estrutural da titularidade orçamentária do posto. O cargo público, acompanhado ou não do servidor que o ocupa, desvincula-se da autarquia de origem e passa a compor a estrutura funcional da autarquia receptora.
+          </p>
+          
+          <div class="border border-slate-200 rounded-lg p-3 bg-white text-xs sm:text-sm">
+            <span class="font-bold text-slate-900 block mb-1">Preceitos Cumulativos Obrigatórios (Art. 37, I a VI):</span>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-slate-700">
+              <span>1. Efetivo interesse público da Administração;</span>
+              <span>2. Equivalência de vencimentos e vantagens;</span>
+              <span>3. Manutenção da essência das atribuições;</span>
+              <span>4. Identidade de complexidade e responsabilidade;</span>
+              <span>5. Identidade de escolaridade/habilitação formal;</span>
+              <span>6. Compatibilidade entre os planos de carreira.</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Subseção 3.3: Dinâmica entre IFs e Universidades -->
+        <div class="space-y-3">
+          <h3 class="text-lg font-bold text-slate-900">
+            A Dinâmica Entre os Institutos Federais e Autarquias Universitárias
+          </h3>
+          <p class="text-justify">
+            Na Rede Federal de Educação Profissional, Científica e Tecnológica, a aplicação do artigo 37 da Lei nº 8.112/1990 obedece a regras de direito administrativo conjugadas com normas expedidas pelo Ministério da Educação (MEC) e pelo Ministério da Gestão e da Inovação em Serviços Públicos (MGI):
+          </p>
+          <ul class="space-y-2 list-disc list-inside text-sm sm:text-base text-slate-800 text-justify">
+            <li>
+              <strong>Diversidade de Pessoas Jurídicas:</strong> Cada Instituto Federal e cada Universidade Federal configura uma autarquia pública distinta, detentora de patrimônio próprio e autonomia orçamentária. Assim, a mudança definitiva de um servidor do <mark class="highlight-blue">IFMG para o CEFET-MG</mark>, ou da <mark class="highlight-blue">UFJF para o IFMG</mark>, dá-se por meio de <mark class="highlight-yellow">REDISTRIBUIÇÃO</mark>, pois ocorre entre entidades autárquicas com quadros de pessoal distintos.
+            </li>
+            <li>
+              <strong>Exigência de Código de Vaga em Contrapartida:</strong> Quando a redistribuição incide sobre cargo ocupado por servidor ativo, as portarias ministeriais impõem que o órgão cessionário entregue em troca ao órgão cedente um código de vaga desocupado compatível, impedindo a diminuição líquida da lotação docente do órgão originário.
+            </li>
+            <li>
+              <strong>Compatibilidade de Carreiras:</strong> Um Assistente em Administração pertencente ao Plano de Carreira dos Cargos Técnico-Administrativos em Educação (PCCTAE – Lei nº 11.091/2005) pode ser redistribuído de uma universidade federal para um instituto federal, posto que ambas as instituições operam sob o mesmo plano remuneratório. <mark class="highlight-red">Em contrapartida, é nula e ilegal</mark> a tentativa de redistribuir um docente integrante do Magistério Superior para o cargo de Professor de Ensino Básico, Técnico e Tecnológico (EBTT – Lei nº 12.772/2012) no IFMG, pela ausência de identidade entre os planos de carreira.
+            </li>
+            <li>
+              <strong>Competência do Ato:</strong> A publicação do ato final de redistribuição de cargos entre autarquias de ensino e a esfera federal vincula-se à competência do Ministro da pasta ministerial supervisora (MEC), com publicação de Portaria no Diário Oficial da União.
+            </li>
+          </ul>
+        </div>
+
+        <!-- Subseção 3.4: Entendimento Pretoriano "Quadro Único" MEC -->
+        <div class="space-y-3">
+          <h3 class="text-lg font-bold text-slate-900">
+            O Entendimento Pretoriano do "Quadro Único" do MEC
+          </h3>
+          <p class="text-justify">
+            Embora o regime estatutário trace separação entre o quadro de cada autarquia de ensino, a jurisprudência uniformizada do <mark class="highlight-blue">Superior Tribunal de Justiça (STJ)</mark> firmou uma exceção hermenêutica: exclusivamente para fins de atendimento às hipóteses cogentes de <mark class="highlight-yellow">remoção por motivo de saúde familiar comprovada ou para acompanhamento de cônjuge</mark> (art. 36, parágrafo único, inciso III, alíneas <em>a</em> e <em>b</em>), as Instituições Federais de Ensino Superior e os Institutos Federais vinculados ao Ministério da Educação podem ser considerados, por ficção jurídica, como componentes de um <mark class="highlight-green">"quadro único de pessoal docente"</mark>. Tal posicionamento impede que a barreira burocrática da separação das personalidades autárquicas esvazie direitos de estatura constitucional que resguardam a unidade familiar e a saúde.
+          </p>
+          <div class="bg-slate-100 border border-slate-300 p-3 rounded-lg text-xs sm:text-sm text-slate-800">
+            <strong class="text-slate-900">Diretriz para a Prova Objetiva do IFMG:</strong> Em questões literais ou dogmáticas convencionais da banca, a regra primária é a separação expressa da lei: <strong>Remoção = mesmo quadro de pessoal</strong> (desloca o servidor); <strong>Redistribuição = entre órgãos/entidades do mesmo Poder</strong> (desloca o cargo).
+          </div>
+        </div>
+
+        <!-- Tabela 3: Remoção vs Redistribuição (Sem rolagem horizontal) -->
+        <div class="border border-slate-300 rounded-xl overflow-hidden shadow-sm my-4">
+          <div class="bg-slate-100 px-4 py-2 border-b border-slate-300 font-bold text-xs uppercase tracking-wider text-slate-700">
+            Tabela 3: Comparativo Rigoroso - Remoção versus Redistribuição
+          </div>
+          <table class="table-fixed-wrap divide-y divide-slate-200 text-xs sm:text-sm">
+            <thead class="bg-slate-50 text-slate-800 font-bold">
+              <tr>
+                <th class="p-2 sm:p-3 text-left w-1/4 border-r border-slate-200">Elemento</th>
+                <th class="p-2 sm:p-3 text-left w-3/8 border-r border-slate-200">Remoção (Artigo 36)</th>
+                <th class="p-2 sm:p-3 text-left w-3/8">Redistribuição (Artigo 37)</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-200 bg-white">
+              <tr>
+                <td class="p-2 sm:p-3 font-semibold text-slate-900 border-r border-slate-200">Objeto do Deslocamento</td>
+                <td class="p-2 sm:p-3 border-r border-slate-200"><mark class="highlight-yellow">Deslocamento do SERVIDOR</mark></td>
+                <td class="p-2 sm:p-3"><mark class="highlight-yellow">Deslocamento do CARGO</mark> (ocupado ou vago)</td>
+              </tr>
+              <tr>
+                <td class="p-2 sm:p-3 font-semibold text-slate-900 border-r border-slate-200">Âmbito Funcional</td>
+                <td class="p-2 sm:p-3 border-r border-slate-200">Restrito ao <strong>mesmo quadro</strong> de pessoal</td>
+                <td class="p-2 sm:p-3">Para o quadro de <strong>outro órgão/entidade</strong> do mesmo Poder</td>
+              </tr>
+              <tr>
+                <td class="p-2 sm:p-3 font-semibold text-slate-900 border-r border-slate-200">Código de Vaga</td>
+                <td class="p-2 sm:p-3 border-r border-slate-200">Permanece inalterado no campus de lotação</td>
+                <td class="p-2 sm:p-3">Migra em caráter definitivo para a nova autarquia</td>
+              </tr>
+              <tr>
+                <td class="p-2 sm:p-3 font-semibold text-slate-900 border-r border-slate-200">Interesse Público</td>
+                <td class="p-2 sm:p-3 border-r border-slate-200">Presente de ofício; dispensado nas hipóteses do inc. III</td>
+                <td class="p-2 sm:p-3"><strong>Obrigatório</strong> em qualquer hipótese (requisito legal)</td>
+              </tr>
+              <tr>
+                <td class="p-2 sm:p-3 font-semibold text-slate-900 border-r border-slate-200">Estágio Probatório</td>
+                <td class="p-2 sm:p-3 border-r border-slate-200">Admitida internamente conforme regulamento do IF</td>
+                <td class="p-2 sm:p-3">Em regra vedada a pedido durante o probatório</td>
+              </tr>
+              <tr>
+                <td class="p-2 sm:p-3 font-semibold text-slate-900 border-r border-slate-200">Autoridade Competente</td>
+                <td class="p-2 sm:p-3 border-r border-slate-200">Reitor da instituição autárquica de ensino</td>
+                <td class="p-2 sm:p-3">Ministro de Estado supervisor (MEC) via Portaria</td>
+              </tr>
+              <tr>
+                <td class="p-2 sm:p-3 font-semibold text-slate-900 border-r border-slate-200">Exemplo Prático IFMG</td>
+                <td class="p-2 sm:p-3 border-r border-slate-200">Docente do IFMG Campus Ouro Branco para o Campus Piumhi</td>
+                <td class="p-2 sm:p-3">Transferência do cargo de docente do IFSULDEMINAS para o IFMG</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- SEÇÃO 4: Síntese e Matriz de Memorização Imediata -->
+      <section class="space-y-6 pt-4 border-t border-slate-200">
+        <div class="border-b border-slate-200 pb-2">
+          <h2 class="text-xl sm:text-2xl font-bold text-slate-900 flex items-center gap-2">
+            <span class="w-2.5 h-6 bg-slate-900 rounded-sm"></span>
+            4. Síntese de Conceitos Básicos e Matriz de Memorização Imediata
+          </h2>
+        </div>
+
+        <p class="text-slate-700 text-sm sm:text-base">
+          Pontos-chave estruturados em tópicos curtos e objetivos para fixação antes da prova:
+        </p>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm">
+          
+          <div class="p-3 border border-slate-200 rounded-lg bg-white space-y-1">
+            <span class="font-bold text-slate-900 block">📌 Prazo do Estágio Probatório:</span>
+            <p class="text-slate-700 text-xs sm:text-sm">
+              Literalidade da Lei 8.112/90: <mark class="highlight-yellow">24 meses</mark> (art. 20).<br>
+              Constituição Federal (art. 41) e STF/STJ: <mark class="highlight-green">3 anos (36 meses)</mark>.
+            </p>
+          </div>
+
+          <div class="p-3 border border-slate-200 rounded-lg bg-white space-y-1">
+            <span class="font-bold text-slate-900 block">📌 Homologação do Probatório:</span>
+            <p class="text-slate-700 text-xs sm:text-sm">
+              O resultado formal deve ser submetido à homologação exatamente <mark class="highlight-yellow">4 meses antes</mark> de findar o período de 36 meses.
+            </p>
+          </div>
+
+          <div class="p-3 border border-slate-200 rounded-lg bg-white space-y-1">
+            <span class="font-bold text-slate-900 block">📌 Fatores Taxativos (ADICA-PRO-RES):</span>
+            <p class="text-slate-700 text-xs sm:text-sm">
+              <strong>A</strong>ssiduidade, <strong>DI</strong>sciplina, <strong>CA</strong>pacidade de iniciativa, <strong>PRO</strong>dutividade, <strong>RES</strong>ponsabilidade. "Eficiência" não é fator do art. 20.
+            </p>
+          </div>
+
+          <div class="p-3 border border-slate-200 rounded-lg bg-white space-y-1">
+            <span class="font-bold text-slate-900 block">📌 Reprovação no Estágio Probatório:</span>
+            <p class="text-slate-700 text-xs sm:text-sm">
+              Servidor não estável: <mark class="highlight-red">Exoneração de ofício</mark> (não é punição).<br>
+              Servidor estável em outro cargo federal: <mark class="highlight-green">Recondução</mark> ao cargo de origem.
+            </p>
+          </div>
+
+          <div class="p-3 border border-slate-200 rounded-lg bg-white space-y-1">
+            <span class="font-bold text-slate-900 block">📌 Natureza da Exoneração vs. Demissão:</span>
+            <p class="text-slate-700 text-xs sm:text-sm">
+              <strong>Exoneração:</strong> Não tem natureza punitiva (a pedido ou de ofício).<br>
+              <strong>Demissão:</strong> Sanção disciplinar punitiva máxima decorrente de falta grave apurada em PAD.
+            </p>
+          </div>
+
+          <div class="p-3 border border-slate-200 rounded-lg bg-white space-y-1">
+            <span class="font-bold text-slate-900 block">📌 Provimento e Vacância Simultâneos:</span>
+            <p class="text-slate-700 text-xs sm:text-sm">
+              Ocorrem conjuntamente apenas em duas figuras legais: <mark class="highlight-yellow">Promoção</mark> e <mark class="highlight-yellow">Readaptação</mark>.
+            </p>
+          </div>
+
+          <div class="p-3 border border-slate-200 rounded-lg bg-white space-y-1">
+            <span class="font-bold text-slate-900 block">📌 Formas Derivadas de Retorno:</span>
+            <p class="text-slate-700 text-xs sm:text-sm">
+              <strong>Reversão:</strong> Retorno do aposentado.<br>
+              <strong>Reintegração:</strong> Retorno por anulação de demissão ilegal.<br>
+              <strong>Recondução:</strong> Retorno do estável inabilitado em outro probatório.
+            </p>
+          </div>
+
+          <div class="p-3 border border-slate-200 rounded-lg bg-white space-y-1">
+            <span class="font-bold text-slate-900 block">📌 Remoção vs. Redistribuição:</span>
+            <p class="text-slate-700 text-xs sm:text-sm">
+              <strong>Remoção (art. 36):</strong> Move o <em>servidor</em> no mesmo quadro.<br>
+              <strong>Redistribuição (art. 37):</strong> Move o <em>cargo</em> para outro quadro do mesmo Poder.
+            </p>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- SEÇÃO 5: Considerações Finais e Estratégia de Prova -->
+      <section class="space-y-4 pt-4 border-t border-slate-200">
+        <div class="border-b border-slate-200 pb-2">
+          <h2 class="text-xl sm:text-2xl font-bold text-slate-900 flex items-center gap-2">
+            <span class="w-2.5 h-6 bg-slate-900 rounded-sm"></span>
+            5. Considerações Finais e Estratégia de Prova
+          </h2>
+        </div>
+
+        <p class="text-justify">
+          As questões organizadas por comissões de bancas institucionais federais costumam explorar a literalidade da Lei nº 8.112/1990 em paralelo aos conceitos dogmáticos consolidados do Direito Administrativo. No tema de estabilidade e estágio probatório, a leitura atenta do enunciado é fundamental: quando a questão fizer referência expressa ao <em>"texto literal da Lei nº 8.112/1990"</em>, o examinador geralmente busca os <mark class="highlight-yellow">24 meses do artigo 20</mark>; ao indagar sobre a ordem constitucional ou jurisprudencial uniforme, a resposta correta são os <mark class="highlight-green">3 anos (36 meses)</mark>.
+        </p>
+        <p class="text-justify">
+          Em vacância, a banca recorre com frequência à confusão entre exoneração e demissão para avaliar se o candidato reconhece a ausência de sanção na primeira. No tocante à movimentação de pessoal, a identificação imediata do elemento deslocado — o servidor (remoção) ou o cargo (redistribuição) — define a resolução correta da questão, desfazendo pegadinhas relativas ao deslocamento entre instituições universitárias e Institutos Federais distintos.
+        </p>
+      </section>
+
+    </article>
+
+    <!-- Seção de Ação Final: Botão para Questões -->
+    <div class="mt-14 pt-8 border-t-2 border-slate-200 flex flex-col items-center text-center">
+      <span class="text-xs uppercase tracking-wider font-bold text-slate-500 mb-2">Próxima Etapa</span>
+      <h3 class="text-lg sm:text-xl font-bold text-slate-900 mb-4">Fixe o Conteúdo com Exercícios</h3>
+      
+      <a 
+        href="questoes5legs.html" 
+        id="btnQuestoes"
+        class="inline-flex items-center justify-center gap-3 px-8 py-4 bg-slate-900 hover:bg-slate-800 text-white font-bold rounded-xl text-base shadow-md transition-all duration-200 hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0"
+      >
+        <span>Acessar Banco de Questões (questoes5legs.html)</span>
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+        </svg>
+      </a>
+
+      <p class="text-xs text-slate-400 mt-3">
+        O link direciona para a página local <code>questoes4legs.html</code> / <code>questoes5legs.html</code>.
+      </p>
+    </div>
+
+  </main>
+
+  <!-- Script de Controle do Reprodutor de Áudio -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const audioInput = document.getElementById('audioFileName');
+      const btnCarregar = document.getElementById('btnCarregarAudio');
+      const audioPlayer = document.getElementById('audioPlayer');
+      const audioSource = document.getElementById('audioSource');
+      const audioStatus = document.getElementById('audioStatus');
+      const currentTrackLabel = document.getElementById('currentTrackLabel');
+      const btnQuestoes = document.getElementById('btnQuestoes');
+
+      // Garantir compatibilidade de link com ou sem acento
+      btnQuestoes.addEventListener('click', function(e) {
+        // Redireciona de forma padrão para questoes5legs.html conforme solicitação
+        btnQuestoes.setAttribute('href', 'questoes5legs.html');
+      });
+
+      // Função para carregar novo arquivo de áudio informado no campo
+      function atualizarAudio() {
+        const novoNome = audioInput.value.trim();
+        if (novoNome) {
+          audioSource.src = encodeURI(novoNome);
+          currentTrackLabel.textContent = novoNome;
+          audioPlayer.load();
+          audioStatus.innerHTML = 'Arquivo carregado: <strong class="text-slate-800 font-mono">' + novoNome + '</strong>. Pressione play para ouvir.';
+        } else {
+          audioStatus.innerHTML = '<span class="text-red-600">Por favor, digite o nome de um arquivo de áudio (ex: aula.mp3).</span>';
+        }
+      }
+
+      btnCarregar.addEventListener('click', atualizarAudio);
+
+      audioInput.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter') {
+          atualizarAudio();
+        }
+      });
+    });
+  </script>
+</body>
+</html>

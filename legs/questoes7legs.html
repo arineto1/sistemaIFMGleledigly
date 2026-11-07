@@ -1,0 +1,1113 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simulado: Lei nº 8.112/1990 – Regime Disciplinar e Prescrição (Banca IFMG)</title>
+  <style>
+    /* Variáveis de Tema: Fundo Claro & Leitura Confortável (Warm Editorial) */
+    :root {
+      --bg-body: #f8f8f5;
+      --bg-card: #ffffff;
+      --bg-card-subtle: #fbfbf9;
+      --text-main: #24272c;
+      --text-secondary: #535862;
+      --text-muted: #727782;
+      --border-color: #e5e5df;
+      --border-hover: #bfc3cc;
+      --primary: #1a446c;
+      --primary-hover: #133352;
+      --primary-subtle: #edf4fa;
+      --success-border: #22c55e;
+      --success-bg: #f0fdf4;
+      --success-text: #15803d;
+      --danger-border: #ef4444;
+      --danger-bg: #fef2f2;
+      --danger-text: #b91c1c;
+      --warning-bg: #fffbeb;
+      --warning-border: #fde68a;
+      --warning-text: #b45309;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.04), 0 1px 2px rgba(0,0,0,0.02);
+      --shadow-md: 0 4px 10px rgba(0,0,0,0.04), 0 2px 4px rgba(0,0,0,0.02);
+      --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-body);
+      color: var(--text-main);
+      font-family: var(--font-family);
+      font-size: 16.5px;
+      line-height: 1.7;
+      letter-spacing: -0.01em;
+      padding: 24px 16px 80px;
+    }
+
+    .container {
+      max-width: 860px;
+      margin: 0 auto;
+    }
+
+    /* Cabeçalho */
+    header {
+      background-color: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 32px 28px;
+      margin-bottom: 24px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .badge-header {
+      display: inline-block;
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      background-color: var(--primary-subtle);
+      color: var(--primary);
+      padding: 4px 12px;
+      border-radius: 999px;
+      margin-bottom: 12px;
+    }
+
+    header h1 {
+      font-size: 1.65rem;
+      font-weight: 750;
+      line-height: 1.35;
+      color: var(--text-main);
+      margin-bottom: 10px;
+    }
+
+    header p {
+      color: var(--text-secondary);
+      font-size: 0.98rem;
+    }
+
+    .meta-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-top: 18px;
+      padding-top: 16px;
+      border-top: 1px solid var(--border-color);
+      font-size: 0.88rem;
+      color: var(--text-muted);
+    }
+
+    .meta-bar span strong {
+      color: var(--text-secondary);
+    }
+
+    /* Barra de Progresso Flutuante */
+    .progress-bar-container {
+      position: sticky;
+      top: 12px;
+      z-index: 50;
+      background-color: rgba(255, 255, 255, 0.94);
+      backdrop-filter: blur(8px);
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      padding: 12px 18px;
+      margin-bottom: 24px;
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .progress-info {
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+      white-space: nowrap;
+    }
+
+    .progress-track {
+      flex: 1;
+      height: 8px;
+      background-color: var(--border-color);
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      width: 0%;
+      background-color: var(--primary);
+      transition: width 0.3s ease;
+      border-radius: 999px;
+    }
+
+    /* Card de Questão */
+    .question-card {
+      background-color: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 28px;
+      margin-bottom: 24px;
+      box-shadow: var(--shadow-sm);
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .question-card:hover {
+      box-shadow: var(--shadow-md);
+    }
+
+    .question-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+      gap: 12px;
+    }
+
+    .question-number {
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      background-color: #f1f2f4;
+      color: var(--text-secondary);
+      padding: 4px 10px;
+      border-radius: 6px;
+    }
+
+    .question-status-tag {
+      font-size: 0.8rem;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 999px;
+      display: none;
+    }
+
+    .status-correct {
+      display: inline-block;
+      background-color: var(--success-bg);
+      color: var(--success-text);
+      border: 1px solid var(--success-border);
+    }
+
+    .status-incorrect {
+      display: inline-block;
+      background-color: var(--danger-bg);
+      color: var(--danger-text);
+      border: 1px solid var(--danger-border);
+    }
+
+    .status-unanswered {
+      display: inline-block;
+      background-color: var(--warning-bg);
+      color: var(--warning-text);
+      border: 1px solid var(--warning-border);
+    }
+
+    .question-statement {
+      font-size: 1.05rem;
+      color: var(--text-main);
+      margin-bottom: 22px;
+      line-height: 1.65;
+    }
+
+    .question-statement strong {
+      color: #111418;
+    }
+
+    /* Alternativas */
+    .options-group {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .option-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      padding: 14px 16px;
+      border: 1.5px solid var(--border-color);
+      border-radius: 8px;
+      background-color: var(--bg-card-subtle);
+      cursor: pointer;
+      transition: all 0.2s ease;
+      user-select: none;
+    }
+
+    .option-item:hover:not(.locked) {
+      border-color: var(--border-hover);
+      background-color: #ffffff;
+    }
+
+    .option-item.selected {
+      border-color: var(--primary);
+      background-color: var(--primary-subtle);
+    }
+
+    .option-item.locked {
+      cursor: default;
+    }
+
+    /* Feedback pós-submissão nas opções */
+    .option-item.is-correct-target {
+      border-color: var(--success-border) !important;
+      background-color: var(--success-bg) !important;
+      font-weight: 600;
+      color: var(--success-text) !important;
+    }
+
+    .option-item.is-user-error {
+      border-color: var(--danger-border) !important;
+      background-color: var(--danger-bg) !important;
+      color: var(--danger-text) !important;
+    }
+
+    .option-radio {
+      appearance: none;
+      -webkit-appearance: none;
+      width: 20px;
+      height: 20px;
+      border: 2px solid var(--border-hover);
+      border-radius: 50%;
+      margin-top: 3px;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s ease;
+      background-color: #ffffff;
+    }
+
+    .option-item.selected .option-radio {
+      border-color: var(--primary);
+      background-color: var(--primary);
+      box-shadow: inset 0 0 0 4px #ffffff;
+    }
+
+    .option-item.is-correct-target .option-radio {
+      border-color: var(--success-border);
+      background-color: var(--success-border);
+      box-shadow: inset 0 0 0 4px #ffffff;
+    }
+
+    .option-item.is-user-error .option-radio {
+      border-color: var(--danger-border);
+      background-color: var(--danger-border);
+      box-shadow: inset 0 0 0 4px #ffffff;
+    }
+
+    .option-content {
+      flex: 1;
+      font-size: 0.98rem;
+      line-height: 1.55;
+    }
+
+    .option-letter {
+      font-weight: 700;
+      margin-right: 6px;
+      color: var(--text-secondary);
+    }
+
+    /* Seção de Resolução Fundamentada (Visível após submissão) */
+    .resolution-wrapper {
+      display: none;
+      margin-top: 24px;
+      padding: 22px;
+      background-color: #f7f8f9;
+      border-left: 4px solid var(--primary);
+      border-radius: 0 8px 8px 0;
+      font-size: 0.95rem;
+      line-height: 1.7;
+    }
+
+    .resolution-wrapper.visible {
+      display: block;
+      animation: fadeIn 0.4s ease-in-out;
+    }
+
+    .resolution-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.95rem;
+      font-weight: 750;
+      color: var(--primary);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      margin-bottom: 12px;
+    }
+
+    .resolution-content p {
+      margin-bottom: 12px;
+      color: var(--text-main);
+    }
+
+    .resolution-content p:last-child {
+      margin-bottom: 0;
+    }
+
+    .resolution-content ul {
+      margin: 8px 0 14px 22px;
+    }
+
+    .resolution-content li {
+      margin-bottom: 6px;
+    }
+
+    .resolution-table-wrap {
+      overflow-x: auto;
+      margin: 14px 0;
+      border-radius: 6px;
+      border: 1px solid var(--border-color);
+    }
+
+    .resolution-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.88rem;
+      background-color: #ffffff;
+    }
+
+    .resolution-table th,
+    .resolution-table td {
+      padding: 10px 14px;
+      text-align: left;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .resolution-table th {
+      background-color: #f1f3f5;
+      font-weight: 700;
+      color: var(--text-secondary);
+    }
+
+    /* Painel Inferior de Ação e Resultados */
+    .actions-section {
+      background-color: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 28px;
+      box-shadow: var(--shadow-sm);
+      margin-top: 32px;
+      text-align: center;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      font-family: inherit;
+      font-size: 1rem;
+      font-weight: 600;
+      padding: 14px 32px;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      min-width: 220px;
+    }
+
+    .btn-primary {
+      background-color: var(--primary);
+      color: #ffffff;
+    }
+
+    .btn-primary:hover {
+      background-color: var(--primary-hover);
+    }
+
+    .btn-secondary {
+      background-color: #ffffff;
+      color: var(--text-secondary);
+      border: 1.5px solid var(--border-color);
+      margin-left: 10px;
+    }
+
+    .btn-secondary:hover {
+      background-color: #f8f8f8;
+      border-color: var(--border-hover);
+    }
+
+    .feedback-notice {
+      display: none;
+      background-color: var(--warning-bg);
+      color: var(--warning-text);
+      border: 1px solid var(--warning-border);
+      padding: 12px 18px;
+      border-radius: 8px;
+      margin-bottom: 18px;
+      font-size: 0.95rem;
+      font-weight: 500;
+    }
+
+    /* Quadro Geral de Resultados */
+    .scorecard {
+      display: none;
+      background-color: #ffffff;
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 32px 24px;
+      margin-bottom: 28px;
+      box-shadow: var(--shadow-md);
+      text-align: center;
+    }
+
+    .scorecard.visible {
+      display: block;
+      animation: fadeIn 0.4s ease-in-out;
+    }
+
+    .scorecard-title {
+      font-size: 1.25rem;
+      font-weight: 750;
+      color: var(--text-main);
+      margin-bottom: 6px;
+    }
+
+    .scorecard-subtitle {
+      font-size: 0.95rem;
+      color: var(--text-secondary);
+      margin-bottom: 24px;
+    }
+
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .metric-card {
+      background-color: var(--bg-card-subtle);
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      padding: 18px 12px;
+    }
+
+    .metric-value {
+      font-size: 2.2rem;
+      font-weight: 800;
+      line-height: 1.1;
+      margin-bottom: 4px;
+    }
+
+    .metric-label {
+      font-size: 0.82rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+    }
+
+    .score-green { color: var(--success-text); }
+    .score-red { color: var(--danger-text); }
+    .score-primary { color: var(--primary); }
+
+    .score-message {
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--text-main);
+      padding: 12px;
+      border-radius: 8px;
+      background-color: #f7f9fa;
+      display: inline-block;
+      max-width: 600px;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 640px) {
+      body {
+        padding: 14px 8px 60px;
+        font-size: 15.5px;
+      }
+      .question-card {
+        padding: 20px 16px;
+      }
+      header {
+        padding: 20px 16px;
+      }
+      .btn {
+        width: 100%;
+        margin-left: 0;
+        margin-top: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+
+    <!-- Cabeçalho Informativo -->
+    <header>
+      <span class="badge-header">Simulado Oficial de Fixação</span>
+      <h1>Lei nº 8.112/1990 – Regime Disciplinar e Prescrição</h1>
+      <p>Dispositivo: Título IV, Capítulo V (arts. 127 a 142) • Estilo de Cobrança: Comissão Central de Concurso Público (Reitoria IFMG)</p>
+      <div class="meta-bar">
+        <span><strong>Total:</strong> 10 Questões Completas</span>
+        <span><strong>Foco:</strong> Sanções, Dosimetria, Prescrição e Competência</span>
+        <span><strong>Modo:</strong> Resoluções Comentadas na Mesma Página</span>
+      </div>
+    </header>
+
+    <!-- Barra de Acompanhamento Sticky -->
+    <div class="progress-bar-container" id="progressBar">
+      <span class="progress-info" id="progressText">0 de 10 respondidas (0%)</span>
+      <div class="progress-track">
+        <div class="progress-fill" id="progressFill"></div>
+      </div>
+    </div>
+
+    <!-- Painel de Resultados (Aparece ao Finalizar) -->
+    <section class="scorecard" id="scorecard">
+      <h2 class="scorecard-title">Resultado do Simulado</h2>
+      <p class="scorecard-subtitle">Confira abaixo o seu desempenho global e navegue pelas resoluções comentadas integradas a cada questão.</p>
+      
+      <div class="metrics-grid">
+        <div class="metric-card">
+          <div class="metric-value score-primary" id="metricTotal">0/10</div>
+          <div class="metric-label">Pontuação Total</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-value score-green" id="metricAccuracy">0%</div>
+          <div class="metric-label">Taxa de Acerto</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-value score-green" id="metricCorrect">0</div>
+          <div class="metric-label">Acertos</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-value score-red" id="metricWrong">0</div>
+          <div class="metric-label">Erros / Em Branco</div>
+        </div>
+      </div>
+
+      <div class="score-message" id="scoreMessage"></div>
+    </section>
+
+    <!-- Contêiner de Questões -->
+    <div id="questionsContainer"></div>
+
+    <!-- Seção de Ações / Envio -->
+    <div class="actions-section">
+      <div class="feedback-notice" id="feedbackNotice"></div>
+      <button class="btn btn-primary" id="btnSubmit" onclick="finishQuiz()">Finalizar Simulado e Ver Resoluções</button>
+      <button class="btn btn-secondary" id="btnReset" onclick="resetQuiz()" style="display: none;">Refazer Simulado</button>
+    </div>
+
+  </div>
+
+  <script>
+    /* Base Completa de Questões e Resoluções Fundamentadas */
+    const quizData = [
+      {
+        id: 1,
+        number: "Questão 01",
+        statement: "No que tange ao regime disciplinar dos servidores públicos civis da União e em estrita consonância com o rol taxativo de sanções positivado na Lei nº 8.112/1990, assinale a alternativa que contempla <strong>exclusivamente</strong> penalidades disciplinares legalmente admitidas:",
+        options: [
+          { letter: "A", text: "Advertência, suspensão, demissão e exoneração de ofício." },
+          { letter: "B", text: "Advertência, suspensão, demissão e censura ética formal." },
+          { letter: "C", text: "Suspensão, demissão, remoção compulsória e destituição de cargo em comissão." },
+          { letter: "D", text: "Advertência, suspensão, demissão, cassação de aposentadoria ou disponibilidade e destituição de cargo em comissão." },
+          { letter: "E", text: "Repreensão escrita, suspensão disciplinar, demissão e perda da estabilidade funcional." }
+        ],
+        correctAnswer: "D",
+        foundation: "Lei nº 8.112/1990, art. 127, incisos I a VI",
+        resolutionHtml: `
+          <p>A disciplina do poder disciplinar no serviço público federal está alicerçada no princípio da legalidade estrita, o qual restringe os instrumentos repressivos da Administração às sanções expressamente contempladas pelo legislador ordinário. Nesse contexto dogmático, o artigo 127 da Lei nº 8.112/1990 institui um rol taxativo (<em>numerus clausus</em>) de penalidades administrativas: advertência, suspensão, demissão, cassação de aposentadoria ou disponibilidade, destituição de cargo em comissão e destituição de função comissionada.</p>
+          <p>A alternativa D é a única que reúne com exatidão elementos integrantes dessa relação normativa expressa. Em contrapartida, as demais alternativas incorrem em vícios estruturais ao arrolarem institutos que desbordam do sistema punitivo estatutário:</p>
+          <ul>
+            <li><strong>Exoneração de ofício (Item A):</strong> consubstancia ato administrativo desprovido de conotação punitiva, destinando-se a declarar a vacância de cargo em virtude de reprovação em estágio probatório ou descumprimento de prazos de posse e exercício (art. 34).</li>
+            <li><strong>Censura ética (Item B):</strong> enquadra-se no regramento deontológico extraestatutário das Comissões de Ética Pública regidas pelo Decreto nº 1.171/1994, não constituindo penalidade funcional do Regime Jurídico Único.</li>
+            <li><strong>Remoção compulsória (Item C):</strong> qualifica-se como mero instrumento de distribuição de pessoal no interesse da Administração (art. 36), cujo desvio para finalidade disciplinar configura abuso de poder gerador de nulidade.</li>
+            <li><strong>Repreensão escrita e perda de estabilidade (Item E):</strong> a advertência exige formalização escrita em vez de repreensão verbal e a perda do cargo por servidor estável é formalizada pela penalidade de demissão ou pelos termos do artigo 41 da CF/88, não havendo penalidade autônoma nominada como perda da estabilidade funcional.</li>
+          </ul>
+        `
+      },
+      {
+        id: 2,
+        number: "Questão 02",
+        statement: "No âmbito da disciplina estatutária federal concernente à penalidade de advertência e ao registro dos assentamentos funcionais, assinale a alternativa <strong>CORRETA</strong>:",
+        options: [
+          { letter: "A", text: "A advertência poderá ser aplicada de forma verbal pela chefia imediata quando a falta funcional for primária e de reduzida gravidade, dispensando-se o registro formal na ficha funcional do servidor." },
+          { letter: "B", text: "O ato punitivo de advertência será aplicado por escrito em casos de inobservância de dever funcional previsto em lei, regulamento ou norma interna, que não justifique imposição de penalidade mais grave, bem como por transgressão de proibições legais específicas." },
+          { letter: "C", text: "O cancelamento do registro da penalidade de advertência nos assentamentos funcionais dar-se-á de pleno direito após o decurso de 5 (cinco) anos de efetivo exercício, desde que o agente não tenha praticado nova infração no período." },
+          { letter: "D", text: "O cancelamento formal do registro da advertência operará efeitos retroativos plenos, assegurando ao servidor indenização pecuniária correspondente às promoções na carreira que foram preteridas durante a vigência do apontamento." },
+          { letter: "E", text: "A cominação da penalidade de advertência pressupõe a efetiva comprovação de lesão pecuniária direta aos cofres públicos decorrente de ato comissivo culposo do agente público." }
+        ],
+        correctAnswer: "B",
+        foundation: "Lei nº 8.112/1990, arts. 129 e 131",
+        resolutionHtml: `
+          <p>A penalidade de advertência possui conformação jurídica vinculada ao artigo 129 da Lei nº 8.112/1990, o qual exige a obrigatoriedade da forma escrita para sua validade jurídica, incidindo sobre o descumprimento de deveres funcionais estabelecidos em leis, regulamentos ou normas internas, desde que a infração não recomende providência de maior severidade, abrangendo ainda as proibições menos lesivas do artigo 117 (incisos I a VIII e XIX). Essa disciplina ratifica integralmente a assertiva B como correta.</p>
+          <p>Erros das demais opções:</p>
+          <ul>
+            <li><strong>Item A:</strong> A ordem jurídica federal não reconhece advertência meramente verbal ou desprovida de formalização funcional escrita (art. 129).</li>
+            <li><strong>Item C:</strong> O cancelamento do registro funcional da advertência opera-se no termo de <strong>3 (três) anos</strong> de efetivo serviço sem reincidência infracional; o lapso quinquenal de 5 (cinco) anos aplica-se com exclusividade à pena de suspensão (art. 131).</li>
+            <li><strong>Item D:</strong> O parágrafo único do artigo 131 estipula expressamente a eficácia não retroativa (<em>ex nunc</em>) do cancelamento do registro, não surtindo efeitos retroativos indenizatórios.</li>
+            <li><strong>Item E:</strong> As infrações cominadas com advertência tutelam a regularidade formal do serviço e o dever de subordinação hierárquica, aperfeiçoando-se independentemente da produção de prejuízo financeiro concreto aos cofres públicos.</li>
+          </ul>
+        `
+      },
+      {
+        id: 3,
+        number: "Questão 03",
+        statement: "A respeito da penalidade disciplinar de suspensão e dos limites de sua execução material na Lei nº 8.112/1990, assinale a alternativa <strong>CORRETA</strong>:",
+        options: [
+          { letter: "A", text: "A suspensão será aplicada nos casos de reincidência das faltas punidas com advertência e de violação das demais proibições que não tipifiquem infração sujeita a demissão, não podendo seu prazo exceder a 90 (noventa) dias." },
+          { letter: "B", text: "O servidor público que recusar injustificadamente a submeter-se à inspeção médica determinada pela autoridade competente será punido com suspensão improrrogável de 30 (trinta) dias, mantendo-se os efeitos da punição mesmo após o comparecimento à perícia." },
+          { letter: "C", text: "É expressamente vedada à autoridade administrativa julgadora a conversão da penalidade de suspensão em multa pecuniária, sob pena de nulidade absoluta do ato correcional por violação do princípio da indisponibilidade do interesse público." },
+          { letter: "D", text: "Presente a conveniência para o serviço, a penalidade de suspensão poderá ser convertida em multa na base de 100% (cem por cento) por dia de remuneração, ficando o servidor dispensado do comparecimento à repartição pelo período sancionado." },
+          { letter: "E", text: "O cancelamento do registro disciplinar da penalidade de suspensão nos assentamentos do servidor ocorrerá após o transcurso regular de 3 (três) anos de efetivo exercício sem novas infrações." }
+        ],
+        correctAnswer: "A",
+        foundation: "Lei nº 8.112/1990, art. 130, caput, §§ 1º e 2º, e art. 131",
+        resolutionHtml: `
+          <p>A penalidade de suspensão assume natureza disciplinar mais severa na escala de gradação legal, atuando subsidiariamente na repressão à reincidência de faltas apenadas com advertência e nas violações de proibições estatutárias que não alcancem a magnitude necessária para a imposição de demissão. O artigo 130, <em>caput</em>, da Lei nº 8.112/1990 define o teto improrrogável de <strong>90 (noventa) dias</strong> para a sua duração regular, tornando irrepreensível a alternativa A.</p>
+          <p>Desconstrução dos distratores:</p>
+          <ul>
+            <li><strong>Item B:</strong> Conforme o art. 130, § 1º, a recusa injustificada à inspeção médica enseja suspensão de <strong>até 15 (quinze) dias</strong> (e não 30), cessando compulsoriamente os efeitos da penalidade tão logo seja realizada a referida inspeção.</li>
+            <li><strong>Item C e D:</strong> O art. 130, § 2º, permite a conversão da suspensão em multa quando houver conveniência para o serviço, à base de <strong>50% (cinquenta por cento)</strong> por dia de vencimento ou remuneração, ficando o servidor obrigado a permanecer em exercício.</li>
+            <li><strong>Item E:</strong> O cancelamento do registro da suspensão ocorre após <strong>5 (cinco) anos</strong> de efetivo exercício sem novas infrações (o prazo de 3 anos restringe-se à advertência).</li>
+          </ul>
+        `
+      },
+      {
+        id: 4,
+        number: "Questão 04",
+        statement: "Conforme estabelece o artigo 128 da Lei nº 8.112/1990, a individualização e a gradação das penalidades disciplinares subordinam-se a balizas objetivas de dosimetria. A esse respeito, assinale a alternativa que indica <strong>corretamente</strong> os critérios legalmente estipulados para a aplicação das sanções administrativas:",
+        options: [
+          { letter: "A", text: "A condição financeira do servidor infrator, a respectiva antiguidade no serviço público federal e a anuência prévia da comissão processante." },
+          { letter: "B", text: "A natureza e a gravidade da infração cometida, os danos que dela provierem para o serviço público, as circunstâncias agravantes ou atenuantes e os antecedentes funcionais." },
+          { letter: "C", text: "O grau de titulação acadêmica do servidor, o impacto da infração na imprensa regional e o tempo remanescente para a aposentação voluntária do agente." },
+          { letter: "D", text: "O padrão remuneratório da carreira, a pontuação obtida na última avaliação periódica de desempenho e a confissão espontânea perante o colegiado sindicante." },
+          { letter: "E", text: "A demonstração compulsória de dolo específico para qualquer modalidade transgressional, a inocorrência de processos arquivados e a renúncia à via recursal." }
+        ],
+        correctAnswer: "B",
+        foundation: "Lei nº 8.112/1990, art. 128, caput e parágrafo único",
+        resolutionHtml: `
+          <p>O postulado da proporcionalidade e a garantia de individualização da sanção disciplinar impõem limites à discricionariedade administrativa, vinculando a autoridade julgadora a parâmetros objetivos ao dosar o preceito sancionatório. O artigo 128 da Lei nº 8.112/1990 estabeleceu com clareza esses elementos:</p>
+          <p><em>“Art. 128. Na aplicação das penalidades serão consideradas a natureza e a gravidade da infração cometida, os danos que dela provierem para o serviço público, as circunstâncias agravantes ou atenuantes e os antecedentes funcionais.”</em></p>
+          <p>Critérios puramente periféricos como renda individual, repercussão midiática, tempo para aposentadoria ou notas de avaliação periódica não constituem as balizas legais do Estatuto.</p>
+        `
+      },
+      {
+        id: 5,
+        number: "Questão 05",
+        statement: "Conforme disposto na Lei nº 8.112/1990, são consideradas situações que ensejam formalmente a aplicação da penalidade de demissão do servidor público, <strong>EXCETO</strong>:",
+        options: [
+          { letter: "A", text: "Abandono de cargo e inassiduidade habitual." },
+          { letter: "B", text: "Improbidade administrativa e corrupção." },
+          { letter: "C", text: "Aplicação irregular de dinheiros públicos e lesão aos cofres públicos com dilapidação do patrimônio nacional." },
+          { letter: "D", text: "Ofensa física, em serviço, a servidor ou a particular, salvo em legítima defesa própria ou de outrem." },
+          { letter: "E", text: "Cometer a pessoa estranha à repartição, fora dos casos previstos em lei, o desempenho de atribuição que seja de sua responsabilidade ou de seu subordinado." }
+        ],
+        correctAnswer: "E",
+        foundation: "Lei nº 8.112/1990, art. 117, VI; art. 129; art. 132",
+        resolutionHtml: `
+          <p>A delimitação das infrações cominadas com demissão está consolidada nas hipóteses taxativas do artigo 132 da Lei nº 8.112/1990.</p>
+          <p>A conduta enunciada na <strong>alternativa E</strong> — <em>“cometer a pessoa estranha à repartição, fora dos casos previstos em lei, o desempenho de atribuição que seja de sua responsabilidade ou de seu subordinado”</em> — consiste na proibição expressa no <strong>artigo 117, inciso VI</strong>, cuja penalidade originária aplicável é a de <strong>advertência</strong> (art. 129), ou de suspensão em caso de reincidência, jamais ensejando demissão funcional de plano. Por ser a única exceção, é o gabarito.</p>
+          <p>Todas as demais alternativas contemplam hipóteses expressas de demissão listadas no art. 132:</p>
+          <ul>
+            <li>Abandono de cargo e inassiduidade habitual (incisos II e III);</li>
+            <li>Improbidade administrativa e corrupção (incisos IV e XI);</li>
+            <li>Aplicação irregular de dinheiros públicos e lesão aos cofres públicos (incisos VIII e X);</li>
+            <li>Ofensa física em serviço contra servidor ou particular, ressalvada a legítima defesa (inciso VII).</li>
+          </ul>
+        `
+      },
+      {
+        id: 6,
+        number: "Questão 06",
+        statement: "A imposição da penalidade de demissão desencadeia repercussões na esfera funcional do infrator e na sua aptidão jurídica para novos vínculos com a Administração Pública Federal. À luz dos artigos 136 e 137 da Lei nº 8.112/1990, a demissão incompatibilizará o ex-servidor para nova investidura em cargo público federal:",
+        options: [
+          { letter: "A", text: "Pelo prazo fixo e genérico de 2 (dois) anos, independentemente do substrato fático que tenha culminado na demissão disciplinar." },
+          { letter: "B", text: "Pelo período imperativo de 10 (dez) anos, para qualquer das hipóteses de rescisão punitiva disciplinar previstas na norma de regência." },
+          { letter: "C", text: "Pelo período de 5 (cinco) anos, especificamente nos casos de valimento do cargo para lograr proveito pessoal ou de outrem em detrimento da dignidade funcional e de atuação como procurador ou intermediário junto a repartições públicas fora das ressalvas legais." },
+          { letter: "D", text: "De modo irrevogável e por prazo perpétuo, em todas as tipificações estatutárias punidas com a sanção de demissão." },
+          { letter: "E", text: "Pelo prazo decadencial de 180 (cento e oitenta) dias, após o qual cessa qualquer óbice jurídico ao provimento originário decorrente de novo certame público." }
+        ],
+        correctAnswer: "C",
+        foundation: "Lei nº 8.112/1990, art. 132, IX e XI, c/c art. 137, caput",
+        resolutionHtml: `
+          <p>O artigo 137, <em>caput</em>, da Lei nº 8.112/1990 estabelece que a demissão cominada com fundamento nas infrações previstas nos incisos IX (valimento do cargo para proveito pessoal ou de outrem em detrimento da dignidade da função pública) e XI (atuação como procurador ou intermediário junto a repartições públicas, salvo benefícios previdenciários de parentes até o segundo grau) incompatibiliza o ex-servidor para nova investidura em cargo público federal pelo prazo de <strong>5 (cinco) anos</strong>.</p>
+          <p>Nota de atualização: Embora o parágrafo único do art. 137 trouxesse originalmente a vedação perpétua para casos como improbidade e corrupção, o Supremo Tribunal Federal assentou a inconstitucionalidade material do banimento perpétuo (ADI 2.975/DF e Tema 1083), em obediência à proibição de penas de caráter perpétuo garantida pelo art. 5º, XLVII, 'b', da Carta Magna.</p>
+        `
+      },
+      {
+        id: 7,
+        number: "Questão 07",
+        statement: "A respeito da disciplina das penalidades de cassação de aposentadoria ou disponibilidade e de destituição de cargo em comissão constantes da Lei nº 8.112/1990, assinale a alternativa <strong>CORRETA</strong>:",
+        options: [
+          { letter: "A", text: "A cassação de aposentadoria será formalizada quando o inativo houver cometido, enquanto na atividade, infração disciplinar sancionável com a pena de suspensão por prazo superior a 30 (trinta) dias." },
+          { letter: "B", text: "A cassação de disponibilidade constitui providência de ordem civil reparatória, demandando ação judicial com sentença condenatória transitada em julgado para a produção de efeitos desconstitutivos." },
+          { letter: "C", text: "A destituição de cargo em comissão exercido por agente não ocupante de cargo efetivo incide apenas nas faltas puníveis com demissão, sendo incabível diante de condutas legalmente apenadas com suspensão." },
+          { letter: "D", text: "A destituição de cargo em comissão exercido por não ocupante de cargo efetivo será aplicada nos casos de infração sujeita às penalidades de suspensão e de demissão." },
+          { letter: "E", text: "O ato de destituição de função comissionada possui natureza originária de penalidade civil, restrita a servidores estáveis que causarem prejuízo patrimonial comprovado." }
+        ],
+        correctAnswer: "D",
+        foundation: "Lei nº 8.112/1990, arts. 134 e 135",
+        resolutionHtml: `
+          <p>A destituição de cargo em comissão exercido por não ocupante de cargo efetivo possui regramento expresso no <strong>artigo 135 da Lei nº 8.112/1990</strong>: será cominada nos casos de infração sujeita às penalidades de <strong>suspensão</strong> e de <strong>demissão</strong>. Isso decorre da ausência de cargo efetivo permanente para suportar uma suspensão convencional de exercício ou uma demissão típica, convertendo-se ambas as hipóteses de gravidade em destituição do cargo comissionado.</p>
+          <p>Erros das demais proposições:</p>
+          <ul>
+            <li><strong>Item A:</strong> O art. 134 exige que o inativo tenha praticado, na atividade, falta punível com <strong>demissão</strong> (não cabe para suspensão).</li>
+            <li><strong>Item B:</strong> A cassação de disponibilidade é sanção estritamente administrativa disciplinar calcada na autotutela, dispensando processo judicial prévio.</li>
+            <li><strong>Item C:</strong> Contradiz o art. 135, pois a destituição é cabível para condutas cominadas com suspensão e demissão.</li>
+            <li><strong>Item E:</strong> A destituição de função comissionada (art. 127, VI) é sanção administrativa disciplinar estatutária, não possuindo natureza de reparação civil.</li>
+          </ul>
+        `
+      },
+      {
+        id: 8,
+        number: "Questão 08",
+        statement: "O artigo 141 da Lei nº 8.112/1990 regulamenta a distribuição de competência administrativa entre as autoridades dos Poderes da União para a imposição de cada espécie de penalidade disciplinar. De acordo com o regramento estatutário, assinale a alternativa <strong>CORRETA</strong>:",
+        options: [
+          { letter: "A", text: "A demissão e a cassação de aposentadoria ou disponibilidade de servidores vinculados ao Poder Executivo Federal são de competência privativa originária do Presidente da República, admitida delegação conforme previsão constitucional." },
+          { letter: "B", text: "O chefe imediato de setor ou unidade básica possui competência funcional originária para impor demissão a subordinado efetivo, desde que respaldado por parecer da consultoria jurídica." },
+          { letter: "C", text: "A competência para a aplicação da penalidade de suspensão por prazo superior a 30 (trinta) dias pertence exclusivamente ao Presidente da República, sendo legalmente indelegável." },
+          { letter: "D", text: "A imposição de destituição de cargo em comissão subordina-se à atribuição monocrática da Controladoria-Geral da União, desvinculando-se da autoridade responsável pelo ato de investidura originária." },
+          { letter: "E", text: "A penalidade de advertência é de competência exclusiva de Ministros de Estado e de Reitores de instituições federais, não havendo amparo normativo para atribuição a chefes de repartição." }
+        ],
+        correctAnswer: "A",
+        foundation: "Lei nº 8.112/1990, art. 141, incisos I a IV",
+        resolutionHtml: `
+          <p>O artigo 141, inciso I, da Lei nº 8.112/1990 comete expressamente a aplicação das penas de <strong>demissão</strong> e <strong>cassação de aposentadoria ou disponibilidade</strong> ao Presidente da República, aos Presidentes das Casas do Poder Legislativo e dos Tribunais Federais e ao Procurador-Geral da República, no âmbito dos respectivos Poderes e órgãos. No Poder Executivo Federal, tal competência é passível de delegação a Ministros de Estado e Reitores (art. 84, parágrafo único, CF/88 c/c Decreto nº 3.035/1999), ratificando a exatidão do item A.</p>
+          <div class="resolution-table-wrap">
+            <table class="resolution-table">
+              <thead>
+                <tr>
+                  <th>Autoridade Competente</th>
+                  <th>Penalidades Aplicáveis</th>
+                  <th>Dispositivo</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Presidente da República, Chefes de Poderes e PGR</td>
+                  <td>Demissão e cassação de aposentadoria/disponibilidade</td>
+                  <td>Art. 141, I</td>
+                </tr>
+                <tr>
+                  <td>Autoridades da hierarquia imediatamente inferior (Ministros, Reitores)</td>
+                  <td>Suspensão superior a 30 (trinta) dias</td>
+                  <td>Art. 141, II</td>
+                </tr>
+                <tr>
+                  <td>Chefe da repartição e outras autoridades regimentais</td>
+                  <td>Advertência e suspensão de até 30 (trinta) dias</td>
+                  <td>Art. 141, III</td>
+                </tr>
+                <tr>
+                  <td>Autoridade responsável pela nomeação originária</td>
+                  <td>Destituição de cargo em comissão</td>
+                  <td>Art. 141, IV</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        `
+      },
+      {
+        id: 9,
+        number: "Questão 09",
+        statement: "Acerca dos prazos de prescrição da ação disciplinar disciplinados no artigo 142 da Lei nº 8.112/1990, assinale a alternativa <strong>CORRETA</strong>:",
+        options: [
+          { letter: "A", text: "A pretensão punitiva disciplinar prescreverá no prazo de 5 (cinco) anos quanto às infrações cominadas com demissão, cassação de aposentadoria ou disponibilidade e destituição de cargo em comissão." },
+          { letter: "B", text: "O lapso prescricional para a imposição da penalidade estatutária de suspensão é de 1 (um) ano, contado a partir da data de término do respectivo procedimento apuratório." },
+          { letter: "C", text: "A sanção de advertência submete-se ao mesmo prazo extintivo de 2 (dois) anos conferido pela lei à penalidade de suspensão disciplinar." },
+          { letter: "D", text: "As faltas disciplinares tipificadas em tese como crime prescrevem de forma autônoma e absoluta no prazo administrativo de 5 (cinco) anos, desconsiderando-se as balizas prescricionais estabelecidas na lei substantiva penal." },
+          { letter: "E", text: "A ação disciplinar converte-se em imprescritível sempre que o ilícito administrativo envolver locupletamento patrimonial ilícito ou prejuízo indireto ao erário." }
+        ],
+        correctAnswer: "A",
+        foundation: "Lei nº 8.112/1990, art. 142, incisos I a III, e § 2º",
+        resolutionHtml: `
+          <p>O artigo 142 da Lei nº 8.112/1990 sistematiza os prazos extintivos de prescrição da ação disciplinar em função direta da severidade da penalidade prevista:</p>
+          <div class="resolution-table-wrap">
+            <table class="resolution-table">
+              <thead>
+                <tr>
+                  <th>Penalidade Cominada em Abstrato</th>
+                  <th>Prazo Prescricional</th>
+                  <th>Fundamento</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Demissão, cassação de aposentadoria/disponibilidade e destituição de comissão</td>
+                  <td><strong>5 (cinco) anos</strong></td>
+                  <td>Art. 142, I</td>
+                </tr>
+                <tr>
+                  <td>Suspensão</td>
+                  <td><strong>2 (dois) anos</strong></td>
+                  <td>Art. 142, II</td>
+                </tr>
+                <tr>
+                  <td>Advertência</td>
+                  <td><strong>180 (cento e oitenta) dias</strong></td>
+                  <td>Art. 142, III</td>
+                </tr>
+                <tr>
+                  <td>Infrações tipificadas também como crime</td>
+                  <td><strong>Prazo da lei penal</strong></td>
+                  <td>Art. 142, § 2º</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p>Dessa forma, a alternativa A reproduz integralmente a previsão do inciso I do art. 142. Não há imprescritibilidade genérica para sanções funcionais disciplinares.</p>
+        `
+      },
+      {
+        id: 10,
+        number: "Questão 10",
+        statement: "No que concerne ao termo inicial do prazo de prescrição disciplinar e às suas causas de interrupção e reinício sob o prisma da Lei nº 8.112/1990 e da jurisprudência consolidada dos Tribunais Superiores, assinale a alternativa <strong>CORRETA</strong>:",
+        options: [
+          { letter: "A", text: "O prazo prescricional principia seu curso a partir do protocolo final do relatório circunstanciado elaborado pelo colegiado processante no processo disciplinar." },
+          { letter: "B", text: "O termo inicial da prescrição da pretensão punitiva disciplinar corresponde ao dia em que o fato irregular se tornou conhecido pela autoridade competente para a instauração do procedimento correcional." },
+          { letter: "C", text: "A publicação do ato formal de instauração de processo administrativo disciplinar não interrompe a prescrição, provocando mera suspensão processual pelo interstício improrrogável de 30 (trinta) dias." },
+          { letter: "D", text: "Interrompido o prazo de prescrição pela instauração do processo disciplinar, a contagem da prescrição reinicia-se imediatamente por inteiro no dia útil subsequente à referida portaria de instauração." },
+          { letter: "E", text: "A ciência da falta disciplinar por servidor hierarquicamente subalterno ou por terceiros alheios aos quadros diretivos da instituição é suficiente para disparar a fluência do prazo prescricional contra a Administração." }
+        ],
+        correctAnswer: "B",
+        foundation: "Lei nº 8.112/1990, art. 142, §§ 1º, 3º e 4º; Súmula 383/STJ",
+        resolutionHtml: `
+          <p>Embora a literalidade do art. 142, § 1º, mencione que a prescrição começa a correr da data em que o fato se tornou conhecido, a jurisprudência uniformizada do <strong>Superior Tribunal de Justiça e do Supremo Tribunal Federal</strong> fixou a exegese vinculante de que o termo <em>a quo</em> é o momento da ciência inequívoca pela <strong>autoridade administrativa competente para a instauração do procedimento punitivo</strong> (e não qualquer servidor subalterno desprovido de atribuição correcional).</p>
+          <p>Razões das incorreções dos demais itens:</p>
+          <ul>
+            <li><strong>Item A:</strong> A entrega do relatório da comissão já se dá com a prescrição em curso ou interrompida (art. 165).</li>
+            <li><strong>Item C:</strong> Conforme o art. 142, § 3º, a abertura de sindicância ou instauração de PAD <strong>interrompe</strong> a prescrição (zera o prazo transcorrido), e não suspende.</li>
+            <li><strong>Item D:</strong> Pela <strong>Súmula 383 do STJ</strong>, a interrupção pela instauração de PAD perdura até o término do prazo legalmente admitido para conclusão e julgamento do processo (140 dias no rito ordinário: 60 dias de prazo base + 60 de prorrogação + 20 para julgamento). Somente após esgotado tal prazo sem julgamento é que o prazo prescricional recomeça a fluir por inteiro.</li>
+            <li><strong>Item E:</strong> Conhecimento por servidores sem competência disciplinar não deflagra o prazo prescricional contra a Administração.</li>
+          </ul>
+        `
+      }
+    ];
+
+    // Estado da aplicação
+    const userAnswers = {};
+    let isSubmitted = false;
+
+    // Renderizar questões na página
+    function renderQuiz() {
+      const container = document.getElementById("questionsContainer");
+      container.innerHTML = "";
+
+      quizData.forEach((q) => {
+        const card = document.createElement("div");
+        card.className = "question-card";
+        card.id = `qCard_${q.id}`;
+
+        let optionsHtml = q.options.map(opt => `
+          <div class="option-item" id="opt_${q.id}_${opt.letter}" onclick="handleOptionSelect(${q.id}, '${opt.letter}')">
+            <div class="option-radio" id="radio_${q.id}_${opt.letter}"></div>
+            <div class="option-content">
+              <span class="option-letter">${opt.letter})</span>
+              <span>${opt.text}</span>
+            </div>
+          </div>
+        `).join("");
+
+        card.innerHTML = `
+          <div class="question-header">
+            <span class="question-number">${q.number}</span>
+            <span class="question-status-tag" id="statusBadge_${q.id}"></span>
+          </div>
+          <div class="question-statement">${q.statement}</div>
+          <div class="options-group" id="optionsGroup_${q.id}">
+            ${optionsHtml}
+          </div>
+          <div class="resolution-wrapper" id="resolution_${q.id}">
+            <div class="resolution-title">
+              <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              <span>Resolução Comentada • Gabarito [${q.correctAnswer}] • ${q.foundation}</span>
+            </div>
+            <div class="resolution-content">
+              ${q.resolutionHtml}
+            </div>
+          </div>
+        `;
+
+        container.appendChild(card);
+      });
+
+      updateProgress();
+    }
+
+    // Seleção de alternativa
+    function handleOptionSelect(questionId, letter) {
+      if (isSubmitted) return; // Bloqueado após envio
+
+      userAnswers[questionId] = letter;
+
+      // Atualiza interface do card
+      const q = quizData.find(item => item.id === questionId);
+      q.options.forEach(opt => {
+        const optEl = document.getElementById(`opt_${questionId}_${opt.letter}`);
+        if (opt.letter === letter) {
+          optEl.classList.add("selected");
+        } else {
+          optEl.classList.remove("selected");
+        }
+      });
+
+      // Esconde aviso se houver
+      const notice = document.getElementById("feedbackNotice");
+      if (notice.style.display === "block") {
+        notice.style.display = "none";
+      }
+
+      updateProgress();
+    }
+
+    // Atualização da barra de progresso
+    function updateProgress() {
+      const answeredCount = Object.keys(userAnswers).length;
+      const total = quizData.length;
+      const percentage = Math.round((answeredCount / total) * 100);
+
+      const progressFill = document.getElementById("progressFill");
+      const progressText = document.getElementById("progressText");
+
+      if (progressFill && progressText) {
+        progressFill.style.width = `${percentage}%`;
+        progressText.textContent = `${answeredCount} de ${total} respondidas (${percentage}%)`;
+      }
+    }
+
+    // Finalizar e corrigir simulado
+    function finishQuiz() {
+      if (isSubmitted) return;
+
+      const answeredCount = Object.keys(userAnswers).length;
+      const total = quizData.length;
+
+      // Verificação de preenchimento
+      if (answeredCount < total) {
+        const notice = document.getElementById("feedbackNotice");
+        notice.textContent = `Atenção: você respondeu ${answeredCount} de ${total} questões. Recomendamos responder todas antes de finalizar. Caso deseje corrigir agora, clique novamente no botão.`;
+        notice.style.display = "block";
+        
+        // Se clicar pela segunda vez mesmo sem responder todas, autoriza
+        if (!notice.dataset.warned) {
+          notice.dataset.warned = "true";
+          return;
+        }
+      }
+
+      isSubmitted = true;
+
+      let correctCount = 0;
+
+      quizData.forEach(q => {
+        const userChoice = userAnswers[q.id];
+        const isCorrect = userChoice === q.correctAnswer;
+        const statusBadge = document.getElementById(`statusBadge_${q.id}`);
+        const resolution = document.getElementById(`resolution_${q.id}`);
+
+        if (isCorrect) {
+          correctCount++;
+          statusBadge.textContent = "Acertou";
+          statusBadge.className = "question-status-tag status-correct";
+        } else if (userChoice) {
+          statusBadge.textContent = "Errou";
+          statusBadge.className = "question-status-tag status-incorrect";
+        } else {
+          statusBadge.textContent = "Não respondida";
+          statusBadge.className = "question-status-tag status-unanswered";
+        }
+
+        // Marcar visualmente as alternativas
+        q.options.forEach(opt => {
+          const optEl = document.getElementById(`opt_${q.id}_${opt.letter}`);
+          optEl.classList.add("locked");
+
+          // Destaca gabarito correto
+          if (opt.letter === q.correctAnswer) {
+            optEl.classList.add("is-correct-target");
+          }
+
+          // Destaca marcação errônea do usuário
+          if (userChoice === opt.letter && !isCorrect) {
+            optEl.classList.add("is-user-error");
+          }
+        });
+
+        // Revela a fundamentação detalhada mantida no corpo da questão
+        resolution.classList.add("visible");
+      });
+
+      // Cálculo de Métricas
+      const percentage = Math.round((correctCount / total) * 100);
+      const wrongOrBlank = total - correctCount;
+
+      document.getElementById("metricTotal").textContent = `${correctCount}/${total}`;
+      document.getElementById("metricAccuracy").textContent = `${percentage}%`;
+      document.getElementById("metricCorrect").textContent = correctCount;
+      document.getElementById("metricWrong").textContent = wrongOrBlank;
+
+      // Mensagem de Feedback
+      let message = "";
+      if (percentage >= 80) {
+        message = "Excelente domínio técnico! Você demonstrou sólida compreensão do regime disciplinar, regras de dosimetria e prazos prescricionais.";
+      } else if (percentage >= 60) {
+        message = "Bom aproveitamento. Revise os detalhes finos das competências de aplicação e os marcos de interrupção prescricional (Súmula 383/STJ).";
+      } else {
+        message = "Aproveite as resoluções comentadas abaixo para consolidar os pontos estatutários e a taxatividade do art. 127.";
+      }
+      document.getElementById("scoreMessage").textContent = message;
+
+      // Exibe painel de resultado e atualiza botões
+      const scorecard = document.getElementById("scorecard");
+      scorecard.classList.add("visible");
+      document.getElementById("feedbackNotice").style.display = "none";
+      document.getElementById("btnSubmit").style.display = "none";
+      document.getElementById("btnReset").style.display = "inline-flex";
+
+      // Rola suavemente até o topo dos resultados
+      scorecard.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+
+    // Reiniciar simulado
+    function resetQuiz() {
+      // Limpa dados de resposta
+      for (const key in userAnswers) {
+        delete userAnswers[key];
+      }
+      isSubmitted = false;
+
+      // Reseta aviso
+      const notice = document.getElementById("feedbackNotice");
+      notice.style.display = "none";
+      delete notice.dataset.warned;
+
+      // Oculta painel de resultado e alterna botões
+      document.getElementById("scorecard").classList.remove("visible");
+      document.getElementById("btnSubmit").style.display = "inline-flex";
+      document.getElementById("btnReset").style.display = "none";
+
+      // Renderiza novamente limpo
+      renderQuiz();
+
+      // Volta ao topo
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    // Inicialização ao carregar a página
+    window.addEventListener("DOMContentLoaded", () => {
+      renderQuiz();
+    });
+  </script>
+</body>
+</html>

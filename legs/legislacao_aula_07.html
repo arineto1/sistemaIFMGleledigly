@@ -1,0 +1,924 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Regime Disciplinar - Lei 8.112/1990 | IFMG Concurso</title>
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          },
+          colors: {
+            brand: {
+              50: '#f8fafc',
+              100: '#f1f5f9',
+              600: '#2563eb',
+              700: '#1d4ed8',
+              800: '#1e40af',
+              900: '#0f172a',
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Estilos globais e neutralidade visual */
+    body {
+      background-color: #ffffff;
+      color: #1e293b; /* Slate 800 - Leitura confortável */
+      font-family: 'Inter', sans-serif;
+      text-rendering: optimizeLegibility;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Grifos e Realces de Estudo */
+    mark.highlight-yellow {
+      background-color: #fef08a; /* Amarelo suave */
+      color: #854d0e;
+      padding: 0.15rem 0.35rem;
+      border-radius: 0.25rem;
+      font-weight: 600;
+      border-bottom: 2px solid #facc15;
+    }
+
+    mark.highlight-green {
+      background-color: #dcfce7; /* Verde menta suave */
+      color: #166534;
+      padding: 0.15rem 0.35rem;
+      border-radius: 0.25rem;
+      font-weight: 600;
+      border-bottom: 2px solid #86efac;
+    }
+
+    mark.highlight-blue {
+      background-color: #e0f2fe; /* Azul claro */
+      color: #075985;
+      padding: 0.15rem 0.35rem;
+      border-radius: 0.25rem;
+      font-weight: 600;
+      border-bottom: 2px solid #7dd3fc;
+    }
+
+    mark.highlight-red {
+      background-color: #fee2e2; /* Vermelho claro */
+      color: #991b1b;
+      padding: 0.15rem 0.35rem;
+      border-radius: 0.25rem;
+      font-weight: 600;
+      border-bottom: 2px solid #fca5a5;
+    }
+
+    /* Impede qualquer transbordo horizontal indesejado */
+    html, body {
+      max-width: 100%;
+      overflow-x: hidden;
+    }
+  </style>
+</head>
+<body class="bg-white text-slate-800 antialiased selection:bg-amber-200 selection:text-slate-900">
+
+  <!-- BARRA DE NAVEGAÇÃO E IDENTIFICAÇÃO DO CONCURSO -->
+  <header class="border-b border-slate-200 bg-white sticky top-0 z-40 shadow-xs">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 py-3.5 flex flex-col sm:flex-row items-center justify-between gap-3">
+      <div class="flex items-center gap-3 w-full sm:w-auto">
+        <div class="h-9 w-9 rounded-lg bg-slate-900 text-white flex items-center justify-center font-bold text-sm shrink-0">
+          IF
+        </div>
+        <div>
+          <span class="text-xs font-semibold uppercase tracking-wider text-slate-500 block">Concurso Público EBTT • IFMG</span>
+          <h1 class="text-sm sm:text-base font-bold text-slate-900 leading-tight">Legislação Federal: Lei nº 8.112/1990</h1>
+        </div>
+      </div>
+      
+      <div class="flex items-center gap-2 w-full sm:w-auto justify-end">
+        <a href="#audio-section" class="text-xs font-medium text-slate-600 hover:text-slate-900 bg-slate-100 hover:bg-slate-200 px-3 py-1.5 rounded-md transition flex items-center gap-1.5">
+          <i class="fa-solid fa-headphones text-slate-500"></i> Áudio
+        </a>
+        <a href="#pontos-criticos" class="text-xs font-medium text-amber-800 bg-amber-50 hover:bg-amber-100 border border-amber-200 px-3 py-1.5 rounded-md transition flex items-center gap-1.5">
+          <i class="fa-solid fa-bullseye text-amber-600"></i> Pontos Críticos
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- REPRODUTOR DE ÁUDIO NO TOPO -->
+  <section id="audio-section" class="bg-slate-50 border-b border-slate-200 py-6 px-4 sm:px-6">
+    <div class="max-w-4xl mx-auto">
+      <div class="bg-white rounded-xl border border-slate-300 shadow-sm p-4 sm:p-5">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-4 border-b border-slate-100">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center text-lg shrink-0 border border-blue-100">
+              <i class="fa-solid fa-volume-high"></i>
+            </div>
+            <div>
+              <h2 class="text-sm sm:text-base font-bold text-slate-900">Áudio da Aula: Regime Disciplinar II</h2>
+              <p class="text-xs text-slate-500">Ouça o conteúdo narrado enquanto acompanha os tópicos e tabelas</p>
+            </div>
+          </div>
+
+          <!-- Controle de Velocidade -->
+          <div class="flex items-center gap-1.5 self-start md:self-auto bg-slate-100 p-1 rounded-lg border border-slate-200">
+            <span class="text-[11px] font-semibold text-slate-500 uppercase px-2">Velocidade:</span>
+            <button onclick="setPlaybackSpeed(1)" class="speed-btn active text-xs font-semibold px-2.5 py-1 rounded bg-white text-slate-900 shadow-xs border border-slate-200" data-speed="1">1.0x</button>
+            <button onclick="setPlaybackSpeed(1.25)" class="speed-btn text-xs font-semibold px-2.5 py-1 rounded text-slate-600 hover:text-slate-900 transition" data-speed="1.25">1.25x</button>
+            <button onclick="setPlaybackSpeed(1.5)" class="speed-btn text-xs font-semibold px-2.5 py-1 rounded text-slate-600 hover:text-slate-900 transition" data-speed="1.5">1.5x</button>
+            <button onclick="setPlaybackSpeed(2)" class="speed-btn text-xs font-semibold px-2.5 py-1 rounded text-slate-600 hover:text-slate-900 transition" data-speed="2">2.0x</button>
+          </div>
+        </div>
+
+        <!-- Player HTML5 -->
+        <div class="pt-4 space-y-3">
+          <audio id="main-audio-player" class="w-full h-11" controls preload="metadata">
+            <source id="audio-source" src="audio7legs.mp3" type="audio/mpeg">
+            Seu navegador não suporta a reprodução deste arquivo de áudio.
+          </audio>
+
+          <!-- Configuração do nome do arquivo MP3 -->
+          <div class="bg-slate-50 rounded-lg p-3 border border-slate-200 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 text-xs">
+            <div class="flex items-center gap-2 text-slate-600">
+              <i class="fa-regular fa-file-audio text-slate-500"></i>
+              <label for="mp3-filename-input" class="font-medium">Arquivo MP3 local:</label>
+            </div>
+            
+            <div class="flex items-center gap-2 flex-1 max-w-md">
+              <input 
+                type="text" 
+                id="mp3-filename-input" 
+                value="audio4legs.mp3" 
+                placeholder="Ex: aula.mp3 ou audio/aula1.mp3"
+                class="w-full bg-white border border-slate-300 rounded px-2.5 py-1.5 font-mono text-slate-800 text-xs focus:ring-2 focus:ring-blue-500 focus:outline-none"
+              >
+              <button 
+                type="button" 
+                onclick="updateAudioFile()" 
+                class="bg-slate-800 hover:bg-slate-900 text-white font-medium px-3 py-1.5 rounded transition shrink-0 flex items-center gap-1.5"
+                title="Carregar este arquivo no reprodutor acima"
+              >
+                <i class="fa-solid fa-arrows-rotate text-[11px]"></i> Carregar
+              </button>
+            </div>
+          </div>
+          <p id="audio-status" class="text-[11px] text-slate-500 italic">
+            * Dica: Mantenha o arquivo MP3 na mesma pasta desta página HTML (ou insira o caminho relativo correspondente).
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTEÚDO PRINCIPAL (TEXTO NA ÍNTEGRA E DIDÁTICO) -->
+  <main class="max-w-4xl mx-auto px-4 sm:px-6 py-10 space-y-12">
+
+    <!-- CABEÇALHO DO DOCUMENTO -->
+    <div class="border-b border-slate-200 pb-8">
+      <div class="inline-flex items-center gap-2 bg-slate-100 text-slate-700 text-xs font-semibold px-2.5 py-1 rounded mb-3">
+        <span>Título IV, Capítulo V • Arts. 127 a 142</span>
+      </div>
+      <h1 class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight leading-tight mb-4">
+        Regime Disciplinar na Lei nº 8.112/1990: Guia Técnico de Penalidades, Competências e Prescrição Administrativa
+      </h1>
+      <p class="text-base text-slate-600 leading-relaxed">
+        Material completo, esquematizado e com ênfase nas pegadinhas clássicas da Banca do Concurso de Professor do IFMG.
+      </p>
+    </div>
+
+    <!-- SEÇÃO 1: FUNDAMENTOS DOGMÁTICOS E ROL TAXATIVO -->
+    <section class="space-y-5">
+      <div class="flex items-center gap-2.5 border-b border-slate-200 pb-2">
+        <span class="w-2.5 h-6 bg-slate-900 rounded-sm"></span>
+        <h2 class="text-xl sm:text-2xl font-bold text-slate-900">
+          1. Fundamentos Dogmáticos do Regime Disciplinar e Rol Taxativo de Penalidades
+        </h2>
+      </div>
+
+      <p class="text-slate-700 leading-relaxed text-justify">
+        O regime disciplinar aplicável aos servidores públicos federais, delineado no Título IV da Lei nº 8.112/1990, consubstancia a manifestação regulamentada do poder disciplinar da Administração Pública federal. Trata-se de um <mark class="highlight-yellow">poder-dever vinculado</mark>, impondo à autoridade competente a obrigação indeclinável de deflagrar procedimento apuratório formal quando houver indício de irregularidade funcional. O exercício dessa prerrogativa subordinada à legalidade estrita afasta escolhas voluntaristas ou conveniências de oportunidade política, submetendo toda a atividade sancionatória aos postulados da <mark class="highlight-blue">tipicidade</mark> e do <mark class="highlight-blue">devido processo legal administrativo</mark>.
+      </p>
+
+      <p class="text-slate-700 leading-relaxed text-justify">
+        O art. 127 da Lei nº 8.112/1990 estatui um catálogo taxativo (<em class="font-serif">numerus clausus</em>) de medidas punitivas. A Administração Pública Federal não possui competência regulamentar para conceber figuras punitivas inominadas, sendo <mark class="highlight-red">juridicamente vedada a aplicação de repreensões verbais</mark>, censuras éticas autônomas no âmbito estritamente estatutário ou <mark class="highlight-red">multas sancionatórias que não decorram da conversão de suspensão</mark>. Qualquer ato punitivo formalizado à margem das seis espécies normativas previstas no diploma legal padece de <mark class="highlight-red">nulidade insanável</mark> por vício de competência e objeto.
+      </p>
+
+      <!-- TABELA 1: ENQUADRAMENTO RESPONSIVO SEM SCROLL HORIZONTAL -->
+      <div class="mt-6 border border-slate-300 rounded-xl overflow-hidden bg-white shadow-xs">
+        <div class="bg-slate-100 px-4 py-3 border-b border-slate-200 flex items-center justify-between">
+          <span class="text-xs font-bold uppercase tracking-wider text-slate-700 flex items-center gap-2">
+            <i class="fa-solid fa-table-list text-slate-500"></i> Quadro 01: Rol Taxativo de Penalidades Disciplinares (Art. 127)
+          </span>
+          <span class="text-[11px] text-slate-500 bg-white px-2 py-0.5 rounded border border-slate-200">Art. 127 a 135</span>
+        </div>
+
+        <!-- Layout em Grid Responsivo para 100% de Visibilidade sem Barra Horizontal -->
+        <div class="divide-y divide-slate-200">
+          
+          <!-- Linha 1: Advertência -->
+          <div class="p-4 grid grid-cols-1 sm:grid-cols-12 gap-2 sm:gap-4 hover:bg-slate-50/60 transition">
+            <div class="sm:col-span-3">
+              <span class="inline-block px-2 py-0.5 text-xs font-bold bg-amber-100 text-amber-900 rounded border border-amber-200 mb-1">
+                Advertência
+              </span>
+              <div class="text-xs text-slate-500 font-mono">Art. 129</div>
+            </div>
+            <div class="sm:col-span-3 text-xs sm:text-sm font-medium text-slate-700">
+              Servidor efetivo ou comissionado
+            </div>
+            <div class="sm:col-span-6 text-xs sm:text-sm text-slate-600 leading-relaxed">
+              Repreensão formal <mark class="highlight-yellow">sempre por escrito</mark>; sem suspensão de vencimentos nem afastamento do cargo. Cancela-se em 3 anos.
+            </div>
+          </div>
+
+          <!-- Linha 2: Suspensão -->
+          <div class="p-4 grid grid-cols-1 sm:grid-cols-12 gap-2 sm:gap-4 hover:bg-slate-50/60 transition bg-slate-50/30">
+            <div class="sm:col-span-3">
+              <span class="inline-block px-2 py-0.5 text-xs font-bold bg-orange-100 text-orange-900 rounded border border-orange-200 mb-1">
+                Suspensão
+              </span>
+              <div class="text-xs text-slate-500 font-mono">Art. 130</div>
+            </div>
+            <div class="sm:col-span-3 text-xs sm:text-sm font-medium text-slate-700">
+              Servidor efetivo ou comissionado
+            </div>
+            <div class="sm:col-span-6 text-xs sm:text-sm text-slate-600 leading-relaxed">
+              Afastamento temporário por <mark class="highlight-yellow">até 90 dias</mark>, com perda integral da remuneração. Conversível em multa de 50%. Cancela-se em 5 anos.
+            </div>
+          </div>
+
+          <!-- Linha 3: Demissão -->
+          <div class="p-4 grid grid-cols-1 sm:grid-cols-12 gap-2 sm:gap-4 hover:bg-slate-50/60 transition">
+            <div class="sm:col-span-3">
+              <span class="inline-block px-2 py-0.5 text-xs font-bold bg-rose-100 text-rose-900 rounded border border-rose-200 mb-1">
+                Demissão
+              </span>
+              <div class="text-xs text-slate-500 font-mono">Art. 132</div>
+            </div>
+            <div class="sm:col-span-3 text-xs sm:text-sm font-medium text-slate-700">
+              Servidor ocupante de cargo efetivo
+            </div>
+            <div class="sm:col-span-6 text-xs sm:text-sm text-slate-600 leading-relaxed">
+              <mark class="highlight-red">Rompimento definitivo e punitivo</mark> do vínculo estatutário com o serviço público decorrente de falta gravíssima.
+            </div>
+          </div>
+
+          <!-- Linha 4: Cassação de Aposentadoria -->
+          <div class="p-4 grid grid-cols-1 sm:grid-cols-12 gap-2 sm:gap-4 hover:bg-slate-50/60 transition bg-slate-50/30">
+            <div class="sm:col-span-3">
+              <span class="inline-block px-2 py-0.5 text-xs font-bold bg-purple-100 text-purple-900 rounded border border-purple-200 mb-1 leading-snug">
+                Cassação de Aposentadoria
+              </span>
+              <div class="text-xs text-slate-500 font-mono">Art. 134</div>
+            </div>
+            <div class="sm:col-span-3 text-xs sm:text-sm font-medium text-slate-700">
+              Servidor aposentado ou em disponibilidade
+            </div>
+            <div class="sm:col-span-6 text-xs sm:text-sm text-slate-600 leading-relaxed">
+              Extinção punitiva da inatividade remunerada por infração gravíssima praticada <mark class="highlight-yellow">enquanto ainda estava em atividade</mark>.
+            </div>
+          </div>
+
+          <!-- Linha 5: Destituição de Cargo em Comissão -->
+          <div class="p-4 grid grid-cols-1 sm:grid-cols-12 gap-2 sm:gap-4 hover:bg-slate-50/60 transition">
+            <div class="sm:col-span-3">
+              <span class="inline-block px-2 py-0.5 text-xs font-bold bg-stone-100 text-stone-900 rounded border border-stone-300 mb-1 leading-snug">
+                Destituição de Cargo Comissão
+              </span>
+              <div class="text-xs text-slate-500 font-mono">Art. 135</div>
+            </div>
+            <div class="sm:col-span-3 text-xs sm:text-sm font-medium text-slate-700">
+              Ocupante de cargo em comissão sem vínculo efetivo
+            </div>
+            <div class="sm:col-span-6 text-xs sm:text-sm text-slate-600 leading-relaxed">
+              Desligamento punitivo do cargo de confiança quando praticada infração passível de suspensão ou de demissão.
+            </div>
+          </div>
+
+          <!-- Linha 6: Destituição de Função Comissionada -->
+          <div class="p-4 grid grid-cols-1 sm:grid-cols-12 gap-2 sm:gap-4 hover:bg-slate-50/60 transition bg-slate-50/30">
+            <div class="sm:col-span-3">
+              <span class="inline-block px-2 py-0.5 text-xs font-bold bg-stone-100 text-stone-900 rounded border border-stone-300 mb-1 leading-snug">
+                Destituição de Função Comissionada
+              </span>
+              <div class="text-xs text-slate-500 font-mono">Art. 135</div>
+            </div>
+            <div class="sm:col-span-3 text-xs sm:text-sm font-medium text-slate-700">
+              Servidor titular de cargo efetivo
+            </div>
+            <div class="sm:col-span-6 text-xs sm:text-sm text-slate-600 leading-relaxed">
+              Perda punitiva da função gratificada (CD/FG) mantendo-se a titularidade do cargo efetivo de origem.
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- SEÇÃO 2: CRITÉRIOS DE DOSIMETRIA E VINCULAÇÃO -->
+    <section class="space-y-5">
+      <div class="flex items-center gap-2.5 border-b border-slate-200 pb-2">
+        <span class="w-2.5 h-6 bg-slate-900 rounded-sm"></span>
+        <h2 class="text-xl sm:text-2xl font-bold text-slate-900">
+          2. Critérios de Dosimetria, Individualização e Vinculação Administrativa
+        </h2>
+      </div>
+
+      <p class="text-slate-700 leading-relaxed text-justify">
+        A individualização da resposta sancionatória no direito administrativo disciplinar subordina-se à aferição dos critérios de dosimetria fixados no <mark class="highlight-blue">art. 128 da Lei nº 8.112/1990</mark>. Ao julgar o processo disciplinar, a autoridade deve analisar criteriosamente:
+      </p>
+
+      <!-- Critérios em Caixas Didáticas -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs sm:text-sm">
+        <div class="bg-slate-50 border border-slate-200 rounded-lg p-3">
+          <span class="font-bold text-slate-900 block mb-1">1. Natureza e gravidade</span>
+          A essência do ilícito e a intensidade do desvalor funcional verificado.
+        </div>
+        <div class="bg-slate-50 border border-slate-200 rounded-lg p-3">
+          <span class="font-bold text-slate-900 block mb-1">2. Danos ao erário e ao serviço</span>
+          Magnitude financeira do prejuízo e o impacto no serviço público prestado.
+        </div>
+        <div class="bg-slate-50 border border-slate-200 rounded-lg p-3">
+          <span class="font-bold text-slate-900 block mb-1">3. Circunstâncias agravantes e atenuantes</span>
+          Elementos objetivos e subjetivos que acompanharam o cometimento da infração.
+        </div>
+        <div class="bg-slate-50 border border-slate-200 rounded-lg p-3">
+          <span class="font-bold text-slate-900 block mb-1">4. Histórico funcional do servidor</span>
+          Bons ou maus antecedentes assentados em sua pasta funcional funcional.
+        </div>
+      </div>
+
+      <p class="text-slate-700 leading-relaxed text-justify">
+        Essa ponderação destina-se a balizar a fixação quantitativa das penas com amplitude temporal variável, como o tempo de suspensão. Em contrapartida à discricionariedade na quantificação temporal das suspensões, <mark class="highlight-yellow">a correlação entre a infração apurada e a espécie de sanção imposta assume caráter vinculado</mark>.
+      </p>
+
+      <div class="bg-amber-50/60 border-l-4 border-amber-500 p-4 rounded-r-lg space-y-2">
+        <h3 class="text-sm font-bold text-amber-950 flex items-center gap-1.5">
+          <i class="fa-solid fa-triangle-exclamation text-amber-600"></i> Atenção à Jurisprudência Vinculante da AGU (Pareceres GQ-127 e GQ-177):
+        </h3>
+        <p class="text-xs sm:text-sm text-amber-900 leading-relaxed text-justify">
+          Demonstrada com clareza a prática de conduta tipificada no rol exaustivo de demissão do art. 132, a autoridade julgadora <mark class="highlight-red">NÃO pode aplicar sanção diversa</mark> invocando unicamente antecedentes funcionais favoráveis ou ausência de dano patrimonial. Os critérios do art. 128 servem para graduar a resposta punitiva nos limites da cominação cabível, sendo <mark class="highlight-red">ilegítima a transmutação graciosa de sanções expulsivas</mark> em penalidades meramente temporárias.
+        </p>
+      </div>
+
+      <p class="text-slate-700 leading-relaxed text-justify">
+        Por imperativo da legalidade formal, o parágrafo único do art. 128 exige que o ato punitivo mencione taxativamente o fundamento normativo de sua imposição e a causa fática ensejadora da repressão disciplinar, formalidade cuja ausência fulmina o ato de nulidade.
+      </p>
+    </section>
+
+    <!-- SEÇÃO 3: REGIME JURÍDICO DAS PENALIDADES EM ESPÉCIE -->
+    <section class="space-y-6">
+      <div class="flex items-center gap-2.5 border-b border-slate-200 pb-2">
+        <span class="w-2.5 h-6 bg-slate-900 rounded-sm"></span>
+        <h2 class="text-xl sm:text-2xl font-bold text-slate-900">
+          3. Regime Jurídico das Penalidades Disciplinares em Espécie
+        </h2>
+      </div>
+
+      <!-- 3.1 Advertência e Suspensão -->
+      <div class="space-y-4">
+        <h3 class="text-base sm:text-lg font-bold text-slate-800 flex items-center gap-2">
+          <span class="h-2 w-2 rounded-full bg-slate-500"></span> Advertência e Suspensão: Mecânica Operacional e Cancelamento de Registros
+        </h3>
+
+        <p class="text-slate-700 leading-relaxed text-justify">
+          A <strong class="text-slate-900">advertência</strong> constitui sanção que exige a <mark class="highlight-yellow">forma escrita</mark>, inexistindo reprimenda oral no rol disciplinar da Lei nº 8.112/1990. Encontra campo de incidência nas infrações a proibições leves expressas nos incisos I a VIII e XIX do art. 117 — a exemplo de ausentar-se do serviço sem autorização prévia, retirar documentos públicos sem anuência expressa ou praticar manifestação de apreço ou desapreço no recinto da repartição — bem como na inobservância de deveres funcionais descritos no art. 116 que não demandem gravidade maior.
+        </p>
+
+        <p class="text-slate-700 leading-relaxed text-justify">
+          A <strong class="text-slate-900">suspensão</strong>, por sua vez, atua como resposta a faltas de gravidade intermediária. Aplica-se nas situações de <mark class="highlight-yellow">reincidência em faltas punidas com advertência</mark> ou quando houver violação das demais proibições tipificadas no art. 117 cuja gravidade não demande pena demissória. O limite temporal máximo da suspensão é de <mark class="highlight-yellow">até 90 dias ininterruptos</mark>, sendo ilegal qualquer elastério punitivo que ultrapasse essa barreira.
+        </p>
+
+        <!-- Destaques das Derivações Específicas da Suspensão -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div class="border border-slate-300 rounded-lg p-4 bg-slate-50/50">
+            <span class="text-xs font-bold uppercase tracking-wider text-slate-700 block mb-1">
+              <i class="fa-solid fa-stethoscope text-slate-600"></i> Recusa a Exame Médico Oficial (§ 1º, Art. 130)
+            </span>
+            <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+              Suspensão compulsória de <mark class="highlight-yellow">até 15 dias</mark> ao servidor que injustificadamente se recusa a comparecer à inspeção médica oficial, cessando os efeitos da penalidade tão logo o servidor se submeta ao exame pericial.
+            </p>
+          </div>
+
+          <div class="border border-slate-300 rounded-lg p-4 bg-slate-50/50">
+            <span class="text-xs font-bold uppercase tracking-wider text-slate-700 block mb-1">
+              <i class="fa-solid fa-money-bill-transfer text-slate-600"></i> Conversão da Suspensão em Multa (§ 2º, Art. 130)
+            </span>
+            <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+              Faculdade da Administração condicionada à <mark class="highlight-blue">conveniência do serviço</mark>. O servidor trabalha obrigatoriamente e recebe apenas <mark class="highlight-yellow">50% da remuneração diária</mark> correspondente aos dias da pena.
+            </p>
+          </div>
+        </div>
+
+        <!-- Cancelamento de Registros -->
+        <div class="bg-white border border-slate-300 rounded-xl p-4 shadow-2xs space-y-2">
+          <h4 class="text-xs font-bold text-slate-900 uppercase tracking-wider flex items-center gap-1.5">
+            <i class="fa-regular fa-calendar-check text-emerald-600"></i> Cancelamento dos Registros Funcionais (Art. 131)
+          </h4>
+          <p class="text-xs sm:text-sm text-slate-700 leading-relaxed">
+            Os registros dessas sanções cancelam-se formalmente após decurso de tempo de efetivo exercício sem nova falta:
+          </p>
+          <div class="flex flex-wrap gap-2 pt-1">
+            <div class="px-3 py-1.5 bg-slate-100 rounded border border-slate-200 text-xs font-semibold text-slate-800">
+              Advertência: <span class="text-blue-700 font-bold">3 anos</span> de efetivo exercício
+            </div>
+            <div class="px-3 py-1.5 bg-slate-100 rounded border border-slate-200 text-xs font-semibold text-slate-800">
+              Suspensão: <span class="text-blue-700 font-bold">5 anos</span> de efetivo exercício
+            </div>
+          </div>
+          <p class="text-xs text-slate-500 pt-1 italic">
+            * Importante para a prova: O cancelamento do registro <mark class="highlight-red">não produz efeitos financeiros ou funcionais retroativos (ex nunc)</mark>, sendo vedada a devolução de valores descontados.
+          </p>
+        </div>
+      </div>
+
+      <!-- 3.2 Demissão, Cassação e Destituição -->
+      <div class="space-y-4 pt-4">
+        <h3 class="text-base sm:text-lg font-bold text-slate-800 flex items-center gap-2">
+          <span class="h-2 w-2 rounded-full bg-slate-500"></span> Demissão, Cassação e Destituição de Funções de Confiança
+        </h3>
+
+        <p class="text-slate-700 leading-relaxed text-justify">
+          A penalidade expulsiva de demissão atinge a titularidade de cargo efetivo e possui tipificação exaustiva no <mark class="highlight-blue">art. 132 da norma estatutária</mark>. Abrange a prática de ilícitos funcionais dolosos contra a ordem pública e a estrutura financeira do Estado.
+        </p>
+
+        <!-- TABELA 2: CONDUTAS PASSÍVEIS DE DEMISSÃO (RESPONSIVA E SEM SCROLL) -->
+        <div class="border border-slate-300 rounded-xl overflow-hidden bg-white shadow-xs">
+          <div class="bg-slate-100 px-4 py-3 border-b border-slate-200">
+            <span class="text-xs font-bold uppercase tracking-wider text-slate-700 flex items-center gap-2">
+              <i class="fa-solid fa-list-check text-slate-500"></i> Quadro 02: Classificação das Condutas Passíveis de Demissão (Art. 132)
+            </span>
+          </div>
+
+          <div class="divide-y divide-slate-200">
+            
+            <div class="p-4 grid grid-cols-1 md:grid-cols-12 gap-2 md:gap-4 hover:bg-slate-50/60 transition">
+              <div class="md:col-span-4 font-bold text-xs sm:text-sm text-slate-900 flex items-center gap-2">
+                <i class="fa-solid fa-sack-dollar text-slate-500 text-xs"></i> Ilícitos Patrimoniais e Financeiros
+              </div>
+              <div class="md:col-span-8 text-xs sm:text-sm text-slate-700 leading-relaxed">
+                Improbidade administrativa; aplicação irregular de dinheiros públicos; lesão aos cofres públicos e dilapidação do patrimônio nacional; corrupção.
+              </div>
+            </div>
+
+            <div class="p-4 grid grid-cols-1 md:grid-cols-12 gap-2 md:gap-4 hover:bg-slate-50/60 transition bg-slate-50/30">
+              <div class="md:col-span-4 font-bold text-xs sm:text-sm text-slate-900 flex items-center gap-2">
+                <i class="fa-solid fa-clock-rotate-left text-slate-500 text-xs"></i> Quebra de Deveres e Faltas Assiduais
+              </div>
+              <div class="md:col-span-8 text-xs sm:text-sm text-slate-700 leading-relaxed">
+                <strong class="text-slate-900">Abandono de cargo:</strong> ausência intencional por <mark class="highlight-yellow">mais de 30 dias consecutivos</mark>.<br>
+                <strong class="text-slate-900">Inassiduidade habitual:</strong> falta injustificada por <mark class="highlight-yellow">60 dias interpolados no período de 12 meses</mark>.
+              </div>
+            </div>
+
+            <div class="p-4 grid grid-cols-1 md:grid-cols-12 gap-2 md:gap-4 hover:bg-slate-50/60 transition">
+              <div class="md:col-span-4 font-bold text-xs sm:text-sm text-slate-900 flex items-center gap-2">
+                <i class="fa-solid fa-shield-halved text-slate-500 text-xs"></i> Ofensas à Ordem e Dignidade
+              </div>
+              <div class="md:col-span-8 text-xs sm:text-sm text-slate-700 leading-relaxed">
+                Crime contra a administração pública; insubordinação grave em serviço; ofensa física em serviço contra servidor ou terceiro (<mark class="highlight-green">ressalvada a legítima defesa</mark>); incontinência pública e conduta escandalosa na repartição; revelação de segredo funcional.
+              </div>
+            </div>
+
+            <div class="p-4 grid grid-cols-1 md:grid-cols-12 gap-2 md:gap-4 hover:bg-slate-50/60 transition bg-slate-50/30">
+              <div class="md:col-span-4 font-bold text-xs sm:text-sm text-slate-900 flex items-center gap-2">
+                <i class="fa-solid fa-ban text-slate-500 text-xs"></i> Vedações Estruturais e Conflitos
+              </div>
+              <div class="md:col-span-8 text-xs sm:text-sm text-slate-700 leading-relaxed">
+                Transgressão aos incisos IX a XVI do art. 117 (ex: advocacia administrativa, usura, gerência ou administração de empresa privada ressalvada a condição de acionista ou quotista); acumulação ilegal de cargos comprovada a má-fé.
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <p class="text-slate-700 leading-relaxed text-justify">
+          A demissão e a destituição de cargo em comissão acarretam consequências acessórias imediatas: nas hipóteses de improbidade, aplicação irregular de verbas, lesão patrimonial ou corrupção, <mark class="highlight-yellow">remetem-se os autos à AGU</mark> para indisponibilidade de bens e ressarcimento integral ao erário (art. 136).
+        </p>
+
+        <!-- JULGAMENTO STF ADI 2975 (TÓPICO CHAVE DE PROVA) -->
+        <div class="border border-slate-300 rounded-xl p-4 bg-slate-50">
+          <h4 class="text-xs sm:text-sm font-bold text-slate-900 flex items-center gap-2 mb-2">
+            <i class="fa-solid fa-gavel text-slate-700"></i> Incompatibilidade para Retorno ao Serviço Público (Art. 137 e ADI 2.975 STF)
+          </h4>
+          <p class="text-xs sm:text-sm text-slate-700 leading-relaxed text-justify">
+            O art. 137 prescreve que o servidor demitido por valer-se do cargo para proveito próprio/alheio ou atuar como procurador perante repartições federais fica inabilitado para novo cargo público pelo prazo de <mark class="highlight-yellow">5 anos</mark>.
+          </p>
+          <div class="mt-2.5 p-3 bg-white rounded border border-slate-200 text-xs sm:text-sm text-slate-800 space-y-1">
+            <span class="font-bold text-slate-900 block">Julgamento Histórico do STF (ADI 2.975):</span>
+            <p class="text-justify leading-relaxed">
+              O STF declarou a <mark class="highlight-red">inconstitucionalidade do parágrafo único do art. 137</mark>, que previa a proibição perpétua de retorno ao serviço público para os atos de lesão aos cofres, corrupção, improbidade, etc. A Constituição veda expressamente penas de caráter perpétuo (art. 5º, XLVII, "b"). Logo, <mark class="highlight-green">aplica-se uniformemente o prazo de 5 anos de inabilitação</mark>.
+            </p>
+          </div>
+        </div>
+
+        <p class="text-slate-700 leading-relaxed text-justify">
+          A <strong class="text-slate-900">cassação de aposentadoria ou de disponibilidade</strong> opera como o correlato da demissão para o servidor inativo (art. 134), incidindo sobre o inativo que houver praticado, na atividade, falta punível com demissão. Já a <strong class="text-slate-900">destituição de cargo em comissão</strong> aplica-se ao não concursado em infrações puníveis com suspensão ou demissão.
+        </p>
+      </div>
+    </section>
+
+    <!-- SEÇÃO 4: COMPETÊNCIA DAS AUTORIDADES NO ÂMBITO DA REDE FEDERAL -->
+    <section class="space-y-5">
+      <div class="flex items-center gap-2.5 border-b border-slate-200 pb-2">
+        <span class="w-2.5 h-6 bg-slate-900 rounded-sm"></span>
+        <h2 class="text-xl sm:text-2xl font-bold text-slate-900">
+          4. Competência Funcional das Autoridades no Âmbito da Rede Federal de Ensino
+        </h2>
+      </div>
+
+      <p class="text-slate-700 leading-relaxed text-justify">
+        O art. 141 da Lei nº 8.112/1990 reparte a competência decisória para homologação de relatórios conclusivos e aplicação das medidas disciplinares a partir da hierarquia orgânica das instituições públicas federais.
+      </p>
+
+      <!-- TABELA 3: COMPETÊNCIAS FUNCIONAIS (SEM SCROLL HORIZONTAL) -->
+      <div class="border border-slate-300 rounded-xl overflow-hidden bg-white shadow-xs">
+        <div class="bg-slate-100 px-4 py-3 border-b border-slate-200">
+          <span class="text-xs font-bold uppercase tracking-wider text-slate-700 flex items-center gap-2">
+            <i class="fa-solid fa-sitemap text-slate-500"></i> Quadro 03: Competência Funcional Originária para Aplicação de Penas (Art. 141)
+          </span>
+        </div>
+
+        <div class="divide-y divide-slate-200">
+          
+          <div class="p-4 grid grid-cols-1 sm:grid-cols-12 gap-2 sm:gap-4 hover:bg-slate-50/60 transition">
+            <div class="sm:col-span-3">
+              <span class="text-xs font-bold text-slate-900 block">Instância de Cúpula</span>
+              <span class="text-[11px] text-slate-500 font-mono">Art. 141, I</span>
+            </div>
+            <div class="sm:col-span-4 text-xs sm:text-sm font-medium text-slate-700">
+              Presidente da República, Presidentes das Casas do Congresso, dos Tribunais Federais e PGR
+            </div>
+            <div class="sm:col-span-5 text-xs sm:text-sm text-slate-600 leading-relaxed">
+              Competência para aplicar <mark class="highlight-red">Demissão</mark> e <mark class="highlight-red">Cassação de aposentadoria ou disponibilidade</mark>.
+            </div>
+          </div>
+
+          <div class="p-4 grid grid-cols-1 sm:grid-cols-12 gap-2 sm:gap-4 hover:bg-slate-50/60 transition bg-slate-50/30">
+            <div class="sm:col-span-3">
+              <span class="text-xs font-bold text-slate-900 block">Instância Intermediária</span>
+              <span class="text-[11px] text-slate-500 font-mono">Art. 141, II</span>
+            </div>
+            <div class="sm:col-span-4 text-xs sm:text-sm font-medium text-slate-700">
+              Ministros de Estado e autoridades de hierarquia equivalente
+            </div>
+            <div class="sm:col-span-5 text-xs sm:text-sm text-slate-600 leading-relaxed">
+              Competência para aplicar penalidade de <mark class="highlight-yellow">Suspensão superior a 30 dias</mark>.
+            </div>
+          </div>
+
+          <div class="p-4 grid grid-cols-1 sm:grid-cols-12 gap-2 sm:gap-4 hover:bg-slate-50/60 transition">
+            <div class="sm:col-span-3">
+              <span class="text-xs font-bold text-slate-900 block">Instância Básica</span>
+              <span class="text-[11px] text-slate-500 font-mono">Art. 141, III</span>
+            </div>
+            <div class="sm:col-span-4 text-xs sm:text-sm font-medium text-slate-700">
+              Chefes de repartição e autoridades setoriais designadas em regulamento
+            </div>
+            <div class="sm:col-span-5 text-xs sm:text-sm text-slate-600 leading-relaxed">
+              Competência para aplicar <mark class="highlight-blue">Advertência</mark> ou <mark class="highlight-blue">Suspensão de até 30 dias</mark>.
+            </div>
+          </div>
+
+          <div class="p-4 grid grid-cols-1 sm:grid-cols-12 gap-2 sm:gap-4 hover:bg-slate-50/60 transition bg-slate-50/30">
+            <div class="sm:col-span-3">
+              <span class="text-xs font-bold text-slate-900 block">Instância Nomeante</span>
+              <span class="text-[11px] text-slate-500 font-mono">Art. 141, IV</span>
+            </div>
+            <div class="sm:col-span-4 text-xs sm:text-sm font-medium text-slate-700">
+              Autoridade competente que celebrou o provimento ou a designação original
+            </div>
+            <div class="sm:col-span-5 text-xs sm:text-sm text-slate-600 leading-relaxed">
+              Competência para a aplicação da <mark class="highlight-yellow">Destituição de cargo em comissão ou função gratificada</mark>.
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Aplicação no IFMG e Rede Federal -->
+      <div class="bg-slate-50 border border-slate-300 rounded-xl p-4 sm:p-5 space-y-3">
+        <h3 class="text-sm font-bold text-slate-900 flex items-center gap-2">
+          <i class="fa-solid fa-school-flag text-slate-700"></i> Aplicação Prática no IFMG (Lei nº 11.892/2008 e Decreto nº 3.035/1999)
+        </h3>
+        <p class="text-xs sm:text-sm text-slate-700 leading-relaxed text-justify">
+          A organicidade autárquica dos Institutos Federais confere ao <strong class="text-slate-900">Reitor</strong> a autoridade executiva máxima. Pelo Decreto Presidencial nº 3.035/1999 (delegação de competência), o Presidente delegou aos Ministros de Estado (MEC) o julgamento de demissões e cassações de aposentadoria.
+        </p>
+        <p class="text-xs sm:text-sm text-slate-700 leading-relaxed text-justify">
+          No âmbito interno do IFMG, o Reitor instaura os processos correcionais e aplica originariamente as penalidades de advertência e suspensão. Quando a comissão processante conclui por pena de <mark class="highlight-red">demissão ou cassação de aposentadoria de docente</mark>, os autos são submetidos ao parecer conclusivo da Procuradoria Jurídica Federal junto ao IFMG e remetidos ao <mark class="highlight-yellow">Ministro de Estado da Educação</mark> para julgamento e aplicação da penalidade final.
+        </p>
+      </div>
+    </section>
+
+    <!-- SEÇÃO 5: PRESCRIÇÃO DA AÇÃO DISCIPLINAR -->
+    <section class="space-y-6">
+      <div class="flex items-center gap-2.5 border-b border-slate-200 pb-2">
+        <span class="w-2.5 h-6 bg-slate-900 rounded-sm"></span>
+        <h2 class="text-xl sm:text-2xl font-bold text-slate-900">
+          5. Mecânica Extintiva da Punibilidade: Prazos e Marcos da Prescrição Disciplinar
+        </h2>
+      </div>
+
+      <p class="text-slate-700 leading-relaxed text-justify">
+        A prescrição da pretensão punitiva no direito administrativo disciplinar consagra o postulado da segurança jurídica, extinguindo a exigibilidade do poder sancionador estatal pelo transcurso inerte do tempo legal. O <mark class="highlight-blue">art. 142 da Lei nº 8.112/1990</mark> estrutura os prazos extintivos de forma tripartida:
+      </p>
+
+      <!-- Cards Didáticos dos 3 Prazos Prescricionais -->
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+        <div class="bg-rose-50/70 border-2 border-rose-200 rounded-xl p-4 text-center">
+          <span class="text-2xl font-extrabold text-rose-700 block mb-1">5 ANOS</span>
+          <span class="text-xs font-bold text-slate-800 uppercase tracking-wider block mb-2">Penas Expulsivas</span>
+          <p class="text-xs text-slate-600 leading-relaxed">
+            Demissão, Cassação de aposentadoria/disponibilidade e Destituição de cargo em comissão.
+          </p>
+        </div>
+
+        <div class="bg-amber-50/70 border-2 border-amber-200 rounded-xl p-4 text-center">
+          <span class="text-2xl font-extrabold text-amber-700 block mb-1">2 ANOS</span>
+          <span class="text-xs font-bold text-slate-800 uppercase tracking-wider block mb-2">Suspensão</span>
+          <p class="text-xs text-slate-600 leading-relaxed">
+            Penalidade de suspensão disciplinar ordinária ou quando convertida em multa pecuniária.
+          </p>
+        </div>
+
+        <div class="bg-blue-50/70 border-2 border-blue-200 rounded-xl p-4 text-center">
+          <span class="text-2xl font-extrabold text-blue-700 block mb-1">180 DIAS</span>
+          <span class="text-xs font-bold text-slate-800 uppercase tracking-wider block mb-2">Advertência</span>
+          <p class="text-xs text-slate-600 leading-relaxed">
+            Penalidade de advertência formal expedida por escrito.
+          </p>
+        </div>
+      </div>
+
+      <!-- Termo Inicial e Súmula 635 STJ -->
+      <div class="bg-white border border-slate-300 rounded-xl p-4 sm:p-5 shadow-2xs space-y-3">
+        <h3 class="text-sm font-bold text-slate-900 flex items-center gap-2">
+          <i class="fa-solid fa-clock text-slate-700"></i> Termo Inicial da Prescrição e a Súmula nº 635 do STJ
+        </h3>
+        <p class="text-xs sm:text-sm text-slate-700 leading-relaxed text-justify">
+          O termo inicial (<em class="font-serif">dies a quo</em>) principia na data em que o fato se tornou conhecido pela Administração Pública (§ 1º do art. 142). Todavia, a banca adora cobrar o enunciado vinculante fixado pelo STJ:
+        </p>
+        <div class="p-3 bg-slate-50 border-l-4 border-slate-700 rounded-r text-xs sm:text-sm text-slate-800 font-medium leading-relaxed">
+          <strong>Súmula nº 635 do STJ:</strong> "Os prazos prescricionais previstos no art. 142 da Lei n. 8.112/1990 iniciam-se na data em que a <mark class="highlight-yellow">autoridade competente para a abertura do respectivo procedimento disciplinar</mark> toma conhecimento do fato."
+        </div>
+        <p class="text-xs text-slate-500 italic">
+          * A ciência por chefe imediato desprovido de competência instauradora NÃO dispara a contagem da prescrição.
+        </p>
+      </div>
+
+      <!-- Interrupção da Prescrição e a Regra dos 140 Dias -->
+      <div class="space-y-3">
+        <h3 class="text-base font-bold text-slate-900 flex items-center gap-2">
+          <i class="fa-solid fa-arrows-split-up-and-left text-slate-700"></i> Interrupção e o Efeito Temporal dos 140 Dias
+        </h3>
+        <p class="text-slate-700 leading-relaxed text-justify text-xs sm:text-sm">
+          A publicação da portaria que instaura o processo disciplinar ou a sindicância <mark class="highlight-yellow">acusatória/punitiva</mark> interrompe a prescrição (§ 3º do art. 142). Sindicância meramente investigativa preparatória não tem o condão de interromper prazo.
+        </p>
+        <p class="text-slate-700 leading-relaxed text-justify text-xs sm:text-sm">
+          A paralisação temporária da contagem cessa pelo término do prazo legal máximo assinalado para conclusão e julgamento do processo administrativo disciplinar: <strong class="text-slate-900">140 dias</strong> (60 dias de inquérito + 60 dias de prorrogação + 20 dias para julgamento da autoridade).
+        </p>
+      </div>
+
+      <!-- TABELA 4: MARCOS DA PRESCRIÇÃO (SEM SCROLL HORIZONTAL) -->
+      <div class="border border-slate-300 rounded-xl overflow-hidden bg-white shadow-xs">
+        <div class="bg-slate-100 px-4 py-3 border-b border-slate-200">
+          <span class="text-xs font-bold uppercase tracking-wider text-slate-700 flex items-center gap-2">
+            <i class="fa-solid fa-timeline text-slate-500"></i> Quadro 04: Dinâmica e Marcos Procedimentais da Prescrição
+          </span>
+        </div>
+
+        <div class="divide-y divide-slate-200">
+          
+          <div class="p-4 grid grid-cols-1 sm:grid-cols-12 gap-2 sm:gap-4 hover:bg-slate-50/60 transition">
+            <div class="sm:col-span-4 font-bold text-xs sm:text-sm text-slate-900">
+              Ciência pela Autoridade Competente
+            </div>
+            <div class="sm:col-span-3 text-xs sm:text-sm text-slate-600">
+              Marco Zero da contagem
+            </div>
+            <div class="sm:col-span-5 text-xs sm:text-sm text-slate-700 leading-relaxed">
+              Inicia a fluência contínua dos prazos (5 anos, 2 anos ou 180 dias).
+            </div>
+          </div>
+
+          <div class="p-4 grid grid-cols-1 sm:grid-cols-12 gap-2 sm:gap-4 hover:bg-slate-50/60 transition bg-slate-50/30">
+            <div class="sm:col-span-4 font-bold text-xs sm:text-sm text-slate-900">
+              Publicação da Portaria do PAD
+            </div>
+            <div class="sm:col-span-3 text-xs sm:text-sm text-slate-600">
+              Interrupção imediata
+            </div>
+            <div class="sm:col-span-5 text-xs sm:text-sm text-slate-700 leading-relaxed">
+              O tempo decorrido é <mark class="highlight-yellow">zerado</mark> e o prazo fica paralisado temporariamente.
+            </div>
+          </div>
+
+          <div class="p-4 grid grid-cols-1 sm:grid-cols-12 gap-2 sm:gap-4 hover:bg-slate-50/60 transition">
+            <div class="sm:col-span-4 font-bold text-xs sm:text-sm text-slate-900">
+              Decurso dos 140 dias (60+60+20)
+            </div>
+            <div class="sm:col-span-3 text-xs sm:text-sm text-slate-600">
+              Fim do efeito suspensivo
+            </div>
+            <div class="sm:col-span-5 text-xs sm:text-sm text-slate-700 leading-relaxed">
+              Cessa o estancamento da prescrição pelo simples andamento dos autos.
+            </div>
+          </div>
+
+          <div class="p-4 grid grid-cols-1 sm:grid-cols-12 gap-2 sm:gap-4 hover:bg-slate-50/60 transition bg-slate-50/30">
+            <div class="sm:col-span-4 font-bold text-xs sm:text-sm text-slate-900">
+              141º dia pós-instauração
+            </div>
+            <div class="sm:col-span-3 text-xs sm:text-sm text-slate-600">
+              Reinício Integral (<em class="font-serif">ex novo</em>)
+            </div>
+            <div class="sm:col-span-5 text-xs sm:text-sm text-slate-700 leading-relaxed">
+              <mark class="highlight-red">O prazo prescricional recomeça a correr por inteiro a partir do zero</mark>.
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Prescrição quando a falta também é crime -->
+      <div class="p-4 bg-slate-50 border border-slate-300 rounded-xl space-y-2">
+        <h4 class="text-xs sm:text-sm font-bold text-slate-900 flex items-center gap-2">
+          <i class="fa-solid fa-scale-balanced text-slate-700"></i> Falta Capitada Cumulativamente como Infração Penal (Art. 142, § 2º)
+        </h4>
+        <p class="text-xs sm:text-sm text-slate-700 leading-relaxed text-justify">
+          Quando a infração disciplinar constituir simultaneamente crime, aplicam-se os prazos prescricionais previstos na lei penal (art. 109 do Código Penal):
+        </p>
+        <ul class="text-xs sm:text-sm text-slate-600 list-disc list-inside space-y-1 pl-2">
+          <li><strong>Antes do trânsito em julgado penal:</strong> a prescrição disciplinar rege-se pela <mark class="highlight-yellow">pena máxima em abstrato</mark> prevista no Código Penal.</li>
+          <li><strong>Após o trânsito em julgado de condenação penal:</strong> a prescrição passa a ser parametrizada pela <mark class="highlight-green">pena em concreto fixada pelo juiz</mark>.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- SEÇÃO 6: PONTOS CRÍTICOS PARA A PROVA OBJETIVA -->
+    <section id="pontos-criticos" class="space-y-5 pt-4">
+      <div class="flex items-center gap-2.5 border-b border-slate-200 pb-2">
+        <span class="w-2.5 h-6 bg-slate-900 rounded-sm"></span>
+        <h2 class="text-xl sm:text-2xl font-bold text-slate-900">
+          6. Mapeamento Estratégico de Assertivas e Pontos Críticos para a Prova Objetiva
+        </h2>
+      </div>
+
+      <p class="text-slate-700 leading-relaxed text-justify">
+        As bancas examinadoras de institutos federais constroem suas alternativas de distração explorando pequenos detalhes literais da norma e divergências superadas pelos Tribunais Superiores. Memorize os seguintes contrastes para garantir pontos imediatos:
+      </p>
+
+      <div class="space-y-3">
+        
+        <div class="p-3.5 bg-white border border-slate-300 rounded-lg shadow-2xs flex items-start gap-3">
+          <span class="text-rose-600 font-bold text-sm shrink-0 mt-0.5"><i class="fa-solid fa-circle-xmark"></i></span>
+          <div class="text-xs sm:text-sm text-slate-700 leading-relaxed">
+            <strong class="text-slate-900">Abandono de Cargo vs. Inassiduidade Habitual:</strong> O abandono exige ausência intencional por tempo <mark class="highlight-yellow">superior a 30 dias consecutivos</mark>; a inassiduidade habitual perfectibiliza-se pelo somatório de <mark class="highlight-yellow">60 dias interpolados no intervalo de 12 meses</mark>. A banca frequentemente inverte esses conceitos.
+          </div>
+        </div>
+
+        <div class="p-3.5 bg-white border border-slate-300 rounded-lg shadow-2xs flex items-start gap-3">
+          <span class="text-rose-600 font-bold text-sm shrink-0 mt-0.5"><i class="fa-solid fa-circle-xmark"></i></span>
+          <div class="text-xs sm:text-sm text-slate-700 leading-relaxed">
+            <strong class="text-slate-900">Proibição de Penalidades Orais:</strong> A advertência vincula-se obrigatoriamente à <mark class="highlight-yellow">forma escrita</mark>. Qualquer afirmativa que mencione censura verbal ou advertência oral na Lei nº 8.112/1990 é patentemente incorreta.
+          </div>
+        </div>
+
+        <div class="p-3.5 bg-white border border-slate-300 rounded-lg shadow-2xs flex items-start gap-3">
+          <span class="text-rose-600 font-bold text-sm shrink-0 mt-0.5"><i class="fa-solid fa-circle-xmark"></i></span>
+          <div class="text-xs sm:text-sm text-slate-700 leading-relaxed">
+            <strong class="text-slate-900">Inexistência de Multa Autônoma:</strong> A Lei 8.112/1990 não admite aplicação direta de multa. Ela apenas existe como <mark class="highlight-yellow">conversão facultativa da penalidade de suspensão</mark> à razão de 50% por dia trabalhado, orientada por juízo de conveniência do serviço.
+          </div>
+        </div>
+
+        <div class="p-3.5 bg-white border border-slate-300 rounded-lg shadow-2xs flex items-start gap-3">
+          <span class="text-rose-600 font-bold text-sm shrink-0 mt-0.5"><i class="fa-solid fa-circle-xmark"></i></span>
+          <div class="text-xs sm:text-sm text-slate-700 leading-relaxed">
+            <strong class="text-slate-900">Termo Inicial da Prescrição (Súmula 635 STJ):</strong> O prazo não começa na data da infração, nem na data em que o colega ou a chefia imediata sem competência toma ciência. Inicia-se apenas quando o fato chega ao <mark class="highlight-yellow">conhecimento da autoridade competente para instaurar o PAD</mark>.
+          </div>
+        </div>
+
+        <div class="p-3.5 bg-white border border-slate-300 rounded-lg shadow-2xs flex items-start gap-3">
+          <span class="text-rose-600 font-bold text-sm shrink-0 mt-0.5"><i class="fa-solid fa-circle-xmark"></i></span>
+          <div class="text-xs sm:text-sm text-slate-700 leading-relaxed">
+            <strong class="text-slate-900">Afastamento da Proibição Perpétua de Retorno:</strong> Questões desatualizadas afirmam que a condenação por lesão aos cofres impede perpetuamente o retorno ao serviço público. <mark class="highlight-red">Incorreto!</mark> O STF julgou inconstitucional essa restrição na ADI 2.975; aplica-se uniformemente o prazo de <mark class="highlight-green">5 anos</mark>.
+          </div>
+        </div>
+
+        <div class="p-3.5 bg-white border border-slate-300 rounded-lg shadow-2xs flex items-start gap-3">
+          <span class="text-rose-600 font-bold text-sm shrink-0 mt-0.5"><i class="fa-solid fa-circle-xmark"></i></span>
+          <div class="text-xs sm:text-sm text-slate-700 leading-relaxed">
+            <strong class="text-slate-900">Eficácia Temporal da Interrupção:</strong> A instauração de PAD não paralisa a prescrição indefinidamente. O efeito suspensivo cessa aos <mark class="highlight-yellow">140 dias</mark>, momento em que a prescrição <mark class="highlight-yellow">volta a correr por inteiro a partir do 141º dia</mark>.
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ÁREA FINAL: BOTÃO DE ACESSO ÀS QUESTÕES -->
+    <div class="pt-8 pb-12 border-t border-slate-200">
+      <div class="bg-slate-50 border border-slate-300 rounded-2xl p-6 sm:p-8 text-center space-y-4 shadow-sm">
+        <div class="w-12 h-12 bg-slate-900 text-white rounded-full flex items-center justify-center mx-auto text-xl shadow-xs">
+          <i class="fa-solid fa-circle-check"></i>
+        </div>
+        <div class="max-w-xl mx-auto space-y-2">
+          <h3 class="text-xl font-bold text-slate-900">Teoria Concluída com Sucesso!</h3>
+          <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+            Fixe os prazos, as competências e as causas de nulidade respondendo aos itens simulados no caderno de exercícios da banca.
+          </p>
+        </div>
+
+        <div class="pt-2">
+          <a 
+            href="questoes7legs.html" 
+            class="inline-flex items-center justify-center gap-2.5 bg-slate-900 hover:bg-slate-800 text-white font-semibold text-sm sm:text-base px-8 py-3.5 rounded-xl shadow-md hover:shadow-lg transition duration-200 group"
+          >
+            <span>Ir para Questões de Fixação</span>
+            <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition duration-200"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- RODAPÉ DA PÁGINA -->
+  <footer class="border-t border-slate-200 bg-white py-6 text-center text-xs text-slate-500">
+    <div class="max-w-4xl mx-auto px-4">
+      Concurso Público de Professor de Geografia • Instituto Federal de Minas Gerais (IFMG)<br>
+      Caderno de Legislação Federal — Lei nº 8.112/1990 (Arts. 127 a 142)
+    </div>
+  </footer>
+
+  <!-- SCRIPT PARA O REPRODUTOR DE ÁUDIO -->
+  <script>
+    // Referências aos elementos do reprodutor
+    const audioPlayer = document.getElementById('main-audio-player');
+    const audioSource = document.getElementById('audio-source');
+    const filenameInput = document.getElementById('mp3-filename-input');
+    const audioStatus = document.getElementById('audio-status');
+
+    // Função para alterar dinamicamente o arquivo MP3
+    function updateAudioFile() {
+      const newFile = filenameInput.value.trim();
+      if (!newFile) {
+        audioStatus.textContent = "Por favor, digite o nome de um arquivo válido (ex: audio.mp3).";
+        audioStatus.className = "text-[11px] text-rose-600 font-medium";
+        return;
+      }
+
+      const wasPlaying = !audioPlayer.paused;
+      
+      // Atualiza a fonte do elemento de áudio
+      audioSource.src = newFile;
+      audioPlayer.load();
+
+      audioStatus.textContent = `Arquivo configurado para: "${newFile}". Clique em Play para reproduzir.`;
+      audioStatus.className = "text-[11px] text-emerald-700 font-medium";
+
+      if (wasPlaying) {
+        audioPlayer.play().catch(function(err) {
+          console.warn("Autoplay bloqueado pelo navegador ou arquivo ausente:", err);
+        });
+      }
+    }
+
+    // Controle de velocidade de reprodução
+    function setPlaybackSpeed(speed) {
+      if (audioPlayer) {
+        audioPlayer.playbackRate = speed;
+      }
+
+      // Atualiza botões
+      document.querySelectorAll('.speed-btn').forEach(btn => {
+        if (parseFloat(btn.getAttribute('data-speed')) === speed) {
+          btn.className = "speed-btn active text-xs font-semibold px-2.5 py-1 rounded bg-white text-slate-900 shadow-xs border border-slate-200";
+        } else {
+          btn.className = "speed-btn text-xs font-semibold px-2.5 py-1 rounded text-slate-600 hover:text-slate-900 transition";
+        }
+      });
+    }
+
+    // Permite apertar Enter no input para atualizar
+    filenameInput.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') {
+        updateAudioFile();
+      }
+    });
+  </script>
+</body>
+</html>

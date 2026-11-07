@@ -1,0 +1,949 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Regime Disciplinar - Lei nº 8.112/1990 | IFMG Concurso Docente</title>
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#f8fafc',
+                            100: '#f1f5f9',
+                            200: '#e2e8f0',
+                            700: '#334155',
+                            800: '#1e293b',
+                            900: '#0f172a'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #ffffff;
+            color: #1e293b;
+            font-family: 'Inter', sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+        /* Grifos e destaques visuais com excelente legibilidade */
+        .grifo-amarelo {
+            background-color: #fef08a; /* yellow-200 */
+            color: #0f172a;
+            padding: 0.12rem 0.35rem;
+            border-radius: 0.25rem;
+            font-weight: 600;
+        }
+        .grifo-alerta {
+            background-color: #fee2e2; /* red-100 */
+            color: #7f1d1d; /* red-900 */
+            padding: 0.12rem 0.35rem;
+            border-radius: 0.25rem;
+            font-weight: 600;
+        }
+        .grifo-regra {
+            background-color: #e0f2fe; /* sky-100 */
+            color: #0c4a6e; /* sky-900 */
+            padding: 0.12rem 0.35rem;
+            border-radius: 0.25rem;
+            font-weight: 600;
+        }
+        /* Ajuste de tabelas para quebra de texto perfeita sem gerar scroll horizontal */
+        table {
+            table-layout: fixed;
+            width: 100%;
+            word-wrap: break-word;
+        }
+    </style>
+</head>
+<body class="bg-white min-h-screen text-slate-800 leading-relaxed">
+
+    <!-- Topo / Cabeçalho Institucional -->
+    <header class="border-b border-slate-200 bg-white sticky top-0 z-30 shadow-xs">
+        <div class="max-w-5xl mx-auto px-4 py-3 flex flex-wrap items-center justify-between gap-3">
+            <div class="flex items-center space-x-2">
+                <span class="inline-flex items-center justify-center px-2.5 py-1 text-xs font-bold rounded-md bg-slate-100 text-slate-800 border border-slate-300">
+                    IFMG • EBTT
+                </span>
+                <span class="text-xs sm:text-sm font-semibold text-slate-600">
+                    Professor de Geografia • Legislação Federal
+                </span>
+            </div>
+            <a href="#questoes-section" class="text-xs font-semibold text-slate-700 hover:text-slate-950 underline flex items-center gap-1">
+                Ir para o final ↓
+            </a>
+        </div>
+    </header>
+
+    <main class="max-w-4xl mx-auto px-4 py-8 sm:px-6 lg:px-8 space-y-10">
+
+        <!-- Título Principal -->
+        <section class="border-b border-slate-200 pb-6">
+            <div class="inline-block px-3 py-1 mb-3 text-xs font-semibold tracking-wide uppercase rounded-full bg-slate-100 text-slate-700">
+                Direito Administrativo Sancionador • Lei nº 8.112/1990
+            </div>
+            <h1 class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight leading-tight mb-4">
+                Regime Disciplinar I: Deveres, Proibições, Responsabilidades e Comunicabilidade de Instâncias
+            </h1>
+            <p class="text-sm sm:text-base text-slate-600 leading-normal">
+                Dispositivo: Título IV, Capítulos I (art. 116), II (art. 117) e IV (arts. 121 a 126-A). Análise aprofundada orientada para a Banca Examinadora do IFMG.
+            </p>
+        </section>
+
+        <!-- Reprodutor de Áudio Customizável -->
+        <section class="bg-white border-2 border-slate-300 rounded-xl p-5 shadow-xs">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
+                <div>
+                    <h2 class="text-base font-bold text-slate-900 flex items-center gap-2">
+                        <svg class="w-5 h-5 text-slate-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
+                        </svg>
+                        Áudio da Aula (MP3)
+                    </h2>
+                    <p class="text-xs text-slate-500">Ouça o áudio da explicação enquanto acompanha os grifos no texto.</p>
+                </div>
+                <div class="text-xs font-medium text-slate-500 bg-slate-100 px-2.5 py-1 rounded border border-slate-200 self-start sm:self-auto">
+                    Status: <span id="audioStatusText" class="font-semibold text-slate-700">Aguardando reprodução</span>
+                </div>
+            </div>
+
+            <!-- Player Nativo -->
+            <div class="mb-4">
+                <audio id="mainAudioPlayer" controls class="w-full h-11 rounded-lg focus:outline-none focus:ring-2 focus:ring-slate-400">
+                    <source id="mainAudioSource" src="audio6legs.mp3" type="audio/mpeg">
+                    Seu navegador não suporta a execução de áudio HTML5.
+                </audio>
+            </div>
+
+            <!-- Caixa de Configuração Rápida do Arquivo MP3 -->
+            <div class="border-t border-slate-200 pt-3 flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
+                <label for="audioFilenameInput" class="text-xs font-semibold text-slate-700 whitespace-nowrap">
+                    Arquivo MP3 na pasta:
+                </label>
+                <input 
+                    type="text" 
+                    id="audioFilenameInput" 
+                    value="audio6legs.mp3" 
+                    placeholder="Digite o nome do seu arquivo (ex: aula.mp3)" 
+                    class="flex-1 text-xs border border-slate-300 rounded-md px-3 py-2 text-slate-800 bg-white focus:outline-none focus:border-slate-600 focus:ring-1 focus:ring-slate-600 transition"
+                >
+                <button 
+                    type="button" 
+                    id="btnCarregarAudio" 
+                    class="text-xs font-semibold bg-slate-800 hover:bg-slate-900 text-white px-4 py-2 rounded-md shadow-xs transition duration-150 flex items-center justify-center gap-1"
+                >
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                    </svg>
+                    Carregar Áudio
+                </button>
+            </div>
+            <p id="audioFeedbackMessage" class="text-[11px] text-slate-500 mt-2">
+                Dica: Mantenha o seu arquivo de áudio MP3 na mesma pasta desta página HTML e informe o nome dele acima caso deseje alterá-lo.
+            </p>
+        </section>
+
+        <!-- Sumário Navegável Rápido -->
+        <nav class="bg-slate-50 border border-slate-200 rounded-lg p-4">
+            <h3 class="text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">Índice da Aula para Navegação Rápida</h3>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
+                <a href="#deveres" class="text-slate-700 hover:text-slate-950 hover:underline">1. Deveres Funcionais (Art. 116)</a>
+                <a href="#proibicoes" class="text-slate-700 hover:text-slate-950 hover:underline">2. Proibições e Gradação Sancionatória (Art. 117)</a>
+                <a href="#comparada" class="text-slate-700 hover:text-slate-950 hover:underline">3. Análise Comparada: Deveres vs. Proibições</a>
+                <a href="#triplice" class="text-slate-700 hover:text-slate-950 hover:underline">4. Sistema de Tríplice Responsabilidade</a>
+                <a href="#comunicabilidade" class="text-slate-700 hover:text-slate-950 hover:underline">5. Comunicabilidade e Sentença Penal no PAD</a>
+                <a href="#whistleblower" class="text-slate-700 hover:text-slate-950 hover:underline">6. Blindagem do Denunciante (Art. 126-A)</a>
+                <a href="#guia-acerto" class="text-slate-700 hover:text-slate-950 hover:underline">7. Guia de Acerto Rápido & Armadilhas</a>
+                <a href="#questoes-section" class="text-slate-700 hover:text-slate-950 hover:underline font-semibold text-slate-900">8. Questões de Fixação →</a>
+            </div>
+        </nav>
+
+        <!-- Introdução Contextual -->
+        <section class="space-y-3">
+            <p class="text-slate-800 leading-relaxed text-justify">
+                O regime disciplinar aplicável aos servidores públicos civis da União constitui a espinha dorsal do Direito Administrativo sancionador no plano federal, traduzindo as balizas constitucionais da moralidade, legalidade, impessoalidade e eficiência que governam a atuação estatal. No âmbito do <span class="font-semibold text-slate-900">Instituto Federal de Educação, Ciência e Tecnologia de Minas Gerais (IFMG)</span>, o domínio dogmático do Título IV da Lei nº 8.112/1990 reveste-se de relevância determinante para os candidatos ao cargo de Professor da Carreira de Magistério do Ensino Básico, Técnico e Tecnológico (EBTT). A Comissão Central de Concurso Público da Reitoria do IFMG adota um padrão de cobrança focado na literalidade dos tipos funcionais, nas nuances de competência e na interpretação conferida pelos tribunais superiores quanto à independência e comunicabilidade das instâncias judiciais e administrativas.
+            </p>
+        </section>
+
+        <!-- SEÇÃO 1: DEVERES FUNCIONAIS -->
+        <section id="deveres" class="space-y-4 pt-4 border-t border-slate-200">
+            <div class="flex items-center gap-2">
+                <span class="flex items-center justify-center w-7 h-7 rounded-full bg-slate-900 text-white font-bold text-xs">1</span>
+                <h2 class="text-xl sm:text-2xl font-bold text-slate-900">
+                    Deveres Funcionais do Servidor Público Federal (Artigo 116)
+                </h2>
+            </div>
+
+            <p class="text-slate-800 text-justify">
+                Os deveres funcionais corporificam obrigações de natureza eminentemente <span class="grifo-regra">comissiva e mandamental</span>, exigindo do servidor posturas ativas indispensáveis ao funcionamento regular e hígido da Administração Pública. O artigo 116 da Lei nº 8.112/1990 cataloga doze incisos que impõem condutas obrigatórias a todos os servidores ocupantes de cargos públicos federais, efetivos ou comissionados.
+            </p>
+
+            <p class="text-slate-800 text-justify">
+                A ordem jurídica administrativa estruturada pelo estatuto federal estabelece padrões severos de fidelidade institucional e zelo funcional. O dever de <span class="font-semibold text-slate-900">exercer com zelo e dedicação as atribuições do cargo (inciso I)</span> reflete o princípio da eficiência, cuja inobservância reiterada ou culposa deságua na tipificação de infrações gravosas. Paralelamente, o dever de <span class="font-semibold text-slate-900">lealdade às instituições (inciso II)</span> impõe compromisso ético e proteção à credibilidade do órgão a que o agente serve, vedando condutas desestabilizadoras. A <span class="font-semibold text-slate-900">obediência estrita às normas legais e regulamentares (inciso III)</span> traduz a faceta positiva do princípio da legalidade administrativa, impedindo a escusa de cumprimento com base no desconhecimento da norma ou em desacordo axiológico particular do servidor.
+            </p>
+
+            <!-- Ponto Chave da Ordem Ilegal -->
+            <div class="bg-white border-l-4 border-slate-800 p-4 rounded-r-lg border-y border-r border-slate-200">
+                <h3 class="text-sm font-bold text-slate-900 mb-1">Ponto Crítico em Prova: Cumprimento de Ordens Superiores (Inciso IV)</h3>
+                <p class="text-slate-700 text-xs sm:text-sm text-justify">
+                    O estatuto acolheu a fórmula da subordinação mitigada pela cláusula de legalidade: o servidor tem o dever cogente de cumprir as determinações emanadas de superiores hierárquicos, <mark class="grifo-amarelo">exceto quando manifestamente ilegais</mark>. A ilegalidade ostensiva, perceptível sem a necessidade de exegese complexa, legitima e obriga a recusa funcional, sob pena de corresponsabilização administrativa, civil e criminal do subordinado que voluntariamente a executa.
+                </p>
+            </div>
+
+            <p class="text-slate-800 text-justify">
+                O atendimento com presteza, disciplinado no <span class="font-semibold text-slate-900">inciso V</span>, subdivide-se em três comandos taxativos voltados à satisfação dos administrados e à proteção do erário:
+            </p>
+
+            <ul class="list-disc list-inside space-y-1.5 text-slate-800 pl-2 text-sm sm:text-base">
+                <li><span class="font-medium">Prestação tempestiva de informações ao público em geral</span>, ressalvadas as legalmente acobertadas pelo sigilo;</li>
+                <li><span class="font-medium">Expedição célere de certidões</span> requeridas para a tutela de direitos ou o esclarecimento de situações de interesse pessoal;</li>
+                <li><span class="font-medium">Atendimento diligente às requisições</span> expedidas para a defesa em juízo da Fazenda Pública.</li>
+            </ul>
+
+            <p class="text-slate-800 text-justify">
+                O <span class="font-semibold text-slate-900">inciso VI</span>, alterado pela Lei de Acesso à Informação (Lei nº 12.527/2011), determina expressamente o dever de levar ao conhecimento da autoridade superior as irregularidades de que o agente tiver ciência em razão do cargo. De forma pragmática, o legislador estabeleceu uma exceção à via hierárquica ordinária: quando houver suspeita fundamentada de envolvimento da chefia imediata, o relato circunstanciado deve ser encaminhado a <mark class="grifo-amarelo">outra autoridade competente para a instauração de procedimento apuratório</mark>.
+            </p>
+
+            <p class="text-slate-800 text-justify">
+                O rol estatuário do artigo 116 abrange ainda o <span class="font-semibold">zelo patrimonial e material</span> (inciso VII), a <span class="font-semibold">guarda de sigilo documental</span> sobre assuntos internos da repartição (inciso VIII) e o imperativo de <span class="font-semibold">conduta compatível com a moralidade administrativa</span> (inciso IX). A pontualidade e a assiduidade (inciso X) sancionam o compromisso cronológico contínuo do agente com a sua carga horária. No que toca ao <span class="font-semibold">dever de urbanidade</span> (inciso XI), a jurisprudência administrativa consolidada fixa que o tratamento cortês é incondicional, rechaçando a escusa de falta de urbanidade justificada por legítima defesa da honra ou provocação recíproca na repartição.
+            </p>
+
+            <p class="text-slate-800 text-justify">
+                Por fim, o <span class="font-semibold text-slate-900">inciso XII</span> positiva o dever de representar contra ilegalidade, omissão ou abuso de poder. O rito processual obrigatório previsto no parágrafo único estabelece que a representação será <mark class="grifo-regra">encaminhada pela via hierárquica e apreciada pela autoridade superior àquela contra a qual foi formulada</mark>, assegurando-se ao representado o contraditório e a ampla defesa no bojo da apuração correcional.
+            </p>
+
+            <!-- Bloco de Memorização dos Deveres -->
+            <div class="bg-slate-50 border border-slate-300 rounded-lg p-4 space-y-2">
+                <h3 class="text-xs font-bold uppercase tracking-wider text-slate-800 flex items-center gap-1.5">
+                    <span class="w-2 h-2 rounded-full bg-slate-700"></span>
+                    Tópicos para Memorização: Características Essenciais dos Deveres Funcionais
+                </h3>
+                <ul class="space-y-1.5 text-xs sm:text-sm text-slate-700">
+                    <li>• <strong class="text-slate-900">Regra de Ouro da Hierarquia:</strong> Obediência a todas as ordens, admitindo-se recusa funcional apenas diante de ordem <mark class="grifo-amarelo">manifestamente ilegal</mark>.</li>
+                    <li>• <strong class="text-slate-900">Trâmite da Representação:</strong> Encaminhamento pela via hierárquica, julgamento por autoridade de escalão <mark class="grifo-regra">superior ao do representado</mark> e garantia legal de ampla defesa.</li>
+                    <li>• <strong class="text-slate-900">Tripla Presteza do Inciso V:</strong> Atendimento célere ao público (ressalvado sigilo), emissão de certidões para defesa de direitos e cumprimento de requisições da Fazenda Pública.</li>
+                    <li>• <strong class="text-slate-900">Quebra de Hierarquia na Denúncia:</strong> Diante de suspeita contra a chefia imediata, o servidor deve comunicar o fato a <mark class="grifo-amarelo">outra autoridade competente</mark> (artigo 116, VI).</li>
+                    <li>• <strong class="text-slate-900">Natureza dos Deveres:</strong> São obrigações ativas e mandamentais; a inobservância genérica tipifica descumprimento de dever funcional, apenada ordinariamente com <span class="font-bold text-slate-900">advertência</span> (artigo 129).</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- SEÇÃO 2: PROIBIÇÕES LEGAIS -->
+        <section id="proibicoes" class="space-y-4 pt-4 border-t border-slate-200">
+            <div class="flex items-center gap-2">
+                <span class="flex items-center justify-center w-7 h-7 rounded-full bg-slate-900 text-white font-bold text-xs">2</span>
+                <h2 class="text-xl sm:text-2xl font-bold text-slate-900">
+                    Proibições Legais e a Gradação Sancionatória Objetiva (Artigo 117)
+                </h2>
+            </div>
+
+            <p class="text-slate-800 text-justify">
+                Diversamente dos deveres, as proibições representam imperativos de abstenção ou <span class="grifo-alerta">obrigações negativas</span>, delineando comportamentos dos quais o agente público deve se privar para resguardar o interesse público. O artigo 117 da Lei nº 8.112/1990 enumera vinte incisos que estabelecem condutas vedadas, organizadas em consonância com a gravidade da penalidade disciplinar cominada pelos artigos 129, 130 e 132 do mesmo diploma legal.
+            </p>
+
+            <div class="space-y-3 text-slate-800 text-justify">
+                <p>
+                    As infrações de menor lesividade funcional submetem-se à pena de <strong class="text-slate-900">advertência</strong>, aplicada por escrito nos termos do artigo 129. Estão compreendidas nessa faixa as vedações previstas nos <mark class="grifo-regra">incisos I a VIII e XIX</mark> do artigo 117. Dentre elas, destacam-se a ausência do serviço durante o expediente sem autorização da chefia imediata (inciso I), a retirada de documentos ou bens da repartição sem anuência da autoridade competente (inciso II), a recusa de fé a documentos públicos (inciso III), a oposição de resistência injustificada ao trâmite processual (inciso IV), o apreço ou desapreço no ambiente de trabalho (inciso V), a delegação de encargos funcionais a pessoas estranhas à repartição (inciso VI), a coação com fins associativos, sindicais ou partidários (inciso VII), a manutenção de cônjuge ou parente até o <mark class="grifo-amarelo">segundo grau civil</mark> sob sua chefia imediata em cargo de confiança (inciso VIII) e a recusa em atualizar dados cadastrais quando notificado (inciso XIX).
+                </p>
+
+                <p>
+                    No segundo escalão de reprovabilidade situam-se as condutas puníveis com a penalidade de <strong class="text-slate-900">suspensão</strong>, que não pode exceder noventa dias (artigo 130). Enquadram-se expressamente nessa sanção a transgressão aos <mark class="grifo-regra">incisos XVII e XVIII</mark> do artigo 117, além dos casos de reincidência formal em faltas anteriormente punidas com advertência. O inciso XVII proíbe a atribuição a outro servidor de encargos incompatíveis com seu cargo, abrindo exceção legal para <mark class="grifo-amarelo">situações de emergência e transitórias</mark>. O inciso XVIII interdita o exercício de quaisquer atividades funcionais que se mostrem incompatíveis com o cargo ocupado ou com o horário oficial de trabalho.
+                </p>
+
+                <p>
+                    O patamar de gravidade máxima abrange os <mark class="grifo-alerta">incisos IX a XVI</mark> do artigo 117, cuja vulneração culmina compulsoriamente na aplicação da penalidade de <strong class="text-red-950 font-bold">demissão</strong>, mercê da remissão taxativa expressa no artigo 132, inciso XIII, da Lei nº 8.112/1990. Essas condutas abalam irremediavelmente a dignidade do cargo ou afetam o patrimônio público.
+                </p>
+
+                <p>
+                    O legislador estabeleceu um regime rigoroso quanto à proibição de gerência e prática comercial privada cominada no <span class="font-semibold text-slate-900">inciso X</span> do artigo 117. A vedação geral obsta a gerência ou administração de sociedades privadas (personificadas ou não), bem como a prática mercantil pelo servidor público estatutário. Entretanto, o próprio dispositivo excepciona a titularidade na condição passiva de <mark class="grifo-regra">acionista, cotista ou comanditário</mark>.
+                </p>
+            </div>
+
+            <!-- Exceções da Gerência Privada -->
+            <div class="bg-white border border-slate-300 rounded-lg p-4 space-y-2">
+                <h3 class="text-xs font-bold uppercase tracking-wider text-slate-900">
+                    Exceções Legais à Proibição de Gerência Comercial (Parágrafo Único do Art. 117 - Lei nº 11.784/2008):
+                </h3>
+                <ul class="list-disc list-inside space-y-1.5 text-xs sm:text-sm text-slate-700">
+                    <li>
+                        <strong class="text-slate-900">Conselhos de Estatais e Cooperativas:</strong> Participação legítima nos conselhos de administração e fiscal de empresas ou entidades estatais em que a União participe direta ou indiretamente do capital social, ou em sociedades cooperativas instituídas para prestação de serviços a seus próprios associados.
+                    </li>
+                    <li>
+                        <strong class="text-slate-900">Licença para Interesses Particulares (LIP):</strong> Servidor em gozo regular da Licença para Tratar de Interesses Particulares (LIP, art. 91), hipótese na qual o agente poderá exercer funções gerenciais na iniciativa privada, desde que observadas as restrições da Lei de Conflito de Interesses (Lei nº 12.813/2013).
+                    </li>
+                </ul>
+            </div>
+
+            <p class="text-slate-800 text-justify">
+                A atuação como procurador ou intermediário perante repartições públicas (inciso XI) também atrai sanção expulsiva de demissão. Todavia, o estatuto confere uma ressalva restritiva: permite a intermediação quando esta visar estritamente à percepção de <mark class="grifo-amarelo">benefícios previdenciários ou assistenciais de cônjuge, companheiro ou parentes até o segundo grau civil</mark>.
+            </p>
+
+            <!-- Tabela 1: Gradação Sancionatória Objetiva (Sem Scroll Horizontal) -->
+            <div class="mt-4 border border-slate-300 rounded-lg overflow-hidden bg-white">
+                <div class="bg-slate-100 px-3 py-2 border-b border-slate-300">
+                    <span class="text-xs font-bold uppercase tracking-wider text-slate-800">
+                        Tabela 1: Gradação Sancionatória do Artigo 117 (Conjugado aos arts. 129, 130 e 132)
+                    </span>
+                </div>
+                <table class="text-slate-800 text-xs sm:text-sm">
+                    <thead>
+                        <tr class="bg-slate-50 border-b border-slate-300 text-left text-slate-700 font-bold">
+                            <th class="p-2 sm:p-3 w-1/4">Incisos do Artigo 117</th>
+                            <th class="p-2 sm:p-3 w-7/12">Condutas Proibidas Tipificadas</th>
+                            <th class="p-2 sm:p-3 w-1/6">Sanção Cominada</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-200">
+                        <tr class="hover:bg-slate-50">
+                            <td class="p-2 sm:p-3 font-semibold text-slate-900 align-top">
+                                I a VIII e XIX
+                            </td>
+                            <td class="p-2 sm:p-3 align-top leading-snug">
+                                Ausentar-se sem aval da chefia imediata; retirar bens sem anuência; recusar fé a documento público; obstar processo; desapreço na repartição; delegar atribuição a pessoa estranha; coagir filiação; nepotismo até 2º grau; recusar atualização cadastral.
+                            </td>
+                            <td class="p-2 sm:p-3 align-top font-bold text-slate-800">
+                                <span class="bg-slate-200 px-1.5 py-0.5 rounded text-xs">Advertência</span><br>
+                                <span class="text-[11px] text-slate-500 font-normal">(Artigo 129)</span>
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-slate-50">
+                            <td class="p-2 sm:p-3 font-semibold text-slate-900 align-top">
+                                XVII e XVIII
+                            </td>
+                            <td class="p-2 sm:p-3 align-top leading-snug">
+                                Cometer atribuições estranhas a outro servidor (salvo situações emergenciais e transitórias); exercer atividades incompatíveis com o cargo ou com a jornada de trabalho.
+                            </td>
+                            <td class="p-2 sm:p-3 align-top font-bold text-slate-800">
+                                <span class="bg-slate-200 px-1.5 py-0.5 rounded text-xs">Suspensão</span><br>
+                                <span class="text-[11px] text-slate-500 font-normal">Até 90 dias (Artigo 130)</span>
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-slate-50">
+                            <td class="p-2 sm:p-3 font-semibold text-slate-900 align-top">
+                                IX a XVI
+                            </td>
+                            <td class="p-2 sm:p-3 align-top leading-snug">
+                                Valimento do cargo; exercer comércio ou gerência empresarial (salvo acionista/cotista/comanditário, conselhos e LIP); advocacia administrativa; propina/vantagem; pensão estrangeira; usura; conduta desidiosa; uso particular de bens da repartição.
+                            </td>
+                            <td class="p-2 sm:p-3 align-top font-bold text-red-900">
+                                <span class="bg-red-100 text-red-950 px-1.5 py-0.5 rounded text-xs">Demissão</span><br>
+                                <span class="text-[11px] text-slate-500 font-normal">(Art. 132, inc. XIII)</span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- SEÇÃO 3: ANÁLISE COMPARADA -->
+        <section id="comparada" class="space-y-4 pt-4 border-t border-slate-200">
+            <div class="flex items-center gap-2">
+                <span class="flex items-center justify-center w-7 h-7 rounded-full bg-slate-900 text-white font-bold text-xs">3</span>
+                <h2 class="text-xl sm:text-2xl font-bold text-slate-900">
+                    Análise Comparada: Deveres Funcionais versus Proibições Legais
+                </h2>
+            </div>
+
+            <p class="text-slate-800 text-justify">
+                A distinção precisa entre as condutas comissivas do artigo 116 e as vedações estipuladas no artigo 117 constitui a principal fonte de armadilhas elaboradas por bancas examinadoras federais. Frequentemente, alternativas incorretas alteram o sujeito passivo da conduta, a autoridade competente para anuir ao ato ou a pena disciplinar aplicável.
+            </p>
+
+            <p class="text-slate-800 text-justify">
+                Uma divergência sistemática relevante reside na cessão indevida de atribuições funcionais:
+            </p>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs sm:text-sm">
+                <div class="border border-slate-300 p-3 rounded-lg bg-white">
+                    <span class="text-xs font-bold text-slate-700 uppercase block mb-1">Pessoa Estranha à Repartição</span>
+                    <p class="text-slate-700">
+                        Quando o servidor comete encargos funcionais a <mark class="grifo-amarelo">pessoa estranha à repartição</mark>, fora dos casos previstos em lei, incorre na proibição do artigo 117, inciso VI, cuja consequência jurídica é a pena branda de <strong class="text-slate-900">advertência</strong>.
+                    </p>
+                </div>
+                <div class="border border-slate-300 p-3 rounded-lg bg-white">
+                    <span class="text-xs font-bold text-slate-700 uppercase block mb-1">A Outro Servidor do Quadro</span>
+                    <p class="text-slate-700">
+                        Caso a transferência de tarefas estranhas seja imputada a <mark class="grifo-amarelo">outro servidor público</mark> do próprio quadro, configura-se a proibição do artigo 117, inciso XVII, sujeita à penalidade mais severa de <strong class="text-slate-900">suspensão</strong>, comportando ressalva expressa se praticada em <mark class="grifo-regra">caráter emergencial e transitório</mark>.
+                    </p>
+                </div>
+            </div>
+
+            <p class="text-slate-800 text-justify">
+                Outra dicotomia sensível diz respeito à gestão da informação interna. Enquanto o artigo 116, inciso VIII, fixa o <span class="font-semibold text-slate-900">dever positivo de guardar sigilo</span> sobre assuntos da repartição, a Lei comina <strong class="text-red-900">demissão</strong> no artigo 132, inciso IX, para a revelação desautorizada de segredo do qual o servidor se apropriou em razão do cargo. Do mesmo modo, a comunicação regular de arbitrariedades consubstancia o <span class="font-semibold text-slate-900">dever de representar</span> (artigo 116, inciso XII), ao passo que a utilização das prerrogativas do cargo para alcançar proveito escuso para si ou outrem qualifica o ilícito gravíssimo de <strong class="text-red-900">valimento do cargo</strong> (artigo 117, inciso IX), punível compulsoriamente com a perda definitiva do vínculo público.
+            </p>
+
+            <!-- Tabela 2: Quadro Comparativo Dogmático (Sem Scroll Horizontal) -->
+            <div class="mt-4 border border-slate-300 rounded-lg overflow-hidden bg-white">
+                <div class="bg-slate-100 px-3 py-2 border-b border-slate-300">
+                    <span class="text-xs font-bold uppercase tracking-wider text-slate-800">
+                        Tabela 2: Quadro Comparativo - Dever Funcional (Art. 116) vs. Proibição Legal (Art. 117)
+                    </span>
+                </div>
+                <table class="text-slate-800 text-xs sm:text-sm">
+                    <thead>
+                        <tr class="bg-slate-50 border-b border-slate-300 text-left text-slate-700 font-bold">
+                            <th class="p-2 sm:p-3 w-1/4">Critério Dogmático</th>
+                            <th class="p-2 sm:p-3 w-3/8">Dever Funcional (Artigo 116)</th>
+                            <th class="p-2 sm:p-3 w-3/8">Proibição Legal (Artigo 117)</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-200">
+                        <tr class="hover:bg-slate-50">
+                            <td class="p-2 sm:p-3 font-semibold text-slate-900 align-top">
+                                Núcleo Estrutural
+                            </td>
+                            <td class="p-2 sm:p-3 align-top leading-snug">
+                                Imposição de ação comissiva ou atitude positiva compulsória em prol do interesse público.
+                            </td>
+                            <td class="p-2 sm:p-3 align-top leading-snug">
+                                Preceito negativo de abstenção ou inibição de conduta desfavorável à Administração.
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-slate-50">
+                            <td class="p-2 sm:p-3 font-semibold text-slate-900 align-top">
+                                Hierarquia e Cumprimento
+                            </td>
+                            <td class="p-2 sm:p-3 align-top leading-snug">
+                                Obediência cega excetuada somente perante ordens <mark class="grifo-amarelo">manifestamente ilegais</mark> (inciso IV).
+                            </td>
+                            <td class="p-2 sm:p-3 align-top leading-snug">
+                                Proibição de obstar o andamento de serviço ou processo por conveniência subjetiva (inciso IV).
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-slate-50">
+                            <td class="p-2 sm:p-3 font-semibold text-slate-900 align-top">
+                                Atribuição Indevida de Tarefas
+                            </td>
+                            <td class="p-2 sm:p-3 align-top leading-snug">
+                                Dever permanente de exercer as competências inerentes ao cargo com dedicação (inciso I).
+                            </td>
+                            <td class="p-2 sm:p-3 align-top leading-snug">
+                                Vedado repassar a estranho (<span class="font-semibold text-slate-900">advertência</span>) ou a outro servidor (<span class="font-semibold text-slate-900">suspensão</span>).
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-slate-50">
+                            <td class="p-2 sm:p-3 font-semibold text-slate-900 align-top">
+                                Autoridade para Liberação
+                            </td>
+                            <td class="p-2 sm:p-3 align-top leading-snug">
+                                Competência da chefia imediata para abonar faltas justificadas no serviço.
+                            </td>
+                            <td class="p-2 sm:p-3 align-top leading-snug">
+                                Saída durante expediente exige <mark class="grifo-regra">chefia imediata</mark>; retirada de bens exige <mark class="grifo-regra">autoridade competente</mark>.
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-slate-50">
+                            <td class="p-2 sm:p-3 font-semibold text-slate-900 align-top">
+                                Vínculo de Parentesco
+                            </td>
+                            <td class="p-2 sm:p-3 align-top leading-snug">
+                                Dever genérico de moralidade administrativa no trato funcional (inciso IX).
+                            </td>
+                            <td class="p-2 sm:p-3 align-top leading-snug">
+                                Interdição de manter sob chefia imediata em cargo de confiança cônjuge ou parente até <mark class="grifo-amarelo">2º grau</mark> (inciso VIII).
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-slate-50">
+                            <td class="p-2 sm:p-3 font-semibold text-slate-900 align-top">
+                                Regime Sancionatório
+                            </td>
+                            <td class="p-2 sm:p-3 align-top leading-snug">
+                                Violação acarreta penalidade residual de <span class="font-semibold">advertência</span> (salvo falta grave conexa).
+                            </td>
+                            <td class="p-2 sm:p-3 align-top leading-snug">
+                                Penalidades predeterminadas em faixas rígidas: <span class="font-semibold">advertência</span>, <span class="font-semibold">suspensão</span> ou <span class="font-semibold text-red-900">demissão</span>.
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- SEÇÃO 4: TRÍPLICE RESPONSABILIDADE -->
+        <section id="triplice" class="space-y-4 pt-4 border-t border-slate-200">
+            <div class="flex items-center gap-2">
+                <span class="flex items-center justify-center w-7 h-7 rounded-full bg-slate-900 text-white font-bold text-xs">4</span>
+                <h2 class="text-xl sm:text-2xl font-bold text-slate-900">
+                    O Sistema de Tríplice Responsabilidade do Servidor (Artigos 121 a 126-A)
+                </h2>
+            </div>
+
+            <p class="text-slate-800 text-justify">
+                O exercício irregular das atribuições funcionais sujeita o agente público ao regime de tríplice responsabilização, positivado pelo artigo 121 da Lei nº 8.112/1990: <em class="font-medium">"O servidor responde civil, penal e administrativamente pelo exercício irregular de suas atribuições"</em>. O artigo 125 consolida o princípio da <mark class="grifo-regra">independência das instâncias</mark>, preconizando expressamente que as sanções das searas civil, penal e administrativa <mark class="grifo-amarelo">poderão cumular-se, sendo autônomas entre si</mark>.
+            </p>
+
+            <p class="text-slate-800 text-justify">
+                A autonomia das instâncias decorre da diversidade de bens jurídicos tutelados por cada ramo do ordenamento. A responsabilidade penal visa resguardar a ordem pública e a sociedade contra condutas criminalizadas pelo Código Penal e por leis extravagantes; a responsabilidade civil assegura a incolumidade patrimonial do Estado e de terceiros lesados; já a responsabilidade administrativa destina-se a preservar a regularidade funcional interna e a disciplina estatutária da Administração.
+            </p>
+
+            <!-- Responsabilidade Civil Detalhada -->
+            <div class="space-y-3">
+                <h3 class="text-base font-bold text-slate-900">
+                    A Responsabilidade Civil e suas Especificidades Executórias (Artigo 122)
+                </h3>
+                <p class="text-slate-800 text-justify">
+                    A responsabilidade civil do servidor decorre de ato omissivo ou comissivo, <mark class="grifo-amarelo">doloso ou culposo</mark>, praticado no exercício funcional, do qual resultem prejuízos pecuniários ao erário público ou a administrados (artigo 122, <em>caput</em>). O servidor <strong class="text-slate-900">não responde objetivamente</strong>; a comprovação do elemento subjetivo (dolo ou culpa estrita por negligência, imperícia ou imprudência) é pressuposto inafastável de sua condenação patrimonial.
+                </p>
+
+                <p class="text-slate-800 text-justify">
+                    Quando o prejuízo recai diretamente sobre a Administração Pública, impõe-se a obrigação de recomposição. O artigo 122, § 1º, estabelece uma regra processual estrita: a indenização de prejuízo causado dolosamente pelo servidor somente será amortizada mediante parcelamento em folha de pagamento (procedimento previsto no artigo 46) <mark class="grifo-regra">na hipótese subsidiária de inexistência de outros bens livres</mark> que garantam a execução da dívida pela via judicial coercitiva.
+                </p>
+
+                <div class="border border-slate-300 p-4 rounded-lg bg-slate-50/50 space-y-2">
+                    <h4 class="text-xs font-bold uppercase text-slate-800 tracking-wide">
+                        Danos a Terceiros e o Tema 940 do STF (Dupla Garantia)
+                    </h4>
+                    <p class="text-xs sm:text-sm text-slate-700 text-justify">
+                        Tratando-se de danos causados a terceiros particulares, opera-se o desdobramento do artigo 37, § 6º, da Constituição Federal. O particular lesado ajuíza a demanda indenizatória em face da pessoa jurídica de direito público (União ou Instituto Federal), invocando a responsabilidade objetiva baseada no risco administrativo. Somente após ser condenada e efetuar o pagamento ao particular, a Fazenda Pública ingressa com a <mark class="grifo-amarelo">ação regressiva</mark> em face do servidor causador da lesão. Conforme tese firmada pelo STF no <strong>Tema 940 de Repercussão Geral</strong>, é terminantemente vedado ao particular acionar diretamente o servidor ou incluí-lo em litisconsórcio passivo originário com o Estado.
+                    </p>
+                </div>
+
+                <p class="text-slate-800 text-justify">
+                    A obrigação de indenizar o patrimônio público ostenta caráter patrimonial sucessório. Por força do artigo 122, § 3º, e em harmonia com o artigo 5º, inciso XLV, da Constituição Federal, o dever reparatório <mark class="grifo-amarelo">transmite-se aos sucessores do servidor e contra eles será executado, rigorosamente até o limite do valor do patrimônio transferido pela herança</mark>. A dívida funcional do causador do dano jamais alcança o patrimônio particular previamente adquirido pelos herdeiros.
+                </p>
+            </div>
+
+            <!-- Responsabilidades Penal e Administrativa -->
+            <div class="space-y-2 pt-2">
+                <h3 class="text-base font-bold text-slate-900">
+                    As Responsabilidades Penal e Administrativa (Artigos 123 e 124)
+                </h3>
+                <p class="text-slate-800 text-justify">
+                    A responsabilidade criminal cominada no artigo 123 alcança os crimes contra a administração pública e delitos comuns, além de contravenções penais perpetradas pelo servidor na condição de agente público. A responsabilidade administrativa, descrita no artigo 124, materializa-se pela apuração interna deflagrada mediante sindicância ou processo administrativo disciplinar (PAD), decorrente da infração a preceitos funcionais.
+                </p>
+                <p class="text-slate-800 text-justify">
+                    O processo disciplinar goza de tramitação regular autônoma, <mark class="grifo-alerta">inexistindo dever da autoridade administrativa de paralisar as apurações funcionais à espera de pronunciamentos</mark> emanados do inquérito policial ou de denúncia oferecida pelo Ministério Público. É juridicamente legítima a aplicação antecipada de demissão em sede de PAD, mesmo que a ação penal instaurada pelos mesmos fatos se encontre em fase probatória inicial.
+                </p>
+            </div>
+        </section>
+
+        <!-- SEÇÃO 5: COMUNICABILIDADE DAS INSTÂNCIAS E EFEITOS PENAIS NO PAD -->
+        <section id="comunicabilidade" class="space-y-4 pt-4 border-t border-slate-200">
+            <div class="flex items-center gap-2">
+                <span class="flex items-center justify-center w-7 h-7 rounded-full bg-slate-900 text-white font-bold text-xs">5</span>
+                <h2 class="text-xl sm:text-2xl font-bold text-slate-900">
+                    Comunicabilidade das Instâncias e Efeitos da Sentença Penal no PAD
+                </h2>
+            </div>
+
+            <p class="text-slate-800 text-justify">
+                A independência consagrada no artigo 125 não é absoluta. O sistema jurídico pátrio confere prevalência hierárquico-probatória ao juízo penal sobre a instância disciplinar em situações taxativamente especificadas na legislação federal, dada a profundidade do contraditório judicial e o rigor das regras probatórias criminais.
+            </p>
+
+            <!-- O Binômio da Vinculação Penal Absoluta -->
+            <div class="bg-white border-2 border-slate-300 rounded-lg p-4 space-y-2">
+                <div class="text-xs font-bold text-slate-800 uppercase tracking-wider flex items-center gap-1.5">
+                    <span class="w-2.5 h-2.5 rounded bg-slate-900 inline-block"></span>
+                    O Binômio da Vinculação Penal Absoluta (Artigo 126)
+                </div>
+                <blockquote class="italic text-slate-700 border-l-2 border-slate-400 pl-3 py-1 text-xs sm:text-sm">
+                    "Art. 126. A responsabilidade administrativa do servidor será afastada no caso de absolvição criminal que negue a existência do fato ou sua autoria."
+                </blockquote>
+                <p class="text-slate-800 text-xs sm:text-sm text-justify">
+                    A sentença absolutória criminal transitada em julgado <strong class="text-slate-900">apenas irradia efeitos vinculantes</strong> sobre a esfera administrativa, determinando a anulação da sanção e o arquivamento definitivo da imputação funcional, se amparada em dois fundamentos específicos do Código de Processo Penal (CPP):
+                </p>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1 text-xs sm:text-sm">
+                    <div class="bg-slate-50 p-3 rounded border border-slate-200">
+                        <span class="font-bold text-slate-900 block mb-1">1. Inexistência material do fato</span>
+                        <span class="text-slate-600 block mb-1 text-[11px] font-mono">(Art. 386, inciso I, do CPP)</span>
+                        <p class="text-slate-700 text-xs">A decisão penal conclui cabalmente que o acontecimento histórico imputado ao servidor não ocorreu no mundo real.</p>
+                    </div>
+                    <div class="bg-slate-50 p-3 rounded border border-slate-200">
+                        <span class="font-bold text-slate-900 block mb-1">2. Negativa categórica de autoria</span>
+                        <span class="text-slate-600 block mb-1 text-[11px] font-mono">(Art. 386, inciso IV, do CPP)</span>
+                        <p class="text-slate-700 text-xs">A sentença penal atesta de forma induvidosa que o servidor processado não participou nem concorreu para a conduta.</p>
+                    </div>
+                </div>
+                <p class="text-slate-800 text-xs sm:text-sm text-justify pt-1">
+                    Caso o servidor já tenha sido demitido pela Administração e sobrevenha decisão penal com trânsito em julgado baseada em negativa de fato ou de autoria, opera-se a sua compulsória <mark class="grifo-amarelo">reintegração</mark> ao cargo de origem (artigo 28 da Lei nº 8.112/1990), restaurando-se o status funcional com o ressarcimento integral de todas as vantagens pretéritas.
+                </p>
+            </div>
+
+            <!-- Hipóteses Penais que NÃO Vinculam a Esfera Administrativa -->
+            <div class="space-y-3 pt-2">
+                <h3 class="text-base font-bold text-slate-900">
+                    Hipóteses Penais que NÃO Vinculam a Esfera Administrativa (Independência Mantida)
+                </h3>
+                <div class="space-y-2 text-slate-800 text-justify text-xs sm:text-sm">
+                    <p>
+                        <strong>1. Falta ou insuficiência de provas (artigo 386, incisos II, V e VII, do CPP):</strong> Na jurisdição criminal vigora o princípio da presunção de inocência que impõe a absolvição diante da dúvida razoável (<em>in dubio pro reo</em>). Entretanto, o padrão probatório admitido no direito administrativo sancionador não exige certeza absoluta de tipo penal; bastam indícios convergentes e provas documentais ou testemunhais idôneas que confirmem a conduta censurável para respaldar a punição disciplinar. A absolvição penal por escassez de provas <mark class="grifo-alerta">NÃO acarreta anulação do ato sancionatório administrativo</mark>.
+                    </p>
+                    <p>
+                        <strong>2. Atipicidade formal penal da conduta (artigo 386, inciso III, do CPP):</strong> O reconhecimento judicial de que o fato apurado não constitui crime (por atipicidade penal objetiva ou subjetiva) não impede que a conduta subsista como infração disciplinar gravíssima à luz dos preceitos estatutários.
+                    </p>
+                    <p>
+                        <strong>3. Extinção da punibilidade penal:</strong> Decisões que declaram a prescrição da pretensão punitiva penal, decadência, indulto, graça ou anistia não repercutem sobre a responsabilidade disciplinar, a qual observa regime próprio de prazos prescricionais previstos no artigo 142 da Lei nº 8.112/1990.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Doutrina da Falta Residual e Súmula 18 STF -->
+            <div class="border-l-4 border-slate-700 bg-slate-50 p-4 rounded-r-lg border-y border-r border-slate-200 space-y-1.5">
+                <h3 class="text-xs font-bold uppercase tracking-wider text-slate-900">
+                    A Doutrina da Falta Residual e a Súmula 18 do STF
+                </h3>
+                <blockquote class="italic text-slate-800 text-xs sm:text-sm font-semibold">
+                    "Pela falta residual, não compreendida na absolvição pelo juízo criminal, é admissível a punição administrativa do servidor público." (Súmula 18/STF)
+                </blockquote>
+                <p class="text-slate-700 text-xs sm:text-sm text-justify">
+                    A teoria da <mark class="grifo-amarelo">falta residual</mark> preceitua que, mesmo quando a conduta é considerada atípica ou impunível criminalmente perante a jurisdição penal, o substrato fático apurado pode abrigar descumprimento autônomo dos deveres de urbanidade, zelo, lealdade institucional ou conduta compatível com a moralidade. Diante da permanência de qualquer resíduo ético-administrativo disciplinar não absorvido pela sentença absolutória, a Administração mantém sua competência sancionatória para demitir ou suspender o servidor, sem incorrer em vício de ilegalidade ou <em>bis in idem</em>.
+                </p>
+            </div>
+
+            <!-- Tabela 3: Decisões Criminais e Repercussão no PAD (Sem Scroll Horizontal) -->
+            <div class="mt-4 border border-slate-300 rounded-lg overflow-hidden bg-white">
+                <div class="bg-slate-100 px-3 py-2 border-b border-slate-300">
+                    <span class="text-xs font-bold uppercase tracking-wider text-slate-800">
+                        Tabela 3: Síntese de Efeitos das Decisões Penais sobre o PAD
+                    </span>
+                </div>
+                <table class="text-slate-800 text-xs sm:text-sm">
+                    <thead>
+                        <tr class="bg-slate-50 border-b border-slate-300 text-left text-slate-700 font-bold">
+                            <th class="p-2 sm:p-3 w-1/4">Fundamentação Judicial</th>
+                            <th class="p-2 sm:p-3 w-1/6">Base Legal</th>
+                            <th class="p-2 sm:p-3 w-1/4">Repercussão no PAD</th>
+                            <th class="p-2 sm:p-3 w-1/3">Consequência Prática</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-200">
+                        <tr class="hover:bg-slate-50">
+                            <td class="p-2 sm:p-3 font-semibold text-slate-900 align-top">
+                                Inexistência material do fato
+                            </td>
+                            <td class="p-2 sm:p-3 align-top font-mono text-[11px] text-slate-600">
+                                Art. 386, I, CPP
+                            </td>
+                            <td class="p-2 sm:p-3 align-top font-bold text-slate-900">
+                                <span class="bg-slate-200 px-1 rounded text-xs">Vinculação Absoluta</span>
+                            </td>
+                            <td class="p-2 sm:p-3 align-top leading-snug">
+                                Afasta punição disciplinar; impõe reintegração com ressarcimento integral.
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-slate-50">
+                            <td class="p-2 sm:p-3 font-semibold text-slate-900 align-top">
+                                Negativa cabal de autoria
+                            </td>
+                            <td class="p-2 sm:p-3 align-top font-mono text-[11px] text-slate-600">
+                                Art. 386, IV, CPP
+                            </td>
+                            <td class="p-2 sm:p-3 align-top font-bold text-slate-900">
+                                <span class="bg-slate-200 px-1 rounded text-xs">Vinculação Absoluta</span>
+                            </td>
+                            <td class="p-2 sm:p-3 align-top leading-snug">
+                                Extingue o PAD por ilegitimidade comprovada; anula sanções aplicadas.
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-slate-50">
+                            <td class="p-2 sm:p-3 font-semibold text-slate-900 align-top">
+                                Insuficiência de provas
+                            </td>
+                            <td class="p-2 sm:p-3 align-top font-mono text-[11px] text-slate-600">
+                                Art. 386, II, V, VII, CPP
+                            </td>
+                            <td class="p-2 sm:p-3 align-top font-bold text-slate-700">
+                                <span class="bg-slate-100 text-slate-700 px-1 rounded text-xs border border-slate-300">Não Vincula</span>
+                            </td>
+                            <td class="p-2 sm:p-3 align-top leading-snug">
+                                Independência mantida; PAD e sanção disciplinar continuam plenamente válidos.
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-slate-50">
+                            <td class="p-2 sm:p-3 font-semibold text-slate-900 align-top">
+                                Atipicidade formal penal
+                            </td>
+                            <td class="p-2 sm:p-3 align-top font-mono text-[11px] text-slate-600">
+                                Art. 386, III, CPP
+                            </td>
+                            <td class="p-2 sm:p-3 align-top font-bold text-slate-700">
+                                <span class="bg-slate-100 text-slate-700 px-1 rounded text-xs border border-slate-300">Não Vincula</span>
+                            </td>
+                            <td class="p-2 sm:p-3 align-top leading-snug">
+                                Permite punição disciplinar legítima pela ocorrência de <mark class="grifo-amarelo">falta residual</mark> (Súmula 18/STF).
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-slate-50">
+                            <td class="p-2 sm:p-3 font-semibold text-slate-900 align-top">
+                                Extinção de punibilidade
+                            </td>
+                            <td class="p-2 sm:p-3 align-top font-mono text-[11px] text-slate-600">
+                                Art. 107 do CP
+                            </td>
+                            <td class="p-2 sm:p-3 align-top font-bold text-slate-700">
+                                <span class="bg-slate-100 text-slate-700 px-1 rounded text-xs border border-slate-300">Não Vincula</span>
+                            </td>
+                            <td class="p-2 sm:p-3 align-top leading-snug">
+                                Não impede prosseguimento do PAD nem aplicação de sanção estatutária própria.
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-slate-50">
+                            <td class="p-2 sm:p-3 font-semibold text-slate-900 align-top">
+                                Condenação penal c/ perda do cargo
+                            </td>
+                            <td class="p-2 sm:p-3 align-top font-mono text-[11px] text-slate-600">
+                                Art. 92, I, CP
+                            </td>
+                            <td class="p-2 sm:p-3 align-top font-bold text-slate-900">
+                                <span class="bg-slate-200 px-1 rounded text-xs">Vinculação Absoluta</span>
+                            </td>
+                            <td class="p-2 sm:p-3 align-top leading-snug">
+                                Autoridade administrativa fica vinculada a editar ato declaratório de perda do cargo.
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- SEÇÃO 6: BLINDAGEM DO DENUNCIANTE -->
+        <section id="whistleblower" class="space-y-4 pt-4 border-t border-slate-200">
+            <div class="flex items-center gap-2">
+                <span class="flex items-center justify-center w-7 h-7 rounded-full bg-slate-900 text-white font-bold text-xs">6</span>
+                <h2 class="text-xl sm:text-2xl font-bold text-slate-900">
+                    Garantia Protetiva do Servidor Denunciante (Artigo 126-A)
+                </h2>
+            </div>
+
+            <p class="text-slate-800 text-justify">
+                A inclusão do artigo 126-A na Lei nº 8.112/1990 pela Lei nº 12.527/2011 importou para o direito estatutário brasileiro o modelo normativo de blindagem ao servidor que atua como informante de boa-fé (<em>whistleblower</em>):
+            </p>
+
+            <blockquote class="bg-slate-50 border-l-4 border-slate-600 p-4 rounded-r text-xs sm:text-sm text-slate-800 italic">
+                "Art. 126-A. Nenhum servidor poderá ser responsabilizado civil, penal ou administrativamente por dar ciência à autoridade superior ou, quando houver suspeita de envolvimento desta, a outra autoridade competente para apuração de informação concernente à prática de crimes ou improbidade de que tenha conhecimento, ainda que em decorrência do cargo."
+            </blockquote>
+
+            <p class="text-slate-800 text-justify">
+                O preceito protege o servidor contra retaliações funcionais, perseguições hierárquicas e instauração temerária de sindicâncias pelo fato de cumprir o dever cívico e legal de revelar ilícitos aos órgãos correcionais. Para que a <mark class="grifo-regra">imunidade tríplice (civil, penal e disciplinar)</mark> opere validamente, a conduta do servidor deve preencher requisitos precisos:
+            </p>
+
+            <ul class="list-disc list-inside space-y-2 text-slate-800 text-xs sm:text-sm pl-2">
+                <li>
+                    A denúncia deve ter por objeto a informação de práticas configuradas em tese como <mark class="grifo-amarelo">crimes</mark> ou atos de <mark class="grifo-amarelo">improbidade administrativa</mark>;
+                </li>
+                <li>
+                    O relato deve ser protocolado perante a <strong class="text-slate-900">autoridade superior</strong> ou, havendo fundada suspeita de participação desta, direcionado diretamente a <mark class="grifo-amarelo">outra autoridade competente para a devida apuração</mark> (Ministério Público Federal, Tribunal de Contas da União, Controladoria-Geral da União ou unidades correcionais do órgão);
+                </li>
+                <li>
+                    A narrativa deve ancorar-se na presunção de boa-fé funcional. A cláusula protetiva do artigo 126-A <strong class="text-slate-900">não assegura salvo-conduto</strong> para o cometimento de denunciações caluniosas conscientes (artigo 339 do Código Penal) ou comunicações dolosamente falsas destinadas a macular a honra de desafetos funcionais.
+                </li>
+            </ul>
+        </section>
+
+        <!-- SEÇÃO 7: GUIA DE ACERTO RÁPIDO & ARMADILHAS DE PROVA -->
+        <section id="guia-acerto" class="space-y-6 pt-4 border-t border-slate-200">
+            <div class="flex items-center gap-2">
+                <span class="flex items-center justify-center w-7 h-7 rounded-full bg-slate-900 text-white font-bold text-xs">7</span>
+                <h2 class="text-xl sm:text-2xl font-bold text-slate-900">
+                    Guia de Acerto Rápido: Definições Básicas e Pontos Críticos para o Dia da Prova
+                </h2>
+            </div>
+
+            <p class="text-slate-800 text-justify">
+                A preparação voltada para a Banca Examinadora do IFMG exige assimilação imediata dos conceitos centrais e atenção concentrada nas distorções conceituais frequentes nas questões de concurso.
+            </p>
+
+            <!-- Tópicos Curtos para Memorização Imediata -->
+            <div class="border border-slate-300 rounded-lg p-5 bg-white space-y-3">
+                <h3 class="text-xs font-bold uppercase tracking-wider text-slate-900 flex items-center gap-2">
+                    <span class="w-2.5 h-2.5 rounded bg-slate-800"></span>
+                    Principais Definições em Textos Curtos para Memorização
+                </h3>
+                <div class="space-y-2 text-xs sm:text-sm text-slate-700">
+                    <p>• <strong class="text-slate-900">Dever de Cumprir Ordens (Art. 116, IV):</strong> Obediência irrestrita aos superiores hierárquicos, <mark class="grifo-amarelo">exceto quando a ordem for manifestamente ilegal</mark>.</p>
+                    <p>• <strong class="text-slate-900">Encaminhamento de Representação (Art. 116, Parágrafo Único):</strong> Tramitação compulsória pela via hierárquica, apreciada pela autoridade <mark class="grifo-regra">hierarquicamente superior àquela contra a qual foi formulada</mark>, assegurada a ampla defesa.</p>
+                    <p>• <strong class="text-slate-900">Comunicação de Irregularidade com Chefia Suspeita (Art. 116, VI):</strong> Notificação perante autoridade superior ou, havendo suspeita desta, a <mark class="grifo-amarelo">outra autoridade competente</mark> para a instauração de apuração.</p>
+                    <p>• <strong class="text-slate-900">Autorização para Saída vs. Retirada de Bens (Art. 117, I e II):</strong> Ausentar-se no expediente requer permissão prévia da <mark class="grifo-regra">chefia imediata</mark>; retirar papéis ou objetos requer prévia anuência da <mark class="grifo-regra">autoridade competente</mark>.</p>
+                    <p>• <strong class="text-slate-900">Delegação Indevida de Encargos (Art. 117, VI e XVII):</strong> Repassar tarefas funcionais a pessoa <mark class="grifo-amarelo">estranha</mark> é punível com <strong class="text-slate-900">advertência</strong>; atribuir tarefas a <mark class="grifo-amarelo">outro servidor</mark> é punível com <strong class="text-slate-900">suspensão</strong> (salvo emergência e transitoriedade).</p>
+                    <p>• <strong class="text-slate-900">Regime de Gerência Comercial e Exceções (Art. 117, X e P. Único):</strong> É vedado administrar empresas privadas ou praticar comércio (<strong class="text-red-900">demissão</strong>). É permitido ser acionista, cotista ou comanditário, atuar em conselhos fiscais/administrativos de estatais ou cooperativas, e gerir empresa usufruindo de <mark class="grifo-regra">Licença para Interesses Particulares (LIP)</mark>.</p>
+                    <p>• <strong class="text-slate-900">Procurador / Intermediário (Art. 117, XI):</strong> Proibido perante repartições (<strong class="text-red-900">demissão</strong>), salvo se restrito a benefícios previdenciários ou assistenciais de cônjuge, companheiro ou parentes até o <mark class="grifo-amarelo">segundo grau civil</mark>.</p>
+                    <p>• <strong class="text-slate-900">Responsabilidade Civil e Limite dos Sucessores (Art. 122, § 3º):</strong> A obrigação pecuniária transmite-se aos herdeiros <mark class="grifo-amarelo">exclusivamente até o limite do valor do patrimônio transferido na herança</mark>.</p>
+                    <p>• <strong class="text-slate-900">Regressiva em Danos a Terceiros (Art. 122, § 2º c/c Tema 940 STF):</strong> O particular aciona o Estado; o Estado cobra o servidor em <mark class="grifo-amarelo">ação regressiva subjetiva</mark> (provando dolo ou culpa funcional).</p>
+                    <p>• <strong class="text-slate-900">Independência das Instâncias (Art. 125):</strong> As sanções civis, penais e administrativas são autônomas e podem se cumular.</p>
+                    <p>• <strong class="text-slate-900">Binômio da Repercussão Criminal (Art. 126):</strong> Somente a absolvição criminal motivada por <mark class="grifo-amarelo">inexistência do fato</mark> ou <mark class="grifo-amarelo">negativa de autoria</mark> extingue compulsoriamente a punição administrativa no PAD.</p>
+                    <p>• <strong class="text-slate-900">Falta Residual (Súmula 18 do STF):</strong> A absolvição penal por falta de provas ou atipicidade penal <mark class="grifo-alerta">NÃO anula</mark> a punição disciplinar se a conduta caracterizar falta funcional residual.</p>
+                    <p>• <strong class="text-slate-900">Blindagem do Informante (Art. 126-A):</strong> Isenção absoluta de responsabilização para o servidor que noticia de boa-fé crimes ou atos de improbidade.</p>
+                </div>
+            </div>
+
+            <!-- Armadilhas Clássicas para Eliminar Alternativas Incorretas -->
+            <div class="space-y-3">
+                <h3 class="text-xs font-bold uppercase tracking-wider text-slate-900">
+                    Armadilhas e Pegadinhas Clássicas para Anular Alternativas na Prova
+                </h3>
+
+                <div class="space-y-2.5">
+                    <div class="border border-slate-300 p-3 rounded-lg bg-white">
+                        <div class="flex items-center gap-1.5 mb-1">
+                            <span class="text-xs font-bold text-red-700 bg-red-100 px-1.5 py-0.5 rounded">Pegadinha 1</span>
+                            <span class="text-xs font-semibold text-slate-800">Responsabilidade Civil Objetiva do Servidor</span>
+                        </div>
+                        <p class="text-slate-700 text-xs sm:text-sm">
+                            <strong class="text-slate-900">Afirmação falsa:</strong> Afirmar que a responsabilidade civil do servidor perante a Fazenda Pública possui caráter objetivo, bastando a constatação do dano.<br>
+                            <span class="text-slate-900 font-semibold">Correção:</span> A responsabilidade do servidor é estritamente <mark class="grifo-amarelo">subjetiva</mark>, exigindo prova cabal de conduta dolosa ou culposa (art. 122).
+                        </p>
+                    </div>
+
+                    <div class="border border-slate-300 p-3 rounded-lg bg-white">
+                        <div class="flex items-center gap-1.5 mb-1">
+                            <span class="text-xs font-bold text-red-700 bg-red-100 px-1.5 py-0.5 rounded">Pegadinha 2</span>
+                            <span class="text-xs font-semibold text-slate-800">Absolvição Criminal por Insuficiência Probatória</span>
+                        </div>
+                        <p class="text-slate-700 text-xs sm:text-sm">
+                            <strong class="text-slate-900">Afirmação falsa:</strong> Asseverar que a absolvição criminal fundamentada em "falta de provas para a condenação" anula de pleno direito a demissão administrativa.<br>
+                            <span class="text-slate-900 font-semibold">Correção:</span> A insuficiência de provas penais preserva a competência punitiva administrativa em razão da independência das instâncias.
+                        </p>
+                    </div>
+
+                    <div class="border border-slate-300 p-3 rounded-lg bg-white">
+                        <div class="flex items-center gap-1.5 mb-1">
+                            <span class="text-xs font-bold text-red-700 bg-red-100 px-1.5 py-0.5 rounded">Pegadinha 3</span>
+                            <span class="text-xs font-semibold text-slate-800">Subordinação do PAD ao Desfecho Judicial</span>
+                        </div>
+                        <p class="text-slate-700 text-xs sm:text-sm">
+                            <strong class="text-slate-900">Afirmação falsa:</strong> Propor que é vedada a imposição de demissão no PAD antes do trânsito em julgado da ação criminal correlata.<br>
+                            <span class="text-slate-900 font-semibold">Correção:</span> Em razão da autonomia das instâncias, a autoridade correcional detém poder jurídico para concluir o PAD e punir o servidor sem esperar a sentença penal.
+                        </p>
+                    </div>
+
+                    <div class="border border-slate-300 p-3 rounded-lg bg-white">
+                        <div class="flex items-center gap-1.5 mb-1">
+                            <span class="text-xs font-bold text-red-700 bg-red-100 px-1.5 py-0.5 rounded">Pegadinha 4</span>
+                            <span class="text-xs font-semibold text-slate-800">Penhora de Bens Próprios dos Herdeiros</span>
+                        </div>
+                        <p class="text-slate-700 text-xs sm:text-sm">
+                            <strong class="text-slate-900">Afirmação falsa:</strong> Narrar que a indenização pelo servidor falecido pode atingir os bens particulares previamente conquistados por seus herdeiros.<br>
+                            <span class="text-slate-900 font-semibold">Correção:</span> A execução limita-se taxativamente ao montante recebido a título de herança (<mark class="grifo-amarelo">limite das forças da herança</mark>).
+                        </p>
+                    </div>
+
+                    <div class="border border-slate-300 p-3 rounded-lg bg-white">
+                        <div class="flex items-center gap-1.5 mb-1">
+                            <span class="text-xs font-bold text-red-700 bg-red-100 px-1.5 py-0.5 rounded">Pegadinha 5</span>
+                            <span class="text-xs font-semibold text-slate-800">Procuração Irrestrita para Parentes</span>
+                        </div>
+                        <p class="text-slate-700 text-xs sm:text-sm">
+                            <strong class="text-slate-900">Afirmação falsa:</strong> Sustentar que o servidor pode atuar livremente como intermediário ou procurador perante a repartição em favor de parentes de qualquer grau.<br>
+                            <span class="text-slate-900 font-semibold">Correção:</span> A exceção é taxativa: apenas para benefícios <mark class="grifo-regra">previdenciários ou assistenciais</mark> e somente até o <mark class="grifo-amarelo">segundo grau civil</mark>.
+                        </p>
+                    </div>
+
+                    <div class="border border-slate-300 p-3 rounded-lg bg-white">
+                        <div class="flex items-center gap-1.5 mb-1">
+                            <span class="text-xs font-bold text-red-700 bg-red-100 px-1.5 py-0.5 rounded">Pegadinha 6</span>
+                            <span class="text-xs font-semibold text-slate-800">Sanção ao Desvio de Função</span>
+                        </div>
+                        <p class="text-slate-700 text-xs sm:text-sm">
+                            <strong class="text-slate-900">Afirmação falsa:</strong> Afirmar que atribuir encargos estranhos a outro servidor acarreta advertência em qualquer situação fática.<br>
+                            <span class="text-slate-900 font-semibold">Correção:</span> A sanção cominada é de <strong class="text-slate-900">suspensão</strong> (art. 117, XVII), não configurando ilícito se praticada em situações transitórias e de emergência.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SEÇÃO FINAL: BOTÃO PARA QUESTÕES -->
+        <section id="questoes-section" class="pt-8 border-t-2 border-slate-300 text-center space-y-4">
+            <div class="max-w-xl mx-auto space-y-2">
+                <span class="text-xs font-bold uppercase tracking-wider text-slate-500">Pronto para testar seus conhecimentos?</span>
+                <h3 class="text-xl sm:text-2xl font-extrabold text-slate-900">
+                    Fixação de Conteúdo & Treinamento Prático
+                </h3>
+                <p class="text-xs sm:text-sm text-slate-600">
+                    Acesse o caderno de questões para exercitar os conceitos aprendidos e consolidar os pontos de acerto para a prova do IFMG.
+                </p>
+            </div>
+
+            <div class="pt-2">
+                <a 
+                    href="questoes6legs.html" 
+                    class="inline-flex items-center justify-center gap-2.5 px-8 py-3.5 bg-slate-900 hover:bg-slate-800 text-white font-semibold text-sm sm:text-base rounded-xl shadow-sm transition-all duration-200 transform hover:-translate-y-0.5"
+                >
+                    <svg class="w-5 h-5 text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                    </svg>
+                    <span>Ir para Questões</span>
+                    <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                    </svg>
+                </a>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Rodapé Discreto -->
+    <footer class="mt-16 border-t border-slate-200 bg-white py-6">
+        <div class="max-w-4xl mx-auto px-4 text-center text-xs text-slate-500 space-y-1">
+            <p>Material de Estudo Direcionado • Carreira de Magistério EBTT (Geografia) • IFMG</p>
+            <p>Lei Federal nº 8.112/1990 • Arts. 116, 117 e 121 a 126-A</p>
+        </div>
+    </footer>
+
+    <!-- Script de Gerenciamento do Áudio -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const audioPlayer = document.getElementById('mainAudioPlayer');
+            const audioSource = document.getElementById('mainAudioSource');
+            const filenameInput = document.getElementById('audioFilenameInput');
+            const btnCarregar = document.getElementById('btnCarregarAudio');
+            const statusText = document.getElementById('audioStatusText');
+            const feedbackMsg = document.getElementById('audioFeedbackMessage');
+
+            // Atualiza status do tocador
+            audioPlayer.addEventListener('play', () => {
+                statusText.textContent = 'Reproduzindo';
+                statusText.className = 'font-semibold text-emerald-700';
+            });
+
+            audioPlayer.addEventListener('pause', () => {
+                statusText.textContent = 'Pausado';
+                statusText.className = 'font-semibold text-slate-700';
+            });
+
+            audioPlayer.addEventListener('ended', () => {
+                statusText.textContent = 'Concluído';
+                statusText.className = 'font-semibold text-slate-700';
+            });
+
+            audioPlayer.addEventListener('error', () => {
+                statusText.textContent = 'Arquivo não encontrado';
+                statusText.className = 'font-semibold text-amber-700';
+                feedbackMsg.textContent = 'Aviso: O arquivo "' + filenameInput.value.trim() + '" ainda não foi colocado na mesma pasta desta página. Adicione-o na pasta do arquivo para ouvir.';
+                feedbackMsg.className = 'text-[11px] text-amber-800 font-medium mt-2';
+            });
+
+            // Função para carregar novo arquivo informado no input
+            function carregarAudio() {
+                const novoNome = filenameInput.value.trim();
+                if (novoNome) {
+                    audioSource.src = novoNome;
+                    audioPlayer.load();
+                    feedbackMsg.textContent = 'Fonte de áudio apontada para: ' + novoNome + '. Pressione Play acima para reproduzir.';
+                    feedbackMsg.className = 'text-[11px] text-slate-600 mt-2';
+                    statusText.textContent = 'Pronto';
+                    statusText.className = 'font-semibold text-slate-700';
+                }
+            }
+
+            btnCarregar.addEventListener('click', carregarAudio);
+            filenameInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    carregarAudio();
+                }
+            });
+        });
+    </script>
+</body>
+</html>

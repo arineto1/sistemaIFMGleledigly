@@ -80,9 +80,9 @@
           <input 
             type="text" 
             id="audioFileName" 
-            value="aula_petrologia.mp3" 
+            value="audio7geo.mp3" 
             class="flex-1 text-sm bg-slate-50 border border-slate-300 rounded px-3 py-1.5 focus:ring-1 focus:ring-slate-500 focus:outline-none"
-            placeholder="Exemplo: aula_petrologia.mp3"
+            placeholder="Exemplo: audio7geo.mp3"
           >
           <button 
             type="button" 
@@ -101,10 +101,10 @@
       <div class="w-full">
         <audio id="meuPlayerAudio" controls class="w-full h-10 outline-none">
           <!-- Nome do arquivo configurado aqui: -->
-          <source id="sourcePlayer" src="aula_petrologia.mp3" type="audio/mpeg">
+          <source id="sourcePlayer" src="audio7geo.mp3" type="audio/mpeg">
           Seu navegador não suporta a reprodução deste arquivo de áudio.
         </audio>
-        <p id="audioStatus" class="text-xs text-slate-500 mt-1">Carregando: <span class="font-mono text-slate-700">aula_petrologia.mp3</span></p>
+        <p id="audioStatus" class="text-xs text-slate-500 mt-1">Carregando: <span class="font-mono text-slate-700">audio7geo.mp3</span></p>
       </div>
     </header>
 
@@ -700,7 +700,7 @@
       
       var novoNome = input.value.trim();
       if (!novoNome) {
-        novoNome = 'aula_petrologia.mp3';
+        novoNome = 'audio7geo.mp3';
         input.value = novoNome;
       }
       

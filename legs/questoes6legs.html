@@ -1,0 +1,1364 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quiz Interativo: Lei 8.112/1990 - Concurso IFMG</title>
+  <style>
+    /* ============================================================
+       DESIGN SYSTEM & TIPOGRAFIA ERGONÔMICA PARA LEITURA PROLONGADA
+       ============================================================ */
+    :root {
+      --bg-page: #f9f8f5;          /* Tom de papel suave para não cansar a vista */
+      --bg-card: #ffffff;          /* Cartões de leitura nítidos */
+      --bg-secondary: #f2efe9;     /* Superfícies secundárias neutras */
+      --text-main: #25282d;        /* Grafite profundo, mais confortável que preto puro */
+      --text-muted: #535964;       /* Tom atenuado de apoio */
+      --text-subtle: #79808d;      /* Elementos auxiliares */
+      --border-color: #e3dfd7;     /* Bordas suaves */
+      --border-focus: #1f4e78;     /* Azul institucional para foco */
+      --accent-primary: #1e4b75;   /* Azul sóbrio editorial */
+      --accent-hover: #163757;
+      
+      /* Estados de Gabarito */
+      --correct-bg: #edf7ed;
+      --correct-border: #4caf50;
+      --correct-text: #1b5e20;
+      --correct-badge: #2e7d32;
+
+      --wrong-bg: #fdf2f2;
+      --wrong-border: #e57373;
+      --wrong-text: #b71c1c;
+      --wrong-badge: #c62828;
+
+      --font-body: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      --font-serif: "Merriweather", "Georgia", "Cambria", serif;
+      --max-width: 820px;
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 14px;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.04), 0 2px 6px rgba(0,0,0,0.03);
+      --shadow-md: 0 4px 14px rgba(0,0,0,0.06);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-page);
+      color: var(--text-main);
+      font-family: var(--font-body);
+      font-size: 16px;
+      line-height: 1.72;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      padding-bottom: 80px;
+    }
+
+    /* ============================================================
+       BARRA DE CONTROLE SUPERIOR (FIXA & DISCRETA)
+       ============================================================ */
+    .top-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(249, 248, 245, 0.96);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border-color);
+      padding: 10px 16px;
+    }
+
+    .top-header-inner {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      font-size: 0.9rem;
+    }
+
+    .header-info-title {
+      font-weight: 600;
+      color: var(--accent-primary);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .progress-box {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 500;
+      color: var(--text-muted);
+    }
+
+    .progress-track {
+      width: 140px;
+      height: 8px;
+      background: #e4dfd5;
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      width: 0%;
+      height: 100%;
+      background: var(--accent-primary);
+      transition: width 0.3s ease;
+    }
+
+    /* Mini Mapa de Questões no Topo */
+    .mini-navigator {
+      max-width: var(--max-width);
+      margin: 6px auto 0;
+      display: flex;
+      justify-content: center;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .nav-dot {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      border: 1px solid var(--border-color);
+      background: #ffffff;
+      color: var(--text-muted);
+      font-size: 0.75rem;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+
+    .nav-dot:hover {
+      background: #f0ece3;
+      border-color: #b0a99c;
+    }
+
+    .nav-dot.answered {
+      background: #e2ecf5;
+      color: var(--accent-primary);
+      border-color: #9cbddc;
+    }
+
+    .nav-dot.is-correct {
+      background: var(--correct-badge);
+      color: #fff;
+      border-color: var(--correct-badge);
+    }
+
+    .nav-dot.is-wrong {
+      background: var(--wrong-badge);
+      color: #fff;
+      border-color: var(--wrong-badge);
+    }
+
+    /* ============================================================
+       CONTAINER PRINCIPAL
+       ============================================================ */
+    .main-container {
+      max-width: var(--max-width);
+      margin: 24px auto 0;
+      padding: 0 16px;
+    }
+
+    /* Cabeçalho do Concurso */
+    .concurso-header {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 28px 24px;
+      margin-bottom: 24px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .badge-concurso {
+      display: inline-block;
+      background: #eaf1f8;
+      color: var(--accent-primary);
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 4px 10px;
+      border-radius: var(--radius-sm);
+      margin-bottom: 12px;
+    }
+
+    .concurso-title {
+      font-family: var(--font-serif);
+      font-size: 1.45rem;
+      line-height: 1.35;
+      color: var(--text-main);
+      margin-bottom: 8px;
+    }
+
+    .concurso-subtitle {
+      font-size: 0.98rem;
+      color: var(--text-muted);
+      border-top: 1px dashed var(--border-color);
+      padding-top: 12px;
+      margin-top: 12px;
+    }
+
+    /* ============================================================
+       CARD DE QUESTÃO
+       ============================================================ */
+    .question-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 28px 26px;
+      margin-bottom: 24px;
+      box-shadow: var(--shadow-sm);
+      transition: border-color 0.25s, box-shadow 0.25s;
+      position: relative;
+    }
+
+    .question-card:focus-within {
+      border-color: #bdc5d1;
+    }
+
+    .question-top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .question-num-tag {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--accent-primary);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      background: #edf3f8;
+      padding: 4px 12px;
+      border-radius: 999px;
+    }
+
+    .question-status-badge {
+      font-size: 0.82rem;
+      font-weight: 700;
+      padding: 4px 12px;
+      border-radius: 999px;
+      display: none;
+    }
+
+    .question-statement {
+      font-size: 1.05rem;
+      line-height: 1.75;
+      color: var(--text-main);
+      margin-bottom: 22px;
+      text-align: justify;
+      hyphens: auto;
+    }
+
+    /* Lista de Alternativas */
+    .options-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .option-label {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      padding: 13px 16px;
+      border-radius: var(--radius-md);
+      border: 1px solid #e1ddd5;
+      background-color: #fff;
+      cursor: pointer;
+      user-select: none;
+      transition: background-color 0.15s, border-color 0.15s, box-shadow 0.15s;
+      font-size: 0.98rem;
+      line-height: 1.6;
+    }
+
+    .option-label:hover {
+      background-color: #f7f6f2;
+      border-color: #c9c3b7;
+    }
+
+    .option-label input[type="radio"] {
+      position: absolute;
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .option-letter {
+      flex-shrink: 0;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      border: 1.5px solid #a8a094;
+      background-color: #faf9f6;
+      color: var(--text-main);
+      font-weight: 700;
+      font-size: 0.85rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.15s ease;
+      margin-top: 1px;
+    }
+
+    .option-text {
+      flex: 1;
+      color: var(--text-main);
+      text-align: left;
+    }
+
+    /* Estado selecionado pelo usuário (antes e depois do gabarito) */
+    .option-label input[type="radio"]:checked ~ .option-letter {
+      background-color: var(--accent-primary);
+      border-color: var(--accent-primary);
+      color: #ffffff;
+    }
+
+    .option-label.is-selected {
+      background-color: #f2f7fc;
+      border-color: #a4c2e0;
+    }
+
+    /* ============================================================
+       ESTILIZAÇÃO DE FEEDBACK APÓS FINALIZAR O QUIZ
+       ============================================================ */
+    .quiz-finished .option-label {
+      cursor: default;
+    }
+
+    /* Alternativa Correta */
+    .quiz-finished .option-label.correct-choice {
+      background-color: var(--correct-bg) !important;
+      border-color: var(--correct-border) !important;
+      color: var(--correct-text) !important;
+    }
+
+    .quiz-finished .option-label.correct-choice .option-letter {
+      background-color: var(--correct-badge) !important;
+      border-color: var(--correct-badge) !important;
+      color: #fff !important;
+    }
+
+    /* Alternativa Incorreta selecionada pelo usuário */
+    .quiz-finished .option-label.wrong-choice {
+      background-color: var(--wrong-bg) !important;
+      border-color: var(--wrong-border) !important;
+      color: var(--wrong-text) !important;
+    }
+
+    .quiz-finished .option-label.wrong-choice .option-letter {
+      background-color: var(--wrong-badge) !important;
+      border-color: var(--wrong-badge) !important;
+      color: #fff !important;
+    }
+
+    /* Alternativas não escolhidas ficam ligeiramente opacas */
+    .quiz-finished .option-label.neutral-choice {
+      opacity: 0.72;
+    }
+
+    /* ============================================================
+       CAIXA DE RESOLUÇÃO DETALHADA (NA MESMA PÁGINA)
+       ============================================================ */
+    .resolution-wrapper {
+      display: none;
+      margin-top: 24px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border-color);
+      animation: fadeIn 0.4s ease-out;
+    }
+
+    .resolution-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--accent-primary);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      margin-bottom: 12px;
+    }
+
+    .resolution-box {
+      background-color: #f6f8fa;
+      border-left: 4px solid var(--accent-primary);
+      border-radius: 0 var(--radius-md) var(--radius-md) 0;
+      padding: 18px 20px;
+      font-size: 0.98rem;
+      line-height: 1.75;
+      color: #272d36;
+      text-align: justify;
+      hyphens: auto;
+    }
+
+    .resolution-box p {
+      margin-bottom: 12px;
+    }
+
+    .resolution-box p:last-child {
+      margin-bottom: 0;
+    }
+
+    .resolution-box strong {
+      color: #111827;
+      font-weight: 600;
+    }
+
+    /* ============================================================
+       PAINEL DE PLACAR & RESULTADO GERAL
+       ============================================================ */
+    .scoreboard-card {
+      display: none;
+      background: #ffffff;
+      border: 2px solid var(--accent-primary);
+      border-radius: var(--radius-lg);
+      padding: 30px 24px;
+      margin-bottom: 30px;
+      box-shadow: var(--shadow-md);
+      text-align: center;
+      animation: slideDown 0.45s ease-out;
+    }
+
+    .score-circle-wrapper {
+      margin: 0 auto 16px;
+      width: 108px;
+      height: 108px;
+      border-radius: 50%;
+      background: #f2f7fc;
+      border: 3px solid var(--accent-primary);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .score-number {
+      font-size: 2rem;
+      font-weight: 800;
+      line-height: 1;
+      color: var(--accent-primary);
+    }
+
+    .score-total {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
+    .scoreboard-title {
+      font-family: var(--font-serif);
+      font-size: 1.5rem;
+      margin-bottom: 6px;
+      color: var(--text-main);
+    }
+
+    .scoreboard-percent {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--accent-primary);
+      margin-bottom: 10px;
+    }
+
+    .scoreboard-feedback {
+      font-size: 0.98rem;
+      color: var(--text-muted);
+      max-width: 580px;
+      margin: 0 auto 20px;
+    }
+
+    .scoreboard-buttons {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    /* ============================================================
+       BOTÕES DE AÇÃO
+       ============================================================ */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 14px 28px;
+      font-size: 1rem;
+      font-weight: 600;
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      border: none;
+      transition: all 0.2s;
+      text-decoration: none;
+    }
+
+    .btn-primary {
+      background: var(--accent-primary);
+      color: #ffffff;
+      box-shadow: 0 2px 6px rgba(30, 75, 117, 0.25);
+    }
+
+    .btn-primary:hover {
+      background: var(--accent-hover);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 10px rgba(30, 75, 117, 0.35);
+    }
+
+    .btn-secondary {
+      background: #eae6dc;
+      color: var(--text-main);
+      border: 1px solid #d3cdc1;
+    }
+
+    .btn-secondary:hover {
+      background: #ded8cb;
+    }
+
+    .btn-submit-container {
+      margin: 36px 0;
+      text-align: center;
+    }
+
+    /* ============================================================
+       SEÇÃO SUPLEMENTAR: TABELAS DE FUNDAMENTAÇÃO E COMPARAÇÃO
+       ============================================================ */
+    .supplementary-section {
+      display: none;
+      margin-top: 40px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 30px 24px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .supplementary-header {
+      margin-bottom: 24px;
+      border-bottom: 2px solid var(--bg-secondary);
+      padding-bottom: 14px;
+    }
+
+    .supplementary-title {
+      font-family: var(--font-serif);
+      font-size: 1.35rem;
+      color: var(--accent-primary);
+      margin-bottom: 4px;
+    }
+
+    .supplementary-desc {
+      font-size: 0.92rem;
+      color: var(--text-muted);
+    }
+
+    .table-responsive {
+      width: 100%;
+      overflow-x: auto;
+      margin-bottom: 34px;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-color);
+    }
+
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.92rem;
+      text-align: left;
+      background: #ffffff;
+    }
+
+    .data-table th,
+    .data-table td {
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--border-color);
+      vertical-align: top;
+      line-height: 1.55;
+    }
+
+    .data-table th {
+      background-color: #f1ede4;
+      color: var(--text-main);
+      font-weight: 700;
+      font-size: 0.88rem;
+      letter-spacing: 0.02em;
+    }
+
+    .data-table tbody tr:hover {
+      background-color: #faf9f6;
+    }
+
+    .data-table tbody tr:last-child td {
+      border-bottom: none;
+    }
+
+    .gabarito-pill {
+      display: inline-block;
+      width: 26px;
+      height: 26px;
+      line-height: 26px;
+      border-radius: 50%;
+      text-align: center;
+      background: var(--accent-primary);
+      color: #fff;
+      font-weight: 700;
+      font-size: 0.85rem;
+    }
+
+    /* Modal discreto para aviso de questões incompletas (sem usar alert) */
+    .custom-modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.45);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+    }
+
+    .custom-modal-overlay.active {
+      display: flex;
+    }
+
+    .custom-modal-card {
+      background: #fff;
+      max-width: 460px;
+      width: 100%;
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      text-align: center;
+    }
+
+    .modal-title {
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+      color: var(--text-main);
+    }
+
+    .modal-text {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      margin-bottom: 20px;
+    }
+
+    .modal-actions {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+    }
+
+    /* Animações sutis */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes slideDown {
+      from { opacity: 0; transform: translateY(-16px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Responsividade */
+    @media (max-width: 640px) {
+      .question-card {
+        padding: 20px 16px;
+      }
+      .concurso-header {
+        padding: 20px 16px;
+      }
+      .concurso-title {
+        font-size: 1.25rem;
+      }
+      .top-header-inner {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .progress-box {
+        justify-content: space-between;
+      }
+      .progress-track {
+        flex: 1;
+      }
+      .option-label {
+        padding: 11px 13px;
+        gap: 10px;
+      }
+      .nav-dot {
+        width: 24px;
+        height: 24px;
+        font-size: 0.7rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ============================================================
+       HEADER FIXO COM PROGRESSO E NAVEGADOR RÁPIDO
+       ============================================================ -->
+  <header class="top-header" id="topHeader">
+    <div class="top-header-inner">
+      <div class="header-info-title">
+        <span>IFMG • Concurso Público (Lei nº 8.112/1990)</span>
+      </div>
+      <div class="progress-box">
+        <span id="progressText">0 de 10 respondidas</span>
+        <div class="progress-track" aria-label="Progresso de respostas">
+          <div class="progress-fill" id="progressFill"></div>
+        </div>
+      </div>
+    </div>
+    <div class="mini-navigator" id="miniNav">
+      <!-- Gerado via JS para saltar diretamente para cada questão -->
+    </div>
+  </header>
+
+  <!-- ============================================================
+       CONTAINER PRINCIPAL
+       ============================================================ -->
+  <main class="main-container">
+
+    <!-- Cabeçalho Institucional do Documento -->
+    <header class="concurso-header">
+      <div class="badge-concurso">Caderno de Questões Objetivas</div>
+      <h1 class="concurso-title">Concurso Público para a Carreira Técnico-Administrativa em Educação e Magistério do IFMG</h1>
+      <p class="concurso-subtitle">
+        <strong>Disciplina:</strong> Regime Jurídico Único dos Servidores Públicos Civis da União (Lei nº 8.112/1990) — Deveres, Proibições, Responsabilidades e Processo Administrativo Disciplinar.
+      </p>
+    </header>
+
+    <!-- Painel de Placar (Aparece ao Finalizar) -->
+    <section class="scoreboard-card" id="scoreBoard">
+      <div class="score-circle-wrapper">
+        <span class="score-number" id="correctScore">0</span>
+        <span class="score-total">de 10 acertos</span>
+      </div>
+      <h2 class="scoreboard-title" id="scoreboardHeading">Resultado Consolidado</h2>
+      <div class="scoreboard-percent" id="scorePercent">Aproveitamento: 0%</div>
+      <p class="scoreboard-feedback" id="scoreFeedback">
+        Confira abaixo a resolução comentada de cada questão na íntegra, com a fundamentação legal correspondente.
+      </p>
+      <div class="scoreboard-buttons">
+        <a href="#tabelaFundamentacao" class="btn btn-secondary">Ver Tabelas de Fundamentação</a>
+        <button type="button" class="btn btn-primary" id="btnRestartQuiz">Refazer Quiz</button>
+      </div>
+    </section>
+
+    <!-- Container Dinâmico das Questões -->
+    <div id="questionsContainer"></div>
+
+    <!-- Botão de Finalização Principal -->
+    <div class="btn-submit-container" id="submitActionContainer">
+      <button type="button" class="btn btn-primary" id="btnSubmitQuiz" style="padding: 16px 36px; font-size: 1.05rem;">
+        Finalizar Quiz e Ver Resultado
+      </button>
+    </div>
+
+    <!-- ============================================================
+         SEÇÃO SUPLEMENTAR: TABELAS DO DOCUMENTO
+         ============================================================ -->
+    <section class="supplementary-section" id="tabelaFundamentacao">
+      <div class="supplementary-header">
+        <h2 class="supplementary-title">Tabela de Gabarito e Fundamentação</h2>
+        <p class="supplementary-desc">Quadro normativo consolidado com base na Lei nº 8.112/1990 e súmulas dos Tribunais Superiores.</p>
+      </div>
+
+      <div class="table-responsive">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th style="width: 80px; text-align: center;">Questão</th>
+              <th style="width: 80px; text-align: center;">Gabarito</th>
+              <th>Dispositivo Normativo Central (Lei nº 8.112/1990)</th>
+              <th>Matéria Objeto da Questão</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="text-align: center; font-weight: 700;">01</td>
+              <td style="text-align: center;"><span class="gabarito-pill">C</span></td>
+              <td>Art. 116, inciso VI</td>
+              <td>Deveres funcionais e comunicação de irregularidades</td>
+            </tr>
+            <tr>
+              <td style="text-align: center; font-weight: 700;">02</td>
+              <td style="text-align: center;"><span class="gabarito-pill">A</span></td>
+              <td>Art. 117, inciso X e parágrafo único</td>
+              <td>Proibições funcionais e participação em sociedades privadas</td>
+            </tr>
+            <tr>
+              <td style="text-align: center; font-weight: 700;">03</td>
+              <td style="text-align: center;"><span class="gabarito-pill">D</span></td>
+              <td>Art. 122, caput e § 2º</td>
+              <td>Responsabilidade civil, direito de regresso e dolo/culpa</td>
+            </tr>
+            <tr>
+              <td style="text-align: center; font-weight: 700;">04</td>
+              <td style="text-align: center;"><span class="gabarito-pill">C</span></td>
+              <td>Art. 125</td>
+              <td>Cumulação de sanções e independência das instâncias</td>
+            </tr>
+            <tr>
+              <td style="text-align: center; font-weight: 700;">05</td>
+              <td style="text-align: center;"><span class="gabarito-pill">B</span></td>
+              <td>Art. 126</td>
+              <td>Efeitos absolutórios no PAD: inexistência do fato e negativa de autoria</td>
+            </tr>
+            <tr>
+              <td style="text-align: center; font-weight: 700;">06</td>
+              <td style="text-align: center;"><span class="gabarito-pill">B</span></td>
+              <td>Art. 126 c/c Súmula nº 18 do STF</td>
+              <td>Atipicidade penal e subsistência da falta residual administrativa</td>
+            </tr>
+            <tr>
+              <td style="text-align: center; font-weight: 700;">07</td>
+              <td style="text-align: center;"><span class="gabarito-pill">C</span></td>
+              <td>Art. 126-A</td>
+              <td>Prerrogativa de proteção e tutela ao denunciante de boa-fé</td>
+            </tr>
+            <tr>
+              <td style="text-align: center; font-weight: 700;">08</td>
+              <td style="text-align: center;"><span class="gabarito-pill">B</span></td>
+              <td>Art. 116, inciso IV</td>
+              <td>Obediência hierárquica e escusa perante ordens manifestamente ilegais</td>
+            </tr>
+            <tr>
+              <td style="text-align: center; font-weight: 700;">09</td>
+              <td style="text-align: center;"><span class="gabarito-pill">C</span></td>
+              <td>Art. 122, § 3º</td>
+              <td>Responsabilidade patrimonial sucessória (intra vires hereditatis)</td>
+            </tr>
+            <tr>
+              <td style="text-align: center; font-weight: 700;">10</td>
+              <td style="text-align: center;"><span class="gabarito-pill">C</span></td>
+              <td>Art. 117, inciso IV</td>
+              <td>Classificação típica entre dever funcional e proibição comissiva</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="supplementary-header" style="margin-top: 36px;">
+        <h2 class="supplementary-title">Síntese Comparativa: Reflexos da Sentença Penal Absolutória no PAD</h2>
+        <p class="supplementary-desc">Comunicação e independência entre a esfera penal (CPP) e o direito administrativo disciplinar.</p>
+      </div>
+
+      <div class="table-responsive">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Fundamento da Sentença Penal Absolutória (Código de Processo Penal)</th>
+              <th>Vinculação da Instância Administrativa (Lei nº 8.112/1990)</th>
+              <th>Possibilidade de Punição Disciplinar pela Administração Pública</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Negativa categórica da ocorrência do fato</strong><br>(Art. 386, I, do CPP)</td>
+              <td>Afasta a responsabilidade disciplinar por força do art. 126 da Lei nº 8.112/1990.</td>
+              <td><span style="color: var(--wrong-badge); font-weight: 600;">Não é admitida</span>; vinculação extintiva obrigatória no PAD.</td>
+            </tr>
+            <tr>
+              <td><strong>Negativa categórica de autoria funcional</strong><br>(Art. 386, IV, do CPP)</td>
+              <td>Afasta a responsabilidade disciplinar por força do art. 126 da Lei nº 8.112/1990.</td>
+              <td><span style="color: var(--wrong-badge); font-weight: 600;">Não é admitida</span>; vinculará o arquivamento do feito correcional.</td>
+            </tr>
+            <tr>
+              <td><strong>Atipicidade da conduta na lei penal</strong><br>(Art. 386, III, do CPP)</td>
+              <td>Não vincula a esfera administrativa disciplinar.</td>
+              <td><span style="color: var(--correct-badge); font-weight: 600;">Plenamente permitida</span> com base na doutrina da falta residual (Súmula 18/STF).</td>
+            </tr>
+            <tr>
+              <td><strong>Insuficiência do arcabouço probatório penal</strong><br>(Art. 386, VII, do CPP)</td>
+              <td>Não vincula a apuração independente das faltas no PAD.</td>
+              <td><span style="color: var(--correct-badge); font-weight: 600;">Plenamente permitida</span> com arrimo no acervo probatório coligido pelo PAD.</td>
+            </tr>
+            <tr>
+              <td><strong>Extinção da punibilidade estatal</strong><br>(ex.: Prescrição penal - Art. 107 do CP)</td>
+              <td>Não vincula nem anula o processo sancionatório disciplinar.</td>
+              <td><span style="color: var(--correct-badge); font-weight: 600;">Plenamente permitida</span>, observando-se os prazos prescricionais funcionais.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- ============================================================
+       MODAL DE CONFIRMAÇÃO PARA QUESTÕES NÃO RESPONDIDAS
+       ============================================================ -->
+  <div class="custom-modal-overlay" id="confirmModal">
+    <div class="custom-modal-card">
+      <h3 class="modal-title">Questões Pendentes</h3>
+      <p class="modal-text" id="modalDescription">
+        Você respondeu apenas X de 10 questões. Deseja finalizar agora mesmo ou prefere revisar suas respostas?
+      </p>
+      <div class="modal-actions">
+        <button type="button" class="btn btn-secondary" id="modalBtnCancel">Revisar Questões</button>
+        <button type="button" class="btn btn-primary" id="modalBtnConfirm">Finalizar Mesmo Assim</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       SCRIPT JAVASCRIPT PURO COM TODA A BASE DE DADOS E LÓGICA
+       ============================================================ -->
+  <script>
+    /* DADOS COMPLETOS E EXATOS CONFORME O DOCUMENTO ORIGINAL */
+    const quizData = [
+      {
+        id: 1,
+        number: "Questão 01",
+        normative: "Lei nº 8.112/1990 • Art. 116",
+        statement: "No que concerne aos deveres funcionais e às proibições legalmente estabelecidas no regime disciplinar dos servidores públicos civis federais regidos pela Lei nº 8.112/1990, assinale a alternativa que indica, correta e estritamente, um dever funcional positivo do servidor público:",
+        options: [
+          { letter: "A", text: "Recusar-se terminantemente a exercer atividades privativas de outros cargos funcionais, ainda que diante de situações emergenciais e transitórias devidamente fundamentadas pela autoridade institucional competente." },
+          { letter: "B", text: "Atender com presteza ao público em geral, prestando indistintamente todas as informações requeridas, inclusive aquelas resguardadas por sigilo formal da repartição, em homenagem ao princípio da ampla publicidade." },
+          { letter: "C", text: "Levar ao conhecimento da autoridade superior as irregularidades de que tiver ciência em razão do cargo ou, quando houver suspeita de envolvimento desta, ao conhecimento de outra autoridade competente para apuração." },
+          { letter: "D", text: "Promover manifestações públicas de apreço ou de desapreço no recinto da repartição escolar ou acadêmica, sob o resguardo da liberdade de cátedra e da livre manifestação do pensamento." },
+          { letter: "E", text: "Cumprir integralmente todas as ordens de seus superiores hierárquicos, devendo abster-se de formalizar representação funcional perante os órgãos de controle interno quando tais ordens se revelarem manifestamente ilegais." }
+        ],
+        correct: "C",
+        resolution: "O gabarito oficial é a alternativa C. O art. 116, inciso VI, da Lei nº 8.112/1990, com redação atualizada pela Lei nº 12.527/2011, prescreve categoricamente o dever funcional de reportar irregularidades à autoridade superior ou, diante da suspeita fundamentada do envolvimento desta, ao conhecimento de outra autoridade com atribuição investigatória. O preceito busca desarticular eventuais círculos de blindagem e impunidade no seio institucional público.<br><br>A alternativa A incorre em erro técnico ao ignorar que o art. 117, inciso XVII, excepciona expressamente as situações de emergência e transitórias, nas quais o cometimento de encargos extraordinários a outros servidores é pontualmente autorizado pela legislação estatutária. A alternativa B mostra-se juridicamente equivocada porque a prestação expedita de informações ao público externo, plasmada no art. 116, inciso V, alínea \"a\", faz ressalva explícita àquelas matérias cujo sigilo seja legalmente protegido. A revelação desautorizada de dado sigiloso constitui, por si, ilícito grave tipificado no art. 117, inciso VIII, e no art. 132, inciso IX. A alternativa D erra ao qualificar a manifestação de apreço ou desapreço no recinto de trabalho como dever, quando se cuida de conduta vedada nos termos do art. 117, inciso V. Por fim, a alternativa E contraria frontalmente a previsão do art. 116, incisos IV e XII, que exime o agente do cumprimento de ordens ostensivamente ilegais e impõe a obrigação indeclinável de formular representação disciplinar perante os órgãos correicionais."
+      },
+      {
+        id: 2,
+        number: "Questão 02",
+        normative: "Lei nº 8.112/1990 • Art. 117",
+        statement: "A Lei nº 8.112/1990 discrimina, em seu art. 117, uma série de vedações de conduta impostas aos servidores públicos, definindo igualmente determinadas hipóteses de ressalva à vedação genérica. Em estrita conformidade com as regras legais atinentes às proibições funcionais e suas exceções expressas, assinale a alternativa CORRETA:",
+        options: [
+          { letter: "A", text: "É proibido ao servidor participar de gerência ou administração de sociedade privada, personificada ou não, sendo-lhe legalmente facultada, todavia, a participação na qualidade de acionista, cotista ou comanditário." },
+          { letter: "B", text: "O servidor público federal pode atuar livremente como procurador ou intermediário perante repartições públicas de qualquer ente federativo, desde que não receba remuneração de fonte pública para tal encargo." },
+          { letter: "C", text: "É expressamente vedado ao servidor cometer a outro servidor atribuições estranhas ao cargo por ele ocupado, sendo tal regra de natureza absoluta e insuscetível de qualquer flexibilização temporal ou situacional." },
+          { letter: "D", text: "É lícito ao servidor estatutário aceitar comissão, emprego ou pensão de Estado estrangeiro por conveniência particular, independentemente de expressa autorização ou permissivo em tratado internacional." },
+          { letter: "E", text: "A atuação de servidor na condição de intermediário perante entidades de previdência pública é autorizada de forma ampla em favor de parentes consanguíneos e afins até o quarto grau na linha reta." }
+        ],
+        correct: "A",
+        resolution: "O gabarito oficial é a alternativa A. A conformação normativa do art. 117, inciso X, veda ao servidor estatutário participar da gerência ou da administração de empresas privadas, personificadas ou não, e exercer o comércio nessa qualidade restritiva. Não obstante, o parágrafo único do mesmo dispositivo resguarda expressamente o direito do agente público de investir no mercado na condição de acionista, cotista ou comanditário, papéis societários marcados pela ausência de atos de gestão operacional ou representação corporativa sobre a sociedade empresária.<br><br>A alternativa B revela-se incorreta na medida em que a proibição de atuar na qualidade de procurador ou intermediário perante repartições da administração independe do recebimento de honorários ou gratificações pelo servidor, decorrendo a vedação do dever de preservar a moralidade e a equidistância de interesses no serviço público (art. 117, inciso XI). A alternativa C está incorreta em virtude de a proibição de cometer tarefas estranhas admitir, conforme pontuado na letra do art. 117, inciso XVII, situações emergenciais e transitórias. A alternativa D incide em erro manifesto ao contrariar o art. 117, inciso XIII, que proíbe terminantemente a percepção de comissão, pensão ou emprego de governos estrangeiros, salvo autorização prévia por permissivo legal ou tratado diplomático recepcionado. A alternativa E apresenta equívoco sobre o grau de parentesco admitido pela ressalva do art. 117, inciso XI, o qual circunscreve a representação permitida unicamente a benefícios previdenciários de cônjuge, companheiro ou parentes até o segundo grau consanguíneo ou afim."
+      },
+      {
+        id: 3,
+        number: "Questão 03",
+        normative: "Lei nº 8.112/1990 • Art. 122",
+        statement: "Considere a seguinte situação hipotética:<br>Um servidor técnico em laboratório de química do Instituto Federal de Minas Gerais (IFMG), durante o manuseio desatento de reagentes controlados, agiu com imprudência culposa, ocasionando um princípio de incêndio que destruiu integralmente um equipamento analítico pertencente ao acervo patrimonial da instituição e avariou gravemente a motocicleta de um discente, a qual se encontrava estacionada regularmente nas dependências internas do campus.<br><br>À luz dos parâmetros normativos que disciplinam a responsabilidade civil do servidor público no regime da Lei nº 8.112/1990 e do sistema de responsabilização estatal, assinale a alternativa CORRETA:",
+        options: [
+          { letter: "A", text: "O discente lesado deverá ajuizar ação de reparação exclusivamente contra a pessoa física do servidor culpado, restando eximida a responsabilidade do Instituto Federal por se tratar de culpa estritamente funcional." },
+          { letter: "B", text: "O caráter meramente culposo da conduta afasta a responsabilidade patrimonial regressiva do servidor perante o ente público, restringindo a imputação financeira unicamente aos casos de dolo comprovado." },
+          { letter: "C", text: "A obrigação civil de reparar o dano decorrente da conduta culposa do servidor extingue-se peremptoriamente com o evento de sua morte, não se transmitindo em nenhuma hipótese ao espólio ou aos herdeiros." },
+          { letter: "D", text: "A responsabilidade civil decorre de ato omissivo ou comissivo, doloso ou culposo, que resulte em prejuízo ao erário ou a terceiros; em relação ao prejuízo suportado pelo discente, o servidor responderá perante a Fazenda Pública em ação regressiva." },
+          { letter: "E", text: "A recomposição do prejuízo causado pelo servidor ao acervo da instituição pública será processada mediante a supressão unilateral integral de sua remuneração mensal até a liquidação definitiva da dívida apurada." }
+        ],
+        correct: "D",
+        resolution: "O gabarito oficial é a alternativa D. Consoante a disciplina estruturante do art. 122 da Lei nº 8.112/1990, a responsabilidade civil do servidor público decorre de ação ou omissão de natureza dolosa ou culposa da qual resulte gravame econômico ao erário público ou a terceiros. Tratando-se de evento lesivo experimentado por administrado em dependência pública, incide a teoria do risco administrativo fixada no art. 37, § 6º, da Constituição da República de 1988, respondendo o Instituto Federal objetivamente perante o prejudicado e exercendo, posteriormente, ação regressiva contra o servidor público responsável pelo ato negligente.<br><br>A alternativa A dissente do ordenamento e da tese firmada pelo Supremo Tribunal Federal em sede de repercussão geral (Tema 940, RE 1.027.633), pela qual a ação reparatória fundada em ilícito de agente público deve ser direcionada indispensavelmente contra a pessoa jurídica de direito público, sendo vedado o ajuizamento direto e autônomo apenas contra a pessoa física do funcionário em juízo de responsabilização externa. A alternativa B não subsiste porque o art. 122 prevê expressamente a responsabilização funcional regressiva mesmo quando o ilícito civil for perpetrado por imperícia, imprudência ou negligência (culpa em sentido estrito). A alternativa C encontra empeço legal categórico no art. 122, § 3º, que determina a transmissibilidade patrimonial da obrigação reparatória aos sucessores do servidor causador do desfalque. A alternativa E afronta o princípio da intangibilidade salarial e os ditames dos arts. 46 e 47 do próprio Estatuto, segundo os quais as indenizações ao erário sujeitam-se a limites percentuais e amortizações escalonadas que garantam a subsistência do trabalhador público."
+      },
+      {
+        id: 4,
+        number: "Questão 04",
+        normative: "Lei nº 8.112/1990 • Art. 125",
+        statement: "A respeito da cumulação e da autonomia entre as esferas civil, penal e administrativa previstas nos arts. 121 a 125 da Lei nº 8.112/1990 e na jurisprudência sedimentada dos Tribunais Superiores, assinale a alternativa CORRETA:",
+        options: [
+          { letter: "A", text: "A imposição de penalidade disciplinar em sede de Processo Administrativo Disciplinar (PAD) obsta a instauração de ação penal decorrente do mesmo substrato fático, em virtude da incidência do princípio do non bis in idem." },
+          { letter: "B", text: "A responsabilidade penal funcional abrange com exclusividade os crimes próprios praticados contra a administração pública, excluindo-se as contravenções penais por força da menor lesividade da conduta." },
+          { letter: "C", text: "As sanções civis, penais e administrativas ostentam natureza e finalidades diversas, podendo cumular-se legitimamente por decorrência do princípio da independência entre as instâncias." },
+          { letter: "D", text: "A autoridade administrativa competente fica impedida de julgar o Processo Administrativo Disciplinar (PAD) antes que se verifique o trânsito em julgado da respectiva ação penal em tramitação perante a Justiça Federal." },
+          { letter: "E", text: "A responsabilidade administrativa do servidor público decorre exclusivamente de condutas comissivas dolosas, não subsistindo infração disciplinar por atos de natureza culposa ou omissiva." }
+        ],
+        correct: "C",
+        resolution: "O gabarito oficial é a alternativa C. A tese da autonomia das esferas sancionatórias encontra esteio indelével no art. 125 da Lei nº 8.112/1990, que prevê a cumulação das sanções penais, cíveis e funcionais por força da independência funcional existente entre as instâncias. Enquanto a sanção administrativa tutela a integridade dos serviços internos e a disciplina funcional, a responsabilização cível mira na reparação patrimonial da lesão econômica e a esfera criminal opera em resguardo da paz social e dos bens tutelados pelo direito penal público.<br><br>A alternativa A é insustentável juridicamente, dado que a aplicação simultânea de penalidades de naturezas ontológicas distintas (disciplinar e criminal) não caracteriza a vedada dupla persecução punitiva pelo mesmo bem da vida (non bis in idem). A alternativa B é incorreta porque o texto expresso do art. 123 da Lei nº 8.112/1990 estabelece que a responsabilidade criminal do servidor abrange indistintamente os crimes e as contravenções a ele atribuídas no exercício de sua qualidade funcional. A alternativa D peca contra a consolidada jurisprudência do Superior Tribunal de Justiça (a exemplo do MS 8.998), que pontua a desnecessidade de sobrestamento do Processo Administrativo Disciplinar para aguardar a prolação da sentença criminal. A alternativa E não prospera em face do art. 124, o qual prevê a responsabilidade administrativa por ato comissivo ou omissivo praticado no desempenho do cargo, contemplando modalidade dolosa ou culposa (a exemplo da inobservância reiterada de regras por negligência)."
+      },
+      {
+        id: 5,
+        number: "Questão 05",
+        normative: "Lei nº 8.112/1990 • Art. 126",
+        statement: "No regime disciplinar federal, a independência das instâncias jurisdicionais e administrativas comporta temperamentos previstos em lei e consolidados pela jurisprudência do Supremo Tribunal Federal e do Superior Tribunal de Justiça. Nos termos do art. 126 da Lei nº 8.112/1990, a responsabilidade administrativa do servidor será taxativamente afastada caso sobrevenha sentença penal absolutória fundamentada em:",
+        options: [
+          { letter: "A", text: "Insuficiência de provas para embasar o decreto condenatório criminal, em aplicação da máxima jurídica do in dubio pro reo." },
+          { letter: "B", text: "Reconhecimento judicial peremptório de negativa da existência do fato ou de negativa cabal de sua autoria." },
+          { letter: "C", text: "Extinção da punibilidade do agente reconhecida na esfera judicial pelo advento da prescrição da pretensão punitiva criminal." },
+          { letter: "D", text: "Constatação judicial de atipicidade penal formal ou material da conduta submetida ao crivo da vara criminal." },
+          { letter: "E", text: "Aplicação de circunstância excludente de ilicitude não comprovada na instrução regular do processo administrativo disciplinar." }
+        ],
+        correct: "B",
+        resolution: "O gabarito oficial é a alternativa B. O art. 126 da Lei nº 8.112/1990 circunscreve de forma expressa e estrita as hipóteses de comunicação necessária entre a jurisdição penal e o direito disciplinar: \"A responsabilidade administrativa do servidor será afastada no caso de absolvição criminal que negue a existência do fato ou sua autoria\". Trata-se de juízos de certeza judicial que desconstituem a base material da acusação (o fato simplesmente não ocorreu) ou a relação de imputação subjetiva (o servidor investigado não foi o autor dos atos apurados).<br><br>A alternativa A está incorreta, posto que a absolvição criminal proferida com amparo na falta ou fragilidade probatória (art. 386, inciso VII, do CPP) não conduz ao afastamento compulsório da sanção funcional, tendo em vista que a autoridade administrativa goza de autonomia probatória para avaliar a idoneidade ética e funcional dos atos funcionais. A alternativa C não afasta a penalidade no PAD, na medida em que a prescrição criminal gera meramente a perda da pretensão punitiva privativa do Estado-juiz, remanescendo incólume a possibilidade de responsabilização funcional perante o órgão estatutário competente. A alternativa D não retira a exigibilidade sancionatória da esfera administrativa, haja vista que a ausência de tipicidade formal sob as lentes da lei penal estrita não elide a transgressão ética, disciplinar ou funcional da mesma conduta perante o serviço público. A alternativa E encontra-se tecnicamente falha, pois matérias atinentes a justificantes e excludentes demandam apreciação e ratificação nos autos administrativos próprios, inexistindo comando legal amplo de vinculação automática genérica fora do binômio autoria-materialidade do art. 126."
+      },
+      {
+        id: 6,
+        number: "Questão 06",
+        normative: "Lei nº 8.112/1990 • Art. 126 c/c Súmula 18 STF",
+        statement: "Examine a situação descrita a seguir:<br>Um servidor público estável vinculado à Reitoria do IFMG foi submetido a Processo Administrativo Disciplinar (PAD) e, simultaneamente, à ação penal perante a Justiça Federal, ambos instaurados para apurar suposto recebimento indevido de bens institucionais. Ao término da ação penal, o juiz criminal proferiu sentença absolutória transitada em julgado com esteio exclusivo no art. 386, inciso III, do Código de Processo Penal, assentando que o fato atribuído ao réu \"não constitui infração penal\".<br><br>À luz da Súmula nº 18 do Supremo Tribunal Federal e da disciplina da Lei nº 8.112/1990, assinale a opção que reflete o efeito jurídico da mencionada sentença criminal sobre o processo disciplinar:",
+        options: [
+          { letter: "A", text: "Impõe-se a anulação compulsória de qualquer penalidade disciplinar e o arquivamento do feito funcional, haja vista a soberania absoluta do julgamento penal absolutório." },
+          { letter: "B", text: "O processo disciplinar não se vincula à absolvição criminal por atipicidade, permanecendo lícita a punição administrativa do servidor com base na figura jurídica da falta residual funcional." },
+          { letter: "C", text: "A autoridade instauradora do PAD fica obrigada a substituir eventual demissão pela pena de advertência escrita, convertendo-se a infração em mero descumprimento formal." },
+          { letter: "D", text: "A absolvição penal fundamentada na atipicidade acarreta os mesmos efeitos jurídicos desconstitutivos previstos expressamente para a negativa categórica da autoria." },
+          { letter: "E", text: "A decisão proferida pelo magistrado criminal suspende a eficácia do ato sancionatório administrativo até manifestação confirmatória expressa pelo Ministério Público Federal." }
+        ],
+        correct: "B",
+        resolution: "O gabarito oficial é a alternativa B. A jurisprudência brasileira construiu entendimento secular consubstanciado na Súmula nº 18 do Supremo Tribunal Federal, cujo enunciado declara: \"Pela falta residual, não compreendida na absolvição pelo juízo criminal, é admissível a punição administrativa do servidor público\". O juízo proferido com fundamento na atipicidade penal (art. 386, inciso III, do Código de Processo Penal) atesta exclusivamente que os elementos fáticos não se subsumem ao modelo abstrato de nenhum tipo penal incriminador; a despeito disso, as condutas de desídia, quebra de deveres de guarda ou atentado à moralidade subsistem incólumes para fundamentar sanções demissórias ou suspensivas no PAD.<br><br>A alternativa A incorre em erro grosseiro ao ignorar a independência das instâncias e as balizas do art. 126, atribuindo eficácia vinculante absoluta a um fundamento absolutório que não figura no texto legal. A alternativa C carece de fundamento normativo, haja vista que a dosimetria no PAD atrela-se à gravidade da conduta e aos reflexos ao erário, não havendo conversão legal mecânica de pena de demissão em advertência em virtude de julgamento por atipicidade. A alternativa D revela vício estrutural ao equiparar os efeitos da atipicidade (inexistência de crime formal) aos da negativa peremptória de autoria (ausência de causalidade com o indivíduo), contrariando a exegese do art. 126. A alternativa E cria artificialmente uma relação de prejudicialidade e dependência processual em face do Ministério Público que inexiste no sistema sancionatório disciplinar brasileiro."
+      },
+      {
+        id: 7,
+        number: "Questão 07",
+        normative: "Lei nº 8.112/1990 • Art. 126-A",
+        statement: "Em atenção às salvaguardas de transparência e de integridade no âmbito da Administração Pública Federal, o art. 126-A foi inserido na Lei nº 8.112/1990 para tutelar os agentes públicos comunicantes. Acerca dessa prerrogativa de proteção ao servidor, assinale a afirmativa CORRETA:",
+        options: [
+          { letter: "A", text: "O agente responderá disciplinarmente por infração de quebra de sigilo caso relate a ocorrência de irregularidade funcional à autoridade externa sem prévio assentimento formal de sua chefia direta." },
+          { letter: "B", text: "A proteção contra responsabilização recai apenas na órbita administrativa disciplinar, subsistindo responsabilidade civil e criminal automática em face de denúncia que não resulte em condenação." },
+          { letter: "C", text: "Nenhum servidor poderá ser responsabilizado civil, penal ou administrativamente por dar ciência à autoridade superior ou, quando houver suspeita de envolvimento desta, a outra autoridade competente para apuração de informação concernente à prática de crimes ou improbidade de que tenha conhecimento, ainda que em decorrência do cargo, função ou emprego." },
+          { letter: "D", text: "A tutela inscrita no art. 126-A confere imunidade ampla e absoluta ao informante, inviabilizando qualquer persecução mesmo nos casos em que a denúncia tiver sido forjada com dolo específico de calúnia funcional." },
+          { letter: "E", text: "A prerrogativa legal restringe-se estritamente aos servidores titulares de cargos de direção ou funções de confiança nos órgãos da Administração Direta federal." }
+        ],
+        correct: "C",
+        resolution: "O gabarito oficial é a alternativa C. O art. 126-A foi inserido no Título IV, Capítulo IV, da Lei nº 8.112/1990 com vistas a conceder ampla imunidade funcional ao agente que colabora com a apuração de irregularidades, prevendo textualmente que nenhum servidor poderá sofrer responsabilização nas esferas civil, penal ou administrativa em decorrência de comunicações fundadas sobre prática de infrações criminais ou improbidade administrativa das quais tome conhecimento em razão de sua função. A sistemática assegura o dever de transparência ativa e mitiga represálias internas.<br><br>A alternativa A é incorreta porque a própria redação da norma assegura a comunicação direta a outras autoridades externas com atribuição fiscalizatória (Ministério Público Federal, Tribunal de Contas da União ou Polícia Federal) na ocorrência de suspeição da chefia local imediata. A alternativa B erra ao aduzir que a garantia alcançaria apenas o espectro disciplinar, quando o legislador contemplou a imunidade simultânea nas ordens penal e civil, obstando ações reparatórias automáticas em desfavor de comunicantes de boa-fé. A alternativa D está errada porque a proteção estatutária opera sob o postulado ético da boa-fé objetiva; servidores que instrumentalizarem denúncias comprovadamente sabidas falsas cometerão o crime de denunciação caluniosa (art. 339 do Código Penal) e improbidade, não encontrando abrigo na imunidade funcional. A alternativa E não prospera porque a dicção normativa abrange a totalidade dos servidores públicos civis da União (\"Nenhum servidor poderá...\"), estendendo-se a cargos efetivos ou em comissão de todos os níveis funcionais."
+      },
+      {
+        id: 8,
+        number: "Questão 08",
+        normative: "Lei nº 8.112/1990 • Art. 116, IV e XII",
+        statement: "A hierarquia administrativa configura instrumento de organização e controle funcional no serviço público, sendo regulada, quanto aos deveres do subordinado e aos limites de atuação, pelos preceitos do art. 116 da Lei nº 8.112/1990. Diante das regras atinentes à obediência hierárquica e ao direito-dever de representação funcional, assinale a afirmativa CORRETA:",
+        options: [
+          { letter: "A", text: "O servidor está adstrito ao dever imperativo de cumprir as ordens emanadas de seus superiores, inclusive as manifestamente ilegais, cabendo-lhe apenas suscitar dúvida registral no órgão de pessoal." },
+          { letter: "B", text: "O dever funcional de cumprir as ordens superiores cessa expressamente na hipótese em que as determinações da autoridade revestirem-se de manifesta ilegalidade." },
+          { letter: "C", text: "A formalização de representação funcional contra abuso ou desvio de autoridade é ato facultativo do servidor, não havendo implicação disciplinar caso decida silenciar diante da irregularidade presenciada." },
+          { letter: "D", text: "O exercício do direito de representação contra ilegalidade praticada por autoridade superior depende de anuência prévia e irrevogável da comissão permanente de processo disciplinar do órgão." },
+          { letter: "E", text: "A representação funcional deverá ser apreciada, de modo privativo e originário, pelo mesmo superior hierárquico contra o qual fora deduzida a acusação, por força da deferência de instância." }
+        ],
+        correct: "B",
+        resolution: "O gabarito oficial é a alternativa B. Nos termos estabelecidos pelo art. 116, inciso IV, da Lei nº 8.112/1990, figura como dever primário do servidor cumprir as ordens emanadas de seus superiores, ressalvadas as hipóteses em que estas se revelem manifestamente ilegais. Diante de determinação flagrantemente contrária ao ordenamento jurídico, o dever de subordinação hierárquica cessa imediatamente, erigindo-se no seu lugar o dever imposto pelo inciso XII do mesmo preceito legal: a formalização tempestiva de representação contra a ilegalidade ou o abuso de poder.<br><br>A alternativa A contraria a legalidade estrita que norteia o regime administrativo de direito público, na qual a obediência cega ou incondicional a desmandos ilegais sujeita o subordinado executor às penalidades legais e solidárias cabíveis perante o erário e a sociedade. A alternativa C equivoca-se ao situar a representação correcional como mera faculdade voluntária, sendo esta uma imposição cogente derivada do próprio estatuto funcional público. A alternativa D insere elemento espúrio no rito procedimental, inexistindo previsão de autorização de comissões processantes ou corregedorias como condição de validade do ato de representação. Por fim, a alternativa E colide com o art. 116, parágrafo único, que determina o processamento da representação pela autoridade superior àquela contra quem a queixa é dirigida, prestigiando a imparcialidade do processo decisório disciplinar."
+      },
+      {
+        id: 9,
+        number: "Questão 09",
+        normative: "Lei nº 8.112/1990 • Art. 122, § 3º",
+        statement: "Acerca das obrigações civis de cunho ressarcitório e da transmissão de responsabilidade no direito administrativo estatutário federal, assinale a assertiva que traduz a exata previsão do art. 122, § 3º, da Lei nº 8.112/1990:",
+        options: [
+          { letter: "A", text: "A responsabilidade patrimonial pelo ressarcimento de danos ao erário extingue-se por ocasião do falecimento do servidor, sendo inadmissível qualquer cobrança contra os sucessores." },
+          { letter: "B", text: "A obrigação de reparar o dano causado à Fazenda Pública estende-se aos sucessores e contra eles será executada de forma irrestrita, alcançando todo o patrimônio individual preexistente destes." },
+          { letter: "C", text: "A obrigação de reparar o dano estende-se aos sucessores e contra eles será executada, até o limite do valor da herança recebida." },
+          { letter: "D", text: "Os sucessores do servidor público falecido respondem solidariamente pelas sanções de advertência e suspensão que não puderam ser cumpridas pelo falecido." },
+          { letter: "E", text: "A dívida regressiva devida à Fazenda Pública sub-roga-se nos bens patrimoniais dos sucessores exclusivamente quando restar comprovada a culpa direta destes no dano ao erário." }
+        ],
+        correct: "C",
+        resolution: "O gabarito oficial é a alternativa C. A regra constante do art. 122, § 3º, da Lei nº 8.112/1990 traduz a projeção infraconstitucional do princípio da limitação da obrigação de reparar aos limites das forças patrimoniais transferidas pela herança (intra vires hereditatis), em observância ao art. 5º, inciso XLV, da Constituição Federal. O patrimônio pessoal antecedente dos herdeiros jamais é chamado a honrar desvios pecuniários perpetrados pelo instituidor do espólio, restringindo-se a cobrança da dívida ativa ou ação reparatória ao quinhão econômico efetivamente transmitido na sucessão causa mortis.<br><br>A alternativa A é incorreta porque a obrigação ressarcitória ostenta feição civil-patrimonial, não se extinguindo com a morte do devedor originário e transmitindo-se diretamente à universalidade patrimonial da herança. A alternativa B erra ao predicar a execução irrestrita (ultra vires), circunstância vedada expressamente pelo art. 122, § 3º, e pelo ordenamento civil pátrio. A alternativa D é falha porque as sanções de advertência, suspensão e demissão detêm índole personalíssima e punitiva, extinguindo-se integralmente com o falecimento do agente faltoso e não passando da pessoa do apenado. A alternativa E não procede no meio jurídico, pois a extensão da dívida aos sucessores opera a título de liquidação sucessória do patrimônio que foi indevidamente acrescido pelo ilícito, inexistindo exigência legal de coparticipação pessoal ou culpa dos herdeiros no ato lesivo ao patrimônio público."
+      },
+      {
+        id: 10,
+        number: "Questão 10",
+        normative: "Lei nº 8.112/1990 • Arts. 116 e 117",
+        statement: "No processo disciplinar instaurado para apuração de falta funcional cometida em unidade do IFMG, a comissão processante deve proceder ao correto enquadramento típico da infração sob o prisma dos arts. 116 (deveres) e 117 (proibições) da Lei nº 8.112/1990. Assinale a alternativa que indica uma conduta expressamente catalogada na lei como PROIBIÇÃO ao servidor público:",
+        options: [
+          { letter: "A", text: "Exercer com zelo e dedicação as atribuições do cargo funcional." },
+          { letter: "B", text: "Manter conduta compatível com a moralidade administrativa no ambiente institucional." },
+          { letter: "C", text: "Opor resistência injustificada ao andamento de documento e processo ou execução de serviço." },
+          { letter: "D", text: "Tratar com urbanidade e equilíbrio os administrados e colegas de trabalho." },
+          { letter: "E", text: "Guardar sigilo funcional absoluto sobre os assuntos operacionais e documentais da repartição." }
+        ],
+        correct: "C",
+        resolution: "O gabarito oficial é a alternativa C. O art. 117 da Lei nº 8.112/1990 contempla as proibições comissivas e omissivas aplicadas aos servidores públicos federais. Em seu inciso IV, comina expressamente a vedação de: \"opor resistência injustificada ao andamento de documento e processo ou execução de serviço\". A conduta configura transgressão disciplinar voltada a garantir a marcha procedimental e a celeridade dos atos no âmbito da repartição administrativa.<br><br>As alternativas A, B, D e E trazem comandos de natureza positiva, estruturados pelo legislador como deveres funcionais gerais inscritos no art. 116 da Lei nº 8.112/1990. O ato de exercer com zelo e dedicação as atribuições do cargo consiste no dever expresso no art. 116, inciso I. O resguardo de uma postura ética e a manutenção de conduta compatível com a moralidade administrativa constituem dever basilar catalogado no art. 116, inciso IX. O atendimento dispensado com urbanidade às pessoas consubstancia dever inscrito no art. 116, inciso XI. Por derradeiro, guardar sigilo funcional sobre matérias de interesse interno da repartição corresponde ao dever estipulado no art. 116, inciso VIII, não se confundindo com o rol de proibições puníveis com demissão ou suspensão disciplinar direta."
+      }
+    ];
+
+    /* ESTADO DO QUIZ */
+    const userAnswers = {}; // { 1: "C", 2: "A", ... }
+    let isSubmitted = false;
+
+    /* ELEMENTOS DO DOM */
+    const questionsContainer = document.getElementById("questionsContainer");
+    const progressText = document.getElementById("progressText");
+    const progressFill = document.getElementById("progressFill");
+    const miniNav = document.getElementById("miniNav");
+    const btnSubmitQuiz = document.getElementById("btnSubmitQuiz");
+    const scoreBoard = document.getElementById("scoreBoard");
+    const correctScore = document.getElementById("correctScore");
+    const scorePercent = document.getElementById("scorePercent");
+    const scoreFeedback = document.getElementById("scoreFeedback");
+    const btnRestartQuiz = document.getElementById("btnRestartQuiz");
+    const submitActionContainer = document.getElementById("submitActionContainer");
+    const tabelaFundamentacao = document.getElementById("tabelaFundamentacao");
+
+    // Modal de confirmação
+    const confirmModal = document.getElementById("confirmModal");
+    const modalDescription = document.getElementById("modalDescription");
+    const modalBtnCancel = document.getElementById("modalBtnCancel");
+    const modalBtnConfirm = document.getElementById("modalBtnConfirm");
+
+    /* ============================================================
+       INICIALIZAÇÃO DA INTERFACE
+       ============================================================ */
+    function initQuiz() {
+      renderMiniNavigator();
+      renderQuestions();
+      updateProgress();
+    }
+
+    /* Renderiza os botões circulares no header para navegação rápida */
+    function renderMiniNavigator() {
+      miniNav.innerHTML = "";
+      quizData.forEach((q) => {
+        const dot = document.createElement("a");
+        dot.href = `#q-${q.id}`;
+        dot.className = "nav-dot";
+        dot.id = `nav-dot-${q.id}`;
+        dot.textContent = q.id < 10 ? `0${q.id}` : `${q.id}`;
+        dot.title = `Ir para ${q.number}`;
+        miniNav.appendChild(dot);
+      });
+    }
+
+    /* Renderiza os cartões de cada questão com acessibilidade e conforto */
+    function renderQuestions() {
+      questionsContainer.innerHTML = "";
+      quizData.forEach((q) => {
+        const card = document.createElement("article");
+        card.className = "question-card";
+        card.id = `q-${q.id}`;
+
+        let optionsHtml = "";
+        q.options.forEach((opt) => {
+          optionsHtml += `
+            <label class="option-label" id="opt-label-${q.id}-${opt.letter}">
+              <input 
+                type="radio" 
+                name="question-${q.id}" 
+                value="${opt.letter}" 
+                onchange="handleSelectOption(${q.id}, '${opt.letter}')"
+              >
+              <span class="option-letter">${opt.letter}</span>
+              <span class="option-text">${opt.text}</span>
+            </label>
+          `;
+        });
+
+        card.innerHTML = `
+          <div class="question-top-bar">
+            <span class="question-num-tag">${q.number}</span>
+            <span style="font-size: 0.82rem; color: var(--text-subtle);">${q.normative}</span>
+            <span class="question-status-badge" id="badge-status-${q.id}"></span>
+          </div>
+
+          <div class="question-statement">${q.statement}</div>
+
+          <div class="options-list" id="options-list-${q.id}">
+            ${optionsHtml}
+          </div>
+
+          <div class="resolution-wrapper" id="resolution-wrap-${q.id}">
+            <div class="resolution-badge">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                <polyline points="14 2 14 8 20 8"></polyline>
+                <line x1="16" y1="13" x2="8" y2="13"></line>
+                <line x1="16" y1="17" x2="8" y2="17"></line>
+                <polyline points="10 9 9 9 8 9"></polyline>
+              </svg>
+              Resolução Comentada e Fundamentação
+            </div>
+            <div class="resolution-box">
+              <p>${q.resolution}</p>
+            </div>
+          </div>
+        `;
+
+        questionsContainer.appendChild(card);
+      });
+    }
+
+    /* ============================================================
+       MANIPULAÇÃO DE RESPOSTAS
+       ============================================================ */
+    window.handleSelectOption = function(questionId, letter) {
+      if (isSubmitted) return;
+
+      userAnswers[questionId] = letter;
+
+      // Remove destaque anterior das opções desta questão
+      const currentOptions = document.querySelectorAll(`[id^="opt-label-${questionId}-"]`);
+      currentOptions.forEach(opt => opt.classList.remove("is-selected"));
+
+      // Destaca a selecionada
+      const selectedLabel = document.getElementById(`opt-label-${questionId}-${letter}`);
+      if (selectedLabel) {
+        selectedLabel.classList.add("is-selected");
+      }
+
+      // Atualiza marcador no mini-mapa superior
+      const dot = document.getElementById(`nav-dot-${questionId}`);
+      if (dot) {
+        dot.classList.add("answered");
+      }
+
+      updateProgress();
+    };
+
+    /* Atualiza contador e barra de progresso */
+    function updateProgress() {
+      const answeredCount = Object.keys(userAnswers).length;
+      const total = quizData.length;
+      progressText.textContent = `${answeredCount} de ${total} respondidas`;
+      const percentage = (answeredCount / total) * 100;
+      progressFill.style.width = `${percentage}%`;
+    }
+
+    /* ============================================================
+       FINALIZAÇÃO DO QUIZ E CORREÇÃO
+       ============================================================ */
+    btnSubmitQuiz.addEventListener("click", () => {
+      const answeredCount = Object.keys(userAnswers).length;
+      const total = quizData.length;
+
+      if (answeredCount < total) {
+        modalDescription.textContent = `Você respondeu ${answeredCount} de ${total} questões. Caso finalize agora, as questões em branco serão consideradas erradas. Deseja prosseguir?`;
+        confirmModal.classList.add("active");
+      } else {
+        processSubmission();
+      }
+    });
+
+    modalBtnCancel.addEventListener("click", () => {
+      confirmModal.classList.remove("active");
+    });
+
+    modalBtnConfirm.addEventListener("click", () => {
+      confirmModal.classList.remove("active");
+      processSubmission();
+    });
+
+    function processSubmission() {
+      isSubmitted = true;
+      document.body.classList.add("quiz-finished");
+
+      // Desabilita todos os inputs de rádio
+      const radios = document.querySelectorAll('input[type="radio"]');
+      radios.forEach(r => r.disabled = true);
+
+      let correctCount = 0;
+
+      quizData.forEach((q) => {
+        const userChoice = userAnswers[q.id];
+        const isCorrect = userChoice === q.correct;
+
+        if (isCorrect) {
+          correctCount++;
+        }
+
+        const statusBadge = document.getElementById(`badge-status-${q.id}`);
+        const navDot = document.getElementById(`nav-dot-${q.id}`);
+        const resWrap = document.getElementById(`resolution-wrap-${q.id}`);
+
+        // Badge no topo do card da questão
+        if (statusBadge) {
+          statusBadge.style.display = "inline-block";
+          if (isCorrect) {
+            statusBadge.textContent = "Correta ✓";
+            statusBadge.style.background = "var(--correct-bg)";
+            statusBadge.style.color = "var(--correct-text)";
+          } else {
+            statusBadge.textContent = userChoice ? "Incorreta ✕" : "Não respondida";
+            statusBadge.style.background = "var(--wrong-bg)";
+            statusBadge.style.color = "var(--wrong-text)";
+          }
+        }
+
+        // Estilização das opções
+        q.options.forEach((opt) => {
+          const label = document.getElementById(`opt-label-${q.id}-${opt.letter}`);
+          if (!label) return;
+
+          label.classList.remove("is-selected");
+
+          if (opt.letter === q.correct) {
+            label.classList.add("correct-choice");
+          } else if (userChoice === opt.letter && !isCorrect) {
+            label.classList.add("wrong-choice");
+          } else {
+            label.classList.add("neutral-choice");
+          }
+        });
+
+        // Mini-mapa topo
+        if (navDot) {
+          navDot.classList.remove("answered");
+          if (isCorrect) {
+            navDot.classList.add("is-correct");
+          } else {
+            navDot.classList.add("is-wrong");
+          }
+        }
+
+        // Revela a resolução na mesma página
+        if (resWrap) {
+          resWrap.style.display = "block";
+        }
+      });
+
+      // Exibe painel de placar consolidado
+      const total = quizData.length;
+      const percentage = Math.round((correctCount / total) * 100);
+
+      correctScore.textContent = correctCount;
+      scorePercent.textContent = `Aproveitamento: ${percentage}% (${correctCount}/${total})`;
+
+      let feedbackMsg = "";
+      if (percentage >= 80) {
+        feedbackMsg = "Excelente desempenho! Domínio sólido e aprofundado do regime disciplinar e das disposições da Lei nº 8.112/1990.";
+      } else if (percentage >= 60) {
+        feedbackMsg = "Bom resultado! Você possui uma base sólida, mas vale a pena revisar com atenção as minúcias sobre independência de instâncias e exceções às proibições.";
+      } else {
+        feedbackMsg = "Revise os pontos críticos da Lei nº 8.112/1990. Abaixo você encontra a fundamentação minuciosa e tabelas síntese para consolidar seu aprendizado.";
+      }
+
+      scoreFeedback.textContent = feedbackMsg;
+      scoreBoard.style.display = "block";
+      tabelaFundamentacao.style.display = "block";
+      submitActionContainer.style.display = "none";
+
+      // Rola suavemente até o painel de pontuação
+      scoreBoard.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+
+    /* ============================================================
+       REINICIAR O QUIZ
+       ============================================================ */
+    btnRestartQuiz.addEventListener("click", () => {
+      // Limpa dados
+      for (const key in userAnswers) {
+        delete userAnswers[key];
+      }
+      isSubmitted = false;
+      document.body.classList.remove("quiz-finished");
+
+      // Reseta painel e tabelas suplementares
+      scoreBoard.style.display = "none";
+      tabelaFundamentacao.style.display = "none";
+      submitActionContainer.style.display = "block";
+
+      // Reinicia componentes
+      initQuiz();
+
+      // Rola para o topo suavemente
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+
+    // Inicia na carga do DOM
+    document.addEventListener("DOMContentLoaded", initQuiz);
+  </script>
+</body>
+</html>

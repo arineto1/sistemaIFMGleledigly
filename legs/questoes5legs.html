@@ -1,0 +1,1079 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simulado Oficial: Lei nº 8.112/1990 – Estabilidade, Vacância e Movimentação</title>
+  <style>
+    /* 
+     * Paleta editorial com alto conforto de leitura (fundo suave, contraste suave e descansado)
+     * Tipografia límpida com entrelinhamento e ritmo visual para leituras jurídicas extensas
+     */
+    :root {
+      --bg-page: #F7F8FA;
+      --bg-surface: #FFFFFF;
+      --text-headline: #181D27;
+      --text-body: #2B3340;
+      --text-muted: #586474;
+      --border-subtle: #E3E7EE;
+      --border-active: #2563EB;
+      --primary: #1E3A8A;
+      --primary-soft: #EEF4FF;
+      --success: #166534;
+      --success-bg: #F0FDF4;
+      --success-border: #86EFAC;
+      --danger: #991B1B;
+      --danger-bg: #FEF2F2;
+      --danger-border: #FCA5A5;
+      --amber-bg: #FFFBEB;
+      --amber-border: #FCD34D;
+      --amber-text: #92400E;
+      --card-radius: 12px;
+      --shadow-soft: 0 2px 8px rgba(16, 24, 40, 0.04);
+      --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-page);
+      color: var(--text-body);
+      font-family: var(--font-family);
+      font-size: 1.05rem;
+      line-height: 1.78;
+      letter-spacing: -0.01em;
+      padding: 2.5rem 1rem;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .main-wrapper {
+      max-width: 860px;
+      margin: 0 auto;
+    }
+
+    /* Cabeçalho */
+    header.exam-header {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--card-radius);
+      padding: 2.25rem 2rem;
+      margin-bottom: 2rem;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .institution-tag {
+      display: inline-block;
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      padding: 0.35rem 0.8rem;
+      border-radius: 6px;
+      background: #E0E7FF;
+      color: #312E81;
+      margin-bottom: 0.85rem;
+    }
+
+    h1.exam-title {
+      font-size: 1.75rem;
+      line-height: 1.35;
+      color: var(--text-headline);
+      font-weight: 800;
+      margin-bottom: 0.65rem;
+    }
+
+    p.exam-banca {
+      font-size: 1.05rem;
+      color: var(--text-muted);
+      margin-bottom: 1.25rem;
+    }
+
+    .exam-context-box {
+      font-size: 0.94rem;
+      color: #374151;
+      background: #F8FAFC;
+      border-left: 4px solid var(--primary);
+      padding: 0.85rem 1.15rem;
+      border-radius: 4px;
+      line-height: 1.65;
+    }
+
+    /* Barra Superior Fixa de Progresso */
+    .sticky-tracker {
+      position: sticky;
+      top: 1rem;
+      z-index: 50;
+      background: rgba(255, 255, 255, 0.96);
+      backdrop-filter: blur(8px);
+      border: 1px solid var(--border-subtle);
+      border-radius: 10px;
+      padding: 0.85rem 1.25rem;
+      margin-bottom: 1.75rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+    }
+
+    .tracker-count {
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: var(--text-headline);
+    }
+
+    .tracker-bar-bg {
+      flex: 1;
+      max-width: 240px;
+      height: 7px;
+      background: #E2E8F0;
+      border-radius: 999px;
+      margin: 0 1rem;
+      overflow: hidden;
+    }
+
+    .tracker-bar-fill {
+      width: 0%;
+      height: 100%;
+      background: var(--primary);
+      transition: width 0.3s ease;
+      border-radius: 999px;
+    }
+
+    /* Cartões de Questão */
+    .question-block {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--card-radius);
+      padding: 2.25rem;
+      margin-bottom: 2rem;
+      box-shadow: var(--shadow-soft);
+      transition: border-color 0.2s ease;
+    }
+
+    .question-top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 0.85rem;
+      margin-bottom: 1.25rem;
+      border-bottom: 1px solid #F1F5F9;
+    }
+
+    .question-id-label {
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: var(--primary);
+      letter-spacing: -0.01em;
+    }
+
+    .question-status-tag {
+      font-size: 0.82rem;
+      font-weight: 700;
+      padding: 0.25rem 0.65rem;
+      border-radius: 6px;
+      background: #F1F5F9;
+      color: #64748B;
+    }
+
+    .question-enunciation {
+      font-size: 1.08rem;
+      color: var(--text-headline);
+      text-align: justify;
+      margin-bottom: 1.75rem;
+      line-height: 1.78;
+    }
+
+    /* Lista de Alternativas */
+    .choices-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+    }
+
+    .choice-label {
+      display: flex;
+      align-items: flex-start;
+      padding: 1.05rem 1.2rem;
+      background: #FAFAFB;
+      border: 1.5px solid var(--border-subtle);
+      border-radius: 10px;
+      cursor: pointer;
+      user-select: none;
+      transition: all 0.15s ease-in-out;
+    }
+
+    .choice-label:hover:not(.disabled) {
+      background: #F1F5FE;
+      border-color: #BFDBFE;
+    }
+
+    .choice-label input[type="radio"] {
+      appearance: none;
+      -webkit-appearance: none;
+      width: 1.3rem;
+      height: 1.3rem;
+      border: 2px solid #94A3B8;
+      border-radius: 50%;
+      margin-right: 0.9rem;
+      margin-top: 0.25rem;
+      flex-shrink: 0;
+      outline: none;
+      cursor: pointer;
+      position: relative;
+      transition: all 0.15s ease;
+    }
+
+    .choice-label input[type="radio"]:checked {
+      border-color: var(--primary);
+      background-color: var(--primary);
+      box-shadow: inset 0 0 0 3px #FFFFFF;
+    }
+
+    .choice-label.active-selected {
+      background: var(--primary-soft);
+      border-color: var(--border-active);
+    }
+
+    .choice-letter {
+      font-weight: 800;
+      color: #334155;
+      margin-right: 0.65rem;
+      flex-shrink: 0;
+    }
+
+    .choice-text {
+      flex: 1;
+      font-size: 1.03rem;
+      color: #2D3748;
+      line-height: 1.65;
+    }
+
+    /* Destaques após Envio */
+    .choice-label.option-correct-answer {
+      background: var(--success-bg) !important;
+      border-color: var(--success) !important;
+    }
+
+    .choice-label.option-correct-answer .choice-text,
+    .choice-label.option-correct-answer .choice-letter {
+      color: #14532D !important;
+      font-weight: 600;
+    }
+
+    .choice-label.option-user-wrong {
+      background: var(--danger-bg) !important;
+      border-color: var(--danger) !important;
+    }
+
+    .choice-label.option-user-wrong .choice-text,
+    .choice-label.option-user-wrong .choice-letter {
+      color: #7F1D1D !important;
+    }
+
+    .user-feedback-badge {
+      font-size: 0.75rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      padding: 0.2rem 0.55rem;
+      border-radius: 4px;
+      margin-left: 0.65rem;
+      display: inline-block;
+      vertical-align: middle;
+    }
+
+    .badge-correct {
+      background: #86EFAC;
+      color: #064E3B;
+    }
+
+    .badge-incorrect {
+      background: #FCA5A5;
+      color: #7F1D1D;
+    }
+
+    .badge-official {
+      background: #BBF7D0;
+      color: #14532D;
+    }
+
+    /* Caixa Integrada de Resolução */
+    .resolution-container {
+      display: none;
+      margin-top: 1.85rem;
+      padding: 1.75rem;
+      background: #F9FAFB;
+      border-radius: 10px;
+      border-left: 5px solid var(--primary);
+      box-shadow: inset 0 1px 2px rgba(0,0,0,0.02);
+      animation: fadeIn 0.3s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .resolution-meta-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 1.25rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid #E5E7EB;
+    }
+
+    .resolution-gabarito-tag {
+      font-weight: 800;
+      font-size: 1.05rem;
+      color: var(--text-headline);
+    }
+
+    .resolution-basis-tag {
+      font-size: 0.82rem;
+      background: #E5E7EB;
+      color: #374151;
+      padding: 0.25rem 0.65rem;
+      border-radius: 6px;
+      font-weight: 600;
+    }
+
+    .resolution-body {
+      font-size: 1.02rem;
+      color: #374151;
+      text-align: justify;
+      line-height: 1.78;
+    }
+
+    .resolution-body p {
+      margin-bottom: 1.15rem;
+    }
+
+    .resolution-body p:last-child {
+      margin-bottom: 0;
+    }
+
+    /* Tabela Comparativa (Questão 10) */
+    .table-responsive-box {
+      overflow-x: auto;
+      margin: 1.25rem 0;
+      border: 1px solid #E2E8F0;
+      border-radius: 8px;
+    }
+
+    .comparative-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.95rem;
+      background: #FFFFFF;
+      text-align: left;
+    }
+
+    .comparative-table th {
+      background-color: #F1F5F9;
+      color: #0F172A;
+      font-weight: 700;
+      padding: 0.85rem 1rem;
+      border-bottom: 2px solid #CBD5E1;
+    }
+
+    .comparative-table td {
+      padding: 0.85rem 1rem;
+      border-bottom: 1px solid #E2E8F0;
+      vertical-align: top;
+      line-height: 1.6;
+    }
+
+    .comparative-table tr:nth-child(even) td {
+      background-color: #F8FAFC;
+    }
+
+    /* Painel Consolidado de Resultados */
+    .quiz-results-card {
+      display: none;
+      background: var(--bg-surface);
+      border: 2px solid #CBD5E1;
+      border-radius: var(--card-radius);
+      padding: 2.25rem 2rem;
+      margin-bottom: 2rem;
+      box-shadow: var(--shadow-soft);
+      text-align: center;
+      animation: fadeIn 0.4s ease;
+    }
+
+    .score-circle-display {
+      display: inline-flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      background: #EEF2FF;
+      color: var(--primary);
+      margin: 1.25rem auto;
+      border: 4px solid #C7D2FE;
+    }
+
+    .score-num {
+      font-size: 2.6rem;
+      font-weight: 900;
+      line-height: 1;
+    }
+
+    .score-label {
+      font-size: 0.85rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      margin-top: 0.25rem;
+    }
+
+    .score-title-msg {
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: var(--text-headline);
+      margin-bottom: 0.5rem;
+    }
+
+    .score-desc-msg {
+      color: var(--text-muted);
+      font-size: 1rem;
+      max-width: 620px;
+      margin: 0 auto 1.5rem auto;
+    }
+
+    .nav-pills-list {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.5rem;
+      margin-top: 1.25rem;
+      padding-top: 1.25rem;
+      border-top: 1px solid #E2E8F0;
+    }
+
+    .nav-pill-item {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      text-decoration: none;
+      cursor: pointer;
+      transition: transform 0.15s ease;
+    }
+
+    .nav-pill-item:hover {
+      transform: translateY(-2px);
+    }
+
+    .nav-pill-item.pill-correct {
+      background: #DCFCE7;
+      color: #166534;
+      border: 1px solid #86EFAC;
+    }
+
+    .nav-pill-item.pill-wrong {
+      background: #FEE2E2;
+      color: #991B1B;
+      border: 1px solid #FCA5A5;
+    }
+
+    /* Ações e Botões */
+    .actions-section {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+      margin: 2.5rem 0 4rem 0;
+    }
+
+    .ui-btn {
+      font-family: inherit;
+      font-size: 1.1rem;
+      font-weight: 700;
+      padding: 1.1rem 2.5rem;
+      border-radius: 10px;
+      border: none;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      max-width: 440px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+    }
+
+    .ui-btn-primary {
+      background: var(--primary);
+      color: #FFFFFF;
+    }
+
+    .ui-btn-primary:hover:not(:disabled) {
+      background: #1E40AF;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(30, 58, 138, 0.25);
+    }
+
+    .ui-btn-secondary {
+      background: #FFFFFF;
+      color: #334155;
+      border: 1.5px solid #CBD5E1;
+    }
+
+    .ui-btn-secondary:hover {
+      background: #F8FAFC;
+    }
+
+    .alert-banner {
+      display: none;
+      background: var(--amber-bg);
+      border: 1px solid var(--amber-border);
+      color: var(--amber-text);
+      padding: 0.85rem 1.25rem;
+      border-radius: 8px;
+      font-size: 0.98rem;
+      font-weight: 600;
+      text-align: center;
+      max-width: 500px;
+    }
+
+    @media (max-width: 640px) {
+      body {
+        padding: 1.25rem 0.65rem;
+      }
+      .question-block {
+        padding: 1.5rem 1.15rem;
+      }
+      header.exam-header {
+        padding: 1.5rem 1.15rem;
+      }
+      h1.exam-title {
+        font-size: 1.45rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="main-wrapper">
+
+    <!-- Cabeçalho Oficial -->
+    <header class="exam-header">
+      <span class="institution-tag">Simulado de Legislação Federal</span>
+      <h1 class="exam-title">Lei nº 8.112/1990: Estabilidade, Vacância e Movimentação</h1>
+      <p class="exam-banca">Banca Examinadora: Comissão Central de Concurso Público da Reitoria do IFMG</p>
+      <div class="exam-context-box">
+        <strong>Conteúdo Programático Exigido:</strong> Fatores avaliativos do estágio probatório (arts. 20 a 23) vs. estabilidade constitucional; Formas de vacância (arts. 33 a 35: exoneração, demissão, posse em outro cargo inacumulável, readaptação); Distinção dogmática rigorosa entre Remoção e Redistribuição no âmbito das IFEs e autarquias federais (arts. 36 e 37).
+      </div>
+    </header>
+
+    <!-- Barra Superior Fixa de Progresso -->
+    <div class="sticky-tracker">
+      <div class="tracker-count" id="trackerText">Respondidas: 0 de 10</div>
+      <div class="tracker-bar-bg">
+        <div class="tracker-bar-fill" id="trackerFill"></div>
+      </div>
+      <span style="font-size: 0.85rem; font-weight: 700; color: #64748B;">10 Questões</span>
+    </div>
+
+    <!-- Seção de Resultado (Exibida ao Finalizar) -->
+    <section class="quiz-results-card" id="quizResultsCard">
+      <h2 style="font-size: 1.6rem; color: var(--text-headline);">Resultado Final do Simulado</h2>
+      <div class="score-circle-display">
+        <span class="score-num" id="userScoreValue">0</span>
+        <span class="score-label">de 10 Acertos</span>
+      </div>
+      <div class="score-title-msg" id="scoreTitleMessage">Desempenho Registrado</div>
+      <p class="score-desc-msg">
+        Todas as questões abaixo mantêm as suas respostas assinaladas, exibindo agora o gabarito oficial e a resolução técnica fundamentada com exame completo de cada alternativa.
+      </p>
+
+      <div class="nav-pills-list" id="navPillsContainer">
+        <!-- Pílulas rápidas de salto geradas via JS -->
+      </div>
+    </section>
+
+    <!-- Contêiner de Questões -->
+    <form id="quizForm" onsubmit="return false;">
+      <div id="questionsHost"></div>
+
+      <div class="actions-section">
+        <div class="alert-banner" id="warningNotice">
+          Existem questões não respondidas. Responda a todas ou clique novamente para enviar com itens em branco.
+        </div>
+        <button type="button" class="ui-btn ui-btn-primary" id="btnFinishQuiz">Finalizar Simulado e Ver Resoluções</button>
+        <button type="button" class="ui-btn ui-btn-secondary" id="btnRestartQuiz" style="display: none;">Refazer Simulado</button>
+      </div>
+    </form>
+
+  </div>
+
+  <script>
+    // Dados fiéis das questões, gabaritos e resoluções do documento oficial
+    const quizDataset = [
+      {
+        id: 1,
+        question: "Em estrita conformidade com o Art. 20 da Lei nº 8.112/1990, ao entrar em exercício, o servidor nomeado para cargo de provimento efetivo fica sujeito a estágio probatório, período no qual a sua aptidão e capacidade serão objeto de avaliação para o desempenho do cargo. No âmbito dos órgãos e entidades da Administração Pública Federal Direta, Autárquica e Fundacional, a exemplo do Instituto Federal de Minas Gerais (IFMG), as comissões constituídas para aferição funcional devem fundamentar seus relatórios nos fatores normativos taxativamente expressos no estatuto funcional. Assinale a alternativa que indica de modo exato e integral os fatores avaliativos estabelecidos pelo texto legal da Lei nº 8.112/1990:",
+        options: [
+          { letter: "A", text: "Assiduidade, pontualidade, produtividade, aptidão pedagógica e espírito de cooperação." },
+          { letter: "B", text: "Assiduidade, disciplina, capacidade de iniciativa, produtividade e responsabilidade." },
+          { letter: "C", text: "Pontualidade, integridade moral, zelo funcional, produtividade e capacidade de iniciativa." },
+          { letter: "D", text: "Disciplina, dedicação funcional exclusiva, proatividade, eficiência técnica e responsabilidade." },
+          { letter: "E", text: "Assiduidade, conduta ética, liderança participativa, disciplina e responsabilidade." }
+        ],
+        correct: "B",
+        legalBasis: "Art. 20, caput, incisos I a V, da Lei nº 8.112/1990",
+        resolution: `
+          <p><strong>Gabarito Oficial: Alternativa B.</strong> O texto do <em>caput</em> do Art. 20 da Lei nº 8.112/1990 enuncia de maneira categórica e taxativa que o servidor nomeado para cargo de provimento efetivo será avaliado ao longo do estágio probatório quanto à aptidão e capacidade profissional mediante a verificação dos seguintes fatores funcionais: <strong>assiduidade, disciplina, capacidade de iniciativa, produtividade e responsabilidade</strong>.</p>
+          <p>O exame das alternativas incorretas revela que a opção A insere elementos como aptidão pedagógica e espírito de cooperação, os quais, embora possam figurar na literatura técnica de gestão de pessoas ou em baremas complementares internos, não constam do rol taxativo estatutário.</p>
+          <p>A alternativa C introduz integridade moral e zelo funcional, termos que se referem aos deveres funcionais gerais estatuídos no Art. 116 da referida norma e não aos requisitos pontuais do estágio probatório.</p>
+          <p>Por sua vez, a alternativa D erra ao arrolar a dedicação funcional exclusiva, que consiste em regime jurídico de trabalho (como tipificado na Lei nº 12.772/2012 para a carreira de Magistério Federal), mesclada com o princípio constitucional da eficiência.</p>
+          <p>Por fim, a alternativa E falha ao apontar conduta ética e liderança participativa, atributos atrelados às orientações deontológicas do Código de Ética Profissional do Servidor Público Federal (Decreto nº 1.171/1994), restando plenamente correta a assertiva B.</p>
+        `
+      },
+      {
+        id: 2,
+        question: "A respeito da disciplina jurídica do estágio probatório e de sua articulação sistemática com o instituto constitucional da estabilidade no serviço público, considere os preceitos do Art. 20 da Lei nº 8.112/1990 confrontados com o Art. 41 da Constituição Federal de 1988, modificado pela Emenda Constitucional nº 19/1998, além do entendimento consolidado do Supremo Tribunal Federal e do Superior Tribunal de Justiça. Assinale a afirmativa CORRETA:",
+        options: [
+          { letter: "A", text: "O prazo do estágio probatório permanece fixado em vinte e quatro meses no Poder Executivo Federal, uma vez que a literalidade do Art. 20 da Lei nº 8.112/1990 não foi formalmente alterada por lei ordinária posterior, mantendo-se desvinculada do prazo de três anos da estabilidade constitucional." },
+          { letter: "B", text: "A aquisição da estabilidade independe de formalização de avaliação suplementar, aperfeiçoando-se de forma tácita e automática pelo decurso objetivo de três anos de efetivo exercício, o que impede a exoneração por inaptidão." },
+          { letter: "C", text: "O prazo do estágio probatório coincide materialmente com o triênio exigido para a estabilização funcional, constituindo requisito constitucional indeclinável para a aquisição da estabilidade a submissão e aprovação prévia em avaliação especial de desempenho conduzida por comissão especificamente instituída para essa finalidade." },
+          { letter: "D", text: "A avaliação especial de desempenho possui caráter discricionário na carreira do Magistério Federal e no plano dos Técnico-Administrativos em Educação (TAE), suprindo-se a sua ausência com certidões negativas disciplinares e atestados de frequência." },
+          { letter: "E", text: "Caso a autoridade máxima não homologue a avaliação de desempenho até o trigésimo segundo mês de exercício funcional, consolida-se a aprovação tácita no estágio probatório, restando à Administração unicamente o manejo de processo disciplinar com base em falta grave." }
+        ],
+        correct: "C",
+        legalBasis: "Art. 20 da Lei nº 8.112/1990 c/c Art. 41, § 4º, da CF/1988 e STF",
+        resolution: `
+          <p><strong>Gabarito Oficial: Alternativa C.</strong> A interpretação sistemática do Art. 20 da Lei nº 8.112/1990 à luz do ordenamento constitucional instaurado pela Emenda Constitucional nº 19/1998 impõe o reconhecimento de que o prazo do estágio probatório foi estendido para três anos (trinta e seis meses), acompanhando indissociavelmente o prazo aquisitivo da estabilidade fixado no Art. 41 da Constituição Federal de 1988. A estabilização definitiva no cargo não opera por decurso mecânico temporal, exigindo a prévia aprovação em procedimento especial avaliativo conduzido por comissão instituída para esse desiderato (Art. 41, § 4º, da CF/1988).</p>
+          <p>Ao avaliar os itens rejeitados, constata-se que a alternativa A incorre em manifesto desacerto ao defender a subsistência do interstício de 24 meses para o estágio probatório em descompasso com a estabilidade, entendimento expressamente repelido pelas Cortes Superiores brasileiras.</p>
+          <p>A alternativa B incorre em equívoco manifesto ao afirmar que a estabilidade se aperfeiçoa de forma automática, desconsiderando a obrigatoriedade da avaliação especial como condição constitucional necessária.</p>
+          <p>A assertiva D afasta-se do direito administrativo ao rotular a avaliação especial de desempenho como ato discricionário, ignorando a sua natureza constitucional vinculante e irrenunciável.</p>
+          <p>Já a opção E revela-se insustentável juridicamente, dado que a mora da Administração Pública na homologação do resultado avaliativo constitui mera irregularidade formal que não confere estabilidade tácita ficta nem suprime o poder-dever de aferição da aptidão do servidor nomeado.</p>
+        `
+      },
+      {
+        id: 3,
+        question: "Carlos, servidor público federal ocupante de cargo efetivo e estável pertencente ao quadro permanente do IFMG, foi aprovado em novo concurso público federal e tomou posse no cargo de Analista de Tecnologia da Informação de uma Universidade Federal. Durante o vigésimo mês de efetivo exercício no novo cargo, após regular processo de avaliação em que se observaram o contraditório e a ampla defesa, Carlos restou formalmente inabilitado no estágio probatório por insuficiência comprovada de produtividade. Considerando a sistemática delineada na Lei nº 8.112/1990 acerca do provimento derivado e da vacância, assinale a opção que descreve a exata situação funcional de Carlos:",
+        options: [
+          { letter: "A", text: "Carlos deverá ser compulsoriamente exonerado de ofício pelo órgão cessionário, rompendo-se de forma irreversível seu liame com o serviço público civil da União e inviabilizando qualquer forma de retorno ao cargo primitivo no IFMG." },
+          { letter: "B", text: "O servidor fará jus à recondução ao cargo de origem no IFMG exclusivamente se este estiver rigorosamente desocupado no momento da homologação da inaptidão, impondo-se a exoneração simples caso a vaga primitiva já tenha sido preenchida por novo concurso público." },
+          { letter: "C", text: "A inabilitação no estágio probatório gera a aplicação imediata da penalidade funcional de demissão por insuficiência de aptidão moral e técnica, obstando a recondução a qualquer órgão da Administração Pública Federal." },
+          { letter: "D", text: "Carlos tem direito à recondução ao cargo anteriormente ocupado no IFMG; estando, todavia, provido o respectivo cargo de origem, o servidor será aproveitado em outro cargo de atribuições e vencimentos compatíveis ou posto em disponibilidade remunerada." },
+          { letter: "E", text: "A inabilitação no estágio probatório em cargo pertencente a autarquia universitária distinta não admite a recondução para Instituto Federal de Ensino, restando ao servidor apenas a interposição de recurso com efeito suspensivo perante o Ministério da Educação." }
+        ],
+        correct: "D",
+        legalBasis: "Art. 20, § 2º c/c Art. 29, parágrafo único, da Lei nº 8.112/1990",
+        resolution: `
+          <p><strong>Gabarito Oficial: Alternativa D.</strong> O instituto da <strong>recondução</strong>, consagrado no Art. 29 da Lei nº 8.112/1990, consubstancia o retorno do servidor estável ao cargo anteriormente ocupado, decorrendo de inabilitação em estágio probatório relativo a outro cargo ou de reintegração do anterior ocupante. Complementando essa diretriz, o Art. 20, § 2º, estabelece que o servidor não aprovado será exonerado ou, se detentor de estabilidade pretérita no serviço público civil federal, reconduzido ao cargo primitivo. Conforme reza o parágrafo único do Art. 29, o fato de o cargo de origem encontrar-se provido por outrem não extingue a prerrogativa do agente público, devendo a Administração aproveitá-lo em cargo de atribuições e vencimentos equivalentes ou, não havendo vaga correspondente, colocá-lo em disponibilidade com proventos remuneratórios proporcionais (Art. 30).</p>
+          <p>A alternativa A é incorreta porque afirma haver perda permanente de vínculo com o serviço público da União, ignorando que a estabilidade alcançada no cargo original subsiste como garantia jurídica contra a inabilitação em novo cargo federal.</p>
+          <p>A alternativa B é falsa ao supor que a ocupação do cargo primitivo enseja a exoneração sumária do servidor reconduzido, hipótese integralmente elidida pelo mecanismo do aproveitamento funcional ou da disponibilidade remunerada.</p>
+          <p>A proposição C erra gravemente ao confundir inabilitação técnica no estágio probatório com penalidade disciplinar de demissão.</p>
+          <p>A alternativa E mostra-se incorreta ao pretender restringir a eficácia da recondução à circunscrição do mesmo órgão autárquico, desconsiderando que o regime jurídico da Lei nº 8.112/1990 possui caráter nacional-unitário no âmbito de todos os órgãos e autarquias da União.</p>
+        `
+      },
+      {
+        id: 4,
+        question: "A vacância de cargo público efetivo decorre de eventos funcionais taxativamente enumerados no Art. 33 da Lei nº 8.112/1990. Dentre os institutos previstos pelo legislador federal, certos atos acarretam o desprovimento da posição original e, simultaneamente, operam o provimento derivado de outra titularidade pública no âmbito da carreira. Assinale a alternativa que indica uma modalidade legal que configura, DE MANEIRA CONCOMITANTE, forma de vacância e forma de provimento de cargo público:",
+        options: [
+          { letter: "A", text: "Exoneração a pedido." },
+          { letter: "B", text: "Readaptação." },
+          { letter: "C", text: "Aposentadoria voluntária." },
+          { letter: "D", text: "Demissão fundada em transgressão disciplinar." },
+          { letter: "E", text: "Posse em outro cargo inacumulável." }
+        ],
+        correct: "B",
+        legalBasis: "Art. 8º, V c/c Art. 33, VI, da Lei nº 8.112/1990",
+        resolution: `
+          <p><strong>Gabarito Oficial: Alternativa B.</strong> A estrutura de provimento e vacância da Lei nº 8.112/1990 contempla certas hipóteses funcionais cujos efeitos operam em duplo sentido no regime de cargos públicos. O Art. 33 lista taxativamente as hipóteses de desprovimento, ao passo que o Art. 8º enumera as formas de provimento. A <strong>readaptação</strong>, disciplinada no Art. 24, consiste na investidura do servidor em cargo de atribuições e responsabilidades compatíveis com a limitação que tenha sofrido em sua capacidade física ou mental, verificada em inspeção médica. Como resultado jurídico indissociável, o ato de readaptação extingue a titularidade originária, gerando a respectiva vacância (Art. 33, VI), e concomitantemente confere nova titularidade, configurando modalidade de provimento derivado (Art. 8º, V). A promoção também ostenta essa mesma fisionomia híbrida.</p>
+          <p>Em análise aos itens descartados, a alternativa A (exoneração) constitui causa pura e simples de vacância desprovida de qualquer atributo de ingresso ou assunção funcional derivado.</p>
+          <p>A alternativa C (aposentadoria voluntária) acarreta o desligamento do servidor do quadro ativo, desocupando o cargo sem preencher outro posto funcional na carreira.</p>
+          <p>A alternativa D (demissão) encerra a titularidade pública por via de imposição sancionatória unilateral, consubstanciando desprovimento absoluto.</p>
+          <p>A alternativa E (posse em outro cargo inacumulável), malgrado gere a vacância formal do posto de origem, não atua internamente como forma de provimento deste, uma vez que a investidura na nova titularidade decorre de um ato autônomo originário de nomeação decorrente de aprovação em concurso público.</p>
+        `
+      },
+      {
+        id: 5,
+        question: "No que tange às causas de vacância regulamentadas pelos Arts. 34 e 35 da Lei nº 8.112/1990, a exoneração e a demissão guardam distinções substanciais quanto à natureza jurídica, finalidade material e repercussões no histórico funcional do servidor público. A esse respeito, assinale a afirmativa CORRETA:",
+        options: [
+          { letter: "A", text: "A exoneração de cargo de provimento efetivo pode se dar a pedido do servidor ou de ofício, aplicando-se esta última compulsoriamente nas hipóteses em que não forem satisfeitas as condições do estágio probatório ou quando o servidor empossado não entrar em exercício dentro do prazo legal." },
+          { letter: "B", text: "A demissão decorre de juízo discricionário de conveniência e oportunidade do Reitor do Instituto Federal, possuindo natureza administrativa ordinária de reestruturação organizacional que não se confunde com sanção punitiva." },
+          { letter: "C", text: "A exoneração de ofício ostenta caráter eminentemente repressivo e disciplinar, equiparando-se à penalidade de demissão para fins de registro restritivo e impedimento temporário de retorno ao serviço público da União." },
+          { letter: "D", text: "O servidor que comete falta funcional gravíssima capitulada no Art. 132 da Lei nº 8.112/1990 é exonerado de ofício sem a necessidade de instauração de Processo Administrativo Disciplinar, em razão da autotutela administrativa." },
+          { letter: "E", text: "A demissão aplica-se unicamente aos ocupantes de cargo em comissão de livre nomeação e exoneração, sendo vedada a sua aplicação a servidores detentores de estabilidade em cargos efetivos." }
+        ],
+        correct: "A",
+        legalBasis: "Art. 34, parágrafo único, incisos I e II, da Lei nº 8.112/1990",
+        resolution: `
+          <p><strong>Gabarito Oficial: Alternativa A.</strong> A distinção analítica entre exoneração e demissão assenta-se na presença ou ausência do elemento punitivo e na tipicidade dos fatos motivadores. A demissão consiste em sanção disciplinar gravosa aplicada na ocorrência das infrações capituladas no Art. 132, exigindo rigoroso Processo Administrativo Disciplinar para a sua legalidade. Por sua vez, a exoneração revela-se ato administrativo ordinário, desprovido de qualquer conteúdo punitivo, operando-se a pedido do agente público ou de ofício. Consoante o parágrafo único do Art. 34 da Lei nº 8.112/1990, a <strong>exoneração de ofício</strong> no cargo de provimento efetivo restringe-se com exclusividade a duas situações objetivas: <strong>quando não forem atendidos os fatores normativos do estágio probatório ou na hipótese em que o indivíduo, regularmente empossado, não entrar em exercício dentro do prazo estipulado de 15 dias</strong>.</p>
+          <p>Quanto aos itens descartados, a alternativa B erra ao aduzir que a demissão possui natureza discricionária fundada em conveniência e oportunidade, circunstância que violaria a garantia de legalidade estrita e os preceitos de direito administrativo sancionador.</p>
+          <p>A alternativa C mostra-se incorreta ao afirmar que a exoneração ostenta caráter disciplinar ou gera registro desabonador impeditivo para novo ingresso no serviço público da União.</p>
+          <p>A alternativa D falha ao sustentar que faltas gravíssimas ensejam exoneração sem necessidade de processo disciplinar prévio, proposição que infringe frontalmente o Art. 5º, incisos LIV e LV, da Constituição Federal e o Art. 143 da Lei nº 8.112/1990.</p>
+          <p>A alternativa E mostra-se inverídica, porquanto a demissão é perfeitamente cabível em face de servidores estáveis que incorram em infração legal sujeita a essa pena funcional.</p>
+        `
+      },
+      {
+        id: 6,
+        question: "Flávia, servidora pública federal titular estável do cargo de Assistente em Administração no IFMG, logrou aprovação em concurso público e decidiu tomar posse no cargo de Analista em Assuntos Educacionais em uma Universidade Federal. Visando a assegurar a possibilidade jurídica de retorno ao cargo exercido no IFMG na hipótese de inabilitação ou de eventual desistência motivada durante o estágio probatório na nova autarquia de ensino, qual a forma estrita de desvinculação funcional Flávia deve formalizar perante a Reitoria do IFMG?",
+        options: [
+          { letter: "A", text: "Pedido de demissão voluntária com reserva temporária de código de vaga, condicionada à confirmação probatória no órgão universitário." },
+          { letter: "B", text: "Solicitação de vacância do cargo por posse em outro cargo inacumulável, com amparo no Art. 33, inciso VIII, da Lei nº 8.112/1990, resguardando o vínculo funcional com a Administração originária para fins de futura recondução." },
+          { letter: "C", text: "Exoneração simples a pedido com cláusula acessória de arrependimento, o que garante administrativamente a reocupação de sua vaga a qualquer tempo durante o triênio." },
+          { letter: "D", text: "Licença remunerada por motivo de afastamento para capacitação em exercício funcional externo, com amparo nas normas regulamentares do Conselho Superior." },
+          { letter: "E", text: "Cessão de pessoal por tempo indeterminado e sem ônus remuneratório para o IFMG, formalizando a correspondência de avaliação perante as duas instituições federais." }
+        ],
+        correct: "B",
+        legalBasis: "Art. 33, VIII c/c Art. 29, I, da Lei nº 8.112/1990 e STJ",
+        resolution: `
+          <p><strong>Gabarito Oficial: Alternativa B.</strong> Conforme preconiza o Art. 33, inciso VIII, da Lei nº 8.112/1990, a <strong>"posse em outro cargo inacumulável"</strong> representa modalidade autônoma de vacância. A jurisprudência consolidada do Superior Tribunal de Justiça (vide AgRg no RMS 42.176/DF e REsp 1.253.760/SC) consagra que o servidor público federal detentor de estabilidade funcional que requer a vacância do cargo em razão de posse em novo cargo inacumulável preserva incólume a possibilidade material de recondução ao cargo de origem caso venha a desistir voluntariamente do estágio probatório ou venha a ser nele inabilitado. O pedido estrito de vacância impede que a Administração dê por extinto o vínculo originário amplo perante a União, diferenciando-se da exoneração a pedido definitiva.</p>
+          <p>A opção A mostra-se atécnica, posto que inexiste demissão voluntária com reserva de vaga, considerando que a demissão decorre unicamente de penalidade apurada em regular PAD.</p>
+          <p>A alternativa C está errada, visto que a exoneração a pedido opera a ruptura do liame funcional com o órgão de origem; doutrina e jurisprudência apontam que a exoneração voluntária simples afasta a segurança jurídica da recondução automática, exigindo o manejo técnico da vacância pelo Art. 33, VIII.</p>
+          <p>A alternativa D é inadequada funcionalmente, dado que a licença para capacitação destina-se a cursos formais de desenvolvimento profissional regulamentares e não para assunção de outro cargo público efetivo com dedicação plena.</p>
+          <p>A opção E viola os ditames do instituto da cessão, na medida em que a cessão administrativa pressupõe o exercício transitório de cargos comissionados ou funções executivas de direção em outros entes estatais, o que destoa integralmente da posse originária em cargo de carreira efetiva.</p>
+        `
+      },
+      {
+        id: 7,
+        question: "A movimentação de servidores públicos no âmbito da Administração Pública Federal Direta, Autárquica e Fundacional é regrada pelo Capítulo III da Lei nº 8.112/1990. No que concerne especificamente ao instituto da Remoção, previsto no Art. 36 da referida norma estatutária, assinale a afirmativa CORRETA:",
+        options: [
+          { letter: "A", text: "A remoção consubstancia o deslocamento de cargo de provimento efetivo, vago ou ocupado, no âmbito dos quadros de pessoal pertencentes a órgãos e autarquias distintos do mesmo Poder da União." },
+          { letter: "B", text: "A remoção é o deslocamento do servidor, a pedido ou de ofício, no âmbito do mesmo quadro de pessoal, com ou sem mudança de sede, mantendo-se intangível a titularidade do código de vaga no quadro originário." },
+          { letter: "C", text: "Em nenhuma circunstância legal admite-se a concessão de remoção a pedido que independa do juízo de conveniência e oportunidade formulado pelo dirigente máximo da instituição de ensino." },
+          { letter: "D", text: "A remoção a pedido para acompanhamento de cônjuge é deferida de forma vinculada independentemente do vínculo de trabalho do consorte, aplicando-se integralmente quando este for empregado do setor privado transferido por deliberação empresarial." },
+          { letter: "E", text: "O deferimento de remoção fundada em motivo de saúde do servidor ou de dependente cadastrado dispensa a perícia técnica oficial, bastando a apresentação de atestado fornecido por médico assistente com registro no Conselho Regional de Medicina." }
+        ],
+        correct: "B",
+        legalBasis: "Art. 36, caput, da Lei nº 8.112/1990",
+        resolution: `
+          <p><strong>Gabarito Oficial: Alternativa B.</strong> A definição estrita do <em>caput</em> do Art. 36 da Lei nº 8.112/1990 prevê que: <em>"Remoção é o deslocamento do servidor, a pedido ou de ofício, no âmbito do mesmo quadro, com ou sem mudança de sede"</em>. A característica que define o instituto reside na circunstância de que a movimentação se restringe aos contornos organizacionais da mesma pessoa jurídica e do mesmo quadro de pessoal, deslocando-se a lotação funcional da pessoa do servidor sem qualquer alteração na titularidade ou destinação orçamentária do respectivo código de vaga.</p>
+          <p>Analisando as proposições incorretas, a assertiva A traz em sua redação o conceito estrito de <strong>redistribuição</strong> (Art. 37), equivocando-se ao afirmar que a remoção desloca cargos entre órgãos autárquicos distintos.</p>
+          <p>A opção C incorre em erro evidente ao desprezar a existência legal de modalidades em que a remoção a pedido independe da concordância, juízo ou conveniência da Administração Pública, como nas hipóteses positivadas nas alíneas do Art. 36, parágrafo único, inciso III.</p>
+          <p>A proposição D é falsa, pois a concessão de remoção vinculada para acompanhamento de cônjuge exige que este seja formalmente servidor público civil ou militar de qualquer dos entes federativos e que tenha sofrido deslocamento compulsório no interesse da Administração, restando peremptoriamente desamparadas as transferências no âmbito da iniciativa privada.</p>
+          <p>A alternativa E afasta-se da literalidade normativa contida no Art. 36, parágrafo único, inciso III, alínea "b", que prescreve a indispensabilidade de confirmação e homologação do quadro clínico por junta médica oficial da União.</p>
+        `
+      },
+      {
+        id: 8,
+        question: "O Art. 36, parágrafo único, inciso III, da Lei nº 8.112/1990 elenca as hipóteses de remoção a pedido do servidor, para outra localidade, INDEPENDENTEMENTE do interesse da Administração Pública, consagrando verdadeiro direito público subjetivo. Identifique a situação fática em que a Administração do IFMG estará legalmente OBRIGADA a deferir a remoção postulada:",
+        options: [
+          { letter: "A", text: "Servidor que pleiteia remoção voluntária entre campi para desempenhar atividades docentes mais próximas de sua residência particular após celebração de casamento civil." },
+          { letter: "B", text: "Servidora docente cujo cônjuge, Auditor-Fiscal da Receita Federal do Brasil, foi removido de ofício no estrito interesse da Administração Pública da cidade de Ouro Preto para Uberlândia." },
+          { letter: "C", text: "Servidor técnico-administrativo que apresenta laudo pericial subscrito exclusivamente por clínica conveniada privada atestando patologia crônica grave, sem submissão a exame pericial federal." },
+          { letter: "D", text: "Servidor que tenha participado de processo seletivo interno de remoção, obtendo pontuação classificatória posicionada fora do número estrito de vagas ofertadas no edital." },
+          { letter: "E", text: "Servidora cujo companheiro, contratado temporariamente sob as regras da Consolidação das Leis do Trabalho em empresa de economia mista estadual, assumiu nova função de confiança por livre escolha funcional em comarca diversa." }
+        ],
+        correct: "B",
+        legalBasis: "Art. 36, parágrafo único, inciso III, alínea 'a', da Lei nº 8.112/1990",
+        resolution: `
+          <p><strong>Gabarito Oficial: Alternativa B.</strong> O parágrafo único, inciso III, alínea "a", do Art. 36 da Lei nº 8.112/1990 prevê a concessão compulsória de remoção a pedido, para outra localidade, independentemente do interesse da Administração, <em>"para acompanhar cônjuge ou companheiro, também servidor público civil ou militar, de qualquer dos Poderes da União, dos Estados, do Distrito Federal e dos Municípios, que foi deslocado no interesse da Administração"</em>. No caso concreto exposto no item B, encontram-se rigorosamente satisfeitos todos os pressupostos materiais cumulativos exigidos pela norma geral federal: vínculo de união/casamento com servidor público, natureza pública estatutária do cônjuge (Auditor-Fiscal) e movimentação operada compulsoriamente no estrito interesse público (de ofício), gerando o dever jurídico indeclinável de a autoridade do IFMG expedir o ato de remoção pleiteado.</p>
+          <p>No exame dos itens desacertados, a alternativa A retrata hipótese de conveniência estritamente pessoal, sem qualquer respaldo legal vinculante, sujeita à total discricionariedade do gestor público ou ao calendário regular dos processos seletivos internos de remoção da entidade autárquica.</p>
+          <p>A alternativa C esbarra na expressa vedação de substituição da junta médica oficial por documento ou declaração particular expedida por profissional assistente, inviabilizando a caracterização do direito potestativo.</p>
+          <p>A opção D peca por prever direito automático a candidato que obteve classificação além das vagas fixadas em edital; a concessão vinculada decorrente do processo seletivo do Art. 36, parágrafo único, III, alínea "c", restringe-se de forma vinculada apenas aos servidores efetivamente classificados dentro do quantitativo de vagas previamente delimitado pelo instrumento convocatório.</p>
+          <p>Por fim, a assertiva E desconsidera a <em>ratio legis</em>, uma vez que a alteração do domicílio decorrente de livre deliberação do cônjuge não satisfaz o requisito indispensável de deslocamento compulsório "no interesse da Administração".</p>
+        `
+      },
+      {
+        id: 9,
+        question: "Diferentemente da remoção, a Redistribuição consubstancia mecanismo complexo de ajustamento funcional e alocação da força de trabalho pública positivado no Art. 37 da Lei nº 8.112/1990. A respeito dos requisitos, procedimentos e repercussões funcionais e institucionais que circundam a redistribuição no contexto dos Institutos Federais de Ensino e das autarquias federais, assinale a afirmativa CORRETA:",
+        options: [
+          { letter: "A", text: "A redistribuição é o deslocamento exclusivo da pessoa do servidor efetivo entre quadros funcionais distintos, sem que o respectivo cargo orçamentário migre para o novo órgão recebedor." },
+          { letter: "B", text: "A redistribuição de cargos pode prescindir da equivalência de remuneração e escolaridade, outorgando ao gestor público a prerrogativa discricionária de reenquadrar cargos de nível intermediário em cargos de nível superior." },
+          { letter: "C", text: "A redistribuição é admitida como penalidade administrativa sumária decorrente de apuração preliminar de desídia ou conflito interpessoal crônico na unidade de lotação." },
+          { letter: "D", text: "Constituem preceitos obrigatórios e cumulativos para a efetivação da redistribuição o interesse da administração, a equivalência de vencimentos, a manutenção da essência das atribuições do cargo, o mesmo nível de escolaridade ou habilitação e a compatibilidade entre as atribuições do cargo e as finalidades da entidade de destino." },
+          { letter: "E", text: "A redistribuição acarreta a rescisão compulsória do provimento antecedente, impondo a realização de novo concurso interno de provas e fixação de novo período de três anos de estágio probatório na entidade que recepcionar o cargo." }
+        ],
+        correct: "D",
+        legalBasis: "Art. 37, caput, incisos I a VI, da Lei nº 8.112/1990",
+        resolution: `
+          <p><strong>Gabarito Oficial: Alternativa D.</strong> O Art. 37 da Lei nº 8.112/1990 regulamenta que: <em>"Redistribuição é o deslocamento de cargo de provimento efetivo, ocupado ou vago no âmbito do quadro geral de pessoal, para outro órgão ou entidade do mesmo Poder, com prévia apreciação do órgão central do SIPEC, observados os seguintes preceitos: I - interesse da administração; II - equivalência de vencimentos; III - manutenção da essência das atribuições do cargo; IV - vinculação entre os graus de complexidade e responsabilidade; V - mesmo nível de escolaridade, especialidade ou habilitação profissional; VI - compatibilidade entre as atribuições do cargo e as finalidades institucionais do órgão ou entidade"</em>. A redistribuição traduz-se no remanejamento estrutural da própria vaga (cargo público) com vistas ao equilíbrio de quadros e atendimento às políticas institucionais do Poder Executivo da União.</p>
+          <p>A apreciação das alternativas rejeitadas atesta que a assertiva A comete erro primário ao definir a redistribuição como deslocamento do servidor desprovido de seu cargo, ignorando a premissa de que a redistribuição é instrumento que movimenta o próprio cargo em sua dimensão orçamentária no quadro de pessoal.</p>
+          <p>A alternativa B atenta contra o princípio do concurso público e a legalidade estrita ao aventar a desnecessidade de equivalência salarial e admitir transmutação de níveis de escolaridade.</p>
+          <p>A opção C incide em inconstitucionalidade flagrante, haja vista que a mobilidade de quadros não pode ser instrumentalizada para fins punitivos, conduta que configura desvio de finalidade suscetível de anulação judicial e responsabilização da autoridade emitente.</p>
+          <p>A proposição E desvia-se das normas aplicáveis, posto que a redistribuição assegura a plena continuidade do vínculo funcional original, não rescindindo o regime jurídico, não acarretando nova investidura por posse e mantendo computável o tempo de serviço prestado para todos os efeitos de progressão funcional e contagem previdenciária.</p>
+        `
+      },
+      {
+        id: 10,
+        question: "Considerando as peculiaridades estruturais dos Institutos Federais de Educação, Ciência e Tecnologia, que congregam múltiplos campi distribuídos regionalmente sob a égide de uma única autarquia educacional, assinale a proposição que diferencia com RIGOR TÉCNICO os institutos da Remoção e da Redistribuição, em consonância com a disciplina da Lei nº 8.112/1990:",
+        options: [
+          { letter: "A", text: "A movimentação de um servidor do IFMG do Campus Ouro Branco para o Campus Congonhas configura Redistribuição de quadro; ao passo que a cessão do respectivo código de vaga docente para a Universidade Federal de Minas Gerais (UFMG) caracteriza Remoção interestadual." },
+          { letter: "B", text: "A remoção é a movimentação do servidor no âmbito do mesmo quadro de pessoal da autarquia; enquanto a redistribuição constitui o deslocamento de cargo de provimento efetivo, ocupado ou vago, no âmbito do quadro geral de pessoal, para outro órgão ou entidade do mesmo Poder." },
+          { letter: "C", text: "A concessão de remoção de ofício desobriga o pagamento de qualquer indenização ou prazo de trânsito ao servidor público; por sua vez, a redistribuição outorga compulsoriamente um período de afastamento de noventa dias independentemente da localidade de destino." },
+          { letter: "D", text: "A redistribuição opera-se no estrito limite dos limites departamentais de cada campus, ao passo que a remoção enseja a transferência patrimonial e definitiva do cargo para fora dos quadros orgânicos do Instituto Federal." },
+          { letter: "E", text: "A redistribuição de cargos efetivos, ocupados ou vagos, entre autarquias universitárias e o IFMG processa-se e conclui-se de modo estritamente unilateral e interno, mediante portaria privativa do Reitor de origem, sem a necessidade de anuência do órgão recebedor ou de ato ministerial competente." }
+        ],
+        correct: "B",
+        legalBasis: "Distinção dogmática entre Arts. 36 e 37 da Lei nº 8.112/1990 e práxis das IFEs",
+        resolution: `
+          <p><strong>Gabarito Oficial: Alternativa B.</strong> A separação sistemática e dogmática entre Remoção e Redistribuição, insculpida respectivamente nos Arts. 36 e 37 da Lei nº 8.112/1990 e reproduzida no ordenamento regulamentar das instituições federais de ensino (a exemplo da Resolução nº 17/2020 do Conselho Superior do IFMG e da Portaria SEGRT/MGI nº 619/2023), tem por base o objeto da movimentação e os limites do quadro funcional envolvido:</p>
+          <div class="table-responsive-box">
+            <table class="comparative-table">
+              <thead>
+                <tr>
+                  <th>Dimensão Dogmática</th>
+                  <th>Remoção (Art. 36 da Lei nº 8.112/1990)</th>
+                  <th>Redistribuição (Art. 37 da Lei nº 8.112/1990)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Objeto central da movimentação</strong></td>
+                  <td>Deslocamento da <strong>pessoa do servidor público</strong>.</td>
+                  <td>Deslocamento do <strong>próprio cargo de provimento efetivo</strong> (ocupado ou vago).</td>
+                </tr>
+                <tr>
+                  <td><strong>Âmbito funcional da alteração</strong></td>
+                  <td>Circunscreve-se ao âmbito do <strong>mesmo quadro de pessoal</strong> da mesma autarquia/órgão (ex.: entre campi do IFMG).</td>
+                  <td>Opera-se entre <strong>órgãos ou entidades distintas</strong> do mesmo Poder (ex.: do IFMG para uma Universidade Federal).</td>
+                </tr>
+                <tr>
+                  <td><strong>Código de vaga orçamentária</strong></td>
+                  <td>Permanece inalterado na unidade orçamentária original.</td>
+                  <td>É transferido orçamentariamente para a instituição de destino.</td>
+                </tr>
+                <tr>
+                  <td><strong>Interesse do servidor</strong></td>
+                  <td>Admite modalidades de ofício e a pedido (discricionária ou vinculada).</td>
+                  <td>Realiza-se unicamente no interesse da Administração Pública (ainda que ex officio ajustada por reciprocidade).</td>
+                </tr>
+                <tr>
+                  <td><strong>Competência para expedição do ato</strong></td>
+                  <td>Autoridade máxima do próprio órgão/entidade (Reitor do IFMG).</td>
+                  <td>Ministério competente / Pasta Central da Gestão Pública (Portaria do MEC / MGI).</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p>A análise das alternativas incorretas confirma que a alternativa A comete inversão total dos institutos, uma vez que a movimentação entre dois campi do mesmo Instituto Federal (Ouro Branco e Congonhas) ocorre sob o manto da mesma autarquia, configurando remoção interna; ao passo que a transferência permanente de vaga do IFMG para a UFMG constitui redistribuição interestrutural de cargos.</p>
+          <p>A proposição C veicula premissa equivocada ao asseverar que a remoção não confere prazo de trânsito ao agente público e que a redistribuição concede noventa dias obrigatórios; a inteligência do Art. 18 da Lei nº 8.112/1990 estabelece que tanto o servidor removido quanto o redistribuído que devam ter exercício em outro município farão jus a um prazo de trânsito de, no mínimo, dez e, no máximo, trinta dias para a retomada do efetivo desempenho laboral na nova sede funcional.</p>
+          <p>A alternativa D incorre em manifesto desacerto geográfico e normativo ao limitar a redistribuição aos contornos internos do campus e projetar a remoção para fora da pessoa jurídica autárquica.</p>
+          <p>Por derradeiro, a assertiva E desconsidera o fluxo formal de gestão de pessoal delineado na legislação e nas diretrizes normativas das Instituições Federais de Ensino, pelo qual a redistribuição de cargos entre autarquias demanda expressa e indispensável Portaria ministerial expedida pela autoridade central do Ministério da Educação, publicada obrigatoriamente no Diário Oficial da União após homologação das manifestações de concordância dos órgãos envolvidos.</p>
+        `
+      }
+    ];
+
+    // Gerenciador de estado local
+    let userSelections = {};
+    let isQuizCompleted = false;
+    let allowBypassIncomplete = false;
+
+    // Elementos DOM
+    const questionsHost = document.getElementById("questionsHost");
+    const trackerText = document.getElementById("trackerText");
+    const trackerFill = document.getElementById("trackerFill");
+    const btnFinishQuiz = document.getElementById("btnFinishQuiz");
+    const btnRestartQuiz = document.getElementById("btnRestartQuiz");
+    const quizResultsCard = document.getElementById("quizResultsCard");
+    const userScoreValue = document.getElementById("userScoreValue");
+    const scoreTitleMessage = document.getElementById("scoreTitleMessage");
+    const navPillsContainer = document.getElementById("navPillsContainer");
+    const warningNotice = document.getElementById("warningNotice");
+
+    // Renderização das questões
+    function initQuizDisplay() {
+      questionsHost.innerHTML = "";
+      quizDataset.forEach((qItem) => {
+        const card = document.createElement("div");
+        card.className = "question-block";
+        card.id = `qblock-${qItem.id}`;
+
+        const optionsHtml = qItem.options.map(opt => `
+          <label class="choice-label" id="choice-wrap-${qItem.id}-${opt.letter}">
+            <input type="radio" name="question_${qItem.id}" value="${opt.letter}" onchange="selectQuestionOption(${qItem.id}, '${opt.letter}')">
+            <span class="choice-letter">${opt.letter})</span>
+            <span class="choice-text" id="choice-txt-${qItem.id}-${opt.letter}">${opt.text}</span>
+          </label>
+        `).join("");
+
+        card.innerHTML = `
+          <div class="question-top-bar">
+            <span class="question-id-label">Questão ${String(qItem.id).padStart(2, '0')}</span>
+            <span class="question-status-tag" id="status-tag-${qItem.id}">Pendente</span>
+          </div>
+          <div class="question-enunciation">${qItem.question}</div>
+          <div class="choices-group">
+            ${optionsHtml}
+          </div>
+          <div class="resolution-container" id="resolution-box-${qItem.id}">
+            <div class="resolution-meta-bar">
+              <span class="resolution-gabarito-tag">Gabarito Oficial: Alternativa ${qItem.correct}</span>
+              <span class="resolution-basis-tag">${qItem.legalBasis}</span>
+            </div>
+            <div class="resolution-body">
+              ${qItem.resolution}
+            </div>
+          </div>
+        `;
+
+        questionsHost.appendChild(card);
+      });
+
+      refreshProgress();
+    }
+
+    // Seleção de alternativa
+    window.selectQuestionOption = function(qid, letter) {
+      if (isQuizCompleted) return;
+
+      userSelections[qid] = letter;
+      warningNotice.style.display = "none";
+      allowBypassIncomplete = false;
+
+      const q = quizDataset.find(item => item.id === qid);
+      q.options.forEach(opt => {
+        const wrap = document.getElementById(`choice-wrap-${qid}-${opt.letter}`);
+        if (opt.letter === letter) {
+          wrap.classList.add("active-selected");
+        } else {
+          wrap.classList.remove("active-selected");
+        }
+      });
+
+      const tag = document.getElementById(`status-tag-${qid}`);
+      tag.textContent = `Respondida (${letter})`;
+      tag.style.background = "#EFF6FF";
+      tag.style.color = "#1E40AF";
+
+      refreshProgress();
+    };
+
+    // Barra de progresso
+    function refreshProgress() {
+      const answered = Object.keys(userSelections).length;
+      const total = quizDataset.length;
+      const pct = (answered / total) * 100;
+
+      trackerText.textContent = `Respondidas: ${answered} de ${total}`;
+      trackerFill.style.width = `${pct}%`;
+    }
+
+    // Finalização e Revelação das Resoluções na mesma página
+    btnFinishQuiz.addEventListener("click", () => {
+      if (isQuizCompleted) return;
+
+      const answeredCount = Object.keys(userSelections).length;
+      const total = quizDataset.length;
+
+      // Alerta não intrusivo para questões pendentes
+      if (answeredCount < total && !allowBypassIncomplete) {
+        warningNotice.style.display = "block";
+        allowBypassIncomplete = true;
+        warningNotice.scrollIntoView({ behavior: "smooth", block: "center" });
+        return;
+      }
+
+      isQuizCompleted = true;
+      btnFinishQuiz.style.display = "none";
+      btnRestartQuiz.style.display = "inline-flex";
+      warningNotice.style.display = "none";
+
+      // Desativar inputs para evitar alterações
+      document.querySelectorAll('input[type="radio"]').forEach(r => r.disabled = true);
+      document.querySelectorAll('.choice-label').forEach(el => el.classList.add('disabled'));
+
+      let correctAnswers = 0;
+      navPillsContainer.innerHTML = "";
+
+      quizDataset.forEach((qItem) => {
+        const userChoice = userSelections[qItem.id];
+        const isCorrect = userChoice === qItem.correct;
+
+        if (isCorrect) correctAnswers++;
+
+        const statusTag = document.getElementById(`status-tag-${qItem.id}`);
+        const resolutionBox = document.getElementById(`resolution-box-${qItem.id}`);
+
+        // Atualização da tag de cada questão
+        if (!userChoice) {
+          statusTag.textContent = "Não respondida";
+          statusTag.style.background = "#F1F5F9";
+          statusTag.style.color = "#64748B";
+        } else if (isCorrect) {
+          statusTag.textContent = "Acertou ✓";
+          statusTag.style.background = "#DCFCE7";
+          statusTag.style.color = "#15803D";
+        } else {
+          statusTag.textContent = `Errou (Marcou ${userChoice})`;
+          statusTag.style.background = "#FEE2E2";
+          statusTag.style.color = "#991B1B";
+        }
+
+        // Realçar alternativas corretas e incorretas
+        qItem.options.forEach(opt => {
+          const wrap = document.getElementById(`choice-wrap-${qItem.id}-${opt.letter}`);
+          const txt = document.getElementById(`choice-txt-${qItem.id}-${opt.letter}`);
+
+          if (opt.letter === qItem.correct) {
+            wrap.classList.add("option-correct-answer");
+            txt.innerHTML += ` <span class="user-feedback-badge badge-official">Gabarito Oficial</span>`;
+          }
+
+          if (userChoice && opt.letter === userChoice && !isCorrect) {
+            wrap.classList.add("option-user-wrong");
+            txt.innerHTML += ` <span class="user-feedback-badge badge-incorrect">Sua Opção</span>`;
+          } else if (userChoice && opt.letter === userChoice && isCorrect) {
+            txt.innerHTML += ` <span class="user-feedback-badge badge-correct">Sua Escolha Correta</span>`;
+          }
+        });
+
+        // Revelar a resolução detalhada mantendo-a na mesma página sob a questão
+        resolutionBox.style.display = "block";
+
+        // Gerar pílula de navegação rápida
+        const pill = document.createElement("a");
+        pill.className = `nav-pill-item ${isCorrect ? 'pill-correct' : 'pill-wrong'}`;
+        pill.textContent = qItem.id;
+        pill.title = `Ir para Questão ${qItem.id} (${isCorrect ? 'Acerto' : 'Erro/Não respondida'})`;
+        pill.href = `#qblock-${qItem.id}`;
+        pill.addEventListener("click", (evt) => {
+          evt.preventDefault();
+          document.getElementById(`qblock-${qItem.id}`).scrollIntoView({ behavior: "smooth", block: "start" });
+        });
+        navPillsContainer.appendChild(pill);
+      });
+
+      // Exibir pontuação no card superior
+      userScoreValue.textContent = correctAnswers;
+      const scorePct = Math.round((correctAnswers / total) * 100);
+
+      if (scorePct >= 80) {
+        scoreTitleMessage.textContent = `Excelente Desempenho! (${scorePct}%)`;
+        scoreTitleMessage.style.color = "#15803D";
+      } else if (scorePct >= 60) {
+        scoreTitleMessage.textContent = `Bom Desempenho! (${scorePct}%)`;
+        scoreTitleMessage.style.color = "#1E40AF";
+      } else {
+        scoreTitleMessage.textContent = `Reforce os Pontos Críticos (${scorePct}%)`;
+        scoreTitleMessage.style.color = "#B45309";
+      }
+
+      quizResultsCard.style.display = "block";
+      quizResultsCard.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+
+    // Reiniciar simulado
+    btnRestartQuiz.addEventListener("click", () => {
+      userSelections = {};
+      isQuizCompleted = false;
+      allowBypassIncomplete = false;
+      quizResultsCard.style.display = "none";
+      btnFinishQuiz.style.display = "inline-flex";
+      btnRestartQuiz.style.display = "none";
+      initQuizDisplay();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+
+    // Inicialização ao carregar
+    initQuizDisplay();
+  </script>
+</body>
+</html>
