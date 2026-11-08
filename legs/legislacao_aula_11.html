@@ -1,0 +1,852 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aula Técnica: Lei nº 12.772/2012 | Concurso Docente IFMG</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Merriweather:ital,wght@0,300;0,400;0,700;1,300&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #ffffff;
+            color: #1e293b;
+        }
+        .content-serif {
+            font-family: 'Merriweather', serif;
+        }
+        /* Estilos de grifo (marca-texto para prova) */
+        .grifo {
+            background-color: #fef08a; /* Amarelo clássico marca-texto */
+            color: #713f12;
+            padding: 0.125rem 0.35rem;
+            border-radius: 0.25rem;
+            font-weight: 600;
+        }
+        .grifo-verde {
+            background-color: #dcfce7;
+            color: #14532d;
+            padding: 0.125rem 0.35rem;
+            border-radius: 0.25rem;
+            font-weight: 600;
+        }
+        .grifo-alerta {
+            background-color: #fee2e2;
+            color: #991b1b;
+            padding: 0.125rem 0.35rem;
+            border-radius: 0.25rem;
+            font-weight: 700;
+        }
+        /* Ajuste fino para tabelas sem scroll horizontal */
+        table {
+            border-collapse: separate;
+            border-spacing: 0;
+            width: 100% !important;
+            table-layout: fixed;
+        }
+        th, td {
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            hyphens: auto;
+        }
+    </style>
+</head>
+<body class="bg-white min-h-screen text-slate-900 antialiased selection:bg-amber-200 selection:text-amber-900">
+
+    <!-- Top Barra de Identificação Institucional -->
+    <header class="w-full border-b border-slate-200 bg-white sticky top-0 z-40 backdrop-blur-md bg-white/95">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 py-3 flex flex-wrap items-center justify-between gap-3">
+            <div class="flex items-center gap-3">
+                <div class="w-9 h-9 rounded-lg bg-emerald-700 text-white flex items-center justify-center font-bold text-sm shadow-sm">
+                    IF
+                </div>
+                <div>
+                    <h1 class="text-sm font-bold text-slate-900 tracking-tight leading-none">Preparatório IFMG | Concurso EBTT</h1>
+                    <p class="text-xs text-slate-500 mt-0.5">Professor EBTT de Geografia • Banca IFMG</p>
+                </div>
+            </div>
+            <div class="flex items-center gap-2">
+                <a href="#tabela-memorizacao" class="text-xs font-semibold px-3 py-1.5 rounded-md border border-slate-300 text-slate-700 hover:bg-slate-50 transition">
+                    Memorização Rápida
+                </a>
+                <a href="questoes11legs.html" class="text-xs font-bold px-3 py-1.5 rounded-md bg-emerald-700 hover:bg-emerald-800 text-white shadow-sm transition">
+                    Ir para Questões →
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-5xl mx-auto px-4 sm:px-6 py-8">
+
+        <!-- BLOCO DO REPRODUTOR DE ÁUDIO MP3 -->
+        <section class="mb-10 bg-white border-2 border-emerald-600/30 rounded-2xl p-4 sm:p-6 shadow-sm">
+            <div class="flex items-center gap-2 mb-3 text-emerald-800 font-bold text-base">
+                <svg class="w-5 h-5 text-emerald-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path>
+                </svg>
+                <span>Reprodutor de Áudio da Aula (Estudo Ativo)</span>
+            </div>
+            
+            <p class="text-xs sm:text-sm text-slate-600 mb-4">
+                Insira o nome do seu arquivo MP3 abaixo (ele deve estar armazenado na mesma pasta deste arquivo HTML).
+            </p>
+
+            <!-- Campo de configuração de nome de arquivo -->
+            <div class="grid grid-cols-1 sm:grid-cols-12 gap-2 mb-4">
+                <div class="sm:col-span-8 flex items-center border border-slate-300 rounded-lg px-3 py-2 bg-slate-50 focus-within:ring-2 focus-within:ring-emerald-600 focus-within:bg-white transition">
+                    <span class="text-xs font-mono text-slate-500 mr-2">Arquivo:</span>
+                    <input 
+                        type="text" 
+                        id="audioFileInput" 
+                        value="audio11legs.mp3" 
+                        placeholder="exemplo: audio11legs.mp3" 
+                        class="w-full bg-transparent text-sm font-medium text-slate-800 outline-none placeholder:text-slate-400 font-mono"
+                    >
+                </div>
+                <div class="sm:col-span-4 flex gap-2">
+                    <button 
+                        id="btnLoadAudio" 
+                        type="button"
+                        class="w-full bg-emerald-700 hover:bg-emerald-800 text-white font-semibold text-xs sm:text-sm py-2 px-4 rounded-lg shadow-sm transition active:scale-95 flex items-center justify-center gap-1.5"
+                    >
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path></svg>
+                        Carregar Áudio
+                    </button>
+                </div>
+            </div>
+
+            <!-- Reprodutor Nativo Estilizado -->
+            <div class="bg-slate-50 border border-slate-200 rounded-xl p-3 sm:p-4">
+                <audio id="audioPlayer" class="w-full mb-3" controls preload="metadata">
+                    <source id="audioSource" src="audio11legs.mp3" type="audio/mpeg">
+                    Seu navegador não suporta a execução de áudio HTML5.
+                </audio>
+
+                <!-- Controles de Velocidade (Estudo Rápido) -->
+                <div class="flex flex-wrap items-center justify-between gap-3 pt-2 border-t border-slate-200 text-xs">
+                    <div class="flex items-center gap-1.5">
+                        <span class="text-slate-600 font-medium">Velocidade:</span>
+                        <div class="inline-flex rounded-md shadow-sm border border-slate-300 bg-white" role="group">
+                            <button type="button" class="speed-btn px-2.5 py-1 text-slate-700 font-semibold hover:bg-slate-100 rounded-l-md border-r border-slate-200" data-speed="1.0">1.0x</button>
+                            <button type="button" class="speed-btn px-2.5 py-1 text-slate-700 font-semibold hover:bg-slate-100 border-r border-slate-200" data-speed="1.25">1.25x</button>
+                            <button type="button" class="speed-btn px-2.5 py-1 text-slate-700 font-semibold hover:bg-slate-100 border-r border-slate-200" data-speed="1.5">1.5x</button>
+                            <button type="button" class="speed-btn px-2.5 py-1 text-slate-700 font-semibold hover:bg-slate-100 rounded-r-md" data-speed="2.0">2.0x</button>
+                        </div>
+                    </div>
+                    <div id="audioStatusText" class="text-slate-500 font-mono text-[11px] truncate max-w-xs">
+                        Arquivo atual: <span class="text-slate-800 font-medium">audio11legs.mp3</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CABEÇALHO DO ARTIGO / RESUMO -->
+        <article class="prose max-w-none">
+            <div class="border-b border-slate-200 pb-6 mb-8">
+                <span class="inline-block text-xs uppercase tracking-wider font-extrabold text-emerald-800 bg-emerald-50 border border-emerald-200 px-3 py-1 rounded-full mb-3">
+                    Legislação Específica da Carreira EBTT
+                </span>
+                <h1 class="text-2xl sm:text-4xl font-extrabold text-slate-900 tracking-tight leading-tight mb-4">
+                    Regime Jurídico e Remuneratório do Magistério Federal: Análise Dogmática e Prática dos Capítulos IV a IX da Lei nº 12.772/2012 para o Concurso do IFMG
+                </h1>
+                <p class="text-slate-600 text-sm sm:text-base leading-relaxed content-serif">
+                    A <strong class="text-slate-900">Lei Federal nº 12.772, de 28 de dezembro de 2012</strong>, constitui o marco regulatório basilar do Plano de Carreiras e Cargos de Magistério Federal, englobando a Carreira de Magistério Superior e a <span class="grifo-verde">Carreira de Magistério do Ensino Básico, Técnico e Tecnológico (EBTT)</span>. Nos certames organizados pelo <strong class="text-slate-900">Instituto Federal de Educação, Ciência e Tecnologia de Minas Gerais (IFMG)</strong>, a cobrança dos dispositivos legais relativos à remuneração, regimes de trabalho, órgãos de assessoramento e regras de afastamento exige precisão dogmática e domínio das exceções positivadas. O exame dos Capítulos IV a IX da referida norma revela escolhas legislativas específicas voltadas a compatibilizar a dedicação ao serviço público com a produção científica, a extensão tecnológica e a qualificação acadêmica continuada.
+                </p>
+            </div>
+
+            <!-- ÍNDICE DE NAVEGAÇÃO RÁPIDA -->
+            <nav class="mb-10 p-5 bg-white border border-slate-200 rounded-xl">
+                <h2 class="text-xs uppercase font-extrabold tracking-wider text-slate-500 mb-3">Estrutura Temática da Aula</h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm">
+                    <a href="#capitulo-4" class="text-emerald-800 hover:text-emerald-950 font-medium hover:underline flex items-center gap-1.5">
+                        <span class="text-xs font-bold text-slate-400">01.</span> Estrutura Remuneratória e RSC (Arts. 16 a 19)
+                    </a>
+                    <a href="#capitulo-5" class="text-emerald-800 hover:text-emerald-950 font-medium hover:underline flex items-center gap-1.5">
+                        <span class="text-xs font-bold text-slate-400">02.</span> Regimes de Trabalho e Dedicação Exclusiva (Arts. 20 a 22)
+                    </a>
+                    <a href="#capitulo-6" class="text-emerald-800 hover:text-emerald-950 font-medium hover:underline flex items-center gap-1.5">
+                        <span class="text-xs font-bold text-slate-400">03.</span> Avaliação de Desempenho e Estágio Probatório (Arts. 23 a 25)
+                    </a>
+                    <a href="#capitulo-7" class="text-emerald-800 hover:text-emerald-950 font-medium hover:underline flex items-center gap-1.5">
+                        <span class="text-xs font-bold text-slate-400">04.</span> CPPD: Composição e Competências (Art. 26)
+                    </a>
+                    <a href="#capitulo-8" class="text-emerald-800 hover:text-emerald-950 font-medium hover:underline flex items-center gap-1.5">
+                        <span class="text-xs font-bold text-slate-400">05.</span> Corpo Docente e Contratação Temporária (Arts. 27 a 29)
+                    </a>
+                    <a href="#capitulo-9" class="text-emerald-800 hover:text-emerald-950 font-medium hover:underline flex items-center gap-1.5">
+                        <span class="text-xs font-bold text-slate-400">06.</span> Afastamentos para Pós-Graduação e Cooperação (Art. 30)
+                    </a>
+                    <a href="#tabela-memorizacao" class="text-emerald-800 hover:text-emerald-950 font-medium hover:underline flex items-center gap-1.5 font-bold">
+                        <span class="text-xs font-bold text-slate-400">★</span> Tópicos Essenciais de Memorização (Dia da Prova)
+                    </a>
+                    <a href="#matriz-diferenciacao" class="text-emerald-800 hover:text-emerald-950 font-medium hover:underline flex items-center gap-1.5 font-bold">
+                        <span class="text-xs font-bold text-slate-400">★</span> Matriz Antipeguinha de Questões Objetivas
+                    </a>
+                </div>
+            </nav>
+
+            <!-- SEÇÃO 1: REMUNERAÇÃO E RSC -->
+            <section id="capitulo-4" class="mb-14 scroll-mt-20">
+                <div class="flex items-center gap-2 mb-4 border-b border-slate-200 pb-2">
+                    <span class="text-emerald-700 font-bold text-lg">Capítulo IV</span>
+                    <h2 class="text-xl sm:text-2xl font-bold text-slate-900">
+                        Estrutura Remuneratória e o Reconhecimento de Saberes e Competências (Arts. 16 a 19)
+                    </h2>
+                </div>
+
+                <h3 class="text-lg font-bold text-slate-900 mt-6 mb-3">1. Composição do Padrão Vencimental e Retribuição por Titulação</h3>
+                <p class="text-slate-800 leading-relaxed mb-4">
+                    A estrutura remuneratória da Carreira EBTT e do Magistério Superior é alicerçada em uma composição binária expressa no <strong class="text-slate-900">art. 16</strong> da Lei nº 12.772/2012. A remuneração compõe-se estritamente do <span class="grifo">Vencimento Básico (VB)</span>, correspondente a cada carreira, cargo, classe e nível de posicionamento na tabela remuneratória, acrescido da <span class="grifo">Retribuição por Titulação (RT)</span>. A RT consiste em parcela pecuniária vinculada à comprovação formal de qualificação acadêmica em programas de aperfeiçoamento, especialização (<em>lato sensu</em>), mestrado ou doutorado (<em>stricto sensu</em>), obtidos em programas credenciados e cursos reconhecidos pela CAPES e MEC.
+                </p>
+
+                <div class="bg-white border-l-4 border-amber-500 p-4 mb-6 rounded-r-lg shadow-sm border border-slate-200">
+                    <p class="font-bold text-slate-900 mb-2">A disciplina legal do art. 17 estipula duas balizas normativas de observância cogente:</p>
+                    <ul class="space-y-2 text-slate-800">
+                        <li class="flex items-start gap-2">
+                            <span class="font-bold text-amber-700">1.</span>
+                            <div>
+                                <strong class="text-slate-900">Regra da Não Cumulatividade Pecuniária:</strong> os valores pecuniários referentes à Retribuição por Titulação <span class="grifo-alerta">NÃO são, sob qualquer circunstância, acumuláveis</span> em razão de múltiplos diplomas ou certificados detidos pelo servidor. O docente que possui dois títulos de mestrado ou um mestrado concomitante a duas especializações perceberá <span class="grifo">unicamente o valor fixado para a maior titulação comprovada</span>, sendo expressamente vedada a acumulação com gratificações de idêntica natureza jurídica.
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="font-bold text-amber-700">2.</span>
+                            <div>
+                                <strong class="text-slate-900">Repercussão Previdenciária e Proventos:</strong> a RT é <span class="grifo">expressamente incorporada aos proventos de aposentadoria e pensões</span>, respeitadas as normas constitucionais de paridade e regras de transição previdenciária estabelecidas pelas Emendas Constitucionais pertinentes.
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <h3 class="text-lg font-bold text-slate-900 mt-6 mb-3">2. A Singularidade do Reconhecimento de Saberes e Competências (RSC) no Ensino EBTT</h3>
+                <p class="text-slate-800 leading-relaxed mb-4">
+                    O <strong class="text-slate-900">art. 18</strong> da Lei nº 12.772/2012 introduziu uma sistemática de aferição de mérito profissional <span class="grifo">exclusiva para os ocupantes de cargos da Carreira de Magistério EBTT</span>, <span class="grifo-alerta">não estendida aos docentes da Carreira do Magistério Superior</span> (Universidades Federais). O Reconhecimento de Saberes e Competências (RSC) consubstancia o processo avaliativo especial pelo qual a Instituição Federal de Ensino reconhece a experiência profissional desenvolvida pelo docente em sua área técnica, sua produção pedagógica, extensão aplicada e projetos institucionais, concedendo uma <strong class="text-slate-900">equivalência formal à titulação acadêmica estritamente para a percepção financeira da RT</strong>.
+                </p>
+                <p class="text-slate-800 leading-relaxed mb-4">
+                    A regulamentação nacional dessa política é fixada pelo <strong class="text-slate-900">Conselho Permanente para Reconhecimento de Saberes e Competências (CPRSC)</strong>, órgão instituído no âmbito do Ministério da Educação com participação formal de representantes do Ministério da Defesa. O deferimento do RSC é estruturado em três níveis objetivos de equivalência, que dependem compulsoriamente de uma titulação acadêmica de base mínima:
+                </p>
+
+                <!-- TABELA 1: RSC (AJUSTADA SEM SCROLL) -->
+                <div class="my-6 border border-slate-300 rounded-xl overflow-hidden bg-white shadow-sm">
+                    <div class="bg-slate-100 px-4 py-2.5 border-b border-slate-300">
+                        <span class="text-xs font-bold uppercase tracking-wider text-slate-700">Tabela I • Níveis de RSC e Regra de Equivalência Financeira (Art. 18)</span>
+                    </div>
+                    <table class="w-full text-left text-xs sm:text-sm">
+                        <thead class="bg-slate-50 text-slate-800 font-bold border-b border-slate-300">
+                            <tr>
+                                <th class="p-3 w-1/4 sm:w-1/4 border-r border-slate-200">Nível de RSC</th>
+                                <th class="p-3 w-1/3 sm:w-1/3 border-r border-slate-200">Requisito Acadêmico de Base</th>
+                                <th class="p-3 w-5/12 sm:w-5/12">Equivalência Remuneratória (RT)</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-200 text-slate-800 font-medium">
+                            <tr class="hover:bg-slate-50/80 transition">
+                                <td class="p-3 border-r border-slate-200 font-bold text-emerald-800">RSC-I</td>
+                                <td class="p-3 border-r border-slate-200">Diploma de <span class="grifo">Graduação</span> concluída</td>
+                                <td class="p-3">Equivalência à RT de <span class="grifo-verde">Especialização</span></td>
+                            </tr>
+                            <tr class="hover:bg-slate-50/80 transition">
+                                <td class="p-3 border-r border-slate-200 font-bold text-emerald-800">RSC-II</td>
+                                <td class="p-3 border-r border-slate-200">Certificado de Pós-Graduação <em>Lato Sensu</em> (<span class="grifo">Especialização</span>)</td>
+                                <td class="p-3">Equivalência à RT de <span class="grifo-verde">Mestrado</span></td>
+                            </tr>
+                            <tr class="hover:bg-slate-50/80 transition">
+                                <td class="p-3 border-r border-slate-200 font-bold text-emerald-800">RSC-III</td>
+                                <td class="p-3 border-r border-slate-200">Diploma de <span class="grifo">Mestrado</span> (<em>Stricto Sensu</em>)</td>
+                                <td class="p-3">Equivalência à RT de <span class="grifo-verde">Doutorado</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <p class="text-slate-800 leading-relaxed mb-4">
+                    A operacionalização interna nos Institutos Federais demanda a submissão de relatório descritivo e memorial documental a uma <strong class="text-slate-900">Comissão Especial de Avaliação</strong>. Essa comissão é composta por membros internos e majoritariamente externos à instituição, sorteados do banco nacional de avaliadores do MEC, exigindo que o candidato alcance uma pontuação mínima no barema avaliativo.
+                </p>
+
+                <!-- BLOQUEIO ART 19 -->
+                <div class="bg-red-50/40 border-2 border-red-300 rounded-xl p-4 sm:p-5 my-6">
+                    <div class="flex items-center gap-2 mb-2 text-red-900 font-bold text-base">
+                        <svg class="w-5 h-5 text-red-700" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path></svg>
+                        <span>Atenção Máxima para a Prova: A Cláusula de Bloqueio Funcional do Artigo 19</span>
+                    </div>
+                    <p class="text-slate-800 text-sm sm:text-base leading-relaxed">
+                        O <strong class="text-slate-900">art. 19</strong> encerra o capítulo remuneratório impondo uma proibição imperativa e insuperável: <span class="grifo-alerta">EM NENHUMA HIPÓTESE o RSC poderá ser utilizado para fins de equiparação de titulação para o cumprimento de requisitos exigidos para a promoção ou progressão funcional na carreira</span>.
+                    </p>
+                    <p class="text-slate-700 text-xs sm:text-sm mt-2 leading-relaxed">
+                        Enquanto o RSC projeta efeitos puramente financeiros (um professor com especialização pode receber RT de Mestre por ter RSC-II), <strong class="text-slate-900">ele NÃO supre a ausência do título acadêmico</strong> se a promoção para uma classe superior (ex: Classe Titular) exigir o diploma formal. O RSC opera exclusivamente na órbita do contracheque, permanecendo inoperante para a carreira funcional vertical.
+                    </p>
+                </div>
+            </section>
+
+            <!-- SEÇÃO 2: REGIMES DE TRABALHO E DE -->
+            <section id="capitulo-5" class="mb-14 scroll-mt-20">
+                <div class="flex items-center gap-2 mb-4 border-b border-slate-200 pb-2">
+                    <span class="text-emerald-700 font-bold text-lg">Capítulo V</span>
+                    <h2 class="text-xl sm:text-2xl font-bold text-slate-900">
+                        Regimes de Trabalho Docente e Limites da Dedicação Exclusiva (Arts. 20 a 22)
+                    </h2>
+                </div>
+
+                <h3 class="text-lg font-bold text-slate-900 mt-6 mb-3">1. Tipologia dos Regimes e Requisitos de Excepcionalidade</h3>
+                <p class="text-slate-800 leading-relaxed mb-4">
+                    O <strong class="text-slate-900">art. 20</strong> estabelece que o docente das Instituições Federais de Ensino será submetido a um de dois regimes principais de prestação de serviços:
+                </p>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 my-4">
+                    <div class="border border-slate-300 p-4 rounded-xl bg-white shadow-sm">
+                        <div class="text-xs uppercase font-extrabold text-emerald-800 mb-1">Regra Geral Prioritária</div>
+                        <h4 class="font-bold text-slate-900 text-base mb-1">40 horas com Dedicação Exclusiva (DE)</h4>
+                        <p class="text-xs sm:text-sm text-slate-700 leading-relaxed">
+                            Trabalho em tempo integral com alocação do servidor ao ensino, pesquisa, extensão e gestão institucional.
+                        </p>
+                    </div>
+                    <div class="border border-slate-300 p-4 rounded-xl bg-white shadow-sm">
+                        <div class="text-xs uppercase font-extrabold text-slate-600 mb-1">Regime Parcial</div>
+                        <h4 class="font-bold text-slate-900 text-base mb-1">Regime de 20 horas semanais</h4>
+                        <p class="text-xs sm:text-sm text-slate-700 leading-relaxed">
+                            Prestação de trabalho em tempo parcial, voltada precipuamente a encargos didáticos e de ensino.
+                        </p>
+                    </div>
+                </div>
+
+                <p class="text-slate-800 leading-relaxed mb-4">
+                    O legislador contemplou uma terceira modalidade no <strong class="text-slate-900">art. 20, § 1º</strong>: regime de <span class="grifo">40 horas semanais de trabalho em tempo integral, sem dedicação exclusiva</span>. Trata-se de hipótese estritamente excepcional condicionada a <strong class="text-slate-900">quatro requisitos cumulativos</strong>:
+                </p>
+                <ul class="list-disc list-inside space-y-1.5 text-slate-800 text-sm sm:text-base ml-2 mb-6">
+                    <li><strong class="text-slate-900">Caráter de estrita excepcionalidade</strong> da medida administrativa;</li>
+                    <li><strong class="text-slate-900">Aprovação prévia e fundamentada</strong> pelo Colegiado Superior competente da instituição de ensino (Conselho Superior);</li>
+                    <li><strong class="text-slate-900">Observância rigorosa de prestação de jornada em dois turnos diários completos</strong>;</li>
+                    <li><strong class="text-slate-900">Justificativa vinculada a áreas de conhecimento</strong> que possuam características e demandas técnicas específicas.</li>
+                </ul>
+
+                <p class="text-slate-800 leading-relaxed mb-4">
+                    Adicionalmente, os docentes submetidos ao regime de 20 horas semanais podem ser alocados temporariamente à jornada de 40 horas sem DE quando investidos em <span class="grifo">Cargo de Direção (CD), Função Gratificada (FG) ou Função de Coordenação de Curso (FCC)</span>, bem como em projetos institucionais autorizados pelo Conselho Superior, desde que haja verificação formal de inexistência de acumulação ilegal e disponibilidade orçamentária atestada pelo órgão de pessoal.
+                </p>
+
+                <h3 class="text-lg font-bold text-slate-900 mt-6 mb-3">2. A Dedicação Exclusiva: Vedações Absolutas e Exceções Taxativas do Artigo 21</h3>
+                <p class="text-slate-800 leading-relaxed mb-4">
+                    O regime de 40 horas com dedicação exclusiva impõe o <span class="grifo-alerta">impedimento legal de exercício de qualquer outra atividade remunerada, de caráter público ou privado</span>. Todavia, o <strong class="text-slate-900">art. 21</strong> consagra autorizações pontuais para a percepção de vantagens pecuniárias secundárias, dividindo-se entre atividades <strong class="text-slate-900">sem teto de horas</strong> e atividades <strong class="text-slate-900">com rigoroso teto legal prefixado</strong>:
+                </p>
+
+                <!-- TABELA 2: EXCEÇÕES DA DEDICAÇÃO EXCLUSIVA (AJUSTADA SEM SCROLL) -->
+                <div class="my-6 border border-slate-300 rounded-xl overflow-hidden bg-white shadow-sm">
+                    <div class="bg-slate-100 px-4 py-2.5 border-b border-slate-300">
+                        <span class="text-xs font-bold uppercase tracking-wider text-slate-700">Tabela II • Exceções Permitidas ao Regime de Dedicação Exclusiva (Art. 21)</span>
+                    </div>
+                    <table class="w-full text-left text-xs sm:text-sm">
+                        <thead class="bg-slate-50 text-slate-800 font-bold border-b border-slate-300">
+                            <tr>
+                                <th class="p-2.5 sm:p-3 w-1/4 border-r border-slate-200">Atividade Remunerada</th>
+                                <th class="p-2.5 sm:p-3 w-1/6 border-r border-slate-200">Dispositivo</th>
+                                <th class="p-2.5 sm:p-3 w-1/4 border-r border-slate-200">Limite de Horas</th>
+                                <th class="p-2.5 sm:p-3 w-1/3">Condições e Observações</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-200 text-slate-800 font-medium">
+                            <tr class="hover:bg-slate-50/80 transition">
+                                <td class="p-2.5 sm:p-3 border-r border-slate-200 font-bold">Cargos em Comissão e Funções de Confiança</td>
+                                <td class="p-2.5 sm:p-3 border-r border-slate-200 text-slate-600">Art. 21, I</td>
+                                <td class="p-2.5 sm:p-3 border-r border-slate-200 text-slate-600">Sem teto em horas (absorvida)</td>
+                                <td class="p-2.5 sm:p-3 text-slate-700 leading-snug">CD, FG e FCC na Administração Pública.</td>
+                            </tr>
+                            <tr class="hover:bg-slate-50/80 transition">
+                                <td class="p-2.5 sm:p-3 border-r border-slate-200 font-bold">Comissões Examinadoras / Concursos</td>
+                                <td class="p-2.5 sm:p-3 border-r border-slate-200 text-slate-600">Art. 21, II</td>
+                                <td class="p-2.5 sm:p-3 border-r border-slate-200 text-slate-600">Sem teto expresso</td>
+                                <td class="p-2.5 sm:p-3 text-slate-700 leading-snug">Bancas de concursos públicos e processos seletivos.</td>
+                            </tr>
+                            <tr class="hover:bg-slate-50/80 transition">
+                                <td class="p-2.5 sm:p-3 border-r border-slate-200 font-bold">Bolsas Oficiais de Fomento e UAB</td>
+                                <td class="p-2.5 sm:p-3 border-r border-slate-200 text-slate-600">Art. 21, III, IV e V</td>
+                                <td class="p-2.5 sm:p-3 border-r border-slate-200 font-semibold text-emerald-800">Sem teto horário na Lei 12.772</td>
+                                <td class="p-2.5 sm:p-3 text-slate-700 leading-snug">Bolsas CNPq, CAPES, FAPEMIG, UAB ou formação.</td>
+                            </tr>
+                            <tr class="hover:bg-slate-50/80 transition">
+                                <td class="p-2.5 sm:p-3 border-r border-slate-200 font-bold">Direitos Autorais e Propriedade Intelectual</td>
+                                <td class="p-2.5 sm:p-3 border-r border-slate-200 text-slate-600">Art. 21, VI</td>
+                                <td class="p-2.5 sm:p-3 border-r border-slate-200 font-semibold text-emerald-800">Sem teto</td>
+                                <td class="p-2.5 sm:p-3 text-slate-700 leading-snug">Royalties de livros, artigos, softwares e patentes industriais.</td>
+                            </tr>
+                            <tr class="hover:bg-slate-50/80 transition bg-amber-50/40">
+                                <td class="p-2.5 sm:p-3 border-r border-slate-200 font-bold">Palestras, Conferências e Mostras Culturais</td>
+                                <td class="p-2.5 sm:p-3 border-r border-slate-200 text-slate-600">Art. 21, VIII c/c § 1º</td>
+                                <td class="p-2.5 sm:p-3 border-r border-slate-200 font-bold text-amber-900"><span class="grifo">Até 30 horas ANUAIS</span></td>
+                                <td class="p-2.5 sm:p-3 text-slate-700 leading-snug">Caráter eventual, na área de conhecimento, autorizado pelo IF.</td>
+                            </tr>
+                            <tr class="hover:bg-slate-50/80 transition bg-amber-50/40">
+                                <td class="p-2.5 sm:p-3 border-r border-slate-200 font-bold">Projetos com Fundações de Apoio</td>
+                                <td class="p-2.5 sm:p-3 border-r border-slate-200 text-slate-600">Art. 21, XI c/c § 4º</td>
+                                <td class="p-2.5 sm:p-3 border-r border-slate-200 font-bold text-amber-900"><span class="grifo">Até 8h semanais ou 416h anuais</span></td>
+                                <td class="p-2.5 sm:p-3 text-slate-700 leading-snug">Pesquisa, P&D institucional e extensão (Lei 8.958/1994).</td>
+                            </tr>
+                            <tr class="hover:bg-slate-50/80 transition bg-amber-50/40">
+                                <td class="p-2.5 sm:p-3 border-r border-slate-200 font-bold">Colaboração Científica e Tecnológica</td>
+                                <td class="p-2.5 sm:p-3 border-r border-slate-200 text-slate-600">Art. 21, XII c/c § 4º</td>
+                                <td class="p-2.5 sm:p-3 border-r border-slate-200 font-bold text-amber-900"><span class="grifo">Até 8h semanais ou 416h anuais</span></td>
+                                <td class="p-2.5 sm:p-3 text-slate-700 leading-snug">Polos de inovação tecnológica (cômputo conjunto c/ XI).</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="bg-white border-l-4 border-slate-400 p-4 mb-4 rounded-r-lg shadow-sm border border-slate-200">
+                    <p class="font-bold text-slate-900 text-sm mb-1">Regra Crítica: Atuação Docente em Fundações de Apoio (Art. 20, § 4º)</p>
+                    <p class="text-slate-700 text-xs sm:text-sm leading-relaxed">
+                        O docente em dedicação exclusiva pode integrar órgãos diretivos de fundação de apoio (desde que não ocupe CD ou FG no IF), sendo <span class="grifo-alerta">EXPRESSAMENTE PROIBIDA a percepção de remuneração paga pela fundação de apoio</span> pelo exercício dessa função administrativa deliberativa. Para ser o <strong class="text-slate-900">dirigente máximo da fundação</strong>, exige-se compulsoriamente autorização prévia por deliberação do Conselho Superior do IF.
+                    </p>
+                </div>
+
+                <h3 class="text-lg font-bold text-slate-900 mt-6 mb-3">3. Processamento da Alteração do Regime de Trabalho (Artigo 22)</h3>
+                <p class="text-slate-800 leading-relaxed mb-4">
+                    O docente pode postular a alteração de seu regime laboral mediante proposta fundamentada remetida à sua unidade acadêmica de lotação, cabendo à <span class="grifo">Comissão Permanente de Pessoal Docente (CPPD)</span> a apreciação técnica dos autos. É vedada a alteração de regime de trabalho durante o gozo de afastamentos para pós-graduação e no decorrer do cumprimento do período compulsório de permanência após o retorno da capacitação.
+                </p>
+            </section>
+
+            <!-- SEÇÃO 3: AVALIAÇÃO E ESTÁGIO PROBATÓRIO -->
+            <section id="capitulo-6" class="mb-14 scroll-mt-20">
+                <div class="flex items-center gap-2 mb-4 border-b border-slate-200 pb-2">
+                    <span class="text-emerald-700 font-bold text-lg">Capítulo VI</span>
+                    <h2 class="text-xl sm:text-2xl font-bold text-slate-900">
+                        Avaliação de Desempenho e Estágio Probatório (Arts. 23 a 25)
+                    </h2>
+                </div>
+
+                <p class="text-slate-800 leading-relaxed mb-4">
+                    A progressão e a promoção funcional dos docentes do Plano de Carreiras e Cargos de Magistério Federal decorrem de aferição contínua disciplinada nos arts. 23 a 25:
+                </p>
+
+                <div class="space-y-3 my-4">
+                    <div class="p-3.5 border border-slate-200 rounded-lg bg-white flex items-start gap-3">
+                        <span class="w-6 h-6 rounded-full bg-emerald-100 text-emerald-800 font-bold text-xs flex items-center justify-center shrink-0 mt-0.5">1</span>
+                        <div>
+                            <strong class="text-slate-900 text-sm">Duração do Estágio Probatório:</strong>
+                            <span class="text-slate-800 text-sm"> O docente nomeado sujeita-se a um estágio de <span class="grifo">36 (trinta e seis) meses de efetivo exercício</span>, período no qual sua aptidão e idoneidade funcional são avaliadas como condição para aquisição da estabilidade (art. 41 da CF/88).</span>
+                        </div>
+                    </div>
+
+                    <div class="p-3.5 border border-slate-200 rounded-lg bg-white flex items-start gap-3">
+                        <span class="w-6 h-6 rounded-full bg-emerald-100 text-emerald-800 font-bold text-xs flex items-center justify-center shrink-0 mt-0.5">2</span>
+                        <div>
+                            <strong class="text-slate-900 text-sm">Eixos da Avaliação de Desempenho Docente:</strong>
+                            <span class="text-slate-800 text-sm"> Relatórios anuais contemplando desempenho didático-pedagógico, produção científica/cultural, projetos de extensão à comunidade e atividades de gestão institucional.</span>
+                        </div>
+                    </div>
+
+                    <div class="p-3.5 border border-slate-200 rounded-lg bg-white flex items-start gap-3">
+                        <span class="w-6 h-6 rounded-full bg-emerald-100 text-emerald-800 font-bold text-xs flex items-center justify-center shrink-0 mt-0.5">3</span>
+                        <div>
+                            <strong class="text-slate-900 text-sm">Interstício para Progressão Funcional:</strong>
+                            <span class="text-slate-800 text-sm"> A progressão funcional entre níveis da mesma classe subordina-se ao cumprimento do interstício temporal mínimo de <span class="grifo">24 (vinte e quatro) meses de efetivo exercício</span> e aprovação em avaliação conduzida e homologada pela CPPD.</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SEÇÃO 4: CPPD -->
+            <section id="capitulo-7" class="mb-14 scroll-mt-20">
+                <div class="flex items-center gap-2 mb-4 border-b border-slate-200 pb-2">
+                    <span class="text-emerald-700 font-bold text-lg">Capítulo VII</span>
+                    <h2 class="text-xl sm:text-2xl font-bold text-slate-900">
+                        Comissão Permanente de Pessoal Docente – CPPD (Art. 26)
+                    </h2>
+                </div>
+
+                <h3 class="text-lg font-bold text-slate-900 mt-6 mb-3">1. Natureza Institucional e Estrutura Eleitoral</h3>
+                <p class="text-slate-800 leading-relaxed mb-4">
+                    O <strong class="text-slate-900">art. 26</strong> impõe a <span class="grifo">obrigatoriedade da instituição da CPPD</span> em todas as Instituições Federais de Ensino que possuam quadros do magistério federal vinculados ao MEC.
+                </p>
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 my-4">
+                    <div class="p-3 border border-slate-200 rounded-lg bg-white">
+                        <div class="font-bold text-slate-900 text-xs mb-1 uppercase tracking-wide text-emerald-800">Eleição Direta</div>
+                        <p class="text-xs text-slate-700 leading-snug">
+                            Membros obrigatoriamente <span class="grifo">eleitos exclusivamente por seus pares</span> (voto direto do corpo docente efetivo).
+                        </p>
+                    </div>
+                    <div class="p-3 border border-slate-200 rounded-lg bg-white">
+                        <div class="font-bold text-slate-900 text-xs mb-1 uppercase tracking-wide text-emerald-800">Órgão Consultivo</div>
+                        <p class="text-xs text-slate-700 leading-snug">
+                            Atua como <span class="grifo">órgão de assessoria</span> ao Conselho Superior e Reitoria. <strong class="text-red-700">Não detém poder disciplinar ou punitivo!</strong>
+                        </p>
+                    </div>
+                    <div class="p-3 border border-slate-200 rounded-lg bg-white">
+                        <div class="font-bold text-slate-900 text-xs mb-1 uppercase tracking-wide text-emerald-800">Exceção Militar</div>
+                        <p class="text-xs text-slate-700 leading-snug">
+                            Nas instituições sob o Ministério da Defesa, a criação da CPPD é <span class="grifo">faculdade discricionária</span> do comandante.
+                        </p>
+                    </div>
+                </div>
+
+                <h3 class="text-lg font-bold text-slate-900 mt-6 mb-3">2. Rol Legal de Competências (Art. 26, § 1º) – As 6 Atribuições Obrigatórias</h3>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs sm:text-sm my-4 font-medium text-slate-800">
+                    <div class="p-3 border border-slate-200 rounded-lg bg-white flex items-center gap-2">
+                        <span class="w-6 h-6 rounded bg-slate-100 text-slate-700 font-bold flex items-center justify-center shrink-0">I</span>
+                        <span>Dimensionamento da distribuição de vagas docentes entre campi.</span>
+                    </div>
+                    <div class="p-3 border border-slate-200 rounded-lg bg-white flex items-center gap-2">
+                        <span class="w-6 h-6 rounded bg-slate-100 text-slate-700 font-bold flex items-center justify-center shrink-0">II</span>
+                        <span>Contratação/admissão de professores efetivos e temporários.</span>
+                    </div>
+                    <div class="p-3 border border-slate-200 rounded-lg bg-white flex items-center gap-2">
+                        <span class="w-6 h-6 rounded bg-slate-100 text-slate-700 font-bold flex items-center justify-center shrink-0">III</span>
+                        <span>Processamento de pedidos de alteração de regime de trabalho.</span>
+                    </div>
+                    <div class="p-3 border border-slate-200 rounded-lg bg-white flex items-center gap-2">
+                        <span class="w-6 h-6 rounded bg-slate-100 text-slate-700 font-bold flex items-center justify-center shrink-0">IV</span>
+                        <span>Avaliação de desempenho para progressão e promoção funcional.</span>
+                    </div>
+                    <div class="p-3 border border-slate-200 rounded-lg bg-white flex items-center gap-2">
+                        <span class="w-6 h-6 rounded bg-slate-100 text-slate-700 font-bold flex items-center justify-center shrink-0">V</span>
+                        <span>Solicitações de afastamento docente para pós-graduação/capacitação.</span>
+                    </div>
+                    <div class="p-3 border border-slate-200 rounded-lg bg-white flex items-center gap-2">
+                        <span class="w-6 h-6 rounded bg-slate-100 text-slate-700 font-bold flex items-center justify-center shrink-0">VI</span>
+                        <span>Liberação para programas de cooperação interinstitucional e convênios.</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SEÇÃO 5: CORPO DOCENTE E TEMPORÁRIOS -->
+            <section id="capitulo-8" class="mb-14 scroll-mt-20">
+                <div class="flex items-center gap-2 mb-4 border-b border-slate-200 pb-2">
+                    <span class="text-emerald-700 font-bold text-lg">Capítulo VIII</span>
+                    <h2 class="text-xl sm:text-2xl font-bold text-slate-900">
+                        O Corpo Docente e a Contratação Temporária (Arts. 27 a 29)
+                    </h2>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 my-4">
+                    <div class="p-4 border border-slate-200 rounded-xl bg-white shadow-sm">
+                        <h4 class="font-bold text-slate-900 text-base mb-1">Docentes Efetivos (Art. 27)</h4>
+                        <p class="text-xs sm:text-sm text-slate-700 leading-relaxed">
+                            A atuação pedagógica permanente nas Instituições Federais de Ensino cabe privativamente aos servidores ocupantes de cargos efetivos integrantes do Plano de Carreiras do Magistério Federal, selecionados por concurso público de provas e títulos.
+                        </p>
+                    </div>
+                    <div class="p-4 border border-slate-200 rounded-xl bg-white shadow-sm">
+                        <h4 class="font-bold text-slate-900 text-base mb-1">Docentes Substitutos e Visitantes (Art. 28)</h4>
+                        <p class="text-xs sm:text-sm text-slate-700 leading-relaxed">
+                            Para atender a necessidades transitórias e suprir ausências decorrentes de vacâncias, licenças ou afastamentos para capacitação, autoriza-se a contratação por tempo determinado nos termos da <strong class="text-slate-900">Lei nº 8.745/1993</strong>, com retribuição pecuniária correlacionada à qualificação comprovada.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SEÇÃO 6: AFASTAMENTOS E CAPACITAÇÃO -->
+            <section id="capitulo-9" class="mb-14 scroll-mt-20">
+                <div class="flex items-center gap-2 mb-4 border-b border-slate-200 pb-2">
+                    <span class="text-emerald-700 font-bold text-lg">Capítulo IX</span>
+                    <h2 class="text-xl sm:text-2xl font-bold text-slate-900">
+                        Afastamentos Docentes e Capacitação Pós-Graduada (Art. 30)
+                    </h2>
+                </div>
+
+                <div class="bg-amber-50/50 border-2 border-amber-400 p-4 sm:p-5 rounded-xl my-4">
+                    <div class="flex items-center gap-2 mb-2 text-amber-900 font-bold text-base">
+                        <svg class="w-5 h-5 text-amber-700" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z" clip-rule="evenodd"></path></svg>
+                        <span>Ponto Crítico em Provas da Reitoria do IFMG: Especialidade vs. Lei 8.112/1990</span>
+                    </div>
+                    <p class="text-slate-800 text-sm sm:text-base leading-relaxed mb-3">
+                        A concessão de afastamentos a servidores públicos federais para mestrado ou doutorado no Brasil é balizada genericamente pelo art. 96-A da Lei nº 8.112/1990, que exige 3 anos no cargo para mestrado e 4 anos para doutorado.
+                    </p>
+                    <p class="text-slate-900 font-semibold text-sm sm:text-base leading-relaxed">
+                        CONTUDO, para os docentes federais, o <strong class="text-emerald-900">art. 30, inciso I da Lei nº 12.772/2012</strong> é norma especial expressa: o docente <span class="grifo">PODERÁ AFASTAR-SE INTEGRALMENTE para participar de programa de pós-graduação stricto sensu ou pós-doutorado INDEPENDENTEMENTE DO TEMPO OCUPADO NO CARGO OU NA INSTITUIÇÃO</span>, com remuneração integral mantida!
+                    </p>
+                    <div class="mt-3 pt-3 border-t border-amber-300 text-xs sm:text-sm text-slate-800">
+                        • <strong>Conclusão direta de prova:</strong> O professor <span class="grifo-verde">EM ESTÁGIO PROBATÓRIO PODE SIM SE AFASTAR</span> para mestrado, doutorado ou pós-doc! Durante o afastamento, o estágio probatório fica formalmente suspenso.
+                    </div>
+                </div>
+
+                <h3 class="text-lg font-bold text-slate-900 mt-6 mb-3">1. Prazos Máximos de Afastamento e Princípio do Retorno Obrigatório</h3>
+                <p class="text-slate-800 leading-relaxed mb-4">
+                    O afastamento integral com remuneração impõe um dever de contraprestação pública denominado <strong class="text-slate-900">permanência compulsória</strong>:
+                </p>
+                <ul class="list-disc list-inside space-y-2 text-slate-800 text-sm sm:text-base ml-2 mb-6">
+                    <li><strong class="text-slate-900">Permanência Obrigatória:</strong> Ao retornar, o docente deve permanecer em efetivo exercício na instituição por período no mínimo idêntico ao tempo em que esteve afastado.</li>
+                    <li><strong class="text-slate-900">Travas Legais:</strong> Durante a permanência obrigatória, não se concede licença para tratar de interesses particulares (LIP), nem exoneração ou aposentadoria voluntária sem indenização.</li>
+                    <li><strong class="text-slate-900">Dever de Ressarcir o Erário:</strong> Se exonerar-se antes, paga indenização proporcional ao tempo que faltava. Se não obtiver o título de mestre/doutor, <span class="grifo-alerta">deve indenizar integralmente todas as despesas e remunerações</span>, <span class="grifo">SALVO comprovado CASO FORTUITO OU FORÇA MAIOR</span> devidamente acolhido pelo Reitor.</li>
+                </ul>
+
+                <!-- TABELA 3: AFASTAMENTOS (AJUSTADA SEM SCROLL) -->
+                <div class="my-6 border border-slate-300 rounded-xl overflow-hidden bg-white shadow-sm">
+                    <div class="bg-slate-100 px-4 py-2.5 border-b border-slate-300">
+                        <span class="text-xs font-bold uppercase tracking-wider text-slate-700">Tabela III • Modalidades de Afastamento, Prazos e Consequências Legais (Art. 30)</span>
+                    </div>
+                    <table class="w-full text-left text-xs sm:text-sm">
+                        <thead class="bg-slate-50 text-slate-800 font-bold border-b border-slate-300">
+                            <tr>
+                                <th class="p-2.5 sm:p-3 w-1/5 border-r border-slate-200">Modalidade</th>
+                                <th class="p-2.5 sm:p-3 w-1/5 border-r border-slate-200">Tempo Prévio no Cargo</th>
+                                <th class="p-2.5 sm:p-3 w-1/5 border-r border-slate-200">Duração Máxima</th>
+                                <th class="p-2.5 sm:p-3 w-2/5">Consequência do Inadimplemento</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-200 text-slate-800 font-medium">
+                            <tr class="hover:bg-slate-50/80 transition">
+                                <td class="p-2.5 sm:p-3 border-r border-slate-200 font-bold text-emerald-800">Mestrado</td>
+                                <td class="p-2.5 sm:p-3 border-r border-slate-200"><span class="grifo-verde">Inexigível</span> (dispensado)</td>
+                                <td class="p-2.5 sm:p-3 border-r border-slate-200 font-bold">Até 24 meses</td>
+                                <td class="p-2.5 sm:p-3 text-slate-700 leading-snug">Ressarcimento integral ao erário, salvo caso fortuito ou força maior.</td>
+                            </tr>
+                            <tr class="hover:bg-slate-50/80 transition">
+                                <td class="p-2.5 sm:p-3 border-r border-slate-200 font-bold text-emerald-800">Doutorado</td>
+                                <td class="p-2.5 sm:p-3 border-r border-slate-200"><span class="grifo-verde">Inexigível</span> (dispensado)</td>
+                                <td class="p-2.5 sm:p-3 border-r border-slate-200 font-bold">Até 48 meses</td>
+                                <td class="p-2.5 sm:p-3 text-slate-700 leading-snug">Ressarcimento integral ao erário, salvo caso fortuito ou força maior.</td>
+                            </tr>
+                            <tr class="hover:bg-slate-50/80 transition">
+                                <td class="p-2.5 sm:p-3 border-r border-slate-200 font-bold text-emerald-800">Pós-Doutorado</td>
+                                <td class="p-2.5 sm:p-3 border-r border-slate-200"><span class="grifo-verde">Inexigível</span> (dispensado)</td>
+                                <td class="p-2.5 sm:p-3 border-r border-slate-200 font-bold">Até 12 meses</td>
+                                <td class="p-2.5 sm:p-3 text-slate-700 leading-snug">Ressarcimento integral ao erário, salvo caso fortuito ou força maior.</td>
+                            </tr>
+                            <tr class="hover:bg-slate-50/80 transition bg-red-50/30">
+                                <td class="p-2.5 sm:p-3 border-r border-slate-200 font-bold text-red-900">Cooperação Oficial (Art. 30, II)</td>
+                                <td class="p-2.5 sm:p-3 border-r border-slate-200 text-slate-600">Regulamentação interna</td>
+                                <td class="p-2.5 sm:p-3 border-r border-slate-200 font-bold text-red-800"><span class="grifo-alerta">Até 4 ANOS</span> (máximo)</td>
+                                <td class="p-2.5 sm:p-3 font-bold text-red-900 leading-snug"><span class="grifo-alerta">PERDA AUTOMÁTICA DO CARGO</span> se não retornar após 4 anos!</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- SEÇÃO 7: TÓPICOS DE MEMORIZAÇÃO -->
+            <section id="tabela-memorizacao" class="mb-14 scroll-mt-20">
+                <div class="flex items-center gap-2 mb-4 border-b border-slate-200 pb-2">
+                    <span class="text-amber-600 font-bold text-xl">★</span>
+                    <h2 class="text-xl sm:text-2xl font-bold text-slate-900">
+                        Tópicos Essenciais de Memorização para o Dia da Prova
+                    </h2>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <!-- Card 1 -->
+                    <div class="p-4 border border-slate-300 rounded-xl bg-white shadow-sm">
+                        <div class="flex items-center gap-2 text-emerald-800 font-bold text-sm mb-2">
+                            <span class="w-2.5 h-2.5 rounded-full bg-emerald-600"></span>
+                            Bloco Remuneratório e Regras do RSC (Arts. 16 a 19)
+                        </div>
+                        <ul class="text-xs sm:text-sm text-slate-800 space-y-1.5 leading-relaxed">
+                            <li>• <strong>Vencimento Básico + RT:</strong> A remuneração é composta unicamente por essas duas parcelas fundamentais.</li>
+                            <li>• <strong>Não Cumulatividade da RT:</strong> Paga-se apenas pela maior titulação; é expressamente proibido acumular duas especializações ou mestrados.</li>
+                            <li>• <strong>Exclusividade EBTT:</strong> O Reconhecimento de Saberes e Competências (RSC) existe <span class="grifo">apenas na Carreira EBTT</span> (não se aplica ao Magistério Superior).</li>
+                            <li>• <strong>Fórmula Mnemônica do RSC:</strong><br>
+                                &nbsp;&nbsp;→ RSC-I + Graduação = RT de <strong>Especialização</strong><br>
+                                &nbsp;&nbsp;→ RSC-II + Especialização = RT de <strong>Mestrado</strong><br>
+                                &nbsp;&nbsp;→ RSC-III + Mestrado = RT de <strong>Doutorado</strong>
+                            </li>
+                            <li>• <strong>Trava Absoluta da Carreira (Art. 19):</strong> O RSC serve exclusivamente para a remuneração (RT). <span class="grifo-alerta">NÃO SERVE para promoção funcional ou progressão</span>.</li>
+                        </ul>
+                    </div>
+
+                    <!-- Card 2 -->
+                    <div class="p-4 border border-slate-300 rounded-xl bg-white shadow-sm">
+                        <div class="flex items-center gap-2 text-emerald-800 font-bold text-sm mb-2">
+                            <span class="w-2.5 h-2.5 rounded-full bg-emerald-600"></span>
+                            Regimes de Trabalho e Dedicação Exclusiva (Arts. 20 a 22)
+                        </div>
+                        <ul class="text-xs sm:text-sm text-slate-800 space-y-1.5 leading-relaxed">
+                            <li>• <strong>Regimes Oficiais:</strong> 40h com Dedicação Exclusiva (DE - regra geral) e 20h semanais (tempo parcial).</li>
+                            <li>• <strong>40h sem DE:</strong> Estrita excepcionalidade, depende de aprovação prévia do Conselho Superior, cumprimento em 2 turnos diários completos.</li>
+                            <li>• <strong>Limites Cruciais na Dedicação Exclusiva (Art. 21):</strong><br>
+                                &nbsp;&nbsp;→ Palestras e conferências: <span class="grifo">até 30 horas ANUAIS</span>.<br>
+                                &nbsp;&nbsp;→ Projetos c/ Fundações de Apoio e Polos: <span class="grifo">até 8 horas semanais ou 416 horas anuais</span>.
+                            </li>
+                            <li>• <strong>Bolsas e Royalties:</strong> Bolsas oficiais (CNPq, CAPES, UAB) e direitos autorais são <span class="grifo-verde">permitidos na DE</span> sem entrar na trava das 8h semanais.</li>
+                            <li>• <strong>Direção de Fundação:</strong> Permitida participação sem remuneração pela fundação; dirigente máximo exige autorização do Conselho Superior.</li>
+                        </ul>
+                    </div>
+
+                    <!-- Card 3 -->
+                    <div class="p-4 border border-slate-300 rounded-xl bg-white shadow-sm">
+                        <div class="flex items-center gap-2 text-emerald-800 font-bold text-sm mb-2">
+                            <span class="w-2.5 h-2.5 rounded-full bg-emerald-600"></span>
+                            Comissão Permanente de Pessoal Docente - CPPD (Art. 26)
+                        </div>
+                        <ul class="text-xs sm:text-sm text-slate-800 space-y-1.5 leading-relaxed">
+                            <li>• <strong>Eleição Paritária:</strong> Membros obrigatoriamente <span class="grifo">eleitos diretamente por seus pares</span>.</li>
+                            <li>• <strong>Caráter Consultivo:</strong> Órgão colegiado de assessoria à Reitoria e ao CONSUP. <strong class="text-red-700">Não julga processo disciplinar!</strong></li>
+                            <li>• <strong>As 6 Competências Expressas:</strong> Dimensionamento de vagas, admissão docente, alteração de regime, avaliação funcional para progressão/promoção, afastamentos para pós-graduação e cooperação interinstitucional.</li>
+                            <li>• <strong>Forças Armadas:</strong> Nas instituições do Ministério da Defesa, a instituição da CPPD é <span class="grifo">facultativa</span>.</li>
+                        </ul>
+                    </div>
+
+                    <!-- Card 4 -->
+                    <div class="p-4 border border-slate-300 rounded-xl bg-white shadow-sm">
+                        <div class="flex items-center gap-2 text-emerald-800 font-bold text-sm mb-2">
+                            <span class="w-2.5 h-2.5 rounded-full bg-emerald-600"></span>
+                            Regras de Afastamento Docente (Art. 30)
+                        </div>
+                        <ul class="text-xs sm:text-sm text-slate-800 space-y-1.5 leading-relaxed">
+                            <li>• <strong>Dispensa de Tempo Prévio:</strong> <span class="grifo">Independe de tempo prévio</span> no cargo ou na instituição (supera o art. 96-A da Lei 8.112/90).</li>
+                            <li>• <strong>Estágio Probatório:</strong> O docente em estágio probatório <span class="grifo-verde">PODE afastar-se</span> (contagem de estágio suspensa).</li>
+                            <li>• <strong>Prazos Padrão:</strong> Mestrado (até 24m) | Doutorado (até 48m) | Pós-Doc (até 12m).</li>
+                            <li>• <strong>Cooperação (Art. 30, II):</strong> Limite fatal de 4 anos; não retornar acarreta <span class="grifo-alerta">perda automática do cargo público</span>.</li>
+                            <li>• <strong>Ressarcimento:</strong> Obrigatório em caso de exoneração antes do tempo igual de permanência ou reprovação/não obtenção de título, salvo <span class="grifo">caso fortuito ou força maior</span>.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SEÇÃO 8: MATRIZ DE DIFERENCIAÇÃO DOGMÁTICA (ANTIPEUINHAS) -->
+            <section id="matriz-diferenciacao" class="mb-14 scroll-mt-20">
+                <div class="flex items-center gap-2 mb-4 border-b border-slate-200 pb-2">
+                    <span class="text-emerald-700 font-bold text-lg">Matriz Comparativa</span>
+                    <h2 class="text-xl sm:text-2xl font-bold text-slate-900">
+                        Matriz de Diferenciação Dogmática para Resolução de Questões Objetivas
+                    </h2>
+                </div>
+                <p class="text-slate-700 text-sm mb-4 leading-relaxed">
+                    A banca examinadora frequentemente introduz distratores sutis para induzir ao erro. A tabela abaixo contrapõe a lei positivada com os principais distratores formulados em concursos federais:
+                </p>
+
+                <!-- TABELA 4: MATRIZ (AJUSTADA SEM SCROLL) -->
+                <div class="border border-slate-300 rounded-xl overflow-hidden bg-white shadow-sm">
+                    <div class="bg-slate-100 px-4 py-2.5 border-b border-slate-300">
+                        <span class="text-xs font-bold uppercase tracking-wider text-slate-700">Tabela IV • Lei Positivada vs. Pegadinha Tradicional de Banca</span>
+                    </div>
+                    <table class="w-full text-left text-xs sm:text-sm">
+                        <thead class="bg-slate-50 text-slate-800 font-bold border-b border-slate-300">
+                            <tr>
+                                <th class="p-2.5 sm:p-3 w-1/4 border-r border-slate-200">Tema em Debate</th>
+                                <th class="p-2.5 sm:p-3 w-3/8 border-r border-slate-200 text-emerald-900 bg-emerald-50/40">Gabarito Correto (Lei 12.772/2012)</th>
+                                <th class="p-2.5 sm:p-3 w-3/8 text-red-900 bg-red-50/40">Distrator Típico da Banca (ERRADO)</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-200 text-slate-800 font-medium">
+                            <tr class="hover:bg-slate-50/80 transition">
+                                <td class="p-2.5 sm:p-3 border-r border-slate-200 font-bold">Âmbito do RSC</td>
+                                <td class="p-2.5 sm:p-3 border-r border-slate-200 leading-snug"><span class="grifo-verde">Exclusivo</span> para a Carreira EBTT (Art. 18).</td>
+                                <td class="p-2.5 sm:p-3 text-slate-600 leading-snug line-through text-xs sm:text-sm decoration-red-500">"Aplicável tanto a professores das Universidades quanto aos dos IFs."</td>
+                            </tr>
+                            <tr class="hover:bg-slate-50/80 transition">
+                                <td class="p-2.5 sm:p-3 border-r border-slate-200 font-bold">Progressão por RSC</td>
+                                <td class="p-2.5 sm:p-3 border-r border-slate-200 leading-snug"><span class="grifo-alerta">Absolutamente vedado</span> equiparar RSC à titulação para promoção (Art. 19).</td>
+                                <td class="p-2.5 sm:p-3 text-slate-600 leading-snug line-through text-xs sm:text-sm decoration-red-500">"O docente com RSC-III pode concorrer a Titular dispensando doutorado formal."</td>
+                            </tr>
+                            <tr class="hover:bg-slate-50/80 transition">
+                                <td class="p-2.5 sm:p-3 border-r border-slate-200 font-bold">Palestras na DE</td>
+                                <td class="p-2.5 sm:p-3 border-r border-slate-200 leading-snug">Limitada ao teto de <span class="grifo">30 horas ANUAIS</span> (Art. 21, § 1º).</td>
+                                <td class="p-2.5 sm:p-3 text-slate-600 leading-snug line-through text-xs sm:text-sm decoration-red-500">"Permitida a prestação remunerada de até 30 horas mensais ou 4h semanais."</td>
+                            </tr>
+                            <tr class="hover:bg-slate-50/80 transition">
+                                <td class="p-2.5 sm:p-3 border-r border-slate-200 font-bold">Projetos de P&D / Extensão</td>
+                                <td class="p-2.5 sm:p-3 border-r border-slate-200 leading-snug">Limitada a <span class="grifo">até 8h semanais ou 416h anuais</span> (Art. 21, § 4º).</td>
+                                <td class="p-2.5 sm:p-3 text-slate-600 leading-snug line-through text-xs sm:text-sm decoration-red-500">"O docente pode alocar até 12 horas semanais sem limite máximo acumulado no ano."</td>
+                            </tr>
+                            <tr class="hover:bg-slate-50/80 transition">
+                                <td class="p-2.5 sm:p-3 border-r border-slate-200 font-bold">Remuneração em Fundação</td>
+                                <td class="p-2.5 sm:p-3 border-r border-slate-200 leading-snug"><span class="grifo-alerta">Proibida a remuneração</span> pela fundação a dirigentes em órgãos deliberativos (Art. 20, § 4º).</td>
+                                <td class="p-2.5 sm:p-3 text-slate-600 leading-snug line-through text-xs sm:text-sm decoration-red-500">"O professor em DE pode ser remunerado concomitantemente pelo IF e pela Fundação."</td>
+                            </tr>
+                            <tr class="hover:bg-slate-50/80 transition">
+                                <td class="p-2.5 sm:p-3 border-r border-slate-200 font-bold">Interstício para Afastamento</td>
+                                <td class="p-2.5 sm:p-3 border-r border-slate-200 leading-snug"><span class="grifo-verde">Independe de tempo prévio</span> no cargo ou na instituição (Art. 30, I).</td>
+                                <td class="p-2.5 sm:p-3 text-slate-600 leading-snug line-through text-xs sm:text-sm decoration-red-500">"Exige-se cumprimento de 3 anos de exercício para mestrado e 4 anos para doutorado."</td>
+                            </tr>
+                            <tr class="hover:bg-slate-50/80 transition">
+                                <td class="p-2.5 sm:p-3 border-r border-slate-200 font-bold">Estágio Probatório e Afastamento</td>
+                                <td class="p-2.5 sm:p-3 border-r border-slate-200 leading-snug"><span class="grifo-verde">Juridicamente viável e permitido</span> (com suspensão da contagem).</td>
+                                <td class="p-2.5 sm:p-3 text-slate-600 leading-snug line-through text-xs sm:text-sm decoration-red-500">"É vedado expressamente o afastamento para pós-graduação durante estágio probatório."</td>
+                            </tr>
+                            <tr class="hover:bg-slate-50/80 transition">
+                                <td class="p-2.5 sm:p-3 border-r border-slate-200 font-bold">Cooperação Institucional</td>
+                                <td class="p-2.5 sm:p-3 border-r border-slate-200 leading-snug">Teto de 4 anos com <span class="grifo-alerta">perda automática do cargo</span> em caso de não retorno.</td>
+                                <td class="p-2.5 sm:p-3 text-slate-600 leading-snug line-through text-xs sm:text-sm decoration-red-500">"Afastamento bienal cuja extrapolação acarreta apenas suspensão pecuniária temporária."</td>
+                            </tr>
+                            <tr class="hover:bg-slate-50/80 transition">
+                                <td class="p-2.5 sm:p-3 border-r border-slate-200 font-bold">Natureza da CPPD</td>
+                                <td class="p-2.5 sm:p-3 border-r border-slate-200 leading-snug">Órgão <span class="grifo">consultivo e de assessoramento</span> eleito por seus pares (Art. 26).</td>
+                                <td class="p-2.5 sm:p-3 text-slate-600 leading-snug line-through text-xs sm:text-sm decoration-red-500">"Comissão deliberativa com poder sancionador e membros designados pelo Reitor."</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </article>
+
+        <!-- SEÇÃO FINAL: BOTÃO PARA QUESTÕES -->
+        <section class="mt-14 mb-16 pt-8 border-t-2 border-slate-200 text-center">
+            <div class="max-w-xl mx-auto p-6 sm:p-8 bg-white border-2 border-emerald-600 rounded-2xl shadow-sm">
+                <div class="w-12 h-12 bg-emerald-100 text-emerald-800 rounded-full flex items-center justify-center mx-auto mb-3 font-bold text-xl">
+                    ✓
+                </div>
+                <h3 class="text-xl sm:text-2xl font-extrabold text-slate-900 mb-2">Pronto para Fixar o Conteúdo?</h3>
+                <p class="text-slate-600 text-xs sm:text-sm mb-6 leading-relaxed">
+                    Você revisou toda a dogmática dos Capítulos IV a IX da Lei nº 12.772/2012. Clique no botão abaixo para acessar o módulo de questões objetivas do IFMG.
+                </p>
+                <a 
+                    href="questoes11legs.html" 
+                    class="inline-flex items-center justify-center gap-2 w-full sm:w-auto px-8 py-3.5 bg-emerald-700 hover:bg-emerald-800 active:scale-95 text-white font-bold text-base sm:text-lg rounded-xl shadow-md transition-all duration-150"
+                >
+                    <span>Acessar Questões de Fixação</span>
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <!-- FOOTER LIMPO E INSTITUCIONAL -->
+    <footer class="w-full border-t border-slate-200 bg-white py-6 text-center text-xs text-slate-500">
+        <div class="max-w-5xl mx-auto px-4">
+            <p class="font-medium text-slate-700">Material Preparatório Didático & Técnico • Lei Federal nº 12.772/2012</p>
+            <p class="mt-1">Foco: Concurso Público Docente EBTT – Instituto Federal de Minas Gerais (IFMG)</p>
+        </div>
+    </footer>
+
+    <!-- SCRIPT DE INTERAÇÃO DO REPRODUTOR DE ÁUDIO -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const audioPlayer = document.getElementById('audioPlayer');
+            const audioSource = document.getElementById('audioSource');
+            const audioFileInput = document.getElementById('audioFileInput');
+            const btnLoadAudio = document.getElementById('btnLoadAudio');
+            const audioStatusText = document.getElementById('audioStatusText');
+            const speedButtons = document.querySelectorAll('.speed-btn');
+
+            // Função para carregar novo arquivo de áudio
+            function loadAudioFile() {
+                const fileName = audioFileInput.value.trim();
+                if (fileName) {
+                    audioSource.src = fileName;
+                    audioPlayer.load();
+                    audioStatusText.innerHTML = 'Arquivo atual: <span class="text-slate-800 font-medium">' + fileName + '</span>';
+                }
+            }
+
+            // Evento no botão Carregar
+            btnLoadAudio.addEventListener('click', loadAudioFile);
+
+            // Permitir apertar ENTER no input
+            audioFileInput.addEventListener('keydown', function (e) {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    loadAudioFile();
+                }
+            });
+
+            // Controles de Velocidade de Reprodução
+            speedButtons.forEach(button => {
+                button.addEventListener('click', function () {
+                    const speed = parseFloat(this.getAttribute('data-speed'));
+                    audioPlayer.playbackRate = speed;
+
+                    // Atualiza destaque visual dos botões
+                    speedButtons.forEach(btn => {
+                        btn.classList.remove('bg-emerald-700', 'text-white');
+                        btn.classList.add('text-slate-700', 'hover:bg-slate-100');
+                    });
+                    this.classList.remove('text-slate-700', 'hover:bg-slate-100');
+                    this.classList.add('bg-emerald-700', 'text-white');
+                });
+            });
+
+            // Selecionar 1.0x por padrão
+            if (speedButtons.length > 0) {
+                speedButtons[0].classList.add('bg-emerald-700', 'text-white');
+                speedButtons[0].classList.remove('text-slate-700');
+            }
+        });
+    </script>
+</body>
+</html>

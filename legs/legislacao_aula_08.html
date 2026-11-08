@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lei nº 11.892/2008 – Criação, Finalidades e Metas de Vagas | IFMG</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #ffffff;
+      color: #1e293b;
+      -webkit-font-smoothing: antialiased;
+    }
+    /* Estilo de grifo suave para estudo sem cansar a visão */
+    mark {
+      background-color: #fef08a; /* Amarelo pastel suave */
+      color: #0f172a;
+      padding: 0.125rem 0.35rem;
+      border-radius: 0.25rem;
+      font-weight: 600;
+    }
+    .mark-green {
+      background-color: #dcfce7; /* Verde suave para percentuais e metas */
+      color: #14532d;
+      padding: 0.125rem 0.35rem;
+      border-radius: 0.25rem;
+      font-weight: 600;
+    }
+    .mark-blue {
+      background-color: #e0f2fe; /* Azul suave para competências e órgãos */
+      color: #0369a1;
+      padding: 0.125rem 0.35rem;
+      border-radius: 0.25rem;
+      font-weight: 600;
+    }
+    /* Quebras de palavras para tabelas caberem 100% sem scroll horizontal */
+    th, td {
+      word-break: normal;
+      overflow-wrap: break-word;
+      hyphens: auto;
+    }
+  </style>
+</head>
+<body class="bg-white min-h-screen">
+
+  <!-- Container Principal de Leitura -->
+  <main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+    
+    <!-- Cabeçalho Principal -->
+    <header class="border-b border-slate-200 pb-8 mb-8">
+      <div class="inline-block px-3 py-1 bg-slate-100 text-slate-700 text-xs font-semibold rounded-full uppercase tracking-wider mb-3">
+        Concurso Docente EBTT • Banca Reitoria IFMG • Geografia
+      </div>
+      <h1 class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight leading-snug">
+        Lei nº 11.892/2008 – Criação, Finalidades e Metas de Vagas nos Institutos Federais
+      </h1>
+      <p class="mt-3 text-base sm:text-lg text-slate-600 leading-relaxed">
+        Análise Técnico-Normativa, Diretrizes Pedagógicas e Pontos Críticos para a Prova Objetiva (Arts. 1º a 8º).
+      </p>
+    </header>
+
+    <!-- Bloco do Reprodutor de Áudio MP3 -->
+    <section class="mb-10 p-5 sm:p-6 bg-slate-50 border border-slate-200 rounded-2xl shadow-sm">
+      <div class="flex items-center gap-3 mb-3">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-slate-700 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
+        </svg>
+        <h2 class="text-base sm:text-lg font-bold text-slate-900">Áudio da Aula / Resumo Guiado</h2>
+      </div>
+
+      <!-- Player de Áudio Nativo -->
+      <div class="w-full mb-4">
+        <audio id="audioPlayer" controls class="w-full h-11 rounded-lg focus:outline-none">
+          <source id="audioSource" src="audio8legs.mp3" type="audio/mpeg">
+          Seu navegador não suporta a execução de áudio HTML5.
+        </audio>
+      </div>
+
+      <!-- Campo de Configuração Rápida do Arquivo MP3 -->
+      <div class="bg-white p-3 rounded-xl border border-slate-200 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 text-xs sm:text-sm">
+        <div class="flex items-center gap-2 text-slate-600">
+          <span class="font-medium">Arquivo carregado:</span>
+          <span id="currentFileName" class="font-mono text-slate-800 bg-slate-100 px-2 py-0.5 rounded border border-slate-200">audio8legs.mp3</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <label for="audioFileNameInput" class="text-slate-600 font-medium whitespace-nowrap">Trocar arquivo:</label>
+          <input 
+            type="text" 
+            id="audioFileNameInput" 
+            placeholder="nome-do-arquivo.mp3" 
+            value="audio8legs.mp3"
+            class="px-2.5 py-1 text-xs sm:text-sm border border-slate-300 rounded-lg focus:ring-2 focus:ring-slate-400 focus:outline-none w-44"
+          >
+          <button 
+            id="updateAudioBtn"
+            class="px-3 py-1 bg-slate-800 text-white font-medium rounded-lg hover:bg-slate-700 transition text-xs sm:text-sm"
+          >
+            Carregar
+          </button>
+        </div>
+      </div>
+      <p class="text-xs text-slate-500 mt-2">
+        * Para escutar, coloque o arquivo MP3 na mesma pasta desta página HTML com o nome configurado acima (ou altere no campo).
+      </p>
+    </section>
+
+    <!-- INTRODUÇÃO -->
+    <article class="prose max-w-none text-slate-800 leading-relaxed">
+      <p class="text-base sm:text-lg leading-relaxed text-slate-700 mb-8">
+        A promulgação da <strong>Lei Federal nº 11.892, em 29 de dezembro de 2008</strong>, redefiniu as bases institucionais e pedagógicas da educação profissional no Brasil ao instituir a <strong>Rede Federal de Educação Profissional, Científica e Tecnológica</strong> e criar os <strong>Institutos Federais de Educação, Ciência e Tecnologia</strong>. No âmbito dos concursos públicos organizados pela Reitoria do Instituto Federal de Minas Gerais (IFMG) para a carreira docente do Magistério do Ensino Básico, Técnico e Tecnológico (EBTT), o estudo analítico e literal dos <strong>artigos 1º a 8º</strong> assume relevância primordial. A banca examinadora recorrentemente testa a compreensão das bases conceituais da integração formativa, as distinções textuais entre finalidades e objetivos, o regime da autonomia acadêmica equiparada e a rigidez matemática das cotas de oferta de vagas.
+      </p>
+
+      <!-- SEÇÃO 1 -->
+      <section class="mb-10">
+        <h2 class="text-xl sm:text-2xl font-bold text-slate-900 border-l-4 border-slate-800 pl-3 mb-4">
+          Contexto Histórico-Normativo e Arquitetura Institucional (Arts. 1º a 5º)
+        </h2>
+        <p class="mb-4">
+          A gênese dos Institutos Federais decorre da necessidade de superação da histórica <mark>dualidade estrutural</mark> que marcou as políticas educacionais brasileiras, na qual a formação acadêmica e propedêutica se destinava às elites, enquanto o ensino técnico e operacional era reservado às classes trabalhadoras. O modelo instituído pela Lei nº 11.892/2008 congregou, sob um mesmo arranjo institucional, diferentes níveis e modalidades de ensino, articulando a educação profissional técnica de nível médio à educação superior e à pós-graduação.
+        </p>
+
+        <h3 class="text-lg font-bold text-slate-900 mt-6 mb-3">Composição da Rede Federal e Natureza Jurídica (Art. 1º)</h3>
+        <p class="mb-3">
+          O art. 1º vincula a Rede Federal ao Ministério da Educação e a estrutura por meio de cinco conjuntos institucionais distintos:
+        </p>
+        <ul class="list-disc pl-6 mb-4 space-y-1">
+          <li>Os Institutos Federais de Educação, Ciência e Tecnologia (IFs);</li>
+          <li>A Universidade Tecnológica Federal do Paraná (UTFPR);</li>
+          <li>Os Centros Federais de Educação Tecnológica Celso Suckow da Fonseca (CEFET-RJ) e de Minas Gerais (CEFET-MG);</li>
+          <li>As Escolas Técnicas Vinculadas às Universidades Federais;</li>
+          <li>O Colégio Pedro II.</li>
+        </ul>
+        <p class="mb-4">
+          De acordo com o parágrafo único do art. 1º, os Institutos Federais, a UTFPR, os CEFETs e o Colégio Pedro II possuem natureza jurídica de <mark class="mark-blue">autarquia federal</mark>, detentora de personalidade jurídica de direito público, com patrimônio e receitas próprios, além de <mark>autonomia administrativa, patrimonial, financeira, didático-pedagógica e disciplinar</mark>. As <strong>Escolas Técnicas Vinculadas</strong>, nos termos do art. 4º, constituem exceção quanto à personalidade jurídica autárquica própria, configurando estabelecimentos de ensino integrantes da estrutura administrativa das universidades federais mantenedoras.
+        </p>
+
+        <h3 class="text-lg font-bold text-slate-900 mt-6 mb-3">O Conceito Legal e o Alcance da Autonomia Universitária (Art. 2º)</h3>
+        <p class="mb-4">
+          O art. 2º estabelece a tipologia legal dos Institutos Federais, definindo-os como <mark>instituições de educação superior, básica e profissional, pluricurriculares e multicampi, especializadas na oferta de educação profissional e tecnológica nas diferentes modalidades de ensino</mark>. A <em>pluricurricularidade</em> traduz a capacidade de atuar em múltiplos campos do saber e eixos tecnológicos, enquanto a estrutura <em>multicampi</em> materializa a interiorização e a descentralização territorial do acesso ao ensino público.
+        </p>
+        <p class="mb-4">
+          A governança acadêmica e a inserção no sistema educacional são pautadas por uma ficção jurídica de equiparação. O § 1º do art. 2º estabelece que, para efeito da incidência das disposições que regem a regulação, avaliação e supervisão das instituições e dos cursos de educação superior, os Institutos Federais são <mark class="mark-blue">equiparados às universidades federais</mark>. Essa equiparação assegura aos Institutos Federais a prerrogativa da autonomia universitária para:
+        </p>
+        <ul class="list-disc pl-6 mb-6 space-y-1">
+          <li><strong>Criar e extinguir cursos</strong> em sua área de atuação territorial, independentemente de autorização prévia ministerial curso a curso;</li>
+          <li><strong>Registrar os diplomas e certificados</strong> expedidos para seus discentes;</li>
+          <li><strong>Aprovar e modificar currículos e projetos pedagógicos</strong> no âmbito de seus colegiados superiores.</li>
+        </ul>
+
+        <!-- Tabela 1: Sem rolagem horizontal -->
+        <div class="my-6 border border-slate-300 rounded-xl overflow-hidden bg-white">
+          <div class="bg-slate-100 px-4 py-2.5 border-b border-slate-300">
+            <span class="font-bold text-xs sm:text-sm text-slate-800">Quadro Comparativo: Natureza Jurídica e Autonomia na Rede Federal</span>
+          </div>
+          <table class="w-full text-xs sm:text-sm text-left border-collapse">
+            <thead>
+              <tr class="bg-slate-50 border-b border-slate-200 text-slate-900">
+                <th class="p-2.5 sm:p-3 font-semibold w-1/4">Instituição</th>
+                <th class="p-2.5 sm:p-3 font-semibold w-1/4">Natureza Jurídica</th>
+                <th class="p-2.5 sm:p-3 font-semibold w-1/4">Regime de Autonomia</th>
+                <th class="p-2.5 sm:p-3 font-semibold w-1/4">Prerrogativa Universitária</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-200">
+              <tr>
+                <td class="p-2.5 sm:p-3 font-bold text-slate-900">Institutos Federais (IFs)</td>
+                <td class="p-2.5 sm:p-3"><mark class="mark-blue">Autarquia Federal</mark></td>
+                <td class="p-2.5 sm:p-3">Administrativa, patrimonial, financeira, didático-pedagógica e disciplinar</td>
+                <td class="p-2.5 sm:p-3"><mark>Equiparados às universidades</mark> para regulação, supervisão e avaliação superior</td>
+              </tr>
+              <tr>
+                <td class="p-2.5 sm:p-3 font-bold text-slate-900">CEFET-MG e CEFET-RJ</td>
+                <td class="p-2.5 sm:p-3"><mark class="mark-blue">Autarquia Federal</mark></td>
+                <td class="p-2.5 sm:p-3">Autonomia autárquica plena comum às IFES</td>
+                <td class="p-2.5 sm:p-3">Prerrogativas universitárias históricas preservadas</td>
+              </tr>
+              <tr>
+                <td class="p-2.5 sm:p-3 font-bold text-slate-900">UTFPR</td>
+                <td class="p-2.5 sm:p-3"><mark class="mark-blue">Autarquia Federal</mark></td>
+                <td class="p-2.5 sm:p-3">Autonomia universitária plena constitucional (art. 207 da CF/88)</td>
+                <td class="p-2.5 sm:p-3">Universidade Tecnológica plenamente constituída</td>
+              </tr>
+              <tr>
+                <td class="p-2.5 sm:p-3 font-bold text-slate-900">Colégio Pedro II</td>
+                <td class="p-2.5 sm:p-3"><mark class="mark-blue">Autarquia Federal</mark></td>
+                <td class="p-2.5 sm:p-3">Autonomia equiparada aos Institutos Federais</td>
+                <td class="p-2.5 sm:p-3">Equiparação acadêmica na sua área própria de atuação</td>
+              </tr>
+              <tr>
+                <td class="p-2.5 sm:p-3 font-bold text-slate-900">Escolas Técnicas Vinculadas</td>
+                <td class="p-2.5 sm:p-3 text-red-700 font-medium">Órgão / Unidade da Universidade</td>
+                <td class="p-2.5 sm:p-3">Subordinada à universidade federal mantenedora</td>
+                <td class="p-2.5 sm:p-3 text-red-700">Não possuem personalidade jurídica ou autonomia própria</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3 class="text-lg font-bold text-slate-900 mt-6 mb-3">Gênese e Composição Territorial do IFMG (Art. 5º, XIII)</h3>
+        <p class="mb-4">
+          A constituição do Instituto Federal de Minas Gerais (IFMG) encontra assento normativo no <strong>art. 5º, inciso XIII, da Lei nº 11.892/2008</strong>, resultante da integração direta de três instituições prévias:
+        </p>
+        <ul class="list-disc pl-6 mb-4 space-y-1">
+          <li><strong>Centro Federal de Educação Tecnológica de Ouro Preto (CEFET-OP)</strong>;</li>
+          <li><strong>Centro Federal de Educação Tecnológica de Bambuí (CEFET-Bambuí)</strong>;</li>
+          <li><strong>Escola Agrotécnica Federal de São João Evangelista (EAF-SJE)</strong>.</li>
+        </ul>
+        <p class="mb-4">
+          A Reitoria foi fixada administrativamente na cidade de <mark>Belo Horizonte</mark>, conforme disposto no Anexo I da mesma lei. <mark class="bg-red-50 text-red-900 border border-red-200">Atenção Crítica: O CEFET-MG permaneceu como instituição autônoma da Rede Federal, NÃO tendo integrado o processo de criação do IFMG</mark>, detalhe frequentemente explorado como distrator em provas aplicadas pela comissão organizadora.
+        </p>
+      </section>
+
+      <!-- SEÇÃO 2 -->
+      <section class="mb-10">
+        <h2 class="text-xl sm:text-2xl font-bold text-slate-900 border-l-4 border-slate-800 pl-3 mb-4">
+          Princípios e Matriz Teleológica: Finalidades e Características (Art. 6º)
+        </h2>
+        <p class="mb-4">
+          O art. 6º da Lei nº 11.892/2008 discrimina a matriz axiológica e institucional dos Institutos Federais, consolidando um paradigma formativo pautado pelo desenvolvimento regional e pela indissociabilidade entre ensino, pesquisa aplicada e extensão tecnológica.
+        </p>
+        <p class="mb-4">
+          A <mark>verticalização do ensino</mark> (inciso III) traduz o fluxo curricular contínuo que assegura a convivência de estudantes e professores de cursos técnicos de nível médio, cursos superiores de tecnologia, engenharias, licenciaturas e programas de pós-graduação no mesmo espaço físico. Esse princípio otimiza a infraestrutura de laboratórios, o acervo bibliográfico e o corpo funcional, ao mesmo tempo em que enriquece os processos de aprendizagem pela aproximação entre os níveis formativos.
+        </p>
+        <p class="mb-4">
+          A conexão orgânica com os <mark>Arranjos Produtivos, Sociais e Culturais Locais (APLs)</mark> (inciso IV) impede que os cursos sejam gerados a partir de escolhas puramente abstratas; a oferta formativa é condicionada ao mapeamento das vocações e demandas socioeconômicas e ambientais dos territórios atendidos por cada <em>campus</em>. Por fim, a produção e a transferência de <mark>tecnologias sociais voltadas à preservação ambiental</mark> (inciso IX) e o apoio pedagógico aos docentes da educação básica pública por meio de centros de referência em ciências (incisos V e VI) consolidam a função social da instituição.
+        </p>
+        
+        <div class="bg-slate-50 border border-slate-200 rounded-xl p-4 sm:p-5 my-5">
+          <h4 class="font-bold text-slate-900 mb-3 text-sm sm:text-base">As 9 Finalidades e Características Primordiais (Art. 6º):</h4>
+          <ol class="list-decimal pl-5 space-y-2 text-xs sm:text-sm text-slate-800">
+            <li><strong>Ofertar educação profissional e tecnológica</strong>, em todos os seus níveis e modalidades, formando e qualificando cidadãos com vistas na atuação profissional nos diversos setores da economia, com ênfase no desenvolvimento socioeconômico local, regional e nacional;</li>
+            <li><strong>Desenvolver a educação profissional e tecnológica</strong> como processo educativo e investigativo de geração e adaptação de soluções técnicas e tecnológicas às demandas sociais e peculiaridades regionais;</li>
+            <li><mark>Promover a integração e a verticalização</mark> da educação básica à educação profissional e educação superior, otimizando a infraestrutura física, os quadros de pessoal e os recursos de gestão;</li>
+            <li><mark>Orientar sua oferta formativa em benefício da consolidação e fortalecimento dos arranjos produtivos, sociais e culturais locais</mark>, identificados com base no mapeamento das potencialidades de desenvolvimento socioeconômico e cultural no âmbito de atuação do Instituto Federal;</li>
+            <li><strong>Constituir-se em centro de excelência</strong> na oferta do ensino de ciências, em geral, e de ciências aplicadas, em particular, estimulando o desenvolvimento de espírito crítico, voltado à investigação empírica;</li>
+            <li><mark>Qualificar-se como centro de referência no apoio à oferta do ensino de ciências nas instituições públicas de ensino</mark>, oferecendo capacitação técnica e atualização pedagógica aos docentes das redes públicas de ensino;</li>
+            <li><strong>Desenvolver programas de extensão</strong> e de divulgação científica e tecnológica;</li>
+            <li><strong>Realizar e estimular a pesquisa aplicada</strong>, a produção cultural, o empreendedorismo, o cooperativismo e o desenvolvimento científico e tecnológico;</li>
+            <li><mark>Promover a produção, o desenvolvimento e a transferência de tecnologias sociais</mark>, notadamente as voltadas à preservação do meio ambiente.</li>
+          </ol>
+        </div>
+      </section>
+
+      <!-- SEÇÃO 3 -->
+      <section class="mb-10">
+        <h2 class="text-xl sm:text-2xl font-bold text-slate-900 border-l-4 border-slate-800 pl-3 mb-4">
+          Dimensão Operacional: Objetivos Institucionais (Art. 7º)
+        </h2>
+        <p class="mb-4">
+          O art. 7º operacionaliza os compromissos institucionais ao fixar as metas de ação acadêmica do Instituto Federal. Enquanto o art. 6º demarca princípios formativos e características ontológicas (identidade), o art. 7º expressa os <strong>objetivos práticos</strong> por meio de verbos de comando operacional, tais como <em>ministrar</em>, <em>realizar</em>, <em>desenvolver</em> e <em>estimular</em>.
+        </p>
+        
+        <div class="space-y-3 my-5">
+          <div class="p-3.5 bg-slate-50 border border-slate-200 rounded-xl">
+            <h4 class="font-bold text-slate-900 text-sm">Art. 7º, I – Ensino Médio Técnico Integrado:</h4>
+            <p class="text-xs sm:text-sm text-slate-700 mt-1">
+              Ministrar educação profissional técnica de nível médio, <mark>prioritariamente na forma de cursos integrados</mark>, tanto para os concluintes do ensino fundamental regular quanto para os discentes da educação de jovens e adultos (EJA). Essa prioridade visa à formação omnilateral e politécnica do indivíduo, contrapondo-se à fragmentação modular desarticulada.
+            </p>
+          </div>
+
+          <div class="p-3.5 bg-slate-50 border border-slate-200 rounded-xl">
+            <h4 class="font-bold text-slate-900 text-sm">Art. 7º, II – Formação Inicial e Continuada (FIC):</h4>
+            <p class="text-xs sm:text-sm text-slate-700 mt-1">
+              Ministrar cursos de formação inicial e continuada de trabalhadores, abrangendo capacitação, aperfeiçoamento, especialização e atualização profissional em todos os níveis de escolaridade.
+            </p>
+          </div>
+
+          <div class="p-3.5 bg-slate-50 border border-slate-200 rounded-xl">
+            <h4 class="font-bold text-slate-900 text-sm">Art. 7º, III – Pesquisa Aplicada:</h4>
+            <p class="text-xs sm:text-sm text-slate-700 mt-1">
+              Realizar pesquisas aplicadas que estimulem o desenvolvimento e a transferência de soluções técnicas e tecnológicas voltadas às demandas sociais da comunidade.
+            </p>
+          </div>
+
+          <div class="p-3.5 bg-slate-50 border border-slate-200 rounded-xl">
+            <h4 class="font-bold text-slate-900 text-sm">Art. 7º, IV – Extensão Tecnológica:</h4>
+            <p class="text-xs sm:text-sm text-slate-700 mt-1">
+              Desenvolver ações de extensão articuladas com o mundo do trabalho e os movimentos sociais, focando na difusão do conhecimento científico e produtivo.
+            </p>
+          </div>
+
+          <div class="p-3.5 bg-slate-50 border border-slate-200 rounded-xl">
+            <h4 class="font-bold text-slate-900 text-sm">Art. 7º, V – Cidadania e Renda:</h4>
+            <p class="text-xs sm:text-sm text-slate-700 mt-1">
+              Estimular processos formativos voltados à geração de trabalho, renda e emancipação cidadã.
+            </p>
+          </div>
+
+          <div class="p-3.5 bg-slate-50 border border-slate-200 rounded-xl">
+            <h4 class="font-bold text-slate-900 text-sm">Art. 7º, VI – Educação Superior:</h4>
+            <p class="text-xs sm:text-sm text-slate-700 mt-1 mb-2">
+              Ministrar em nível superior de ensino:
+            </p>
+            <ul class="list-disc pl-5 space-y-1 text-xs sm:text-sm text-slate-700">
+              <li><em>Alínea a:</em> Cursos superiores de tecnologia voltados às demandas econômicas;</li>
+              <li><em>Alínea b:</em> <mark>Cursos de licenciatura e programas de formação pedagógica</mark> voltados à formação docente para a educação básica e profissional, <mark>sobretudo nas áreas de ciências e matemática</mark>;</li>
+              <li><em>Alínea c:</em> Cursos de bacharelado e engenharia direcionados aos setores produtivos regionais;</li>
+              <li><em>Alínea d:</em> Pós-graduação <em>lato sensu</em> (especialização e aperfeiçoamento);</li>
+              <li><em>Alínea e:</em> Pós-graduação <mark class="mark-blue">stricto sensu</mark> (programas de mestrado e doutorado focados em inovação).</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- SEÇÃO 4 -->
+      <section class="mb-10">
+        <h2 class="text-xl sm:text-2xl font-bold text-slate-900 border-l-4 border-slate-800 pl-3 mb-4">
+          Metas Quantitativas Obrigatórias de Vagas e Alocação Acadêmica (Art. 8º)
+        </h2>
+        <p class="mb-4">
+          O art. 8º da Lei nº 11.892/2008 é um dos dispositivos mais recorrentes em concursos públicos da Rede Federal. Ele estabelece freios regulatórios quantitativos para impedir a "universitarização" dos Institutos Federais — processo histórico em que antigas escolas técnicas e centros federais, ao adquirirem prerrogativas superiores, abandonavam progressivamente a formação de nível médio técnico voltada à classe trabalhadora.
+        </p>
+
+        <h3 class="text-lg font-bold text-slate-900 mt-6 mb-3">A Arquitetura das Cotas Obrigatórias de Vagas (Art. 8º, Caput)</h3>
+        <p class="mb-4">
+          No desenvolvimento de sua ação acadêmica anual, o Instituto Federal é obrigado a garantir, <strong>em cada exercício fiscal e acadêmico</strong>, a seguinte distribuição quantitativa compulsória de vagas:
+        </p>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 my-6">
+          <div class="p-4 border-2 border-emerald-300 rounded-xl bg-emerald-50/40">
+            <div class="text-2xl font-extrabold text-emerald-800 mb-1">MÍNIMO 50%</div>
+            <div class="font-bold text-slate-900 text-sm mb-2">Ensino Médio Técnico</div>
+            <p class="text-xs text-slate-700">
+              Destinado ao art. 7º, I. Oferta obrigatória com <mark>prioridade expressa na forma integrada</mark> aos concluintes do fundamental e EJA.
+            </p>
+          </div>
+
+          <div class="p-4 border-2 border-amber-300 rounded-xl bg-amber-50/40">
+            <div class="text-2xl font-extrabold text-amber-800 mb-1">MÍNIMO 20%</div>
+            <div class="font-bold text-slate-900 text-sm mb-2">Licenciaturas e Pedagógicos</div>
+            <p class="text-xs text-slate-700">
+              Destinado ao art. 7º, VI, "b". Formação docente focada <mark>sobretudo nas áreas de ciências e matemática</mark>.
+            </p>
+          </div>
+
+          <div class="p-4 border-2 border-slate-300 rounded-xl bg-slate-50">
+            <div class="text-2xl font-extrabold text-slate-700 mb-1">ATÉ 30%</div>
+            <div class="font-bold text-slate-900 text-sm mb-2">Margem Residual Superior</div>
+            <p class="text-xs text-slate-700">
+              Destinado aos cursos superiores de tecnologia, engenharias, bacharelados e pós-graduações (<em>lato</em> e <em>stricto sensu</em>).
+            </p>
+          </div>
+        </div>
+
+        <p class="mb-4">
+          A meta vinculante de 20% para cursos de licenciatura representou uma intervenção direta de política de Estado para mitigar o déficit crônico de professores habilitados em ciências exatas e da natureza na educação básica pública brasileira.
+        </p>
+
+        <!-- Tabela 2: Sem rolagem horizontal -->
+        <div class="my-6 border border-slate-300 rounded-xl overflow-hidden bg-white">
+          <div class="bg-slate-100 px-4 py-2.5 border-b border-slate-300">
+            <span class="font-bold text-xs sm:text-sm text-slate-800">Quadro de Distribuição Legal de Vagas Acadêmicas (Art. 8º)</span>
+          </div>
+          <table class="w-full text-xs sm:text-sm text-left border-collapse">
+            <thead>
+              <tr class="bg-slate-50 border-b border-slate-200 text-slate-900">
+                <th class="p-2.5 sm:p-3 font-semibold w-1/4">Modalidade Formativa</th>
+                <th class="p-2.5 sm:p-3 font-semibold w-1/5">Percentual Exigido</th>
+                <th class="p-2.5 sm:p-3 font-semibold w-1/4">Base Legal</th>
+                <th class="p-2.5 sm:p-3 font-semibold w-3/10">Requisitos de Qualificação</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-200">
+              <tr>
+                <td class="p-2.5 sm:p-3 font-bold text-slate-900">Educação Profissional Técnica de Nível Médio</td>
+                <td class="p-2.5 sm:p-3"><mark class="mark-green">Mínimo de 50%</mark> das vagas</td>
+                <td class="p-2.5 sm:p-3">Art. 8º, <em>caput</em>, c/c Art. 7º, I</td>
+                <td class="p-2.5 sm:p-3">Oferta <mark>prioritariamente integrada</mark> ao ensino médio regular e EJA</td>
+              </tr>
+              <tr>
+                <td class="p-2.5 sm:p-3 font-bold text-slate-900">Licenciaturas e Formação Pedagógica</td>
+                <td class="p-2.5 sm:p-3"><mark class="mark-green">Mínimo de 20%</mark> das vagas</td>
+                <td class="p-2.5 sm:p-3">Art. 8º, <em>caput</em>, c/c Art. 7º, VI, <em>b</em></td>
+                <td class="p-2.5 sm:p-3">Formação docente focada <mark>sobretudo em ciências e matemática</mark></td>
+              </tr>
+              <tr>
+                <td class="p-2.5 sm:p-3 font-bold text-slate-900">Demais Cursos Superiores e Pós-Graduação</td>
+                <td class="p-2.5 sm:p-3"><span class="font-semibold text-slate-700">Até 30%</span> (residual)</td>
+                <td class="p-2.5 sm:p-3">Art. 7º, VI, <em>a, c, d, e</em></td>
+                <td class="p-2.5 sm:p-3">Tecnologias, Engenharias, Bacharelados, Mestrados e Doutorados</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3 class="text-lg font-bold text-slate-900 mt-6 mb-3">O Conceito Regulatório de Aluno-Equivalente (Art. 8º, § 1º)</h3>
+        <p class="mb-4">
+          Para fins de cumprimento e fiscalização das cotas de 50% e 20%, o § 1º do art. 8º estabelece que a mensuração acadêmica <mark class="bg-red-50 text-red-900 border border-red-200">não é calculada com base na simples contagem nominal e estática de matrículas brutas de balcão</mark>. O cálculo deve observar expressamente o conceito de <mark class="mark-blue">aluno-equivalente</mark>, regulamentado por ato do Ministério da Educação.
+        </p>
+        <p class="mb-4">
+          O aluno-equivalente pondera a carga horária anual dos componentes curriculares, os custos operacionais por área de conhecimento, a dedicação dos discentes e o tempo previsto para integralização. Essa metodologia uniformiza as matrizes de financiamento e orçamentação da Secretaria de Educação Profissional e Tecnológica (SETEC/MEC), impedindo distorções provocadas por cursos rápidos ou formações de baixa densidade horária.
+        </p>
+
+        <h3 class="text-lg font-bold text-slate-900 mt-6 mb-3">O Mecanismo de Flexibilização Excepcional (Art. 8º, § 2º)</h3>
+        <p class="mb-4">
+          A legislação antevê a possibilidade de alteração temporária na matriz de distribuição de vagas de ensino superior para atender a particularidades territoriais. O § 2º do art. 8º estabelece que, nas regiões em que as demandas sociais pela formação em nível superior justificarem, o ajuste da oferta desse nível poderá ser autorizado.
+        </p>
+        <div class="p-4 bg-amber-50 border border-amber-300 rounded-xl my-4 text-xs sm:text-sm">
+          <p class="font-bold text-amber-950 mb-2">Para que a flexibilização seja válida, a lei exige cumulativamente dois atos concorrentes:</p>
+          <ol class="list-decimal pl-5 space-y-1 text-amber-900">
+            <li><strong>Deliberação e aprovação pelo Conselho Superior (CONSUP)</strong> do próprio Instituto Federal;</li>
+            <li><strong>Anuência formal expressa do Ministério da Educação (MEC)</strong>.</li>
+          </ol>
+          <p class="mt-2 text-xs text-amber-950 font-medium">
+            * A ausência de qualquer uma das etapas invalida a flexibilização. É estritamente vedada a decisão unilateral de Reitores ou Diretores-Gerais de campus!
+          </p>
+        </div>
+      </section>
+
+      <!-- SEÇÃO 5 -->
+      <section class="mb-10">
+        <h2 class="text-xl sm:text-2xl font-bold text-slate-900 border-l-4 border-slate-800 pl-3 mb-4">
+          Tópicos Essenciais de Memorização Rápida para o Concurso do IFMG
+        </h2>
+        <div class="space-y-3">
+          <div class="p-3 bg-slate-50 border border-slate-200 rounded-xl">
+            <span class="font-bold text-slate-900 text-sm">1. Autarquia Federal de Autonomia Equiparada (Arts. 1º e 2º):</span>
+            <p class="text-xs sm:text-sm text-slate-700 mt-0.5">
+              Os Institutos Federais são autarquias dotadas de autonomia pedagógica, administrativa e financeira, equiparando-se às universidades federais para efeitos de regulação, supervisão e avaliação perante o MEC, inclusive na prerrogativa de criar cursos e registrar diplomas.
+            </p>
+          </div>
+
+          <div class="p-3 bg-slate-50 border border-slate-200 rounded-xl">
+            <span class="font-bold text-slate-900 text-sm">2. Natureza Pluricurricular e Multicampi (Art. 2º):</span>
+            <p class="text-xs sm:text-sm text-slate-700 mt-0.5">
+              Instituições públicas estruturadas para ofertar educação superior, básica e profissional em diferentes modalidades, desdobrando-se territorialmente em múltiplos <em>campi</em> integrados por uma única Reitoria.
+            </p>
+          </div>
+
+          <div class="p-3 bg-slate-50 border border-slate-200 rounded-xl">
+            <span class="font-bold text-slate-900 text-sm">3. Composição Histórica do IFMG (Art. 5º, XIII):</span>
+            <p class="text-xs sm:text-sm text-slate-700 mt-0.5">
+              Criado pela fusão do <mark>CEFET-Ouro Preto</mark>, do <mark>CEFET-Bambuí</mark> e da <mark>Escola Agrotécnica de São João Evangelista</mark>; sua sede reitoral localiza-se em <mark>Belo Horizonte</mark>. O CEFET-MG não integra o IFMG.
+            </p>
+          </div>
+
+          <div class="p-3 bg-slate-50 border border-slate-200 rounded-xl">
+            <span class="font-bold text-slate-900 text-sm">4. Verticalização Pedagógica (Art. 6º, III):</span>
+            <p class="text-xs sm:text-sm text-slate-700 mt-0.5">
+              Integração orgânica da educação básica à educação superior e pós-graduação no mesmo ambiente institucional, otimizando recursos físicos e quadros de pessoal.
+            </p>
+          </div>
+
+          <div class="p-3 bg-slate-50 border border-slate-200 rounded-xl">
+            <span class="font-bold text-slate-900 text-sm">5. Arranjos Produtivos Locais - APLs (Art. 6º, IV):</span>
+            <p class="text-xs sm:text-sm text-slate-700 mt-0.5">
+              Princípio de conformação curricular que impõe a sintonia da oferta educacional com as necessidades socioeconômicas e ambientais locais e regionais.
+            </p>
+          </div>
+
+          <div class="p-3 bg-slate-50 border border-slate-200 rounded-xl">
+            <span class="font-bold text-slate-900 text-sm">6. Centro de Referência no Apoio ao Ensino de Ciências (Art. 6º, VI):</span>
+            <p class="text-xs sm:text-sm text-slate-700 mt-0.5">
+              Atribuição expressa de oferecer qualificação técnica e aperfeiçoamento pedagógico permanente aos professores das redes públicas de ensino fundamental e médio.
+            </p>
+          </div>
+
+          <div class="p-3 bg-slate-50 border border-slate-200 rounded-xl">
+            <span class="font-bold text-slate-900 text-sm">7. Cota de Nível Médio Técnico (Art. 8º, caput):</span>
+            <p class="text-xs sm:text-sm text-slate-700 mt-0.5">
+              Obrigatoriedade de destinar <mark class="mark-green">no mínimo 50% das vagas anuais</mark> a cursos técnicos de nível médio, <mark>preferencialmente na forma integrada</mark> aos concluintes do ensino fundamental e EJA.
+            </p>
+          </div>
+
+          <div class="p-3 bg-slate-50 border border-slate-200 rounded-xl">
+            <span class="font-bold text-slate-900 text-sm">8. Cota de Licenciaturas (Art. 8º, caput):</span>
+            <p class="text-xs sm:text-sm text-slate-700 mt-0.5">
+              Obrigatoriedade de destinar <mark class="mark-green">no mínimo 20% das vagas anuais</mark> à formação de professores, com ênfase curricular voltada <mark>sobretudo às ciências e matemática</mark>.
+            </p>
+          </div>
+
+          <div class="p-3 bg-slate-50 border border-slate-200 rounded-xl">
+            <span class="font-bold text-slate-900 text-sm">9. Métrica de Controle por Aluno-Equivalente (Art. 8º, § 1º):</span>
+            <p class="text-xs sm:text-sm text-slate-700 mt-0.5">
+              Apuração dos percentuais mínimos de vagas por meio do indicador de <mark class="mark-blue">aluno-equivalente</mark> regulamentado pelo MEC, superando a simples contagem de matrículas nominais.
+            </p>
+          </div>
+
+          <div class="p-3 bg-slate-50 border border-slate-200 rounded-xl">
+            <span class="font-bold text-slate-900 text-sm">10. Requisitos de Flexibilização de Vagas (Art. 8º, § 2º):</span>
+            <p class="text-xs sm:text-sm text-slate-700 mt-0.5">
+              Ajustes na oferta de cursos superiores dependem cumulativamente da deliberação do <mark>Conselho Superior</mark> do IF e da <mark>anuência expressa do MEC</mark>.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- SEÇÃO 6 -->
+      <section class="mb-10">
+        <h2 class="text-xl sm:text-2xl font-bold text-slate-900 border-l-4 border-slate-800 pl-3 mb-4">
+          Padrões de Cobrança da Banca Examinadora e Análise de Pegadinhas Objetivas
+        </h2>
+        <p class="mb-4">
+          A elaboração de itens de prova pela comissão examinadora do IFMG concentra-se em substituições de vocábulos estratégicos, inversões conceituais entre artigos vizinhos e manipulação de percentuais. O domínio da literalidade da norma jurídica desativa os distratores mais frequentes nas questões de concurso público:
+        </p>
+
+        <!-- Tabela 3: Sem rolagem horizontal -->
+        <div class="my-6 border border-slate-300 rounded-xl overflow-hidden bg-white">
+          <div class="bg-slate-100 px-4 py-2.5 border-b border-slate-300">
+            <span class="font-bold text-xs sm:text-sm text-slate-800">Tabela de Armadilhas Frequentes em Concursos de IF</span>
+          </div>
+          <table class="w-full text-xs sm:text-sm text-left border-collapse">
+            <thead>
+              <tr class="bg-slate-50 border-b border-slate-200 text-slate-900">
+                <th class="p-2 sm:p-2.5 font-semibold w-1/5">Ponto de Cobrança</th>
+                <th class="p-2 sm:p-2.5 font-semibold w-3/10 text-red-900 bg-red-50/50">Pegadinha da Banca</th>
+                <th class="p-2 sm:p-2.5 font-semibold w-7/20 text-emerald-950 bg-emerald-50/50">Literalidade Correta (Lei 11.892/08)</th>
+                <th class="p-2 sm:p-2.5 font-semibold w-3/20">Artigo</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-200">
+              <tr>
+                <td class="p-2 sm:p-2.5 font-bold text-slate-900">Oferta Integrada</td>
+                <td class="p-2 sm:p-2.5 text-red-800 bg-red-50/20">Dizer que a oferta do ensino médio técnico deve ser <em>exclusivamente</em> integrada.</td>
+                <td class="p-2 sm:p-2.5 text-slate-800">A legislação exige oferta <mark>prioritariamente integrada</mark> ao ensino médio regular e EJA.</td>
+                <td class="p-2 sm:p-2.5 text-slate-600 font-mono text-xs">Art. 7º, I; Art. 8º</td>
+              </tr>
+              <tr>
+                <td class="p-2 sm:p-2.5 font-bold text-slate-900">Foco das Licenciaturas</td>
+                <td class="p-2 sm:p-2.5 text-red-800 bg-red-50/20">Afirmar que os 20% visam <em>prioritariamente às humanidades, letras e artes</em>.</td>
+                <td class="p-2 sm:p-2.5 text-slate-800">O texto normativo determina expressamente o foco <mark>sobretudo em ciências e matemática</mark>.</td>
+                <td class="p-2 sm:p-2.5 text-slate-600 font-mono text-xs">Art. 7º, VI, <em>b</em>; Art. 8º</td>
+              </tr>
+              <tr>
+                <td class="p-2 sm:p-2.5 font-bold text-slate-900">Status Universitário</td>
+                <td class="p-2 sm:p-2.5 text-red-800 bg-red-50/20">Afirmar que os Institutos Federais <em>são universidades plenas com autonomia originária</em>.</td>
+                <td class="p-2 sm:p-2.5 text-slate-800">São <mark class="mark-blue">autarquias federais equiparadas</mark> às universidades para regulação e supervisão no ensino superior.</td>
+                <td class="p-2 sm:p-2.5 text-slate-600 font-mono text-xs">Art. 1º, p. ú.; Art. 2º, § 1º</td>
+              </tr>
+              <tr>
+                <td class="p-2 sm:p-2.5 font-bold text-slate-900">Ajuste de Metas de Vagas</td>
+                <td class="p-2 sm:p-2.5 text-red-800 bg-red-50/20">Dizer que o <em>Reitor, ad referendum do CONSUP</em>, pode flexibilizar a cota de 50%.</td>
+                <td class="p-2 sm:p-2.5 text-slate-800">Requer cumulativamente decisão do <mark>Conselho Superior</mark> com <mark>anuência do MEC</mark>.</td>
+                <td class="p-2 sm:p-2.5 text-slate-600 font-mono text-xs">Art. 8º, § 2º</td>
+              </tr>
+              <tr>
+                <td class="p-2 sm:p-2.5 font-bold text-slate-900">Composição do IFMG</td>
+                <td class="p-2 sm:p-2.5 text-red-800 bg-red-50/20">Incluir a incorporação do <em>CEFET-MG</em> na criação do IFMG.</td>
+                <td class="p-2 sm:p-2.5 text-slate-800">O IFMG integrou os <mark>CEFETs Ouro Preto e Bambuí e a EAF-SJE</mark>. O CEFET-MG permaneceu autônomo.</td>
+                <td class="p-2 sm:p-2.5 text-slate-600 font-mono text-xs">Art. 5º, XIII</td>
+              </tr>
+              <tr>
+                <td class="p-2 sm:p-2.5 font-bold text-slate-900">Nível de Pós-Graduação</td>
+                <td class="p-2 sm:p-2.5 text-red-800 bg-red-50/20">Sustentar que os IFs estão restritos a ofertar <em>apenas especialização (lato sensu)</em>.</td>
+                <td class="p-2 sm:p-2.5 text-slate-800">Possuem autorização legal expressa para pós-graduação <em>lato sensu</em> e <mark class="mark-blue">stricto sensu (mestrado e doutorado)</mark>.</td>
+                <td class="p-2 sm:p-2.5 text-slate-600 font-mono text-xs">Art. 7º, VI, <em>d</em> e <em>e</em></td>
+              </tr>
+              <tr>
+                <td class="p-2 sm:p-2.5 font-bold text-slate-900">Mensuração de Metas</td>
+                <td class="p-2 sm:p-2.5 text-red-800 bg-red-50/20">Afirmar que o cálculo é feito por <em>número bruto de inscrições ou matrículas nominais</em>.</td>
+                <td class="p-2 sm:p-2.5 text-slate-800">A aferição anual rege-se imperativamente pelo conceito de <mark class="mark-blue">aluno-equivalente</mark>.</td>
+                <td class="p-2 sm:p-2.5 text-slate-600 font-mono text-xs">Art. 8º, § 1º</td>
+              </tr>
+              <tr>
+                <td class="p-2 sm:p-2.5 font-bold text-slate-900">Confusão Art. 6º x 7º</td>
+                <td class="p-2 sm:p-2.5 text-red-800 bg-red-50/20">Enquadrar "Ministrar cursos de pós-graduação" como uma <em>finalidade</em> do art. 6º.</td>
+                <td class="p-2 sm:p-2.5 text-slate-800">O verbo ministrar expressa <mark>objetivo operacional</mark> (art. 7º), enquanto o art. 6º traz diretrizes identitárias.</td>
+                <td class="p-2 sm:p-2.5 text-slate-600 font-mono text-xs">Arts. 6º e 7º</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- SEÇÃO 7 -->
+      <section class="mb-12">
+        <h2 class="text-xl sm:text-2xl font-bold text-slate-900 border-l-4 border-slate-800 pl-3 mb-4">
+          Considerações Finais e Implicações para o Magistério EBTT em Geografia
+        </h2>
+        <p class="mb-4">
+          A conformação técnico-jurídica estabelecida pelos artigos 1º a 8º da Lei Federal nº 11.892/2008 estabelece o perfil acadêmico esperado do docente da carreira EBTT no IFMG. Diferentemente das universidades federais tradicionais, cuja atuação docente se concentra predominantemente na pós-graduação e em faculdades disciplinares isoladas, o professor de Geografia de um Instituto Federal atua na transição pedagógica verticalizada.
+        </p>
+        <p class="mb-4">
+          Essa verticalização impõe a regência de aulas no Ensino Médio Técnico Integrado (cota mínima de 50%), onde a Geografia é ministrada em articulação com disciplinas técnicas de cursos voltados a Meio Ambiente, Mineração, Agropecuária ou Edificações, exigindo a compreensão espacial e territorial dos processos produtivos e dos APLs regionais. Simultaneamente, o docente atua na formação inicial de professores (cota mínima de 20%), ministrando conteúdos em cursos de Licenciatura e capacitações de docentes da rede pública, alinhando-se à prerrogativa do IFMG de atuar como centro irradiador de desenvolvimento científico e pedagógico.
+        </p>
+        <p class="mb-4">
+          O pleno domínio desse arcabouço normativo garante segurança técnica para a resolução dos itens objetivos da prova de legislação e estabelece a fundamentação conceitual demandada na atuação cotidiana do Magistério Federal.
+        </p>
+      </section>
+    </article>
+
+    <!-- Rodapé com Botão para a Página de Questões -->
+    <footer class="pt-8 pb-12 border-t border-slate-200 mt-10 text-center">
+      <div class="mb-4">
+        <span class="text-sm text-slate-500 font-medium">Conteúdo teórico concluído • Pratique seus conhecimentos</span>
+      </div>
+      <div>
+        <a 
+          href="questoes8legs.html" 
+          class="inline-flex items-center justify-center gap-2 px-8 py-3.5 bg-slate-900 hover:bg-slate-800 text-white font-semibold text-base rounded-xl shadow-sm hover:shadow transition transform hover:-translate-y-0.5 active:translate-y-0"
+        >
+          <span>Ir para as Questões de Fixação</span>
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+          </svg>
+        </a>
+      </div>
+      <p class="text-xs text-slate-400 mt-4">
+        Arquivo de destino: <code class="font-mono text-slate-600 bg-slate-100 px-1.5 py-0.5 rounded">questoes8legs.html</code>
+      </p>
+    </footer>
+
+  </main>
+
+  <!-- Script para troca dinâmica e controle do áudio -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const audioPlayer = document.getElementById('audioPlayer');
+      const audioSource = document.getElementById('audioSource');
+      const audioInput = document.getElementById('audioFileNameInput');
+      const updateBtn = document.getElementById('updateAudioBtn');
+      const currentFileNameDisplay = document.getElementById('currentFileName');
+
+      function updateAudioSource() {
+        const newFileName = audioInput.value.trim();
+        if (newFileName) {
+          audioSource.src = newFileName;
+          audioPlayer.load();
+          currentFileNameDisplay.textContent = newFileName;
+        }
+      }
+
+      updateBtn.addEventListener('click', updateAudioSource);
+      audioInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+          updateAudioSource();
+        }
+      });
+    });
+  </script>
+</body>
+</html>

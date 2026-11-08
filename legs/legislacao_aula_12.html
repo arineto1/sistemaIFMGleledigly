@@ -1,0 +1,932 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lei nº 14.133/2021 – Princípios, Definições e Agentes Públicos | Concurso IFMG</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #ffffff;
+      color: #171717;
+      line-height: 1.7;
+    }
+    /* Estilos de realce suaves e de alto contraste visual */
+    mark.highlight-yellow {
+      background-color: #fef08a; /* amarelo suave */
+      color: #713f12;
+      font-weight: 600;
+      padding: 0.125rem 0.35rem;
+      border-radius: 0.25rem;
+    }
+    mark.highlight-green {
+      background-color: #dcfce7; /* verde suave para regras permitidas/obrigatórias */
+      color: #14532d;
+      font-weight: 600;
+      padding: 0.125rem 0.35rem;
+      border-radius: 0.25rem;
+    }
+    mark.highlight-red {
+      background-color: #fee2e2; /* vermelho suave para vedações e pegadinhas */
+      color: #7f1d1d;
+      font-weight: 600;
+      padding: 0.125rem 0.35rem;
+      border-radius: 0.25rem;
+    }
+    mark.highlight-blue {
+      background-color: #e0f2fe; /* azul suave para artigos e conceitos técnicos */
+      color: #0369a1;
+      font-weight: 600;
+      padding: 0.125rem 0.35rem;
+      border-radius: 0.25rem;
+    }
+    /* Garantia absoluta de ajuste sem scroll horizontal nas tabelas */
+    .table-fixed-nowrap-anywhere {
+      table-layout: fixed;
+      width: 100%;
+      word-break: break-word;
+      overflow-wrap: break-word;
+    }
+  </style>
+</head>
+<body class="bg-white text-neutral-900 antialiased selection:bg-amber-200 selection:text-neutral-900">
+
+  <!-- Container Geral -->
+  <main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 bg-white">
+
+    <!-- Cabeçalho Principal -->
+    <header class="border-b border-neutral-300 pb-8 mb-8 text-left bg-white">
+      <div class="inline-flex items-center gap-2 px-3 py-1 mb-3 text-xs font-bold tracking-wide uppercase bg-neutral-100 text-neutral-700 rounded-full border border-neutral-200">
+        <span>Concurso Professor EBTT – IFMG</span>
+        <span>•</span>
+        <span>Banca Própria / Comissão Central</span>
+      </div>
+      <h1 class="text-2xl sm:text-4xl font-extrabold text-neutral-950 tracking-tight leading-snug">
+        Regime Jurídico das Contratações Públicas na Lei nº 14.133/2021
+      </h1>
+      <p class="mt-2 text-lg font-medium text-neutral-700">
+        Princípios, Glossário Técnico-Operacional e Estatuto dos Agentes Públicos
+      </p>
+      <div class="mt-3 flex flex-wrap gap-2 text-xs font-semibold text-neutral-600">
+        <span class="bg-neutral-100 px-2.5 py-1 rounded border border-neutral-200">Título I: Arts. 1º a 4º (Âmbito)</span>
+        <span class="bg-neutral-100 px-2.5 py-1 rounded border border-neutral-200">Art. 5º (Princípios)</span>
+        <span class="bg-neutral-100 px-2.5 py-1 rounded border border-neutral-200">Art. 6º (Definições)</span>
+        <span class="bg-neutral-100 px-2.5 py-1 rounded border border-neutral-200">Arts. 7º a 10 (Agentes Públicos)</span>
+      </div>
+    </header>
+
+    <!-- Seção do Reprodutor de Áudio MP3 -->
+    <section class="bg-white border-2 border-neutral-300 rounded-2xl p-5 sm:p-6 mb-10 shadow-sm">
+      <div class="flex items-center gap-3 mb-3">
+        <div class="p-2.5 bg-neutral-100 text-neutral-800 rounded-xl border border-neutral-200">
+          <!-- Ícone de Som/Áudio -->
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path>
+          </svg>
+        </div>
+        <div>
+          <h2 class="text-base sm:text-lg font-bold text-neutral-900 leading-tight">
+            Reprodutor de Áudio da Aula
+          </h2>
+          <p class="text-xs sm:text-sm text-neutral-600">
+            Ouça o áudio da matéria enquanto faz a leitura guiada dos tópicos.
+          </p>
+        </div>
+      </div>
+
+      <!-- Player de Áudio Nativo -->
+      <div class="mt-3">
+        <audio id="audioPlayer" controls class="w-full h-11 rounded-lg border border-neutral-200 bg-neutral-50 focus:outline-none">
+          <source id="audioSource" src="audio12legs.mp3" type="audio/mpeg">
+          Seu navegador não suporta a execução direta deste arquivo de áudio.
+        </audio>
+      </div>
+
+      <!-- Configuração / Alteração Dinâmica do Arquivo MP3 -->
+      <div class="mt-4 pt-3 border-t border-neutral-200 flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
+        <label for="audioFileNameInput" class="text-xs font-semibold text-neutral-700 whitespace-nowrap">
+          Arquivo MP3 na mesma pasta:
+        </label>
+        <div class="flex-grow flex gap-2">
+          <input 
+            type="text" 
+            id="audioFileNameInput" 
+            value="audio12legs.mp3" 
+            placeholder="Ex.: minha_aula.mp3" 
+            class="w-full px-3 py-2 text-sm bg-neutral-50 text-neutral-900 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-neutral-400 focus:bg-white focus:outline-none"
+          >
+          <button 
+            type="button" 
+            onclick="updateAudioSource()" 
+            class="px-4 py-2 text-xs sm:text-sm font-semibold text-white bg-neutral-900 hover:bg-neutral-800 rounded-lg transition-colors whitespace-nowrap shadow-sm"
+          >
+            Carregar Áudio
+          </button>
+        </div>
+      </div>
+      <p id="audioStatus" class="mt-2 text-xs text-neutral-500">
+        Arquivo padrão configurado: <code class="font-mono font-bold text-neutral-800">audio12legs.mp3</code>. Digite o nome do seu arquivo MP3 acima caso tenha renomeado.
+      </p>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- MÓDULO 1: ÂMBITO DE INCIDÊNCIA -->
+    <!-- ========================================== -->
+    <article class="space-y-6 mb-12">
+      <div class="border-b border-neutral-200 pb-3">
+        <span class="text-xs font-bold text-neutral-500 tracking-wider uppercase">Parte 01</span>
+        <h2 class="text-xl sm:text-2xl font-bold text-neutral-950">
+          1. Âmbito de Incidência na Administração Pública Federal Direta e Autárquica
+        </h2>
+      </div>
+
+      <p class="text-neutral-800 text-base sm:text-lg">
+        A Lei nº 14.133/2021 estabelece <mark class="highlight-yellow">normas gerais de licitação e contratação</mark> destinadas a estruturar a gestão de compras, alienações e intervenções estatais em todos os entes federativos. No contexto da Administração Pública Federal, o texto legal vincula indistintamente os órgãos da administração direta e as entidades descentralizadas que compõem a administração autárquica e fundacional.
+      </p>
+
+      <div class="p-4 bg-white border-l-4 border-neutral-800 border-neutral-200 border rounded-r-xl">
+        <h3 class="font-bold text-neutral-900 text-sm sm:text-base flex items-center gap-2">
+          <span>Aplicação Direta no IFMG (Concurso EBTT):</span>
+        </h3>
+        <p class="mt-1 text-sm text-neutral-700">
+          Os Institutos Federais de Educação, Ciência e Tecnologia, a exemplo do <mark class="highlight-yellow">IFMG</mark>, detêm personalidade jurídica de direito público sob a forma de <mark class="highlight-blue">autarquias federais de regime especial</mark>, vinculadas ao Ministério da Educação. Em virtude dessa qualificação institucional, as aquisições patrimoniais, a terceirização de mão de obra, os contratos de tecnologia da informação e as construções e reformas em seus diversos <em>campi</em> <mark class="highlight-green">submetem-se imperativamente à Lei nº 14.133/2021</mark>, restando vedada a invocação de regimes extravagantes fora dos casos autorizados.
+        </p>
+      </div>
+
+      <!-- Subseção 1.1 -->
+      <div class="space-y-4 pt-2">
+        <h3 class="text-lg font-bold text-neutral-900 border-b border-neutral-200 pb-1">
+          1.1 Abrangência Subjetiva e Objetiva
+        </h3>
+        
+        <p class="text-neutral-800 text-sm sm:text-base">
+          A <strong>incidência subjetiva</strong> compreende as estruturas estatais responsáveis pelo direcionamento de recursos públicos primários:
+        </p>
+        <ul class="list-disc pl-5 sm:pl-6 space-y-2 text-sm sm:text-base text-neutral-800">
+          <li>
+            <strong>Administração Direta:</strong> Poderes Executivo, Legislativo e Judiciário da União, Estados, DF e Municípios. No Legislativo e Judiciário, bem como Tribunais de Contas, <mark class="highlight-yellow">restringe-se ao desempenho de suas funções atípicas de natureza administrativa</mark>.
+          </li>
+          <li>
+            <strong>Administração Indireta de Direito Público:</strong> <mark class="highlight-green">Autarquias</mark> (incluindo o IFMG), fundações públicas e fundos especiais legalmente instituídos.
+          </li>
+          <li>
+            <strong>Entidades paraestatais e controladas:</strong> Pessoas jurídicas controladas direta ou indiretamente pela Fazenda Pública quando executarem atos materiais de contratação com verbas submetidas à contabilidade orçamentária geral.
+          </li>
+        </ul>
+
+        <p class="text-neutral-800 text-sm sm:text-base pt-2">
+          A <strong>abrangência objetiva</strong> (art. 2º da Lei) alcança quase todas as figuras negociais onerosas firmadas pela Administração Federal:
+        </p>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs sm:text-sm text-neutral-800">
+          <div class="p-2.5 border border-neutral-200 rounded-lg">• Alienação de bens móveis/imóveis e concessão de direito real de uso.</div>
+          <div class="p-2.5 border border-neutral-200 rounded-lg">• Compra ordinária e compra por encomenda.</div>
+          <div class="p-2.5 border border-neutral-200 rounded-lg">• Locação de bens imóveis e de equipamentos operacionais.</div>
+          <div class="p-2.5 border border-neutral-200 rounded-lg">• Concessão e permissão de uso de espaços públicos e dependências.</div>
+          <div class="p-2.5 border border-neutral-200 rounded-lg">• Prestação de serviços contínuos e não contínuos (inclusive técnicos).</div>
+          <div class="p-2.5 border border-neutral-200 rounded-lg">• Obras e serviços integrados de arquitetura e engenharia.</div>
+          <div class="p-2.5 border border-neutral-200 rounded-lg sm:col-span-2">• Contratações de soluções de tecnologia da informação e comunicação (TIC).</div>
+        </div>
+      </div>
+
+      <!-- Subseção 1.2 -->
+      <div class="space-y-4 pt-2">
+        <h3 class="text-lg font-bold text-neutral-900 border-b border-neutral-200 pb-1">
+          1.2 Hipóteses de Não Subordinação e Regimes Especiais (Atenção para Prova!)
+        </h3>
+        <p class="text-sm sm:text-base text-neutral-800">
+          A nova sistemática exclui expressamente campos materiais que possuem tratamento setorial autônomo:
+        </p>
+        <ul class="list-disc pl-5 sm:pl-6 space-y-2 text-sm sm:text-base text-neutral-800">
+          <li>
+            <mark class="highlight-red">Empresas Públicas e Sociedades de Economia Mista:</mark> Permanecem regidas pela <mark class="highlight-yellow">Lei nº 13.303/2016 (Lei das Estatais)</mark>. A Lei nº 14.133/2021 aplica-se a elas <strong>exclusivamente quanto aos novos tipos penais licitatórios</strong> inseridos no Código Penal brasileiro.
+          </li>
+          <li>
+            <strong>Operações de crédito interno e externo e gestão de dívida pública:</strong> Englobando contratação de agente financeiro e concessão de garantias, acham-se expressamente excluídas do processo da lei de licitações.
+          </li>
+          <li>
+            <strong>Contratações com tratados bilaterais e reservas cambiais:</strong> Reservas cambiais internacionais obedecem aos regulamentos editados pelo Banco Central do Brasil.
+          </li>
+          <li>
+            <strong>Financiamentos com organismos multilaterais:</strong> Admitem adoção das normas da entidade financiadora internacional, resguardada a não violação dos princípios constitucionais da República.
+          </li>
+        </ul>
+      </div>
+
+      <!-- Subseção 1.3 -->
+      <div class="space-y-4 pt-2">
+        <h3 class="text-lg font-bold text-neutral-900 border-b border-neutral-200 pb-1">
+          1.3 Tratamento Diferenciado às Microempresas (ME) e EPP (Art. 4º)
+        </h3>
+        <p class="text-sm sm:text-base text-neutral-800">
+          O art. 4º preserva a proteção da LC nº 123/2006 (arts. 42 a 49), mas com <mark class="highlight-red">filtros restritivos severos</mark> para evitar fraudes ao erário:
+        </p>
+        <div class="space-y-2 text-sm sm:text-base text-neutral-800">
+          <div class="p-3 bg-white border border-neutral-200 rounded-lg">
+            <strong>1. Trava por Item ou Lote:</strong> Afasta-se o regime benéfico nas licitações de bens e serviços cujo item isolado ou lote individual orçado for superior à receita bruta anual máxima da EPP: <mark class="highlight-yellow">R$ 4.800.000,00</mark>.
+          </div>
+          <div class="p-3 bg-white border border-neutral-200 rounded-lg">
+            <strong>2. Trava Global em Obras e Engenharia:</strong> Afasta-se o benefício quando o valor estimado <strong>global</strong> do certame superar o limite legal da EPP (R$ 4,8 milhões).
+          </div>
+          <div class="p-3 bg-white border border-neutral-200 rounded-lg">
+            <strong>3. Trava de Contratos Somados no Ano-Calendário:</strong> É vedada a fruição do regime favorecido pela ME/EPP que, no mesmo ano-calendário, já tenha celebrado contratos com o Poder Público cuja soma extrapole R$ 4,8 milhões (exige-se declaração formal da empresa).
+          </div>
+        </div>
+      </div>
+
+      <!-- TABELA 1: Sem Scroll Horizontal -->
+      <div class="pt-4">
+        <h4 class="text-xs sm:text-sm font-bold uppercase tracking-wider text-neutral-600 mb-2">
+          Tabela Síntese 1: Âmbito de Incidência da Lei nº 14.133/2021
+        </h4>
+        <div class="w-full border border-neutral-300 rounded-xl overflow-hidden bg-white">
+          <table class="table-fixed-nowrap-anywhere text-left text-xs sm:text-sm">
+            <thead>
+              <tr class="bg-neutral-100 border-b border-neutral-300 text-neutral-900 font-bold">
+                <th class="p-2.5 sm:p-3 w-4/12 border-r border-neutral-200">Categoria Institucional / Objeto</th>
+                <th class="p-2.5 sm:p-3 w-3/12 border-r border-neutral-200">Subordinação à Lei</th>
+                <th class="p-2.5 sm:p-3 w-5/12">Fundamento / Exceção Relevante</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-neutral-200 text-neutral-800">
+              <tr>
+                <td class="p-2.5 sm:p-3 font-semibold border-r border-neutral-200">Adm. Direta e Autárquica Federal</td>
+                <td class="p-2.5 sm:p-3 border-r border-neutral-200"><mark class="highlight-green">Incidência Plena</mark></td>
+                <td class="p-2.5 sm:p-3">Art. 1º, caput. Inclui autarquias federais de ensino como o IFMG.</td>
+              </tr>
+              <tr>
+                <td class="p-2.5 sm:p-3 font-semibold border-r border-neutral-200">Poderes Legislativo e Judiciário</td>
+                <td class="p-2.5 sm:p-3 border-r border-neutral-200"><mark class="highlight-blue">Incidência Atípica</mark></td>
+                <td class="p-2.5 sm:p-3">Restrita à gestão de suas funções atípicas administrativas.</td>
+              </tr>
+              <tr>
+                <td class="p-2.5 sm:p-3 font-semibold border-r border-neutral-200">Empresas Públicas e Sociedades de Economia Mista</td>
+                <td class="p-2.5 sm:p-3 border-r border-neutral-200"><mark class="highlight-red">Não Subordinação</mark></td>
+                <td class="p-2.5 sm:p-3">Regidas pela Lei 13.303/2016. Atrai a Lei 14.133 apenas nos crimes licitatórios.</td>
+              </tr>
+              <tr>
+                <td class="p-2.5 sm:p-3 font-semibold border-r border-neutral-200">Operações de Crédito e Dívida Pública</td>
+                <td class="p-2.5 sm:p-3 border-r border-neutral-200"><mark class="highlight-red">Exclusão Expressa</mark></td>
+                <td class="p-2.5 sm:p-3">Art. 1º, § 2º, I. Normas financeiras e bancárias setoriais específicas.</td>
+              </tr>
+              <tr>
+                <td class="p-2.5 sm:p-3 font-semibold border-r border-neutral-200">Benefícios da LC 123/06 (ME/EPP)</td>
+                <td class="p-2.5 sm:p-3 border-r border-neutral-200"><mark class="highlight-yellow">Condicionada</mark></td>
+                <td class="p-2.5 sm:p-3">Vedada em itens &gt; R$ 4,8 mi ou contratos acumulados no ano &gt; R$ 4,8 mi.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </article>
+
+    <!-- ========================================== -->
+    <!-- MÓDULO 2: PRINCÍPIOS DA LICITAÇÃO -->
+    <!-- ========================================== -->
+    <article class="space-y-6 mb-12">
+      <div class="border-b border-neutral-200 pb-3">
+        <span class="text-xs font-bold text-neutral-500 tracking-wider uppercase">Parte 02</span>
+        <h2 class="text-xl sm:text-2xl font-bold text-neutral-950">
+          2. Vetores Principiológicos do Processo de Contratação (Art. 5º)
+        </h2>
+      </div>
+
+      <p class="text-neutral-800 text-base sm:text-lg">
+        O <mark class="highlight-blue">artigo 5º</mark> da Lei nº 14.133/2021 estabelece o alicerce axiológico que orienta decisões, editais e execuções contratuais. O legislador expressou <mark class="highlight-yellow">22 princípios expressos</mark>, consolidando normas constitucionais e entendimentos já pacificados pelo Tribunal de Contas da União (TCU).
+      </p>
+
+      <!-- Subseção 2.1 -->
+      <div class="space-y-3">
+        <h3 class="text-lg font-bold text-neutral-900 border-b border-neutral-200 pb-1">
+          2.1 Sistematização dos Princípios do Artigo 5º
+        </h3>
+        <p class="text-sm sm:text-base text-neutral-800">
+          O rol do art. 5º integra postulados clássicos da CF/88 e garantias materiais do processo administrativo:
+        </p>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm text-neutral-800">
+          <div class="p-3 border border-neutral-200 rounded-lg">
+            <strong>LIMPE Constitucional (Art. 37 da CF):</strong>
+            <p class="text-xs sm:text-sm text-neutral-600 mt-1">Legalidade, Impessoalidade, Moralidade, Publicidade e Eficiência.</p>
+          </div>
+          <div class="p-3 border border-neutral-200 rounded-lg">
+            <strong>Finalidade e Probidade:</strong>
+            <p class="text-xs sm:text-sm text-neutral-600 mt-1">Interesse Público e Probidade Administrativa (retidão no trato com a coisa pública).</p>
+          </div>
+          <div class="p-3 border border-neutral-200 rounded-lg">
+            <strong>Garantias Processuais e Isonômicas:</strong>
+            <p class="text-xs sm:text-sm text-neutral-600 mt-1">Igualdade, Vinculação ao Edital e Julgamento Objetivo (veda discricionariedade subjetiva).</p>
+          </div>
+          <div class="p-3 border border-neutral-200 rounded-lg">
+            <strong>Equilíbrio e Racionalidade:</strong>
+            <p class="text-xs sm:text-sm text-neutral-600 mt-1">Segurança Jurídica, Razoabilidade, Proporcionalidade, Celeridade, Economicidade e Motivação.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Subseção 2.2 -->
+      <div class="space-y-4 pt-2">
+        <h3 class="text-lg font-bold text-neutral-900 border-b border-neutral-200 pb-1">
+          2.2 Inovações Principiológicas Expressas (Favoritas de Prova!)
+        </h3>
+        <p class="text-sm sm:text-base text-neutral-800">
+          A Lei nº 14.133/2021 transformou conceitos de governança e gestão em <mark class="highlight-yellow">princípios expressos autônomos</mark>:
+        </p>
+        
+        <div class="space-y-3">
+          <div class="p-3.5 border-l-4 border-neutral-800 border-neutral-200 border rounded-r-lg bg-white">
+            <h4 class="font-bold text-neutral-900 text-sm sm:text-base">1. Princípio do Planejamento</h4>
+            <p class="text-xs sm:text-sm text-neutral-700 mt-1">
+              Eleva a fase preparatória a centro nevrálgico. Exige elaboração do <mark class="highlight-yellow">Plano de Contratações Anual (PCA)</mark> e confecção técnica de Estudos Técnicos Preliminares (ETP), erradicando aquisições improvisadas e dispensas emergenciais fabricadas por desídia.
+            </p>
+          </div>
+
+          <div class="p-3.5 border-l-4 border-neutral-800 border-neutral-200 border rounded-r-lg bg-white">
+            <h4 class="font-bold text-neutral-900 text-sm sm:text-base">2. Princípio da Transparência</h4>
+            <p class="text-xs sm:text-sm text-neutral-700 mt-1">
+              Ultrapassa a simples publicação passiva em Diário Oficial. Impõe publicidade ativa digital com a obrigatoriedade de divulgação centralizada no <mark class="highlight-blue">Portal Nacional de Contratações Públicas (PNCP)</mark> de todos os editais, propostas, contratos, aditivos e medições.
+            </p>
+          </div>
+
+          <div class="p-3.5 border-l-4 border-neutral-800 border-neutral-200 border rounded-r-lg bg-white">
+            <h4 class="font-bold text-neutral-900 text-sm sm:text-base">3. Princípio da Segregação de Funções</h4>
+            <p class="text-xs sm:text-sm text-neutral-700 mt-1">
+              <mark class="highlight-red">Veda a concentração de competências críticas</mark> suscetíveis a fraudes nas mãos de um único servidor ou setor. Separa de forma estanque quem planeja (elabora Termo de Referência), quem licita (Agente de Contratação/Pregoeiro), quem fiscaliza a entrega e quem autoriza o pagamento financeiro.
+            </p>
+          </div>
+
+          <div class="p-3.5 border-l-4 border-neutral-800 border-neutral-200 border rounded-r-lg bg-white">
+            <h4 class="font-bold text-neutral-900 text-sm sm:text-base">4. Princípio da Eficácia</h4>
+            <p class="text-xs sm:text-sm text-neutral-700 mt-1">
+              Orienta o rito processual para a <mark class="highlight-green">obtenção de utilidade prática mensurável</mark>. O procedimento não é um fim em si mesmo; ele precisa solucionar a necessidade institucional concreta da autarquia em tempo hábil.
+            </p>
+          </div>
+
+          <div class="p-3.5 border-l-4 border-neutral-800 border-neutral-200 border rounded-r-lg bg-white">
+            <h4 class="font-bold text-neutral-900 text-sm sm:text-base">5. Princípio do Desenvolvimento Nacional Sustentável</h4>
+            <p class="text-xs sm:text-sm text-neutral-700 mt-1">
+              Não visa unicamente o menor dispêndio financeiro instantâneo de caixa, mas incorpora critérios socioambientais, pegada de carbono, <mark class="highlight-yellow">custos do ciclo de vida do produto</mark> e respeito intransigente às normas trabalhistas.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Subseção 2.3 -->
+      <div class="space-y-2 pt-2">
+        <h3 class="text-lg font-bold text-neutral-900 border-b border-neutral-200 pb-1">
+          2.3 Hermenêutica Operacional e Diálogo com a LINDB
+        </h3>
+        <p class="text-sm sm:text-base text-neutral-800">
+          A aplicação do art. 5º dialoga obrigatoriamente com os artigos 20 a 24 da <mark class="highlight-blue">LINDB</mark> (Decreto-Lei nº 4.657/1942): anulações contratuais devem considerar os impactos práticos e opções reais do gestor, e a responsabilização do agente pressupõe <mark class="highlight-red">comprovação de dolo ou erro grosseiro</mark>.
+        </p>
+      </div>
+
+      <!-- TABELA 2: Sem Scroll Horizontal -->
+      <div class="pt-4">
+        <h4 class="text-xs sm:text-sm font-bold uppercase tracking-wider text-neutral-600 mb-2">
+          Tabela Síntese 2: Princípios Inovadores e Aplicação Prática
+        </h4>
+        <div class="w-full border border-neutral-300 rounded-xl overflow-hidden bg-white">
+          <table class="table-fixed-nowrap-anywhere text-left text-xs sm:text-sm">
+            <thead>
+              <tr class="bg-neutral-100 border-b border-neutral-300 text-neutral-900 font-bold">
+                <th class="p-2.5 sm:p-3 w-3/12 border-r border-neutral-200">Princípio Expresso</th>
+                <th class="p-2.5 sm:p-3 w-4/12 border-r border-neutral-200">Conteúdo Dogmático Central</th>
+                <th class="p-2.5 sm:p-3 w-5/12">Efeito Direto na Operacionalização</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-neutral-200 text-neutral-800">
+              <tr>
+                <td class="p-2.5 sm:p-3 font-semibold border-r border-neutral-200">Planejamento</td>
+                <td class="p-2.5 sm:p-3 border-r border-neutral-200">Antecipação técnica baseada em ETP e Plano Anual.</td>
+                <td class="p-2.5 sm:p-3">Elimina compras apressadas de final de ano e falsas emergências.</td>
+              </tr>
+              <tr>
+                <td class="p-2.5 sm:p-3 font-semibold border-r border-neutral-200">Segregação de Funções</td>
+                <td class="p-2.5 sm:p-3 border-r border-neutral-200">Desconcentração de etapas decisórias sensíveis.</td>
+                <td class="p-2.5 sm:p-3"><mark class="highlight-red">Impede</mark> que o autor do Termo de Referência seja pregoeiro e fiscal do contrato.</td>
+              </tr>
+              <tr>
+                <td class="p-2.5 sm:p-3 font-semibold border-r border-neutral-200">Transparência</td>
+                <td class="p-2.5 sm:p-3 border-r border-neutral-200">Publicidade em tempo real mediante dados abertos.</td>
+                <td class="p-2.5 sm:p-3">Publicação mandante e irrestrita no PNCP de editais, contratos e medições.</td>
+              </tr>
+              <tr>
+                <td class="p-2.5 sm:p-3 font-semibold border-r border-neutral-200">Desenvolvimento Sustentável</td>
+                <td class="p-2.5 sm:p-3 border-r border-neutral-200">Análise do ciclo de vida e impactos socioambientais.</td>
+                <td class="p-2.5 sm:p-3">Exigência de descarte correto, baixo consumo elétrico e sustentabilidade.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </article>
+
+    <!-- ========================================== -->
+    <!-- MÓDULO 3: GLOSSÁRIO LEGAL (ART. 6º) -->
+    <!-- ========================================== -->
+    <article class="space-y-6 mb-12">
+      <div class="border-b border-neutral-200 pb-3">
+        <span class="text-xs font-bold text-neutral-500 tracking-wider uppercase">Parte 03</span>
+        <h2 class="text-xl sm:text-2xl font-bold text-neutral-950">
+          3. Glossário Técnico-Operacional e Critérios Distintivos do Artigo 6º
+        </h2>
+      </div>
+
+      <p class="text-neutral-800 text-base sm:text-lg">
+        O artigo 6º atua como dicionário da licitação pública. Para a banca examinadora do concurso, quatro eixos conceituais são cobrados com altíssima frequência por meio de inversão de conceitos.
+      </p>
+
+      <!-- Subseção 3.1 -->
+      <div class="space-y-4">
+        <h3 class="text-lg font-bold text-neutral-900 border-b border-neutral-200 pb-1">
+          3.1 Bens e Serviços Comuns versus Especiais
+        </h3>
+        <p class="text-sm sm:text-base text-neutral-800">
+          A distinção legal <mark class="highlight-yellow">NÃO depende do nível tecnológico ou sofisticação</mark> do item, mas da possibilidade de <strong>padronização mercadológica objetiva</strong>:
+        </p>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm text-neutral-800">
+          <div class="p-4 border-2 border-neutral-200 rounded-xl bg-white space-y-2">
+            <span class="inline-block px-2 py-0.5 text-xs font-bold bg-neutral-100 text-neutral-800 rounded">Art. 6º, XIII</span>
+            <h4 class="font-bold text-neutral-950 text-base">Bens e Serviços Comuns</h4>
+            <p class="text-neutral-700 text-xs sm:text-sm">
+              Aqueles cujos padrões de desempenho e qualidade podem ser <mark class="highlight-yellow">objetivamente definidos pelo edital</mark>, por meio de especificações usuais de mercado.
+            </p>
+            <div class="pt-2 text-xs text-neutral-600 border-t border-neutral-200">
+              <strong>Reflexo Processual:</strong> É <mark class="highlight-green">OBRIGATÓRIO o uso do PREGÃO</mark> (art. 6º, XLI c/c art. 29). Admite-se Concorrência apenas sob critério estrito de menor preço.
+            </div>
+          </div>
+
+          <div class="p-4 border-2 border-neutral-200 rounded-xl bg-white space-y-2">
+            <span class="inline-block px-2 py-0.5 text-xs font-bold bg-neutral-100 text-neutral-800 rounded">Art. 6º, XIV</span>
+            <h4 class="font-bold text-neutral-950 text-base">Bens e Serviços Especiais</h4>
+            <p class="text-neutral-700 text-xs sm:text-sm">
+              Aqueles que, por sua <mark class="highlight-yellow">alta heterogeneidade ou complexidade técnica</mark>, não podem ter padrões descritos como usuais de mercado. Exigem soluções individualizadas ou de densidade intelectual expressiva.
+            </p>
+            <div class="pt-2 text-xs text-neutral-600 border-t border-neutral-200">
+              <strong>Reflexo Processual:</strong> É <mark class="highlight-red">VEDADO o Pregão</mark>. Impõe-se a modalidade <strong>CONCORRÊNCIA</strong> (admitindo melhor técnica, técnica e preço ou maior desconto).
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Subseção 3.2 -->
+      <div class="space-y-4 pt-2">
+        <h3 class="text-lg font-bold text-neutral-900 border-b border-neutral-200 pb-1">
+          3.2 Matriz de Riscos (Art. 6º, XXVII)
+        </h3>
+        <p class="text-sm sm:text-base text-neutral-800">
+          É a cláusula contratual definidora de <mark class="highlight-yellow">riscos e responsabilidades entre as partes</mark> e caracterizadora do equilíbrio econômico-financeiro inicial, em termos de ônus financeiro por eventos supervenientes:
+        </p>
+        <ul class="list-disc pl-5 sm:pl-6 space-y-2 text-sm sm:text-base text-neutral-800">
+          <li>
+            Prevê de antemão quem suporta prejuízos decorrentes de oscilações cambiais, greves, chuvas anômalas, variações geológicas em obras, etc.
+          </li>
+          <li>
+            <strong>Regra Geral:</strong> Sua adoção é <mark class="highlight-blue">facultativa / discricionária</mark> para contratações ordinárias.
+          </li>
+          <li>
+            <strong>Exceção Mandatória:</strong> A matriz de riscos é <mark class="highlight-green">OBRIGATÓRIA</mark> em:
+            <br>a) Contratações de <strong>grande vulto</strong> (valor estimado superior a <strong>R$ 200 milhões</strong>);
+            <br>b) Regimes de <strong>contratação integrada</strong> e <strong>semi-integrada</strong>.
+          </li>
+        </ul>
+      </div>
+
+      <!-- Subseção 3.3 -->
+      <div class="space-y-4 pt-2">
+        <h3 class="text-lg font-bold text-neutral-900 border-b border-neutral-200 pb-1">
+          3.3 Sobrepreço versus Superfaturamento (Diferença Vital para a Prova!)
+        </h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm text-neutral-800">
+          <div class="p-4 border-2 border-neutral-200 rounded-xl bg-white space-y-2">
+            <div class="flex items-center justify-between">
+              <span class="font-bold text-neutral-900 text-base">Sobrepreço (Art. 6º, LVI)</span>
+              <span class="text-xs bg-amber-100 text-amber-900 px-2 py-0.5 rounded font-bold">Fase Prévia / Formal</span>
+            </div>
+            <p class="text-xs sm:text-sm text-neutral-700">
+              Preço orçado para a licitação ou contratado em valor <mark class="highlight-yellow">expressivamente superior aos preços referenciais de mercado</mark>.
+            </p>
+            <ul class="list-disc pl-4 text-xs text-neutral-600 space-y-1 pt-1">
+              <li>Configura <mark class="highlight-yellow">dano potencial</mark> (vício de estimativa ou proposta).</li>
+              <li>Não requer repasse ou pagamento financeiro real.</li>
+              <li>Pode ser unitário (item individual) ou global (total da planilha).</li>
+            </ul>
+          </div>
+
+          <div class="p-4 border-2 border-neutral-200 rounded-xl bg-white space-y-2">
+            <div class="flex items-center justify-between">
+              <span class="font-bold text-neutral-900 text-base">Superfaturamento (Art. 6º, LVII)</span>
+              <span class="text-xs bg-rose-100 text-rose-900 px-2 py-0.5 rounded font-bold">Execução / Material</span>
+            </div>
+            <p class="text-xs sm:text-sm text-neutral-700">
+              <mark class="highlight-red">Dano patrimonial EFETIVO</mark> provocado à Administração Pública, verificado e quantificado durante a execução do contrato.
+            </p>
+            <div class="text-xs text-neutral-600 pt-1">
+              <strong>5 Hipóteses Expressas de Configuração:</strong>
+              <ol class="list-decimal pl-4 space-y-1 mt-1">
+                <li>Medição de quantidades superiores às executadas.</li>
+                <li>Deficiência na qualidade dos materiais aplicados.</li>
+                <li>Pagamento antecipado ou descolado do cronograma físico.</li>
+                <li>Pagamento sob incidência de planilha contendo sobrepreço.</li>
+                <li>Alteração contratual que desequilibre desconto (jogo de planilha).</li>
+              </ol>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TABELA 3: Sem Scroll Horizontal -->
+      <div class="pt-4">
+        <h4 class="text-xs sm:text-sm font-bold uppercase tracking-wider text-neutral-600 mb-2">
+          Tabela Síntese 3: Distinções Operacionais do Glossário (Art. 6º)
+        </h4>
+        <div class="w-full border border-neutral-300 rounded-xl overflow-hidden bg-white">
+          <table class="table-fixed-nowrap-anywhere text-left text-xs sm:text-sm">
+            <thead>
+              <tr class="bg-neutral-100 border-b border-neutral-300 text-neutral-900 font-bold">
+                <th class="p-2 sm:p-2.5 w-2/12 border-r border-neutral-200">Conceito</th>
+                <th class="p-2 sm:p-2.5 w-3/12 border-r border-neutral-200">Momento</th>
+                <th class="p-2 sm:p-2.5 w-4/12 border-r border-neutral-200">Impacto Material</th>
+                <th class="p-2 sm:p-2.5 w-3/12">Efeito Prático</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-neutral-200 text-neutral-800">
+              <tr>
+                <td class="p-2 sm:p-2.5 font-semibold border-r border-neutral-200">Bens Comuns</td>
+                <td class="p-2 sm:p-2.5 border-r border-neutral-200">Planejamento / ETP</td>
+                <td class="p-2 sm:p-2.5 border-r border-neutral-200">Padrões de mercado homogêneos</td>
+                <td class="p-2 sm:p-2.5"><mark class="highlight-green">Pregão obrigatório</mark></td>
+              </tr>
+              <tr>
+                <td class="p-2.5 sm:p-2.5 font-semibold border-r border-neutral-200">Bens Especiais</td>
+                <td class="p-2 sm:p-2.5 border-r border-neutral-200">Planejamento / ETP</td>
+                <td class="p-2 sm:p-2.5 border-r border-neutral-200">Alta complexidade e heterogeneidade</td>
+                <td class="p-2 sm:p-2.5"><mark class="highlight-red">Vedado Pregão</mark>; Concorrência</td>
+              </tr>
+              <tr>
+                <td class="p-2 sm:p-2.5 font-semibold border-r border-neutral-200">Matriz de Riscos</td>
+                <td class="p-2 sm:p-2.5 border-r border-neutral-200">Minuta Contratual</td>
+                <td class="p-2 sm:p-2.5 border-r border-neutral-200">Partilha prévia dos ônus financeiros</td>
+                <td class="p-2 sm:p-2.5">Obrigatória &gt; R$ 200 mi e contratação integrada</td>
+              </tr>
+              <tr>
+                <td class="p-2 sm:p-2.5 font-semibold border-r border-neutral-200">Sobrepreço</td>
+                <td class="p-2 sm:p-2.5 border-r border-neutral-200">Orçamento / Propostas</td>
+                <td class="p-2 sm:p-2.5 border-r border-neutral-200"><mark class="highlight-yellow">Dano Potencial</mark> (estimativa inflada)</td>
+                <td class="p-2 sm:p-2.5">Correção de planilha ou desclassificação</td>
+              </tr>
+              <tr>
+                <td class="p-2 sm:p-2.5 font-semibold border-r border-neutral-200">Superfaturamento</td>
+                <td class="p-2 sm:p-2.5 border-r border-neutral-200">Execução e Liquidação</td>
+                <td class="p-2 sm:p-2.5 border-r border-neutral-200"><mark class="highlight-red">Dano Concreto</mark> (lesão ao erário)</td>
+                <td class="p-2 sm:p-2.5">Glosa de pagamentos, retenção e restituição</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </article>
+
+    <!-- ========================================== -->
+    <!-- MÓDULO 4: AGENTES PÚBLICOS (ARTS. 7º A 10) -->
+    <!-- ========================================== -->
+    <article class="space-y-6 mb-12">
+      <div class="border-b border-neutral-200 pb-3">
+        <span class="text-xs font-bold text-neutral-500 tracking-wider uppercase">Parte 04</span>
+        <h2 class="text-xl sm:text-2xl font-bold text-neutral-950">
+          4. Regime Jurídico e Atribuições dos Agentes Públicos (Arts. 7º a 10)
+        </h2>
+      </div>
+
+      <p class="text-neutral-800 text-base sm:text-lg">
+        O Título I, Capítulo IV supera o velho modelo burocrático de comissões amorfas e institui a <mark class="highlight-yellow">gestão por competências e a responsabilização pessoal</mark>. Atenção às regras de investidura e regimes de responsabilidade.
+      </p>
+
+      <!-- Subseção 4.1 -->
+      <div class="space-y-4">
+        <h3 class="text-lg font-bold text-neutral-900 border-b border-neutral-200 pb-1">
+          4.1 Designação e Requisitos Gerais de Investidura (Art. 7º)
+        </h3>
+        <p class="text-sm sm:text-base text-neutral-800">
+          A designação é ato privativo da autoridade máxima (Reitor no IFMG ou autoridade delegada) e exige cumprimento de 4 condições:
+        </p>
+        <ul class="list-disc pl-5 sm:pl-6 space-y-2 text-sm sm:text-base text-neutral-800">
+          <li>
+            <strong>1. Vínculo Funcional:</strong> Devem ser, <mark class="highlight-yellow">PREFERENCIALMENTE</mark>, servidores públicos de provimento efetivo ou empregados permanentes dos quadros da Administração.
+          </li>
+          <li>
+            <strong>2. Qualificação Técnica:</strong> Atribuições compatíveis com o cargo ou certificação por escolas de governo mantidas pelo Poder Público.
+          </li>
+          <li>
+            <strong>3. Ausência de Conflito de Interesses:</strong> <mark class="highlight-red">Inexistência de parentesco</mark> até o <strong>3º grau civil</strong> (consanguíneo ou afim) com licitantes habituais ou dirigentes concorrentes, além da vedação de vínculos societários ou empregatícios.
+          </li>
+          <li>
+            <strong>4. Respeito à Segregação de Funções:</strong> A distribuição de atribuições deve evitar cumulação de papéis incompatíveis.
+          </li>
+        </ul>
+      </div>
+
+      <!-- Subseção 4.2 -->
+      <div class="space-y-4 pt-2">
+        <h3 class="text-lg font-bold text-neutral-900 border-b border-neutral-200 pb-1">
+          4.2 O Agente de Contratação (Art. 8º, caput e § 5º)
+        </h3>
+        <div class="p-4 border-2 border-neutral-200 rounded-xl bg-white space-y-3 text-sm sm:text-base text-neutral-800">
+          <p>
+            • <strong>Modelo Ordinário Unipessoal:</strong> A condução da licitação passa a ser realizada por <strong>1 (um) único indivíduo</strong>.
+          </p>
+          <p>
+            • <strong>Requisito Indispensável de Investidura:</strong> Deve ser <mark class="highlight-green">OBRIGATORIAMENTE servidor efetivo</mark> ou empregado permanente dos quadros. <mark class="highlight-red">Não pode</mark> ser servidor exclusivamente comissionado nem terceiro terceirizado.
+          </p>
+          <p>
+            • <strong>Responsabilização Individual:</strong> O Agente de Contratação responde <mark class="highlight-yellow">individualmente</mark> por todos os atos decisórios praticados. Somente se exime se comprovar documentalmente que foi induzido a erro por parecer técnico falho da equipe de apoio.
+          </p>
+          <p>
+            • <strong>Denominação no Pregão:</strong> No pregão, o Agente de Contratação é denominado <mark class="highlight-blue">PREGOEIRO</mark> (art. 8º, § 5º).
+          </p>
+        </div>
+      </div>
+
+      <!-- Subseção 4.3 e 4.4 -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2 text-sm text-neutral-800">
+        <div class="p-4 border border-neutral-200 rounded-xl bg-white space-y-2">
+          <h4 class="font-bold text-neutral-900 text-base">Equipe de Apoio (Art. 8º, § 1º)</h4>
+          <p class="text-neutral-700 text-xs sm:text-sm">
+            Destinada a prestar suporte operacional, técnico e documental ao Agente de Contratação ou Pregoeiro durante a disputa.
+          </p>
+          <ul class="list-disc pl-4 text-xs text-neutral-600 space-y-1 pt-1">
+            <li><mark class="highlight-red">Não possui competência decisória autônoma</mark>.</li>
+            <li>Preferencialmente servidores efetivos.</li>
+            <li>Respondem no limite estrito de suas manifestações e pareceres subscritos.</li>
+          </ul>
+        </div>
+
+        <div class="p-4 border border-neutral-200 rounded-xl bg-white space-y-2">
+          <h4 class="font-bold text-neutral-900 text-base">Comissão de Contratação (Art. 8º, § 2º)</h4>
+          <p class="text-neutral-700 text-xs sm:text-sm">
+            Estrutura colegiada que passa a ser a exceção processual:
+          </p>
+          <ul class="list-disc pl-4 text-xs text-neutral-600 space-y-1 pt-1">
+            <li>Formada por no mínimo <mark class="highlight-yellow">3 (três) membros</mark>.</li>
+            <li><mark class="highlight-green">Maioria dos membros deve ser efetiva</mark>.</li>
+            <li>Responsabilidade <mark class="highlight-yellow">SOLIDÁRIA</mark>. Isenta-se apenas o membro com voto divergente formalizado em ata.</li>
+            <li><strong>Facultativa:</strong> Bens e serviços especiais.</li>
+            <li><strong>Obrigatória:</strong> Na modalidade <mark class="highlight-blue">Diálogo Competitivo</mark>.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Subseção 4.5 e 4.6 -->
+      <div class="space-y-4 pt-2">
+        <h3 class="text-lg font-bold text-neutral-900 border-b border-neutral-200 pb-1">
+          4.3 Vedações e Defesa pela Advocacia Pública (Arts. 9º e 10)
+        </h3>
+        
+        <div class="p-4 border border-neutral-200 rounded-xl bg-white space-y-2 text-sm text-neutral-800">
+          <h4 class="font-bold text-neutral-950">Vedações aos Agentes Públicos (Art. 9º):</h4>
+          <ul class="list-disc pl-5 space-y-1 text-xs sm:text-sm text-neutral-700">
+            <li>Frustrar ou restringir o caráter competitivo do processo licitatório.</li>
+            <li>Estabelecer distinção de tratamento por naturalidade, sede ou domicílio do licitante.</li>
+            <li>Fazer exigências impertinentes ou inúteis ao objeto.</li>
+            <li>Participar de processo no qual possua interesse econômico ou vínculo empregatício com competidor.</li>
+          </ul>
+        </div>
+
+        <div class="p-4 border-l-4 border-neutral-800 border-neutral-200 border rounded-r-xl bg-white space-y-2 text-sm text-neutral-800">
+          <h4 class="font-bold text-neutral-950">Representação Judicial pela Advocacia Pública (Art. 10):</h4>
+          <p class="text-xs sm:text-sm text-neutral-700">
+            Se o agente responder judicial ou extrajudicialmente por atos praticados no certame, sua defesa caberá à Advocacia Pública (na esfera do IFMG, a <mark class="highlight-blue">Procuradoria-Geral Federal - PGF/AGU</mark>).
+          </p>
+          <ul class="list-disc pl-5 space-y-1 text-xs text-neutral-600 pt-1">
+            <li><strong>Requisito Essencial:</strong> Ter agido com base em orientações ou pareceres jurídicos formais da assessoria jurídica.</li>
+            <li><strong>Permanece:</strong> Mesmo após o servidor ter deixado o cargo, emprego ou função.</li>
+            <li><mark class="highlight-red">CESSA IMEDIATAMENTE:</mark> Caso constem nos autos provas da prática de ato ilícito cometido mediante <strong>DOLO</strong>.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- TABELA 4: Sem Scroll Horizontal -->
+      <div class="pt-4">
+        <h4 class="text-xs sm:text-sm font-bold uppercase tracking-wider text-neutral-600 mb-2">
+          Tabela Síntese 4: Quadro Comparativo dos Agentes Públicos
+        </h4>
+        <div class="w-full border border-neutral-300 rounded-xl overflow-hidden bg-white">
+          <table class="table-fixed-nowrap-anywhere text-left text-xs sm:text-sm">
+            <thead>
+              <tr class="bg-neutral-100 border-b border-neutral-300 text-neutral-900 font-bold">
+                <th class="p-2 sm:p-2.5 w-2/12 border-r border-neutral-200">Figura</th>
+                <th class="p-2 sm:p-2.5 w-2/12 border-r border-neutral-200">Modelo</th>
+                <th class="p-2 sm:p-2.5 w-3/12 border-r border-neutral-200">Vínculo Mínimo</th>
+                <th class="p-2 sm:p-2.5 w-2/12 border-r border-neutral-200">Responsab.</th>
+                <th class="p-2 sm:p-2.5 w-3/12">Regra de Emprego</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-neutral-200 text-neutral-800">
+              <tr>
+                <td class="p-2 sm:p-2.5 font-semibold border-r border-neutral-200">Agente de Contratação</td>
+                <td class="p-2 sm:p-2.5 border-r border-neutral-200">Unipessoal</td>
+                <td class="p-2 sm:p-2.5 border-r border-neutral-200"><mark class="highlight-green">Obrigatoriamente</mark> Efetivo</td>
+                <td class="p-2 sm:p-2.5 border-r border-neutral-200">Individual</td>
+                <td class="p-2 sm:p-2.5">Regra geral das licitações comuns.</td>
+              </tr>
+              <tr>
+                <td class="p-2 sm:p-2.5 font-semibold border-r border-neutral-200">Pregoeiro</td>
+                <td class="p-2 sm:p-2.5 border-r border-neutral-200">Unipessoal</td>
+                <td class="p-2 sm:p-2.5 border-r border-neutral-200"><mark class="highlight-green">Obrigatoriamente</mark> Efetivo</td>
+                <td class="p-2 sm:p-2.5 border-r border-neutral-200">Individual</td>
+                <td class="p-2 sm:p-2.5">Denominação do agente no Pregão.</td>
+              </tr>
+              <tr>
+                <td class="p-2 sm:p-2.5 font-semibold border-r border-neutral-200">Comissão de Contratação</td>
+                <td class="p-2 sm:p-2.5 border-r border-neutral-200">Colegiado (mín. 3)</td>
+                <td class="p-2 sm:p-2.5 border-r border-neutral-200"><mark class="highlight-yellow">Maioria Efetiva</mark> dos quadros</td>
+                <td class="p-2 sm:p-2.5 border-r border-neutral-200">Solidária (salvo voto vencido)</td>
+                <td class="p-2 sm:p-2.5">Obrigatória no Diálogo Competitivo.</td>
+              </tr>
+              <tr>
+                <td class="p-2 sm:p-2.5 font-semibold border-r border-neutral-200">Equipe de Apoio</td>
+                <td class="p-2 sm:p-2.5 border-r border-neutral-200">Suporte técnico</td>
+                <td class="p-2 sm:p-2.5 border-r border-neutral-200">Preferencialmente Efetivo</td>
+                <td class="p-2 sm:p-2.5 border-r border-neutral-200">Pelo parecer subscrito</td>
+                <td class="p-2 sm:p-2.5">Auxilia sem competência decisória final.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </article>
+
+    <!-- ========================================== -->
+    <!-- MÓDULO 5: DIRETRIZES DE MEMORIZAÇÃO -->
+    <!-- ========================================== -->
+    <article class="space-y-6 mb-12">
+      <div class="border-b border-neutral-200 pb-3">
+        <span class="text-xs font-bold text-neutral-500 tracking-wider uppercase">Parte 05</span>
+        <h2 class="text-xl sm:text-2xl font-bold text-neutral-950">
+          5. Sistematização para Exames Objetivos e Diretrizes de Memorização
+        </h2>
+      </div>
+
+      <div class="bg-neutral-50 border border-neutral-200 rounded-2xl p-5 sm:p-6 space-y-3">
+        <h3 class="font-bold text-neutral-900 text-base sm:text-lg flex items-center gap-2">
+          <span>Checklist Rápido dos Pontos Decisivos de Prova:</span>
+        </h3>
+        <ul class="space-y-2 text-sm sm:text-base text-neutral-800 list-disc pl-5">
+          <li><strong>IFMG e Autarquias:</strong> Submissão plena e obrigatória aos arts. 1º a 10.</li>
+          <li><strong>Estatais (EP e SEM):</strong> Regidas pela Lei 13.303/2016. Da Lei 14.133, aplicam-se apenas os crimes.</li>
+          <li><strong>Trava da LC 123/06 (ME/EPP):</strong> Não goza de benefício se o item/lote ou contrato global de engenharia for superior a <strong>R$ 4,8 milhões</strong>, ou se a empresa já somar &gt; R$ 4,8 mi em contratos com o Poder Público no mesmo ano-calendário.</li>
+          <li><strong>Princípios Novos Expressos:</strong> Planejamento, Transparência (PNCP), Segregação de Funções, Eficácia e Desenvolvimento Nacional Sustentável.</li>
+          <li><strong>Bens Comuns vs. Especiais:</strong> Comuns usam especificações usuais de mercado &rarr; <mark class="highlight-green">Pregão obrigatório</mark>. Especiais usam Concorrência &rarr; <mark class="highlight-red">Pregão proibido</mark>.</li>
+          <li><strong>Matriz de Riscos:</strong> Obrigatória apenas em obras de grande vulto (&gt; R$ 200 mi) e contratações integradas/semi-integradas.</li>
+          <li><strong>Sobrepreço vs. Superfaturamento:</strong> Sobrepreço = vício orçamentário/proposta acima do mercado (<mark class="highlight-yellow">dano potencial</mark>). Superfaturamento = lesão física/financeira consumada durante a execução (<mark class="highlight-red">dano efetivo</mark>).</li>
+          <li><strong>Agente de Contratação vs. Comissão:</strong> Agente de Contratação é <mark class="highlight-green">obrigatoriamente efetivo</mark> e responde individualmente. Comissão de Contratação tem no mínimo 3 membros com maioria efetiva e responde de forma solidária (salvo voto divergente lavrado em ata).</li>
+          <li><strong>Defesa PGF/AGU:</strong> Subsiste para ex-servidores, desde que tenham atuado com respaldo de parecer jurídico prévio. <mark class="highlight-red">Cessa em caso de conduta dolosa comprovada</mark>.</li>
+        </ul>
+      </div>
+
+      <!-- TABELA 5: Matriz de Pegadinhas Frequentes em Concursos -->
+      <div class="pt-4">
+        <h4 class="text-xs sm:text-sm font-bold uppercase tracking-wider text-neutral-600 mb-2">
+          Tabela Síntese 5: Matriz de Pegadinhas Frequentes da Banca
+        </h4>
+        <div class="w-full border border-neutral-300 rounded-xl overflow-hidden bg-white">
+          <table class="table-fixed-nowrap-anywhere text-left text-xs sm:text-sm">
+            <thead>
+              <tr class="bg-neutral-100 border-b border-neutral-300 text-neutral-900 font-bold">
+                <th class="p-2.5 sm:p-3 w-1/2 border-r border-neutral-200">Formulação Equivocada Comum da Banca</th>
+                <th class="p-2.5 sm:p-3 w-1/2">Retificação Hermenêutica Conforme a Lei</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-neutral-200 text-neutral-800">
+              <tr>
+                <td class="p-2.5 sm:p-3 border-r border-neutral-200 font-medium">
+                  "A Lei nº 14.133/2021 aplica-se integralmente aos contratos de sociedades de economia mista e empresas públicas federais."
+                </td>
+                <td class="p-2.5 sm:p-3">
+                  <mark class="highlight-red">INCORRETO.</mark> As estatais subordinam-se à Lei nº 13.303/2016, incidindo a Lei 14.133 apenas nas normas penais.
+                </td>
+              </tr>
+              <tr>
+                <td class="p-2.5 sm:p-3 border-r border-neutral-200 font-medium">
+                  "A matriz de riscos constitui cláusula contratual compulsória e cogente em toda e qualquer licitação autárquica."
+                </td>
+                <td class="p-2.5 sm:p-3">
+                  <mark class="highlight-red">INCORRETO.</mark> É discricionária na regra geral. É obrigatória somente em grande vulto (&gt; R$ 200 mi) e contratações integradas/semi-integradas.
+                </td>
+              </tr>
+              <tr>
+                <td class="p-2.5 sm:p-3 border-r border-neutral-200 font-medium">
+                  "O sobrepreço confunde-se com o desfalque financeiro efetivamente consumado por medições superfaturadas."
+                </td>
+                <td class="p-2.5 sm:p-3">
+                  <mark class="highlight-red">INCORRETO.</mark> O dano efetivo na execução é <strong>superfaturamento</strong>. O sobrepreço é mero vício orçamentário/proposta (dano potencial).
+                </td>
+              </tr>
+              <tr>
+                <td class="p-2.5 sm:p-3 border-r border-neutral-200 font-medium">
+                  "Qualquer servidor de confiança puramente comissionado pode ser designado formalmente como pregoeiro."
+                </td>
+                <td class="p-2.5 sm:p-3">
+                  <mark class="highlight-red">INCORRETO.</mark> O Agente de Contratação e o Pregoeiro devem ser <mark class="highlight-green">obrigatoriamente</mark> servidores efetivos ou empregados permanentes dos quadros.
+                </td>
+              </tr>
+              <tr>
+                <td class="p-2.5 sm:p-3 border-r border-neutral-200 font-medium">
+                  "A discordância oral exime o membro de comissão da responsabilidade solidária pelos atos praticados."
+                </td>
+                <td class="p-2.5 sm:p-3">
+                  <mark class="highlight-red">INCORRETO.</mark> A exclusão de responsabilidade exige declaração formal, motivada e <mark class="highlight-yellow">expressamente lavrada na ata da reunião</mark>.
+                </td>
+              </tr>
+              <tr>
+                <td class="p-2.5 sm:p-3 border-r border-neutral-200 font-medium">
+                  "A Advocacia Pública defenderá o agente em qualquer situação, mesmo havendo comprovação de fraude dolosa."
+                </td>
+                <td class="p-2.5 sm:p-3">
+                  <mark class="highlight-red">INCORRETO.</mark> A representação institucional <mark class="highlight-red">cessa expressamente</mark> se os autos demonstrarem a prática de ato ilícito com dolo.
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </article>
+
+    <!-- ========================================== -->
+    <!-- MÓDULO 6: CONSIDERAÇÕES FINAIS -->
+    <!-- ========================================== -->
+    <article class="space-y-4 mb-14 border-t border-neutral-200 pt-8">
+      <h2 class="text-xl font-bold text-neutral-950">
+        6. Considerações Finais e Estratégia de Prova
+      </h2>
+      <p class="text-neutral-800 text-sm sm:text-base">
+        A modelagem instituída pela Lei nº 14.133/2021 superou o mero formalismo burocrático e colocou a governança pública, o planejamento e a segregação de funções no centro das decisões. Para o concurso de Professor do IFMG, o domínio cirúrgico dos <mark class="highlight-yellow">arts. 1º a 10</mark> garante segurança nas questões conceituais e nos estudos de caso da banca examinadora.
+      </p>
+    </article>
+
+    <!-- NAVEGAÇÃO FINAL / BOTÃO DE QUESTÕES -->
+    <nav class="border-t-2 border-neutral-200 pt-8 pb-12 flex flex-col items-center justify-center text-center">
+      <p class="text-sm font-medium text-neutral-600 mb-4">
+        Concluiu o estudo da parte teórica? Hora de testar e consolidar seus conhecimentos.
+      </p>
+      <a 
+        href="questoes12legs.html" 
+        class="inline-flex items-center justify-center gap-3 px-8 py-4 text-base sm:text-lg font-bold text-white bg-neutral-950 hover:bg-neutral-800 rounded-xl shadow-sm transition-transform active:scale-95"
+      >
+        <span>Acessar Caderno de Questões</span>
+        <!-- Ícone de Seta para a Direita -->
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+        </svg>
+      </a>
+      <span class="mt-2 text-xs text-neutral-400">
+        Direciona para a página: <code>questoes11legs.html</code>
+      </span>
+    </nav>
+
+  </main>
+
+  <!-- Script para gerenciar dinamicamente o arquivo MP3 e compatibilidade -->
+  <script>
+    function updateAudioSource() {
+      const input = document.getElementById('audioFileNameInput');
+      const audio = document.getElementById('audioPlayer');
+      const source = document.getElementById('audioSource');
+      const status = document.getElementById('audioStatus');
+      
+      const fileName = input.value.trim();
+      if (!fileName) {
+        status.innerHTML = '<span class="text-rose-600 font-semibold">Por favor, digite o nome válido do arquivo de áudio (ex.: aula.mp3).</span>';
+        return;
+      }
+
+      source.src = fileName;
+      audio.load();
+      
+      // Tenta reproduzir se possível
+      const playPromise = audio.play();
+      if (playPromise !== undefined) {
+        playPromise.then(() => {
+          status.innerHTML = '<span class="text-emerald-700 font-semibold">Reproduzindo: <code>' + fileName + '</code></span>';
+        }).catch(err => {
+          status.innerHTML = '<span class="text-neutral-700">Arquivo carregado: <code>' + fileName + '</code>. Clique no play acima para iniciar a audição.</span>';
+        });
+      }
+    }
+
+    // Permitir carregar ao pressionar Enter no campo de texto
+    document.getElementById('audioFileNameInput').addEventListener('keydown', function(event) {
+      if (event.key === 'Enter') {
+        event.preventDefault();
+        updateAudioSource();
+      }
+    });
+  </script>
+</body>
+</html>

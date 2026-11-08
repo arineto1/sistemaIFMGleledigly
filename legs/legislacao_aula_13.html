@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lei nº 14.133/2021 – Licitações: Objetivos, Modalidades e Critérios de Julgamento (IFMG)</title>
+  <!-- Tailwind CSS para estilização moderna e neutra -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts: Inter para máxima legibilidade -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #ffffff;
+      color: #1e293b; /* Slate 800: contraste ideal sem fadiga */
+      line-height: 1.7;
+    }
+
+    /* Grifo amarelo clássico com legibilidade aprimorada */
+    .grifo {
+      background-color: #fef08a; /* Amarelo suave pastel */
+      color: #0f172a;
+      padding: 0.12rem 0.35rem;
+      border-radius: 0.25rem;
+      font-weight: 600;
+      box-decoration-break: clone;
+      -webkit-box-decoration-break: clone;
+    }
+
+    /* Grifo secundário para alertas de bancas examinadoras */
+    .grifo-alerta {
+      background-color: #fee2e2; /* Vermelho/coral sutil */
+      color: #991b1b;
+      padding: 0.12rem 0.35rem;
+      border-radius: 0.25rem;
+      font-weight: 600;
+    }
+
+    /* Grifo de aprovação/positivo */
+    .grifo-ok {
+      background-color: #dcfce7; /* Verde suave */
+      color: #166534;
+      padding: 0.12rem 0.35rem;
+      border-radius: 0.25rem;
+      font-weight: 600;
+    }
+
+    /* Ajuste de tabelas sem scroll horizontal */
+    .table-fluid {
+      width: 100%;
+      table-layout: fixed;
+      border-collapse: collapse;
+      word-wrap: break-word;
+      overflow-wrap: break-word;
+    }
+
+    .table-fluid th, 
+    .table-fluid td {
+      hyphens: auto;
+    }
+  </style>
+</head>
+<body class="bg-white text-slate-800 antialiased selection:bg-amber-200 selection:text-slate-900">
+
+  <!-- Container Principal -->
+  <main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+
+    <!-- Cabeçalho Institucional -->
+    <header class="border-b-2 border-slate-200 pb-8 mb-8">
+      <div class="flex flex-wrap items-center justify-between gap-3 mb-4">
+        <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-slate-100 text-slate-700 border border-slate-300">
+          IFMG • Concurso Público Docente EBTT
+        </span>
+        <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-amber-50 text-amber-800 border border-amber-300">
+          Banca Reitoria IFMG • Legislação Administrativa
+        </span>
+      </div>
+
+      <h1 class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight leading-snug">
+        O Regime Licitatório da Lei nº 14.133/2021
+      </h1>
+      <p class="mt-2 text-base sm:text-lg text-slate-600 font-medium">
+        Objetivos do Processo Licitatório, Rol Fechado de Modalidades e Critérios de Julgamento
+      </p>
+      <p class="text-xs sm:text-sm text-slate-500 mt-1">
+        Dispositivo legal: Título II, Capítulos I (art. 11), II - Seção II (arts. 28 a 32) e Seção III (arts. 33 a 39).
+      </p>
+    </header>
+
+    <!-- Módulo de Áudio MP3 -->
+    <section class="bg-slate-50 border border-slate-200 rounded-2xl p-5 sm:p-6 mb-10 shadow-sm">
+      <div class="flex items-center gap-3 mb-3">
+        <div class="w-10 h-10 rounded-xl bg-slate-200 text-slate-700 flex items-center justify-center font-bold text-lg">
+          🎧
+        </div>
+        <div>
+          <h2 class="text-base font-bold text-slate-900">Reprodutor de Áudio da Aula</h2>
+          <p class="text-xs text-slate-500">Ouça o resumo narrado enquanto acompanha a leitura visual com grifos</p>
+        </div>
+      </div>
+
+      <!-- Player de Áudio Nativo -->
+      <div class="mt-2">
+        <audio id="audioPlayer" controls class="w-full h-11 rounded-lg focus:outline-none">
+          <!-- Nome padrão do arquivo que pode ficar na mesma pasta -->
+          <source id="audioSource" src="audio13legs.mp3" type="audio/mpeg">
+          Seu navegador não suporta a execução de áudio HTML5.
+        </audio>
+      </div>
+
+      <!-- Configuração Rápida do Arquivo de Áudio -->
+      <div class="mt-4 pt-4 border-t border-slate-200 text-xs text-slate-600 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+        <div class="flex-1 w-full sm:w-auto">
+          <label for="audioFileNameInput" class="block font-semibold text-slate-700 mb-1">
+            Deseja alterar o nome do arquivo MP3 local?
+          </label>
+          <div class="flex items-center gap-2">
+            <input 
+              type="text" 
+              id="audioFileNameInput" 
+              value="audio13legs.mp3" 
+              placeholder="Ex: aula_completa.mp3" 
+              class="w-full sm:w-80 px-3 py-1.5 text-xs bg-white border border-slate-300 rounded-lg text-slate-800 font-mono focus:ring-2 focus:ring-slate-400 focus:outline-none"
+            >
+            <button 
+              type="button" 
+              id="btnUpdateAudio" 
+              class="px-3 py-1.5 bg-slate-800 hover:bg-slate-900 text-white font-medium rounded-lg transition-colors whitespace-nowrap shadow-sm text-xs"
+            >
+              Carregar Arquivo
+            </button>
+          </div>
+        </div>
+        <div id="audioStatus" class="text-slate-500 font-mono text-[11px] self-end sm:self-center">
+          Arquivo atual: <span class="text-slate-800 font-bold">audio13legs.mp3</span>
+        </div>
+      </div>
+      <p class="text-[11px] text-slate-400 mt-2">
+        💡 <strong>Dica de uso:</strong> Basta colocar seu arquivo <code class="bg-white px-1 py-0.5 rounded border border-slate-200 text-slate-700">.mp3</code> na mesma pasta deste arquivo HTML e digitar o nome dele acima (ou renomeá-lo diretamente para <code class="bg-white px-1 py-0.5 rounded border border-slate-200 text-slate-700">audio13legs.mp3</code>).
+      </p>
+    </section>
+
+    <!-- Artigo Introdutório -->
+    <article class="prose max-w-none text-slate-800">
+      <section class="mb-10 text-justify">
+        <p class="text-base sm:text-lg leading-relaxed">
+          A compreensão da <span class="grifo">Lei nº 14.133/2021</span> (Nova Lei de Licitações e Contratos Administrativos) constitui requisito essencial no âmbito do concurso público para a carreira docente do Ensino Básico, Técnico e Tecnológico (EBTT) do Instituto Federal de Educação, Ciência e Tecnologia de Minas Gerais (IFMG). As bancas examinadoras institucionais de Institutos Federais costumam estruturar seus itens de legislação administrativa a partir da <span class="grifo">literalidade legal combinada com a compreensão sistemática</span> das inovações dogmáticas, exigindo do candidato o domínio dos objetivos do certame, da nova taxonomia das modalidades licitatórias e dos critérios de julgamento das propostas.
+        </p>
+        <p class="mt-4 text-base sm:text-lg leading-relaxed">
+          O marco legal de 2021 não operou mera consolidação das legislações pretéritas; configurou um redesenho funcional da atividade administrativa, substituindo ritos puramente burocráticos por mecanismos orientados à governança, eficiência econômica e desenvolvimento sustentável. Para a estruturação das atividades finalísticas de ensino, pesquisa e extensão em uma autarquia educacional federal, a aplicação correta destes preceitos assegura a lisura na contratação de bens e serviços essenciais, de laboratórios a obras de infraestrutura acadêmica.
+        </p>
+      </section>
+
+      <!-- SEÇÃO 1: OBJETIVOS -->
+      <section class="border-t border-slate-200 pt-8 mb-12">
+        <div class="flex items-center gap-2 mb-4">
+          <span class="bg-slate-800 text-white text-xs font-bold px-2.5 py-1 rounded">SEÇÃO 1</span>
+          <h2 class="text-xl sm:text-2xl font-bold text-slate-900 m-0">Os Objetivos do Processo Licitatório (Artigo 11)</h2>
+        </div>
+
+        <h3 class="text-lg font-bold text-slate-800 mt-6 mb-3">Natureza e Significado Normativo do Artigo 11</h3>
+        <p class="leading-relaxed text-justify">
+          Tradicionalmente, a legislação de licitações limitava o processo à garantia do princípio constitucional da isonomia e à seleção da proposta mais vantajosa para o Poder Público. A Lei nº 14.133/2021 ampliou substancialmente esse horizonte ao consagrar, no artigo 11, <span class="grifo">quatro macro-objetivos vinculantes</span> que operam como vetores interpretativos de todo o processo de contratação pública. O dispositivo legal exige que o administrador público visualize a licitação não como um rito estéril, mas como uma política de planejamento e gestão de recursos materiais.
+        </p>
+
+        <ul class="my-6 space-y-4 pl-0 list-none">
+          <li class="bg-slate-50 p-4 rounded-xl border border-slate-200">
+            <strong class="text-slate-900 block font-bold mb-1">1. Proposta mais vantajosa e Ciclo de Vida (Inciso I):</strong>
+            Assegurar a seleção da proposta apta a gerar o resultado de contratação mais vantajoso para a Administração Pública, incorporando expressamente a análise do <span class="grifo">ciclo de vida do objeto</span>. Isso significa que a vantajosidade <span class="grifo-alerta">transcende o desembolso financeiro imediato de aquisição</span>: a decisão administrativa deve computar despesas com instalação, manutenção ordinária, consumo de energia, depreciação, custos ambientais e posterior desfazimento ou reciclagem do bem licitado.
+          </li>
+          <li class="bg-slate-50 p-4 rounded-xl border border-slate-200">
+            <strong class="text-slate-900 block font-bold mb-1">2. Isonomia e Justa Competição (Inciso II):</strong>
+            Garantir tratamento isonômico entre os participantes do certame, bem como a promoção de uma <span class="grifo">justa competição</span>. A paridade de armas veda exigências editalícias desproporcionais, impertinentes ou dirigidas a restringir o universo concorrencial sob o pretexto de resguardar o interesse público.
+          </li>
+          <li class="bg-slate-50 p-4 rounded-xl border border-slate-200">
+            <strong class="text-slate-900 block font-bold mb-1">3. Integridade dos Preços e Diferenciação Temporal (Inciso III):</strong>
+            Prevenção expressa de contratações com <span class="grifo">sobrepreço</span> ou com <span class="grifo">preços manifestamente inexequíveis</span>, assim como a contenção de <span class="grifo">superfaturamento</span> durante a execução dos contratos administrativos. 
+            <span class="block mt-2 text-sm bg-white p-2.5 rounded-lg border border-slate-300 text-slate-700">
+              ⚠️ <strong>Distinção Crucial para a Prova:</strong> O <em>sobrepreço</em> e a <em>inexequibilidade</em> caracterizam desvios identificados na <span class="grifo">fase de julgamento das propostas (momento pré-contratual)</span>, enquanto o <em>superfaturamento</em> constitui anomalia financeira verificada na <span class="grifo">liquidação e pagamento das despesas (momento pós-contratual / execução)</span>.
+            </span>
+          </li>
+          <li class="bg-slate-50 p-4 rounded-xl border border-slate-200">
+            <strong class="text-slate-900 block font-bold mb-1">4. Inovação e Sustentabilidade Multidimensional (Inciso IV):</strong>
+            Incentivo permanente à <span class="grifo">inovação e ao desenvolvimento nacional sustentável</span>. Sob essa diretriz, o poder de compra estatal funciona como indutor de políticas de desenvolvimento científico e tecnológico, além de estabelecer padrões de consumo ecologicamente responsáveis, com respeito à eficiência de recursos e à inclusão social.
+          </li>
+        </ul>
+
+        <!-- Tabela 1: Objetivos -->
+        <h4 class="text-base font-bold text-slate-800 mt-8 mb-3">Quadro Comparativo dos Objetivos Licitatórios e Vulnerabilidades em Prova</h4>
+        <div class="border border-slate-300 rounded-xl overflow-hidden shadow-sm my-4 bg-white">
+          <table class="table-fluid text-xs sm:text-sm">
+            <thead class="bg-slate-100 text-slate-900 border-b border-slate-300 font-bold">
+              <tr>
+                <th class="p-2.5 sm:p-3 text-left w-[18%]">Dispositivo</th>
+                <th class="p-2.5 sm:p-3 text-left w-[24%]">Objetivo Normativo</th>
+                <th class="p-2.5 sm:p-3 text-left w-[28%]">Elementos Dogmáticos Essenciais</th>
+                <th class="p-2.5 sm:p-3 text-left w-[30%]">Ponto Focal / Pegadinha da Banca</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-200">
+              <tr class="hover:bg-slate-50">
+                <td class="p-2.5 sm:p-3 font-mono font-bold text-slate-900 align-top">Art. 11, I</td>
+                <td class="p-2.5 sm:p-3 font-medium align-top">Proposta mais vantajosa</td>
+                <td class="p-2.5 sm:p-3 align-top">Resultado ótimo de contratação, abrangendo o <span class="grifo">ciclo de vida do objeto</span>.</td>
+                <td class="p-2.5 sm:p-3 text-rose-900 bg-rose-50/40 align-top">Reduzir a vantajosidade exclusivamente ao "menor preço imediato na data de abertura das propostas".</td>
+              </tr>
+              <tr class="hover:bg-slate-50">
+                <td class="p-2.5 sm:p-3 font-mono font-bold text-slate-900 align-top">Art. 11, II</td>
+                <td class="p-2.5 sm:p-3 font-medium align-top">Isonomia e justa competição</td>
+                <td class="p-2.5 sm:p-3 align-top">Paridade jurídica e garantia de amplo universo concorrencial sem privilégios.</td>
+                <td class="p-2.5 sm:p-3 text-rose-900 bg-rose-50/40 align-top">Confundir o dever de isonomia com a impossibilidade de estipular critérios técnicos objetivos de qualificação.</td>
+              </tr>
+              <tr class="hover:bg-slate-50">
+                <td class="p-2.5 sm:p-3 font-mono font-bold text-slate-900 align-top">Art. 11, III</td>
+                <td class="p-2.5 sm:p-3 font-medium align-top">Integridade dos preços</td>
+                <td class="p-2.5 sm:p-3 align-top">Coibição prévia de <span class="grifo">sobrepreço e inexequibilidade</span>; repressão a <span class="grifo">superfaturamento</span> executivo.</td>
+                <td class="p-2.5 sm:p-3 text-rose-900 bg-rose-50/40 align-top">Tratar sobrepreço (licitação) e superfaturamento (execução) como sinônimos intercambiáveis.</td>
+              </tr>
+              <tr class="hover:bg-slate-50">
+                <td class="p-2.5 sm:p-3 font-mono font-bold text-slate-900 align-top">Art. 11, IV</td>
+                <td class="p-2.5 sm:p-3 font-medium align-top">Fomento estratégico</td>
+                <td class="p-2.5 sm:p-3 align-top">Indução de soluções inovadoras e sustentabilidade multidimensional (ambiental, social e econômica).</td>
+                <td class="p-2.5 sm:p-3 text-rose-900 bg-rose-50/40 align-top">Restringir o critério de sustentabilidade estritamente a questões ecológicas ou ambientais isoladas.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- SEÇÃO 2: MODALIDADES -->
+      <section class="border-t border-slate-200 pt-8 mb-12">
+        <div class="flex items-center gap-2 mb-4">
+          <span class="bg-slate-800 text-white text-xs font-bold px-2.5 py-1 rounded">SEÇÃO 2</span>
+          <h2 class="text-xl sm:text-2xl font-bold text-slate-900 m-0">O Rol Fechado de Modalidades Licitatórias (Artigos 28 a 32)</h2>
+        </div>
+
+        <h3 class="text-lg font-bold text-slate-800 mt-6 mb-3">Princípio da Tipicidade Legal Estrita (Artigo 28)</h3>
+        <p class="leading-relaxed text-justify">
+          O processo de escolha do contratante pelo Poder Público exige obediência ao princípio da tipicidade das formas processuais. O artigo 28 da Lei nº 14.133/2021 estabelece que são modalidades de licitação: <span class="grifo">o pregão, a concorrência, o concurso, o leilão e o diálogo competitivo</span>. O rol é rigorosamente fechado (<span class="font-semibold italic">numerus clausus</span>), de modo que o gestor público não possui discricionariedade para subverter os modelos definidos em lei.
+        </p>
+        <p class="mt-3 leading-relaxed text-justify">
+          A confirmação da taxatividade exsurge do teor do <strong>§ 2º do artigo 28</strong>, o qual <span class="grifo-alerta">veda expressamente a criação de outras modalidades de licitação</span> por via regulamentar ou infralegal, bem como a <span class="grifo-alerta">combinação daquelas referidas no texto básico</span> da norma geral federal. Não é permitida a existência de modalidades híbridas ou adaptadas pelas unidades federadas ou pelas comissões locais.
+        </p>
+
+        <div class="bg-amber-50/70 border-l-4 border-amber-500 p-4 rounded-r-xl my-4 text-sm text-slate-800">
+          <strong>Atenção Máxima com Procedimentos Auxiliares:</strong> Cumpre distinguir as modalidades de licitação dos procedimentos auxiliares elencados no <strong>artigo 78</strong> da lei (credenciamento, pré-qualificação, procedimento de manifestação de interesse - PMI, sistema de registro de preços - SRP e registro cadastral). Embora o § 1º do art. 28 faculte o uso de procedimentos auxiliares em conjunto com as contratações, <span class="grifo">eles NÃO constituem modalidades autônomas de disputa</span>.
+        </div>
+
+        <h3 class="text-lg font-bold text-slate-800 mt-6 mb-3">A Extinção Definitiva do Convite e da Tomada de Preços</h3>
+        <p class="leading-relaxed text-justify">
+          Em face do regime da revogada Lei nº 8.666/1993, a Lei nº 14.133/2021 <span class="grifo-alerta">aboliu definitivamente duas modalidades históricas: o convite e a tomada de preços</span>. Essa supressão decorre de uma mudança profunda no critério orientador da escolha modal:
+        </p>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 my-4">
+          <div class="p-4 rounded-xl border border-slate-200 bg-slate-50">
+            <span class="text-xs font-bold text-slate-500 uppercase tracking-wider block mb-1">Regime Anterior (Lei 8.666/93)</span>
+            <p class="text-sm text-slate-700">A escolha entre convite, tomada de preços e concorrência era pautada <span class="line-through decoration-rose-500 font-semibold">precipuamente pelo valor estimado</span> da contratação.</p>
+          </div>
+          <div class="p-4 rounded-xl border border-emerald-300 bg-emerald-50/50">
+            <span class="text-xs font-bold text-emerald-700 uppercase tracking-wider block mb-1">Novo Regime (Lei 14.133/2021)</span>
+            <p class="text-sm text-slate-800 font-medium">O valor financeiro deixou de ser a régua de demarcação. A escolha modal é regida pela <span class="grifo-ok">natureza do objeto a ser contratado</span>.</p>
+          </div>
+        </div>
+
+        <h3 class="text-lg font-bold text-slate-800 mt-6 mb-3">Pregão e Concorrência: O Rito Comum Unificado (Artigo 29)</h3>
+        <p class="leading-relaxed text-justify">
+          O artigo 29 estabelece que a concorrência e o pregão passam a adotar um <span class="grifo">rito procedimental comum</span>, estruturado segundo as fases encadeadas do artigo 17: preparatória, divulgação de edital, apresentação de propostas e lances, julgamento, habilitação, recursal e homologação. A fase de habilitação, portanto, passa a ser em regra <span class="grifo">posterior ao julgamento das propostas financeiras</span>, consagrando a inversão geral de fases no procedimento licitatório.
+        </p>
+
+        <div class="mt-4 p-4 rounded-xl border border-slate-200 bg-white">
+          <h4 class="font-bold text-slate-900 mb-2">Regras de Bloqueio e Permissão do Pregão (Artigo 29 e Parágrafo Único):</h4>
+          <ul class="text-sm space-y-2 pl-4 list-disc text-slate-700">
+            <li><strong>Obrigatório:</strong> Para aquisição de <span class="grifo">bens e serviços comuns</span> (cujos padrões de desempenho e qualidade possam ser objetivamente fixados por especificações usuais de mercado).</li>
+            <li><span class="grifo-ok">Permitido expressamente:</span> Para <strong>serviços comuns de engenharia</strong>.</li>
+            <li><span class="grifo-alerta">Vedações expressas ao Pregão:</span>
+              <ul class="list-circle pl-6 mt-1 space-y-1 text-slate-800">
+                <li>• Serviços técnicos especializados de natureza predominantemente intelectual;</li>
+                <li>• <strong>Obras de engenharia</strong> (qualquer tipo de obra);</li>
+                <li>• <strong>Serviços especiais de engenharia</strong>.</li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+
+        <p class="mt-4 leading-relaxed text-justify">
+          A <strong>Concorrência</strong>, por sua vez, é a modalidade voltada à contratação de bens e serviços especiais, obras de engenharia civil e serviços especiais de engenharia. Diferentemente do pregão, cujo escopo decisório é restrito a menor preço ou maior desconto, a concorrência possui amplitude material e admite quase todos os critérios de julgamento (menor preço, maior desconto, melhor técnica ou conteúdo artístico, técnica e preço, e maior retorno econômico).
+        </p>
+
+        <h3 class="text-lg font-bold text-slate-800 mt-6 mb-3">Concurso (Artigo 30)</h3>
+        <p class="leading-relaxed text-justify">
+          Destinado à escolha de <span class="grifo">trabalho de natureza eminentemente técnica, científica ou artística</span>. Opera a seleção de propostas de cunho intelectual ou estético para a concessão de um <span class="grifo">prêmio ou remuneração antecipadamente fixada</span> em regulamento ou edital.
+        </p>
+        <p class="mt-2 leading-relaxed text-justify">
+          <strong>Regra Especial de Direitos Autorais (Art. 30, Parágrafo Único):</strong> Nos concursos voltados à elaboração de projetos arquitetônicos, urbanísticos ou de engenharia, o participante vencedor é obrigado a <span class="grifo">ceder de maneira integral à Administração Pública todos os direitos patrimoniais</span> correlatos ao projeto, autorizando sua execução e eventuais adequações pelo Poder Público.
+        </p>
+
+        <h3 class="text-lg font-bold text-slate-800 mt-6 mb-3">Leilão (Artigo 31)</h3>
+        <p class="leading-relaxed text-justify">
+          Modalidade restrita à alienação de <span class="grifo">bens móveis inservíveis ou legalmente apreendidos</span>, bem como de <span class="grifo">bens imóveis</span> de titularidade do ente público. Na Lei nº 14.133/2021, a venda de imóveis públicos foi concentrada no leilão, não subsistindo mais a possibilidade anterior de alienação por meio de concorrência.
+        </p>
+        <p class="mt-2 leading-relaxed text-justify">
+          <strong>Condução e Rito Sumarizado:</strong> Pode ser conduzido por leiloeiro oficial ou por servidor público efetivo formalmente designado. Conforme o <strong>§ 4º do artigo 31</strong>:
+        </p>
+        <div class="bg-slate-50 border border-slate-300 p-3 rounded-xl my-2 text-sm">
+          ⚡ <strong>Singularidade Procedimental do Leilão:</strong> <span class="grifo">NÃO exige registro cadastral prévio</span> por parte dos arrematantes e <span class="grifo">NÃO possui fase de habilitação</span>. A adjudicação e a homologação operam de modo direto após os lances, superada a fase recursal e comprovado o pagamento imediato.
+        </div>
+
+        <h3 class="text-lg font-bold text-slate-800 mt-6 mb-3">Diálogo Competitivo (Artigo 32)</h3>
+        <p class="leading-relaxed text-justify">
+          Inovação de maior densidade procedimental incorporada pelo estatuto de 2021. Destinada a contratações nas quais a Administração identifica sua necessidade, mas não detém know-how técnico suficiente para determinar a melhor solução mercadológica. Estabelece um ambiente formal de cooperação público-privada prévio à disputa comercial.
+        </p>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 my-4">
+          <div class="p-4 rounded-xl border border-slate-200 bg-slate-50 text-sm">
+            <strong class="text-slate-900 block mb-1">Hipóteses Restritivas de Cabimento:</strong>
+            <ul class="space-y-1 list-disc pl-4 text-slate-700">
+              <li>Inovação tecnológica ou técnica substancial;</li>
+              <li>Impossibilidade fática de satisfação sem adaptação de soluções de mercado;</li>
+              <li>Inviabilidade técnica de formular especificações precisas de imediato;</li>
+              <li>Necessidade de estruturar alternativas financeiras e jurídicas complexas.</li>
+            </ul>
+          </div>
+          <div class="p-4 rounded-xl border border-slate-200 bg-slate-50 text-sm">
+            <strong class="text-slate-900 block mb-1">Requisitos Procedimentais Rígidos:</strong>
+            <ul class="space-y-1 list-disc pl-4 text-slate-700">
+              <li>Conduzido obrigatoriamente por comissão de no mínimo <span class="grifo">3 servidores efetivos</span> permanentes;</li>
+              <li><span class="grifo">Sigilo imperativo das soluções:</span> a Administração não pode revelar ideias de um licitante aos demais sem autorização formal;</li>
+              <li>Prazo mínimo de <span class="grifo">60 dias úteis</span> para apresentação das propostas finais após o fechamento do diálogo.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Tabela 2: Matriz Comparativa Modalidades -->
+        <h4 class="text-base font-bold text-slate-800 mt-8 mb-3">Matriz Comparativa das Modalidades Licitatórias</h4>
+        <div class="border border-slate-300 rounded-xl overflow-hidden shadow-sm my-4 bg-white">
+          <table class="table-fluid text-xs sm:text-sm">
+            <thead class="bg-slate-100 text-slate-900 border-b border-slate-300 font-bold">
+              <tr>
+                <th class="p-2.5 sm:p-3 text-left w-[16%]">Modalidade</th>
+                <th class="p-2.5 sm:p-3 text-left w-[24%]">Hipótese Legal</th>
+                <th class="p-2.5 sm:p-3 text-left w-[18%]">Agente Condução</th>
+                <th class="p-2.5 sm:p-3 text-left w-[20%]">Critérios Compatíveis</th>
+                <th class="p-2.5 sm:p-3 text-left w-[22%]">Regra Crítica</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-200">
+              <tr class="hover:bg-slate-50">
+                <td class="p-2.5 sm:p-3 font-bold text-slate-900 align-top">Pregão</td>
+                <td class="p-2.5 sm:p-3 align-top">Bens e serviços comuns (inclusive de engenharia).</td>
+                <td class="p-2.5 sm:p-3 align-top">Pregoeiro e equipe de apoio.</td>
+                <td class="p-2.5 sm:p-3 align-top"><span class="grifo">Menor preço</span> ou <span class="grifo">maior desconto</span>.</td>
+                <td class="p-2.5 sm:p-3 text-rose-950 bg-rose-50/30 align-top">Vedado para obras, serviços especiais e intelectuais.</td>
+              </tr>
+              <tr class="hover:bg-slate-50">
+                <td class="p-2.5 sm:p-3 font-bold text-slate-900 align-top">Concorrência</td>
+                <td class="p-2.5 sm:p-3 align-top">Bens/serviços especiais, obras civis e serviços especiais de engenharia.</td>
+                <td class="p-2.5 sm:p-3 align-top">Agente ou comissão de contratação.</td>
+                <td class="p-2.5 sm:p-3 align-top">Menor preço, maior desconto, melhor técnica, técnica e preço, retorno econômico.</td>
+                <td class="p-2.5 sm:p-3 align-top">Adota o rito comum com inversão de fases da habilitação.</td>
+              </tr>
+              <tr class="hover:bg-slate-50">
+                <td class="p-2.5 sm:p-3 font-bold text-slate-900 align-top">Concurso</td>
+                <td class="p-2.5 sm:p-3 align-top">Trabalho técnico, científico ou artístico.</td>
+                <td class="p-2.5 sm:p-3 align-top">Comissão especial de especialistas.</td>
+                <td class="p-2.5 sm:p-3 align-top"><span class="grifo">Melhor técnica ou conteúdo artístico</span>.</td>
+                <td class="p-2.5 sm:p-3 align-top">Prêmio/remuneração fixa e cessão forçada de direitos patrimoniais.</td>
+              </tr>
+              <tr class="hover:bg-slate-50">
+                <td class="p-2.5 sm:p-3 font-bold text-slate-900 align-top">Leilão</td>
+                <td class="p-2.5 sm:p-3 align-top">Alienação de imóveis ou de móveis inservíveis/apreendidos.</td>
+                <td class="p-2.5 sm:p-3 align-top">Leiloeiro oficial ou servidor designado.</td>
+                <td class="p-2.5 sm:p-3 align-top"><span class="grifo">Maior lance</span>.</td>
+                <td class="p-2.5 sm:p-3 text-emerald-900 bg-emerald-50/40 align-top">Sem cadastro prévio e SEM fase de habilitação.</td>
+              </tr>
+              <tr class="hover:bg-slate-50">
+                <td class="p-2.5 sm:p-3 font-bold text-slate-900 align-top">Diálogo Competitivo</td>
+                <td class="p-2.5 sm:p-3 align-top">Inovações, incerteza técnica de projeto e modelos complexos.</td>
+                <td class="p-2.5 sm:p-3 align-top">Comissão com no mín. 3 servidores efetivos.</td>
+                <td class="p-2.5 sm:p-3 align-top">Critérios objetivos prévios do edital.</td>
+                <td class="p-2.5 sm:p-3 align-top">Sigilo das reuniões e intervalo mín. de 60 dias úteis para propostas.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- SEÇÃO 3: CRITÉRIOS DE JULGAMENTO -->
+      <section class="border-t border-slate-200 pt-8 mb-12">
+        <div class="flex items-center gap-2 mb-4">
+          <span class="bg-slate-800 text-white text-xs font-bold px-2.5 py-1 rounded">SEÇÃO 3</span>
+          <h2 class="text-xl sm:text-2xl font-bold text-slate-900 m-0">Os Critérios de Julgamento das Propostas (Artigos 33 a 39)</h2>
+        </div>
+
+        <h3 class="text-lg font-bold text-slate-800 mt-6 mb-3">A Substituição Terminológica: De "Tipos" para "Critérios de Julgamento"</h3>
+        <p class="leading-relaxed text-justify">
+          A nova legislação corrigiu a imprecisão teórica da Lei nº 8.666/1993, que misturava modalidades e "tipos de licitação". No regime vigente, as <span class="grifo">modalidades representam o procedimento</span> adotado, enquanto os <span class="grifo">critérios de julgamento definem os parâmetros estritamente objetivos</span> para a declaração do vencedor. O artigo 33 arrola taxativamente seis critérios:
+        </p>
+        <div class="grid grid-cols-2 sm:grid-cols-3 gap-2.5 my-4">
+          <div class="p-3 bg-slate-50 border border-slate-200 rounded-lg text-center font-semibold text-xs sm:text-sm text-slate-800">1. Menor preço</div>
+          <div class="p-3 bg-slate-50 border border-slate-200 rounded-lg text-center font-semibold text-xs sm:text-sm text-slate-800">2. Maior desconto</div>
+          <div class="p-3 bg-slate-50 border border-slate-200 rounded-lg text-center font-semibold text-xs sm:text-sm text-slate-800">3. Melhor técnica/artístico</div>
+          <div class="p-3 bg-slate-50 border border-slate-200 rounded-lg text-center font-semibold text-xs sm:text-sm text-slate-800">4. Técnica e preço</div>
+          <div class="p-3 bg-slate-50 border border-slate-200 rounded-lg text-center font-semibold text-xs sm:text-sm text-slate-800">5. Maior lance (Leilão)</div>
+          <div class="p-3 bg-slate-50 border border-slate-200 rounded-lg text-center font-semibold text-xs sm:text-sm text-slate-800">6. Maior retorno econômico</div>
+        </div>
+
+        <h3 class="text-lg font-bold text-slate-800 mt-6 mb-2">Menor Preço e Maior Desconto (Artigo 34)</h3>
+        <p class="leading-relaxed text-justify">
+          Buscam o menor dispêndio financeiro direto ou indireto para o erário, observados os parâmetros qualitativos mínimos do edital. O § 1º autoriza considerar os custos indiretos do <span class="grifo">ciclo de vida do objeto</span> (despesas com manutenção, descarte e reposição).
+        </p>
+        <div class="bg-amber-50/70 border-l-4 border-amber-500 p-3 rounded-r-xl my-3 text-sm text-slate-800">
+          📌 <strong>Vinculação dos Aditivos ao Maior Desconto (§ 2º do Art. 34):</strong> O percentual de desconto vencedor obtido na licitação <span class="grifo">estende-se compulsoriamente a todos os termos aditivos contratuais</span> que introduzam novos quantitativos ou acréscimos.
+        </div>
+
+        <h3 class="text-lg font-bold text-slate-800 mt-6 mb-2">Melhor Técnica ou Conteúdo Artístico (Artigo 35)</h3>
+        <p class="leading-relaxed text-justify">
+          Desvincula-se da disputa imediata de preços monetários. Considera exclusivamente os atributos qualitativos das propostas técnicas ou artísticas, com base em <span class="grifo">prêmio ou remuneração antecipadamente fixada no edital</span>. Ferramenta natural do Concurso e admitida na Concorrência em casos específicos.
+        </p>
+
+        <h3 class="text-lg font-bold text-slate-800 mt-6 mb-2">Técnica e Preço (Artigos 36 a 38)</h3>
+        <p class="leading-relaxed text-justify">
+          Ponderação de notas de desempenho técnico e custo econômico. Possui três amarras legais rigorosamente cobradas em bancas:
+        </p>
+        <ul class="space-y-3 pl-0 list-none my-3 text-sm">
+          <li class="p-3 bg-slate-50 border border-slate-200 rounded-lg">
+            <strong>1. Teto Legal da Técnica (Art. 36, § 2º):</strong> A valoração da proposta técnica é rigidamente <span class="grifo-alerta">limitada ao patamar máximo de 70%</span> na composição da nota global. É juridicamente ilícito edital que reserve peso de 80% ou 90% para a técnica.
+          </li>
+          <li class="p-3 bg-slate-50 border border-slate-200 rounded-lg">
+            <strong>2. Imposição Legal de Uso (Art. 37, § 2º):</strong> Serviços técnicos especializados de natureza predominantemente intelectual descritos no art. 6º com valor estimado <span class="grifo">superior a R$ 300.000,00</span> exigem compulsoriamente melhor técnica ou técnica e preço.
+          </li>
+          <li class="p-3 bg-slate-50 border border-slate-200 rounded-lg">
+            <strong>3. Vinculação do Especialista (Art. 38):</strong> Sempre que a proposta obtiver pontuação decisiva em razão da qualificação de determinado perito ou profissional, a execução exige a <span class="grifo">sua participação direta e pessoal</span> no objeto do contrato.
+          </li>
+        </ul>
+
+        <h3 class="text-lg font-bold text-slate-800 mt-6 mb-2">Maior Lance (Artigo 33, V)</h3>
+        <p class="leading-relaxed text-justify">
+          Critério de correlação <span class="grifo">unívoca e necessária com a modalidade leilão</span>. Finalidade arrecadatória: alcançar o maior valor financeiro imediato para a Administração Pública na alienação de ativos patrimoniais.
+        </p>
+
+        <h3 class="text-lg font-bold text-slate-800 mt-6 mb-2">Maior Retorno Econômico (Artigo 39)</h3>
+        <p class="leading-relaxed text-justify">
+          Critério privativo e específico para <span class="grifo">Contratos de Eficiência</span>, voltados à redução de despesas correntes do órgão (ex: economia continuada de energia elétrica, água, telefonia ou gestão predial). A remuneração da empresa é fixada em um percentual sobre a economia real apurada.
+        </p>
+        <div class="bg-rose-50/70 border-l-4 border-rose-500 p-3 rounded-r-xl my-3 text-sm text-slate-800">
+          ⚠️ <strong>Risco e Equalização Contratual (§ 4º do Art. 39):</strong> Se a economia alcançada for inferior à meta prometida na proposta, a diferença é <span class="grifo-alerta">descontada diretamente da remuneração</span> da contratada. Se a frustração ultrapassar o limite fixado em edital, a empresa responderá ainda por multas e sanções administrativas.
+        </div>
+
+        <!-- Tabela 3: Matriz de Compatibilidade (Totalmente Fluida) -->
+        <h4 class="text-base font-bold text-slate-800 mt-8 mb-3">Relação de Compatibilidade: Modalidades e Critérios de Julgamento</h4>
+        <div class="border border-slate-300 rounded-xl overflow-hidden shadow-sm my-4 bg-white">
+          <table class="table-fluid text-center text-xs sm:text-sm">
+            <thead class="bg-slate-100 text-slate-900 border-b border-slate-300 font-bold">
+              <tr>
+                <th class="p-2 sm:p-3 text-left w-[26%]">Critério</th>
+                <th class="p-2 sm:p-3 w-[14%]">Pregão</th>
+                <th class="p-2 sm:p-3 w-[15%]">Concorrência</th>
+                <th class="p-2 sm:p-3 w-[15%]">Concurso</th>
+                <th class="p-2 sm:p-3 w-[14%]">Leilão</th>
+                <th class="p-2 sm:p-3 w-[16%]">D. Competitivo</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-200">
+              <tr class="hover:bg-slate-50">
+                <td class="p-2 sm:p-3 font-semibold text-slate-900 text-left">Menor Preço</td>
+                <td class="p-2 sm:p-3 font-bold text-emerald-700 bg-emerald-50/50">Sim</td>
+                <td class="p-2 sm:p-3 font-bold text-emerald-700 bg-emerald-50/50">Sim</td>
+                <td class="p-2 sm:p-3 text-slate-400">Não</td>
+                <td class="p-2 sm:p-3 text-slate-400">Não</td>
+                <td class="p-2 sm:p-3 font-bold text-emerald-700 bg-emerald-50/50">Sim</td>
+              </tr>
+              <tr class="hover:bg-slate-50">
+                <td class="p-2 sm:p-3 font-semibold text-slate-900 text-left">Maior Desconto</td>
+                <td class="p-2 sm:p-3 font-bold text-emerald-700 bg-emerald-50/50">Sim</td>
+                <td class="p-2 sm:p-3 font-bold text-emerald-700 bg-emerald-50/50">Sim</td>
+                <td class="p-2 sm:p-3 text-slate-400">Não</td>
+                <td class="p-2 sm:p-3 text-slate-400">Não</td>
+                <td class="p-2 sm:p-3 font-bold text-emerald-700 bg-emerald-50/50">Sim</td>
+              </tr>
+              <tr class="hover:bg-slate-50">
+                <td class="p-2 sm:p-3 font-semibold text-slate-900 text-left">Melhor Técnica / Artístico</td>
+                <td class="p-2 sm:p-3 text-slate-400">Não</td>
+                <td class="p-2 sm:p-3 font-bold text-emerald-700 bg-emerald-50/50">Sim</td>
+                <td class="p-2 sm:p-3 font-bold text-emerald-700 bg-emerald-50/50">Sim</td>
+                <td class="p-2 sm:p-3 text-slate-400">Não</td>
+                <td class="p-2 sm:p-3 text-slate-400">Não</td>
+              </tr>
+              <tr class="hover:bg-slate-50">
+                <td class="p-2 sm:p-3 font-semibold text-slate-900 text-left">Técnica e Preço</td>
+                <td class="p-2 sm:p-3 text-slate-400">Não</td>
+                <td class="p-2 sm:p-3 font-bold text-emerald-700 bg-emerald-50/50">Sim</td>
+                <td class="p-2 sm:p-3 text-slate-400">Não</td>
+                <td class="p-2 sm:p-3 text-slate-400">Não</td>
+                <td class="p-2 sm:p-3 font-bold text-emerald-700 bg-emerald-50/50">Sim</td>
+              </tr>
+              <tr class="hover:bg-slate-50">
+                <td class="p-2 sm:p-3 font-semibold text-slate-900 text-left">Maior Lance</td>
+                <td class="p-2 sm:p-3 text-slate-400">Não</td>
+                <td class="p-2 sm:p-3 text-slate-400">Não</td>
+                <td class="p-2 sm:p-3 text-slate-400">Não</td>
+                <td class="p-2 sm:p-3 font-bold text-emerald-700 bg-emerald-50/50">Sim</td>
+                <td class="p-2 sm:p-3 text-slate-400">Não</td>
+              </tr>
+              <tr class="hover:bg-slate-50">
+                <td class="p-2 sm:p-3 font-semibold text-slate-900 text-left">Maior Retorno Econômico</td>
+                <td class="p-2 sm:p-3 text-slate-400">Não</td>
+                <td class="p-2 sm:p-3 font-bold text-emerald-700 bg-emerald-50/50">Sim</td>
+                <td class="p-2 sm:p-3 text-slate-400">Não</td>
+                <td class="p-2 sm:p-3 text-slate-400">Não</td>
+                <td class="p-2 sm:p-3 text-slate-400">Não</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- SEÇÃO 4: MEMORIZAÇÃO E PEGADINHAS -->
+      <section class="border-t border-slate-200 pt-8 mb-12">
+        <div class="flex items-center gap-2 mb-4">
+          <span class="bg-slate-800 text-white text-xs font-bold px-2.5 py-1 rounded">SEÇÃO 4</span>
+          <h2 class="text-xl sm:text-2xl font-bold text-slate-900 m-0">Síntese de Memorização e Pontos Críticos para a Prova Objetiva</h2>
+        </div>
+
+        <h3 class="text-lg font-bold text-slate-800 mt-6 mb-3">Tópicos para Memorização Imediata</h3>
+        <div class="space-y-3">
+          <div class="p-3.5 bg-slate-50 border border-slate-200 rounded-xl text-sm leading-relaxed">
+            • <strong>Objetivos da Licitação (Artigo 11):</strong> Quatro finalidades: seleção da proposta mais vantajosa (computando o <span class="grifo">ciclo de vida</span>); garantia da isonomia e <span class="grifo">justa competição</span>; prevenção de sobrepreço, inexequibilidade e superfaturamento; e fomento à inovação e desenvolvimento nacional sustentável.
+          </div>
+          <div class="p-3.5 bg-slate-50 border border-slate-200 rounded-xl text-sm leading-relaxed">
+            • <strong>Rol Taxativo de Modalidades (Artigo 28):</strong> Pregão, concorrência, concurso, leilão e diálogo competitivo. <span class="grifo-alerta">É proibido criar novas modalidades ou combinar as existentes</span>.
+          </div>
+          <div class="p-3.5 bg-slate-50 border border-slate-200 rounded-xl text-sm leading-relaxed">
+            • <strong>Extinção de Convite e Tomada de Preços:</strong> Ambas as modalidades deixaram de existir. A demarcação das modalidades pauta-se na <span class="grifo">natureza do objeto</span>, e não mais no valor estimado da contratação.
+          </div>
+          <div class="p-3.5 bg-slate-50 border border-slate-200 rounded-xl text-sm leading-relaxed">
+            • <strong>Procedimentos Auxiliares NÃO São Modalidades (Art. 28, § 1º c/c Art. 78):</strong> Credenciamento, pré-qualificação, PMI, sistema de registro de preços e registro cadastral são mecanismos de suporte operacional, nunca modalidades autônomas.
+          </div>
+          <div class="p-3.5 bg-slate-50 border border-slate-200 rounded-xl text-sm leading-relaxed">
+            • <strong>Bloqueios e Autorizações do Pregão (Artigo 29):</strong> Obrigatório para bens e serviços comuns, inclusive <span class="grifo-ok">serviços comuns de engenharia</span>. Proibido expressamente para: obras civis de engenharia, serviços especiais de engenharia e serviços intelectuais de natureza especializada.
+          </div>
+          <div class="p-3.5 bg-slate-50 border border-slate-200 rounded-xl text-sm leading-relaxed">
+            • <strong>Particularidades do Concurso (Artigo 30):</strong> Escolha de trabalho técnico, científico ou artístico com concessão de prêmio ou remuneração predeterminada. <span class="grifo">Cessão compulsória dos direitos patrimoniais</span> pelo vencedor.
+          </div>
+          <div class="p-3.5 bg-slate-50 border border-slate-200 rounded-xl text-sm leading-relaxed">
+            • <strong>Particularidades do Leilão (Artigo 31):</strong> Venda pública de imóveis e de móveis apreendidos/inservíveis. Julgamento exclusivamente por <span class="grifo">maior lance</span>. <span class="grifo-ok">Sem cadastro prévio e sem fase de habilitação</span>.
+          </div>
+          <div class="p-3.5 bg-slate-50 border border-slate-200 rounded-xl text-sm leading-relaxed">
+            • <strong>Particularidades do Diálogo Competitivo (Artigo 32):</strong> Inovações e incertezas técnicas em que a solução é construída com o mercado. Conduzido por no mínimo <span class="grifo">3 servidores efetivos permanentes</span>. Reuniões com sigilo individualizado e prazo mínimo de <span class="grifo">60 dias úteis</span> para apresentação das propostas finais.
+          </div>
+          <div class="p-3.5 bg-slate-50 border border-slate-200 rounded-xl text-sm leading-relaxed">
+            • <strong>Extensão do Desconto (Artigo 34, § 2º):</strong> O percentual obtido no maior desconto estende-se compulsoriamente a todos os termos aditivos futuros.
+          </div>
+          <div class="p-3.5 bg-slate-50 border border-slate-200 rounded-xl text-sm leading-relaxed">
+            • <strong>Teto da Técnica em Técnica e Preço (Artigo 36, § 2º):</strong> A proposta técnica é limitada por lei ao patamar máximo de <span class="grifo-alerta">70% da pontuação total ponderada</span>.
+          </div>
+          <div class="p-3.5 bg-slate-50 border border-slate-200 rounded-xl text-sm leading-relaxed">
+            • <strong>Imposição da Técnica em Serviços Intelectuais (Artigo 37, § 2º):</strong> Serviços intelectuais com valor superior a <span class="grifo">R$ 300.000,00</span> exigem compulsoriamente critério de melhor técnica ou técnica e preço.
+          </div>
+          <div class="p-3.5 bg-slate-50 border border-slate-200 rounded-xl text-sm leading-relaxed">
+            • <strong>Vinculação do Profissional (Artigo 38):</strong> Pontos conferidos a título de qualificação de profissional impõem sua <span class="grifo">atuação direta e pessoal</span> na execução do contrato.
+          </div>
+          <div class="p-3.5 bg-slate-50 border border-slate-200 rounded-xl text-sm leading-relaxed">
+            • <strong>Exclusividade do Maior Retorno Econômico (Artigo 39):</strong> Critério reservado aos Contratos de Eficiência, com compensação direta na remuneração da empresa caso a meta de economia não seja atingida.
+          </div>
+        </div>
+
+        <h3 class="text-lg font-bold text-slate-800 mt-8 mb-3">Mapeamento das Armadilhas Recorrentes em Provas de Institutos Federais</h3>
+        <div class="border border-slate-300 rounded-xl divide-y divide-slate-200 bg-white">
+          <div class="p-4">
+            <span class="text-xs font-bold text-rose-700 uppercase tracking-wide block mb-1">Armadilha 1: Registro de Preços como Modalidade</span>
+            <p class="text-sm text-slate-700">A banca coloca "Sistema de Registro de Preços" no rol de modalidades. <strong>Incorreto:</strong> Trata-se de procedimento auxiliar disciplinado no art. 78.</p>
+          </div>
+          <div class="p-4">
+            <span class="text-xs font-bold text-rose-700 uppercase tracking-wide block mb-1">Armadilha 2: Sobrevivência da Tomada de Preços ou Convite</span>
+            <p class="text-sm text-slate-700">A questão afirma que compras até determinado valor adotam tomada de preços ou convite. <strong>Incorreto:</strong> Ambas foram sumariamente extintas pela Lei nº 14.133/2021.</p>
+          </div>
+          <div class="p-4">
+            <span class="text-xs font-bold text-rose-700 uppercase tracking-wide block mb-1">Armadilha 3: Venda de Imóvel Público por Concorrência</span>
+            <p class="text-sm text-slate-700">A questão descreve alienação de terreno do IFMG por meio de concorrência. <strong>Incorreto:</strong> A venda de bens imóveis é de competência estrita do <span class="grifo">Leilão</span>.</p>
+          </div>
+          <div class="p-4">
+            <span class="text-xs font-bold text-rose-700 uppercase tracking-wide block mb-1">Armadilha 4: Exigência de Fase Habilitatória no Leilão</span>
+            <p class="text-sm text-slate-700">A banca cobra certidões e habilitação prévia dos participantes do leilão. <strong>Incorreto:</strong> O § 4º do art. 31 isenta o leilão de fase de habilitação e dispensa cadastro prévio.</p>
+          </div>
+          <div class="p-4">
+            <span class="text-xs font-bold text-rose-700 uppercase tracking-wide block mb-1">Armadilha 5: Generalização "Engenharia não pode Pregão"</span>
+            <p class="text-sm text-slate-700">Afirmar genericamente que toda a engenharia está proibida de usar pregão. <strong>Incorreto:</strong> <span class="grifo-ok">Serviços comuns de engenharia utilizam pregão</span>; a proibição recai apenas sobre obras e serviços especiais de engenharia.</p>
+          </div>
+          <div class="p-4">
+            <span class="text-xs font-bold text-rose-700 uppercase tracking-wide block mb-1">Armadilha 6: Ponderação Técnica com Peso de 80%</span>
+            <p class="text-sm text-slate-700">A questão cria um caso em que o edital atribuiu 80% de peso para a técnica. <strong>Incorreto:</strong> O art. 36, § 2º impõe o limite intransponível de 70% para o fator técnico.</p>
+          </div>
+          <div class="p-4">
+            <span class="text-xs font-bold text-rose-700 uppercase tracking-wide block mb-1">Armadilha 7: Retorno Econômico para Aquisições Ordinárias</span>
+            <p class="text-sm text-slate-700">A banca aplica critério de maior retorno econômico para compra de computadores ou viaturas. <strong>Incorreto:</strong> Critério exclusivo de Contratos de Eficiência para redução de custos operacionais continuados.</p>
+          </div>
+          <div class="p-4">
+            <span class="text-xs font-bold text-rose-700 uppercase tracking-wide block mb-1">Armadilha 8: Publicidade em Tempo Real no Diálogo Competitivo</span>
+            <p class="text-sm text-slate-700">Afirmar que as rodadas de diálogo são públicas e transmitidas a todos os concorrentes. <strong>Incorreto:</strong> Vigora sigilo das soluções individuais (§ 1º, VI do art. 32) para resguardar o segredo concorrencial.</p>
+          </div>
+        </div>
+      </section>
+    </article>
+
+    <!-- Botão de Questões no Final da Página -->
+    <footer class="border-t-2 border-slate-200 pt-10 pb-16 text-center">
+      <div class="max-w-md mx-auto">
+        <p class="text-sm text-slate-600 mb-4 font-medium">
+          Conteúdo teórico assimilado? Teste agora a fixação dos conceitos em itens objetivos de prova:
+        </p>
+        <a 
+          href="questoes13legs.html" 
+          class="inline-flex items-center justify-center gap-2 w-full sm:w-auto px-8 py-4 bg-slate-900 hover:bg-black text-white text-base font-semibold rounded-xl shadow-md hover:shadow-lg transition-all duration-200 transform hover:-translate-y-0.5"
+        >
+          <span>Ir para as Questões de Fixação</span>
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+          </svg>
+        </a>
+        <p class="text-xs text-slate-400 mt-3">
+          Redirecionamento para <code class="text-slate-600 bg-slate-100 px-1 py-0.5 rounded">3</code>
+        </p>
+      </div>
+    </footer>
+
+  </main>
+
+  <!-- Script Dinâmico para Gerenciamento do Reprodutor de Áudio -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const audioPlayer = document.getElementById('audioPlayer');
+      const audioSource = document.getElementById('audioSource');
+      const audioFileNameInput = document.getElementById('audioFileNameInput');
+      const btnUpdateAudio = document.getElementById('btnUpdateAudio');
+      const audioStatus = document.getElementById('audioStatus');
+
+      // Atualiza o arquivo de áudio quando o usuário clica no botão ou pressiona Enter
+      function updateAudioSource() {
+        const fileName = audioFileNameInput.value.trim();
+        if (!fileName) {
+          audioStatus.innerHTML = '<span class="text-rose-600 font-bold">Por favor, informe o nome do arquivo.</span>';
+          return;
+        }
+
+        // Atualiza a fonte e recarrega o elemento de áudio
+        audioSource.src = fileName;
+        audioPlayer.load();
+        audioStatus.innerHTML = 'Arquivo ativo: <span class="text-slate-800 font-bold">' + fileName + '</span>';
+      }
+
+      btnUpdateAudio.addEventListener('click', updateAudioSource);
+
+      audioFileNameInput.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+          updateAudioSource();
+        }
+      });
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,895 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IFMG | Lei nº 11.892/2008 - Estrutura e Governança</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Fontes do Google: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Font Awesome para ícones -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              50: '#f0fdf4',
+              100: '#dcfce7',
+              600: '#16a34a',
+              700: '#15803d',
+              800: '#166534',
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Marca-texto suave para memorização ativa sem agredir a visão */
+    mark.highlight-yellow {
+      background-color: #fef08a;
+      color: #713f12;
+      padding: 0.12rem 0.35rem;
+      border-radius: 0.25rem;
+      font-weight: 600;
+      border-bottom: 2px solid #eab308;
+    }
+    
+    mark.highlight-green {
+      background-color: #dcfce7;
+      color: #14532d;
+      padding: 0.12rem 0.35rem;
+      border-radius: 0.25rem;
+      font-weight: 600;
+      border-bottom: 2px solid #22c55e;
+    }
+
+    mark.highlight-red {
+      background-color: #fee2e2;
+      color: #7f1d1d;
+      padding: 0.12rem 0.35rem;
+      border-radius: 0.25rem;
+      font-weight: 600;
+      border-bottom: 2px solid #ef4444;
+    }
+
+    /* Garantia de tabelas sem scroll horizontal */
+    table {
+      table-layout: fixed;
+      width: 100%;
+      word-wrap: break-word;
+      overflow-wrap: break-word;
+    }
+    th, td {
+      word-break: normal;
+      overflow-wrap: break-word;
+      hyphens: auto;
+    }
+  </style>
+</head>
+
+<body class="bg-white text-slate-800 font-sans antialiased selection:bg-yellow-200 selection:text-slate-900 min-h-screen">
+
+  <!-- TOPO / CABEÇALHO -->
+  <header class="border-b border-slate-200 bg-white sticky top-0 z-40 shadow-xs">
+    <div class="max-w-4xl mx-auto px-4 py-3 sm:py-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+      <div>
+        <div class="inline-flex items-center gap-2 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-800 border border-emerald-200 mb-1">
+          <i class="fa-solid fa-graduation-cap"></i> Concurso Professor de Geografia • IFMG
+        </div>
+        <h1 class="text-lg sm:text-xl font-extrabold text-slate-900 tracking-tight">
+          Lei nº 11.892/2008: Estrutura e Governança
+        </h1>
+      </div>
+      <div class="text-xs text-slate-500 font-medium flex items-center gap-2">
+        <span><i class="fa-solid fa-scale-balanced text-slate-600"></i> Arts. 9º a 18</span>
+        <span class="text-slate-300">•</span>
+        <span>Banca Comissão Central</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- CONTAINER PRINCIPAL -->
+  <main class="max-w-4xl mx-auto px-4 sm:px-6 py-6 sm:py-8 space-y-8">
+
+    <!-- REPRODUTOR DE ÁUDIO NO TOPO -->
+    <section class="border border-slate-200 rounded-xl p-4 sm:p-5 bg-white shadow-xs">
+      <div class="flex items-center justify-between flex-wrap gap-2 mb-3">
+        <div class="flex items-center gap-2">
+          <div class="w-8 h-8 rounded-lg bg-emerald-100 text-emerald-800 flex items-center justify-center font-bold text-sm">
+            <i class="fa-solid fa-headphones"></i>
+          </div>
+          <div>
+            <h2 class="text-sm font-bold text-slate-900">Reprodutor da Aula em Áudio</h2>
+            <p class="text-xs text-slate-500">Escute a aula enquanto revisa os tópicos</p>
+          </div>
+        </div>
+        <div class="flex items-center gap-1.5 text-xs">
+          <span class="text-slate-500 font-medium">Velocidade:</span>
+          <button type="button" onclick="changeSpeed(1.0)" class="speed-btn px-2 py-0.5 rounded border border-slate-200 hover:bg-slate-100 font-semibold text-slate-700 bg-slate-100">1x</button>
+          <button type="button" onclick="changeSpeed(1.25)" class="speed-btn px-2 py-0.5 rounded border border-slate-200 hover:bg-slate-100 font-semibold text-slate-700">1.25x</button>
+          <button type="button" onclick="changeSpeed(1.5)" class="speed-btn px-2 py-0.5 rounded border border-slate-200 hover:bg-slate-100 font-semibold text-slate-700">1.5x</button>
+          <button type="button" onclick="changeSpeed(2.0)" class="speed-btn px-2 py-0.5 rounded border border-slate-200 hover:bg-slate-100 font-semibold text-slate-700">2x</button>
+        </div>
+      </div>
+
+      <!-- Player de Áudio HTML5 Nativo -->
+      <audio id="audioPlayer" controls class="w-full h-10 mb-3 outline-none">
+        <source id="audioSource" src="audio9legs.mp3" type="audio/mpeg">
+        Seu navegador não suporta a reprodução deste arquivo de áudio.
+      </audio>
+
+      <!-- Configuração simples do nome do arquivo MP3 na mesma pasta -->
+      <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 pt-2 border-t border-slate-100">
+        <label for="audioFileNameInput" class="text-xs font-semibold text-slate-600 whitespace-nowrap">
+          <i class="fa-solid fa-folder-open text-slate-400 mr-1"></i> Nome do arquivo MP3:
+        </label>
+        <input 
+          type="text" 
+          id="audioFileNameInput" 
+          value="audio9legs.mp3" 
+          placeholder="Ex: audio9legs.mp3"
+          class="flex-1 text-xs border border-slate-300 rounded-md px-2.5 py-1.5 text-slate-800 bg-white focus:outline-none focus:ring-1 focus:ring-emerald-500 focus:border-emerald-500 font-mono"
+        >
+        <button 
+          type="button" 
+          onclick="updateAudioSource()" 
+          class="text-xs bg-slate-800 hover:bg-slate-900 text-white font-semibold px-3 py-1.5 rounded-md transition-colors"
+        >
+          Carregar Áudio
+        </button>
+      </div>
+      <p id="audioStatusText" class="text-[11px] text-slate-400 mt-1.5 font-sans">
+        Dica: Salve seu arquivo MP3 na mesma pasta desta página HTML e confirme o nome acima.
+      </p>
+    </section>
+
+    <!-- NAVEGAÇÃO RÁPIDA / ÍNDICE -->
+    <nav class="border border-slate-200 rounded-xl p-3 sm:p-4 bg-slate-50/60 text-xs">
+      <span class="font-bold text-slate-700 block mb-2 uppercase tracking-wider text-[11px]">
+        <i class="fa-solid fa-list-check text-slate-500 mr-1"></i> Roteiro da Aula Didática
+      </span>
+      <div class="flex flex-wrap gap-2 text-slate-700">
+        <a href="#art9" class="px-2.5 py-1 bg-white border border-slate-200 rounded hover:border-emerald-400 hover:text-emerald-800 transition">1. Art. 9º (Multicampi e Orçamento)</a>
+        <a href="#art10" class="px-2.5 py-1 bg-white border border-slate-200 rounded hover:border-emerald-400 hover:text-emerald-800 transition">2. Art. 10 (Consup x Codir e Paridade)</a>
+        <a href="#art11-13" class="px-2.5 py-1 bg-white border border-slate-200 rounded hover:border-emerald-400 hover:text-emerald-800 transition">3. Arts. 11 e 13 (Reitoria e Campi)</a>
+        <a href="#eleicoes" class="px-2.5 py-1 bg-white border border-slate-200 rounded hover:border-emerald-400 hover:text-emerald-800 transition">4. Arts. 12 e 13 (Eleições e 1/3)</a>
+        <a href="#art14-18" class="px-2.5 py-1 bg-white border border-slate-200 rounded hover:border-emerald-400 hover:text-emerald-800 transition">5. Arts. 14 a 18 (Remoção, Expansão, Transição)</a>
+        <a href="#sinotico" class="px-2.5 py-1 bg-white border border-slate-200 rounded hover:border-emerald-400 hover:text-emerald-800 transition">6. Quadro Sinótico de Memorização</a>
+        <a href="#pegadinhas" class="px-2.5 py-1 bg-white border border-slate-200 rounded hover:border-emerald-400 hover:text-emerald-800 transition">7. Pegadinhas da Prova Objetiva</a>
+      </div>
+    </nav>
+
+    <!-- SEÇÃO 1: ARTIGO 9º -->
+    <article id="art9" class="space-y-4 pt-2">
+      <div class="border-b border-slate-200 pb-2">
+        <span class="text-xs font-bold text-emerald-700 uppercase tracking-wider">Fundamentos Institucionais</span>
+        <h2 class="text-xl sm:text-2xl font-bold text-slate-900 mt-0.5">
+          1. Estrutura Organizacional e Descentralização Orçamentária (Art. 9º)
+        </h2>
+      </div>
+
+      <p class="text-slate-700 leading-relaxed text-sm sm:text-base">
+        A Lei Federal nº 11.892, de 29 de dezembro de 2008, reestruturou a educação profissional brasileira ao instituir a Rede Federal de Educação Profissional, Científica e Tecnológica e criar os Institutos Federais de Educação, Ciência e Tecnologia (IFs). No plano jurídico-institucional, cada Instituto Federal é concebido como uma <mark class="highlight-yellow">autarquia federal pluricurricular e multicampi</mark>, provida de <mark class="highlight-yellow">autonomia administrativa, patrimonial, financeira, didático-pedagógica e disciplinar</mark>. O Instituto Federal de Educação, Ciência e Tecnologia de Minas Gerais (IFMG), instituído nos termos do artigo 5º, inciso XVIII, da norma de regência, personifica esse paradigma por meio de uma malha territorialmente descentralizada em diversos municípios mineiros, articulada sob uma única Reitoria centralizadora sistêmica.
+      </p>
+
+      <p class="text-slate-700 leading-relaxed text-sm sm:text-base">
+        O modelo institucional desenhado pelo artigo 9º consagra a desconcentração administrativa ao estabelecer que cada Instituto Federal é organizado em estrutura multicampi, com <mark class="highlight-yellow">proposta orçamentária anual identificada e discriminada para cada um dos campi e para a Reitoria</mark>. Essa identificação individual visa assegurar a transparência fiscal e garantir que as demandas operacionais regionais das unidades descentralizadas não fiquem subordinadas a contingenciamentos internos discricionários da administração central.
+      </p>
+
+      <!-- Ponto Crítico de Prova -->
+      <div class="p-3.5 sm:p-4 rounded-lg border-l-4 border-amber-500 bg-amber-50/50 text-slate-800 space-y-1">
+        <span class="font-bold text-amber-900 text-xs uppercase tracking-wider flex items-center gap-1.5">
+          <i class="fa-solid fa-triangle-exclamation text-amber-600"></i> Exceção Legal Obrigatória de Prova (Art. 9º, caput)
+        </span>
+        <p class="text-xs sm:text-sm text-slate-700">
+          O próprio caput do artigo 9º positiva uma cláusula de exceção fiscal: as dotações orçamentárias relativas a <mark class="highlight-red">pessoal, encargos sociais e benefícios aos servidores</mark> <strong class="underline decoration-red-500">não são individualizadas</strong> nas matrizes orçamentárias dos campi, permanecendo centralizadas na gestão sistêmica da Reitoria.
+        </p>
+      </div>
+
+      <p class="text-slate-700 leading-relaxed text-sm sm:text-base">
+        No âmbito da ordenação de despesas, a Reitoria atua como a unidade executora do orçamento do órgão central, ao passo que os Diretores-Gerais de campi exercem o papel de <mark class="highlight-yellow">ordenadores primários de despesa</mark> no limite das dotações orçamentárias alocadas e das competências subdelegadas pelo dirigente máximo. Assim, embora a personalidade jurídica da autarquia seja una e incindível perante a União, os campi mantêm cadastros específicos e relativa autonomia operacional na gestão dos recursos descentralizados.
+      </p>
+
+      <!-- Tópicos para Memorização Artigo 9º -->
+      <div class="border border-slate-200 rounded-lg p-4 bg-white">
+        <h3 class="text-xs font-bold uppercase tracking-wider text-slate-700 mb-2.5 flex items-center gap-1.5">
+          <i class="fa-solid fa-bookmark text-emerald-600"></i> Tópicos de Memorização Imediata: Artigo 9º
+        </h3>
+        <ul class="space-y-2 text-xs sm:text-sm text-slate-700">
+          <li class="flex items-start gap-2">
+            <i class="fa-solid fa-check text-emerald-600 mt-1 shrink-0"></i>
+            <span><strong>Natureza do Modelo:</strong> Arranjo em rede multicampi com autonomia autárquica ampla (administrativa, patrimonial, financeira, didático-pedagógica e disciplinar).</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <i class="fa-solid fa-check text-emerald-600 mt-1 shrink-0"></i>
+            <span><strong>Regra Orçamentária Geral:</strong> Proposta orçamentária anual identificada e discriminada individualmente para cada campus e para a Reitoria.</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <i class="fa-solid fa-check text-emerald-600 mt-1 shrink-0"></i>
+            <span><strong>Exceção da Individualização:</strong> Despesas com <mark class="highlight-yellow">pessoal, encargos sociais e benefícios</mark> ficam centralizadas sistemicamente.</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <i class="fa-solid fa-check text-emerald-600 mt-1 shrink-0"></i>
+            <span><strong>Capacidade de Ordenação:</strong> O Diretor-Geral responde como ordenador de despesas das dotações operacionais do respectivo campus, em regime solidário no limite da delegação.</span>
+          </li>
+        </ul>
+      </div>
+    </article>
+
+    <!-- SEÇÃO 2: ARTIGO 10 -->
+    <article id="art10" class="space-y-4 pt-4 border-t border-slate-200">
+      <div class="border-b border-slate-200 pb-2">
+        <span class="text-xs font-bold text-emerald-700 uppercase tracking-wider">Governança Colegiada</span>
+        <h2 class="text-xl sm:text-2xl font-bold text-slate-900 mt-0.5">
+          2. Órgãos Deliberativos e Consultivos Superiores (Art. 10)
+        </h2>
+      </div>
+
+      <p class="text-slate-700 leading-relaxed text-sm sm:text-base">
+        A governança superior dos Institutos Federais opera por meio de uma dualidade colegiada delineada pelo artigo 10 da Lei nº 11.892/2008, que estabelece como instâncias superiores o <mark class="highlight-yellow">Conselho Superior (Consup)</mark> e o <mark class="highlight-yellow">Colégio de Dirigentes (Codir)</mark>. O equilíbrio institucional entre esses colegiados reflete a separação entre a deliberação política representativa da comunidade acadêmica e o assessoramento tático-operacional da gestão executiva.
+      </p>
+
+      <!-- TABELA 1: CODIR X CONSUP (Ajuste total sem scroll) -->
+      <div class="border border-slate-200 rounded-lg overflow-hidden bg-white shadow-xs">
+        <div class="bg-slate-100 px-3 py-2 border-b border-slate-200 font-bold text-xs sm:text-sm text-slate-800 flex items-center justify-between">
+          <span><i class="fa-solid fa-table-columns text-slate-600 mr-1.5"></i> Quadro Comparativo: Codir vs. Consup</span>
+          <span class="text-[11px] font-normal text-slate-500">Visualização integral na página</span>
+        </div>
+        <table class="text-left text-xs sm:text-sm divide-y divide-slate-200">
+          <thead class="bg-slate-50 text-slate-700">
+            <tr>
+              <th class="w-[28%] p-2.5 sm:p-3 font-semibold text-slate-900">Parâmetro Legal</th>
+              <th class="w-[36%] p-2.5 sm:p-3 font-semibold text-slate-900 border-l border-slate-200">Colégio de Dirigentes (Codir)</th>
+              <th class="w-[36%] p-2.5 sm:p-3 font-semibold text-slate-900 border-l border-slate-200">Conselho Superior (Consup)</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-100 text-slate-700">
+            <tr>
+              <td class="p-2.5 sm:p-3 font-medium bg-slate-50/40">Dispositivo Legal</td>
+              <td class="p-2.5 sm:p-3 border-l border-slate-200">Art. 10, § 1º e § 2º</td>
+              <td class="p-2.5 sm:p-3 border-l border-slate-200">Art. 10, § 1º e § 3º</td>
+            </tr>
+            <tr>
+              <td class="p-2.5 sm:p-3 font-medium bg-slate-50/40">Caráter Funcional</td>
+              <td class="p-2.5 sm:p-3 border-l border-slate-200"><mark class="highlight-red">Exclusivamente consultivo</mark></td>
+              <td class="p-2.5 sm:p-3 border-l border-slate-200"><mark class="highlight-green">Consultivo e deliberativo</mark> (órgão de cúpula)</td>
+            </tr>
+            <tr>
+              <td class="p-2.5 sm:p-3 font-medium bg-slate-50/40">Presidência</td>
+              <td class="p-2.5 sm:p-3 border-l border-slate-200">Presidido pelo <mark class="highlight-yellow">Reitor</mark></td>
+              <td class="p-2.5 sm:p-3 border-l border-slate-200">Presidido pelo <mark class="highlight-yellow">Reitor</mark></td>
+            </tr>
+            <tr>
+              <td class="p-2.5 sm:p-3 font-medium bg-slate-50/40">Composição Membros</td>
+              <td class="p-2.5 sm:p-3 border-l border-slate-200">Reitor, todos os Pró-Reitores e todos os Diretores-Gerais de campi.</td>
+              <td class="p-2.5 sm:p-3 border-l border-slate-200">Docentes, técnicos, estudantes, egressos, sociedade civil, MEC e Codir.</td>
+            </tr>
+            <tr>
+              <td class="p-2.5 sm:p-3 font-medium bg-slate-50/40">Finalidade Prática</td>
+              <td class="p-2.5 sm:p-3 border-l border-slate-200">Harmonização tático-operacional da gestão e apoio ao Reitor.</td>
+              <td class="p-2.5 sm:p-3 border-l border-slate-200">Definição de macrodiretrizes, aprovação de normas e instância recursal máxima.</td>
+            </tr>
+            <tr>
+              <td class="p-2.5 sm:p-3 font-medium bg-slate-50/40">Critério Representativo</td>
+              <td class="p-2.5 sm:p-3 border-l border-slate-200">Institucional/funcional (vinculado aos cargos executivos).</td>
+              <td class="p-2.5 sm:p-3 border-l border-slate-200"><mark class="highlight-yellow">Representação paritária compulsória</mark> entre os segmentos internos.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- O Colégio de Dirigentes -->
+      <div class="space-y-2">
+        <h3 class="text-base sm:text-lg font-bold text-slate-900">
+          O Colégio de Dirigentes (Codir)
+        </h3>
+        <p class="text-slate-700 leading-relaxed text-sm sm:text-base">
+          O Colégio de Dirigentes reúne a cadeia de comando da autarquia para assessorar continuamente o Reitor na condução administrativa. Por possuir <mark class="highlight-yellow">finalidade estritamente consultiva</mark>, suas manifestações consubstanciam-se em pareceres, recomendações e alinhamentos de gestão que carecem de força cogente perante terceiros, a menos que sejam convertidos em portarias da Reitoria ou homologados pelo Conselho Superior. Entre as atribuições práticas do Codir desdobradas no Estatuto do IFMG, destacam-se a apreciação preliminar das propostas orçamentárias anuais, a recomendação de critérios para a distribuição interna de recursos de custeio e capital, a análise prévia de minutas de acordos e convênios e a proposição de criação ou alteração de funções e órgãos administrativos.
+        </p>
+      </div>
+
+      <!-- O Conselho Superior -->
+      <div class="space-y-2">
+        <h3 class="text-base sm:text-lg font-bold text-slate-900">
+          O Conselho Superior (Consup)
+        </h3>
+        <p class="text-slate-700 leading-relaxed text-sm sm:text-base">
+          O Conselho Superior conforma o órgão colegiado de cúpula do IFMG, acumulando prerrogativas deliberativas e normativas que vinculam os atos de toda a administração autárquica. Sob a presidência do Reitor, o colegiado confere legitimidade social às decisões estruturantes da instituição mediante a composição plural e heterogênea prevista no artigo 10, § 3º:
+        </p>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs sm:text-sm text-slate-700 pt-1">
+          <div class="p-2 bg-slate-50 border border-slate-200 rounded flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-emerald-600"></span> Representantes do corpo docente;
+          </div>
+          <div class="p-2 bg-slate-50 border border-slate-200 rounded flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-emerald-600"></span> Representantes dos técnicos-administrativos;
+          </div>
+          <div class="p-2 bg-slate-50 border border-slate-200 rounded flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-emerald-600"></span> Representantes do corpo discente;
+          </div>
+          <div class="p-2 bg-slate-50 border border-slate-200 rounded flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-emerald-600"></span> Representantes dos egressos;
+          </div>
+          <div class="p-2 bg-slate-50 border border-slate-200 rounded flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-emerald-600"></span> Representantes da sociedade civil (setor produtivo e movimentos sociais);
+          </div>
+          <div class="p-2 bg-slate-50 border border-slate-200 rounded flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-emerald-600"></span> Representantes do Ministério da Educação (MEC);
+          </div>
+          <div class="p-2 bg-slate-50 border border-slate-200 rounded flex items-center gap-2 sm:col-span-2">
+            <span class="w-2 h-2 rounded-full bg-emerald-600"></span> Representantes do Colégio de Dirigentes (Codir).
+          </div>
+        </div>
+      </div>
+
+      <!-- Aplicação do Princípio da Paridade -->
+      <div class="p-4 rounded-lg border border-slate-200 bg-slate-50/50 space-y-2">
+        <h4 class="font-bold text-slate-900 text-sm flex items-center gap-2">
+          <i class="fa-solid fa-scale-balanced text-emerald-600"></i> A Regra de Paridade na Representação Colegiada
+        </h4>
+        <p class="text-xs sm:text-sm text-slate-700 leading-relaxed">
+          A legislação federal impõe que a representação colegiada no âmbito do Conselho Superior seja <mark class="highlight-yellow">paritária entre os segmentos constitutivos da comunidade acadêmica interna</mark>. Isso significa que o número de assentos conferido aos <strong>docentes</strong> deve ser estritamente idêntico ao conferido aos <strong>técnicos-administrativos</strong> e ao destinado aos <strong>estudantes</strong>. Os demais membros (sociedade civil, egressos, MEC e Codir) integram a composição global para assegurar o vínculo comunitário e sistêmico, mas o equilíbrio de voto interno é resguardado pela simetria numérica entre os três segmentos acadêmicos.
+        </p>
+      </div>
+
+      <!-- Atribuições Deliberativas do Consup -->
+      <div class="space-y-2">
+        <h3 class="text-base sm:text-lg font-bold text-slate-900">
+          Principais Atribuições Deliberativas do Conselho Superior
+        </h3>
+        <p class="text-xs sm:text-sm text-slate-600">
+          Com esteio no artigo 10, § 4º da Lei e no Estatuto do IFMG, são competências privativas:
+        </p>
+        <ul class="space-y-1.5 text-xs sm:text-sm text-slate-700">
+          <li class="flex items-start gap-2">
+            <i class="fa-solid fa-gavel text-slate-500 mt-1 shrink-0"></i>
+            <span>Apreciar e aprovar o <mark class="highlight-yellow">Plano de Desenvolvimento Institucional (PDI)</mark>, o Projeto Político-Pedagógico Institucional (PPI) e a proposta orçamentária anual global;</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <i class="fa-solid fa-gavel text-slate-500 mt-1 shrink-0"></i>
+            <span>Aprovar o <mark class="highlight-yellow">Regimento Geral do IFMG</mark> e propor alterações no seu Estatuto (que segue para homologação no MEC);</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <i class="fa-solid fa-gavel text-slate-500 mt-1 shrink-0"></i>
+            <span><mark class="highlight-yellow">Autorizar a criação, suspensão e extinção de cursos</mark> na autarquia, bem como a expedição e registro de diplomas;</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <i class="fa-solid fa-gavel text-slate-500 mt-1 shrink-0"></i>
+            <span>Normatizar, deflagrar e homologar o processo de consulta à comunidade escolar para Reitor e Diretores-Gerais;</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <i class="fa-solid fa-gavel text-slate-500 mt-1 shrink-0"></i>
+            <span>Atuar como <mark class="highlight-yellow">instância máxima de recurso administrativo</mark> disciplinar e acadêmico da autarquia.</span>
+          </li>
+        </ul>
+      </div>
+    </article>
+
+    <!-- SEÇÃO 3: ARTIGOS 11 E 13 -->
+    <article id="art11-13" class="space-y-4 pt-4 border-t border-slate-200">
+      <div class="border-b border-slate-200 pb-2">
+        <span class="text-xs font-bold text-emerald-700 uppercase tracking-wider">Gestão Executiva</span>
+        <h2 class="text-xl sm:text-2xl font-bold text-slate-900 mt-0.5">
+          3. Papel da Reitoria e das Diretorias de Campus (Arts. 11 e 13)
+        </h2>
+      </div>
+
+      <p class="text-slate-700 leading-relaxed text-sm sm:text-base">
+        O artigo 11 estabelece que os Institutos Federais terão como órgão executivo a Reitoria, configurada como centro gerencial e sistêmico composta formalmente por <mark class="highlight-yellow">1 (um) Reitor e 5 (cinco) Pró-Reitores</mark>. Cada Pró-Reitoria responde pelo planejamento, coordenação e supervisão sistêmica de sua respectiva área finalística ou de apoio.
+      </p>
+
+      <!-- TABELA 2: PRÓ-REITORIAS DO IFMG (Sem scroll) -->
+      <div class="border border-slate-200 rounded-lg overflow-hidden bg-white shadow-xs">
+        <div class="bg-slate-100 px-3 py-2 border-b border-slate-200 font-bold text-xs sm:text-sm text-slate-800">
+          <i class="fa-solid fa-sitemap text-slate-600 mr-1.5"></i> Estrutura das 5 Pró-Reitorias Institucionais
+        </div>
+        <table class="text-left text-xs sm:text-sm divide-y divide-slate-200">
+          <thead class="bg-slate-50 text-slate-700">
+            <tr>
+              <th class="w-[30%] p-2.5 sm:p-3 font-semibold text-slate-900">Pró-Reitoria</th>
+              <th class="w-[45%] p-2.5 sm:p-3 font-semibold text-slate-900 border-l border-slate-200">Foco Temático e Macroprocessos</th>
+              <th class="w-[25%] p-2.5 sm:p-3 font-semibold text-slate-900 border-l border-slate-200">Provimento</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-100 text-slate-700">
+            <tr>
+              <td class="p-2.5 sm:p-3 font-semibold bg-slate-50/40 text-slate-900">Pró-Reitoria de Ensino (Proen)</td>
+              <td class="p-2.5 sm:p-3 border-l border-slate-200">Políticas didático-pedagógicas, diretrizes curriculares (técnico e superior) e acompanhamento discente.</td>
+              <td class="p-2.5 sm:p-3 border-l border-slate-200 text-slate-600 font-mono text-[11px] sm:text-xs">Cargo de Direção (CD-2) por indicação direta do Reitor</td>
+            </tr>
+            <tr>
+              <td class="p-2.5 sm:p-3 font-semibold bg-slate-50/40 text-slate-900">Pró-Reitoria de Pesquisa, Pós-Graduação e Inovação (PRPIG)</td>
+              <td class="p-2.5 sm:p-3 border-l border-slate-200">Fomento à pesquisa aplicada, pós-graduação e gestão do Núcleo de Inovação Tecnológica (NIT).</td>
+              <td class="p-2.5 sm:p-3 border-l border-slate-200 text-slate-600 font-mono text-[11px] sm:text-xs">Cargo de Direção (CD-2) por indicação direta do Reitor</td>
+            </tr>
+            <tr>
+              <td class="p-2.5 sm:p-3 font-semibold bg-slate-50/40 text-slate-900">Pró-Reitoria de Extensão (Proex)</td>
+              <td class="p-2.5 sm:p-3 border-l border-slate-200">Relação dialógica com a comunidade externa, tecnologias sociais e inserção no mundo do trabalho.</td>
+              <td class="p-2.5 sm:p-3 border-l border-slate-200 text-slate-600 font-mono text-[11px] sm:text-xs">Cargo de Direção (CD-2) por indicação direta do Reitor</td>
+            </tr>
+            <tr>
+              <td class="p-2.5 sm:p-3 font-semibold bg-slate-50/40 text-slate-900">Pró-Reitoria de Administração e Planejamento (Proad)</td>
+              <td class="p-2.5 sm:p-3 border-l border-slate-200">Planejamento orçamentário, execução financeira, compras, licitações, contratos e patrimônio.</td>
+              <td class="p-2.5 sm:p-3 border-l border-slate-200 text-slate-600 font-mono text-[11px] sm:text-xs">Cargo de Direção (CD-2) por indicação direta do Reitor</td>
+            </tr>
+            <tr>
+              <td class="p-2.5 sm:p-3 font-semibold bg-slate-50/40 text-slate-900">Pró-Reitoria de Gestão de Pessoas / Desenvolvimento</td>
+              <td class="p-2.5 sm:p-3 border-l border-slate-200">Políticas de capacitação docente e técnico-administrativa, dimensionamento de pessoal e governança.</td>
+              <td class="p-2.5 sm:p-3 border-l border-slate-200 text-slate-600 font-mono text-[11px] sm:text-xs">Cargo de Direção (CD-2) por indicação direta do Reitor</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Localização da Reitoria e Provimento -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
+        <div class="p-3.5 border border-slate-200 rounded-lg bg-white">
+          <h4 class="font-bold text-slate-900 text-xs uppercase tracking-wide text-emerald-800 mb-1">
+            <i class="fa-solid fa-building-columns mr-1"></i> Sede Fora dos Campi (Art. 11, § 2º)
+          </h4>
+          <p class="text-xs text-slate-700 leading-relaxed">
+            A lei autoriza expressamente que o prédio da Reitoria seja <mark class="highlight-yellow">instalado fora da área física de qualquer um dos campi</mark>, desde que haja previsão no Estatuto e aprovação do MEC. O IFMG aplica essa regra: sua Reitoria situa-se na capital, <strong>Belo Horizonte</strong>, descentralizando as atividades escolares em seus diversos campi do interior de Minas Gerais.
+          </p>
+        </div>
+        <div class="p-3.5 border border-slate-200 rounded-lg bg-white">
+          <h4 class="font-bold text-slate-900 text-xs uppercase tracking-wide text-emerald-800 mb-1">
+            <i class="fa-solid fa-user-tie mr-1"></i> Investidura dos Pró-Reitores
+          </h4>
+          <p class="text-xs text-slate-700 leading-relaxed">
+            Diferentemente do Reitor e dos Diretores-Gerais, os Pró-Reitores são de <mark class="highlight-yellow">livre nomeação e exoneração do Reitor</mark> (Cargos de Direção - CD-2). <strong class="text-slate-900">Não passam por processo eleitoral nem por aprovação colegiada do Consup</strong>.
+          </p>
+        </div>
+      </div>
+
+      <!-- Diretorias de Campus -->
+      <div class="space-y-2">
+        <h3 class="text-base sm:text-lg font-bold text-slate-900">
+          A Dinâmica Gerencial dos Campi (Art. 13)
+        </h3>
+        <p class="text-slate-700 leading-relaxed text-sm sm:text-base">
+          No nível regional desconcentrado, a gestão executiva cabe aos <mark class="highlight-yellow">Diretores-Gerais de cada campus</mark>. O Diretor-Geral articula as atividades acadêmicas e operacionais da unidade local por intermédio de diretorias ou coordenações setoriais de ensino, pesquisa, extensão e administração. No plano jurídico-administrativo, os Diretores-Gerais respondem de forma solidária com o Reitor perante a legislação e os órgãos de controle interno e externo pelos atos praticados na gestão do campus, nos limites da delegação de competência.
+        </p>
+      </div>
+    </article>
+
+    <!-- SEÇÃO 4: ARTIGOS 12 E 13 - ELEIÇÕES E REGRAS -->
+    <article id="eleicoes" class="space-y-4 pt-4 border-t border-slate-200">
+      <div class="border-b border-slate-200 pb-2">
+        <span class="text-xs font-bold text-emerald-700 uppercase tracking-wider">Democracia Institucional</span>
+        <h2 class="text-xl sm:text-2xl font-bold text-slate-900 mt-0.5">
+          4. Processo de Escolha de Reitor e Diretores-Gerais (Arts. 12 e 13)
+        </h2>
+      </div>
+
+      <p class="text-slate-700 leading-relaxed text-sm sm:text-base">
+        A escolha dos dirigentes consagra o princípio da gestão democrática do ensino público. Contudo, a Lei nº 11.892/2008 diferencia rigorosamente os requisitos de elegibilidade e a competência de nomeação entre a Reitoria e as Diretorias de Campus.
+      </p>
+
+      <!-- TABELA 3: REQUISITOS REITOR VS DIRETOR-GERAL (Sem scroll horizontal) -->
+      <div class="border border-slate-200 rounded-lg overflow-hidden bg-white shadow-xs">
+        <div class="bg-slate-100 px-3 py-2 border-b border-slate-200 font-bold text-xs sm:text-sm text-slate-800">
+          <i class="fa-solid fa-id-card-clip text-slate-600 mr-1.5"></i> Matriz Comparativa de Elegibilidade e Investidura
+        </div>
+        <table class="text-left text-xs sm:text-sm divide-y divide-slate-200">
+          <thead class="bg-slate-50 text-slate-700">
+            <tr>
+              <th class="w-[26%] p-2.5 sm:p-3 font-semibold text-slate-900">Critério</th>
+              <th class="w-[37%] p-2.5 sm:p-3 font-semibold text-slate-900 border-l border-slate-200">Cargo de Reitor (Art. 12)</th>
+              <th class="w-[37%] p-2.5 sm:p-3 font-semibold text-slate-900 border-l border-slate-200">Cargo de Diretor-Geral (Art. 13)</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-100 text-slate-700">
+            <tr>
+              <td class="p-2.5 sm:p-3 font-medium bg-slate-50/40">Autoridade que Nomeia</td>
+              <td class="p-2.5 sm:p-3 border-l border-slate-200"><mark class="highlight-green">Presidente da República</mark></td>
+              <td class="p-2.5 sm:p-3 border-l border-slate-200"><mark class="highlight-green">Reitor do Instituto Federal</mark></td>
+            </tr>
+            <tr>
+              <td class="p-2.5 sm:p-3 font-medium bg-slate-50/40">Duração do Mandato</td>
+              <td class="p-2.5 sm:p-3 border-l border-slate-200"><strong>4 (quatro) anos</strong></td>
+              <td class="p-2.5 sm:p-3 border-l border-slate-200"><strong>4 (quatro) anos</strong></td>
+            </tr>
+            <tr>
+              <td class="p-2.5 sm:p-3 font-medium bg-slate-50/40">Recondução</td>
+              <td class="p-2.5 sm:p-3 border-l border-slate-200">Permitida <mark class="highlight-yellow">uma única recondução</mark> consecutiva</td>
+              <td class="p-2.5 sm:p-3 border-l border-slate-200">Permitida <mark class="highlight-yellow">uma única recondução</mark> consecutiva</td>
+            </tr>
+            <tr>
+              <td class="p-2.5 sm:p-3 font-medium bg-slate-50/40">Carreiras Elegíveis</td>
+              <td class="p-2.5 sm:p-3 border-l border-slate-200"><mark class="highlight-red">Exclusivo para DOCENTES</mark> do quadro permanente ativo</td>
+              <td class="p-2.5 sm:p-3 border-l border-slate-200"><mark class="highlight-green">DOCENTES OU TÉCNICOS</mark> (nível superior) do quadro ativo</td>
+            </tr>
+            <tr>
+              <td class="p-2.5 sm:p-3 font-medium bg-slate-50/40">Tempo de Efetivo Exercício</td>
+              <td class="p-2.5 sm:p-3 border-l border-slate-200">Mínimo de <mark class="highlight-yellow">5 (cinco) anos</mark> na Rede Federal</td>
+              <td class="p-2.5 sm:p-3 border-l border-slate-200">Mínimo de <mark class="highlight-yellow">5 (cinco) anos</mark> na Rede Federal</td>
+            </tr>
+            <tr>
+              <td class="p-2.5 sm:p-3 font-medium bg-slate-50/40">Requisitos Técnicos Alternativos (ao menos 1)</td>
+              <td class="p-2.5 sm:p-3 border-l border-slate-200">
+                • Título de <strong>Doutor</strong>; <strong class="text-amber-800">OU</strong><br>
+                • Integrar a <strong>Classe D-IV ou D-V</strong> (ou Titular).
+              </td>
+              <td class="p-2.5 sm:p-3 border-l border-slate-200">
+                • Preencher os requisitos de Reitor; <strong class="text-amber-800">OU</strong><br>
+                • <strong>2 anos</strong> de experiência em gestão no IF; <strong class="text-amber-800">OU</strong><br>
+                • Curso de formação em gestão pública.
+              </td>
+            </tr>
+            <tr>
+              <td class="p-2.5 sm:p-3 font-medium bg-slate-50/40">Colégio Eleitoral</td>
+              <td class="p-2.5 sm:p-3 border-l border-slate-200">Toda a comunidade de todos os campi e Reitoria (eleição geral).</td>
+              <td class="p-2.5 sm:p-3 border-l border-slate-200">Restrito aos servidores e alunos vinculados ao respectivo campus.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Mecanismo da Votação de 1/3 -->
+      <div class="space-y-3 pt-2">
+        <h3 class="text-base sm:text-lg font-bold text-slate-900">
+          O Mecanismo da Votação Paritária de Um Terço (1/3)
+        </h3>
+        <p class="text-slate-700 leading-relaxed text-sm sm:text-base">
+          A eleição não adota o critério de maioria simples universal de votos nominais de eleitores individuais. Devido ao fato de o contingente de alunos ser numericamente muito superior ao de servidores, a apuração obedece à regra paritária tripartida: cada segmento detém o <mark class="highlight-yellow">peso estrito de 1/3 (33,33%)</mark> no cômputo geral.
+        </p>
+
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5 text-center text-xs sm:text-sm">
+          <div class="p-3 border border-slate-200 rounded-lg bg-slate-50">
+            <span class="block font-bold text-slate-900 text-base mb-0.5">1/3 (33,33%)</span>
+            <span class="text-slate-600 font-medium">Corpo Docente</span>
+          </div>
+          <div class="p-3 border border-slate-200 rounded-lg bg-slate-50">
+            <span class="block font-bold text-slate-900 text-base mb-0.5">1/3 (33,33%)</span>
+            <span class="text-slate-600 font-medium">Técnicos-Administrativos</span>
+          </div>
+          <div class="p-3 border border-slate-200 rounded-lg bg-slate-50">
+            <span class="block font-bold text-slate-900 text-base mb-0.5">1/3 (33,33%)</span>
+            <span class="text-slate-600 font-medium">Corpo Discente</span>
+          </div>
+        </div>
+
+        <div class="p-3.5 border border-slate-200 rounded-lg bg-white text-xs sm:text-sm text-slate-700 font-mono">
+          <div class="text-[11px] font-sans font-bold uppercase text-slate-500 mb-1">
+            Fórmula de Ponderação (Decreto nº 6.986/2009):
+          </div>
+          <div class="bg-slate-50 p-2.5 rounded border border-slate-200 text-slate-900 text-center font-bold">
+            Índice = [ 1/3 × (Votos_Docentes / Total_Docentes) + 1/3 × (Votos_Técnicos / Total_Técnicos) + 1/3 × (Votos_Alunos / Total_Alunos) ] × 100
+          </div>
+          <p class="font-sans text-xs text-slate-600 mt-2">
+            Isso garante que um candidato com maciça votação absoluta apenas de alunos não vença o pleito caso não possua representatividade entre os corpos de servidores.
+          </p>
+        </div>
+      </div>
+    </article>
+
+    <!-- SEÇÃO 5: ARTIGOS 14 A 18 -->
+    <article id="art14-18" class="space-y-4 pt-4 border-t border-slate-200">
+      <div class="border-b border-slate-200 pb-2">
+        <span class="text-xs font-bold text-emerald-700 uppercase tracking-wider">Disposições Finais e Transitórias</span>
+        <h2 class="text-xl sm:text-2xl font-bold text-slate-900 mt-0.5">
+          5. Regras de Transição, Expansão e Quadro Funcional (Arts. 14 a 18)
+        </h2>
+      </div>
+
+      <!-- Art. 14 Gestão Pro Tempore -->
+      <div class="space-y-2">
+        <h3 class="text-base sm:text-lg font-bold text-slate-900">
+          A Transitoriedade da Gestão Pro Tempore (Art. 14)
+        </h3>
+        <p class="text-slate-700 leading-relaxed text-sm sm:text-base">
+          O artigo 14 normatizou a fusão dos antigos CEFETs e Escolas Agrotécnicas na estrutura do IFMG. Para evitar a descontinuidade do serviço público, os dirigentes das instituições originárias foram investidos como Reitores ou Diretores-Gerais <em>pro tempore</em> até a realização da primeira consulta eleitoral.
+        </p>
+        <div class="p-3 bg-amber-50/70 border border-amber-200 rounded-lg text-xs sm:text-sm text-slate-800">
+          <strong class="text-amber-900 font-bold block mb-1">
+            <i class="fa-solid fa-ban text-amber-700 mr-1"></i> Vedação Legal de Elegibilidade (Art. 14, § 3º):
+          </strong>
+          O gestor nomeado para exercer cargo de <mark class="highlight-red">Reitor Pro Tempore ou Diretor-Geral Pro Tempore</mark> ficou expressamente <mark class="highlight-red">impedido de concorrer ao respectivo cargo na primeira eleição</mark> convocada, garantindo a isonomia contra o uso da máquina pública.
+        </div>
+      </div>
+
+      <!-- Art. 15 Expansão -->
+      <div class="space-y-1">
+        <h3 class="text-base sm:text-lg font-bold text-slate-900">
+          A Sistemática de Expansão Institucional (Art. 15)
+        </h3>
+        <p class="text-slate-700 leading-relaxed text-sm sm:text-base">
+          O artigo 15 impõe que a criação de novas instituições federais de ensino técnico ocorra <mark class="highlight-yellow">obrigatoriamente sob o modelo jurídico de Instituto Federal</mark>, vedando o surgimento de estruturas fragmentadas e garantindo a extensão do modelo multicampi de autonomia universitária.
+        </p>
+      </div>
+
+      <!-- Art. 16 Quadro Funcional e Remoção -->
+      <div class="space-y-2">
+        <h3 class="text-base sm:text-lg font-bold text-slate-900">
+          Quadro Funcional e Regime de Mobilidade (Art. 16)
+        </h3>
+        <p class="text-slate-700 leading-relaxed text-sm sm:text-base">
+          O quadro de servidores é único para todo o IFMG. A alocação em um determinado campus é ato de lotação e exercício localizado.
+        </p>
+        <div class="p-3.5 rounded-lg border-2 border-emerald-600 bg-white shadow-xs space-y-1.5">
+          <span class="font-bold text-emerald-900 text-xs uppercase tracking-wider flex items-center gap-1.5">
+            <i class="fa-solid fa-arrows-split-up-and-left text-emerald-600"></i> Pegadinha Campeã em Provas: Deslocamento Interno (Art. 16, § 2º)
+          </span>
+          <p class="text-xs sm:text-sm text-slate-800 leading-relaxed">
+            A movimentação de docentes e técnicos-administrativos entre diferentes campi de um mesmo Instituto Federal processa-se <strong>EXCLUSIVAMENTE</strong> por meio do instituto da <mark class="highlight-green">REMOÇÃO</mark> (art. 36 da Lei nº 8.112/1990).
+          </p>
+          <p class="text-xs text-slate-600">
+            <strong class="text-red-700 font-semibold">Atenção:</strong> É incorreto assinalar <mark class="highlight-red">"redistribuição"</mark>. A redistribuição enseja deslocamento de cargo entre órgãos ou pessoas jurídicas distintas. Na mesma autarquia (IFMG), o instrumento é unicamente a <strong>remoção</strong>.
+          </p>
+        </div>
+      </div>
+
+      <!-- Art. 17 Patrimônio e Afetação -->
+      <div class="space-y-1">
+        <h3 class="text-base sm:text-lg font-bold text-slate-900">
+          Patrimônio, Afetação e Inalienabilidade (Art. 17)
+        </h3>
+        <p class="text-slate-700 leading-relaxed text-sm sm:text-base">
+          O patrimônio do IFMG absorveu em sua totalidade os bens e direitos das instituições que o formaram. Todos os bens têm afetação pública vinculada às finalidades educacionais e científicas. É <mark class="highlight-yellow">vedada a alienação do patrimônio imobiliário</mark> do Instituto Federal, salvo mediante <mark class="highlight-yellow">autorização em lei específica</mark> e cumprimento dos requisitos licitatórios federais.
+        </p>
+      </div>
+    </article>
+
+    <!-- SEÇÃO 6: QUADRO SINÓTICO / RESUMO PARA O DIA DA PROVA -->
+    <article id="sinotico" class="space-y-4 pt-4 border-t border-slate-200">
+      <div class="border-b border-slate-200 pb-2">
+        <span class="text-xs font-bold text-emerald-700 uppercase tracking-wider">Revisão Rápida</span>
+        <h2 class="text-xl sm:text-2xl font-bold text-slate-900 mt-0.5">
+          6. Quadro Sinótico: Principais Definições Básicas para Memorizar
+        </h2>
+      </div>
+
+      <div class="border border-slate-200 rounded-xl p-4 sm:p-5 bg-white space-y-3">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs sm:text-sm">
+          
+          <div class="p-3 rounded-lg border border-slate-200 bg-slate-50/70">
+            <span class="font-bold text-slate-900 block mb-0.5">1. Natureza Jurídica</span>
+            <span class="text-slate-700">Autarquia federal com autonomia plena, organizada em estrutura <mark class="highlight-yellow">multicampi</mark>.</span>
+          </div>
+
+          <div class="p-3 rounded-lg border border-slate-200 bg-slate-50/70">
+            <span class="font-bold text-slate-900 block mb-0.5">2. Orçamento Descentralizado</span>
+            <span class="text-slate-700">Proposta individualizada por campus, exceto <mark class="highlight-yellow">pessoal, encargos e benefícios</mark> (centralizados).</span>
+          </div>
+
+          <div class="p-3 rounded-lg border border-slate-200 bg-slate-50/70">
+            <span class="font-bold text-slate-900 block mb-0.5">3. Conselho Superior (Consup)</span>
+            <span class="text-slate-700">Órgão de cúpula com caráter <mark class="highlight-green">consultivo e deliberativo</mark>. Presidido pelo Reitor.</span>
+          </div>
+
+          <div class="p-3 rounded-lg border border-slate-200 bg-slate-50/70">
+            <span class="font-bold text-slate-900 block mb-0.5">4. Colégio de Dirigentes (Codir)</span>
+            <span class="text-slate-700">Órgão gerencial com caráter <mark class="highlight-red">estritamente consultivo</mark>. Presidido pelo Reitor.</span>
+          </div>
+
+          <div class="p-3 rounded-lg border border-slate-200 bg-slate-50/70">
+            <span class="font-bold text-slate-900 block mb-0.5">5. Paridade no Consup</span>
+            <span class="text-slate-700">Número idêntico de assentos entre <mark class="highlight-yellow">docentes, técnicos e discentes</mark>.</span>
+          </div>
+
+          <div class="p-3 rounded-lg border border-slate-200 bg-slate-50/70">
+            <span class="font-bold text-slate-900 block mb-0.5">6. Reitoria e Pró-Reitorias</span>
+            <span class="text-slate-700"><mark class="highlight-yellow">1 Reitor e 5 Pró-Reitores</mark>. Pró-Reitores nomeados pelo Reitor (CD-2, sem eleição).</span>
+          </div>
+
+          <div class="p-3 rounded-lg border border-slate-200 bg-slate-50/70">
+            <span class="font-bold text-slate-900 block mb-0.5">7. Sede da Reitoria</span>
+            <span class="text-slate-700">Pode situar-se fora dos campi (previsto no Estatuto e aprovado pelo MEC). IFMG: Belo Horizonte.</span>
+          </div>
+
+          <div class="p-3 rounded-lg border border-slate-200 bg-slate-50/70">
+            <span class="font-bold text-slate-900 block mb-0.5">8. Nomeação do Reitor</span>
+            <span class="text-slate-700">Nomeado privativamente pelo <mark class="highlight-green">Presidente da República</mark> após consulta paritária.</span>
+          </div>
+
+          <div class="p-3 rounded-lg border border-slate-200 bg-slate-50/70">
+            <span class="font-bold text-slate-900 block mb-0.5">9. Nomeação dos Diretores-Gerais</span>
+            <span class="text-slate-700">Nomeados pelo <mark class="highlight-green">Reitor</mark> após consulta da respectiva unidade.</span>
+          </div>
+
+          <div class="p-3 rounded-lg border border-slate-200 bg-slate-50/70">
+            <span class="font-bold text-slate-900 block mb-0.5">10. Mandatos de Gestão</span>
+            <span class="text-slate-700"><mark class="highlight-yellow">4 anos</mark>, com permissão de apenas 1 única recondução subsequente.</span>
+          </div>
+
+          <div class="p-3 rounded-lg border border-slate-200 bg-slate-50/70">
+            <span class="font-bold text-slate-900 block mb-0.5">11. Peso na Consulta Eleitoral</span>
+            <span class="text-slate-700">Proporção rígida de <mark class="highlight-yellow">1/3 (33,33%)</mark> para docentes, 1/3 para técnicos e 1/3 para discentes.</span>
+          </div>
+
+          <div class="p-3 rounded-lg border border-slate-200 bg-slate-50/70">
+            <span class="font-bold text-slate-900 block mb-0.5">12. Deslocamento Interno</span>
+            <span class="text-slate-700">Exclusivamente por <mark class="highlight-green">REMOÇÃO</mark> (art. 36, Lei 8.112/90), nunca redistribuição.</span>
+          </div>
+
+        </div>
+      </div>
+    </article>
+
+    <!-- SEÇÃO 7: PEGADINHAS DA BANCA -->
+    <article id="pegadinhas" class="space-y-4 pt-4 border-t border-slate-200">
+      <div class="border-b border-slate-200 pb-2">
+        <span class="text-xs font-bold text-emerald-700 uppercase tracking-wider">Foco na Prova Objetiva</span>
+        <h2 class="text-xl sm:text-2xl font-bold text-slate-900 mt-0.5">
+          7. Transformando a Teoria em Acertos: Diretrizes e Pegadinhas da Banca
+        </h2>
+      </div>
+
+      <div class="space-y-4">
+        
+        <!-- Pegadinha 1 -->
+        <div class="border border-slate-200 rounded-lg p-4 bg-white shadow-xs">
+          <div class="flex items-center gap-2 mb-2">
+            <span class="px-2 py-0.5 text-xs font-bold bg-red-100 text-red-800 rounded">Armadilha 1</span>
+            <h3 class="font-bold text-sm sm:text-base text-slate-900">Deliberação versus Consulta nos Órgãos Superiores</h3>
+          </div>
+          <p class="text-xs sm:text-sm text-red-900 bg-red-50 p-2.5 rounded border border-red-200 mb-2">
+            <i class="fa-solid fa-xmark mr-1"></i> <strong>Afirmativa Incorreta na Prova:</strong> "O Colégio de Dirigentes é órgão deliberativo da gestão central, cabendo a ele aprovar o estatuto e homologar os cursos oferecidos pelo Instituto Federal."
+          </p>
+          <p class="text-xs sm:text-sm text-slate-700 leading-relaxed">
+            <i class="fa-solid fa-circle-check text-emerald-600 mr-1"></i> <strong>Correção Técnica de Gabarito:</strong> O Colégio de Dirigentes possui natureza puramente <mark class="highlight-yellow">consultiva</mark>. A competência deliberativa para aprovar o PDI, Regimento Geral, autorizar e extinguir cursos é privativa do <mark class="highlight-green">Conselho Superior (Consup)</mark>.
+          </p>
+        </div>
+
+        <!-- Pegadinha 2 -->
+        <div class="border border-slate-200 rounded-lg p-4 bg-white shadow-xs">
+          <div class="flex items-center gap-2 mb-2">
+            <span class="px-2 py-0.5 text-xs font-bold bg-red-100 text-red-800 rounded">Armadilha 2</span>
+            <h3 class="font-bold text-sm sm:text-base text-slate-900">Assimetria de Elegibilidade: Reitoria vs Diretor-Geral</h3>
+          </div>
+          <p class="text-xs sm:text-sm text-red-900 bg-red-50 p-2.5 rounded border border-red-200 mb-2">
+            <i class="fa-solid fa-xmark mr-1"></i> <strong>Afirmativa Incorreta na Prova:</strong> "Qualquer servidor efetivo de nível superior com cinco anos de exercício na Rede Federal, seja ele professor ou técnico-administrativo, poderá candidatar-se ao cargo de Reitor da autarquia."
+          </p>
+          <p class="text-xs sm:text-sm text-slate-700 leading-relaxed">
+            <i class="fa-solid fa-circle-check text-emerald-600 mr-1"></i> <strong>Correção Técnica de Gabarito:</strong> A disputa para o cargo de Reitor é de <mark class="highlight-red">competência privativa da carreira docente</mark>. Os servidores técnico-administrativos (com nível superior) só podem se candidatar ao cargo de <mark class="highlight-green">Diretor-Geral de Campus</mark>.
+          </p>
+        </div>
+
+        <!-- Pegadinha 3 -->
+        <div class="border border-slate-200 rounded-lg p-4 bg-white shadow-xs">
+          <div class="flex items-center gap-2 mb-2">
+            <span class="px-2 py-0.5 text-xs font-bold bg-red-100 text-red-800 rounded">Armadilha 3</span>
+            <h3 class="font-bold text-sm sm:text-base text-slate-900">Autoridades Competentes de Nomeação</h3>
+          </div>
+          <p class="text-xs sm:text-sm text-red-900 bg-red-50 p-2.5 rounded border border-red-200 mb-2">
+            <i class="fa-solid fa-xmark mr-1"></i> <strong>Afirmativa Incorreta na Prova:</strong> "Os Diretores-Gerais de campi e os Pró-Reitores são eleitos pela comunidade escolar e nomeados pelo Ministro de Estado da Educação."
+          </p>
+          <p class="text-xs sm:text-sm text-slate-700 leading-relaxed">
+            <i class="fa-solid fa-circle-check text-emerald-600 mr-1"></i> <strong>Correção Técnica de Gabarito:</strong> O Ministro da Educação não nomeia esses gestores. O <mark class="highlight-green">Reitor é quem nomeia tanto os Diretores-Gerais quanto os Pró-Reitores</mark>. Apenas o Reitor é nomeado por Decreto do <mark class="highlight-yellow">Presidente da República</mark>. Ademais, Pró-Reitores não passam por consulta eleitoral.
+          </p>
+        </div>
+
+        <!-- Pegadinha 4 -->
+        <div class="border border-slate-200 rounded-lg p-4 bg-white shadow-xs">
+          <div class="flex items-center gap-2 mb-2">
+            <span class="px-2 py-0.5 text-xs font-bold bg-red-100 text-red-800 rounded">Armadilha 4</span>
+            <h3 class="font-bold text-sm sm:text-base text-slate-900">Maioria Simples versus Paridade de 1/3</h3>
+          </div>
+          <p class="text-xs sm:text-sm text-red-900 bg-red-50 p-2.5 rounded border border-red-200 mb-2">
+            <i class="fa-solid fa-xmark mr-1"></i> <strong>Afirmativa Incorreta na Prova:</strong> "A consulta para dirigentes obedecerá à regra de que cada eleitor possui um voto unitário simples, vencendo o candidato que atingir a maioria dos votos apurados no total."
+          </p>
+          <p class="text-xs sm:text-sm text-slate-700 leading-relaxed">
+            <i class="fa-solid fa-circle-check text-emerald-600 mr-1"></i> <strong>Correção Técnica de Gabarito:</strong> O pleito segue estritamente a ponderação paritária de <mark class="highlight-yellow">1/3 para professores, 1/3 para técnicos e 1/3 para estudantes</mark>. O voto não é unitário simples de cabeças.
+          </p>
+        </div>
+
+        <!-- Pegadinha 5 -->
+        <div class="border border-slate-200 rounded-lg p-4 bg-white shadow-xs">
+          <div class="flex items-center gap-2 mb-2">
+            <span class="px-2 py-0.5 text-xs font-bold bg-red-100 text-red-800 rounded">Armadilha 5</span>
+            <h3 class="font-bold text-sm sm:text-base text-slate-900">Remoção versus Redistribuição</h3>
+          </div>
+          <p class="text-xs sm:text-sm text-red-900 bg-red-50 p-2.5 rounded border border-red-200 mb-2">
+            <i class="fa-solid fa-xmark mr-1"></i> <strong>Afirmativa Incorreta na Prova:</strong> "O deslocamento definitivo de um docente do Campus Bambuí para o Campus Ouro Preto ocorrerá por redistribuição de cargo."
+          </p>
+          <p class="text-xs sm:text-sm text-slate-700 leading-relaxed">
+            <i class="fa-solid fa-circle-check text-emerald-600 mr-1"></i> <strong>Correção Técnica de Gabarito:</strong> Dentro do mesmo Instituto Federal, qualquer deslocamento de servidor entre campi ocorre por <mark class="highlight-green">REMOÇÃO</mark> (art. 16, § 2º c/c Lei 8.112/90, art. 36). Redistribuição só ocorre entre órgãos ou pessoas jurídicas distintas.
+          </p>
+        </div>
+
+      </div>
+    </article>
+
+    <!-- BLOCO FINAL: BOTÃO DE QUESTÕES -->
+    <div class="pt-8 pb-12 border-t border-slate-200 text-center">
+      <div class="max-w-xl mx-auto space-y-4">
+        <div>
+          <span class="text-xs font-bold text-emerald-700 uppercase tracking-widest block mb-1">Próxima Etapa do Treinamento</span>
+          <h3 class="text-xl sm:text-2xl font-extrabold text-slate-900">Pronto para testar seus conhecimentos?</h3>
+          <p class="text-slate-600 text-xs sm:text-sm mt-1">
+            Fixe as regras e garanta os pontos na prova objetiva do IFMG resolvendo questões inéditas e comentadas.
+          </p>
+        </div>
+
+        <!-- Botão direcionando para questoes9legs.html -->
+        <div class="pt-2">
+          <a 
+            href="questoes9legs.html" 
+            class="inline-flex items-center justify-center gap-2.5 px-8 py-4 text-base font-bold text-white bg-emerald-700 hover:bg-emerald-800 active:bg-emerald-900 rounded-xl shadow-md hover:shadow-lg transition-all duration-200 border border-emerald-800 transform hover:-translate-y-0.5"
+          >
+            <span>Ir para o Banco de Questões</span>
+            <i class="fa-solid fa-arrow-right"></i>
+          </a>
+        </div>
+        
+        <p class="text-[11px] text-slate-400">
+          O botão redireciona para o arquivo <code class="bg-slate-100 text-slate-700 px-1 py-0.5 rounded">questoes9legs.html</code> localizado na mesma pasta.
+        </p>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- RODAPÉ COMPACTO -->
+  <footer class="border-t border-slate-200 bg-white py-4 text-center text-xs text-slate-400">
+    <p>Material Didático Preparatório • Concurso Professor EBTT IFMG • Lei Federal nº 11.892/2008</p>
+  </footer>
+
+  <!-- SCRIPT CONTROLADOR DE ÁUDIO -->
+  <script>
+    const audio = document.getElementById('audioPlayer');
+    const audioSource = document.getElementById('audioSource');
+    const audioInput = document.getElementById('audioFileNameInput');
+    const audioStatus = document.getElementById('audioStatusText');
+    const speedButtons = document.querySelectorAll('.speed-btn');
+
+    // Função para atualizar e carregar o arquivo de áudio da pasta local
+    function updateAudioSource() {
+      const fileName = audioInput.value.trim();
+      if (!fileName) {
+        audioStatus.textContent = 'Aviso: Informe um nome válido de arquivo (ex.: aula_ifmg.mp3).';
+        audioStatus.className = 'text-[11px] text-amber-700 font-sans mt-1.5';
+        return;
+      }
+      
+      const wasPlaying = !audio.paused;
+      audioSource.src = encodeURI(fileName);
+      audio.load();
+      
+      audioStatus.textContent = `Carregando arquivo: "${fileName}"`;
+      audioStatus.className = 'text-[11px] text-emerald-700 font-sans mt-1.5 font-medium';
+      
+      if (wasPlaying) {
+        audio.play().catch(e => {
+          audioStatus.textContent = `Arquivo "${fileName}" apontado. Clique em Play para iniciar.`;
+        });
+      }
+    }
+
+    // Permitir carregar ao pressionar Enter no campo de texto
+    audioInput.addEventListener('keydown', function(event) {
+      if (event.key === 'Enter') {
+        updateAudioSource();
+      }
+    });
+
+    // Controle dinâmico de velocidade de áudio
+    function changeSpeed(rate) {
+      audio.playbackRate = rate;
+      speedButtons.forEach(btn => {
+        if (parseFloat(btn.innerText) === rate) {
+          btn.classList.add('bg-slate-800', 'text-white', 'border-slate-800');
+          btn.classList.remove('bg-slate-100', 'text-slate-700', 'border-slate-200');
+        } else {
+          btn.classList.remove('bg-slate-800', 'text-white', 'border-slate-800');
+          btn.classList.add('border-slate-200', 'text-slate-700');
+        }
+      });
+    }
+  </script>
+
+</body>
+</html>

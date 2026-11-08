@@ -1,0 +1,1219 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simulado IFMG: Lei Federal nº 11.892/2008 (Arts. 1º a 8º)</title>
+  <style>
+    :root {
+      --bg-page: #fbfbfa;
+      --bg-card: #ffffff;
+      --bg-accent-subtle: #f4f5f6;
+      --text-main: #23272f;
+      --text-muted: #57606a;
+      --text-light: #6e7781;
+      --border-color: #e5e7eb;
+      --border-hover: #cbd5e1;
+      --primary: #1b5e20;
+      --primary-light: #e8f5e9;
+      --primary-border: #a5d6a7;
+      --correct-bg: #ecfdf5;
+      --correct-border: #10b981;
+      --correct-text: #065f46;
+      --wrong-bg: #fef2f2;
+      --wrong-border: #ef4444;
+      --wrong-text: #991b1b;
+      --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05);
+      --shadow-md: 0 4px 14px rgba(0, 0, 0, 0.06);
+      --radius: 12px;
+      --font-stack: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-page);
+      color: var(--text-main);
+      font-family: var(--font-stack);
+      font-size: 17px;
+      line-height: 1.75;
+      letter-spacing: -0.011em;
+      -webkit-font-smoothing: antialiased;
+      padding-bottom: 80px;
+    }
+
+    /* Barra Superior Fixa de Progresso */
+    .sticky-header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background-color: rgba(251, 251, 250, 0.95);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border-color);
+      padding: 12px 20px;
+    }
+
+    .header-content {
+      max-width: 860px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .header-title {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--text-main);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .progress-stats {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      font-weight: 500;
+      white-space: nowrap;
+    }
+
+    .progress-bar-container {
+      width: 130px;
+      height: 8px;
+      background-color: var(--bg-accent-subtle);
+      border-radius: 999px;
+      overflow: hidden;
+      border: 1px solid var(--border-color);
+    }
+
+    .progress-bar-fill {
+      width: 0%;
+      height: 100%;
+      background-color: var(--primary);
+      transition: width 0.3s ease;
+    }
+
+    /* Container Principal */
+    .container {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 32px 20px;
+    }
+
+    .intro-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius);
+      padding: 28px;
+      margin-bottom: 32px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .intro-badge {
+      display: inline-block;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--primary);
+      background-color: var(--primary-light);
+      padding: 4px 10px;
+      border-radius: 6px;
+      margin-bottom: 12px;
+    }
+
+    .intro-card h1 {
+      font-size: 1.65rem;
+      line-height: 1.35;
+      color: #111827;
+      margin-bottom: 10px;
+      font-weight: 700;
+    }
+
+    .intro-card p {
+      color: var(--text-muted);
+      font-size: 0.98rem;
+      margin-bottom: 8px;
+    }
+
+    /* Cartão de Questão */
+    .question-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius);
+      padding: 32px;
+      margin-bottom: 32px;
+      box-shadow: var(--shadow-sm);
+      transition: box-shadow 0.2s ease, border-color 0.2s ease;
+      scroll-margin-top: 80px;
+    }
+
+    .question-card:hover {
+      border-color: var(--border-hover);
+      box-shadow: var(--shadow-md);
+    }
+
+    .question-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+      margin-bottom: 18px;
+      font-size: 0.82rem;
+      color: var(--text-light);
+      border-bottom: 1px solid #f1f3f5;
+      padding-bottom: 12px;
+    }
+
+    .badge-banca {
+      background-color: #f1f5f9;
+      color: #334155;
+      font-weight: 600;
+      padding: 3px 8px;
+      border-radius: 4px;
+    }
+
+    .badge-assunto {
+      background-color: #f8fafc;
+      color: #475569;
+      border: 1px solid #e2e8f0;
+      padding: 2px 8px;
+      border-radius: 4px;
+    }
+
+    .question-title {
+      font-size: 1.18rem;
+      font-weight: 700;
+      color: #0f172a;
+      margin-bottom: 12px;
+    }
+
+    .question-stem {
+      color: var(--text-main);
+      font-size: 1.05rem;
+      margin-bottom: 24px;
+      text-align: justify;
+    }
+
+    /* Opções de Resposta */
+    .options-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .option-label {
+      position: relative;
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      padding: 14px 18px;
+      border-radius: 8px;
+      border: 1.5px solid var(--border-color);
+      background-color: #ffffff;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-size: 1rem;
+      color: #374151;
+      text-align: justify;
+      user-select: none;
+    }
+
+    .option-label:hover {
+      background-color: #f9fafb;
+      border-color: #94a3b8;
+    }
+
+    .option-input {
+      position: absolute;
+      opacity: 0;
+      cursor: pointer;
+    }
+
+    .option-letter {
+      flex-shrink: 0;
+      width: 28px;
+      height: 28px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #f3f4f6;
+      border: 1px solid #d1d5db;
+      border-radius: 6px;
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: #4b5563;
+      transition: all 0.2s ease;
+      margin-top: 1px;
+    }
+
+    .option-text {
+      flex: 1;
+    }
+
+    /* Estado Selecionado Antes do Envio */
+    .option-label.is-selected {
+      border-color: #2563eb;
+      background-color: #eff6ff;
+    }
+
+    .option-label.is-selected .option-letter {
+      background-color: #2563eb;
+      border-color: #2563eb;
+      color: #ffffff;
+    }
+
+    /* Estados de Correção Pós-Envio */
+    .option-label.status-correct {
+      border-color: var(--correct-border) !important;
+      background-color: var(--correct-bg) !important;
+      color: var(--correct-text) !important;
+      font-weight: 600;
+    }
+
+    .option-label.status-correct .option-letter {
+      background-color: var(--correct-border) !important;
+      border-color: var(--correct-border) !important;
+      color: #ffffff !important;
+    }
+
+    .option-label.status-wrong {
+      border-color: var(--wrong-border) !important;
+      background-color: var(--wrong-bg) !important;
+      color: var(--wrong-text) !important;
+    }
+
+    .option-label.status-wrong .option-letter {
+      background-color: var(--wrong-border) !important;
+      border-color: var(--wrong-border) !important;
+      color: #ffffff !important;
+    }
+
+    /* Seção de Resolução Comentada */
+    .resolution-wrapper {
+      margin-top: 24px;
+      border-top: 1px solid var(--border-color);
+      padding-top: 20px;
+      display: none;
+    }
+
+    .resolution-card {
+      background-color: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-left: 5px solid var(--primary);
+      border-radius: 8px;
+      padding: 22px;
+    }
+
+    .resolution-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--primary);
+      background-color: var(--primary-light);
+      padding: 4px 10px;
+      border-radius: 4px;
+      margin-bottom: 14px;
+      border: 1px solid var(--primary-border);
+    }
+
+    .resolution-body {
+      font-size: 0.98rem;
+      line-height: 1.8;
+      color: #334155;
+      text-align: justify;
+    }
+
+    .resolution-body p + p {
+      margin-top: 14px;
+    }
+
+    /* Ações e Botões */
+    .quiz-actions {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+      margin: 40px 0 20px 0;
+    }
+
+    .btn-submit {
+      background-color: var(--primary);
+      color: #ffffff;
+      font-size: 1.1rem;
+      font-weight: 600;
+      padding: 16px 36px;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(27, 94, 32, 0.25);
+      transition: background-color 0.2s, transform 0.1s;
+      width: 100%;
+      max-width: 380px;
+    }
+
+    .btn-submit:hover {
+      background-color: #144917;
+    }
+
+    .btn-submit:active {
+      transform: scale(0.99);
+    }
+
+    .btn-reset {
+      background-color: transparent;
+      color: var(--text-muted);
+      border: 1px solid var(--border-color);
+      font-size: 0.95rem;
+      font-weight: 500;
+      padding: 10px 24px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-reset:hover {
+      background-color: #f1f5f9;
+      color: var(--text-main);
+    }
+
+    /* Quadro de Resultados (Exibido após término) */
+    .results-summary-card {
+      display: none;
+      background: var(--bg-card);
+      border: 2px solid var(--border-color);
+      border-radius: var(--radius);
+      padding: 32px;
+      margin-bottom: 36px;
+      box-shadow: var(--shadow-md);
+      text-align: center;
+    }
+
+    .results-score-big {
+      font-size: 3.5rem;
+      font-weight: 800;
+      line-height: 1;
+      margin: 12px 0;
+      color: #111827;
+    }
+
+    .results-score-label {
+      font-size: 1rem;
+      color: var(--text-muted);
+      margin-bottom: 20px;
+    }
+
+    .results-feedback-tag {
+      display: inline-block;
+      padding: 6px 16px;
+      border-radius: 999px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      margin-bottom: 24px;
+    }
+
+    .quick-jump-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .jump-btn {
+      width: 44px;
+      height: 44px;
+      border-radius: 8px;
+      border: 1px solid var(--border-color);
+      background-color: #f8fafc;
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: var(--text-main);
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      transition: all 0.15s;
+    }
+
+    .jump-btn.is-correct {
+      background-color: var(--correct-bg);
+      border-color: var(--correct-border);
+      color: var(--correct-text);
+    }
+
+    .jump-btn.is-wrong {
+      background-color: var(--wrong-bg);
+      border-color: var(--wrong-border);
+      color: var(--wrong-text);
+    }
+
+    /* Notificação Flutuante / Aviso */
+    .notice-box {
+      display: none;
+      background-color: #fffbeb;
+      border: 1px solid #fde68a;
+      color: #92400e;
+      padding: 14px 20px;
+      border-radius: 8px;
+      margin-bottom: 24px;
+      font-size: 0.95rem;
+      text-align: center;
+    }
+
+    @media (max-width: 640px) {
+      body {
+        font-size: 16px;
+      }
+      .question-card {
+        padding: 22px 18px;
+      }
+      .option-label {
+        padding: 12px 14px;
+        gap: 10px;
+      }
+      .results-score-big {
+        font-size: 2.8rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Barra Superior -->
+  <header class="sticky-header">
+    <div class="header-content">
+      <div class="header-title">Simulado IFMG: Lei nº 11.892/2008 (Arts. 1º a 8º)</div>
+      <div style="display: flex; align-items: center; gap: 12px;">
+        <span class="progress-stats" id="progress-text">0 / 10 respondidas</span>
+        <div class="progress-bar-container">
+          <div class="progress-bar-fill" id="progress-bar"></div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+
+    <!-- Card Introdutório -->
+    <section class="intro-card">
+      <span class="intro-badge">Simulado Especializado</span>
+      <h1>Legislação Aplicada: Lei Federal nº 11.892/2008</h1>
+      <p><strong>Foco Temático:</strong> Natureza jurídica autárquica com autonomia universitária, finalidades e princípios formativos, e metas obrigatórias de oferta de vagas (arts. 1º a 8º).</p>
+      <p><strong>Estilo da Banca:</strong> Banca Comissão Central de Concurso Público da Reitoria do IFMG.</p>
+    </section>
+
+    <!-- Painel de Resultados (Aparece após finalização) -->
+    <section id="results-panel" class="results-summary-card">
+      <h2 style="font-size: 1.4rem; color: #111827;">Desempenho no Simulado</h2>
+      <div class="results-score-big" id="score-display">0 / 10</div>
+      <p class="results-score-label" id="score-percentage">0% de aproveitamento</p>
+      <div id="score-badge" class="results-feedback-tag">Avaliando...</div>
+      
+      <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 10px;">
+        Navegue pelas questões abaixo para revisar cada uma com o seu respectivo gabarito e resolução detalhada:
+      </p>
+      <div class="quick-jump-grid" id="jump-grid"></div>
+    </section>
+
+    <div id="notice-box" class="notice-box"></div>
+
+    <!-- QUESTÃO 01 -->
+    <article class="question-card" id="q-1" data-correct="B">
+      <div class="question-meta">
+        <span class="badge-banca">IFMG</span>
+        <span class="badge-assunto">Natureza Jurídica e Regime de Autonomia (Arts. 1º e 2º)</span>
+      </div>
+      <h2 class="question-title">Questão 01</h2>
+      <p class="question-stem">
+        No que tange à instituição da Rede Federal de Educação Profissional, Científica e Tecnológica e à configuração jurídica conferida aos Institutos Federais de Educação, Ciência e Tecnologia, disciplinadas pela Lei Federal nº 11.892/2008, assinale a alternativa CORRETA:
+      </p>
+      <div class="options-list">
+        <label class="option-label" data-letter="A">
+          <input type="radio" name="opt-q-1" value="A" class="option-input">
+          <span class="option-letter">A</span>
+          <span class="option-text">Os Institutos Federais foram estruturados como fundações públicas federais com personalidade jurídica de direito público, usufruindo de prerrogativas patrimoniais idênticas às das agências executivas federais.</span>
+        </label>
+        <label class="option-label" data-letter="B">
+          <input type="radio" name="opt-q-1" value="B" class="option-input">
+          <span class="option-letter">B</span>
+          <span class="option-text">As instituições integrantes da Rede Federal mencionadas nos incisos I, II e V do caput do art. 1º possuem natureza jurídica de autarquia, detentoras de autonomia administrativa, patrimonial, financeira, didático-pedagógica e disciplinar.</span>
+        </label>
+        <label class="option-label" data-letter="C">
+          <input type="radio" name="opt-q-1" value="C" class="option-input">
+          <span class="option-letter">C</span>
+          <span class="option-text">A outorga de autonomia disciplinar afasta a incidência do Regime Jurídico Único dos Servidores Públicos Civis da União, autorizando a Reitoria a fixar regimes previdenciários e disciplinares próprios por meio de portarias executivas.</span>
+        </label>
+        <label class="option-label" data-letter="D">
+          <input type="radio" name="opt-q-1" value="D" class="option-input">
+          <span class="option-letter">D</span>
+          <span class="option-text">Os Institutos Federais configuram órgãos administrativos desconcentrados diretamente subordinados à Secretaria de Educação Profissional e Tecnológica do Ministério da Educação, desprovidos de descentralização jurídica e orçamentária própria.</span>
+        </label>
+        <label class="option-label" data-letter="E">
+          <input type="radio" name="opt-q-1" value="E" class="option-input">
+          <span class="option-letter">E</span>
+          <span class="option-text">A natureza autárquica outorga prerrogativa irrestrita para alienação discricionária do patrimônio imobiliário institucional, independentemente de autorização legislativa ou vinculação aos objetivos institucionais finalísticos.</span>
+        </label>
+      </div>
+      
+      <div class="resolution-wrapper" id="res-1">
+        <div class="resolution-card">
+          <div class="resolution-badge">Gabarito Oficial: Alternativa B (Art. 1º, parágrafo único)</div>
+          <div class="resolution-body">
+            <p><strong>Resolução Analítica:</strong> A alternativa B expressa a literalidade do parágrafo único do art. 1º da Lei Federal nº 11.892/2008, que define expressamente a natureza jurídica de autarquia conferida às instituições da Rede Federal (previstas nos incisos I, II e V do caput do art. 1º), outorgando-lhes um conjunto de cinco autonomias institucionais: administrativa, patrimonial, financeira, didático-pedagógica e disciplinar.</p>
+            <p>A correção da alternativa B torna evidentes as falhas técnicas das demais alternativas. Os Institutos Federais não foram estruturados na modalidade fundacional de direito público, como alega a alternativa A, mas categorizados formalmente como autarquias federais pluricurriculares e multicampi vinculadas ao Ministério da Educação. Por sua vez, a autonomia disciplinar não confere competência à Reitoria para derrogar o estatuto funcional unificado federal, permanecendo os servidores sujeitos aos deveres, proibições e ao processo administrativo disciplinar estatuídos pela Lei Federal nº 8.112/1990, o que desqualifica a alternativa C. Em contraposição à assertiva D, os Institutos integram a Administração Pública Indireta, dotados de personalidade jurídica de direito público e patrimônio descentralizado próprio, afastando o enquadramento redutor de meros órgãos desconcentrados despersonalizados subordinados à pasta ministerial. Por fim, a alternativa E incorre em erro grosseiro ao ignorar que os bens e direitos dos Institutos Federais possuem afetação pública vinculada; segundo o art. 17, parágrafo único, esses ativos devem ser aplicados com exclusividade na consecução de suas finalidades e sua alienação condiciona-se rigorosamente às hipóteses e ritos permitidos em lei federal.</p>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- QUESTÃO 02 -->
+    <article class="question-card" id="q-2" data-correct="A">
+      <div class="question-meta">
+        <span class="badge-banca">IFMG</span>
+        <span class="badge-assunto">Equiparação Regulatória Universitária e Competência Concessória (Art. 2º, §§ 1º e 3º)</span>
+      </div>
+      <h2 class="question-title">Questão 02</h2>
+      <p class="question-stem">
+        A respeito das prerrogativas acadêmicas e institucionais outorgadas aos Institutos Federais de Educação, Ciência e Tecnologia pelo art. 2º da Lei Federal nº 11.892/2008, assinale a alternativa CORRETA:
+      </p>
+      <div class="options-list">
+        <label class="option-label" data-letter="A">
+          <input type="radio" name="opt-q-2" value="A" class="option-input">
+          <span class="option-letter">A</span>
+          <span class="option-text">Para efeito da incidência das disposições que regem a regulação, a avaliação e a supervisão das instituições e dos cursos de educação superior, os Institutos Federais são equiparados às universidades federais.</span>
+        </label>
+        <label class="option-label" data-letter="B">
+          <input type="radio" name="opt-q-2" value="B" class="option-input">
+          <span class="option-letter">B</span>
+          <span class="option-text">A competência para criação e extinção de cursos no âmbito dos Institutos Federais é privativa do Reitor, mediante expedição de portaria unilateral chancelada diretamente pela Secretaria de Educação Superior do Ministério da Educação.</span>
+        </label>
+        <label class="option-label" data-letter="C">
+          <input type="radio" name="opt-q-2" value="C" class="option-input">
+          <span class="option-letter">C</span>
+          <span class="option-text">A prerrogativa de emitir e registrar diplomas de graduação superior ofertados pelos Institutos Federais permaneceu sob a exclusividade técnica das Universidades Federais mais antigas de cada unidade federativa.</span>
+        </label>
+        <label class="option-label" data-letter="D">
+          <input type="radio" name="opt-q-2" value="D" class="option-input">
+          <span class="option-letter">D</span>
+          <span class="option-text">A oferta de cursos na modalidade de educação a distância independe de autorização institucional ou de subsunção à legislação específica federal, aplicando-se integralmente a prerrogativa ampla de criação curricular intra-rede.</span>
+        </label>
+        <label class="option-label" data-letter="E">
+          <input type="radio" name="opt-q-2" value="E" class="option-input">
+          <span class="option-letter">E</span>
+          <span class="option-text">A equiparação legal às universidades federais impõe a extinção compulsória de todos os cursos técnicos de nível médio preexistentes na instituição, convertendo-os integralmente em cursos de tecnologia superior.</span>
+        </label>
+      </div>
+
+      <div class="resolution-wrapper" id="res-2">
+        <div class="resolution-card">
+          <div class="resolution-badge">Gabarito Oficial: Alternativa A (Art. 2º, § 1º)</div>
+          <div class="resolution-body">
+            <p><strong>Resolução Analítica:</strong> A alternativa A está em harmonia com o texto do art. 2º, § 1º, da Lei Federal nº 11.892/2008, que prescreve textualmente a paridade entre os Institutos Federais e as universidades federais no que tange à incidência dos diplomas legais pertinentes à regulação, supervisão e avaliação do ensino superior. Esse dispositivo garante que os cursos superiores ofertados pelos Institutos Federais se insiram com equivalência de status no Sistema Nacional de Avaliação da Educação Superior (SINAES).</p>
+            <p>As demais opções colidem com o arcabouço da lei. A prerrogativa institucional de criar e extinguir cursos no âmbito territorial dos Institutos não repousa em deliberação monocrática do dirigente máximo, como propõe a alternativa B, mas depende impreterivelmente de apreciação e homologação do Conselho Superior (CONSUP), órgão colegiado máximo de caráter consultivo e deliberativo, nos termos do art. 2º, § 3º. A alternativa C cai por terra porque o próprio § 3º do art. 2º conferiu expressamente aos Institutos Federais a prerrogativa autônoma de registrar diplomas de todos os cursos por eles mantidos, quebrando a dependência histórica de chancelamento em reitorias de universidades convencionais. Já a alternativa D é rechaçada pela dicção final do § 3º do art. 2º, que determina a obrigatoriedade de observância à legislação federal específica quando da oferta de cursos a distância. Por fim, a alternativa E carece inteiramente de suporte legal, pois a equiparação regulatória conferida à educação superior não autoriza a supressão da educação técnica de nível médio, que permanece como cerne vocacional da Rede Federal.</p>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- QUESTÃO 03 -->
+    <article class="question-card" id="q-3" data-correct="C">
+      <div class="question-meta">
+        <span class="badge-banca">IFMG</span>
+        <span class="badge-assunto">Acreditação e Certificação Profissional (Art. 2º, § 2º)</span>
+      </div>
+      <h2 class="question-title">Questão 03</h2>
+      <p class="question-stem">
+        Em consonância com as competências institucionais expressamente estabelecidas no art. 2º da Lei Federal nº 11.892/2008, no âmbito de sua atuação, os Institutos Federais exercerão o papel de instituições:
+      </p>
+      <div class="options-list">
+        <label class="option-label" data-letter="A">
+          <input type="radio" name="opt-q-3" value="A" class="option-input">
+          <span class="option-letter">A</span>
+          <span class="option-text">reguladoras e fiscalizadoras de todas as entidades de ensino profissional pertencentes ao denominado Sistema S.</span>
+        </label>
+        <label class="option-label" data-letter="B">
+          <input type="radio" name="opt-q-3" value="B" class="option-input">
+          <span class="option-letter">B</span>
+          <span class="option-text">exclusivamente executoras das deliberações didáticas e normativas fixadas pelos conselhos estaduais de educação da respectiva unidade federativa.</span>
+        </label>
+        <label class="option-label" data-letter="C">
+          <input type="radio" name="opt-q-3" value="C" class="option-input">
+          <span class="option-letter">C</span>
+          <span class="option-text">acreditadoras e certificadoras de competências profissionais.</span>
+        </label>
+        <label class="option-label" data-letter="D">
+          <input type="radio" name="opt-q-3" value="D" class="option-input">
+          <span class="option-letter">D</span>
+          <span class="option-text">deliberativas primárias na homologação de currículos da rede pública de ensino fundamental dos municípios circunvizinhos aos campi.</span>
+        </label>
+        <label class="option-label" data-letter="E">
+          <input type="radio" name="opt-q-3" value="E" class="option-input">
+          <span class="option-letter">E</span>
+          <span class="option-text">centralizadoras da expedição dos títulos de habilitação técnica comercial de âmbito exclusivamente privado regional.</span>
+        </label>
+      </div>
+
+      <div class="resolution-wrapper" id="res-3">
+        <div class="resolution-card">
+          <div class="resolution-badge">Gabarito Oficial: Alternativa C (Art. 2º, § 2º)</div>
+          <div class="resolution-body">
+            <p><strong>Resolução Analítica:</strong> A alternativa C reproduz a atribuição fixada pelo art. 2º, § 2º, da Lei Federal nº 11.892/2008, segundo a qual os Institutos Federais desempenham o papel de instituições acreditadoras e certificadoras de competências profissionais. Essa base legal confere legitimidade aos processos de reconhecimento e validação formal de saberes técnicos adquiridos por trabalhadores em itinerários formais e experiências informais no mundo do trabalho.</p>
+            <p>Quanto aos distratores, as alternativas A, B, D e E atribuem aos Institutos Federais papéis regulatórios estatais ou prerrogativas fiscalizadoras impertinentes. Os IFs constituem entes executores de ensino, pesquisa aplicada e extensão tecnológica, não possuindo poder de polícia regulatório sobre os serviços sociais autônomos do Sistema S (objeto da assertiva A), nem subordinação técnico-pedagógica perante os sistemas estaduais e municipais de ensino, já que integram o Sistema Federal de Ensino gerido pela União (o que afasta a alternativa B). De igual modo, não exercem competência deliberativa primária na homologação de currículos de ensino fundamental de terceiros municípios (erro da alternativa D), tampouco atuam como tabelionatos burocráticos centralizadores de títulos privados dissociados de sua própria oferta formativa (erro da alternativa E).</p>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- QUESTÃO 04 -->
+    <article class="question-card" id="q-4" data-correct="B">
+      <div class="question-meta">
+        <span class="badge-banca">IFMG</span>
+        <span class="badge-assunto">Princípios Formativos e Verticalização da Educação Básica à Superior (Art. 6º, III)</span>
+      </div>
+      <h2 class="question-title">Questão 04</h2>
+      <p class="question-stem">
+        O modelo pedagógico e organizacional fixado pela Lei Federal nº 11.892/2008 visa à superação da dicotomia histórica entre o trabalho manual e o intelectual, orientando a gestão das unidades escolares públicas. Conforme prescreve o art. 6º, inciso III, da mencionada legislação, constitui finalidade e característica dos Institutos Federais:
+      </p>
+      <div class="options-list">
+        <label class="option-label" data-letter="A">
+          <input type="radio" name="opt-q-4" value="A" class="option-input">
+          <span class="option-letter">A</span>
+          <span class="option-text">manter a separação estrita e estanque entre os espaços de aprendizagem do ensino técnico e da graduação superior, vedando o compartilhamento de laboratórios didáticos e biblioteca central.</span>
+        </label>
+        <label class="option-label" data-letter="B">
+          <input type="radio" name="opt-q-4" value="B" class="option-input">
+          <span class="option-letter">B</span>
+          <span class="option-text">promover a integração e a verticalização da educação básica à educação profissional e educação superior, otimizando a infraestrutura física, os quadros de pessoal e os recursos de gestão.</span>
+        </label>
+        <label class="option-label" data-letter="C">
+          <input type="radio" name="opt-q-4" value="C" class="option-input">
+          <span class="option-letter">C</span>
+          <span class="option-text">restringir a atuação pedagógica do corpo docente concursado à educação básica, delegando a totalidade das disciplinas de graduação e pós-graduação a instrutores voluntários terceirizados.</span>
+        </label>
+        <label class="option-label" data-letter="D">
+          <input type="radio" name="opt-q-4" value="D" class="option-input">
+          <span class="option-letter">D</span>
+          <span class="option-text">condicionar o ingresso de concluintes do curso técnico aos cursos superiores da mesma instituição à aprovação em processo seletivo interno restrito, sem abertura de vagas à ampla concorrência social.</span>
+        </label>
+        <label class="option-label" data-letter="E">
+          <input type="radio" name="opt-q-4" value="E" class="option-input">
+          <span class="option-letter">E</span>
+          <span class="option-text">alocar os recursos orçamentários de custeio e capital exclusivamente no desenvolvimento de cursos de bacharelado tradicional, em detrimento das instalações destinadas à formação profissional de nível médio.</span>
+        </label>
+      </div>
+
+      <div class="resolution-wrapper" id="res-4">
+        <div class="resolution-card">
+          <div class="resolution-badge">Gabarito Oficial: Alternativa B (Art. 6º, inciso III)</div>
+          <div class="resolution-body">
+            <p><strong>Resolução Analítica:</strong> A alternativa B consagra com precisão a finalidade fixada pelo art. 6º, inciso III, da Lei Federal nº 11.892/2008, que incumbe aos Institutos a missão de promover a integração e a verticalização da educação básica à educação profissional e educação superior, otimizando a infraestrutura física, os quadros de pessoal e os recursos de gestão. O conceito de verticalização rompe a compartimentação tradicional entre graus acadêmicos, permitindo que estudantes transitem desde a formação técnica até a pós-graduação e propiciando aos docentes atuação sinérgica em múltiplos níveis.</p>
+            <p>Os distratores incorrem em proposições antagônicas à racionalidade da Rede Federal. A alternativa A defende uma cisão física e orçamentária entre níveis que contraria abertamente o dever de compartilhamento de infraestrutura e otimização patrimonial estabelecido pela lei. A alternativa C introduz mecanismo espúrio de precarização ao defender terceirização docente em disciplinas de ensino básico, colidindo com a estruturação da carreira única de Ensino Básico, Técnico e Tecnológico (EBTT), que habilita os servidores concursados a lecionar tanto na educação de nível médio quanto na graduação e pós-graduação. A alternativa D fere os postulados constitucionais da isonomia e da acessibilidade pública ao cogitar processos seletivos internos privativos fechados. Por fim, a assertiva E desconsidera o fato de que a prioridade orçamentária e a identidade institucional dos Institutos Federais apoiam-se na educação profissional e tecnológica, configurando o bacharelado acadêmico convencional uma modalidade complementar, jamais exclusiva.</p>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- QUESTÃO 05 -->
+    <article class="question-card" id="q-5" data-correct="D">
+      <div class="question-meta">
+        <span class="badge-banca">IFMG</span>
+        <span class="badge-assunto">Finalidades Formativas e Pesquisa Aplicada (Art. 6º)</span>
+      </div>
+      <h2 class="question-title">Questão 05</h2>
+      <p class="question-stem">
+        No que concerne às finalidades e características dos Institutos Federais disciplinadas pelo art. 6º da Lei Federal nº 11.892/2008, analise os postulados institucionais e assinale a alternativa <strong>INCORRETA</strong>:
+      </p>
+      <div class="options-list">
+        <label class="option-label" data-letter="A">
+          <input type="radio" name="opt-q-5" value="A" class="option-input">
+          <span class="option-letter">A</span>
+          <span class="option-text">Constitui finalidade institucional qualificar-se como centro de referência no apoio à oferta do ensino de ciências nas instituições públicas de ensino, oferecendo capacitação técnica e atualização pedagógica aos docentes das redes públicas.</span>
+        </label>
+        <label class="option-label" data-letter="B">
+          <input type="radio" name="opt-q-5" value="B" class="option-input">
+          <span class="option-letter">B</span>
+          <span class="option-text">Os Institutos Federais devem constituir-se em centros de excelência na oferta do ensino de ciências, estimulando o desenvolvimento de espírito crítico, voltado à investigação empírica.</span>
+        </label>
+        <label class="option-label" data-letter="C">
+          <input type="radio" name="opt-q-5" value="C" class="option-input">
+          <span class="option-letter">C</span>
+          <span class="option-text">É característica institucional realizar e estimular a pesquisa aplicada, a produção cultural, o empreendedorismo, o cooperativismo e o desenvolvimento científico e tecnológico.</span>
+        </label>
+        <label class="option-label" data-letter="D">
+          <input type="radio" name="opt-q-5" value="D" class="option-input">
+          <span class="option-letter">D</span>
+          <span class="option-text">As instituições devem orientar sua atuação formativa e científica para a priorização de pesquisas básicas especulativas de caráter abstrato desvinculadas das demandas produtivas regionais, desconsiderando a aplicação social imediata.</span>
+        </label>
+        <label class="option-label" data-letter="E">
+          <input type="radio" name="opt-q-5" value="E" class="option-input">
+          <span class="option-letter">E</span>
+          <span class="option-text">Incumbe aos Institutos Federais promover a produção, o desenvolvimento e a transferência de tecnologias sociais, notadamente as voltadas à preservação do meio ambiente.</span>
+        </label>
+      </div>
+
+      <div class="resolution-wrapper" id="res-5">
+        <div class="resolution-card">
+          <div class="resolution-badge">Gabarito Oficial: Alternativa D (Art. 6º, incisos II, VIII e IX)</div>
+          <div class="resolution-body">
+            <p><strong>Resolução Analítica:</strong> A alternativa D é a assertiva incorreta a ser assinalada, porquanto inverte intencionalmente a identidade científica traçada pela lei instituidora. Os Institutos Federais foram delineados pela Lei Federal nº 11.892/2008 para atuar preponderantemente no campo da pesquisa aplicada, do desenvolvimento científico e tecnológico voltado à superação de gargalos produtivos regionais e do desenvolvimento de soluções sociais integradas (art. 6º, II e VIII), distanciando-se de uma concepção acadêmica especulativa descolada da sociedade.</p>
+            <p>As demais alternativas retratam com fidedignidade as diretrizes positivadas no art. 6º. A alternativa A espelha o inciso VI, que consagra os Institutos como centros de referência no apoio à oferta do ensino de ciências nas escolas públicas mediante a formação continuada docente. A alternativa B fundamenta-se textualmente no inciso V, que exige excelência no ensino científico associado ao desenvolvimento do espírito crítico empírico. A alternativa C reproduz a dicção integral do inciso VIII, englobando a produção cultural, o empreendedorismo social e o cooperativismo. Por fim, a alternativa E ampara-se no inciso IX, que comanda expressamente o fomento e a transferência de tecnologias sociais voltadas à preservação do meio ambiente.</p>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- QUESTÃO 06 -->
+    <article class="question-card" id="q-6" data-correct="C">
+      <div class="question-meta">
+        <span class="badge-banca">IFMG</span>
+        <span class="badge-assunto">Objetivos Educacionais e Educação Profissional Técnica Integrada (Art. 7º, inciso I)</span>
+      </div>
+      <h2 class="question-title">Questão 06</h2>
+      <p class="question-stem">
+        O art. 7º da Lei Federal nº 11.892/2008 estabelece as diretrizes pedagógicas e os objetivos formativos a serem implementados pela Rede Federal. Em relação à educação técnica de nível médio, o diploma legal determina que é objetivo dos Institutos Federais:
+      </p>
+      <div class="options-list">
+        <label class="option-label" data-letter="A">
+          <input type="radio" name="opt-q-6" value="A" class="option-input">
+          <span class="option-letter">A</span>
+          <span class="option-text">ministrar educação profissional técnica de nível médio, exclusivamente na modalidade concomitante, mediante celebração compulsória de convênios prévios com entidades da indústria privada local.</span>
+        </label>
+        <label class="option-label" data-letter="B">
+          <input type="radio" name="opt-q-6" value="B" class="option-input">
+          <span class="option-letter">B</span>
+          <span class="option-text">ofertar o ensino médio técnico de forma subsidiária, restringindo o número total de turmas a no máximo 15% (quinze por cento) da capacidade instalada de cada campus para priorizar as pós-graduações.</span>
+        </label>
+        <label class="option-label" data-letter="C">
+          <input type="radio" name="opt-q-6" value="C" class="option-input">
+          <span class="option-letter">C</span>
+          <span class="option-text">ministrar educação profissional técnica de nível médio, prioritariamente na forma de cursos integrados, para os concluintes do ensino fundamental e para o público da educação de jovens e adultos.</span>
+        </label>
+        <label class="option-label" data-letter="D">
+          <input type="radio" name="opt-q-6" value="D" class="option-input">
+          <span class="option-letter">D</span>
+          <span class="option-text">extinguir a oferta de cursos técnicos destinados à educação de jovens e adultos (PROEJA), limitando a formação integrada exclusivamente aos jovens em idade regular de escolarização.</span>
+        </label>
+        <label class="option-label" data-letter="E">
+          <input type="radio" name="opt-q-6" value="E" class="option-input">
+          <span class="option-letter">E</span>
+          <span class="option-text">terceirizar as disciplinas propedêuticas da base nacional comum curricular dos cursos técnicos integrados às secretarias estaduais de educação, responsabilizando-se unicamente pelas oficinas práticas laboratoriais.</span>
+        </label>
+      </div>
+
+      <div class="resolution-wrapper" id="res-6">
+        <div class="resolution-card">
+          <div class="resolution-badge">Gabarito Oficial: Alternativa C (Art. 7º, inciso I)</div>
+          <div class="resolution-body">
+            <p><strong>Resolução Analítica:</strong> A alternativa C encontra respaldo inquestionável no art. 7º, inciso I, da Lei Federal nº 11.892/2008, que preceitua como objetivo dos Institutos Federais: "ministrar educação profissional técnica de nível médio, prioritariamente na forma de cursos integrados, para os concluintes do ensino fundamental e para o público da educação de jovens e adultos". O ensino integrado ao ensino médio materializa o ideário da formação politécnica e omnilateral, articulando ciência, trabalho e cultura num percurso de matrícula unificada.</p>
+            <p>A análise comparativa evidencia o desacerto das alternativas concorrentes. A alternativa A comete duplo equívoco ao rotular a modalidade concomitante como obrigatória e erigir parcerias industriais privadas compulsórias como pressuposto de funcionamento. A alternativa B incorre em distorção ao apresentar a educação técnica de nível médio como atividade subsidiária e estabelecer um limite máximo irrisório de 15%, quando o art. 8º impõe, na realidade, um piso mínimo de 50% de oferta para esse nível. A alternativa D é repudiada pelo texto expresso da norma, que inclui expressamente o público da educação de jovens e adultos (PROEJA) como destinatário prioritário das turmas de formação integrada. A alternativa E, por seu turno, desconsidera o princípio da unicidade curricular dos cursos integrados, nos quais o Instituto Federal responde integralmente pelo projeto pedagógico do curso, congregando formação geral e conhecimentos técnicos específicos sob responsabilidade de seu próprio corpo docente.</p>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- QUESTÃO 07 -->
+    <article class="question-card" id="q-7" data-correct="A">
+      <div class="question-meta">
+        <span class="badge-banca">IFMG</span>
+        <span class="badge-assunto">Objetivos Institucionais para Formação de Trabalhadores (Art. 7º, incisos II e V)</span>
+      </div>
+      <h2 class="question-title">Questão 07</h2>
+      <p class="question-stem">
+        Na execução de seus objetivos voltados à inclusão produtiva e à democratização educacional, a Lei Federal nº 11.892/2008 atribui relevância central à Formação Inicial e Continuada (FIC). A respeito desse objetivo educacional e de seus reflexos societários, assinale a afirmativa CORRETA:
+      </p>
+      <div class="options-list">
+        <label class="option-label" data-letter="A">
+          <input type="radio" name="opt-q-7" value="A" class="option-input">
+          <span class="option-letter">A</span>
+          <span class="option-text">Os cursos de formação inicial e continuada devem objetivar a capacitação, o aperfeiçoamento, a especialização e a atualização de profissionais, em todos os níveis de escolaridade, nas áreas da educação profissional e tecnológica.</span>
+        </label>
+        <label class="option-label" data-letter="B">
+          <input type="radio" name="opt-q-7" value="B" class="option-input">
+          <span class="option-letter">B</span>
+          <span class="option-text">A oferta de formação continuada de trabalhadores limita-se expressamente aos indivíduos analfabetos funcionais, sendo vedada a matrícula de profissionais que já possuam diploma de ensino médio ou superior.</span>
+        </label>
+        <label class="option-label" data-letter="C">
+          <input type="radio" name="opt-q-7" value="C" class="option-input">
+          <span class="option-letter">C</span>
+          <span class="option-text">A atuação em cursos de formação inicial submete-se à autorização prévia das confederações empresariais do setor industrial, às quais incumbe homologar a matriz programática dos cursos dos Institutos Federais.</span>
+        </label>
+        <label class="option-label" data-letter="D">
+          <input type="radio" name="opt-q-7" value="D" class="option-input">
+          <span class="option-letter">D</span>
+          <span class="option-text">O estímulo e apoio a processos educativos geradores de trabalho, renda e emancipação cidadã constitui diretriz facultativa, cuja implantação depende de superávit financeiro comprovado no balanço anual da Reitoria.</span>
+        </label>
+        <label class="option-label" data-letter="E">
+          <input type="radio" name="opt-q-7" value="E" class="option-input">
+          <span class="option-letter">E</span>
+          <span class="option-text">A oferta de cursos de formação inicial e continuada de trabalhadores tem caráter estritamente assistencialista, dispensando qualquer articulação estruturada com a pesquisa aplicada e os arranjos produtivos locais.</span>
+        </label>
+      </div>
+
+      <div class="resolution-wrapper" id="res-7">
+        <div class="resolution-card">
+          <div class="resolution-badge">Gabarito Oficial: Alternativa A (Art. 7º, inciso II)</div>
+          <div class="resolution-body">
+            <p><strong>Resolução Analítica:</strong> A alternativa A reflete com perfeição o art. 7º, inciso II, da Lei Federal nº 11.892/2008, assinalando que incumbe aos Institutos "ministrar cursos de formação inicial e continuada de trabalhadores, objetivando a capacitação, o aperfeiçoamento, a especialização e a atualização de profissionais, em todos os níveis de escolaridade, nas áreas da educação profissional e tecnológica".</p>
+            <p>As demais assertivas incorrem em falhas patentes. A alternativa B limita indevidamente o público da formação continuada a pessoas analfabetas funcionais, em aberta contradição com o texto normativo, que contempla trabalhadores em todos os níveis de escolaridade básica ou superior. A assertiva C cria amarra regulatória inexistente ao pretender subordinar a abertura de cursos institucionais à aprovação de confederações empresariais industriais, em flagrante agressão à autonomia universitária didática garantida por lei à instituição pública. A alternativa D erra ao classificar o estímulo a processos emancipatórios geradores de trabalho e renda como diretriz meramente facultativa, quando o art. 7º, inciso V, institui essa linha de ação como objetivo permanente imperativo. Por fim, a alternativa E adota um reducionismo assistencialista incompatível com o modelo acadêmico integrado da Rede Federal, que vincula as iniciativas de qualificação do trabalhador à pesquisa aplicada e aos arranjos socioprodutivos dos territórios de inserção dos campi.</p>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- QUESTÃO 08 -->
+    <article class="question-card" id="q-8" data-correct="C">
+      <div class="question-meta">
+        <span class="badge-banca">IFMG</span>
+        <span class="badge-assunto">Metas Quantitativas Obrigatórias de Vagas na Matriz Acadêmica (Art. 8º, caput)</span>
+      </div>
+      <h2 class="question-title">Questão 08</h2>
+      <p class="question-stem">
+        Ao deliberar sobre a programação acadêmica anual e a distribuição de vagas para novos ingressantes nos processos seletivos do Instituto Federal, a gestão institucional deve pautar-se estritamente pelas metas percentuais vinculantes fixadas no art. 8º, caput, da Lei Federal nº 11.892/2008. Em cada exercício civil, a instituição deverá garantir, obrigatoriamente, no desenvolvimento de sua ação acadêmica, o mínimo de:
+      </p>
+      <div class="options-list">
+        <label class="option-label" data-letter="A">
+          <input type="radio" name="opt-q-8" value="A" class="option-input">
+          <span class="option-letter">A</span>
+          <span class="option-text">40% (quarenta por cento) de suas vagas para cursos técnicos de nível médio e o mínimo de 30% (trinta por cento) para cursos de pós-graduação lato sensu e stricto sensu.</span>
+        </label>
+        <label class="option-label" data-letter="B">
+          <input type="radio" name="opt-q-8" value="B" class="option-input">
+          <span class="option-letter">B</span>
+          <span class="option-text">60% (sessenta por cento) de suas vagas para cursos superiores de tecnologia e engenharias e o mínimo de 10% (dez por cento) para programas de extensão social comunitária.</span>
+        </label>
+        <label class="option-label" data-letter="C">
+          <input type="radio" name="opt-q-8" value="C" class="option-input">
+          <span class="option-letter">C</span>
+          <span class="option-text">50% (cinquenta por cento) de suas vagas para atender à educação profissional técnica de nível médio (art. 7º, I) e o mínimo de 20% (vinte por cento) para atender aos cursos de licenciatura e formação pedagógica (art. 7º, VI, "b").</span>
+        </label>
+        <label class="option-label" data-letter="D">
+          <input type="radio" name="opt-q-8" value="D" class="option-input">
+          <span class="option-letter">D</span>
+          <span class="option-text">70% (setenta por cento) de suas vagas para cursos técnicos de nível médio integrado e o percentual fixo de 30% (trinta por cento) dividido uniformemente entre bacharelados científicos e cursos FIC.</span>
+        </label>
+        <label class="option-label" data-letter="E">
+          <input type="radio" name="opt-q-8" value="E" class="option-input">
+          <span class="option-letter">E</span>
+          <span class="option-text">20% (vinte por cento) de suas vagas para a modalidade integrada e o mínimo de 50% (cinquenta por cento) para cursos de graduação e especialização tecnológica avançada.</span>
+        </label>
+      </div>
+
+      <div class="resolution-wrapper" id="res-8">
+        <div class="resolution-card">
+          <div class="resolution-badge">Gabarito Oficial: Alternativa C (Art. 8º, caput)</div>
+          <div class="resolution-body">
+            <p><strong>Resolução Analítica:</strong> A alternativa C enuncia precisamente as duas cotas acadêmicas cogentes e complementares estatuídas pelo art. 8º, caput, da Lei Federal nº 11.892/2008:</p>
+            <p>1. Mínimo de 50% (cinquenta por cento) de suas vagas destinadas ao atendimento dos objetivos traçados no art. 7º, inciso I (cursos de educação profissional técnica de nível médio, prioritariamente na forma integrada);</p>
+            <p>2. Mínimo de 20% (vinte por cento) de suas vagas canalizadas para os objetivos expostos na alínea "b" do inciso VI do caput do art. 7º (cursos de licenciatura e programas de formação pedagógica, precipuamente nas áreas de ciências da natureza, matemática e educação profissional).</p>
+            <p>As alternativas concorrentes operam combinações numéricas adulteradas e desprovidas de respaldo normativo. A alternativa A desvia o foco ao estabelecer falsos patamares de 40% para cursos técnicos e inventar cota mínima de 30% para pós-graduações. A alternativa B preconiza um percentual de 60% voltado aos cursos de tecnologia superior e engenharias e uma reserva de 10% para extensão universitária que inexistem no art. 8º. A alternativa D substitui os parâmetros legais por percentuais fictícios de 70% e 30% sem respaldo estatutário. De forma semelhante, a assertiva E inverte os termos da lei, reduzindo a formação de nível médio a uma fatia de 20% e elevando as graduações superiores tecnológicas a uma cota de 50% incompatível com o desenho finalístico do ordenamento.</p>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- QUESTÃO 09 -->
+    <article class="question-card" id="q-9" data-correct="C">
+      <div class="question-meta">
+        <span class="badge-banca">IFMG</span>
+        <span class="badge-assunto">Mensuração das Metas Quantitativas e Conceito de Aluno-Equivalente (Art. 8º, § 1º)</span>
+      </div>
+      <h2 class="question-title">Questão 09</h2>
+      <p class="question-stem">
+        Para monitorar e fiscalizar a conformidade da oferta acadêmica dos Institutos Federais em face das balizas estatuídas pelo art. 8º da Lei Federal nº 11.892/2008, o legislador instituiu critério técnico-metodológico próprio para cálculo dos índices legais. Conforme determina o § 1º do art. 8º da referida lei:
+      </p>
+      <div class="options-list">
+        <label class="option-label" data-letter="A">
+          <input type="radio" name="opt-q-9" value="A" class="option-input">
+          <span class="option-letter">A</span>
+          <span class="option-text">a fiscalização percentual de vagas é calculada pela simples soma aritmética de alunos matriculados presencialmente no primeiro dia letivo de cada semestre civil, desconsiderando a carga horária de integralização.</span>
+        </label>
+        <label class="option-label" data-letter="B">
+          <input type="radio" name="opt-q-9" value="B" class="option-input">
+          <span class="option-letter">B</span>
+          <span class="option-text">o cômputo dos índices é apurado com base no número de diplomas expedidos e chancelados ao término do ano letivo de referência, deduzidas as transferências e desistências voluntárias.</span>
+        </label>
+        <label class="option-label" data-letter="C">
+          <input type="radio" name="opt-q-9" value="C" class="option-input">
+          <span class="option-letter">C</span>
+          <span class="option-text">o cumprimento dos percentuais referidos no caput deverá observar o conceito de aluno-equivalente, conforme regulamentação a ser expedida pelo Ministério da Educação.</span>
+        </label>
+        <label class="option-label" data-letter="D">
+          <input type="radio" name="opt-q-9" value="D" class="option-input">
+          <span class="option-letter">D</span>
+          <span class="option-text">a metodologia de cálculo de vagas acadêmicas é fixada anualmente de maneira autônoma e descentralizada por ato monocrático de cada Diretor-Geral de campus, sem regulação do MEC.</span>
+        </label>
+        <label class="option-label" data-letter="E">
+          <input type="radio" name="opt-q-9" value="E" class="option-input">
+          <span class="option-letter">E</span>
+          <span class="option-text">a comprovação do atingimento das metas mínimas constitui procedimento facultativo para os campi localizados no interior dos estados federados durante seus primeiros 15 anos de instalação.</span>
+        </label>
+      </div>
+
+      <div class="resolution-wrapper" id="res-9">
+        <div class="resolution-card">
+          <div class="resolution-badge">Gabarito Oficial: Alternativa C (Art. 8º, § 1º)</div>
+          <div class="resolution-body">
+            <p><strong>Resolução Analítica:</strong> A alternativa C retrata integralmente a norma do art. 8º, § 1º, da Lei Federal nº 11.892/2008, segundo a qual "o cumprimento dos percentuais referidos no caput deverá observar o conceito de aluno-equivalente, conforme regulamentação a ser expedida pelo Ministério da Educação". A sistemática de aluno-equivalente visa corrigir distorções decorrentes da simples aferição nominal de cabeças em cursos com tempos de integralização e cargas horárias díspares, aplicando fatores de equalização pedagógica e operacional.</p>
+            <p>Os demais distratores carecem de supedâneo legal. A alternativa A erra ao afirmar que a conformidade baseia-se na contagem nominal bruta de matrículas efetuadas no início do semestre letivo, método desprovido de padronização métrica e expressamente suplantado pela regra do parágrafo primeiro. A alternativa B vincula incorretamente a aferição ao número de concluintes titulados, ignorando que o dispositivo legal incide sobre o cômputo global das vagas e da carga de atendimento escolar anual. A alternativa D vulnera a lei ao sustentar que a métrica de cálculo seria ato discricionário dos Diretores-Gerais de cada campus, quando a legislação atribui a padronização das regras centralizadamente ao Ministério da Educação. A alternativa E, por fim, introduz uma imunidade decenal ou quindecenal infundada para novos campi, visto que a observância das metas acadêmicas de vagas vincula anualmente o Instituto Federal em sua totalidade sistêmica sem exceções temporais gratuitas.</p>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- QUESTÃO 10 -->
+    <article class="question-card" id="q-10" data-correct="A">
+      <div class="question-meta">
+        <span class="badge-banca">IFMG</span>
+        <span class="badge-assunto">Flexibilização das Metas de Ensino Superior e Salvaguarda da Educação Técnica (Art. 8º, § 2º)</span>
+      </div>
+      <h2 class="question-title">Questão 10</h2>
+      <p class="question-stem">
+        Considere a seguinte conjuntura institucional: em determinado campus do Instituto Federal, localizado em polo de grande atração minerária e tecnológica regional, a comunidade local formaliza pleito consubstanciado para a expansão expressiva de vagas em cursos de graduação tecnológica e engenharia. Tendo em vista as prescrições insculpidas no art. 8º, § 2º, da Lei Federal nº 11.892/2008 acerca da modulação da oferta acadêmica, o atendimento à referida demanda:
+      </p>
+      <div class="options-list">
+        <label class="option-label" data-letter="A">
+          <input type="radio" name="opt-q-10" value="A" class="option-input">
+          <span class="option-letter">A</span>
+          <span class="option-text">poderá ser deferido por resolução do Conselho Superior do Instituto Federal, mediante necessária anuência do Ministério da Educação, sem prejuízo do índice mínimo de 50% assegurado à educação profissional técnica de nível médio.</span>
+        </label>
+        <label class="option-label" data-letter="B">
+          <input type="radio" name="opt-q-10" value="B" class="option-input">
+          <span class="option-letter">B</span>
+          <span class="option-text">pode ser autorizado unicamente pelo Reitor mediante decisão terminativa ad referendum, ficando o campus integralmente desobrigado de ofertar cursos técnicos de nível médio até que a demanda industrial seja suprimida.</span>
+        </label>
+        <label class="option-label" data-letter="C">
+          <input type="radio" name="opt-q-10" value="C" class="option-input">
+          <span class="option-letter">C</span>
+          <span class="option-text">autoriza o colegiado do campus a reduzir unilateralmente o piso dos cursos técnicos de nível médio para 20% (vinte por cento), efetuando a transferência do saldo de vagas para as novas graduações pleiteadas.</span>
+        </label>
+        <label class="option-label" data-letter="D">
+          <input type="radio" name="opt-q-10" value="D" class="option-input">
+          <span class="option-letter">D</span>
+          <span class="option-text">mostra-se juridicamente inviável, porquanto a legislação federal proíbe qualquer ajuste na matriz de oferta de cursos superiores, mesmo havendo clamor social ou autorização formal do MEC.</span>
+        </label>
+        <label class="option-label" data-letter="E">
+          <input type="radio" name="opt-q-10" value="E" class="option-input">
+          <span class="option-letter">E</span>
+          <span class="option-text">prescinde de manifestação de órgãos da administração superior da própria autarquia, demandando tão somente homologação expressa do Conselho Estadual de Educação.</span>
+        </label>
+      </div>
+
+      <div class="resolution-wrapper" id="res-10">
+        <div class="resolution-card">
+          <div class="resolution-badge">Gabarito Oficial: Alternativa A (Art. 8º, § 2º)</div>
+          <div class="resolution-body">
+            <p><strong>Resolução Analítica:</strong> A alternativa A harmoniza-se com a regra de flexibilização disposta no art. 8º, § 2º, da Lei Federal nº 11.892/2008: "Nas regiões em que as demandas sociais pela formação em nível superior justificarem, o Conselho Superior do Instituto Federal poderá, com anuência do Ministério da Educação, autorizar o ajuste da oferta desse nível de ensino, sem prejuízo do índice definido no caput deste artigo, para atender aos objetivos definidos no inciso I do caput do art. 7º desta Lei". A concessão de flexibilidade requer convergência entre três requisitos: justificativa social da região, deliberação colegiada pelo Conselho Superior com aval formal do MEC e proteção integral do piso de 50% de vagas direcionadas aos cursos técnicos de nível médio.</p>
+            <p>O exame das alternativas falsas evidencia falhas substantivas de regulação. A alternativa B atribui incorretamente poderes discricionários monocráticos ao Reitor e autoriza a suspensão da oferta de cursos técnicos, violando a exigência de deliberação do CONSUP com o MEC e transgredindo a salvaguarda do piso de 50%. A assertiva C sugere rebaixamento do patamar de nível médio para 20%, o que violaria diretamente a cláusula de barreira que veda qualquer prejuízo ao percentual mínimo estipulado no caput. A alternativa D claudica ao sustentar a imutabilidade absoluta da matriz educacional, desconhecendo a regra expressa de modulação do § 2º. Finalmente, a assertiva E padece de vício federativo insanável ao pretender substituir a manifestação dos órgãos de administração central do Instituto Federal e a homologação do Ministério da Educação por chancelas emanadas de conselhos de educação pertencentes à esfera estadual.</p>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- Barra de Ações -->
+    <div class="quiz-actions">
+      <button type="button" id="btn-finish" class="btn-submit">Finalizar Simulado e Ver Resoluções</button>
+      <button type="button" id="btn-reset" class="btn-reset">Reiniciar Respostas</button>
+    </div>
+
+  </main>
+
+  <script>
+    (function () {
+      "use strict";
+
+      const TOTAL_QUESTIONS = 10;
+      let isSubmitted = false;
+
+      const questionCards = document.querySelectorAll(".question-card");
+      const progressBar = document.getElementById("progress-bar");
+      const progressText = document.getElementById("progress-text");
+      const btnFinish = document.getElementById("btn-finish");
+      const btnReset = document.getElementById("btn-reset");
+      const resultsPanel = document.getElementById("results-panel");
+      const scoreDisplay = document.getElementById("score-display");
+      const scorePercentage = document.getElementById("score-percentage");
+      const scoreBadge = document.getElementById("score-badge");
+      const jumpGrid = document.getElementById("jump-grid");
+      const noticeBox = document.getElementById("notice-box");
+
+      // Atualiza o progresso visual de preenchimento
+      function updateProgress() {
+        let answeredCount = 0;
+        questionCards.forEach(card => {
+          const selected = card.querySelector('input[type="radio"]:checked');
+          if (selected) answeredCount++;
+        });
+
+        const pct = Math.round((answeredCount / TOTAL_QUESTIONS) * 100);
+        progressBar.style.width = pct + "%";
+        progressText.textContent = `${answeredCount} / ${TOTAL_QUESTIONS} respondidas`;
+      }
+
+      // Tratamento de clique nas alternativas
+      questionCards.forEach(card => {
+        const labels = card.querySelectorAll(".option-label");
+        labels.forEach(label => {
+          label.addEventListener("click", function () {
+            if (isSubmitted) return; // trava após envio
+
+            const radio = this.querySelector('input[type="radio"]');
+            radio.checked = true;
+
+            // Remove a seleção dos outros rótulos da mesma questão
+            labels.forEach(l => l.classList.remove("is-selected"));
+            this.classList.add("is-selected");
+
+            hideNotice();
+            updateProgress();
+          });
+        });
+      });
+
+      function showNotice(message) {
+        noticeBox.textContent = message;
+        noticeBox.style.display = "block";
+        noticeBox.scrollIntoView({ behavior: "smooth", block: "center" });
+      }
+
+      function hideNotice() {
+        noticeBox.style.display = "none";
+        noticeBox.textContent = "";
+      }
+
+      // Finalizar Simulado
+      btnFinish.addEventListener("click", function () {
+        if (isSubmitted) {
+          // Se já enviado, rola suavemente para o painel de resultados
+          resultsPanel.scrollIntoView({ behavior: "smooth" });
+          return;
+        }
+
+        // Verifica se há questões sem resposta
+        let unanswered = [];
+        questionCards.forEach((card, index) => {
+          const checked = card.querySelector('input[type="radio"]:checked');
+          if (!checked) unanswered.push(index + 1);
+        });
+
+        if (unanswered.length > 0) {
+          showNotice(`Atenção: você ainda não respondeu à(s) questão(ões) ${unanswered.join(", ")}. Por favor, responda a todas antes de finalizar.`);
+          return;
+        }
+
+        isSubmitted = true;
+        hideNotice();
+
+        let correctCount = 0;
+        jumpGrid.innerHTML = "";
+
+        questionCards.forEach((card, idx) => {
+          const qNum = idx + 1;
+          const correctLetter = card.getAttribute("data-correct");
+          const checkedRadio = card.querySelector('input[type="radio"]:checked');
+          const userChoice = checkedRadio ? checkedRadio.value : null;
+
+          const isCorrect = (userChoice === correctLetter);
+          if (isCorrect) correctCount++;
+
+          // Destaca visualmente acertos e erros
+          const labels = card.querySelectorAll(".option-label");
+          labels.forEach(label => {
+            const letter = label.getAttribute("data-letter");
+            label.classList.remove("is-selected");
+
+            if (letter === correctLetter) {
+              label.classList.add("status-correct");
+            } else if (letter === userChoice && !isCorrect) {
+              label.classList.add("status-wrong");
+            }
+          });
+
+          // Revela a seção de resolução comentada
+          const resBox = document.getElementById("res-" + qNum);
+          if (resBox) {
+            resBox.style.display = "block";
+          }
+
+          // Cria botão de navegação rápida para o resumo
+          const jumpBtn = document.createElement("a");
+          jumpBtn.href = "#q-" + qNum;
+          jumpBtn.className = "jump-btn " + (isCorrect ? "is-correct" : "is-wrong");
+          jumpBtn.innerHTML = `<span>Q${qNum}</span><span style="font-size:0.75rem">${isCorrect ? "✓" : "✗"}</span>`;
+          jumpGrid.appendChild(jumpBtn);
+        });
+
+        // Configuração do Score
+        const pctScore = Math.round((correctCount / TOTAL_QUESTIONS) * 100);
+        scoreDisplay.textContent = `${correctCount} / ${TOTAL_QUESTIONS}`;
+        scorePercentage.textContent = `${pctScore}% de acertos`;
+
+        if (correctCount >= 9) {
+          scoreBadge.textContent = "Excelente! Domínio pleno dos artigos 1º ao 8º";
+          scoreBadge.style.backgroundColor = "#ecfdf5";
+          scoreBadge.style.color = "#065f46";
+        } else if (correctCount >= 7) {
+          scoreBadge.textContent = "Muito Bom! Ótima retenção das finalidades e metas";
+          scoreBadge.style.backgroundColor = "#eff6ff";
+          scoreBadge.style.color = "#1e40af";
+        } else if (correctCount >= 5) {
+          scoreBadge.textContent = "Regular. Recomendamos a revisão detalhada das resoluções";
+          scoreBadge.style.backgroundColor = "#fffbeb";
+          scoreBadge.style.color = "#92400e";
+        } else {
+          scoreBadge.textContent = "Atenção: Necessário reforçar a leitura da Lei nº 11.892/2008";
+          scoreBadge.style.backgroundColor = "#fef2f2";
+          scoreBadge.style.color = "#991b1b";
+        }
+
+        resultsPanel.style.display = "block";
+        btnFinish.textContent = "Ir para o Painel de Desempenho";
+        btnFinish.style.backgroundColor = "#334155";
+
+        resultsPanel.scrollIntoView({ behavior: "smooth" });
+      });
+
+      // Reiniciar Simulado
+      btnReset.addEventListener("click", function () {
+        isSubmitted = false;
+        hideNotice();
+
+        questionCards.forEach(card => {
+          const radios = card.querySelectorAll('input[type="radio"]');
+          radios.forEach(r => (r.checked = false));
+
+          const labels = card.querySelectorAll(".option-label");
+          labels.forEach(l => {
+            l.classList.remove("is-selected", "status-correct", "status-wrong");
+          });
+        });
+
+        // Oculta resoluções
+        for (let i = 1; i <= TOTAL_QUESTIONS; i++) {
+          const res = document.getElementById("res-" + i);
+          if (res) res.style.display = "none";
+        }
+
+        resultsPanel.style.display = "none";
+        btnFinish.textContent = "Finalizar Simulado e Ver Resoluções";
+        btnFinish.style.backgroundColor = "var(--primary)";
+        updateProgress();
+
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      });
+
+      // Inicializa barra
+      updateProgress();
+    })();
+  </script>
+</body>
+</html>

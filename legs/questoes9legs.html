@@ -1,0 +1,1484 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simulado IFMG | Lei Federal nº 11.892/2008 (Arts. 9º a 18)</title>
+  <style>
+    :root {
+      --bg-page: #f8fafc;
+      --bg-surface: #ffffff;
+      --bg-subtle: #f1f5f9;
+      --text-main: #1e293b;
+      --text-muted: #475569;
+      --text-light: #64748b;
+      --border-color: #e2e8f0;
+      --border-focus: #94a3b8;
+      
+      --brand-primary: #0f766e;
+      --brand-primary-hover: #115e59;
+      --brand-accent: #0284c7;
+      
+      --correct-bg: #f0fdf4;
+      --correct-border: #86efac;
+      --correct-text: #166534;
+      --correct-badge: #22c55e;
+      
+      --incorrect-bg: #fef2f2;
+      --incorrect-border: #fca5a5;
+      --incorrect-text: #991b1b;
+      --incorrect-badge: #ef4444;
+
+      --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+      --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.06), 0 2px 4px -2px rgba(0, 0, 0, 0.04);
+      --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -4px rgba(0, 0, 0, 0.03);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-page);
+      color: var(--text-main);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      font-size: 1.0625rem;
+      line-height: 1.75;
+      letter-spacing: -0.011em;
+      padding-bottom: 5rem;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .container {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 0 1.25rem;
+    }
+
+    /* Header Bar */
+    header.hero {
+      background-color: var(--bg-surface);
+      border-bottom: 1px solid var(--border-color);
+      padding: 2.5rem 0 2rem 0;
+      margin-bottom: 2rem;
+    }
+
+    .badge-banca {
+      display: inline-block;
+      background-color: #e0f2fe;
+      color: #0369a1;
+      font-size: 0.82rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 0.25rem 0.75rem;
+      border-radius: 9999px;
+      margin-bottom: 0.85rem;
+    }
+
+    h1.title {
+      font-size: 1.875rem;
+      font-weight: 800;
+      color: #0f172a;
+      line-height: 1.3;
+      margin-bottom: 0.6rem;
+    }
+
+    p.subtitle {
+      color: var(--text-muted);
+      font-size: 1.05rem;
+      line-height: 1.6;
+    }
+
+    .meta-box {
+      margin-top: 1.25rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      font-size: 0.9rem;
+      color: var(--text-light);
+      border-top: 1px dashed var(--border-color);
+      padding-top: 1rem;
+    }
+
+    .meta-box span strong {
+      color: var(--text-main);
+    }
+
+    /* Sticky Progress Bar */
+    .sticky-progress {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border-color);
+      box-shadow: var(--shadow-sm);
+      padding: 0.75rem 0;
+      margin-bottom: 2rem;
+    }
+
+    .progress-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text-muted);
+    }
+
+    .progress-bar-track {
+      width: 100%;
+      height: 6px;
+      background-color: var(--bg-subtle);
+      border-radius: 9999px;
+      overflow: hidden;
+      margin-top: 0.5rem;
+    }
+
+    .progress-bar-fill {
+      width: 0%;
+      height: 100%;
+      background: linear-gradient(90deg, var(--brand-accent), var(--brand-primary));
+      transition: width 0.3s ease;
+    }
+
+    /* Question Cards */
+    .question-card {
+      background-color: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 2rem;
+      margin-bottom: 2rem;
+      box-shadow: var(--shadow-sm);
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .question-card:focus-within {
+      border-color: var(--border-focus);
+    }
+
+    .question-card.answered {
+      border-left: 5px solid var(--brand-primary);
+    }
+
+    .question-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.25rem;
+    }
+
+    .question-number {
+      font-size: 0.875rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--brand-primary);
+      background-color: #ccfbf1;
+      padding: 0.25rem 0.75rem;
+      border-radius: 6px;
+    }
+
+    .question-status-badge {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--text-light);
+    }
+
+    .question-prompt {
+      font-size: 1.1rem;
+      font-weight: 500;
+      color: #0f172a;
+      line-height: 1.7;
+      margin-bottom: 1.5rem;
+    }
+
+    .question-prompt p {
+      margin-bottom: 0.85rem;
+    }
+
+    .roman-numerals {
+      background: var(--bg-subtle);
+      padding: 1rem 1.25rem;
+      border-radius: 8px;
+      margin: 1rem 0 1.25rem 0;
+      border-left: 3px solid #cbd5e1;
+    }
+
+    .roman-numerals p {
+      margin-bottom: 0.5rem;
+      font-size: 1.02rem;
+    }
+
+    .roman-numerals p:last-child {
+      margin-bottom: 0;
+    }
+
+    /* Option Items */
+    .options-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .option-item {
+      display: flex;
+      align-items: flex-start;
+      padding: 1rem 1.2rem;
+      border: 1.5px solid var(--border-color);
+      border-radius: 10px;
+      background-color: var(--bg-surface);
+      cursor: pointer;
+      transition: all 0.2s ease;
+      user-select: none;
+    }
+
+    .option-item:hover {
+      background-color: #f8fafc;
+      border-color: #cbd5e1;
+    }
+
+    .option-item input[type="radio"] {
+      appearance: none;
+      -webkit-appearance: none;
+      width: 1.25rem;
+      height: 1.25rem;
+      border: 2px solid #94a3b8;
+      border-radius: 50%;
+      margin-top: 0.25rem;
+      margin-right: 0.9rem;
+      flex-shrink: 0;
+      outline: none;
+      transition: border-color 0.2s ease, background 0.2s ease;
+    }
+
+    .option-item input[type="radio"]:checked {
+      border-color: var(--brand-primary);
+      background-color: var(--brand-primary);
+      box-shadow: inset 0 0 0 3px #ffffff;
+    }
+
+    .option-item.selected {
+      border-color: var(--brand-primary);
+      background-color: #f0fdfa;
+    }
+
+    .option-letter {
+      font-weight: 700;
+      margin-right: 0.5rem;
+      color: #334155;
+    }
+
+    .option-text {
+      color: var(--text-main);
+      font-size: 1.02rem;
+      line-height: 1.6;
+    }
+
+    /* Submitted State Styling */
+    .option-item.user-correct {
+      background-color: var(--correct-bg) !important;
+      border-color: var(--correct-border) !important;
+      color: var(--correct-text) !important;
+    }
+
+    .option-item.user-incorrect {
+      background-color: var(--incorrect-bg) !important;
+      border-color: var(--incorrect-border) !important;
+      color: var(--incorrect-text) !important;
+    }
+
+    .option-item.correct-answer-highlight {
+      background-color: var(--correct-bg) !important;
+      border-color: var(--correct-border) !important;
+      box-shadow: inset 0 0 0 1px var(--correct-badge);
+    }
+
+    .result-icon {
+      font-size: 0.85rem;
+      font-weight: 700;
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+      margin-left: auto;
+      flex-shrink: 0;
+    }
+
+    .result-icon.correct {
+      background-color: #dcfce7;
+      color: #15803d;
+    }
+
+    .result-icon.incorrect {
+      background-color: #fee2e2;
+      color: #b91c1c;
+    }
+
+    /* Resolution Details Section */
+    .resolution-box {
+      display: none;
+      margin-top: 1.75rem;
+      padding-top: 1.5rem;
+      border-top: 1px dashed var(--border-color);
+      animation: fadeIn 0.4s ease-in-out;
+    }
+
+    .resolution-box.visible {
+      display: block;
+    }
+
+    .resolution-header-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background-color: #f1f5f9;
+      color: #334155;
+      padding: 0.35rem 0.75rem;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      margin-bottom: 1rem;
+    }
+
+    .legal-basis-badge {
+      display: inline-block;
+      background-color: #fef3c7;
+      color: #92400e;
+      font-size: 0.82rem;
+      font-weight: 600;
+      padding: 0.2rem 0.6rem;
+      border-radius: 4px;
+      margin-bottom: 0.75rem;
+    }
+
+    .resolution-body {
+      font-size: 1rem;
+      color: #334155;
+      line-height: 1.75;
+    }
+
+    .resolution-body p {
+      margin-bottom: 0.85rem;
+    }
+
+    .resolution-body p:last-child {
+      margin-bottom: 0;
+    }
+
+    /* Comparison Table Styling */
+    .table-container {
+      margin: 1.5rem 0;
+      overflow-x: auto;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+    }
+
+    table.data-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.92rem;
+      background-color: var(--bg-surface);
+      text-align: left;
+    }
+
+    table.data-table th, 
+    table.data-table td {
+      padding: 0.85rem 1rem;
+      border-bottom: 1px solid var(--border-color);
+      line-height: 1.5;
+    }
+
+    table.data-table th {
+      background-color: var(--bg-subtle);
+      font-weight: 700;
+      color: #1e293b;
+    }
+
+    table.data-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    table.data-table tr:hover td {
+      background-color: #f8fafc;
+    }
+
+    /* Action Control Section */
+    .controls-container {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 1.75rem;
+      margin-top: 2rem;
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      align-items: center;
+      text-align: center;
+    }
+
+    .btn-finish {
+      background-color: var(--brand-primary);
+      color: #ffffff;
+      border: none;
+      padding: 0.9rem 2.2rem;
+      font-size: 1.05rem;
+      font-weight: 700;
+      border-radius: 8px;
+      cursor: pointer;
+      box-shadow: 0 4px 6px -1px rgba(15, 118, 110, 0.2);
+      transition: background-color 0.2s ease, transform 0.1s ease;
+    }
+
+    .btn-finish:hover {
+      background-color: var(--brand-primary-hover);
+      transform: translateY(-1px);
+    }
+
+    .btn-finish:active {
+      transform: translateY(0);
+    }
+
+    .btn-reset {
+      background-color: transparent;
+      color: var(--text-muted);
+      border: 1px solid var(--border-color);
+      padding: 0.75rem 1.5rem;
+      font-size: 0.95rem;
+      font-weight: 600;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .btn-reset:hover {
+      background-color: var(--bg-subtle);
+      color: var(--text-main);
+    }
+
+    /* Results Dashboard (After Submission) */
+    .results-dashboard {
+      display: none;
+      background: var(--bg-surface);
+      border: 2px solid var(--brand-primary);
+      border-radius: 14px;
+      padding: 2.2rem;
+      margin-bottom: 2.5rem;
+      box-shadow: var(--shadow-lg);
+      animation: slideDown 0.4s ease;
+    }
+
+    .results-dashboard.visible {
+      display: block;
+    }
+
+    .dashboard-header {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 1.5rem;
+      margin-bottom: 1.5rem;
+      gap: 1rem;
+    }
+
+    .score-circle {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 110px;
+      height: 110px;
+      border-radius: 50%;
+      background: #f0fdfa;
+      border: 4px solid var(--brand-primary);
+    }
+
+    .score-circle .number {
+      font-size: 2rem;
+      font-weight: 900;
+      color: var(--brand-primary);
+      line-height: 1;
+    }
+
+    .score-circle .label {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--text-light);
+      text-transform: uppercase;
+      margin-top: 0.2rem;
+    }
+
+    .dashboard-metrics {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 1rem;
+      flex: 1;
+    }
+
+    .metric-card {
+      background: var(--bg-subtle);
+      padding: 1rem;
+      border-radius: 8px;
+      text-align: center;
+    }
+
+    .metric-card .val {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: #0f172a;
+    }
+
+    .metric-card .desc {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+
+    .dashboard-summary-text {
+      font-size: 1.05rem;
+      color: var(--text-main);
+      line-height: 1.6;
+    }
+
+    /* Modal / Message alert helper */
+    .notice-box {
+      display: none;
+      background-color: #fffbeb;
+      border-left: 4px solid #f59e0b;
+      padding: 1rem 1.25rem;
+      border-radius: 6px;
+      color: #92400e;
+      font-size: 0.95rem;
+      margin-top: 1rem;
+    }
+
+    .notice-box.visible {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes slideDown {
+      from { opacity: 0; transform: translateY(-12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 640px) {
+      .question-card {
+        padding: 1.25rem;
+      }
+      h1.title {
+        font-size: 1.5rem;
+      }
+      .option-item {
+        padding: 0.85rem 1rem;
+      }
+      .dashboard-header {
+        flex-direction: column;
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="hero">
+    <div class="container">
+      <span class="badge-banca">Banca Examinadora IFMG • Simulado Temático</span>
+      <h1 class="title">Estrutura Organizacional e Governança do IFMG</h1>
+      <p class="subtitle">Lei Federal nº 11.892/2008 (Arts. 9º a 18) • Conselho Superior, Colégio de Dirigentes, Reitoria, Diretorias de Campus e Regras de Paridade</p>
+      
+      <div class="meta-box">
+        <span><strong>Quantidade:</strong> 10 Questões Inéditas</span>
+        <span><strong>Formato:</strong> Múltipla Escolha (A a E)</span>
+        <span><strong>Estilo da Banca:</strong> Comissão Central de Concurso Público IFMG</span>
+        <span><strong>Resoluções:</strong> Mantidas nesta mesma página após o envio</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Sticky Progress Tracker -->
+  <div class="sticky-progress">
+    <div class="container">
+      <div class="progress-content">
+        <span id="progressStatusText">0 de 10 respondidas</span>
+        <span id="percentageStatusText">0% concluído</span>
+      </div>
+      <div class="progress-bar-track">
+        <div class="progress-bar-fill" id="progressBar"></div>
+      </div>
+    </div>
+  </div>
+
+  <main class="container">
+
+    <!-- Results Overview Card (Appears after submission) -->
+    <section id="resultsDashboard" class="results-dashboard" aria-live="polite">
+      <div class="dashboard-header">
+        <div class="score-circle">
+          <span class="number" id="scoreAcertos">0</span>
+          <span class="label">de 10 acertos</span>
+        </div>
+        <div class="dashboard-metrics">
+          <div class="metric-card">
+            <div class="val" id="metricAproveitamento">0%</div>
+            <div class="desc">Aproveitamento</div>
+          </div>
+          <div class="metric-card">
+            <div class="val" id="metricErros">0</div>
+            <div class="desc">Erros</div>
+          </div>
+          <div class="metric-card">
+            <div class="val" id="metricStatus">Avaliando</div>
+            <div class="desc">Desempenho</div>
+          </div>
+        </div>
+      </div>
+      <p class="dashboard-summary-text" id="feedbackSummaryText">
+        Confira abaixo o resultado de cada questão com o gabarito comentado, a fundamentação legal nos artigos 9º a 18 da Lei Federal nº 11.892/2008 e as sínteses comparativas das instâncias colegiadas e de elegibilidade.
+      </p>
+    </section>
+
+    <!-- Quiz Form -->
+    <form id="quizForm" onsubmit="event.preventDefault();">
+
+      <!-- QUESTÃO 01 -->
+      <article class="question-card" id="card-q1">
+        <div class="question-header">
+          <span class="question-number">Questão 01</span>
+          <span class="question-status-badge" id="status-q1">Pendente</span>
+        </div>
+        <div class="question-prompt">
+          <p>O Instituto Federal de Educação, Ciência e Tecnologia de Minas Gerais (IFMG), instituído nos termos da Lei Federal nº 11.892/2008, estrutura-se organizacionalmente para assegurar a atuação descentralizada em sua área de abrangência geográfica. No que concerne à concepção estrutural e orçamentária dos campi e da Reitoria estabelecida no art. 9º da referida norma, assinale a alternativa CORRETA:</p>
+        </div>
+        <div class="options-group" data-q="1">
+          <label class="option-item" for="q1_a">
+            <input type="radio" name="q1" id="q1_a" value="A">
+            <span class="option-letter">A)</span>
+            <span class="option-text">A proposta orçamentária do IFMG é unificada na Reitoria, sendo vedada a discriminação de dotações específicas para os campi descentralizados, em prol do princípio da unidade orçamentária.</span>
+          </label>
+          <label class="option-item" for="q1_b">
+            <input type="radio" name="q1" id="q1_b" value="B">
+            <span class="option-letter">B)</span>
+            <span class="option-text">O IFMG organiza-se em estrutura multicampi, com proposta orçamentária anual identificada para cada campus e a reitoria, exceto no que diz respeito a pessoal, encargos sociais e benefícios aos servidores.</span>
+          </label>
+          <label class="option-item" for="q1_c">
+            <input type="radio" name="q1" id="q1_c" value="C">
+            <span class="option-letter">C)</span>
+            <span class="option-text">A descentralização orçamentária anual abrange o custeio operacional e integraliza as dotações para pessoal e encargos de cada campus, garantindo autonomia financeira plena à Diretoria-Geral local.</span>
+          </label>
+          <label class="option-item" for="q1_d">
+            <input type="radio" name="q1" id="q1_d" value="D">
+            <span class="option-letter">D)</span>
+            <span class="option-text">A estrutura organizacional dos Institutos Federais é unicampi com polos avançados, cabendo aos polos a execução do orçamento descentralizado sem vinculação à Reitoria.</span>
+          </label>
+          <label class="option-item" for="q1_e">
+            <input type="radio" name="q1" id="q1_e" value="E">
+            <span class="option-letter">E)</span>
+            <span class="option-text">A proposta orçamentária individualizada contempla exclusivamente as despesas de capital e benefícios dos servidores, mantendo as despesas correntes de consumo sob rubrica única centralizada na Reitoria.</span>
+          </label>
+        </div>
+
+        <div class="resolution-box" id="res-q1">
+          <span class="resolution-header-pill">Resolução Comentada</span>
+          <div><span class="legal-basis-badge">Fundamentação: Art. 9º da Lei nº 11.892/2008</span></div>
+          <div class="resolution-body">
+            <p><strong>Gabarito Oficial: Alternativa B</strong></p>
+            <p>A arquitetura institucional dos Institutos Federais assenta-se sobre a diretriz da descentralização operacional e acadêmica. O <strong>art. 9º da Lei nº 11.892/2008</strong> preceitua taxativamente que cada Instituto Federal é organizado em estrutura multicampi, assegurando-se uma proposta orçamentária anual individualizada para cada unidade de ensino e para a Reitoria. Essa individualização atende ao imperativo de dotar os campi de previsibilidade gerencial. Contudo, a legislação impõe uma exceção expressa e funcional: as despesas vinculadas a pessoal, encargos sociais e benefícios aos servidores permanecem centralizadas e não compõem a discriminação individualizada de cada campus.</p>
+            <p><em>Análise dos distratores:</em> A alternativa A colide com a previsão legal ao afirmar que o orçamento seria indiviso e concentrado exclusivamente na Reitoria. A alternativa C erra ao estender a descentralização às rubricas de folha de pagamento e encargos sociais, violando a cláusula restritiva do art. 9º. A alternativa D desfigura a autarquia ao chamá-la de 'unicampi'. A alternativa E subverte a regra orçamentária ao sustentar que apenas o investimento em capital e os benefícios seriam individualizados, quando os benefícios constituem parcela expressamente ressalvada da discriminação por campus.</p>
+          </div>
+        </div>
+      </article>
+
+      <!-- QUESTÃO 02 -->
+      <article class="question-card" id="card-q2">
+        <div class="question-header">
+          <span class="question-number">Questão 02</span>
+          <span class="question-status-badge" id="status-q2">Pendente</span>
+        </div>
+        <div class="question-prompt">
+          <p>A estrutura de governança superior dos Institutos Federais divide-se entre funções deliberativas e consultivas, materializadas no Conselho Superior e no Colégio de Dirigentes. A respeito da natureza institucional, presidência e composição do Colégio de Dirigentes do IFMG (art. 10 da Lei nº 11.892/2008), assinale a afirmativa CORRETA:</p>
+        </div>
+        <div class="options-group" data-q="2">
+          <label class="option-item" for="q2_a">
+            <input type="radio" name="q2" id="q2_a" value="A">
+            <span class="option-letter">A)</span>
+            <span class="option-text">O Colégio de Dirigentes possui caráter deliberativo pleno e é presidido pelo Pró-Reitor de Desenvolvimento Institucional, reunindo apenas os Diretores-Gerais dos campi.</span>
+          </label>
+          <label class="option-item" for="q2_b">
+            <input type="radio" name="q2" id="q2_b" value="B">
+            <span class="option-letter">B)</span>
+            <span class="option-text">O Colégio de Dirigentes tem caráter consultivo, sendo presidido pelo Reitor e composto pelo próprio Reitor, pelos Pró-Reitores e pelos Diretores-Gerais de cada um dos campi do Instituto Federal.</span>
+          </label>
+          <label class="option-item" for="q2_c">
+            <input type="radio" name="q2" id="q2_c" value="C">
+            <span class="option-letter">C)</span>
+            <span class="option-text">Trata-se de órgão recursal com competência para cassar decisões do Conselho Superior, constituído exclusivamente por representantes eleitos do corpo docente e discente.</span>
+          </label>
+          <label class="option-item" for="q2_d">
+            <input type="radio" name="q2" id="q2_d" value="D">
+            <span class="option-letter">D)</span>
+            <span class="option-text">As reuniões do Colégio de Dirigentes são coordenadas em sistema de rodízio semestral pelos Diretores-Gerais de campus, vedada a participação de membros da Reitoria para assegurar a descentralização.</span>
+          </label>
+          <label class="option-item" for="q2_e">
+            <input type="radio" name="q2" id="q2_e" value="E">
+            <span class="option-letter">E)</span>
+            <span class="option-text">O Colégio de Dirigentes possui natureza consultiva e deliberativa, presidido alternadamente pelo Reitor e pelo representante titular do Ministério da Educação.</span>
+          </label>
+        </div>
+
+        <div class="resolution-box" id="res-q2">
+          <span class="resolution-header-pill">Resolução Comentada</span>
+          <div><span class="legal-basis-badge">Fundamentação: Art. 10, caput, §§ 1º e 2º da Lei nº 11.892/2008</span></div>
+          <div class="resolution-body">
+            <p><strong>Gabarito Oficial: Alternativa B</strong></p>
+            <p>O modelo de governança estabelecido no <strong>art. 10 da Lei nº 11.892/2008</strong> distribui as instâncias superiores da autarquia entre dois colegiados principais: o Conselho Superior e o Colégio de Dirigentes. Consoante o § 2º do aludido artigo, o Colégio de Dirigentes possui natureza <em>exclusivamente consultiva</em>, funcionando como fórum de assessoramento e alinhamento executivo do Reitor com os dirigentes operacionais. Sua composição integra necessariamente o Reitor, os Pró-Reitores e os Diretores-Gerais de cada um dos campi componentes da instituição. Adicionalmente, por força do § 1º, a presidência desse colegiado cabe privativamente ao Reitor.</p>
+            <p><em>Análise dos distratores:</em> A alternativa A erra ao imputar caráter deliberativo e retirar do Reitor sua presidência legal. A alternativa C confunde a estrutura ao atribuir-lhe competência de órgão recursal para anular atos do Conselho Superior. A alternativa D formula uma hipótese de rodízio da presidência que contraria a lei. A alternativa E desvirtua as regras ao prever copresidência por membros do MEC e atribuir natureza deliberativa a um órgão de assessoramento.</p>
+          </div>
+        </div>
+      </article>
+
+      <!-- QUESTÃO 03 -->
+      <article class="question-card" id="card-q3">
+        <div class="question-header">
+          <span class="question-number">Questão 03</span>
+          <span class="question-status-badge" id="status-q3">Pendente</span>
+        </div>
+        <div class="question-prompt">
+          <p>O Conselho Superior constitui o órgão de cúpula dos Institutos Federais, com papel essencial na fixação de diretrizes institucionais e acadêmicas. Acerca do caráter funcional, composição e da paridade representativa colegiada fixada no § 3º do art. 10 da Lei Federal nº 11.892/2008, assinale a alternativa CORRETA:</p>
+        </div>
+        <div class="options-group" data-q="3">
+          <label class="option-item" for="q3_a">
+            <input type="radio" name="q3" id="q3_a" value="A">
+            <span class="option-letter">A)</span>
+            <span class="option-text">O Conselho Superior detém natureza meramente consultiva, cabendo à Reitoria o poder decisório final sobre planos institucionais e matrizes curriculares.</span>
+          </label>
+          <label class="option-item" for="q3_b">
+            <input type="radio" name="q3" id="q3_b" value="B">
+            <span class="option-letter">B)</span>
+            <span class="option-text">A representação paritária exigida no Conselho Superior vincula apenas o corpo docente e os servidores técnico-administrativos, figurando os estudantes como membros meramente ouvintes sem direito a voto.</span>
+          </label>
+          <label class="option-item" for="q3_c">
+            <input type="radio" name="q3" id="q3_c" value="C">
+            <span class="option-letter">C)</span>
+            <span class="option-text">O Conselho Superior possui caráter consultivo e deliberativo, sendo composto por representantes dos docentes, estudantes, técnico-administrativos, egressos, sociedade civil, Ministério da Educação e Colégio de Dirigentes, assegurada a representação paritária dos docentes, estudantes e servidores técnico-administrativos.</span>
+          </label>
+          <label class="option-item" for="q3_d">
+            <input type="radio" name="q3" id="q3_d" value="D">
+            <span class="option-letter">D)</span>
+            <span class="option-text">A legislação determina paridade numérica absoluta entre todos os assentos, cabendo cotas rigorosamente idênticas para o Ministério da Educação, entidades sindicais, sociedade civil e comunidade acadêmica interna.</span>
+          </label>
+          <label class="option-item" for="q3_e">
+            <input type="radio" name="q3" id="q3_e" value="E">
+            <span class="option-letter">E)</span>
+            <span class="option-text">A presidência do Conselho Superior é conferida a conselheiro externo eleito dentre os representantes da sociedade civil, com vistas a mitigar conflitos de interesse da gestão executiva.</span>
+          </label>
+        </div>
+
+        <div class="resolution-box" id="res-q3">
+          <span class="resolution-header-pill">Resolução Comentada</span>
+          <div><span class="legal-basis-badge">Fundamentação: Art. 10, § 3º da Lei nº 11.892/2008</span></div>
+          <div class="resolution-body">
+            <p><strong>Gabarito Oficial: Alternativa C</strong></p>
+            <p>A Lei Federal nº 11.892/2008, em seu <strong>art. 10, § 3º</strong>, define o Conselho Superior como órgão simultaneamente <em>consultivo e deliberativo</em>, posicionando-o como a instância máxima normativa e decisória no âmbito do Instituto Federal. O traço mais marcante do desenho democrático desenhado pelo legislador reside na composição plural desse colegiado, agregando atores internos e externos: representantes de docentes, estudantes, técnico-administrativos, egressos, sociedade civil, Ministério da Educação e do Colégio de Dirigentes. Além dessa abrangência, o dispositivo resguarda a representação paritária entre os três segmentos estruturantes da comunidade interna, estabelecendo peso rigorosamente idêntico para as representações de professores, servidores técnico-administrativos e alunos.</p>
+            <p><em>Análise dos distratores:</em> A alternativa A erra ao retirar a faculdade deliberativa. A alternativa B viola o postulado democrático ao pretender reduzir os discentes a meros ouvintes. A alternativa D confunde a paridade tripartite interna com paridade idêntica entre todos os convidados/externos. A alternativa E contraria o § 1º do art. 10, que prescreve a presidência privativa do Conselho Superior pelo Reitor do Instituto Federal.</p>
+          </div>
+        </div>
+      </article>
+
+      <!-- QUESTÃO 04 -->
+      <article class="question-card" id="card-q4">
+        <div class="question-header">
+          <span class="question-number">Questão 04</span>
+          <span class="question-status-badge" id="status-q4">Pendente</span>
+        </div>
+        <div class="question-prompt">
+          <p>A Reitoria atua como o órgão executivo central dos Institutos Federais, exercendo a supervisão de todas as atividades da autarquia. Em conformidade com o art. 11 da Lei Federal nº 11.892/2008, analise as afirmativas a seguir:</p>
+          <div class="roman-numerals">
+            <p><strong>I.</strong> A reitoria é composta por 1 (um) Reitor e 5 (cinco) Pró-Reitores.</p>
+            <p><strong>II.</strong> A reitoria, como órgão de administração central, poderá ser instalada em espaço físico distinto de qualquer dos campi que integram o Instituto Federal, desde que previsto em seu estatuto e aprovado pelo Ministério da Educação.</p>
+            <p><strong>III.</strong> Os Pró-Reitores são eleitos de forma direta pela comunidade acadêmica, em pleito conjunto com a escolha do Reitor, para mandatos idênticos de 4 (quatro) anos.</p>
+          </div>
+          <p>Está CORRETO o que se afirma em:</p>
+        </div>
+        <div class="options-group" data-q="4">
+          <label class="option-item" for="q4_a">
+            <input type="radio" name="q4" id="q4_a" value="A">
+            <span class="option-letter">A)</span>
+            <span class="option-text">I, apenas.</span>
+          </label>
+          <label class="option-item" for="q4_b">
+            <input type="radio" name="q4" id="q4_b" value="B">
+            <span class="option-letter">B)</span>
+            <span class="option-text">I e II, apenas.</span>
+          </label>
+          <label class="option-item" for="q4_c">
+            <input type="radio" name="q4" id="q4_c" value="C">
+            <span class="option-letter">C)</span>
+            <span class="option-text">II e III, apenas.</span>
+          </label>
+          <label class="option-item" for="q4_d">
+            <input type="radio" name="q4" id="q4_d" value="D">
+            <span class="option-letter">D)</span>
+            <span class="option-text">I e III, apenas.</span>
+          </label>
+          <label class="option-item" for="q4_e">
+            <input type="radio" name="q4" id="q4_e" value="E">
+            <span class="option-letter">E)</span>
+            <span class="option-text">I, II e III.</span>
+          </label>
+        </div>
+
+        <div class="resolution-box" id="res-q4">
+          <span class="resolution-header-pill">Resolução Comentada</span>
+          <div><span class="legal-basis-badge">Fundamentação: Art. 11, caput, §§ 2º e 3º da Lei nº 11.892/2008</span></div>
+          <div class="resolution-body">
+            <p><strong>Gabarito Oficial: Alternativa B (Corretas apenas I e II)</strong></p>
+            <p>O <strong>art. 11, caput</strong>, da Lei nº 11.892/2008 fixa que a Reitoria é composta por 1 Reitor e 5 Pró-Reitores (afirmativa I correta). O § 2º confere a prerrogativa de a administração central ser instalada em espaço físico distinto de qualquer dos campi integrantes, desde que haja previsão no estatuto institucional e prévia aprovação do Ministério da Educação (afirmativa II correta).</p>
+            <p><em>Por que a afirmativa III está incorreta?</em> Os Pró-Reitores <strong>não</strong> são eleitos pela comunidade acadêmica. O art. 11, § 3º, determina expressamente que os Pró-Reitores são de <strong>livre escolha e nomeação pelo Reitor</strong> do Instituto Federal, constituindo cargos em comissão de estrita confiança da gestão executiva.</p>
+          </div>
+        </div>
+      </article>
+
+      <!-- QUESTÃO 05 -->
+      <article class="question-card" id="card-q5">
+        <div class="question-header">
+          <span class="question-number">Questão 05</span>
+          <span class="question-status-badge" id="status-q5">Pendente</span>
+        </div>
+        <div class="question-prompt">
+          <p>A investidura no cargo de Reitor nos Institutos Federais exige a realização prévia de processo de consulta à comunidade acadêmica. Conforme as disposições do art. 12 da Lei Federal nº 11.892/2008, assinale a afirmativa CORRETA:</p>
+        </div>
+        <div class="options-group" data-q="5">
+          <label class="option-item" for="q5_a">
+            <input type="radio" name="q5" id="q5_a" value="A">
+            <span class="option-letter">A)</span>
+            <span class="option-text">Os Reitores são nomeados pelo Ministro de Estado da Educação, para mandato de 4 (quatro) anos, vedada terminantemente a recondução ao cargo.</span>
+          </label>
+          <label class="option-item" for="q5_b">
+            <input type="radio" name="q5" id="q5_b" value="B">
+            <span class="option-letter">B)</span>
+            <span class="option-text">O processo de consulta à comunidade escolar atribui peso diferenciado de 70% (setenta por cento) para os votos dos docentes e 15% (quinze por cento) rateados entre estudantes e servidores técnico-administrativos.</span>
+          </label>
+          <label class="option-item" for="q5_c">
+            <input type="radio" name="q5" id="q5_c" value="C">
+            <span class="option-letter">C)</span>
+            <span class="option-text">Os Reitores serão nomeados pelo Presidente da República, para mandato de 4 (quatro) anos, permitida uma recondução, após processo de consulta à comunidade escolar em que se atribui o peso de 1/3 para a manifestação do corpo docente, 1/3 para os servidores técnico-administrativos e 1/3 para o corpo discente.</span>
+          </label>
+          <label class="option-item" for="q5_d">
+            <input type="radio" name="q5" id="q5_d" value="D">
+            <span class="option-letter">D)</span>
+            <span class="option-text">A consulta comunitária destina-se à formação de lista tríplice a ser submetida à deliberação discricionária do Conselho Superior antes do encaminhamento ministerial.</span>
+          </label>
+          <label class="option-item" for="q5_e">
+            <input type="radio" name="q5" id="q5_e" value="E">
+            <span class="option-letter">E)</span>
+            <span class="option-text">O mandato de Reitor extingue-se exclusivamente pelo término regular de seu período de 4 (quatro) anos, sendo juridicamente vedada a vacância por renúncia ou destituição antes desse termo.</span>
+          </label>
+        </div>
+
+        <div class="resolution-box" id="res-q5">
+          <span class="resolution-header-pill">Resolução Comentada</span>
+          <div><span class="legal-basis-badge">Fundamentação: Art. 12, caput e § 2º da Lei nº 11.892/2008</span></div>
+          <div class="resolution-body">
+            <p><strong>Gabarito Oficial: Alternativa C</strong></p>
+            <p>A investidura no cargo de Reitor submete-se aos requisitos explícitos do <strong>art. 12 da Lei nº 11.892/2008</strong>: os Reitores são nomeados pelo <strong>Presidente da República</strong>, para um mandato de <strong>4 (quatro) anos</strong>, com permissão expressa de <strong>uma recondução</strong>, após prévio processo de consulta à comunidade acadêmica em que se adota o cálculo tripartite com peso rigorosamente igual: <strong>1/3 para o corpo docente, 1/3 para os servidores técnico-administrativos e 1/3 para o corpo discente</strong>.</p>
+            <p><em>Análise dos distratores:</em> A alternativa A erra a autoridade nomeante (Presidente da República, não o Ministro do MEC) e nega a possibilidade de recondução. A alternativa B evoca o cálculo 70/15/15 aplicável a universidades federais (Lei nº 9.192/1995), ignorando o modelo paritário estrito dos Institutos Federais. A alternativa D insere indevidamente a figura da lista tríplice discricionária. A alternativa E ignora o § 2º do art. 12, que elenca causas de extinção prematura do mandato (aposentadoria, renúncia ou destituição).</p>
+          </div>
+        </div>
+      </article>
+
+      <!-- QUESTÃO 06 -->
+      <article class="question-card" id="card-q6">
+        <div class="question-header">
+          <span class="question-number">Questão 06</span>
+          <span class="question-status-badge" id="status-q6">Pendente</span>
+        </div>
+        <div class="question-prompt">
+          <p>A capacidade eleitoral passiva para concorrer ao cargo executivo de Reitor subordina-se a parâmetros legais rígidos fixados pela legislação de regência. Nos termos do art. 12, § 1º, da Lei nº 11.892/2008, poderão candidatar-se ao cargo de Reitor do IFMG:</p>
+        </div>
+        <div class="options-group" data-q="6">
+          <label class="option-item" for="q6_a">
+            <input type="radio" name="q6" id="q6_a" value="A">
+            <span class="option-letter">A)</span>
+            <span class="option-text">Quaisquer servidores estáveis da instituição federal de ensino, sejam docentes ou técnicos-administrativos, desde que contem com pós-graduação lato sensu e 3 (três) anos na instituição.</span>
+          </label>
+          <label class="option-item" for="q6_b">
+            <input type="radio" name="q6" id="q6_b" value="B">
+            <span class="option-letter">B)</span>
+            <span class="option-text">Exclusivamente os docentes pertencentes ao Quadro de Pessoal Ativo Permanente de qualquer dos campi que integram o Instituto Federal, com o mínimo de 5 (cinco) anos de efetivo exercício em instituição federal de educação profissional e tecnológica, que possuam o título de doutor ou estejam posicionados nas Classes DIV ou DV da Carreira EBTT (ou equivalente).</span>
+          </label>
+          <label class="option-item" for="q6_c">
+            <input type="radio" name="q6" id="q6_c" value="C">
+            <span class="option-letter">C)</span>
+            <span class="option-text">Servidores docentes e técnico-administrativos de nível superior que possuam, alternativamente, 10 (dez) anos de efetivo exercício em serviços públicos de qualquer esfera federativa.</span>
+          </label>
+          <label class="option-item" for="q6_d">
+            <input type="radio" name="q6" id="q6_d" value="D">
+            <span class="option-letter">D)</span>
+            <span class="option-text">Docentes ocupantes de cargos efetivos estáveis, independentemente de tempo de serviço prévio na Rede Federal, desde que contem com curso de gestão pública chancelado pela Escola Nacional de Administração Pública (ENAP).</span>
+          </label>
+          <label class="option-item" for="q6_e">
+            <input type="radio" name="q6" id="q6_e" value="E">
+            <span class="option-letter">E)</span>
+            <span class="option-text">Apenas os Pró-Reitores e Diretores-Gerais de campi que tenham cumprido integralmente mandato anterior e que detenham a titulação acadêmica mínima de mestre.</span>
+          </label>
+        </div>
+
+        <div class="resolution-box" id="res-q6">
+          <span class="resolution-header-pill">Resolução Comentada</span>
+          <div><span class="legal-basis-badge">Fundamentação: Art. 12, § 1º da Lei nº 11.892/2008</span></div>
+          <div class="resolution-body">
+            <p><strong>Gabarito Oficial: Alternativa B</strong></p>
+            <p>O regime de elegibilidade para a Reitoria exige requisitos cumulativos e requisitos alternativos previstos no <strong>art. 12, § 1º</strong>:</p>
+            <ul style="margin: 0.5rem 0 0.75rem 1.25rem;">
+              <li><strong>Cumulativos:</strong> Ser <em>docente</em> pertencente ao Quadro de Pessoal Ativo Permanente de qualquer dos campi que integram o Instituto Federal E possuir o mínimo de <strong>5 (cinco) anos de efetivo exercício</strong> em instituição federal de educação profissional e tecnológica.</li>
+              <li><strong>Alternativos (qualificação):</strong> Possuir o título de <strong>doutor</strong> OU estar posicionado nas <strong>Classes DIV ou DV</strong> da Carreira do Magistério do Ensino Básico, Técnico e Tecnológico (ou classe de Professor Associado da Carreira de Magistério Superior).</li>
+            </ul>
+            <p><em>Análise dos distratores:</em> A alternativa A erra ao incluir servidores técnico-administrativos na elegibilidade a Reitor (restrita a docentes). A alternativa C aceita tempo de serviço genérico fora da Rede Federal. A alternativa D dispensa o tempo de serviço e aceita cursos de gestão em substituição às exigências legais. A alternativa E restringe indevidamente o rol apenas a ex-gestores.</p>
+          </div>
+        </div>
+      </article>
+
+      <!-- QUESTÃO 07 -->
+      <article class="question-card" id="card-q7">
+        <div class="question-header">
+          <span class="question-number">Questão 07</span>
+          <span class="question-status-badge" id="status-q7">Pendente</span>
+        </div>
+        <div class="question-prompt">
+          <p>A administração de cada um dos campi descentralizados é exercida por Diretores-Gerais. Considerando as regras contidas no art. 13 da Lei Federal nº 11.892/2008 sobre a escolha e nomeação desses dirigentes, assinale a afirmativa INCORRETA:</p>
+        </div>
+        <div class="options-group" data-q="7">
+          <label class="option-item" for="q7_a">
+            <input type="radio" name="q7" id="q7_a" value="A">
+            <span class="option-letter">A)</span>
+            <span class="option-text">Os campi do Instituto Federal serão dirigidos por Diretores-Gerais, nomeados pelo Reitor para mandato de 4 (quatro) anos, permitida uma recondução.</span>
+          </label>
+          <label class="option-item" for="q7_b">
+            <input type="radio" name="q7" id="q7_b" value="B">
+            <span class="option-letter">B)</span>
+            <span class="option-text">A escolha dos Diretores-Gerais decorre de processo de consulta à comunidade do respectivo campus, atribuindo-se o peso de 1/3 para os docentes, 1/3 para os técnico-administrativos e 1/3 para o corpo discente.</span>
+          </label>
+          <label class="option-item" for="q7_c">
+            <input type="radio" name="q7" id="q7_c" value="C">
+            <span class="option-letter">C)</span>
+            <span class="option-text">Os Diretores-Gerais de campi são nomeados pelo Presidente da República por delegação executiva do Reitor, após homologação do resultado pelo Colégio de Dirigentes.</span>
+          </label>
+          <label class="option-item" for="q7_d">
+            <input type="radio" name="q7" id="q7_d" value="D">
+            <span class="option-letter">D)</span>
+            <span class="option-text">A realização do processo de consulta para Diretor-Geral mobiliza a comunidade escolar restrita ao âmbito territorial do respectivo campus.</span>
+          </label>
+          <label class="option-item" for="q7_e">
+            <input type="radio" name="q7" id="q7_e" value="E">
+            <span class="option-letter">E)</span>
+            <span class="option-text">A paridade na ponderação de votos (1/3 por segmento) reflete o mesmo modelo adotado para a consulta comunitária de Reitor, aplicada localmente.</span>
+          </label>
+        </div>
+
+        <div class="resolution-box" id="res-q7">
+          <span class="resolution-header-pill">Resolução Comentada</span>
+          <div><span class="legal-basis-badge">Fundamentação: Art. 13, caput da Lei nº 11.892/2008</span></div>
+          <div class="resolution-body">
+            <p><strong>Gabarito Oficial: Alternativa C (Afirmativa INCORRETA demandada pela questão)</strong></p>
+            <p>A proposição C está incorreta e perfaz o gabarito porque os Diretores-Gerais de campus <strong>são nomeados pelo próprio REITOR</strong> do Instituto Federal, e não pelo Presidente da República. A prerrogativa de nomeação pelo Presidente da República recai privativamente sobre o cargo de Reitor (art. 12).</p>
+            <p><em>Afirmativas perfeitamente corretas:</em> A, B, D e E transcrevem as regras do art. 13, caput: mandatos de 4 anos com 1 recondução permitida; consulta à comunidade local do campus; e paridade com 1/3 para professores, 1/3 para técnico-administrativos e 1/3 para estudantes.</p>
+          </div>
+        </div>
+      </article>
+
+      <!-- QUESTÃO 08 -->
+      <article class="question-card" id="card-q8">
+        <div class="question-header">
+          <span class="question-number">Questão 08</span>
+          <span class="question-status-badge" id="status-q8">Pendente</span>
+        </div>
+        <div class="question-prompt">
+          <p>O art. 13, § 1º, da Lei nº 11.892/2008 disciplina a elegibilidade para o cargo de Diretor-Geral de campus. Sobre os requisitos exigidos para que um servidor possa submeter sua candidatura à Diretoria-Geral de um campus do IFMG, analise as afirmativas a seguir:</p>
+          <div class="roman-numerals">
+            <p><strong>I.</strong> Podem se candidatar tanto servidores ocupantes de cargo efetivo da carreira docente quanto servidores com formação em nível superior ocupantes de cargo efetivo da carreira dos técnicos-administrativos do Plano de Carreira dos Cargos Técnico-Administrativos em Educação (PCCTAE).</p>
+            <p><strong>II.</strong> Exige-se que o candidato conte com o tempo mínimo de 5 (cinco) anos de efetivo exercício em instituição federal de educação profissional e tecnológica.</p>
+            <p><strong>III.</strong> O candidato deve enquadrar-se em pelo menos uma das seguintes situações alternativas: preencher os requisitos para candidatura a Reitor; possuir o mínimo de 2 (dois) anos de exercício em cargo ou função de gestão na instituição; ou ter concluído, com aproveitamento, curso de formação para o exercício de cargo ou função de gestão em instituições da administração pública.</p>
+          </div>
+          <p>Está CORRETO o que se afirma em:</p>
+        </div>
+        <div class="options-group" data-q="8">
+          <label class="option-item" for="q8_a">
+            <input type="radio" name="q8" id="q8_a" value="A">
+            <span class="option-letter">A)</span>
+            <span class="option-text">I e II, apenas.</span>
+          </label>
+          <label class="option-item" for="q8_b">
+            <input type="radio" name="q8" id="q8_b" value="B">
+            <span class="option-letter">B)</span>
+            <span class="option-text">II e III, apenas.</span>
+          </label>
+          <label class="option-item" for="q8_c">
+            <input type="radio" name="q8" id="q8_c" value="C">
+            <span class="option-letter">C)</span>
+            <span class="option-text">I e III, apenas.</span>
+          </label>
+          <label class="option-item" for="q8_d">
+            <input type="radio" name="q8" id="q8_d" value="D">
+            <span class="option-letter">D)</span>
+            <span class="option-text">I, apenas.</span>
+          </label>
+          <label class="option-item" for="q8_e">
+            <input type="radio" name="q8" id="q8_e" value="E">
+            <span class="option-letter">E)</span>
+            <span class="option-text">I, II e III.</span>
+          </label>
+        </div>
+
+        <div class="resolution-box" id="res-q8">
+          <span class="resolution-header-pill">Resolução Comentada</span>
+          <div><span class="legal-basis-badge">Fundamentação: Art. 13, § 1º, incisos I, II e III da Lei nº 11.892/2008</span></div>
+          <div class="resolution-body">
+            <p><strong>Gabarito Oficial: Alternativa E (Todos os itens I, II e III estão corretos)</strong></p>
+            <p>O <strong>art. 13, § 1º</strong> estipula expressamente:</p>
+            <ul style="margin: 0.5rem 0 0.75rem 1.25rem;">
+              <li><strong>Item I correto:</strong> Podem candidatar-se servidores docentes do quadro permanente ou técnico-administrativos com formação/cargo de nível superior.</li>
+              <li><strong>Item II correto:</strong> Mínimo de 5 anos de efetivo exercício em instituição federal de educação profissional e tecnológica.</li>
+              <li><strong>Item III correto:</strong> Preenchimento de ao menos uma das três condições alternativas: (a) preencher os requisitos para Reitor; (b) possuir no mínimo 2 anos de exercício em cargo ou função de gestão; ou (c) ter concluído com aproveitamento curso formativo de gestão em instituições públicas.</li>
+            </ul>
+
+            <div class="table-container">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Parâmetro</th>
+                    <th>Reitor (Art. 12)</th>
+                    <th>Diretor-Geral de Campus (Art. 13)</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>Carreiras Elegíveis</strong></td>
+                    <td>Restrito a docentes do Quadro Permanente</td>
+                    <td>Docentes ou Servidores Técnico-Administrativos com nível superior</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Tempo Mínimo na Rede EPT</strong></td>
+                    <td>5 anos de efetivo exercício</td>
+                    <td>5 anos de efetivo exercício</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Requisitos Alternativos</strong></td>
+                    <td>Título de Doutor OU classes DIV/DV do EBTT (ou Associado)</td>
+                    <td>Requisitos para Reitor; OU 2 anos em cargo/função de gestão; OU curso de gestão pública</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Autoridade Nomeante</strong></td>
+                    <td>Presidente da República</td>
+                    <td>Reitor do Instituto Federal</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Ponderação de Votos</strong></td>
+                    <td>1/3 Docentes, 1/3 TAEs, 1/3 Discentes (todo o IFMG)</td>
+                    <td>1/3 Docentes, 1/3 TAEs, 1/3 Discentes (apenas campus local)</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- QUESTÃO 09 -->
+      <article class="question-card" id="card-q9">
+        <div class="question-header">
+          <span class="question-number">Questão 09</span>
+          <span class="question-status-badge" id="status-q9">Pendente</span>
+        </div>
+        <div class="question-prompt">
+          <p>A estruturação dos Institutos Federais congrega servidores em diversos campi espalhados por regiões geográficas extensas. Acerca da movimentação de servidores públicos entre diferentes unidades de um mesmo Instituto Federal, nos termos do art. 16, § 2º, da Lei Federal nº 11.892/2008, assinale a alternativa CORRETA:</p>
+        </div>
+        <div class="options-group" data-q="9">
+          <label class="option-item" for="q9_a">
+            <input type="radio" name="q9" id="q9_a" value="A">
+            <span class="option-letter">A)</span>
+            <span class="option-text">O deslocamento interno de servidores efetivos entre diferentes campi do mesmo Instituto Federal decorre do poder discricionário do Reitor mediante simples portaria de redistribuição de ofício.</span>
+          </label>
+          <label class="option-item" for="q9_b">
+            <input type="radio" name="q9" id="q9_b" value="B">
+            <span class="option-letter">B)</span>
+            <span class="option-text">A mudança de lotação de servidores entre diferentes campi de um mesmo Instituto Federal deverá observar o instituto da remoção, nos termos do art. 36 da Lei nº 8.112/1990.</span>
+          </label>
+          <label class="option-item" for="q9_c">
+            <input type="radio" name="q9" id="q9_c" value="C">
+            <span class="option-letter">C)</span>
+            <span class="option-text">A alteração de exercício funcional entre campi distintos é caracterizada como transferência compulsória no interesse exclusivo da administração descentralizada.</span>
+          </label>
+          <label class="option-item" for="q9_d">
+            <input type="radio" name="q9" id="q9_d" value="D">
+            <span class="option-letter">D)</span>
+            <span class="option-text">A movimentação interna subordina-se à realização de cessão de mão de obra temporária, vedada a fixação permanente de lotação em unidade diversa daquela em que se deu a posse originária.</span>
+          </label>
+          <label class="option-item" for="q9_e">
+            <input type="radio" name="q9" id="q9_e" value="E">
+            <span class="option-letter">E)</span>
+            <span class="option-text">Os servidores dos Institutos Federais integram um quadro único regional itinerante, inexistindo a necessidade de instauração de procedimentos baseados no regime jurídico único federal para a permuta ou transferência de lotação entre campi.</span>
+          </label>
+        </div>
+
+        <div class="resolution-box" id="res-q9">
+          <span class="resolution-header-pill">Resolução Comentada</span>
+          <div><span class="legal-basis-badge">Fundamentação: Art. 16, § 2º da Lei nº 11.892/2008</span></div>
+          <div class="resolution-body">
+            <p><strong>Gabarito Oficial: Alternativa B</strong></p>
+            <p>O <strong>art. 16, § 2º</strong> da Lei nº 11.892/2008 estabelece com clareza solar: <em>"A mudança de lotação de servidores entre diferentes campi de um mesmo Instituto Federal deverá observar o instituto da remoção, nos termos do art. 36 da Lei nº 8.112, de 11 de dezembro de 1990."</em></p>
+            <p><em>Análise dos distratores:</em> A alternativa A confunde redistribuição (deslocamento de cargo para outro órgão do mesmo poder) com remoção (deslocamento do servidor no âmbito do mesmo quadro). A alternativa C baseia-se no instituto da transferência, expressamente banido pela jurisprudência constitucional (Súmula Vinculante 43 do STF). A alternativa D distorce o regime de lotação chamando-o de cessão. A alternativa E erra ao dispensar a observância da Lei nº 8.112/1990.</p>
+          </div>
+        </div>
+      </article>
+
+      <!-- QUESTÃO 10 -->
+      <article class="question-card" id="card-q10">
+        <div class="question-header">
+          <span class="question-number">Questão 10</span>
+          <span class="question-status-badge" id="status-q10">Pendente</span>
+        </div>
+        <div class="question-prompt">
+          <p>No que tange ao patrimônio, expansão institucional e normas de governança superior tratadas nos arts. 10 (§ 4º), 15 e 17 da Lei Federal nº 11.892/2008, assinale a afirmativa CORRETA:</p>
+        </div>
+        <div class="options-group" data-q="10">
+          <label class="option-item" for="q10_a">
+            <input type="radio" name="q10" id="q10_a" value="A">
+            <span class="option-letter">A)</span>
+            <span class="option-text">Os bens imóveis recebidos ou adquiridos pelos Institutos Federais gozam de alienabilidade irrestrita, podendo ser livremente alienados por iniciativa do Reitor para cobrir despesas correntes de pessoal.</span>
+          </label>
+          <label class="option-item" for="q10_b">
+            <input type="radio" name="q10" id="q10_b" value="B">
+            <span class="option-letter">B)</span>
+            <span class="option-text">A criação de novos campi pelo Instituto Federal independe de chancela ministerial prévia, decorrendo unicamente de decisão por maioria simples dos integrantes do Colégio de Dirigentes.</span>
+          </label>
+          <label class="option-item" for="q10_c">
+            <input type="radio" name="q10" id="q10_c" value="C">
+            <span class="option-letter">C)</span>
+            <span class="option-text">Os bens e direitos do Instituto Federal serão utilizados ou aplicados, exclusivamente, para a consecução de seus objetivos, não podendo ser alienados a não ser nos casos e condições permitidos em lei.</span>
+          </label>
+          <label class="option-item" for="q10_d">
+            <input type="radio" name="q10" id="q10_d" value="D">
+            <span class="option-letter">D)</span>
+            <span class="option-text">O estatuto da instituição é dispensado de disciplinar a estruturação ou o funcionamento dos órgãos colegiados superiores, sendo tais matérias objeto exclusivo de portarias anuais e provisórias da Reitoria.</span>
+          </label>
+          <label class="option-item" for="q10_e">
+            <input type="radio" name="q10" id="q10_e" value="E">
+            <span class="option-letter">E)</span>
+            <span class="option-text">Os recursos patrimoniais das unidades formadoras permanecem sob usufruto reservado e imprescritível das autarquias estaduais ou prefeituras municipais que doaram a infraestrutura originária.</span>
+          </label>
+        </div>
+
+        <div class="resolution-box" id="res-q10">
+          <span class="resolution-header-pill">Resolução Comentada</span>
+          <div><span class="legal-basis-badge">Fundamentação: Art. 17, parágrafo único da Lei nº 11.892/2008</span></div>
+          <div class="resolution-body">
+            <p><strong>Gabarito Oficial: Alternativa C</strong></p>
+            <p>O <strong>parágrafo único do art. 17</strong> da Lei nº 11.892/2008 estipula que os bens e direitos do Instituto Federal serão utilizados exclusivamente para a consecução de seus objetivos, não podendo ser alienados a não ser nos casos e condições permitidos em lei.</p>
+            <p><em>Análise dos distratores:</em> A alternativa A contraria a afetação pública e a vedação à alienação livre de patrimônio para despesas de pessoal. A alternativa B erra porque a criação de novos campi subordina-se à expressa autorização do Ministério da Educação (art. 15, parágrafo único). A alternativa D viola o art. 10, § 4º, que exige previsão estatutária para as atribuições e o funcionamento dos órgãos colegiados superiores. A alternativa E afronta o art. 2º e a transmissão integral do patrimônio à nova autarquia federal sem reservas de reversão.</p>
+
+            <div class="table-container">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Atributo Colegiado</th>
+                    <th>Conselho Superior (Art. 10, § 3º)</th>
+                    <th>Colégio de Dirigentes (Art. 10, § 2º)</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>Natureza</strong></td>
+                    <td>Órgão máximo deliberativo e consultivo</td>
+                    <td>Órgão estritamente consultivo e de assessoramento</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Presidência</strong></td>
+                    <td>Reitor do Instituto Federal</td>
+                    <td>Reitor do Instituto Federal</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Composição</strong></td>
+                    <td>Docentes, TAEs, discentes, egressos, sociedade civil, MEC e dirigentes</td>
+                    <td>Reitor, Pró-Reitores e Diretores-Gerais de todos os campi</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Paridade Interna</strong></td>
+                    <td>Obrigatória e paritária (docentes, TAEs e estudantes)</td>
+                    <td>Não se aplica (composição estritamente de cargos diretivos)</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Papel Institucional</strong></td>
+                    <td>Aprovação estatutária, regimental, PDI e matrizes de ensino</td>
+                    <td>Apreciação e recomendação de diretrizes orçamentárias e gestão</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Feedback notice if incomplete -->
+      <div class="notice-box" id="warningNotice">
+        Atenção: Você ainda possui questões pendentes de resposta. É recomendável responder todas as 10 questões antes de submeter o simulado.
+      </div>
+
+      <!-- Action Panel -->
+      <div class="controls-container">
+        <button type="button" class="btn-finish" id="btnSubmitQuiz" onclick="submitQuiz()">
+          Finalizar Simulado e Ver Correção
+        </button>
+        <button type="button" class="btn-reset" id="btnResetQuiz" onclick="resetQuiz()">
+          Reiniciar Respostas
+        </button>
+      </div>
+
+    </form>
+  </main>
+
+  <script>
+    // Gabarito Oficial fixado conforme a Lei Federal nº 11.892/2008
+    const answerKey = {
+      1: 'B',
+      2: 'B',
+      3: 'C',
+      4: 'B',
+      5: 'C',
+      6: 'B',
+      7: 'C',
+      8: 'E',
+      9: 'B',
+      10: 'C'
+    };
+
+    const totalQuestions = 10;
+    let userAnswers = {};
+    let isSubmitted = false;
+
+    // Inicialização de escuta de eventos
+    document.addEventListener('DOMContentLoaded', () => {
+      setupRadioListeners();
+      updateProgressDisplay();
+    });
+
+    function setupRadioListeners() {
+      const radios = document.querySelectorAll('input[type="radio"]');
+      radios.forEach(radio => {
+        radio.addEventListener('change', (e) => {
+          if (isSubmitted) return;
+
+          const qNum = e.target.name.replace('q', '');
+          userAnswers[qNum] = e.target.value;
+
+          // Atualiza estilo do rótulo selecionado
+          const group = e.target.closest('.options-group');
+          group.querySelectorAll('.option-item').forEach(item => item.classList.remove('selected'));
+          e.target.closest('.option-item').classList.add('selected');
+
+          // Atualiza card visual
+          const card = document.getElementById(`card-q${qNum}`);
+          card.classList.add('answered');
+          document.getElementById(`status-q${qNum}`).textContent = 'Respondida';
+          document.getElementById(`status-q${qNum}`).style.color = 'var(--brand-primary)';
+
+          updateProgressDisplay();
+        });
+      });
+    }
+
+    function updateProgressDisplay() {
+      const answeredCount = Object.keys(userAnswers).length;
+      const percentage = Math.round((answeredCount / totalQuestions) * 100);
+
+      document.getElementById('progressStatusText').textContent = `${answeredCount} de ${totalQuestions} respondidas`;
+      document.getElementById('percentageStatusText').textContent = `${percentage}% concluído`;
+      document.getElementById('progressBar').style.width = `${percentage}%`;
+
+      if (answeredCount === totalQuestions) {
+        document.getElementById('warningNotice').classList.remove('visible');
+      }
+    }
+
+    function submitQuiz() {
+      const answeredCount = Object.keys(userAnswers).length;
+
+      // Validação amigável sem utilizar alert()
+      if (answeredCount < totalQuestions && !isSubmitted) {
+        const warning = document.getElementById('warningNotice');
+        warning.classList.add('visible');
+        warning.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        // Se clicar pela segunda vez com o aviso ativo, permite avaliar mesmo incompleto
+        if (warning.dataset.allowOnce === 'true') {
+          processGrading();
+          return;
+        }
+        warning.dataset.allowOnce = 'true';
+        return;
+      }
+
+      processGrading();
+    }
+
+    function processGrading() {
+      isSubmitted = true;
+      let correctCount = 0;
+
+      // Desabilita novas alterações nos inputs
+      document.querySelectorAll('input[type="radio"]').forEach(r => r.disabled = true);
+      document.getElementById('btnSubmitQuiz').disabled = true;
+      document.getElementById('btnSubmitQuiz').style.opacity = '0.6';
+      document.getElementById('btnSubmitQuiz').style.cursor = 'not-allowed';
+      document.getElementById('warningNotice').classList.remove('visible');
+
+      // Avaliação detalhada de cada questão
+      for (let i = 1; i <= totalQuestions; i++) {
+        const selected = userAnswers[i];
+        const correct = answerKey[i];
+        const isCorrect = (selected === correct);
+
+        if (isCorrect) correctCount++;
+
+        const card = document.getElementById(`card-q${i}`);
+        const statusBadge = document.getElementById(`status-q${i}`);
+
+        if (isCorrect) {
+          statusBadge.textContent = 'Acertou';
+          statusBadge.style.color = 'var(--correct-text)';
+          statusBadge.style.fontWeight = '700';
+        } else {
+          statusBadge.textContent = selected ? 'Errou' : 'Não Respondida';
+          statusBadge.style.color = 'var(--incorrect-text)';
+          statusBadge.style.fontWeight = '700';
+        }
+
+        // Pintura das alternativas
+        const group = document.querySelector(`.options-group[data-q="${i}"]`);
+        const options = group.querySelectorAll('.option-item');
+
+        options.forEach(item => {
+          const radio = item.querySelector('input[type="radio"]');
+          const val = radio.value;
+
+          // Se for a alternativa correta oficial: sempre destaca com verde suave
+          if (val === correct) {
+            item.classList.add('correct-answer-highlight');
+            const icon = document.createElement('span');
+            icon.className = 'result-icon correct';
+            icon.textContent = '✓ Gabarito Oficial';
+            item.appendChild(icon);
+          }
+
+          // Se o usuário selecionou esta
+          if (val === selected) {
+            if (isCorrect) {
+              item.classList.add('user-correct');
+            } else {
+              item.classList.add('user-incorrect');
+              const icon = document.createElement('span');
+              icon.className = 'result-icon incorrect';
+              icon.textContent = '✗ Sua Resposta';
+              item.appendChild(icon);
+            }
+          }
+        });
+
+        // Revela a caixa com a resolução comentada na mesma página
+        const resBox = document.getElementById(`res-q${i}`);
+        resBox.classList.add('visible');
+      }
+
+      // Preenchimento do painel superior de resultados
+      const percent = Math.round((correctCount / totalQuestions) * 100);
+      const errors = totalQuestions - correctCount;
+
+      document.getElementById('scoreAcertos').textContent = correctCount;
+      document.getElementById('metricAproveitamento').textContent = `${percent}%`;
+      document.getElementById('metricErros').textContent = errors;
+
+      let perfStatus = 'Atenção';
+      let perfColor = '#dc2626';
+      if (percent >= 80) {
+        perfStatus = 'Excelente';
+        perfColor = '#16a34a';
+      } else if (percent >= 60) {
+        perfStatus = 'Bom';
+        perfColor = '#0284c7';
+      } else if (percent >= 50) {
+        perfStatus = 'Regular';
+        perfColor = '#d97706';
+      }
+
+      const statusEl = document.getElementById('metricStatus');
+      statusEl.textContent = perfStatus;
+      statusEl.style.color = perfColor;
+
+      // Exibe e move suavemente a tela até o resumo
+      const dashboard = document.getElementById('resultsDashboard');
+      dashboard.classList.add('visible');
+      dashboard.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function resetQuiz() {
+      // Limpa dados sem recarregar a página
+      userAnswers = {};
+      isSubmitted = false;
+
+      // Limpa formulário
+      document.getElementById('quizForm').reset();
+      document.querySelectorAll('input[type="radio"]').forEach(r => {
+        r.disabled = false;
+        r.checked = false;
+      });
+
+      // Remove classes adicionadas
+      document.querySelectorAll('.option-item').forEach(item => {
+        item.classList.remove('selected', 'user-correct', 'user-incorrect', 'correct-answer-highlight');
+        const icon = item.querySelector('.result-icon');
+        if (icon) icon.remove();
+      });
+
+      document.querySelectorAll('.question-card').forEach(card => {
+        card.classList.remove('answered');
+      });
+
+      for (let i = 1; i <= totalQuestions; i++) {
+        const badge = document.getElementById(`status-q${i}`);
+        badge.textContent = 'Pendente';
+        badge.style.color = 'var(--text-light)';
+        badge.style.fontWeight = 'normal';
+
+        document.getElementById(`res-q${i}`).classList.remove('visible');
+      }
+
+      // Restaura botões e painéis
+      const btnSubmit = document.getElementById('btnSubmitQuiz');
+      btnSubmit.disabled = false;
+      btnSubmit.style.opacity = '1';
+      btnSubmit.style.cursor = 'pointer';
+
+      const warning = document.getElementById('warningNotice');
+      warning.classList.remove('visible');
+      warning.removeAttribute('data-allow-once');
+
+      const dashboard = document.getElementById('resultsDashboard');
+      dashboard.classList.remove('visible');
+
+      updateProgressDisplay();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  </script>
+</body>
+</html>

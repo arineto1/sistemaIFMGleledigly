@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aula EBTT - Lei nº 12.772/2012 | Concurso IFMG</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      color: #1e293b;
+      background-color: #ffffff;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Grifos e destaques visuais de alta legibilidade */
+    .grifado {
+      background-color: #fef08a; /* Amarelo suave e legível */
+      color: #0f172a;
+      font-weight: 600;
+      padding: 0.125rem 0.35rem;
+      border-radius: 0.25rem;
+      box-decoration-break: clone;
+      -webkit-box-decoration-break: clone;
+    }
+
+    .grifado-alerta {
+      background-color: #fee2e2; /* Vermelho suave para vedações e alertas */
+      color: #991b1b;
+      font-weight: 600;
+      padding: 0.125rem 0.35rem;
+      border-radius: 0.25rem;
+    }
+
+    .grifado-sucesso {
+      background-color: #dcfce7; /* Verde suave para requisitos e direitos */
+      color: #166534;
+      font-weight: 600;
+      padding: 0.125rem 0.35rem;
+      border-radius: 0.25rem;
+    }
+
+    /* Tabelas responsivas com quebra de linha automática (sem overflow horizontal) */
+    table {
+      table-layout: fixed;
+      width: 100%;
+      border-collapse: collapse;
+    }
+    
+    th, td {
+      word-wrap: break-word;
+      overflow-wrap: break-word;
+      hyphens: auto;
+    }
+
+    /* Estilização suave para scrollbar nativa se necessária */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #f1f5f9;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 3px;
+    }
+  </style>
+</head>
+<body class="bg-white text-slate-800 leading-relaxed">
+
+  <!-- Barra de Notificação Superior com Metadados da Aula -->
+  <header class="border-b border-slate-200 bg-slate-50/80 sticky top-0 z-30 backdrop-blur-md">
+    <div class="max-w-5xl mx-auto px-4 py-3 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs md:text-sm text-slate-600">
+      <div class="flex items-center gap-2">
+        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-emerald-100 text-emerald-800 border border-emerald-200">
+          IFMG • Geografia
+        </span>
+        <span class="font-medium text-slate-700">Legislação e Carreira EBTT</span>
+      </div>
+      <div class="flex items-center gap-4 text-xs">
+        <span>Foco: <strong class="text-slate-800">Lei nº 12.772/2012</strong></span>
+        <span>Banca: <strong class="text-slate-800">Comissão Central IFMG</strong></span>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-5xl mx-auto px-4 py-8 md:py-12">
+
+    <!-- Cabeçalho Principal da Aula -->
+    <div class="mb-8 border-b border-slate-200 pb-8">
+      <div class="inline-block px-3 py-1 mb-3 text-xs font-bold tracking-wider uppercase text-blue-700 bg-blue-50 border border-blue-200 rounded-md">
+        Caderno Didático & Teórico
+      </div>
+      <h1 class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight leading-snug">
+        Estrutura, Ingresso e Desenvolvimento na Carreira EBTT: Análise Técnica e Didática da Lei nº 12.772/2012
+      </h1>
+      <p class="mt-4 text-base md:text-lg text-slate-600">
+        Dispositivos Centrais: Capítulos I (arts. 1º e 2º), II (art. 10) e III (arts. 14 e 15-A). Preparatório de alta performance para a prova da Reitoria do IFMG.
+      </p>
+    </div>
+
+    <!-- SEÇÃO DO REPRODUTOR DE ÁUDIO MP3 -->
+    <section class="mb-10 bg-slate-50 border border-slate-200 rounded-xl p-5 shadow-sm">
+      <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 mb-4">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-lg bg-blue-100 text-blue-700 flex items-center justify-center shrink-0">
+            <!-- Ícone de Áudio / Fone -->
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path>
+            </svg>
+          </div>
+          <div>
+            <h2 class="text-sm sm:text-base font-bold text-slate-900">Reprodutor de Áudio da Aula (MP3)</h2>
+            <p class="text-xs text-slate-500">Ouça o áudio da aula enquanto acompanha o texto e as marcações de prova.</p>
+          </div>
+        </div>
+        <span id="playerStatus" class="text-xs font-semibold px-2 py-1 bg-slate-200 text-slate-700 rounded-md">
+          Pronto para reprodução
+        </span>
+      </div>
+
+      <!-- Formulário de configuração rápida do nome do arquivo MP3 -->
+      <div class="mb-4 bg-white p-3.5 rounded-lg border border-slate-200">
+        <label for="audioFileNameInput" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
+          Nome do arquivo MP3 (deve estar na mesma pasta deste arquivo HTML):
+        </label>
+        <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
+          <div class="relative flex-1">
+            <span class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400 text-xs">
+              📁
+            </span>
+            <input 
+              type="text" 
+              id="audioFileNameInput" 
+              value="audio10legs.mp3" 
+              placeholder="ex: aula_lei_12772.mp3" 
+              class="w-full pl-8 pr-3 py-2 text-sm bg-slate-50 border border-slate-300 rounded-md focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+            >
+          </div>
+          <button 
+            type="button" 
+            id="loadAudioBtn"
+            class="px-4 py-2 bg-slate-800 hover:bg-slate-900 text-white text-xs font-semibold rounded-md transition-colors shadow-sm flex items-center justify-center gap-1.5"
+          >
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
+            </svg>
+            Carregar Áudio
+          </button>
+        </div>
+        <p class="text-[11px] text-slate-500 mt-1.5">
+          Dica: Se o seu arquivo tiver outro nome (como <code class="bg-slate-100 px-1 py-0.5 rounded text-slate-700">aula.mp3</code>), basta digitar acima e clicar em "Carregar Áudio".
+        </p>
+      </div>
+
+      <!-- Elemento de Áudio HTML5 -->
+      <div class="bg-white p-3 rounded-lg border border-slate-200">
+        <audio id="mainAudioPlayer" controls class="w-full h-11 focus:outline-none">
+          <source id="mainAudioSource" src="audio10legs.mp3" type="audio/mpeg">
+          Seu navegador não suporta a execução de áudio HTML5.
+        </audio>
+      </div>
+    </section>
+
+    <!-- INTRODUÇÃO GERAL -->
+    <section class="mb-10 text-slate-700 text-sm sm:text-base space-y-4">
+      <p>
+        A <strong>Lei nº 12.772, de 28 de dezembro de 2012</strong>, estabelece o regime jurídico e a organização do Plano de Carreiras e Cargos de Magistério Federal, normatizando os deveres funcionais, as formas de investidura e os mecanismos de evolução profissional do corpo docente vinculado às Instituições Federais de Ensino (IFE). No contexto dos concursos públicos conduzidos pela <span class="grifado">Reitoria do Instituto Federal de Minas Gerais (IFMG)</span>, a matéria atinente à Carreira de Magistério do Ensino Básico, Técnico e Tecnológico (EBTT) assume papel central na prova de conhecimentos gerais e de legislação educacional.
+      </p>
+      <p>
+        A estruturação dessa carreira reflete um histórico de negociações entre o Governo Federal e as entidades sindicais docentes, sintetizado na passagem de legislações fragmentadas para um modelo unificado com mecanismos técnicos de valorização. Essa arquitetura normativa foi sucessivamente aperfeiçoada pela <strong>Lei nº 12.863/2013</strong>, pela <strong>Lei nº 13.325/2016</strong> e pela reestruturação consolidada pela <strong>Lei nº 15.141/2025</strong>, tornando imprescindível o domínio exegético dos <span class="grifado">Capítulos I (arts. 1º e 2º), II (art. 10) e III (arts. 14 e 15-A)</span> para a correta resolução das questões elaboradas pela banca examinadora do IFMG.
+      </p>
+    </section>
+
+    <hr class="border-slate-200 my-8">
+
+    <!-- SEÇÃO 1: ABRANGÊNCIA INSTITUCIONAL E ATIVIDADES DOCENTES -->
+    <section class="mb-12">
+      <div class="flex items-center gap-2 mb-3">
+        <span class="w-7 h-7 rounded-full bg-slate-100 text-slate-700 font-bold text-xs flex items-center justify-center border border-slate-300">1</span>
+        <h2 class="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight">
+          Abrangência Institucional e Atividades Docentes: Análise dos Arts. 1º e 2º
+        </h2>
+      </div>
+
+      <div class="text-slate-700 text-sm sm:text-base space-y-4 mb-6">
+        <p>
+          O Capítulo I da norma estabelece os contornos subjetivos e materiais da docência federal. O Plano de Carreiras e Cargos de Magistério Federal foi estruturado a partir de 1º de março de 2013 e congrega duas carreiras centrais: a <strong class="text-slate-900">Carreira de Magistério Superior</strong>, vinculada às Universidades Federais, e a <span class="grifado">Carreira de Magistério do Ensino Básico, Técnico e Tecnológico (EBTT)</span>, privativa dos Institutos Federais, Centros Federais de Educação Tecnológica (CEFETs), Colégios de Aplicação e instituições congêneres mantidas pela União.
+        </p>
+
+        <h3 class="text-base sm:text-lg font-bold text-slate-900 pt-2">Eixos Funcionais e Indissociabilidade</h3>
+        <p>
+          O <strong>art. 2º da Lei nº 12.772/2012</strong> define as atividades dos titulares de cargos docentes, orientando-se pelo princípio da <span class="grifado">indissociabilidade entre ensino, pesquisa e extensão</span>, além da participação regular na gestão universitária e escolar. As competências institucionais subdividem-se em três eixos principais:
+        </p>
+
+        <ul class="list-disc pl-5 space-y-2 text-slate-700">
+          <li>
+            <strong>O primeiro eixo compreende a atividade pedagógica direta e de investigação:</strong> abrangendo a docência no ensino básico (ensino médio e formação profissional integrada), em cursos técnicos, tecnológicos, licenciaturas, bacharelados e programas de pós-graduação <em>stricto sensu</em> e <em>lato sensu</em>, paralelamente à coordenação e execução de projetos de pesquisa aplicada e projetos de extensão comunitária.
+          </li>
+          <li>
+            <strong>O segundo eixo abrange a governança universitária e acadêmica:</strong> traduzida no exercício de funções de confiança e cargos comissionados de direção (CD), coordenação de curso, assistência e assessoramento institucional na própria IFE ou em órgãos da administração pública federal correlacionados à educação, ciência e tecnologia.
+          </li>
+          <li>
+            <strong>O terceiro eixo materializa-se na produção acadêmica e inovação:</strong> corporificada na difusão do conhecimento, no registro de patentes, no desenvolvimento de softwares, na produção técnico-científica e na produção artística e cultural relevante.
+          </li>
+        </ul>
+      </div>
+
+      <!-- Caixa de Memorização Art 1º e 2º -->
+      <div class="bg-blue-50/60 border-l-4 border-blue-600 p-4 rounded-r-lg">
+        <h4 class="text-xs sm:text-sm font-bold uppercase tracking-wider text-blue-900 mb-2 flex items-center gap-1.5">
+          <svg class="w-4 h-4 text-blue-700" fill="currentColor" viewBox="0 0 20 20"><path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z"></path><path fill-rule="evenodd" d="M4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm3 4a1 1 0 000 2h.01a1 1 0 100-2H7zm3 0a1 1 0 000 2h3a1 1 0 100-2h-3zm-3 4a1 1 0 100 2h.01a1 1 0 100-2H7zm3 0a1 1 0 100 2h3a1 1 0 100-2h-3z" clip-rule="evenodd"></path></svg>
+          Tópicos para Memorização: Características Fundamentais (Arts. 1º e 2º)
+        </h4>
+        <ul class="space-y-1.5 text-xs sm:text-sm text-slate-800">
+          <li class="flex items-start gap-2">
+            <span class="text-blue-600 font-bold">•</span>
+            <span>O Magistério Federal congrega <span class="grifado">duas carreiras distintas</span> sob o mesmo diploma legal: <strong>Magistério Superior</strong> e <strong>Magistério EBTT</strong>, acrescidas de cargos isolados de Professor Titular-Livre.</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-blue-600 font-bold">•</span>
+            <span>O núcleo finalístico do cargo assenta-se no tripé indissociável de <span class="grifado">Ensino, Pesquisa e Extensão</span>, estendendo-se à produção técnico-cultural.</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-blue-600 font-bold">•</span>
+            <span>O exercício de atividades de <span class="grifado">gestão acadêmica e representação institucional integra formalmente</span> o plexo de atribuições normatizadas do docente federal, computando para sua evolução na carreira.</span>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <hr class="border-slate-200 my-8">
+
+    <!-- SEÇÃO 2: ESTRUTURA DA CARREIRA EBTT -->
+    <section class="mb-12">
+      <div class="flex items-center gap-2 mb-3">
+        <span class="w-7 h-7 rounded-full bg-slate-100 text-slate-700 font-bold text-xs flex items-center justify-center border border-slate-300">2</span>
+        <h2 class="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight">
+          Estrutura da Carreira EBTT: Escalas, Classes e Níveis
+        </h2>
+      </div>
+
+      <div class="text-slate-700 text-sm sm:text-base space-y-4 mb-6">
+        <p>
+          A carreira docente no âmbito dos Institutos Federais organiza-se verticalmente em classes de carreira e horizontalmente em níveis de remuneração. A trajetória funcional foi reestruturada por marcos legislativos que visaram conferir maior simetria ao tempo total necessário para que o profissional atinja o topo da carreira.
+        </p>
+
+        <h3 class="text-base sm:text-lg font-bold text-slate-900 pt-2">A Arquitetura das Classes e Níveis</h3>
+        <p>
+          Sob o prisma histórico-normativo decorrente da Lei nº 12.863/2013, a carreira EBTT era composta pelas classes D I, D II, D III, D IV e Titular. Com a edição da <strong>Lei nº 15.141/2025</strong>, o art. 1º, § 3º, da Lei nº 12.772/2012 passou a consagrar a distribuição unificada em classes alfabéticas, estabelecendo a transição formal para as <span class="grifado">Classes A, B, C e Titular</span>. Ambas as composições exigem atenção do candidato, uma vez que editais e enunciados de bancas próprias frequentemente contrapõem a nomenclatura canônica e os padrões recentes de enquadramento.
+        </p>
+      </div>
+
+      <!-- TABELA 1: ESTRUTURA DE CLASSES E NÍVEIS (SEM SCROLL HORIZONTAL) -->
+      <div class="border border-slate-300 rounded-lg overflow-hidden my-6 bg-white shadow-xs">
+        <table class="w-full text-left text-xs sm:text-sm">
+          <thead class="bg-slate-100 border-b border-slate-300 text-slate-800">
+            <tr>
+              <th class="py-3 px-2 sm:px-3 font-bold w-[22%]">Classe Atual (Lei nº 15.141/2025)</th>
+              <th class="py-3 px-2 sm:px-3 font-bold w-[20%]">Nomenclatura Histórica</th>
+              <th class="py-3 px-2 sm:px-3 font-bold w-[18%]">Quantidade de Níveis</th>
+              <th class="py-3 px-2 sm:px-3 font-bold w-[40%]">Descrição Funcional e Posição</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-200">
+            <tr class="hover:bg-slate-50">
+              <td class="py-3 px-2 sm:px-3 font-bold text-slate-900"><span class="grifado">Classe A</span></td>
+              <td class="py-3 px-2 sm:px-3 text-slate-600">Classes D I e D II</td>
+              <td class="py-3 px-2 sm:px-3 font-semibold text-slate-800">1 nível</td>
+              <td class="py-3 px-2 sm:px-3 text-slate-700">Nível único de <strong class="text-slate-900">ingresso</strong> da carreira.</td>
+            </tr>
+            <tr class="hover:bg-slate-50">
+              <td class="py-3 px-2 sm:px-3 font-bold text-slate-900">Classe B</td>
+              <td class="py-3 px-2 sm:px-3 text-slate-600">Classe D III</td>
+              <td class="py-3 px-2 sm:px-3 font-semibold text-slate-800">4 níveis</td>
+              <td class="py-3 px-2 sm:px-3 text-slate-700">Níveis 1, 2, 3 e 4 (Intermediária I).</td>
+            </tr>
+            <tr class="hover:bg-slate-50">
+              <td class="py-3 px-2 sm:px-3 font-bold text-slate-900">Classe C</td>
+              <td class="py-3 px-2 sm:px-3 text-slate-600">Classe D IV</td>
+              <td class="py-3 px-2 sm:px-3 font-semibold text-slate-800">4 níveis</td>
+              <td class="py-3 px-2 sm:px-3 text-slate-700">Níveis 1, 2, 3 e 4 (Intermediária II).</td>
+            </tr>
+            <tr class="hover:bg-slate-50 bg-amber-50/40">
+              <td class="py-3 px-2 sm:px-3 font-bold text-amber-950"><span class="grifado">Classe Titular</span></td>
+              <td class="py-3 px-2 sm:px-3 text-slate-600">Classe Titular</td>
+              <td class="py-3 px-2 sm:px-3 font-semibold text-slate-800">1 nível</td>
+              <td class="py-3 px-2 sm:px-3 text-slate-700">Nível único correspondente ao <strong class="text-slate-900">ápice da carreira</strong>.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p class="text-slate-600 text-xs sm:text-sm italic">
+        Nota de distinção: Diferentemente da Carreira de Magistério Superior — cujas classes preservam denominações expressas (Classe A/Assistente, Classe B/Adjunto, Classe C/Associado e Classe D/Titular) —, a Carreira EBTT utiliza preferencialmente as designações formais em letras ou matrizes alfanuméricas, culminando na designação exclusiva de Titular.
+      </p>
+    </section>
+
+    <hr class="border-slate-200 my-8">
+
+    <!-- SEÇÃO 3: INGRESSO NA CARREIRA EBTT (ART. 10) -->
+    <section class="mb-12">
+      <div class="flex items-center gap-2 mb-3">
+        <span class="w-7 h-7 rounded-full bg-slate-100 text-slate-700 font-bold text-xs flex items-center justify-center border border-slate-300">3</span>
+        <h2 class="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight">
+          Ingresso na Carreira EBTT: Análise do Art. 10
+        </h2>
+      </div>
+
+      <div class="text-slate-700 text-sm sm:text-base space-y-4 mb-6">
+        <p>
+          O provimento originário na carreira do Magistério Federal submete-se ao mandamento de acessibilidade mediante concurso público de provas e títulos, conforme preceituado pelo art. 37, II, da Constituição da República e materializado no art. 10 da Lei nº 12.772/2012.
+        </p>
+
+        <h3 class="text-base sm:text-lg font-bold text-slate-900 pt-2">Diretrizes de Acesso e Unicidade do Provimento</h3>
+        <p>
+          Nos termos literais do <strong>art. 10 da Lei nº 12.772/2012</strong> (com as atualizações da Lei nº 12.863/2013 e da Lei nº 15.141/2025), o ingresso nos cargos de provimento efetivo de Professor da Carreira de Magistério EBTT ocorre <span class="grifado">sempre no primeiro nível da classe inicial da carreira (Nível 1 da Classe A)</span>, por meio de aprovação em <span class="grifado">concurso público de provas e títulos</span>.
+        </p>
+        <p>
+          A hermenêutica do dispositivo vincula a Administração do IFMG a um <strong class="text-slate-900">ponto único de entrada</strong>. O candidato aprovado não tem prerrogativa de tomar posse em classes mais elevadas (como B, C ou Titular), independentemente de sua qualificação acadêmica prévia. Um candidato portador de pós-doutorado e centenas de publicações será <span class="grifado">necessariamente nomeado e empossado na Classe A, Nível 1</span>.
+        </p>
+
+        <h3 class="text-base sm:text-lg font-bold text-slate-900 pt-2">A Titulação e a Remuneração Inicial</h3>
+        <p>
+          A titulação acadêmica apresentada pelo candidato investido no cargo gera reflexos financeiros imediatos sem alterar sua posição na hierarquia da carreira. Pelo mecanismo da <strong class="text-slate-900">Retribuição por Titulação (RT)</strong>, regulado pelo art. 17 da referida lei, o docente perceberá o vencimento básico fixado para o primeiro nível da classe inicial, somado ao percentual correspondente ao maior título formalmente comprovado (Aperfeiçoamento, Especialização, Mestrado ou Doutorado).
+        </p>
+        <div class="bg-amber-50 border-l-4 border-amber-500 p-3.5 rounded-r text-xs sm:text-sm text-amber-950">
+          <strong>Atenção às alterações legislativas recentes:</strong> Historicamente, os arts. 13 e 15 da Lei nº 12.772/2012 permitiam o mecanismo de "Aceleração da Promoção", pelo qual o docente saltava para a Classe D III após o probatório caso comprovasse mestrado ou doutorado. <span class="grifado-alerta">Com a Lei nº 15.141/2025, os artigos 13 e 15 foram expressamente revogados</span>, devendo o avanço obedecer ao cumprimento dos interstícios ordinários subsequentes, sem salto funcional direto por titulação.
+        </div>
+      </div>
+
+      <!-- Tópicos Memorização Ingresso -->
+      <div class="bg-blue-50/60 border-l-4 border-blue-600 p-4 rounded-r-lg">
+        <h4 class="text-xs sm:text-sm font-bold uppercase tracking-wider text-blue-900 mb-2 flex items-center gap-1.5">
+          <svg class="w-4 h-4 text-blue-700" fill="currentColor" viewBox="0 0 20 20"><path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z"></path><path fill-rule="evenodd" d="M4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm3 4a1 1 0 000 2h.01a1 1 0 100-2H7zm3 0a1 1 0 000 2h3a1 1 0 100-2h-3zm-3 4a1 1 0 100 2h.01a1 1 0 100-2H7zm3 0a1 1 0 100 2h3a1 1 0 100-2h-3z" clip-rule="evenodd"></path></svg>
+          Tópicos para Memorização: Regras de Ingresso (Art. 10)
+        </h4>
+        <ul class="space-y-1.5 text-xs sm:text-sm text-slate-800">
+          <li class="flex items-start gap-2">
+            <span class="text-blue-600 font-bold">•</span>
+            <span><strong>Porta de Entrada Única:</strong> O provimento dá-se invariavelmente no <span class="grifado">primeiro nível da classe inicial (Classe A, Nível 1)</span>.</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-blue-600 font-bold">•</span>
+            <span><strong>Vedações Estruturais:</strong> <span class="grifado-alerta">Inexiste ingresso originário direto</span> por concurso nas Classes B, C ou Titular da carreira docente do IFMG.</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-blue-600 font-bold">•</span>
+            <span><strong>Impacto da Titulação:</strong> Especialização, Mestrado e Doutorado conferem direito exclusivo ao recebimento da <span class="grifado">Retribuição por Titulação (RT)</span> nos limites da folha de pagamento, sem ascensão automática de classe.</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-blue-600 font-bold">•</span>
+            <span><strong>Natureza das Provas:</strong> A exigência constitucional e legal impõe certame de <span class="grifado">provas e títulos</span>, sendo nulo edital que discipline provimento apenas por títulos ou apenas por análise curricular.</span>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <hr class="border-slate-200 my-8">
+
+    <!-- SEÇÃO 4: PROGRESSÃO E PROMOÇÃO (ART. 14) -->
+    <section class="mb-12">
+      <div class="flex items-center gap-2 mb-3">
+        <span class="w-7 h-7 rounded-full bg-slate-100 text-slate-700 font-bold text-xs flex items-center justify-center border border-slate-300">4</span>
+        <h2 class="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight">
+          Dinâmica do Desenvolvimento Funcional: Progressão e Promoção (Art. 14)
+        </h2>
+      </div>
+
+      <div class="text-slate-700 text-sm sm:text-base space-y-4 mb-6">
+        <p>
+          O desenvolvimento funcional na Carreira EBTT é estritamente regulamentado pelo <strong>art. 14 da Lei nº 12.772/2012</strong>, operando-se exclusivamente por intermédio de dois institutos jurídicos complementares: a <strong>progressão funcional</strong> e a <strong>promoção</strong>.
+        </p>
+
+        <h3 class="text-base sm:text-lg font-bold text-slate-900 pt-2">Distinção entre os Institutos Jurídicos</h3>
+        <p>
+          O § 1º do art. 14 define com clareza a linha demarcatória entre os movimentos funcionais:
+        </p>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 my-2">
+          <div class="p-4 bg-slate-50 border border-slate-200 rounded-lg">
+            <h5 class="text-sm font-bold text-slate-900 mb-1 flex items-center gap-1.5">
+              <span class="w-2 h-2 rounded-full bg-blue-600"></span>
+              Progressão Funcional
+            </h5>
+            <p class="text-xs sm:text-sm text-slate-700">
+              É a passagem do docente para o nível de vencimento imediatamente superior <span class="grifado">dentro de uma mesma classe</span>. Constitui avanço de natureza horizontal (ex: Classe B, Nível 1 para Nível 2).
+            </p>
+          </div>
+          <div class="p-4 bg-slate-50 border border-slate-200 rounded-lg">
+            <h5 class="text-sm font-bold text-slate-900 mb-1 flex items-center gap-1.5">
+              <span class="w-2 h-2 rounded-full bg-indigo-600"></span>
+              Promoção
+            </h5>
+            <p class="text-xs sm:text-sm text-slate-700">
+              É a passagem do docente <span class="grifado">de uma classe para outra subsequente</span> da carreira. Constitui avanço vertical que modifica a graduação da carreira e viabiliza um novo patamar salarial (ex: Classe B para Classe C).
+            </p>
+          </div>
+        </div>
+
+        <h3 class="text-base sm:text-lg font-bold text-slate-900 pt-2">Requisitos Vinculantes para a Progressão Funcional</h3>
+        <p>
+          A concessão da progressão funcional entre níveis de vencimento não se opera de maneira automática, estando sujeita ao implemento simultâneo de dois requisitos prescritos no art. 14, § 2º:
+        </p>
+        <ul class="list-disc pl-5 space-y-2 text-slate-700">
+          <li>
+            <strong>Interstício Mínimo:</strong> Cumprimento de <span class="grifado">24 (vinte e quatro) meses</span> de efetivo exercício no nível de vencimento em que se encontra posicionado.
+          </li>
+          <li>
+            <strong>Avaliação de Desempenho:</strong> <span class="grifado">Aprovação formal em processo de avaliação de desempenho</span> individual, instruído pelo docente e avaliado pelas comissões competentes da IFE com base nos critérios estabelecidos pelo MEC e pelo Conselho Superior da instituição.
+          </li>
+        </ul>
+
+        <h3 class="text-base sm:text-lg font-bold text-slate-900 pt-2">Requisitos Específicos para as Promoções Funcionais</h3>
+        <p>
+          A ascensão vertical de uma classe para outra exige a permanência no topo da classe antecedente e o cumprimento de condicionantes de mérito acadêmico:
+        </p>
+        <ul class="list-disc pl-5 space-y-2 text-slate-700">
+          <li>
+            <strong>Promoção para a Classe B:</strong> Depende do cumprimento de um interstício de <span class="grifado">36 (trinta e seis) meses</span> no nível único da Classe A (coincidindo com o período do estágio probatório do servidor federal previsto no art. 41 da CF), cumulado com a indispensável aprovação na avaliação de desempenho do respectivo período aquisitivo.
+          </li>
+          <li>
+            <strong>Promoção para a Classe C:</strong> Requer o cumprimento de interstício mínimo de <span class="grifado">24 (vinte e quatro) meses</span> de efetivo exercício no último nível da Classe B (Nível 4), acrescido da aprovação na avaliação de desempenho.
+          </li>
+          <li>
+            <strong>Promoção para a Classe Titular:</strong> Impõe a verificação do cumprimento de interstício de <span class="grifado">24 (vinte e quatro) meses</span> no último nível da Classe C (Nível 4), acompanhada de requisitos adicionais de alta distinção científica e acadêmica.
+          </li>
+        </ul>
+      </div>
+
+      <!-- TABELA 2: COMPARATIVO PROGRESSÃO VS PROMOÇÃO (SEM SCROLL HORIZONTAL) -->
+      <div class="border border-slate-300 rounded-lg overflow-hidden my-6 bg-white shadow-xs">
+        <table class="w-full text-left text-xs sm:text-sm">
+          <thead class="bg-slate-100 border-b border-slate-300 text-slate-800">
+            <tr>
+              <th class="py-3 px-2 sm:px-3 font-bold w-[26%]">Elemento Regulamentar</th>
+              <th class="py-3 px-2 sm:px-3 font-bold w-[37%]">Progressão Funcional</th>
+              <th class="py-3 px-2 sm:px-3 font-bold w-[37%]">Promoção Funcional</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-200">
+            <tr class="hover:bg-slate-50">
+              <td class="py-3 px-2 sm:px-3 font-semibold text-slate-900">Escopo de Movimentação</td>
+              <td class="py-3 px-2 sm:px-3 text-slate-700"><strong>Horizontal:</strong> alteração de nível na mesma classe.</td>
+              <td class="py-3 px-2 sm:px-3 text-slate-700"><strong>Vertical:</strong> elevação de uma classe para a posterior.</td>
+            </tr>
+            <tr class="hover:bg-slate-50">
+              <td class="py-3 px-2 sm:px-3 font-semibold text-slate-900">Interstício Temporal Padrão</td>
+              <td class="py-3 px-2 sm:px-3 text-slate-700"><span class="grifado">24 meses</span> de efetivo exercício em cada nível.</td>
+              <td class="py-3 px-2 sm:px-3 text-slate-700"><span class="grifado">24 meses</span> no último nível da classe antecedente (salvo <span class="grifado">36 meses</span> na Classe A).</td>
+            </tr>
+            <tr class="hover:bg-slate-50">
+              <td class="py-3 px-2 sm:px-3 font-semibold text-slate-900">Exigência de Titulação Específica</td>
+              <td class="py-3 px-2 sm:px-3 text-slate-700">Inexistente (exige-se desempenho funcional regular).</td>
+              <td class="py-3 px-2 sm:px-3 text-slate-700">Obrigatória para a Classe Titular: <span class="grifado">Doutorado formal</span>.</td>
+            </tr>
+            <tr class="hover:bg-slate-50">
+              <td class="py-3 px-2 sm:px-3 font-semibold text-slate-900">Instância Especial de Arguição</td>
+              <td class="py-3 px-2 sm:px-3 text-slate-700">Comissões ordinárias de avaliação de desempenho da IFE.</td>
+              <td class="py-3 px-2 sm:px-3 text-slate-700">Exigência de <span class="grifado">banca especial com defesa pública</span> apenas para Titular.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <hr class="border-slate-200 my-8">
+
+    <!-- SEÇÃO 5: ACESSO À CLASSE TITULAR E BANCA EXAMINADORA ESPECIAL -->
+    <section class="mb-12">
+      <div class="flex items-center gap-2 mb-3">
+        <span class="w-7 h-7 rounded-full bg-slate-100 text-slate-700 font-bold text-xs flex items-center justify-center border border-slate-300">5</span>
+        <h2 class="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight">
+          Acesso à Classe Titular e o Regime da Banca Examinadora Especial
+        </h2>
+      </div>
+
+      <div class="text-slate-700 text-sm sm:text-base space-y-4 mb-6">
+        <p>
+          A Classe Titular materializa o degrau máximo da carreira EBTT. Seu provimento é condicionado ao atendimento das formalidades estatuídas no <strong>art. 14, § 3º</strong>, e detalhadas pela Portaria MEC nº 554/2013 e pelos normativos internos do IFMG.
+        </p>
+
+        <h3 class="text-base sm:text-lg font-bold text-slate-900 pt-2">Rol Cumulativo de Requisitos Legais</h3>
+        <p>
+          O deferimento do pedido de promoção para a Classe Titular exige a demonstração inequívoca e cumulativa de 4 requisitos:
+        </p>
+        <ol class="list-decimal pl-5 space-y-2 text-slate-700">
+          <li>
+            <strong>Interstício Funcional Mínimo:</strong> Permanência e efetivo exercício por pelo menos <span class="grifado">24 (vinte e quatro) meses</span> no último nível da classe antecedente (Nível 4 da Classe C / D IV);
+          </li>
+          <li>
+            <strong>Posse do Título de Doutor:</strong> Diplomação em curso de pós-graduação <em>stricto sensu</em> de doutorado devidamente reconhecido pela CAPES/MEC ou revalidado por universidade pública brasileira;
+          </li>
+          <li>
+            <strong>Avaliação Positiva de Desempenho:</strong> Aprovação na avaliação de desempenho individual durante o período em análise, aferindo assiduidade, qualidade e dedicação institucional;
+          </li>
+          <li>
+            <strong>Arguição de Mérito:</strong> Aprovação perante comissão especial mediante:
+            <ul class="list-disc pl-5 mt-1 space-y-1 text-slate-700">
+              <li><span class="grifado">Defesa pública de memorial</span> (contextualizando criticamente as ações de ensino, pesquisa, extensão, inovação, gestão acadêmica e produção técnico-profissional); <strong>OU</strong></li>
+              <li><span class="grifado">Defesa pública de tese acadêmica inédita</span> elaborada na área de atuação.</li>
+            </ul>
+          </li>
+        </ol>
+
+        <!-- Ponto Crítico de Prova: RSC NÃO substitui Doutorado -->
+        <div class="bg-red-50 border-l-4 border-red-600 p-4 rounded-r-lg my-4">
+          <div class="flex items-center gap-2 text-red-900 font-bold text-sm uppercase tracking-wider mb-1">
+            <svg class="w-5 h-5 text-red-600" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path></svg>
+            Ponto Crítico de Prova (Armadilha Clássica)
+          </div>
+          <p class="text-xs sm:text-sm text-red-950 font-medium">
+            O Reconhecimento de Saberes e Competências (RSC) é um instituto remuneratório que equipara a Retribuição por Titulação (RT), mas <span class="grifado-alerta">NÃO substitui, sob hipótese alguma, a exigência do diploma formal de Doutor</span> para fins de promoção à Classe Titular. Sem o título de Doutorado formalmente reconhecido, o docente com mestrado ou especialização e RSC-III está legalmente impedido de ascender a Titular.
+          </p>
+        </div>
+
+        <h3 class="text-base sm:text-lg font-bold text-slate-900 pt-2">Regras de Composição da Banca Examinadora Especial</h3>
+        <p>
+          A Portaria MEC nº 554/2013 e a regulamentação do Conselho Superior do IFMG (Resolução nº 52/2017) disciplinam os critérios para constituição da banca examinadora especial:
+        </p>
+        <ul class="list-disc pl-5 space-y-2 text-slate-700">
+          <li>
+            <strong>Nível dos Avaliadores:</strong> Todos os examinadores devem possuir formação em nível de <span class="grifado">Doutorado</span> ou ostentar a condição funcional de <span class="grifado">Professor Titular</span>.
+          </li>
+          <li>
+            <strong>Percentual Obrigatório de Membros Externos:</strong> A legislação federal e os normativos do IFMG impõem que no mínimo <span class="grifado">75% da composição da banca examinadora</span> (três quartos da totalidade dos membros, ou seja, pelo menos 3 externos em uma banca de 4 avaliadores) seja formada por docentes e pesquisadores externos ao quadro do IFMG.
+          </li>
+          <li>
+            <strong>Sessão Pública:</strong> A defesa de memorial ou de tese é aberta ao público e deve ser gravada eletronicamente para salvaguardar a publicidade, a ampla defesa e a transparência administrativa.
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <hr class="border-slate-200 my-8">
+
+    <!-- SEÇÃO 6: EFEITOS FINANCEIROS DO DESENVOLVIMENTO FUNCIONAL (ART. 15-A) -->
+    <section class="mb-12">
+      <div class="flex items-center gap-2 mb-3">
+        <span class="w-7 h-7 rounded-full bg-slate-100 text-slate-700 font-bold text-xs flex items-center justify-center border border-slate-300">6</span>
+        <h2 class="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight">
+          Efeitos Financeiros do Desenvolvimento Funcional: O Art. 15-A
+        </h2>
+      </div>
+
+      <div class="text-slate-700 text-sm sm:text-base space-y-4 mb-6">
+        <p>
+          Inserido pela <strong>Lei nº 13.325/2016</strong>, o <strong>art. 15-A da Lei nº 12.772/2012</strong> uniformizou o marco fático-jurídico que rege o início da contraprestação salarial decorrente das promoções e progressões funcionais.
+        </p>
+
+        <h3 class="text-base sm:text-lg font-bold text-slate-900 pt-2">A Literalidade Legal e sua Eficácia Operacional</h3>
+        <p>
+          O texto normativo estabelece que o efeito financeiro da progressão e da promoção ocorrerá <span class="grifado">a partir da data em que o docente cumprir o interstício e os requisitos estabelecidos em lei</span> para o desenvolvimento na carreira.
+        </p>
+        <p>
+          A redação do dispositivo impede que o servidor sofra prejuízos em caso de demora burocrática da Administração Pública. O ato administrativo homologatório da progressão (portaria do Diretor-Geral do Campus ou do Reitor do IFMG) possui <strong class="text-slate-900">natureza meramente declaratória</strong>, e não constitutiva de direito.
+        </p>
+        <div class="bg-slate-50 border border-slate-200 p-3.5 rounded-lg text-xs sm:text-sm text-slate-700">
+          <strong>Exemplo prático de prova:</strong> Se um docente completar o interstício de 24 meses em 15 de fevereiro e comprovar sua produção acadêmica, mas o IFMG apenas publicar a portaria em agosto, o pagamento de retroativos é obrigatório desde o dia <span class="grifado">15 de fevereiro</span>.
+        </div>
+
+        <h3 class="text-base sm:text-lg font-bold text-slate-900 pt-2">A Peculiaridade Aplicável à Classe Titular</h3>
+        <p>
+          Diferentemente das progressões ordinárias, os órgãos consultivos federais (AGU) e a jurisprudência administrativa reconhecem uma distinção técnica quanto à Classe Titular: como a aprovação no memorial ou tese perante a banca especial constitui ato integrativo e complexo, os efeitos financeiros fixam-se <span class="grifado">na data em que a banca examinadora especial emite o parecer conclusivo de aprovação</span>.
+        </p>
+      </div>
+    </section>
+
+    <hr class="border-slate-200 my-8">
+
+    <!-- SEÇÃO 7: QUADRO RESUMO DE DEFINIÇÕES BÁSICAS PARA REVISÃO RÁPIDA -->
+    <section class="mb-12">
+      <div class="flex items-center gap-2 mb-3">
+        <span class="w-7 h-7 rounded-full bg-slate-100 text-slate-700 font-bold text-xs flex items-center justify-center border border-slate-300">7</span>
+        <h2 class="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight">
+          Quadro Resumo de Definições Básicas para Revisão Rápida
+        </h2>
+      </div>
+      <p class="text-slate-600 text-sm mb-4">Conceitos fundamentais em textos diretos para memorização imediata na véspera do certame:</p>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-3.5">
+        <div class="p-4 bg-slate-50 border border-slate-200 rounded-lg">
+          <strong class="text-xs uppercase tracking-wider text-slate-500 block mb-1">Conceito 1</strong>
+          <h4 class="text-sm font-bold text-slate-900 mb-1">Progressão Funcional</h4>
+          <p class="text-xs sm:text-sm text-slate-700">
+            Deslocamento <span class="grifado">estritamente horizontal</span> dentro da mesma classe (mudança de nível). Requer 24 meses de efetivo exercício no nível e aprovação na avaliação de desempenho individual.
+          </p>
+        </div>
+
+        <div class="p-4 bg-slate-50 border border-slate-200 rounded-lg">
+          <strong class="text-xs uppercase tracking-wider text-slate-500 block mb-1">Conceito 2</strong>
+          <h4 class="text-sm font-bold text-slate-900 mb-1">Promoção</h4>
+          <p class="text-xs sm:text-sm text-slate-700">
+            Deslocamento <span class="grifado">estritamente vertical</span> entre classes consecutivas. Requer cumprimento de interstício no último nível da classe anterior (regra geral de 24 meses; 36 meses na Classe A) e avaliação de desempenho.
+          </p>
+        </div>
+
+        <div class="p-4 bg-slate-50 border border-slate-200 rounded-lg">
+          <strong class="text-xs uppercase tracking-wider text-slate-500 block mb-1">Conceito 3</strong>
+          <h4 class="text-sm font-bold text-slate-900 mb-1">Ingresso Ordinário na Carreira</h4>
+          <p class="text-xs sm:text-sm text-slate-700">
+            Ato formal de investidura que ocorre impreterivelmente na <span class="grifado">Classe A, Nível 1</span>, mediante concurso público de <span class="grifado">provas e títulos</span>, aplicando-se idêntico enquadramento a graduados, mestres e doutores.
+          </p>
+        </div>
+
+        <div class="p-4 bg-slate-50 border border-slate-200 rounded-lg">
+          <strong class="text-xs uppercase tracking-wider text-slate-500 block mb-1">Conceito 4</strong>
+          <h4 class="text-sm font-bold text-slate-900 mb-1">Retribuição por Titulação (RT)</h4>
+          <p class="text-xs sm:text-sm text-slate-700">
+            Parcela pecuniária somada ao vencimento básico conforme o título formal apresentado (especialização, mestrado ou doutorado), sem modificar a classe ou nível inicial do docente.
+          </p>
+        </div>
+
+        <div class="p-4 bg-slate-50 border border-slate-200 rounded-lg">
+          <strong class="text-xs uppercase tracking-wider text-slate-500 block mb-1">Conceito 5</strong>
+          <h4 class="text-sm font-bold text-slate-900 mb-1">Promoção para Classe Titular</h4>
+          <p class="text-xs sm:text-sm text-slate-700">
+            Acesso condicionado a 24 meses no topo da Classe C (Nível 4), aprovação na avaliação de desempenho, <span class="grifado">diploma formal de Doutor</span> e aprovação em defesa pública de memorial ou tese inédita.
+          </p>
+        </div>
+
+        <div class="p-4 bg-slate-50 border border-slate-200 rounded-lg">
+          <strong class="text-xs uppercase tracking-wider text-slate-500 block mb-1">Conceito 6</strong>
+          <h4 class="text-sm font-bold text-slate-900 mb-1">Comissão Examinadora Especial</h4>
+          <p class="text-xs sm:text-sm text-slate-700">
+            Banca constituída por doutores ou professores titulares, integrada obrigatoriamente por pelo menos <span class="grifado">75% de membros externos</span> ao IFMG.
+          </p>
+        </div>
+
+        <div class="p-4 bg-slate-50 border border-slate-200 rounded-lg">
+          <strong class="text-xs uppercase tracking-wider text-slate-500 block mb-1">Conceito 7</strong>
+          <h4 class="text-sm font-bold text-slate-900 mb-1">Princípio da Retroatividade (Art. 15-A)</h4>
+          <p class="text-xs sm:text-sm text-slate-700">
+            Os efeitos financeiros do desenvolvimento funcional retroagem ao dia exato em que o servidor preencheu todos os requisitos legais e completou o interstício.
+          </p>
+        </div>
+
+        <div class="p-4 bg-slate-50 border border-slate-200 rounded-lg">
+          <strong class="text-xs uppercase tracking-wider text-slate-500 block mb-1">Conceito 8</strong>
+          <h4 class="text-sm font-bold text-slate-900 mb-1">Inviabilidade do RSC em Titularidade</h4>
+          <p class="text-xs sm:text-sm text-slate-700">
+            A concessão de RSC <span class="grifado-alerta">não substitui a exigência de Doutorado formal</span> para fins de promoção à Classe Titular.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <hr class="border-slate-200 my-8">
+
+    <!-- SEÇÃO 8: MAPEAMENTO DE PEGADINHAS E PONTOS CRÍTICOS -->
+    <section class="mb-12">
+      <div class="flex items-center gap-2 mb-3">
+        <span class="w-7 h-7 rounded-full bg-slate-100 text-slate-700 font-bold text-xs flex items-center justify-center border border-slate-300">8</span>
+        <h2 class="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight">
+          Mapeamento de Pegadinhas e Pontos Críticos para a Prova Objetiva do IFMG
+        </h2>
+      </div>
+      <p class="text-slate-600 text-sm mb-4">
+        As bancas examinadoras formulam pegadinhas trocando expressões legais sutis. Analise o confronto direto entre enunciados falsos recorrentes e a realidade normativa:
+      </p>
+
+      <!-- TABELA 3: PEGADINHAS DE CONCURSO (SEM SCROLL HORIZONTAL) -->
+      <div class="border border-slate-300 rounded-lg overflow-hidden my-4 bg-white shadow-xs">
+        <table class="w-full text-left text-xs sm:text-sm">
+          <thead class="bg-slate-100 border-b border-slate-300 text-slate-800">
+            <tr>
+              <th class="py-3 px-2 sm:px-3 font-bold w-[32%] text-red-900 bg-red-50/50">Enunciado Falso Comum em Prova</th>
+              <th class="py-3 px-2 sm:px-3 font-bold w-[43%]">Realidade Normativa (Lei nº 12.772/2012)</th>
+              <th class="py-3 px-2 sm:px-3 font-bold w-[25%]">Fundamento Legal</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-200">
+            <tr class="hover:bg-slate-50">
+              <td class="py-3 px-2 sm:px-3 font-medium text-red-800 italic">
+                "O docente portador de título de Doutor aprovado em concurso ingressa diretamente na Classe B ou C da carreira EBTT."
+              </td>
+              <td class="py-3 px-2 sm:px-3 text-slate-800">
+                <span class="grifado-alerta font-bold">FALSO.</span> O ingresso ocorre <span class="grifado">sempre no nível 1 da classe inicial (Classe A)</span>, gerando o Doutorado apenas reflexos no cálculo da RT.
+              </td>
+              <td class="py-3 px-2 sm:px-3 text-slate-600 text-[11px] sm:text-xs">
+                Art. 10 c/c Arts. 16 e 17
+              </td>
+            </tr>
+
+            <tr class="hover:bg-slate-50">
+              <td class="py-3 px-2 sm:px-3 font-medium text-red-800 italic">
+                "O RSC de nível III substitui o título de doutor para fins de promoção à Classe Titular no âmbito do IFMG."
+              </td>
+              <td class="py-3 px-2 sm:px-3 text-slate-800">
+                <span class="grifado-alerta font-bold">FALSO.</span> O título formal de Doutor é requisito autônomo, obrigatório e <span class="grifado">insubstituível para aceder à Classe Titular</span>.
+              </td>
+              <td class="py-3 px-2 sm:px-3 text-slate-600 text-[11px] sm:text-xs">
+                Art. 14, § 3º e jurisprudência pacífica
+              </td>
+            </tr>
+
+            <tr class="hover:bg-slate-50">
+              <td class="py-3 px-2 sm:px-3 font-medium text-red-800 italic">
+                "A banca de avaliação para a Classe Titular pode ser composta inteiramente por docentes pertencentes ao próprio quadro do IFMG."
+              </td>
+              <td class="py-3 px-2 sm:px-3 text-slate-800">
+                <span class="grifado-alerta font-bold">FALSO.</span> A comissão examinadora especial exige <span class="grifado">no mínimo 75% de membros externos</span> à instituição de lotação.
+              </td>
+              <td class="py-3 px-2 sm:px-3 text-slate-600 text-[11px] sm:text-xs">
+                Portaria MEC nº 554/2013 e Resoluções IFs
+              </td>
+            </tr>
+
+            <tr class="hover:bg-slate-50">
+              <td class="py-3 px-2 sm:px-3 font-medium text-red-800 italic">
+                "O interstício temporal mínimo exigido para cada progressão funcional entre níveis na carreira docente é de 12 meses."
+              </td>
+              <td class="py-3 px-2 sm:px-3 text-slate-800">
+                <span class="grifado-alerta font-bold">FALSO.</span> O interstício legal obrigatório para cada nível na carreira é de <span class="grifado">24 (vinte e quatro) meses</span> de efetivo exercício.
+              </td>
+              <td class="py-3 px-2 sm:px-3 text-slate-600 text-[11px] sm:text-xs">
+                Art. 14, § 2º, inciso I
+              </td>
+            </tr>
+
+            <tr class="hover:bg-slate-50">
+              <td class="py-3 px-2 sm:px-3 font-medium text-red-800 italic">
+                "A concessão de efeitos financeiros decorrentes de progressão só terá vigência no dia da publicação da respectiva portaria."
+              </td>
+              <td class="py-3 px-2 sm:px-3 text-slate-800">
+                <span class="grifado-alerta font-bold">FALSO.</span> O efeito financeiro <span class="grifado">retroage à data</span> em que o servidor cumpriu o interstício e os requisitos de desempenho.
+              </td>
+              <td class="py-3 px-2 sm:px-3 text-slate-600 text-[11px] sm:text-xs">
+                Art. 15-A (Lei nº 13.325/2016)
+              </td>
+            </tr>
+
+            <tr class="hover:bg-slate-50">
+              <td class="py-3 px-2 sm:px-3 font-medium text-red-800 italic">
+                "Progressão funcional é o mecanismo pelo qual o docente passa de uma classe de ensino para a classe subsequente."
+              </td>
+              <td class="py-3 px-2 sm:px-3 text-slate-800">
+                <span class="grifado-alerta font-bold">FALSO.</span> A passagem entre classes distintas chama-se <span class="grifado">Promoção</span>; progressão refere-se à mudança de nível na mesma classe.
+              </td>
+              <td class="py-3 px-2 sm:px-3 text-slate-600 text-[11px] sm:text-xs">
+                Art. 14, § 1º
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- SÍNTESE CONCLUSIVA -->
+    <section class="mb-14 bg-slate-50 border border-slate-200 rounded-xl p-5 sm:p-6">
+      <h3 class="text-base sm:text-lg font-bold text-slate-900 mb-2">Síntese Conclusiva da Legislação Aplicada</h3>
+      <p class="text-slate-700 text-sm sm:text-base leading-relaxed">
+        A exegese sistemática da Lei nº 12.772/2012 evidencia que o legislador estruturou a Carreira do Magistério EBTT sobre pilares de meritocracia acadêmica, estabilidade procedimental e preservação da legalidade estrita. O candidato que se prepara para o certame de Professor de Geografia do IFMG deve manter a clareza sobre os contornos de cada instituto: a unicidade inarredável da porta de ingresso na Classe A (art. 10), a clara diferenciação entre avanços horizontais e verticais (art. 14), a blindagem de excelência exigida para o topo funcional consubstanciada na Classe Titular (avaliada por banca predominantemente externa de doutores e sem atalhos via RSC) e a garantia patrimonial de retroatividade dos efeitos remuneratórios (art. 15-A). O domínio destas distinções assegura a resolução analítica de qualquer variação de enunciado apresentada pela comissão organizadora.
+      </p>
+    </section>
+
+    <!-- BOTÃO PARA QUESTÕES (CONFORME SOLICITADO: MANDA PARA questoes9legs.html) -->
+    <div class="pt-6 pb-12 border-t border-slate-200 flex flex-col items-center justify-center text-center">
+      <p class="text-sm text-slate-500 mb-3">Conteúdo teórico concluído. Hora de testar e consolidar seus acertos em prova.</p>
+      <a 
+        href="questoes10legs.html" 
+        class="inline-flex items-center justify-center gap-3 px-8 py-4 bg-slate-900 hover:bg-black text-white text-base font-bold rounded-xl shadow-md hover:shadow-lg transition-all duration-200 transform hover:-translate-y-0.5"
+      >
+        <span>Praticar Questões de Concurso</span>
+        <svg class="w-5 h-5 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+        </svg>
+      </a>
+      <span class="text-xs text-slate-400 mt-2">Redireciona para <strong>questoes9legs.html</strong></span>
+    </div>
+
+  </main>
+
+  <!-- Rodapé discreto e neutro -->
+  <footer class="border-t border-slate-200 bg-white py-6 text-center text-xs text-slate-500">
+    <div class="max-w-5xl mx-auto px-4">
+      Material de Estudo Direcionado • Carreira de Magistério EBTT • Lei nº 12.772/2012 atualizada
+    </div>
+  </footer>
+
+  <!-- Script para gerenciar a troca e carregamento dinâmico do áudio MP3 -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const audioInput = document.getElementById('audioFileNameInput');
+      const loadBtn = document.getElementById('loadAudioBtn');
+      const audioPlayer = document.getElementById('mainAudioPlayer');
+      const audioSource = document.getElementById('mainAudioSource');
+      const playerStatus = document.getElementById('playerStatus');
+
+      function carregarNovoAudio() {
+        const fileName = audioInput.value.trim();
+        if (!fileName) {
+          playerStatus.textContent = 'Digite o nome do arquivo!';
+          playerStatus.className = 'text-xs font-semibold px-2 py-1 bg-red-100 text-red-700 rounded-md';
+          return;
+        }
+
+        // Atualiza a fonte do áudio
+        audioSource.src = fileName;
+        audioPlayer.load();
+
+        playerStatus.textContent = 'Arquivo carregado: ' + fileName;
+        playerStatus.className = 'text-xs font-semibold px-2 py-1 bg-emerald-100 text-emerald-800 rounded-md';
+      }
+
+      loadBtn.addEventListener('click', carregarNovoAudio);
+
+      audioInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          carregarNovoAudio();
+        }
+      });
+
+      audioPlayer.addEventListener('error', () => {
+        playerStatus.textContent = 'Aguardando arquivo (' + audioInput.value + ')';
+        playerStatus.className = 'text-xs font-semibold px-2 py-1 bg-amber-100 text-amber-800 rounded-md';
+      });
+
+      audioPlayer.addEventListener('canplay', () => {
+        playerStatus.textContent = 'Áudio pronto para tocar';
+        playerStatus.className = 'text-xs font-semibold px-2 py-1 bg-emerald-100 text-emerald-800 rounded-md';
+      });
+    });
+  </script>
+</body>
+</html>

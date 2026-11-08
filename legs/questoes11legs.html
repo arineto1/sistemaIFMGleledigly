@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Interativo - Legislação Federal (Lei nº 12.772/2012)</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Inter Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+            color: #1e293b;
+        }
+    </style>
+</head>
+<body class="h-full flex flex-col justify-between antialiased selection:bg-indigo-500 selection:text-white">
+
+    <!-- Header da Aplicação -->
+    <header class="bg-white border-b border-slate-200 sticky top-0 z-50 shadow-sm">
+        <div class="max-w-4xl mx-auto px-4 py-4 flex flex-col sm:flex-row justify-between items-center gap-2">
+            <div>
+                <h1 class="text-xl font-bold text-slate-800">Simulado IFMG: Lei nº 12.772/2012</h1>
+                <p class="text-sm text-slate-500">Magistério EBTT – Vencimento, RT, RSC, Regime de Trabalho e Afastamentos</p>
+            </div>
+            <div id="score-badge" class="hidden bg-indigo-50 border border-indigo-200 px-4 py-2 rounded-xl text-indigo-700 font-semibold text-sm">
+                Pontuação: <span id="correct-count">0</span>/10 (<span id="percentage">0</span>%)
+            </div>
+        </div>
+    </header>
+
+    <!-- Conteúdo Principal -->
+    <main class="flex-grow max-w-4xl w-full mx-auto px-4 py-8">
+        
+        <!-- Alerta de Aviso / Instruções -->
+        <div class="bg-blue-50 border-l-4 border-blue-500 p-4 rounded-r-xl mb-8 shadow-sm">
+            <div class="flex">
+                <div class="flex-shrink-0">
+                    <svg class="h-5 w-5 text-blue-400" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd" />
+                    </svg>
+                </div>
+                <div class="ml-3">
+                    <p class="text-sm text-blue-700 font-medium">
+                        Responda às 10 questões abaixo selecionando a alternativa correta. Ao concluir, clique no botão de envio para visualizar o seu resultado e o gabarito comentado detalhado na própria página.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Formulário do Quiz -->
+        <form id="quiz-form" class="space-y-8" onsubmit="event.preventDefault(); submitQuiz();">
+            
+            <!-- Questão 01 -->
+            <div class="bg-white rounded-2xl border border-slate-200 p-6 md:p-8 shadow-sm transition-all hover:shadow-md" data-question="1" data-answer="C">
+                <div class="flex justify-between items-center mb-4">
+                    <span class="text-xs font-bold uppercase tracking-wider bg-slate-100 text-slate-600 px-3 py-1 rounded-full">Questão 01</span>
+                    <span class="status-indicator text-xs font-semibold hidden"></span>
+                </div>
+                <h2 class="text-base md:text-lg font-semibold text-slate-800 mb-4 leading-relaxed">
+                    No tocante à estrutura remuneratória do Plano de Carreiras e Cargos de Magistério Federal, disciplinada pelo Capítulo IV da Lei nº 12.772/2012, assinale a alternativa correta:
+                </h2>
+                <div class="space-y-3">
+                    <label class="flex items-start p-3 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="radio" name="q1" value="A" class="mt-1 h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-slate-300">
+                        <span class="ml-3 text-sm text-slate-700"><strong>A)</strong> A remuneração docente é estruturada de forma indivisível pelo subsídio em parcela única, sendo vedado o acréscimo de vantagens decorrentes de cursos de pós-graduação ou titulações acadêmicas concluídas após a posse.</span>
+                    </label>
+                    <label class="flex items-start p-3 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="radio" name="q1" value="B" class="mt-1 h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-slate-300">
+                        <span class="ml-3 text-sm text-slate-700"><strong>B)</strong> A Retribuição por Titulação (RT) é calculada de maneira cumulativa, assegurando ao professor a soma concomitante dos percentuais relativos aos títulos de Especialista, Mestre e Doutor que tiver obtido ao longo de sua trajetória funcional.</span>
+                    </label>
+                    <label class="flex items-start p-3 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="radio" name="q1" value="C" class="mt-1 h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-slate-300">
+                        <span class="ml-3 text-sm text-slate-700"><strong>C)</strong> A estrutura remuneratória possui como componentes permanentes o Vencimento Básico e a Retribuição por Titulação (RT), sendo a RT fixada com base no maior título acadêmico comprovado e reconhecido pelo docente, vedada qualquer acumulação pecuniária de títulos.</span>
+                    </label>
+                    <label class="flex items-start p-3 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="radio" name="q1" value="D" class="mt-1 h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-slate-300">
+                        <span class="ml-3 text-sm text-slate-700"><strong>D)</strong> A Retribuição por Titulação constitui verba meramente precária e indenizatória, motivo pelo qual a legislação de regência veda terminantemente o seu cômputo na base de cálculo dos proventos de aposentadoria e pensões civis.</span>
+                    </label>
+                    <label class="flex items-start p-3 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="radio" name="q1" value="E" class="mt-1 h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-slate-300">
+                        <span class="ml-3 text-sm text-slate-700"><strong>E)</strong> O Vencimento Básico fixado na Lei nº 12.772/2012 possui valor financeiro idêntico para todos os regimes de trabalho, alterando-se unicamente a Retribuição por Titulação em função das jornadas semanais de 20 ou 40 horas.</span>
+                    </label>
+                </div>
+                <!-- Caixa de Resolução (Oculta até o envio) -->
+                <div class="resolution-box hidden mt-6 pt-6 border-t border-slate-100">
+                    <div class="bg-slate-50 rounded-xl p-4 border border-slate-200">
+                        <p class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Gabarito: <span class="correct-letter text-emerald-600 font-extrabold">C</span></p>
+                        <p class="text-sm text-slate-700 leading-relaxed">
+                            <strong>Resolução Comentada:</strong> A disciplina da remuneração aplicável aos integrantes do Plano de Carreiras e Cargos de Magistério Federal está alicerçada no art. 16 da Lei nº 12.772/2012, que estrutura o padrão remuneratório em duas componentes indissociáveis e complementares: o Vencimento Básico fixado para a classe, nível e regime de jornada, somado à Retribuição por Titulação (RT). O art. 17, <em>caput</em> e § 1º, delimita o alcance patrimonial da RT estabelecendo que ela é devida em função do maior grau acadêmico apresentado, vedando o somatório de títulos de especialização, mestrado e doutorado.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Questão 02 -->
+            <div class="bg-white rounded-2xl border border-slate-200 p-6 md:p-8 shadow-sm transition-all hover:shadow-md" data-question="2" data-answer="B">
+                <div class="flex justify-between items-center mb-4">
+                    <span class="text-xs font-bold uppercase tracking-wider bg-slate-100 text-slate-600 px-3 py-1 rounded-full">Questão 02</span>
+                    <span class="status-indicator text-xs font-semibold hidden"></span>
+                </div>
+                <h2 class="text-base md:text-lg font-semibold text-slate-800 mb-4 leading-relaxed">
+                    Um docente da carreira do Magistério do Ensino Básico, Técnico e Tecnológico (EBTT) do IFMG, detentor de certificado de conclusão de pós-graduação <em>lato sensu</em>, pretende submeter seu histórico funcional ao processo de Reconhecimento de Saberes e Competências (RSC). Paralelamente, manifesta a intenção de utilizar esse reconhecimento para cumprir os requisitos de promoção direta à Classe Titular da carreira. Com esteio nos arts. 18 e 19 da Lei nº 12.772/2012, assinale a opção que analisa adequadamente a pretensão do servidor:
+                </h2>
+                <div class="space-y-3">
+                    <label class="flex items-start p-3 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="radio" name="q2" value="A" class="mt-1 h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-slate-300">
+                        <span class="ml-3 text-sm text-slate-700"><strong>A)</strong> O RSC-I, quando conjugado com o diploma de graduação, confere equivalência remuneratória ao título de mestre, habilitando o docente à promoção funcional para a Classe Titular independentemente de avaliação de mérito.</span>
+                    </label>
+                    <label class="flex items-start p-3 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="radio" name="q2" value="B" class="mt-1 h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-slate-300">
+                        <span class="ml-3 text-sm text-slate-700"><strong>B)</strong> O RSC estrutura-se nos níveis RSC-I, RSC-II e RSC-III, sendo que o certificado de especialização somado ao RSC-II confere equivalência a mestrado exclusivamente para a percepção da Retribuição por Titulação, vedado seu emprego para fins de promoção na Carreira.</span>
+                    </label>
+                    <label class="flex items-start p-3 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="radio" name="q2" value="C" class="mt-1 h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-slate-300">
+                        <span class="ml-3 text-sm text-slate-700"><strong>C)</strong> O Reconhecimento de Saberes e Competências produz plena equivalência acadêmica, conferindo ao beneficiário grau e diploma universitário de pós-graduação <em>stricto sensu</em> expedido pelo órgão máximo da instituição federal de ensino.</span>
+                    </label>
+                    <label class="flex items-start p-3 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="radio" name="q2" value="D" class="mt-1 h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-slate-300">
+                        <span class="ml-3 text-sm text-slate-700"><strong>D)</strong> A concessão do RSC-III a docente portador unicamente de graduação enseja a equivalência financeira da Retribuição por Titulação relativa ao doutorado, dispensando a realização de memorial descritivo na passagem funcional.</span>
+                    </label>
+                    <label class="flex items-start p-3 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="radio" name="q2" value="E" class="mt-1 h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-slate-300">
+                        <span class="ml-3 text-sm text-slate-700"><strong>E)</strong> O RSC pode suprir as exigências de titulação acadêmica estipuladas para a promoção à Classe Titular, desde que homologado de forma irrecorrível pela Comissão Permanente de Pessoal Docente da instituição de exercício.</span>
+                    </label>
+                </div>
+                <div class="resolution-box hidden mt-6 pt-6 border-t border-slate-100">
+                    <div class="bg-slate-50 rounded-xl p-4 border border-slate-200">
+                        <p class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Gabarito: <span class="correct-letter text-emerald-600 font-extrabold">B</span></p>
+                        <p class="text-sm text-slate-700 leading-relaxed">
+                            <strong>Resolução Comentada:</strong> O RSC foi introduzido pelo art. 18 da Lei nº 12.772/2012 para valorizar a produção profissional e técnica com efeitos estritamente financeiros na RT. Conforme o art. 18, § 2º, inciso II, o certificado de especialização somado ao RSC-II confere equivalência a mestrado para a RT. Contudo, o art. 19 veda expressamente a aplicação do RSC para fins de equiparação de titulação exigida para o desenvolvimento ou promoção entre as classes da carreira (como a Classe Titular).
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Questão 03 -->
+            <div class="bg-white rounded-2xl border border-slate-200 p-6 md:p-8 shadow-sm transition-all hover:shadow-md" data-question="3" data-answer="B">
+                <div class="flex justify-between items-center mb-4">
+                    <span class="text-xs font-bold uppercase tracking-wider bg-slate-100 text-slate-600 px-3 py-1 rounded-full">Questão 03</span>
+                    <span class="status-indicator text-xs font-semibold hidden"></span>
+                </div>
+                <h2 class="text-base md:text-lg font-semibold text-slate-800 mb-4 leading-relaxed">
+                    A respeito do Regime de Trabalho no âmbito do Plano de Carreiras e Cargos de Magistério Federal, regulamentado pelo art. 20 da Lei nº 12.772/2012, analise as afirmativas a seguir:<br><br>
+                    I. O regime ordinário de trabalho docente nas Instituições Federais de Ensino (IFE) é constituído pelas alternativas de 40 (quarenta) horas semanais com dedicação exclusiva ou de tempo parcial de 20 (vinte) horas semanais.<br>
+                    II. O regime de 40 (quarenta) horas semanais de trabalho sem dedicação exclusiva ostenta natureza excepcional e transitório, admitido na hipótese de ocupação de cargo de direção, função gratificada, coordenação de curso ou ações institucionais fixadas pelo Conselho Superior.<br>
+                    III. O regime de dedicação exclusiva permite ao docente o desempenho livre e continuado de consultorias privadas e docência em faculdades particulares no período noturno, desde que não ocorra sobreposição de horários com as aulas do instituto federal.
+                </h2>
+                <p class="text-sm font-medium text-slate-600 mb-4">Está correto o que se afirma em:</p>
+                <div class="space-y-3">
+                    <label class="flex items-start p-3 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="radio" name="q3" value="A" class="mt-1 h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-slate-300">
+                        <span class="ml-3 text-sm text-slate-700"><strong>A)</strong> I, apenas.</span>
+                    </label>
+                    <label class="flex items-start p-3 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="radio" name="q3" value="B" class="mt-1 h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-slate-300">
+                        <span class="ml-3 text-sm text-slate-700"><strong>B)</strong> I e II, apenas.</span>
+                    </label>
+                    <label class="flex items-start p-3 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="radio" name="q3" value="C" class="mt-1 h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-slate-300">
+                        <span class="ml-3 text-sm text-slate-700"><strong>C)</strong> II e III, apenas.</span>
+                    </label>
+                    <label class="flex items-start p-3 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="radio" name="q3" value="D" class="mt-1 h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-slate-300">
+                        <span class="ml-3 text-sm text-slate-700"><strong>D)</strong> I e III, apenas.</span>
+                    </label>
+                    <label class="flex items-start p-3 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="radio" name="q3" value="E" class="mt-1 h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-slate-300">
+                        <span class="ml-3 text-sm text-slate-700"><strong>E)</strong> I, II e III.</span>
+                    </label>
+                </div>
+                <div class="resolution-box hidden mt-6 pt-6 border-t border-slate-100">
+                    <div class="bg-slate-50 rounded-xl p-4 border border-slate-200">
+                        <p class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Gabarito: <span class="correct-letter text-emerald-600 font-extrabold">B</span></p>
+                        <p class="text-sm text-slate-700 leading-relaxed">
+                            <strong>Resolução Comentada:</strong> O art. 20 da Lei nº 12.772/2012 estabelece o trabalho docente em jornada de 40h com dedicação exclusiva ou 20h semanais. O regime de 40h sem dedicação exclusiva é excepcional (art. 20, § 1º) condicionado a cargos de direção ou programas institucionais aprovados pelo Conselho Superior. O item III está incorreto pois a dedicação exclusiva proíbe expressamente o exercício de outra atividade remunerada, pública ou privada. Logo, apenas I e II estão corretas.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Questão 04 -->
+            <div class="bg-white rounded-2xl border border-slate-200 p-6 md:p-8 shadow-sm transition-all hover:shadow-md" data-question="4" data-answer="C">
+                <div class="flex justify-between items-center mb-4">
+                    <span class="text-xs font-bold uppercase tracking-wider bg-slate-100 text-slate-600 px-3 py-1 rounded-full">Questão 04</span>
+                    <span class="status-indicator text-xs font-semibold hidden"></span>
+                </div>
+                <h2 class="text-base md:text-lg font-semibold text-slate-800 mb-4 leading-relaxed">
+                    Conforme o art. 21, inciso VIII, da Lei nº 12.772/2012, aos docentes submetidos ao regime de dedicação exclusiva é admitida, observadas as condições da regulamentação própria de cada IFE, a percepção de retribuição pecuniária sob a forma de <em>pro labore</em> ou cachê pago diretamente por ente externo à instituição. Para a regularidade de tal percepção, a atividade deve consistir na participação esporádica em palestras, conferências, atividades artísticas e culturais compatíveis com a especialidade do docente, desde que, no total, não ultrapasse:
+                </h2>
+                <div class="space-y-3">
+                    <label class="flex items-start p-3 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="radio" name="q4" value="A" class="mt-1 h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-slate-300">
+                        <span class="ml-3 text-sm text-slate-700"><strong>A)</strong> 120 (cento e vinte) horas anuais.</span>
+                    </label>
+                    <label class="flex items-start p-3 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="radio" name="q4" value="B" class="mt-1 h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-slate-300">
+                        <span class="ml-3 text-sm text-slate-700"><strong>B)</strong> 60 (sessenta) horas anuais.</span>
+                    </label>
+                    <label class="flex items-start p-3 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="radio" name="q4" value="C" class="mt-1 h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-slate-300">
+                        <span class="ml-3 text-sm text-slate-700"><strong>C)</strong> 30 (trinta) horas anuais.</span>
+                    </label>
+                    <label class="flex items-start p-3 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="radio" name="q4" value="D" class="mt-1 h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-slate-300">
+                        <span class="ml-3 text-sm text-slate-700"><strong>D)</strong> 8 (oito) horas semanais.</span>
+                    </label>
+                    <label class="flex items-start p-3 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="radio" name="q4" value="E" class="mt-1 h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-slate-300">
+                        <span class="ml-3 text-sm text-slate-700"><strong>E)</strong> 416 (quatrocentas e dezesseis) horas anuais.</span>
+                    </label>
+                </div>
+                <div class="resolution-box hidden mt-6 pt-6 border-t border-slate-100">
+                    <div class="bg-slate-50 rounded-xl p-4 border border-slate-200">
+                        <p class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Gabarito: <span class="correct-letter text-emerald-600 font-extrabold">C</span></p>
+                        <p class="text-sm text-slate-700 leading-relaxed">
+                            <strong>Resolução Comentada:</strong> O art. 21, inciso VIII, da Lei nº 12.772/2012 autoriza a percepção de <em>pro labore</em> ou cachê por participação esporádica em palestras, conferências e atividades culturais, estipulando expressamente o limite máximo de 30 (trinta) horas anuais.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Questão 05 -->
+            <div class="bg-white rounded-2xl border border-slate-200 p-6 md:p-8 shadow-sm transition-all hover:shadow-md" data-question="5" data-answer="C">
+                <div class="flex justify-between items-center mb-4">
+                    <span class="text-xs font-bold uppercase tracking-wider bg-slate-100 text-slate-600 px-3 py-1 rounded-full">Questão 05</span>
+                    <span class="status-indicator text-xs font-semibold hidden"></span>
+                </div>
+                <h2 class="text-base md:text-lg font-semibold text-slate-800 mb-4 leading-relaxed">
+                    Determinado professor do quadro permanente do IFMG, submetido ao regime de 40 horas com dedicação exclusiva, planeja integrar projetos de inovação tecnológica junto à fundação de apoio credenciada e prestar colaboração esporádica de natureza científica em tema de sua especialidade. Considerando as limitações normativas fixadas no art. 21, incisos XI e XII, em consonância com o seu § 4º, as referidas atividades remuneradas não poderão exceder, computadas isoladamente ou em conjunto, a:
+                </h2>
+                <div class="space-y-3">
+                    <label class="flex items-start p-3 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="radio" name="q5" value="A" class="mt-1 h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-slate-300">
+                        <span class="ml-3 text-sm text-slate-700"><strong>A)</strong> 4 (quatro) horas semanais ou 200 (duzentas) horas anuais.</span>
+                    </label>
+                    <label class="flex items-start p-3 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="radio" name="q5" value="B" class="mt-1 h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-slate-300">
+                        <span class="ml-3 text-sm text-slate-700"><strong>B)</strong> 6 (seis) horas semanais ou 300 (trezentas) horas anuais.</span>
+                    </label>
+                    <label class="flex items-start p-3 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="radio" name="q5" value="C" class="mt-1 h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-slate-300">
+                        <span class="ml-3 text-sm text-slate-700"><strong>C)</strong> 8 (oito) horas semanais ou 416 (quatrocentas e dezesseis) horas anuais.</span>
+                    </label>
+                    <label class="flex items-start p-3 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="radio" name="q5" value="D" class="mt-1 h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-slate-300">
+                        <span class="ml-3 text-sm text-slate-700"><strong>D)</strong> 12 (doze) horas semanais ou 500 (quinhentas) horas anuais.</span>
+                    </label>
+                    <label class="flex items-start p-3 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="radio" name="q5" value="E" class="mt-1 h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-slate-300">
+                        <span class="ml-3 text-sm text-slate-700"><strong>E)</strong> 20 (vinte) horas semanais ou 800 (oitocentas) horas anuais.</span>
+                    </label>
+                </div>
+                <div class="resolution-box hidden mt-6 pt-6 border-t border-slate-100">
+                    <div class="bg-slate-50 rounded-xl p-4 border border-slate-200">
+                        <p class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Gabarito: <span class="correct-letter text-emerald-600 font-extrabold">C</span></p>
+                        <p class="text-sm text-slate-700 leading-relaxed">
+                            <strong>Resolução Comentada:</strong> Nos termos do art. 21, § 4º da Lei nº 12.772/2012 (incluído pelo Marco Legal de Ciência e Tecnologia), as atividades de inovação e colaboração científica em regime de dedicação exclusiva não poderão exceder, isoladas ou cumulativamente, a 8 (oito) horas semanais ou 416 (quatrocentas e dezesseis) horas anuais.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Questão 06 -->
+            <div class="bg-white rounded-2xl border border-slate-200 p-6 md:p-8 shadow-sm transition-all hover:shadow-md" data-question="6" data-answer="E">
+                <div class="flex justify-between items-center mb-4">
+                    <span class="text-xs font-bold uppercase tracking-wider bg-slate-100 text-slate-600 px-3 py-1 rounded-full">Questão 06</span>
+                    <span class="status-indicator text-xs font-semibold hidden"></span>
+                </div>
+                <h2 class="text-base md:text-lg font-semibold text-slate-800 mb-4 leading-relaxed">
+                    Sobre as permissões legais atinentes à percepção de direitos autorais, bolsas e outras rendas por professores em regime de 40 horas semanais com dedicação exclusiva, assinale a afirmativa incorreta à luz do art. 21 da Lei nº 12.772/2012:
+                </h2>
+                <div class="space-y-3">
+                    <label class="flex items-start p-3 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="radio" name="q6" value="A" class="mt-1 h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-slate-300">
+                        <span class="ml-3 text-sm text-slate-700"><strong>A)</strong> É admitida a percepção de direitos autorais ou direitos de propriedade intelectual, nos termos da legislação própria, e ganhos econômicos advindos de projetos de inovação tecnológica.</span>
+                    </label>
+                    <label class="flex items-start p-3 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="radio" name="q6" value="B" class="mt-1 h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-slate-300">
+                        <span class="ml-3 text-sm text-slate-700"><strong>B)</strong> É assegurada a percepção de bolsas de ensino, pesquisa, extensão e estímulo à inovação pagas por agências oficiais de fomento, fundações de apoio credenciadas ou organismos internacionais amparados por convenção executiva.</span>
+                    </label>
+                    <label class="flex items-start p-3 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="radio" name="q6" value="C" class="mt-1 h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-slate-300">
+                        <span class="ml-3 text-sm text-slate-700"><strong>C)</strong> É autorizada a percepção de bolsa para qualificação docente concedida por órgãos de fomento governamentais ou entidades congêneres de incentivo científico.</span>
+                    </label>
+                    <label class="flex items-start p-3 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="radio" name="q6" value="D" class="mt-1 h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-slate-300">
+                        <span class="ml-3 text-sm text-slate-700"><strong>D)</strong> É legítimo o recebimento de bolsa pela atuação na formação de docentes da educação básica no âmbito do sistema Universidade Aberta do Brasil (UAB) ou congêneres estatais.</span>
+                    </label>
+                    <label class="flex items-start p-3 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="radio" name="q6" value="E" class="mt-1 h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-slate-300">
+                        <span class="ml-3 text-sm text-slate-700"><strong>E)</strong> A percepção de direitos autorais decorrentes de obras bibliográficas e didáticas de autoria do docente é admitida estritamente com a condição de que 50% dos proventos sejam transferidos ao erário da IFE de lotação.</span>
+                    </label>
+                </div>
+                <div class="resolution-box hidden mt-6 pt-6 border-t border-slate-100">
+                    <div class="bg-slate-50 rounded-xl p-4 border border-slate-200">
+                        <p class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Gabarito: <span class="correct-letter text-emerald-600 font-extrabold">E</span></p>
+                        <p class="text-sm text-slate-700 leading-relaxed">
+                            <strong>Resolução Comentada:</strong> O art. 21, inciso VI, valida o recebimento de direitos autorais ou de propriedade intelectual sem exigir nenhuma transferência de quotas para o erário da IFE. Logo, a assertiva E é incorreta por inventar a exigência de repasse de 50% dos proventos. As demais opções descrevem perfeitamente permissões legais válidas contidas no mesmo dispositivo.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Questão 07 -->
+            <div class="bg-white rounded-2xl border border-slate-200 p-6 md:p-8 shadow-sm transition-all hover:shadow-md" data-question="7" data-answer="A">
+                <div class="flex justify-between items-center mb-4">
+                    <span class="text-xs font-bold uppercase tracking-wider bg-slate-100 text-slate-600 px-3 py-1 rounded-full">Questão 07</span>
+                    <span class="status-indicator text-xs font-semibold hidden"></span>
+                </div>
+                <h2 class="text-base md:text-lg font-semibold text-slate-800 mb-4 leading-relaxed">
+                    A Lei nº 12.772/2012 regulamenta o rito processual para a alteração do regime de trabalho do professor do Plano de Carreiras e Cargos de Magistério Federal em seu art. 22. A respeito dessa matéria, assinale a alternativa correta:
+                </h2>
+                <div class="space-y-3">
+                    <label class="flex items-start p-3 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="radio" name="q7" value="A" class="mt-1 h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-slate-300">
+                        <span class="ml-3 text-sm text-slate-700"><strong>A)</strong> A proposta de alteração de regime de trabalho deverá ser formalizada pelo professor perante a sua unidade de lotação, cabendo à CPPD apreciá-la para fins de emissão de parecer antes da deliberação da autoridade competente.</span>
+                    </label>
+                    <label class="flex items-start p-3 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="radio" name="q7" value="B" class="mt-1 h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-slate-300">
+                        <span class="ml-3 text-sm text-slate-700"><strong>B)</strong> A alteração de regime para dedicação exclusiva decorre do preenchimento objetivo dos requisitos de titulação acadêmica, inexistindo margem de avaliação de oportunidade pela administração pública.</span>
+                    </label>
+                    <label class="flex items-start p-3 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="radio" name="q7" value="C" class="mt-1 h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-slate-300">
+                        <span class="ml-3 text-sm text-slate-700"><strong>C)</strong> O parecer emitido pela CPPD no processo de modificação de regime possui efeito vinculante sobre o Conselho Superior da instituição, sendo vedado indeferimento posterior.</span>
+                    </label>
+                    <label class="flex items-start p-3 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="radio" name="q7" value="D" class="mt-1 h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-slate-300">
+                        <span class="ml-3 text-sm text-slate-700"><strong>D)</strong> Permanece em vigor a proibição de mudança de regime de trabalho durante o curso do estágio probatório do docente, por força de cláusula de inalterabilidade funcional.</span>
+                    </label>
+                    <label class="flex items-start p-3 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="radio" name="q7" value="E" class="mt-1 h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-slate-300">
+                        <span class="ml-3 text-sm text-slate-700"><strong>E)</strong> A solicitação de alteração do regime de trabalho de 20 para 40 horas semanais prescinde de análise de disponibilidade orçamentária do Banco de Professor-Equivalente.</span>
+                    </label>
+                </div>
+                <div class="resolution-box hidden mt-6 pt-6 border-t border-slate-100">
+                    <div class="bg-slate-50 rounded-xl p-4 border border-slate-200">
+                        <p class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Gabarito: <span class="correct-letter text-emerald-600 font-extrabold">A</span></p>
+                        <p class="text-sm text-slate-700 leading-relaxed">
+                            <strong>Resolução Comentada:</strong> Conforme o art. 22 da Lei nº 12.772/2012, a alteração de regime de trabalho é formalizada perante a unidade de lotação e obrigatoriamente encaminhada à CPPD para emissão de parecer prévio antes da deliberação da autoridade competente. O impedimento em estágio probatório (item D) foi revogado pela Lei nº 13.325/2016.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Questão 08 -->
+            <div class="bg-white rounded-2xl border border-slate-200 p-6 md:p-8 shadow-sm transition-all hover:shadow-md" data-question="8" data-answer="B">
+                <div class="flex justify-between items-center mb-4">
+                    <span class="text-xs font-bold uppercase tracking-wider bg-slate-100 text-slate-600 px-3 py-1 rounded-full">Questão 08</span>
+                    <span class="status-indicator text-xs font-semibold hidden"></span>
+                </div>
+                <h2 class="text-base md:text-lg font-semibold text-slate-800 mb-4 leading-relaxed">
+                    O estágio probatório dos docentes do Plano de Carreiras e Cargos de Magistério Federal é regido pelos arts. 23 a 25 da Lei nº 12.772/2012 e subsidiariamente pela Lei nº 8.112/1990. No que se refere à avaliação especial de desempenho no estágio probatório da carreira docente federal, assinale a opção correta:
+                </h2>
+                <div class="space-y-3">
+                    <label class="flex items-start p-3 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="radio" name="q8" value="A" class="mt-1 h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-slate-300">
+                        <span class="ml-3 text-sm text-slate-700"><strong>A)</strong> A avaliação especial restringe-se exclusivamente aos critérios de idoneidade moral e disciplina administrativa, dispensando métricas de natureza didático-pedagógica.</span>
+                    </label>
+                    <label class="flex items-start p-3 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="radio" name="q8" value="B" class="mt-1 h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-slate-300">
+                        <span class="ml-3 text-sm text-slate-700"><strong>B)</strong> Além dos fatores ordinários dispostos no art. 20 da Lei nº 8.112/1990, a avaliação considerará obrigatoriamente a avaliação pelos discentes, conforme a normatização própria de cada IFE.</span>
+                    </label>
+                    <label class="flex items-start p-3 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="radio" name="q8" value="C" class="mt-1 h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-slate-300">
+                        <span class="ml-3 text-sm text-slate-700"><strong>C)</strong> É expressamente vedada a utilização de instrumentos avaliativos preenchidos pelo corpo discente, sob pena de violação do princípio da impessoalidade no serviço público.</span>
+                    </label>
+                    <label class="flex items-start p-3 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="radio" name="q8" value="D" class="mt-1 h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-slate-300">
+                        <span class="ml-3 text-sm text-slate-700"><strong>D)</strong> O resultado insatisfatório no estágio probatório docente importa em imediata suspensão preventiva remunerada por dois anos antes da edição do ato demissório.</span>
+                    </label>
+                    <label class="flex items-start p-3 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="radio" name="q8" value="E" class="mt-1 h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-slate-300">
+                        <span class="ml-3 text-sm text-slate-700"><strong>E)</strong> A avaliação especial é atribuição de competência exclusiva e privativa de comissão mista formada exclusivamente por alunos e técnicos-administrativos da instituição.</span>
+                    </label>
+                </div>
+                <div class="resolution-box hidden mt-6 pt-6 border-t border-slate-100">
+                    <div class="bg-slate-50 rounded-xl p-4 border border-slate-200">
+                        <p class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Gabarito: <span class="correct-letter text-emerald-600 font-extrabold">B</span></p>
+                        <p class="text-sm text-slate-700 leading-relaxed">
+                            <strong>Resolução Comentada:</strong> O art. 24 da Lei nº 12.772/2012 estipula que, além dos fatores gerais da Lei nº 8.112/1990, a avaliação especial de desempenho no estágio probatório considerará obrigatoriamente a avaliação realizada pelo corpo discente da instituição.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Questão 09 -->
+            <div class="bg-white rounded-2xl border border-slate-200 p-6 md:p-8 shadow-sm transition-all hover:shadow-md" data-question="9" data-answer="C">
+                <div class="flex justify-between items-center mb-4">
+                    <span class="text-xs font-bold uppercase tracking-wider bg-slate-100 text-slate-600 px-3 py-1 rounded-full">Questão 09</span>
+                    <span class="status-indicator text-xs font-semibold hidden"></span>
+                </div>
+                <h2 class="text-base md:text-lg font-semibold text-slate-800 mb-4 leading-relaxed">
+                    A Comissão Permanente de Pessoal Docente (CPPD), prevista no art. 26 da Lei nº 12.772/2012, atua de forma estratégica na formulação e gestão do quadro docente das IFE vinculadas ao Ministério da Educação. Em relação à constituição e às competências da CPPD, é correto afirmar:
+                </h2>
+                <div class="space-y-3">
+                    <label class="flex items-start p-3 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="radio" name="q9" value="A" class="mt-1 h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-slate-300">
+                        <span class="ml-3 text-sm text-slate-700"><strong>A)</strong> Os membros da CPPD são indicados discricionariamente pelo Reitor da instituição de ensino, que fixa os mandatos sem processo eletivo interno.</span>
+                    </label>
+                    <label class="flex items-start p-3 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="radio" name="q9" value="B" class="mt-1 h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-slate-300">
+                        <span class="ml-3 text-sm text-slate-700"><strong>B)</strong> Compete à CPPD julgar a legalidade dos atos disciplinares, homologar a aplicação de sanções funcionais de demissão e fiscalizar o cumprimento do código de ética.</span>
+                    </label>
+                    <label class="flex items-start p-3 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="radio" name="q9" value="C" class="mt-1 h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-slate-300">
+                        <span class="ml-3 text-sm text-slate-700"><strong>C)</strong> À CPPD cabe prestar assessoramento ao dirigente máximo ou ao colegiado competente na política de pessoal docente, inclusive quanto à alocação de vagas, regimes de trabalho e afastamentos.</span>
+                    </label>
+                    <label class="flex items-start p-3 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="radio" name="q9" value="D" class="mt-1 h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-slate-300">
+                        <span class="ml-3 text-sm text-slate-700"><strong>D)</strong> As solicitações de afastamento docente para cursos de mestrado, doutorado e pós-doutorado prescindem de manifestação ou apreciação da CPPD.</span>
+                    </label>
+                    <label class="flex items-start p-3 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="radio" name="q9" value="E" class="mt-1 h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-slate-300">
+                        <span class="ml-3 text-sm text-slate-700"><strong>E)</strong> A CPPD das IFE subordinadas ao Ministério da Educação possui estrutura deliberativa autônoma e orçamentariamente independente dos conselhos superiores institucionais.</span>
+                    </label>
+                </div>
+                <div class="resolution-box hidden mt-6 pt-6 border-t border-slate-100">
+                    <div class="bg-slate-50 rounded-xl p-4 border border-slate-200">
+                        <p class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Gabarito: <span class="correct-letter text-emerald-600 font-extrabold">C</span></p>
+                        <p class="text-sm text-slate-700 leading-relaxed">
+                            <strong>Resolução Comentada:</strong> Nos termos do art. 26 da Lei nº 12.772/2012, a CPPD tem como atribuição principal prestar assessoramento ao dirigente máximo ou colegiado superior na formulação e acompanhamento da política de pessoal docente, abrangendo vagas, regimes e afastamentos. Seus membros são escolhidos por eleição entre os pares.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Questão 10 -->
+            <div class="bg-white rounded-2xl border border-slate-200 p-6 md:p-8 shadow-sm transition-all hover:shadow-md" data-question="10" data-answer="E">
+                <div class="flex justify-between items-center mb-4">
+                    <span class="text-xs font-bold uppercase tracking-wider bg-slate-100 text-slate-600 px-3 py-1 rounded-full">Questão 10</span>
+                    <span class="status-indicator text-xs font-semibold hidden"></span>
+                </div>
+                <h2 class="text-base md:text-lg font-semibold text-slate-800 mb-4 leading-relaxed">
+                    No que concerne à constituição do corpo docente e às regras de contratação temporária e de afastamento do magistério federal, tratadas nos Capítulos VIII (arts. 27 a 29) e IX (art. 30) da Lei nº 12.772/2012, analise as afirmativas:<br><br>
+                    I. O corpo docente das IFE é constituído privativamente por cargos de provimento efetivo do Magistério Federal, admitindo-se a contratação temporária de Professores Substitutos e Visitantes na forma da Lei nº 8.745/1993, com base na remuneração inicial fixada para a titulação requerida no edital.<br>
+                    II. O afastamento integral do docente de suas atribuições funcionais para participar de programa de pós-graduação <em>stricto sensu</em> (mestrado ou doutorado) ou estágio de pós-doutorado pode ser concedido sem prejuízo de direitos e vantagens, independentemente do tempo de ocupação no cargo.<br>
+                    III. O docente poderá afastar-se de suas funções para prestar colaboração técnica a outra instituição federal de ensino ou de pesquisa, com ônus para a instituição de origem, pelo período máximo improrrogável de até quatro anos.
+                </h2>
+                <p class="text-sm font-medium text-slate-600 mb-4">Está correto o que se afirma em:</p>
+                <div class="space-y-3">
+                    <label class="flex items-start p-3 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="radio" name="q10" value="A" class="mt-1 h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-slate-300">
+                        <span class="ml-3 text-sm text-slate-700"><strong>A)</strong> I, apenas.</span>
+                    </label>
+                    <label class="flex items-start p-3 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="radio" name="q10" value="B" class="mt-1 h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-slate-300">
+                        <span class="ml-3 text-sm text-slate-700"><strong>B)</strong> I e II, apenas.</span>
+                    </label>
+                    <label class="flex items-start p-3 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="radio" name="q10" value="C" class="mt-1 h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-slate-300">
+                        <span class="ml-3 text-sm text-slate-700"><strong>C)</strong> II e III, apenas.</span>
+                    </label>
+                    <label class="flex items-start p-3 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="radio" name="q10" value="D" class="mt-1 h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-slate-300">
+                        <span class="ml-3 text-sm text-slate-700"><strong>D)</strong> I e III, apenas.</span>
+                    </label>
+                    <label class="flex items-start p-3 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="radio" name="q10" value="E" class="mt-1 h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-slate-300">
+                        <span class="ml-3 text-sm text-slate-700"><strong>E)</strong> I, II e III.</span>
+                    </label>
+                </div>
+                <div class="resolution-box hidden mt-6 pt-6 border-t border-slate-100">
+                    <div class="bg-slate-50 rounded-xl p-4 border border-slate-200">
+                        <p class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Gabarito: <span class="correct-letter text-emerald-600 font-extrabold">E</span></p>
+                        <p class="text-sm text-slate-700 leading-relaxed">
+                            <strong>Resolução Comentada:</strong> Todas as afirmativas estão corretas. O item I reproduz os arts. 27 e 28 sobre efetivos e temporários. O item II reflete o art. 30, § 2º (afastamento para mestrado/doutorado independente de interstício de tempo no cargo). O item III reproduz o art. 30, inciso I, que autoriza colaboração técnica com ônus para a origem por até 4 anos.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Botão de Envio / Correção -->
+            <div class="text-center pt-4 pb-12">
+                <button type="submit" class="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold px-8 py-4 rounded-2xl shadow-lg transition-all transform hover:-translate-y-0.5 active:translate-y-0 text-base">
+                    Finalizar Quiz e Ver Gabarito Comentado
+                </button>
+            </div>
+
+        </form>
+    </main>
+
+    <!-- Rodapé -->
+    <footer class="bg-white border-t border-slate-200 py-6 text-center text-xs text-slate-500">
+        <p>Simulado elaborado com base na Lei nº 12.772/2012 e padrão da Banca Comissão Central de Concurso Público do IFMG.</p>
+    </footer>
+
+    <!-- Script de Correção e Interatividade -->
+    <script>
+        function submitQuiz() {
+            let correctCount = 0;
+            const totalQuestions = 10;
+            const questionBlocks = document.querySelectorAll('[data-question]');
+
+            questionBlocks.forEach((block) => {
+                const qNum = block.getAttribute('data-question');
+                const correctAnswer = block.getAttribute('data-answer');
+                const selectedRadio = block.querySelector(`input[name="q${qNum}"]:checked`);
+                const statusIndicator = block.querySelector('.status-indicator');
+                const resolutionBox = block.querySelector('.resolution-box');
+
+                // Exibir a caixa de resolução
+                resolutionBox.classList.remove('hidden');
+                statusIndicator.classList.remove('hidden');
+
+                // Destacar a resposta correta e verificar acerto
+                const labels = block.querySelectorAll('label');
+                labels.forEach(label => {
+                    const input = label.querySelector('input');
+                    if (input.value === correctAnswer) {
+                        label.classList.add('bg-emerald-50', 'border-emerald-300', 'font-medium');
+                    }
+                });
+
+                if (selectedRadio) {
+                    if (selectedRadio.value === correctAnswer) {
+                        correctCount++;
+                        statusIndicator.textContent = '✔ Resposta Correta';
+                        statusIndicator.className = 'status-indicator text-xs font-bold px-3 py-1 rounded-full bg-emerald-100 text-emerald-800';
+                    } else {
+                        selectedRadio.closest('label').classList.remove('bg-emerald-50', 'border-emerald-300');
+                        selectedRadio.closest('label').classList.add('bg-rose-50', 'border-rose-300');
+                        statusIndicator.textContent = '✖ Resposta Incorreta';
+                        statusIndicator.className = 'status-indicator text-xs font-bold px-3 py-1 rounded-full bg-rose-100 text-rose-800';
+                    }
+                } else {
+                    statusIndicator.textContent = '⚠ Questão não respondida';
+                    statusIndicator.className = 'status-indicator text-xs font-bold px-3 py-1 rounded-full bg-amber-100 text-amber-800';
+                }
+            });
+
+            // Atualizar placar no topo
+            const percentage = Math.round((correctCount / totalQuestions) * 100);
+            document.getElementById('correct-count').textContent = correctCount;
+            document.getElementById('percentage').textContent = percentage;
+            document.getElementById('score-badge').classList.remove('hidden');
+
+            // Rolar suavemente para o topo para ver o resultado
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
+
+</body>
+</html>

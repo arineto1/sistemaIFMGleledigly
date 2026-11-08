@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Interativo – Lei nº 14.133/2021 (IFMG)</title>
+    <!-- Tailwind CSS for modern styling and layout -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Inter for optimal reading comfort -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+            color: #1e293b;
+        }
+    </style>
+</head>
+<body class="h-full antialiased flex flex-col justify-between">
+
+    <!-- Header -->
+    <header class="bg-white border-b border-slate-200 sticky top-0 z-50 shadow-sm">
+        <div class="max-w-4xl mx-auto px-4 py-4 flex flex-col sm:flex-row justify-between items-center gap-2">
+            <div>
+                <h1 class="text-xl font-bold text-slate-800">Caderno de Questões – Lei nº 14.133/2021</h1>
+                <p class="text-xs text-slate-500">Padrão Banca Comissão Central de Concurso Público – IFMG</p>
+            </div>
+            <div id="progress-indicator" class="text-sm font-semibold bg-indigo-50 text-indigo-700 px-3 py-1 rounded-full border border-indigo-100">
+                Respondidas: 0 / 10
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="max-w-4xl mx-auto px-4 py-8 w-full flex-grow">
+        
+        <!-- Intro Card -->
+        <div class="bg-white rounded-2xl p-6 md:p-8 shadow-sm border border-slate-200 mb-8">
+            <h2 class="text-lg font-bold text-slate-800 mb-2">Instruções do Simulado</h2>
+            <p class="text-slate-600 text-sm leading-relaxed">
+                Este simulado contém 10 questões de múltipla escolha focadas no Título I, Capítulos I a IV da Lei nº 14.133/2021. Selecione uma alternativa para cada questão. Ao concluir todas as respostas, clique no botão ao final da página para calcular sua pontuação e exibir instantaneamente o gabarito oficial acompanhado de todas as resoluções analíticas detalhadas.
+            </p>
+        </div>
+
+        <!-- Quiz Form Container -->
+        <form id="quiz-form" class="space-y-8">
+            
+            <!-- Questão 1 -->
+            <div class="bg-white rounded-2xl p-6 md:p-8 shadow-sm border border-slate-200 question-card" data-question="1">
+                <div class="flex items-center justify-between mb-4">
+                    <span class="text-xs font-bold uppercase tracking-wider text-indigo-600 bg-indigo-50 px-2.5 py-1 rounded-md">Questão 1</span>
+                    <span class="text-xs font-medium text-slate-400">Âmbito de Incidência</span>
+                </div>
+                <h3 class="text-base font-semibold text-slate-800 mb-6 leading-relaxed">
+                    O Instituto Federal de Educação, Ciência e Tecnologia de Minas Gerais (IFMG), na condição de autarquia federal dotada de personalidade jurídica de direito público e autonomia administrativa e financeira, submete a gestão de suas aquisições e contratações às regras gerais da Lei nº 14.133/2021. No que concerne ao âmbito de incidência material e subjetivo dessa legislação na Administração Pública direta, autárquica e fundacional, assinale a alternativa correta:
+                </h3>
+                <div class="space-y-3">
+                    <label class="flex items-start gap-3 p-3.5 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="radio" name="q1" value="A" class="mt-1 text-indigo-600 focus:ring-indigo-500">
+                        <span class="text-sm text-slate-700 leading-normal">(A) As autarquias federais de ensino submetem-se integralmente à Lei nº 14.133/2021, estando, contudo, expressamente excluídos da incidência de seu regime licitatório e contratual os contratos que tenham por objeto operação de crédito, interno ou externo, e a gestão da dívida pública, incluídas as contratações de agente financeiro e a concessão de garantia relacionadas a esses contratos.</span>
+                    </label>
+                    <label class="flex items-start gap-3 p-3.5 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="radio" name="q1" value="B" class="mt-1 text-indigo-600 focus:ring-indigo-500">
+                        <span class="text-sm text-slate-700 leading-normal">(B) As empresas públicas e as sociedades de economia mista subsidiárias da União subordinam-se de modo subsidiário e cogente a todos os procedimentos licitatórios previstos na Lei nº 14.133/2021, operando a revogação tácita dos regimes licitatórios próprios estabelecidos pela Lei nº 13.303/2016.</span>
+                    </label>
+                    <label class="flex items-start gap-3 p-3.5 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="radio" name="q1" value="C" class="mt-1 text-indigo-600 focus:ring-indigo-500">
+                        <span class="text-sm text-slate-700 leading-normal">(C) As contratações administrativas formalizadas por repartições e representações públicas sediadas no exterior subordinam-se estritamente às rotinas burocráticas ordinárias do direito financeiro pátrio, vedando-se a conformação de suas cláusulas às peculiaridades locais e aos tratados celebrados com organismos estrangeiros.</span>
+                    </label>
+                    <label class="flex items-start gap-3 p-3.5 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="radio" name="q1" value="D" class="mt-1 text-indigo-600 focus:ring-indigo-500">
+                        <span class="text-sm text-slate-700 leading-normal">(D) O regime instituído pela Lei nº 14.133/2021 incide de maneira ampla e irrestrita sobre os órgãos dos Poderes Legislativo e Judiciário da União, alcançando tanto o desempenho de suas atividades administrativas e operacionais quanto o exercício de suas funções típicas jurisdicionais e legislativas.</span>
+                    </label>
+                    <label class="flex items-start gap-3 p-3.5 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="radio" name="q1" value="E" class="mt-1 text-indigo-600 focus:ring-indigo-500">
+                        <span class="text-sm text-slate-700 leading-normal">(E) A locação de bens imóveis, a prestação de serviços técnico-profissionais especializados e a compra por encomenda configuram hipóteses contratuais atípicas regidas privativamente pelas normas ordinárias de direito privado, restando isentas do regime formal da referida Lei Geral.</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Questão 2 -->
+            <div class="bg-white rounded-2xl p-6 md:p-8 shadow-sm border border-slate-200 question-card" data-question="2">
+                <div class="flex items-center justify-between mb-4">
+                    <span class="text-xs font-bold uppercase tracking-wider text-indigo-600 bg-indigo-50 px-2.5 py-1 rounded-md">Questão 2</span>
+                    <span class="text-xs font-medium text-slate-400">Tratamento Diferenciado (ME/EPP)</span>
+                </div>
+                <h3 class="text-base font-semibold text-slate-800 mb-6 leading-relaxed">
+                    O art. 4º da Lei nº 14.133/2021 estabelece critérios e parâmetros para a aplicação dos tratamentos diferenciados concedidos às microempresas e empresas de pequeno porte, na forma dos arts. 42 a 49 da Lei Complementar nº 123/2006. Considerando os limites operacionais, financeiros e as condicionantes normativas fixados para a fruição dessas prerrogativas nas licitações autárquicas federais, assinale a alternativa correta:
+                </h3>
+                <div class="space-y-3">
+                    <label class="flex items-start gap-3 p-3.5 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="radio" name="q2" value="A" class="mt-1 text-indigo-600 focus:ring-indigo-500">
+                        <span class="text-sm text-slate-700 leading-normal">(A) O tratamento favorecido previsto na Lei Complementar nº 123/2006 aplica-se universalmente a qualquer contratação governamental, vedando-se ao edital a estipulação de tetos orçamentários ou a exclusão de itens de grande magnitude financeira.</span>
+                    </label>
+                    <label class="flex items-start gap-3 p-3.5 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="radio" name="q2" value="B" class="mt-1 text-indigo-600 focus:ring-indigo-500">
+                        <span class="text-sm text-slate-700 leading-normal">(B) No caso de contratação de obras e serviços de engenharia, os benefícios da Lei Complementar nº 123/2006 não serão aplicados às licitações cujo valor estimado for superior à receita bruta máxima admitida para fins de enquadramento como empresa de pequeno porte.</span>
+                    </label>
+                    <label class="flex items-start gap-3 p-3.5 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="radio" name="q2" value="C" class="mt-1 text-indigo-600 focus:ring-indigo-500">
+                        <span class="text-sm text-slate-700 leading-normal">(C) Em certames cujos contratos possuam prazo de vigência plurianual superior a 1 (um) ano, a verificação dos limites orçamentários fixados na legislação de regência tomará como base o valor global acumulado da contratação durante todo o seu período de duração pactuado.</span>
+                    </label>
+                    <label class="flex items-start gap-3 p-3.5 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="radio" name="q2" value="D" class="mt-1 text-indigo-600 focus:ring-indigo-500">
+                        <span class="text-sm text-slate-700 leading-normal">(D) A obtenção dos incentivos e privilégios legais da Lei Complementar nº 123/2006 independe do volume financeiro somado de contratos administrativos celebrados pela empresa beneficiária perante outros órgãos e entidades da Administração Pública no mesmo ano-calendário.</span>
+                    </label>
+                    <label class="flex items-start gap-3 p-3.5 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="radio" name="q2" value="E" class="mt-1 text-indigo-600 focus:ring-indigo-500">
+                        <span class="text-sm text-slate-700 leading-normal">(E) Em certames para aquisição parcelada de bens ou serviços divididos em múltiplos lotes ou itens, caso um único item supere o teto financeiro de enquadramento empresarial, todos os demais itens divisíveis da licitação perderão de forma compulsória a aplicação do tratamento diferenciado.</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Questão 3 -->
+            <div class="bg-white rounded-2xl p-6 md:p-8 shadow-sm border border-slate-200 question-card" data-question="3">
+                <div class="flex items-center justify-between mb-4">
+                    <span class="text-xs font-bold uppercase tracking-wider text-indigo-600 bg-indigo-50 px-2.5 py-1 rounded-md">Questão 3</span>
+                    <span class="text-xs font-medium text-slate-400">Princípios da Licitação</span>
+                </div>
+                <h3 class="text-base font-semibold text-slate-800 mb-6 leading-relaxed">
+                    O art. 5º da Lei nº 14.133/2021 reúne os princípios cardeais aplicáveis aos processos de contratação governamental, impondo de forma expressa a observância harmônica dos princípios constitucionais da administração pública e das disposições da Lei de Introdução às Normas do Direito Brasileiro (LINDB). A respeito dos princípios expressamente positivados no novo regime e de suas repercussões procedimentais, assinale a alternativa correta:
+                </h3>
+                <div class="space-y-3">
+                    <label class="flex items-start gap-3 p-3.5 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="radio" name="q3" value="A" class="mt-1 text-indigo-600 focus:ring-indigo-500">
+                        <span class="text-sm text-slate-700 leading-normal">(A) O princípio da publicidade impõe a divulgação imediata e integral de todas as peças e atos do certame, inexistindo amparo legal para o diferimento de informações relativas ao conteúdo das propostas ou ao orçamento estimado pela Administração Pública.</span>
+                    </label>
+                    <label class="flex items-start gap-3 p-3.5 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="radio" name="q3" value="B" class="mt-1 text-indigo-600 focus:ring-indigo-500">
+                        <span class="text-sm text-slate-700 leading-normal">(B) O princípio da segregação de funções, expressamente inserido no rol do art. 5º, tiene por escopo vedar a concentração excessiva de poderes e atribuições em um mesmo agente público, partilhando responsabilidades operacionais e decisórias para mitigar falhas materiais e prevenir fraudes sistêmicas.</span>
+                    </label>
+                    <label class="flex items-start gap-3 p-3.5 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="radio" name="q3" value="C" class="mt-1 text-indigo-600 focus:ring-indigo-500">
+                        <span class="text-sm text-slate-700 leading-normal">(C) O princípio do desenvolvimento nacional sustentável autoriza o contratante autárquico a afastar parâmetros basilares de economicidade e viabilidade financeira, desde que o participante apresente certificações ambientais oriundas de instituições não governamentais estrangeiras.</span>
+                    </label>
+                    <label class="flex items-start gap-3 p-3.5 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="radio" name="q3" value="D" class="mt-1 text-indigo-600 focus:ring-indigo-500">
+                        <span class="text-sm text-slate-700 leading-normal">(D) O princípio da moralidade administrativa possui incidência normativa restrita à fase recursal do procedimento licitatório e à fixação de penalidades administrativas, inexistindo repercussão prática sobre a fase interna de planejamento.</span>
+                    </label>
+                    <label class="flex items-start gap-3 p-3.5 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="radio" name="q3" value="E" class="mt-1 text-indigo-600 focus:ring-indigo-500">
+                        <span class="text-sm text-slate-700 leading-normal">(E) A aplicação do postulado do julgamento objetivo veda o emprego de critérios técnicos de desempate fundados em políticas socioeconômicas expressamente positivadas em lei, sob pena de vulneração imediata da igualdade estrita entre proponentes.</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Questão 4 -->
+            <div class="bg-white rounded-2xl p-6 md:p-8 shadow-sm border border-slate-200 question-card" data-question="4">
+                <div class="flex items-center justify-between mb-4">
+                    <span class="text-xs font-bold uppercase tracking-wider text-indigo-600 bg-indigo-50 px-2.5 py-1 rounded-md">Questão 4</span>
+                    <span class="text-xs font-medium text-slate-400">Segregação de Funções</span>
+                </div>
+                <h3 class="text-base font-semibold text-slate-800 mb-6 leading-relaxed">
+                    Visando agilizar contratações em determinada unidade de ensino de um Instituto Federal, a autoridade competente editou portaria designando uma única servidora pública ocupante de cargo efetivo para atuar, simultaneamente, na elaboração do Estudo Técnico Preliminar (ETP) e do Termo de Referência (TR), na condução da sessão do certame como Agente de Contratação e, posteriormente, na condição de fiscal técnica e gestora do contrato administrativo resultante da licitação. À luz dos princípios e do regramento estabelecido pelo Título I da Lei nº 14.133/2021 sobre os agentes públicos, o ato administrativo de designação:
+                </h3>
+                <div class="space-y-3">
+                    <label class="flex items-start gap-3 p-3.5 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="radio" name="q4" value="A" class="mt-1 text-indigo-600 focus:ring-indigo-500">
+                        <span class="text-sm text-slate-700 leading-normal">(A) Encontra respaldo na legislação federal, uma vez que a concentração de funções burocráticas em servidor qualificado atende plenamente aos postulados da eficiência, celeridade e economicidade procedimental.</span>
+                    </label>
+                    <label class="flex items-start gap-3 p-3.5 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="radio" name="q4" value="B" class="mt-1 text-indigo-600 focus:ring-indigo-500">
+                        <span class="text-sm text-slate-700 leading-normal">(B) Mostra-se juridicamente ilegítimo, pois vulnera de maneira frontal o princípio da segregação de funções, que proíbe expressamente a designação de um mesmo agente público para atuação simultânea em tarefas mais suscetíveis a riscos.</span>
+                    </label>
+                    <label class="flex items-start gap-3 p-3.5 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="radio" name="q4" value="C" class="mt-1 text-indigo-600 focus:ring-indigo-500">
+                        <span class="text-sm text-slate-700 leading-normal">(C) Ostenta validade condicionada, sendo exigível apenas a comprovação documental de que a servidora designada detém certificação de pós-graduação stricto sensu em matéria de licitações públicas conferida por instituição de ensino superior oficial.</span>
+                    </label>
+                    <label class="flex items-start gap-3 p-3.5 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="radio" name="q4" value="D" class="mt-1 text-indigo-600 focus:ring-indigo-500">
+                        <span class="text-sm text-slate-700 leading-normal">(D) Apresenta vício parcial e insanável apenas na atribuição cumulativa de gestão contratual, subsistindo perfeita conformidade legal na cumulação das tarefas de planejamento da demanda e condução da disputa do certame.</span>
+                    </label>
+                    <label class="flex items-start gap-3 p-3.5 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="radio" name="q4" value="E" class="mt-1 text-indigo-600 focus:ring-indigo-500">
+                        <span class="text-sm text-slate-700 leading-normal">(E) É presumido como plenamente válido e intangível pela fiscalização interna, cabendo decretação de nulidade administrativa somente se demonstrada a ocorrência comprovada de desfalque patrimonial ou superfaturamento financeiro durante a execução física do contrato.</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Questão 5 -->
+            <div class="bg-white rounded-2xl p-6 md:p-8 shadow-sm border border-slate-200 question-card" data-question="5">
+                <div class="flex items-center justify-between mb-4">
+                    <span class="text-xs font-bold uppercase tracking-wider text-indigo-600 bg-indigo-50 px-2.5 py-1 rounded-md">Questão 5</span>
+                    <span class="text-xs font-medium text-slate-400">Glossário Legal (Serviços Comuns vs. Especiais)</span>
+                </div>
+                <h3 class="text-base font-semibold text-slate-800 mb-6 leading-relaxed">
+                    A Lei nº 14.133/2021 dedicou seu art. 6º à uniformização do vocabulário jurídico aplicado às contratações, delineando distinções fundamentadas na complexidade e heterogeneidade dos objetos. No tocante à conceituação legal conferida a serviços comuns e especiais, bem como à sua caracterização no âmbito da engenharia pública, assinale a alternativa correta:
+                </h3>
+                <div class="space-y-3">
+                    <label class="flex items-start gap-3 p-3.5 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="radio" name="q5" value="A" class="mt-1 text-indigo-600 focus:ring-indigo-500">
+                        <span class="text-sm text-slate-700 leading-normal">(A) Serviços comuns de engenharia constituem empreendimentos complexos que envolvem intervenções estruturais de alta inovação arquitetônica, nos quais se confere ampla liberdade executiva e metodológica à empreiteira contratada.</span>
+                    </label>
+                    <label class="flex items-start gap-3 p-3.5 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="radio" name="q5" value="B" class="mt-1 text-indigo-600 focus:ring-indigo-500">
+                        <span class="text-sm text-slate-700 leading-normal">(B) Bens e serviços comuns são aqueles cujos padrões de desempenho e qualidade podem ser objetivamente definidos pelo edital, por meio de especificações usuais de mercado.</span>
+                    </label>
+                    <label class="flex items-start gap-3 p-3.5 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="radio" name="q5" value="C" class="mt-1 text-indigo-600 focus:ring-indigo-500">
+                        <span class="text-sm text-slate-700 leading-normal">(C) Bens e serviços especiais prescindem de justificativa prévia do contratante em seus autos processuais, sendo a sua caracterização ato discricionário tácito e presumido da equipe de licitação.</span>
+                    </label>
+                    <label class="flex items-start gap-3 p-3.5 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="radio" name="q5" value="D" class="mt-1 text-indigo-600 focus:ring-indigo-500">
+                        <span class="text-sm text-slate-700 leading-normal">(D) As atividades de engenharia voltadas a ações de manutenção, adequação e adaptação de bens móveis e imóveis, mesmo quando preservam suas características originais e são tecnicamente padronizáveis, qualificam-se imperativamente como serviços especiais de engenharia.</span>
+                    </label>
+                    <label class="flex items-start gap-3 p-3.5 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="radio" name="q5" value="E" class="mt-1 text-indigo-600 focus:ring-indigo-500">
+                        <span class="text-sm text-slate-700 leading-normal">(E) A prestação de serviços especiais de engenharia compreende toda atividade operacional de conservação física rotineira cujos elementos técnicos possam ser integralmente descritos por tabelas referenciais oficiais de custos.</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Questão 6 -->
+            <div class="bg-white rounded-2xl p-6 md:p-8 shadow-sm border border-slate-200 question-card" data-question="6">
+                <div class="flex items-center justify-between mb-4">
+                    <span class="text-xs font-bold uppercase tracking-wider text-indigo-600 bg-indigo-50 px-2.5 py-1 rounded-md">Questão 6</span>
+                    <span class="text-xs font-medium text-slate-400">Matriz de Riscos</span>
+                </div>
+                <h3 class="text-base font-semibold text-slate-800 mb-6 leading-relaxed">
+                    A matriz de riscos representa um dos mais relevantes instrumentos contratuais introduzidos na nova disciplina jurídica, vocacionada a garantir a higidez das avenças públicas em empreendimentos de maior envergadura. Em conformidade com a exata definição fornecida pelo art. 6º, inciso XXVII, da Lei nº 14.133/2021, a matriz de riscos configura:
+                </h3>
+                <div class="space-y-3">
+                    <label class="flex items-start gap-3 p-3.5 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="radio" name="q6" value="A" class="mt-1 text-indigo-600 focus:ring-indigo-500">
+                        <span class="text-sm text-slate-700 leading-normal">(A) Estudo facultativo produzido pelo setor requisitante da despesa na fase interna, sem eficácia normativa ou força coercitiva perante o particular contratado, servindo para embasar o cálculo de provisões financeiras orçamentárias.</span>
+                    </label>
+                    <label class="flex items-start gap-3 p-3.5 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="radio" name="q6" value="B" class="mt-1 text-indigo-600 focus:ring-indigo-500">
+                        <span class="text-sm text-slate-700 leading-normal">(B) Documento executivo privativo submetido pela sociedade empresária adjudicatária após o certame, com a finalidade exclusiva de transferir à Administração a assunção de quaisquer ônus decorrentes de áleas econômicas extraordinárias.</span>
+                    </label>
+                    <label class="flex items-start gap-3 p-3.5 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="radio" name="q6" value="C" class="mt-1 text-indigo-600 focus:ring-indigo-500">
+                        <span class="text-sm text-slate-700 leading-normal">(C) Cláusula contratual definidora de riscos e de responsabilidades entre as partes e caracterizadora do equilíbrio econômico-financeiro inicial do contrato, em termos de ônus financeiro decorrente de eventos supervenientes à contratação.</span>
+                    </label>
+                    <label class="flex items-start gap-3 p-3.5 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="radio" name="q6" value="D" class="mt-1 text-indigo-600 focus:ring-indigo-500">
+                        <span class="text-sm text-slate-700 leading-normal">(D) Mecanismo acessório restrito à previsão de índices setoriais automáticos de reajustamento inflacionário de preços para serviços contínuos sem dedicação exclusiva de mão de obra.</span>
+                    </label>
+                    <label class="flex items-start gap-3 p-3.5 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="radio" name="q6" value="E" class="mt-1 text-indigo-600 focus:ring-indigo-500">
+                        <span class="text-sm text-slate-700 leading-normal">(E) Prerrogativa unilateral da Administração Pública que afasta peremptoriamente o direito da empresa contratada a reequilíbrios decorrentes de decisões do próprio contratante que alterem as obrigações pactuadas.</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Questão 7 -->
+            <div class="bg-white rounded-2xl p-6 md:p-8 shadow-sm border border-slate-200 question-card" data-question="7">
+                <div class="flex items-center justify-between mb-4">
+                    <span class="text-xs font-bold uppercase tracking-wider text-indigo-600 bg-indigo-50 px-2.5 py-1 rounded-md">Questão 7</span>
+                    <span class="text-xs font-medium text-slate-400">Sobrepreço e Superfaturamento</span>
+                </div>
+                <h3 class="text-base font-semibold text-slate-800 mb-6 leading-relaxed">
+                    A regularidade do processo de execução da despesa pública exige precisão conceitual ao se constatar eventuais deformidades orçamentárias e desvios financeiros no certame. No glossário legal do art. 6º da Lei nº 14.133/2021, a distinção substantiva entre sobrepreço e superfaturamento reside na seguinte caracterização:
+                </h3>
+                <div class="space-y-3">
+                    <label class="flex items-start gap-3 p-3.5 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="radio" name="q7" value="A" class="mt-1 text-indigo-600 focus:ring-indigo-500">
+                        <span class="text-sm text-slate-700 leading-normal">(A) O sobrepreço e o superfaturamento configuram institutos sinônimos, diferenciando-se apenas quanto à natureza orçamentária do item contratado, seja ele fornecimento de bem móvel ou prestação de serviço de engenharia.</span>
+                    </label>
+                    <label class="flex items-start gap-3 p-3.5 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="radio" name="q7" value="B" class="mt-1 text-indigo-600 focus:ring-indigo-500">
+                        <span class="text-sm text-slate-700 leading-normal">(B) O sobrepreço delimita-se exclusivamente aos desvios apurados nas estimativas orçamentárias preliminares do edital, deixando de existir caso a avença seja firmada e passe a produzir efeitos fáticos na fase de execução contratual.</span>
+                    </label>
+                    <label class="flex items-start gap-3 p-3.5 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="radio" name="q7" value="C" class="mt-1 text-indigo-600 focus:ring-indigo-500">
+                        <span class="text-sm text-slate-700 leading-normal">(C) O superfaturamento caracteriza-se como dano provocado ao patrimônio da Administração Pública, evidenciado, entre outras hipóteses, pela medição de quantidades superiores às efetivamente executadas ou fornecidas.</span>
+                    </label>
+                    <label class="flex items-start gap-3 p-3.5 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="radio" name="q7" value="D" class="mt-1 text-indigo-600 focus:ring-indigo-500">
+                        <span class="text-sm text-slate-700 leading-normal">(D) O superfaturamento independe da fase de execução e de liquidação da despesa, configurando-se unicamente pela oferta de propostas mercadológicas com preços unitários superiores aos orçados no certame.</span>
+                    </label>
+                    <label class="flex items-start gap-3 p-3.5 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="radio" name="q7" value="E" class="mt-1 text-indigo-600 focus:ring-indigo-500">
+                        <span class="text-sm text-slate-700 leading-normal">(E) O sobrepreço consiste exclusivamente em danos materiais consubstanciados na deterioração precoce de estruturas de engenharia públicas por deficiência qualitativa de materiais empregados pela empreiteira.</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Questão 8 -->
+            <div class="bg-white rounded-2xl p-6 md:p-8 shadow-sm border border-slate-200 question-card" data-question="8">
+                <div class="flex items-center justify-between mb-4">
+                    <span class="text-xs font-bold uppercase tracking-wider text-indigo-600 bg-indigo-50 px-2.5 py-1 rounded-md">Questão 8</span>
+                    <span class="text-xs font-medium text-slate-400">Agentes Públicos e Designação</span>
+                </div>
+                <h3 class="text-base font-semibold text-slate-800 mb-6 leading-relaxed">
+                    Em consonância com as premissas de governança pública da Lei nº 14.133/2021, a designação e a atuação funcional de agentes envolvidos no metaprocesso de contratação orientam-se pela gestão por competências. Conforme as disposições do art. 7º do citado diploma, cabe à autoridade máxima da instituição, ou a quem as normas internas indicarem, designar agentes públicos para desempenhar funções essenciais atendendo aos seguintes parâmetros:
+                </h3>
+                <div class="space-y-3">
+                    <label class="flex items-start gap-3 p-3.5 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="radio" name="q8" value="A" class="mt-1 text-indigo-600 focus:ring-indigo-500">
+                        <span class="text-sm text-slate-700 leading-normal">(A) Devem ser, preferencialmente, servidores efetivos ou empregados públicos dos quadros permanentes da Administração Pública, devendo possuir atribuições afins ou capacitação adequada.</span>
+                    </label>
+                    <label class="flex items-start gap-3 p-3.5 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="radio" name="q8" value="B" class="mt-1 text-indigo-600 focus:ring-indigo-500">
+                        <span class="text-sm text-slate-700 leading-normal">(B) Admite-se a livre designação de cidadão que mantenha relação matrimonial ou de parentesco por afinidade, em linha colateral até o quarto grau, com dirigentes de licitantes habituais do órgão contratante.</span>
+                    </label>
+                    <label class="flex items-start gap-3 p-3.5 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="radio" name="q8" value="C" class="mt-1 text-indigo-600 focus:ring-indigo-500">
+                        <span class="text-sm text-slate-700 leading-normal">(C) A exigência de habilitação técnica impõe a conclusão compulsória de bacharelado específico nas ciências jurídicas ou contábeis, rejeitando-se titulações emitidas por escolas de governo mantidas pelo poder público.</span>
+                    </label>
+                    <label class="flex items-start gap-3 p-3.5 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="radio" name="q8" value="D" class="mt-1 text-indigo-600 focus:ring-indigo-500">
+                        <span class="text-sm text-slate-700 leading-normal">(D) As vedações de parentesco e os impedimentos éticos previstos para a escolha dos agentes públicos não alcançam os terceiros contratados para prestar assessoria técnica à comissão de licitação.</span>
+                    </label>
+                    <label class="flex items-start gap-3 p-3.5 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="radio" name="q8" value="E" class="mt-1 text-indigo-600 focus:ring-indigo-500">
+                        <span class="text-sm text-slate-700 leading-normal">(E) A autoridade administrativa encontra-se terminantemente proibida de designar ocupantes de cargo em comissão para qualquer atividade, inclusive as de apoio operacional, na fase preparatória das contratações.</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Questão 9 -->
+            <div class="bg-white rounded-2xl p-6 md:p-8 shadow-sm border border-slate-200 question-card" data-question="9">
+                <div class="flex items-center justify-between mb-4">
+                    <span class="text-xs font-bold uppercase tracking-wider text-indigo-600 bg-indigo-50 px-2.5 py-1 rounded-md">Questão 9</span>
+                    <span class="text-xs font-medium text-slate-400">Agente de Contratação e Comissão</span>
+                </div>
+                <h3 class="text-base font-semibold text-slate-800 mb-6 leading-relaxed">
+                    A arquitetura decisória da Lei nº 14.133/2021 fixou com precisão as atribuições, o regime de investidura e os graus de responsabilidade do Agente de Contratação, da Comissão de Contratação e da Equipe de Apoio. A respeito da disciplina legal aplicável a essas figuras administrativas (art. 8º), assinale a alternativa correta:
+                </h3>
+                <div class="space-y-3">
+                    <label class="flex items-start gap-3 p-3.5 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="radio" name="q9" value="A" class="mt-1 text-indigo-600 focus:ring-indigo-500">
+                        <span class="text-sm text-slate-700 leading-normal">(A) O Agente de Contratação poderá ser escolhido discricionariamente entre ocupantes de cargos puramente comissionados, sem vínculo permanente com a Administração, haja vista a natureza transitória das licitações públicas.</span>
+                    </label>
+                    <label class="flex items-start gap-3 p-3.5 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="radio" name="q9" value="B" class="mt-1 text-indigo-600 focus:ring-indigo-500">
+                        <span class="text-sm text-slate-700 leading-normal">(B) O Agente de Contratação atuará respaldado por equipe de apoio, respondendo de modo objetivo e solidário pelos erros praticados pelos membros da equipe, ainda que tenha sido por estes induzido formalmente em erro.</span>
+                    </label>
+                    <label class="flex items-start gap-3 p-3.5 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="radio" name="q9" value="C" class="mt-1 text-indigo-600 focus:ring-indigo-500">
+                        <span class="text-sm text-slate-700 leading-normal">(C) Em licitação que envolva bens ou serviços especiais, o Agente de Contratação poderá ser substituído por comissão de contratação integrada por, no mínimo, 3 (três) membros, que responderão solidariamente pelos atos praticados, ressalvado o membro que expressar posição individual divergente fundamentada e registrada em ata.</span>
+                    </label>
+                    <label class="flex items-start gap-3 p-3.5 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="radio" name="q9" value="D" class="mt-1 text-indigo-600 focus:ring-indigo-500">
+                        <span class="text-sm text-slate-700 leading-normal">(D) A condução do certame promovido na modalidade pregão constitui encargo privativo e colegiado de comissão integrada por, no mínimo, três pregoeiros titulares detentores de estabilidade.</span>
+                    </label>
+                    <label class="flex items-start gap-3 p-3.5 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="radio" name="q9" value="E" class="mt-1 text-indigo-600 focus:ring-indigo-500">
+                        <span class="text-sm text-slate-700 leading-normal">(E) A instituição de comissão de contratação é obrigatória para certames ordinários de bens e serviços comuns, afastando-se o modelo de condução monocrática nessas hipóteses operacionais.</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Questão 10 -->
+            <div class="bg-white rounded-2xl p-6 md:p-8 shadow-sm border border-slate-200 question-card" data-question="10">
+                <div class="flex items-center justify-between mb-4">
+                    <span class="text-xs font-bold uppercase tracking-wider text-indigo-600 bg-indigo-50 px-2.5 py-1 rounded-md">Questão 10</span>
+                    <span class="text-xs font-medium text-slate-400">Vedações e Defesa Jurídica</span>
+                </div>
+                <h3 class="text-base font-semibold text-slate-800 mb-6 leading-relaxed">
+                    Os arts. 9º e 10 da Lei nº 14.133/2021 traçam balizas ético-normativas que disciplinam as proibições aos agentes públicos e os mecanismos de segurança jurídica assegurados àqueles que pautam sua conduta em orientação formal prévia. A respeito desse regime jurídico, assinale a alternativa correta:
+                </h3>
+                <div class="space-y-3">
+                    <label class="flex items-start gap-3 p-3.5 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="radio" name="q10" value="A" class="mt-1 text-indigo-600 focus:ring-indigo-500">
+                        <span class="text-sm text-slate-700 leading-normal">(A) É lícito ao agente público inserir exigências que estabeleçam preferências relativas ao domicílio fiscal ou geográfico dos licitantes, desde que motivadas pela redução de custos logísticos de fiscalização administrativa.</span>
+                    </label>
+                    <label class="flex items-start gap-3 p-3.5 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="radio" name="q10" value="B" class="mt-1 text-indigo-600 focus:ring-indigo-500">
+                        <span class="text-sm text-slate-700 leading-normal">(B) Se as autoridades competentes e os servidores públicos que tiverem atuado no certame precisarem defender-se administrativa ou judicialmente por ato praticado com estrita observância de parecer jurídico regular, a advocacia pública promoverá, a critério do agente, a sua representação judicial ou extrajudicial.</span>
+                    </label>
+                    <label class="flex items-start gap-3 p-3.5 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="radio" name="q10" value="C" class="mt-1 text-indigo-600 focus:ring-indigo-500">
+                        <span class="text-sm text-slate-700 leading-normal">(C) A representação judicial ou extrajudicial pela advocacia pública constitui direito subjetivo absoluto e indeclinável, impondo-se a representação estatal mesmo que constem dos autos elementos de prova de conduta dolosa ímproba praticada pelo servidor.</span>
+                    </label>
+                    <label class="flex items-start gap-3 p-3.5 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="radio" name="q10" value="D" class="mt-1 text-indigo-600 focus:ring-indigo-500">
+                        <span class="text-sm text-slate-700 leading-normal">(D) O desligamento do cargo, emprego público ou função comissionada extingue incontinenti o dever de a advocacia pública exercer a defesa técnica do ex-servidor que praticou o ato impugnado com respaldo em parecer da assessoria jurídica.</span>
+                    </label>
+                    <label class="flex items-start gap-3 p-3.5 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="radio" name="q10" value="E" class="mt-1 text-indigo-600 focus:ring-indigo-500">
+                        <span class="text-sm text-slate-700 leading-normal">(E) Veda-se de maneira expressa a provocação do órgão de assessoramento jurídico pelo agente de contratação, competindo a este dirimir de forma isolada e terminativa as impugnações e pedidos de esclarecimento ao edital.</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Submit Button Section -->
+            <div class="text-center pt-4 pb-8">
+                <button type="button" id="submit-btn" class="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold px-8 py-4 rounded-2xl shadow-lg transition-all duration-200 text-base w-full sm:w-auto">
+                    Finalizar Quiz e Ver Resultados & Resoluções
+                </button>
+            </div>
+        </form>
+
+        <!-- Results & Resolutions Section (Hidden by Default) -->
+        <div id="results-section" class="hidden space-y-8 mt-12 pt-8 border-t-2 border-slate-200">
+            
+            <!-- Score Card Summary -->
+            <div class="bg-gradient-to-br from-indigo-900 to-slate-900 text-white rounded-3xl p-8 shadow-xl text-center">
+                <span class="text-xs uppercase tracking-widest text-indigo-300 font-semibold bg-indigo-800/60 px-3 py-1.5 rounded-full inline-block mb-3">Resultado Final do Simulado</span>
+                <h2 id="score-title" class="text-3xl font-bold mb-2">Sua Pontuação</h2>
+                <div id="score-display" class="text-5xl font-extrabold text-indigo-200 my-4">0 / 10</div>
+                <p id="score-feedback" class="text-slate-300 text-sm max-w-lg mx-auto leading-relaxed">
+                    Parabéns por concluir o teste. Confira abaixo o gabarito oficial, o desempenho detalhado por questão e as respectivas resoluções analíticas baseadas na Lei nº 14.133/2021.
+                </p>
+                <div class="mt-6">
+                    <button type="button" id="retry-btn" class="bg-white/10 hover:bg-white/20 text-white text-sm font-medium px-5 py-2.5 rounded-xl border border-white/20 transition-all">
+                        Refazer Simulado
+                    </button>
+                </div>
+            </div>
+
+            <!-- Gabarito Sintético Card -->
+            <div class="bg-white rounded-2xl p-6 md:p-8 shadow-sm border border-slate-200">
+                <h3 class="text-lg font-bold text-slate-800 mb-4">Gabarito Sintético</h3>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left text-sm">
+                        <thead>
+                            <tr class="border-b border-slate-200 text-slate-500 font-semibold">
+                                <th class="pb-3 px-3">Questão</th>
+                                <th class="pb-3 px-3">Sua Resposta</th>
+                                <th class="pb-3 px-3">Gabarito Oficial</th>
+                                <th class="pb-3 px-3">Status</th>
+                                <th class="pb-3 px-3">Fundamento Normativo</th>
+                            </tr>
+                        </thead>
+                        <tbody id="summary-table-body" class="divide-y divide-slate-100 text-slate-700">
+                            <!-- Populated via JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Resoluções Analíticas Completas -->
+            <div class="space-y-6">
+                <h3 class="text-xl font-bold text-slate-800 px-2">Resoluções Analíticas Detalhadas</h3>
+                
+                <!-- Resolução 1 -->
+                <div class="bg-white rounded-2xl p-6 md:p-8 shadow-sm border border-slate-200 resolution-item" data-q="1">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="text-xs font-bold text-indigo-600 bg-indigo-50 px-2.5 py-1 rounded-md">Questão 1</span>
+                        <span id="badge-q1" class="text-xs font-semibold px-2.5 py-1 rounded-md"></span>
+                    </div>
+                    <h4 class="font-bold text-slate-800 text-sm mb-2">Gabarito Oficial: <span class="text-indigo-600 font-extrabold">Alternativa A</span></h4>
+                    <p class="text-xs font-medium text-slate-400 mb-4">Fundamento: Lei nº 14.133/2021, art. 1º, caput e incisos; art. 3º, inciso I</p>
+                    <div class="text-sm text-slate-700 leading-relaxed space-y-2">
+                        <p>A análise do âmbito de incidência da Lei nº 14.133/2021 exige a interpretação combinada de seus artigos inaugurais. O art. 1º estabelece normas gerais de licitação e contratação para a Administração Pública direta, autárquica e fundacional de todos os entes federativos (União, Estados, Distrito Federal e Municípios), abarcando expressamente os fundos especiais e as autarquias de ensino federal, como o IFMG. Não obstante a abrangência subjetiva ampla, o art. 3º delimita as hipóteses materiais expressamente excluídas do seu regime subordinativo.</p>
+                        <p>O inciso I do art. 3º estatui taxativamente que não se subordinam ao regime da lei os contratos que tenham por objeto operação de crédito, interno ou externo, e gestão de dívida pública, incluídas as contratações de agente financeiro e a concessão de garantia correlatas. Essa exclusão deriva da especificidade do mercado de crédito financeiro internacional e doméstico, cuja regulação atende a mandamentos próprios de política macroeconômica.</p>
+                    </div>
+                </div>
+
+                <!-- Resolução 2 -->
+                <div class="bg-white rounded-2xl p-6 md:p-8 shadow-sm border border-slate-200 resolution-item" data-q="2">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="text-xs font-bold text-indigo-600 bg-indigo-50 px-2.5 py-1 rounded-md">Questão 2</span>
+                        <span id="badge-q2" class="text-xs font-semibold px-2.5 py-1 rounded-md"></span>
+                    </div>
+                    <h4 class="font-bold text-slate-800 text-sm mb-2">Gabarito Oficial: <span class="text-indigo-600 font-extrabold">Alternativa B</span></h4>
+                    <p class="text-xs font-medium text-slate-400 mb-4">Fundamento: Lei nº 14.133/2021, art. 4º, § 1º, inciso II</p>
+                    <div class="text-sm text-slate-700 leading-relaxed space-y-2">
+                        <p>A Lei nº 14.133/2021 dedicou o art. 4º a disciplinar a aplicação das disposições dos arts. 42 a 49 da Lei Complementar nº 123/2006, buscando compatibilizar a tutela protetiva das microempresas e empresas de pequeno porte com o princípio da modicidade e economicidade nas contratações públicas de vulto expressivo.</p>
+                        <p>Como regra de exceção e salvaguarda orçamentária, o art. 4º, § 1º, inciso II, estabelece textualmente que os benefícios da Lei Complementar nº 123/2006 não serão aplicados, no caso de contratação de obras e serviços de engenharia, às licitações cujo valor estimado for superior à receita bruta máxima admitida para fins de enquadramento como empresa de pequeno porte. Essa blindagem legal visa a coibir a concessão de privilégios concorrenciais em certames complexos cujo objeto supere a capacidade econômico-operacional compatível com tais categorias de agentes de mercado.</p>
+                    </div>
+                </div>
+
+                <!-- Resolução 3 -->
+                <div class="bg-white rounded-2xl p-6 md:p-8 shadow-sm border border-slate-200 resolution-item" data-q="3">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="text-xs font-bold text-indigo-600 bg-indigo-50 px-2.5 py-1 rounded-md">Questão 3</span>
+                        <span id="badge-q3" class="text-xs font-semibold px-2.5 py-1 rounded-md"></span>
+                    </div>
+                    <h4 class="font-bold text-slate-800 text-sm mb-2">Gabarito Oficial: <span class="text-indigo-600 font-extrabold">Alternativa B</span></h4>
+                    <p class="text-xs font-medium text-slate-400 mb-4">Fundamento: Lei nº 14.133/2021, art. 5º c/c art. 7º, § 1º</p>
+                    <div class="text-sm text-slate-700 leading-relaxed space-y-2">
+                        <p>O art. 5º da Lei nº 14.133/2021 consolidou avanços ao incluir a segregação de funções no catálogo dos princípios reitores da atuação administrativa licitatória. Esse princípio atua como postulado estruturante do sistema de controle interno e gestão de riscos da governança pública.</p>
+                        <p>Sua finalidade dogmática e operacional consiste em desmembrar as etapas-chave da despesa (autorização, planejamento, julgamento da licitação, fiscalização da obra ou serviço e ordenação de despesa/atesto fiscal), assegurando que agentes públicos diversos executem fases operacionais contrapostas. Essa fragmentação técnica de poderes reduz custos de conformidade, assegura a revisão interorgânica de atos e inibe mecanismos de encobrimento de erros e ilicitudes.</p>
+                    </div>
+                </div>
+
+                <!-- Resolução 4 -->
+                <div class="bg-white rounded-2xl p-6 md:p-8 shadow-sm border border-slate-200 resolution-item" data-q="4">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="text-xs font-bold text-indigo-600 bg-indigo-50 px-2.5 py-1 rounded-md">Questão 4</span>
+                        <span id="badge-q4" class="text-xs font-semibold px-2.5 py-1 rounded-md"></span>
+                    </div>
+                    <h4 class="font-bold text-slate-800 text-sm mb-2">Gabarito Oficial: <span class="text-indigo-600 font-extrabold">Alternativa B</span></h4>
+                    <p class="text-xs font-medium text-slate-400 mb-4">Fundamento: Lei nº 14.133/2021, art. 5º e art. 7º, § 1º</p>
+                    <div class="text-sm text-slate-700 leading-relaxed space-y-2">
+                        <p>A situação hipotética descortina caso de desconformidade com o art. 7º, § 1º, da Lei nº 14.133/2021, que densifica o princípio da segregação de funções positivado no art. 5º. Conforme determinação do citado parágrafo legal, a autoridade competente deve estruturar suas designações observando a segregação de funções, sendo vedada de modo peremptório a escolha do mesmo agente público para atuar simultaneamente em funções mais suscetíveis a riscos.</p>
+                        <p>Ao concentrar a gênese da contratação (ETP e TR), a condução do certame (Agente de Contratação) e a chancela final de entrega e conformidade (fiscalização e ateste) em uma só agente, a autoridade elimina a fiscalização recíproca, expondo a autarquia federal a severas vulnerabilidades materiais e de integridade institucional.</p>
+                    </div>
+                </div>
+
+                <!-- Resolução 5 -->
+                <div class="bg-white rounded-2xl p-6 md:p-8 shadow-sm border border-slate-200 resolution-item" data-q="5">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="text-xs font-bold text-indigo-600 bg-indigo-50 px-2.5 py-1 rounded-md">Questão 5</span>
+                        <span id="badge-q5" class="text-xs font-semibold px-2.5 py-1 rounded-md"></span>
+                    </div>
+                    <h4 class="font-bold text-slate-800 text-sm mb-2">Gabarito Oficial: <span class="text-indigo-600 font-extrabold">Alternativa B</span></h4>
+                    <p class="text-xs font-medium text-slate-400 mb-4">Fundamento: Lei nº 14.133/2021, art. 6º, inciso XIII</p>
+                    <div class="text-sm text-slate-700 leading-relaxed space-y-2">
+                        <p>O art. 6º, inciso XIII, da Lei nº 14.133/2021 define com precisão bens e serviços comuns como sendo aqueles cujos padrões de desempenho e qualidade podem ser objetivamente definidos pelo edital, por meio de especificações usuais de mercado.</p>
+                        <p>A identificação do objeto como comum reveste-se de capital importância no desenho da estratégia de contratação, haja vista que orienta o uso cogente da modalidade pregão, promovendo a ampliação da disputa concorrencial e o alcance de menores preços ou maiores descontos sem prejuízo do padrão satisfatório da prestação.</p>
+                    </div>
+                </div>
+
+                <!-- Resolução 6 -->
+                <div class="bg-white rounded-2xl p-6 md:p-8 shadow-sm border border-slate-200 resolution-item" data-q="6">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="text-xs font-bold text-indigo-600 bg-indigo-50 px-2.5 py-1 rounded-md">Questão 6</span>
+                        <span id="badge-q6" class="text-xs font-semibold px-2.5 py-1 rounded-md"></span>
+                    </div>
+                    <h4 class="font-bold text-slate-800 text-sm mb-2">Gabarito Oficial: <span class="text-indigo-600 font-extrabold">Alternativa C</span></h4>
+                    <p class="text-xs font-medium text-slate-400 mb-4">Fundamento: Lei nº 14.133/2021, art. 6º, inciso XXVII</p>
+                    <div class="text-sm text-slate-700 leading-relaxed space-y-2">
+                        <p>A Lei nº 14.133/2021 conferiu status e definição legal expressa à matriz de riscos em seu art. 6º, inciso XXVII, qualificando-a como cláusula contratual definidora de riscos e de responsabilidades entre as partes e caracterizadora do equilíbrio econômico-financeiro inicial do contrato, em termos de ônus financeiro decorrente de eventos supervenientes à contratação.</p>
+                        <p>Por intermédio da matriz de riscos, o ente administrativo antecipa o mapeamento de contingências e reparte contratualmente os seus impactos, definindo de antemão qual das partes suportará determinado ônus financeiro ou se haverá o seu compartilhamento, trazendo maior segurança jurídica e previsibilidade orçamentária.</p>
+                    </div>
+                </div>
+
+                <!-- Resolução 7 -->
+                <div class="bg-white rounded-2xl p-6 md:p-8 shadow-sm border border-slate-200 resolution-item" data-q="7">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="text-xs font-bold text-indigo-600 bg-indigo-50 px-2.5 py-1 rounded-md">Questão 7</span>
+                        <span id="badge-q7" class="text-xs font-semibold px-2.5 py-1 rounded-md"></span>
+                    </div>
+                    <h4 class="font-bold text-slate-800 text-sm mb-2">Gabarito Oficial: <span class="text-indigo-600 font-extrabold">Alternativa C</span></h4>
+                    <p class="text-xs font-medium text-slate-400 mb-4">Fundamento: Lei nº 14.133/2021, art. 6º, incisos LVI e LVII</p>
+                    <div class="text-sm text-slate-700 leading-relaxed space-y-2">
+                        <p>A nova Lei de Licitações buscou superar controvérsias históricas de auditoria pública e fixou distinções rigorosas entre as noções de sobrepreço e superfaturamento. Em conformidade com o art. 6º, inciso LVII, o superfaturamento consiste no dano provocado ao patrimônio da Administração, caracterizado, entre outras situações, pela medição de quantidades superiores às efetivamente executadas ou fornecidas.</p>
+                        <p>O elemento cardeal do superfaturamento é, pois, a lesão financeira consumada na execução contratual, diferenciando-se conceitualmente do sobrepreço, que recai sobre estimativas preliminares ou valores contratuais referenciais superiores aos de mercado.</p>
+                    </div>
+                </div>
+
+                <!-- Resolução 8 -->
+                <div class="bg-white rounded-2xl p-6 md:p-8 shadow-sm border border-slate-200 resolution-item" data-q="8">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="text-xs font-bold text-indigo-600 bg-indigo-50 px-2.5 py-1 rounded-md">Questão 8</span>
+                        <span id="badge-q8" class="text-xs font-semibold px-2.5 py-1 rounded-md"></span>
+                    </div>
+                    <h4 class="font-bold text-slate-800 text-sm mb-2">Gabarito Oficial: <span class="text-indigo-600 font-extrabold">Alternativa A</span></h4>
+                    <p class="text-xs font-medium text-slate-400 mb-4">Fundamento: Lei nº 14.133/2021, art. 7º, incisos I e II</p>
+                    <div class="text-sm text-slate-700 leading-relaxed space-y-2">
+                        <p>A disciplina dos agentes públicos na Lei nº 14.133/2021 institui a gestão por competências no setor de licitações, valorizando a profissionalização e o mérito funcional dos quadros permanentes do serviço público.</p>
+                        <p>Conforme estatui o art. 7º, inciso I, caberá à autoridade máxima designar agentes públicos que sejam, preferencialmente, servidor efetivo ou empregado público dos quadros permanentes da Administração Pública, devendo possuir atribuições afins ou capacitação adequada atestada por escola de governo.</p>
+                    </div>
+                </div>
+
+                <!-- Resolução 9 -->
+                <div class="bg-white rounded-2xl p-6 md:p-8 shadow-sm border border-slate-200 resolution-item" data-q="9">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="text-xs font-bold text-indigo-600 bg-indigo-50 px-2.5 py-1 rounded-md">Questão 9</span>
+                        <span id="badge-q9" class="text-xs font-semibold px-2.5 py-1 rounded-md"></span>
+                    </div>
+                    <h4 class="font-bold text-slate-800 text-sm mb-2">Gabarito Oficial: <span class="text-indigo-600 font-extrabold">Alternativa C</span></h4>
+                    <p class="text-xs font-medium text-slate-400 mb-4">Fundamento: Lei nº 14.133/2021, art. 8º, caput e § 2º</p>
+                    <div class="text-sm text-slate-700 leading-relaxed space-y-2">
+                        <p>A regra de condução de certames na Lei nº 14.133/2021 recai primordialmente sobre a figura monocrática do Agente de Contratação (art. 8º, caput). Contudo, atenta à singularidade de contratações complexas, a legislação estabelece salvaguardas decisórias expressas.</p>
+                        <p>Segundo o art. 8º, § 2º, em licitação que envolva bens ou serviços especiais, o agente de contratação poderá ser substituído por comissão de contratação formada por, no mínimo, 3 (três) membros, que responderão solidariamente por todos os atos praticados, ressalvado o membro que expressar posição individual divergente fundamentada e registrada em ata.</p>
+                    </div>
+                </div>
+
+                <!-- Resolução 10 -->
+                <div class="bg-white rounded-2xl p-6 md:p-8 shadow-sm border border-slate-200 resolution-item" data-q="10">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="text-xs font-bold text-indigo-600 bg-indigo-50 px-2.5 py-1 rounded-md">Questão 10</span>
+                        <span id="badge-q10" class="text-xs font-semibold px-2.5 py-1 rounded-md"></span>
+                    </div>
+                    <h4 class="font-bold text-slate-800 text-sm mb-2">Gabarito Oficial: <span class="text-indigo-600 font-extrabold">Alternativa B</span></h4>
+                    <p class="text-xs font-medium text-slate-400 mb-4">Fundamento: Lei nº 14.133/2021, art. 10, caput e §§ 1º e 2º</p>
+                    <div class="text-sm text-slate-700 leading-relaxed space-y-2">
+                        <p>O art. 10 da Lei nº 14.133/2021 introduziu uma prerrogativa de proteção e segurança jurídica aos gestores de contratações. De acordo com o caput do artigo, se autoridades e servidores precisarem defender-se administrativa ou judicialmente em virtude de ato praticado com estrita observância de orientação constante em parecer jurídico regular, a advocacia pública promoverá, a critério do agente, a sua representação.</p>
+                        <p>Esse mecanismo visa combater a inação administrativa e o receio decisório decorrente de fiscalizações, resguardando o servidor que seguiu a manifestação técnica jurídica institucional do órgão assessor, desde que ausentes elementos de dolo.</p>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-slate-200 mt-16 py-6 text-center text-xs text-slate-500">
+        <p>Caderno de Questões Interativo – Lei nº 14.133/2021 • Desenvolvido para Estudos Avançados IFMG</p>
+    </footer>
+
+    <!-- Interactive Script -->
+    <script>
+        const gabaritoOficial = {
+            q1: 'A',
+            q2: 'B',
+            q3: 'B',
+            q4: 'B',
+            q5: 'B',
+            q6: 'C',
+            q7: 'C',
+            q8: 'A',
+            q9: 'C',
+            q10: 'B'
+        };
+
+        const totalQuestions = 10;
+
+        // Update progress counter when radios change
+        const form = document.getElementById('quiz-form');
+        const progressIndicator = document.getElementById('progress-indicator');
+
+        function updateProgress() {
+            let answeredCount = 0;
+            for (let i = 1; i <= totalQuestions; i++) {
+                const radios = document.getElementsByName(`q${i}`);
+                for (let r of radios) {
+                    if (r.checked) {
+                        answeredCount++;
+                        break;
+                    }
+                }
+            }
+            progressIndicator.textContent = `Respondidas: ${answeredCount} / ${totalQuestions}`;
+        }
+
+        form.addEventListener('change', updateProgress);
+
+        // Submit Button Event
+        const submitBtn = document.getElementById('submit-btn');
+        const resultsSection = document.getElementById('results-section');
+        const scoreDisplay = document.getElementById('score-display');
+        const scoreTitle = document.getElementById('score-title');
+        const scoreFeedback = document.getElementById('score-feedback');
+        const summaryTableBody = document.getElementById('summary-table-body');
+
+        submitBtn.addEventListener('click', () => {
+            let score = 0;
+            let summaryHTML = '';
+
+            for (let i = 1; i <= totalQuestions; i++) {
+                const qKey = `q${i}`;
+                const radios = document.getElementsByName(qKey);
+                let userChoice = null;
+
+                for (let r of radios) {
+                    if (r.checked) {
+                        userChoice = r.value;
+                        break;
+                    }
+                }
+
+                const correctChoice = gabaritoOficial[qKey];
+                const isCorrect = userChoice === correctChoice;
+                if (isCorrect) score++;
+
+                // Build summary table row
+                const userDisplay = userChoice ? `(${userChoice})` : '<span class="text-amber-500 italic">Não respondida</span>';
+                const statusBadge = userChoice ? 
+                    (isCorrect ? '<span class="bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded text-xs font-semibold">Correto</span>' : '<span class="bg-rose-100 text-rose-800 px-2 py-0.5 rounded text-xs font-semibold">Incorreto</span>') :
+                    '<span class="bg-amber-100 text-amber-800 px-2 py-0.5 rounded text-xs font-semibold">Em branco</span>';
+
+                summaryHTML += `
+                    <tr class="hover:bg-slate-50">
+                        <td class="py-3 px-3 font-semibold text-slate-800">Questão ${i}</td>
+                        <td class="py-3 px-3">${userDisplay}</td>
+                        <td class="py-3 px-3 font-bold text-indigo-600">(${correctChoice})</td>
+                        <td class="py-3 px-3">${statusBadge}</td>
+                        <td class="py-3 px-3 text-xs text-slate-500">Lei nº 14.133/2021</td>
+                    </tr>
+                `;
+
+                // Update resolution item header badge
+                const badgeEl = document.getElementById(`badge-q${i}`);
+                if (userChoice) {
+                    if (isCorrect) {
+                        badgeEl.className = 'text-xs font-semibold px-2.5 py-1 rounded-md bg-emerald-100 text-emerald-800';
+                        badgeEl.textContent = 'Você acertou!';
+                    } else {
+                        badgeEl.className = 'text-xs font-semibold px-2.5 py-1 rounded-md bg-rose-100 text-rose-800';
+                        badgeEl.textContent = `Você marcou (${userChoice})`;
+                    }
+                } else {
+                    badgeEl.className = 'text-xs font-semibold px-2.5 py-1 rounded-md bg-amber-100 text-amber-800';
+                    badgeEl.textContent = 'Questão em branco';
+                }
+            }
+
+            summaryTableBody.innerHTML = summaryHTML;
+            scoreDisplay.textContent = `${score} / 10`;
+
+            if (score === 10) {
+                scoreTitle.textContent = 'Desempenho Excepcional!';
+                scoreFeedback.textContent = 'Você acertou todas as questões! Domínio absoluto sobre os princípios, definições e agentes públicos da Lei nº 14.133/2021.';
+            } else if (score >= 7) {
+                scoreTitle.textContent = 'Excelente Desempenho!';
+                scoreFeedback.textContent = `Você obteve ${score} acertos. Seu nível de preparação está muito forte, bastando revisar os detalhes pontuais das resoluções abaixo.`;
+            } else if (score >= 4) {
+                scoreTitle.textContent = 'Bom Esforço, Continue Praticando!';
+                scoreFeedback.textContent = `Você obteve ${score} acertos. Leia atentamente as resoluções analíticas abaixo para fixar os conceitos cobrados pela banca.`;
+            } else {
+                scoreTitle.textContent = 'Oportunidade de Aprendizado';
+                scoreFeedback.textContent = `Você obteve ${score} acertos. Recomendamos uma nova leitura dos dispositivos legais acompanhada das resoluções detalhadas abaixo.`;
+            }
+
+            // Reveal results section
+            resultsSection.classList.remove('hidden');
+            
+            // Smooth scroll to results
+            resultsSection.scrollIntoView({ behavior: 'smooth' });
+        });
+
+        // Retry Button Event
+        const retryBtn = document.getElementById('retry-btn');
+        retryBtn.addEventListener('click', () => {
+            form.reset();
+            resultsSection.classList.add('hidden');
+            progressIndicator.textContent = 'Respondidas: 0 / 10';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    </script>
+</body>
+</html>
