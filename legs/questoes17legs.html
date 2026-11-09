@@ -1,0 +1,1573 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Caderno de Prova e Resoluções: LDB – Ensino Médio e EPTNM</title>
+  <style>
+    /* ==========================================================================
+       VARIÁVEIS DE ESTILO - PALETA CONFORTÁVEL PARA LEITURAS PROLONGADAS
+       ========================================================================== */
+    :root {
+      --bg-page: #f8f7f4;           /* Fundo tom papel natural que reduz reflexos */
+      --card-bg: #ffffff;           /* Superfície clara de alto contraste seguro */
+      --card-border: #e6e4df;       /* Bordas sutis */
+      --text-main: #2b2f38;         /* Chumbo escuro confortável (evita preto puro) */
+      --text-muted: #5e6473;        /* Texto secundário com contraste legível */
+      --text-heading: #1a202c;      /* Títulos destacados */
+      --primary: #1e40af;           /* Azul institucional sóbrio */
+      --primary-light: #eff6ff;     /* Destaque suave de seleção */
+      --primary-border: #93c5fd;
+      
+      --correct-bg: #f0fdf4;        /* Verde suave para acertos */
+      --correct-border: #86efac;
+      --correct-text: #166534;
+      --correct-dark: #15803d;
+
+      --wrong-bg: #fef2f2;          /* Vermelho suave para erros */
+      --wrong-border: #fca5a5;
+      --wrong-text: #991b1b;
+      --wrong-dark: #b91c1c;
+
+      --highlight-badge: #f1f5f9;
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 16px;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.05), 0 1px 2px rgba(0,0,0,0.04);
+      --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.06), 0 2px 4px -1px rgba(0,0,0,0.03);
+      --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.08);
+
+      --font-ui: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+      --font-reading: "Georgia", "Cambria", "Times New Roman", serif;
+      --reading-size: 1.05rem;
+      --reading-line: 1.72;
+    }
+
+    /* Alternância de fonte para quem prefere sans-serif */
+    body.use-sans {
+      --font-reading: system-ui, -apple-system, "Segoe UI", Roboto, "Inter", sans-serif;
+      --reading-size: 1rem;
+      --reading-line: 1.68;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-page);
+      color: var(--text-main);
+      font-family: var(--font-ui);
+      font-size: 16px;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+      padding-bottom: 5rem;
+    }
+
+    /* ==========================================================================
+       BARRA SUPERIOR FIXA (STATUS & ACESSIBILIDADE)
+       ========================================================================== */
+    .top-bar {
+      position: sticky;
+      top: 0;
+      background: rgba(255, 255, 255, 0.94);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--card-border);
+      z-index: 100;
+      padding: 0.6rem 1.2rem;
+    }
+
+    .top-bar-content {
+      max-width: 900px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+    }
+
+    .progress-info {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--text-muted);
+    }
+
+    .badge-counter {
+      background: var(--primary-light);
+      color: var(--primary);
+      padding: 0.25rem 0.65rem;
+      border-radius: 9999px;
+      font-weight: 600;
+      font-size: 0.82rem;
+      border: 1px solid var(--primary-border);
+    }
+
+    .top-controls {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .btn-tool {
+      background: #ffffff;
+      border: 1px solid var(--card-border);
+      color: var(--text-muted);
+      padding: 0.35rem 0.7rem;
+      border-radius: var(--radius-sm);
+      font-size: 0.82rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+
+    .btn-tool:hover {
+      background: #f1f3f6;
+      color: var(--text-main);
+      border-color: #cbd5e1;
+    }
+
+    /* Mini-mapa de questões */
+    .question-nav-strip {
+      display: flex;
+      gap: 0.35rem;
+      margin-top: 0.4rem;
+      overflow-x: auto;
+      padding-bottom: 0.2rem;
+    }
+
+    .nav-pill {
+      min-width: 2rem;
+      height: 1.8rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: var(--radius-sm);
+      background: #f1f3f6;
+      border: 1px solid var(--card-border);
+      color: var(--text-muted);
+      font-size: 0.78rem;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.15s ease;
+    }
+
+    .nav-pill:hover {
+      background: #e2e8f0;
+    }
+
+    .nav-pill.answered {
+      background: var(--primary);
+      color: #ffffff;
+      border-color: var(--primary);
+    }
+
+    .nav-pill.correct-pill {
+      background: var(--correct-dark) !important;
+      color: #ffffff !important;
+      border-color: var(--correct-dark) !important;
+    }
+
+    .nav-pill.wrong-pill {
+      background: var(--wrong-dark) !important;
+      color: #ffffff !important;
+      border-color: var(--wrong-dark) !important;
+    }
+
+    /* ==========================================================================
+       CONTAINER PRINCIPAL E CABEÇALHO DO DOCUMENTO
+       ========================================================================== */
+    .container {
+      max-width: 900px;
+      margin: 1.8rem auto;
+      padding: 0 1.2rem;
+    }
+
+    .doc-header {
+      background: var(--card-bg);
+      border-radius: var(--radius-lg);
+      padding: 2.2rem 2.2rem 1.8rem;
+      border: 1px solid var(--card-border);
+      box-shadow: var(--shadow-sm);
+      margin-bottom: 2rem;
+      position: relative;
+    }
+
+    .doc-header::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 5px;
+      background: linear-gradient(90deg, #1e3a8a, #3b82f6, #059669);
+      border-top-left-radius: var(--radius-lg);
+      border-top-right-radius: var(--radius-lg);
+    }
+
+    .doc-org-tag {
+      display: inline-block;
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--primary);
+      background: var(--primary-light);
+      padding: 0.25rem 0.65rem;
+      border-radius: var(--radius-sm);
+      margin-bottom: 0.8rem;
+    }
+
+    .doc-title {
+      font-size: 1.6rem;
+      line-height: 1.35;
+      color: var(--text-heading);
+      font-weight: 800;
+      margin-bottom: 0.5rem;
+      font-family: var(--font-ui);
+    }
+
+    .doc-subtitle {
+      font-size: 1.05rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+      font-weight: 400;
+    }
+
+    .doc-instructions {
+      margin-top: 1.2rem;
+      padding-top: 1.2rem;
+      border-top: 1px dashed var(--card-border);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      font-size: 0.88rem;
+      color: var(--text-muted);
+    }
+
+    .instruction-item {
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+    }
+
+    /* ==========================================================================
+       CARTÕES DE QUESTÕES (LEITURA ERGONÔMICA)
+       ========================================================================== */
+    .question-card {
+      background: var(--card-bg);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--card-border);
+      box-shadow: var(--shadow-sm);
+      margin-bottom: 2rem;
+      padding: 2rem 2.2rem;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      position: relative;
+    }
+
+    .question-card:focus-within {
+      border-color: #cbd5e1;
+    }
+
+    .question-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 1.2rem;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .q-number-badge {
+      background: #1e293b;
+      color: #ffffff;
+      font-size: 0.85rem;
+      font-weight: 700;
+      padding: 0.35rem 0.8rem;
+      border-radius: var(--radius-sm);
+      letter-spacing: 0.03em;
+    }
+
+    .q-theme-badge {
+      background: var(--highlight-badge);
+      color: var(--text-muted);
+      font-size: 0.82rem;
+      padding: 0.35rem 0.75rem;
+      border-radius: var(--radius-sm);
+      font-weight: 500;
+    }
+
+    /* Texto do Enunciado */
+    .statement-text {
+      font-family: var(--font-reading);
+      font-size: var(--reading-size);
+      line-height: var(--reading-line);
+      color: var(--text-main);
+      margin-bottom: 1.5rem;
+      text-align: justify;
+    }
+
+    .statement-text p {
+      margin-bottom: 0.9rem;
+    }
+
+    .statement-items {
+      list-style-type: none;
+      margin: 1rem 0 1.2rem 0;
+      padding: 0;
+    }
+
+    .statement-item {
+      display: flex;
+      gap: 0.6rem;
+      margin-bottom: 0.75rem;
+      line-height: 1.65;
+    }
+
+    .statement-roman {
+      font-weight: 700;
+      color: var(--primary);
+      min-width: 1.8rem;
+      font-family: var(--font-ui);
+    }
+
+    .statement-prompt {
+      font-weight: 700;
+      margin-top: 1rem;
+      color: var(--text-heading);
+      font-family: var(--font-ui);
+    }
+
+    /* Alternativas de Resposta */
+    .options-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+      margin-top: 1.2rem;
+    }
+
+    .option-label {
+      display: flex;
+      align-items: flex-start;
+      padding: 0.85rem 1.1rem;
+      border-radius: var(--radius-md);
+      border: 1.5px solid var(--card-border);
+      background: #fdfdfd;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      user-select: none;
+      font-family: var(--font-reading);
+      font-size: var(--reading-size);
+      line-height: 1.55;
+    }
+
+    .option-label:hover {
+      background: #f8fafc;
+      border-color: #cbd5e1;
+    }
+
+    .option-input {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .option-letter {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 1.7rem;
+      height: 1.7rem;
+      border-radius: 50%;
+      border: 1.5px solid #94a3b8;
+      color: #475569;
+      font-family: var(--font-ui);
+      font-size: 0.84rem;
+      font-weight: 700;
+      margin-right: 0.85rem;
+      flex-shrink: 0;
+      margin-top: 0.12rem;
+      background: #ffffff;
+      transition: all 0.15s ease;
+    }
+
+    .option-text {
+      flex: 1;
+      color: var(--text-main);
+    }
+
+    /* Estado de seleção */
+    .option-label.selected {
+      border-color: var(--primary);
+      background: var(--primary-light);
+    }
+
+    .option-label.selected .option-letter {
+      background: var(--primary);
+      color: #ffffff;
+      border-color: var(--primary);
+    }
+
+    /* Estados de correção (pós-envio) */
+    .option-label.is-correct-answer {
+      background: var(--correct-bg) !important;
+      border-color: var(--correct-border) !important;
+      color: var(--correct-text) !important;
+    }
+
+    .option-label.is-correct-answer .option-letter {
+      background: var(--correct-dark) !important;
+      color: #ffffff !important;
+      border-color: var(--correct-dark) !important;
+    }
+
+    .option-label.is-user-wrong {
+      background: var(--wrong-bg) !important;
+      border-color: var(--wrong-border) !important;
+      color: var(--wrong-text) !important;
+    }
+
+    .option-label.is-user-wrong .option-letter {
+      background: var(--wrong-dark) !important;
+      color: #ffffff !important;
+      border-color: var(--wrong-dark) !important;
+      text-decoration: line-through;
+    }
+
+    .option-status-icon {
+      margin-left: 0.6rem;
+      font-size: 1.1rem;
+      flex-shrink: 0;
+    }
+
+    /* ==========================================================================
+       BLOCO DE RESOLUÇÃO COMENTADA E FUNDAMENTAÇÃO LEGAL
+       ========================================================================== */
+    .resolution-box {
+      margin-top: 1.8rem;
+      padding: 1.5rem 1.8rem;
+      background: #fafaf8;
+      border-left: 5px solid #0284c7;
+      border-radius: var(--radius-md);
+      border-top: 1px solid #e9ecef;
+      border-right: 1px solid #e9ecef;
+      border-bottom: 1px solid #e9ecef;
+      display: none; /* Revelado após submissão */
+      animation: fadeIn 0.3s ease-in;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .resolution-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.9rem;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .res-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--text-heading);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .res-gabarito-tag {
+      background: #0284c7;
+      color: #ffffff;
+      padding: 0.25rem 0.65rem;
+      border-radius: 9999px;
+      font-size: 0.82rem;
+      font-weight: 700;
+    }
+
+    .res-legal-basis {
+      background: #f1f5f9;
+      color: #334155;
+      padding: 0.3rem 0.65rem;
+      border-radius: var(--radius-sm);
+      font-size: 0.82rem;
+      font-weight: 600;
+      border: 1px solid #e2e8f0;
+    }
+
+    .resolution-body {
+      font-family: var(--font-reading);
+      font-size: 1.02rem;
+      line-height: 1.75;
+      color: #334155;
+      text-align: justify;
+    }
+
+    /* Indicador de acerto/erro individual no topo da resolução */
+    .user-feedback-bar {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 0.85rem;
+      border-radius: var(--radius-sm);
+      margin-bottom: 1rem;
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    .user-feedback-bar.hit {
+      background: var(--correct-bg);
+      color: var(--correct-dark);
+      border: 1px solid var(--correct-border);
+    }
+
+    .user-feedback-bar.miss {
+      background: var(--wrong-bg);
+      color: var(--wrong-dark);
+      border: 1px solid var(--wrong-border);
+    }
+
+    .user-feedback-bar.unanswered {
+      background: #fffbeb;
+      color: #b45309;
+      border: 1px solid #fde68a;
+    }
+
+    /* ==========================================================================
+       PAINEL DE RESULTADOS (RESUMO, DESEMPENHO E QUADRO-GABARITO)
+       ========================================================================== */
+    .results-panel {
+      display: none; /* Revelado após submissão */
+      background: var(--card-bg);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--card-border);
+      box-shadow: var(--shadow-md);
+      padding: 2.2rem;
+      margin-bottom: 2.5rem;
+      animation: fadeIn 0.4s ease-out;
+    }
+
+    .results-hero {
+      text-align: center;
+      padding-bottom: 1.8rem;
+      border-bottom: 1px solid var(--card-border);
+      margin-bottom: 2rem;
+    }
+
+    .results-hero h2 {
+      font-size: 1.75rem;
+      color: var(--text-heading);
+      margin-bottom: 0.4rem;
+    }
+
+    .score-circle-wrapper {
+      margin: 1.4rem auto;
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      background: #f8fafc;
+      border: 6px solid var(--primary);
+    }
+
+    .score-big {
+      font-size: 2.4rem;
+      font-weight: 800;
+      color: var(--primary);
+      line-height: 1;
+    }
+
+    .score-total {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
+    .score-summary-text {
+      font-size: 1.15rem;
+      color: var(--text-main);
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    .score-badge-status {
+      display: inline-block;
+      padding: 0.35rem 1rem;
+      border-radius: 9999px;
+      font-size: 0.9rem;
+      font-weight: 700;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .stat-card {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: var(--radius-md);
+      padding: 1.1rem;
+      text-align: center;
+    }
+
+    .stat-number {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--text-heading);
+    }
+
+    .stat-label {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    /* Tabela do Gabarito Oficial */
+    .table-container {
+      overflow-x: auto;
+      margin-top: 1.5rem;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--card-border);
+    }
+
+    .gabarito-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.92rem;
+      background: #ffffff;
+      text-align: left;
+    }
+
+    .gabarito-table th {
+      background: #f1f5f9;
+      color: #334155;
+      font-weight: 700;
+      padding: 0.85rem 1rem;
+      border-bottom: 1px solid var(--card-border);
+    }
+
+    .gabarito-table td {
+      padding: 0.85rem 1rem;
+      border-bottom: 1px solid #f1f5f9;
+      vertical-align: middle;
+    }
+
+    .gabarito-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .gabarito-table tr:hover {
+      background: #f8fafc;
+    }
+
+    .table-badge-letter {
+      display: inline-block;
+      width: 1.8rem;
+      height: 1.8rem;
+      line-height: 1.8rem;
+      border-radius: 50%;
+      background: #1e3a8a;
+      color: #ffffff;
+      text-align: center;
+      font-weight: 700;
+      font-size: 0.85rem;
+    }
+
+    /* ==========================================================================
+       BARRA DE AÇÃO INFERIOR
+       ========================================================================== */
+    .action-bar {
+      margin-top: 2rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: #ffffff;
+      border: none;
+      padding: 0.95rem 2.2rem;
+      font-size: 1.05rem;
+      font-weight: 700;
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(30, 64, 175, 0.25);
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .btn-primary:hover {
+      background: #1d4ed8;
+      box-shadow: 0 6px 14px rgba(30, 64, 175, 0.35);
+      transform: translateY(-1px);
+    }
+
+    .btn-secondary {
+      background: #ffffff;
+      color: var(--text-main);
+      border: 1.5px solid var(--card-border);
+      padding: 0.95rem 1.8rem;
+      font-size: 1rem;
+      font-weight: 600;
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .btn-secondary:hover {
+      background: #f1f5f9;
+      border-color: #cbd5e1;
+    }
+
+    /* Modal simples customizado (sem uso de alert/confirm) */
+    .custom-modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(15, 23, 42, 0.6);
+      backdrop-filter: blur(4px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      padding: 1rem;
+    }
+
+    .modal-box {
+      background: #ffffff;
+      border-radius: var(--radius-lg);
+      padding: 1.8rem 2rem;
+      max-width: 480px;
+      width: 100%;
+      box-shadow: var(--shadow-lg);
+      text-align: center;
+      animation: fadeIn 0.2s ease;
+    }
+
+    .modal-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--text-heading);
+      margin-bottom: 0.7rem;
+    }
+
+    .modal-desc {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+      margin-bottom: 1.5rem;
+    }
+
+    .modal-actions {
+      display: flex;
+      justify-content: center;
+      gap: 0.8rem;
+    }
+
+    /* Filtros pós-correção */
+    .filter-pills {
+      display: flex;
+      justify-content: center;
+      gap: 0.5rem;
+      margin-top: 1rem;
+    }
+
+    .filter-pill {
+      background: #f1f5f9;
+      border: 1px solid #e2e8f0;
+      padding: 0.35rem 0.85rem;
+      border-radius: 9999px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .filter-pill.active {
+      background: #1e293b;
+      color: #ffffff;
+      border-color: #1e293b;
+    }
+
+    /* Responsividade */
+    @media (max-width: 640px) {
+      .doc-header, .question-card, .results-panel {
+        padding: 1.4rem 1.2rem;
+      }
+      .doc-title {
+        font-size: 1.3rem;
+      }
+      .statement-text, .option-label {
+        font-size: 1rem;
+      }
+      .top-bar-content {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .top-controls {
+        justify-content: space-between;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ==========================================================================
+       BARRA DE TOPO: PROGRESSO & FERRAMENTAS DE LEITURA
+       ========================================================================== -->
+  <header class="top-bar">
+    <div class="top-bar-content">
+      <div class="progress-info">
+        <span class="badge-counter" id="progressBadge">0 de 10 respondidas</span>
+        <span id="quizStatusText">Simulado em andamento</span>
+      </div>
+
+      <div class="top-controls">
+        <button type="button" class="btn-tool" id="btnToggleFont" title="Alternar entre fonte Serif e Sans-serif">
+          <span>Aa</span> Fonte
+        </button>
+        <button type="button" class="btn-tool" id="btnZoomMinus" title="Diminuir tamanho da letra">
+          A-
+        </button>
+        <button type="button" class="btn-tool" id="btnZoomPlus" title="Aumentar tamanho da letra">
+          A+
+        </button>
+        <button type="button" class="btn-tool" id="btnScrollResults" style="display: none; background: #e0f2fe; color: #0369a1; border-color: #bae6fd;">
+          Ir para Gabarito ↓
+        </button>
+      </div>
+    </div>
+
+    <!-- Navegador rápido de questões (1 a 10) -->
+    <div class="top-bar-content">
+      <nav class="question-nav-strip" id="navStrip" aria-label="Navegação rápida pelas questões">
+        <!-- Gerado via JavaScript (1..10) -->
+      </nav>
+    </div>
+  </header>
+
+  <!-- ==========================================================================
+       CONTEÚDO PRINCIPAL
+       ========================================================================== -->
+  <main class="container">
+    
+    <!-- Cabeçalho do Caderno de Prova -->
+    <article class="doc-header">
+      <span class="doc-org-tag">Comissão Central de Concurso Público – IFMG</span>
+      <h1 class="doc-title">Caderno de Prova e Resoluções Comentadas</h1>
+      <p class="doc-subtitle">Lei nº 9.394/1996 – Ensino Médio e Educação Profissional Técnica de Nível Médio (com as alterações das Leis nº 11.741/2008 e nº 14.945/2024)</p>
+
+      <div class="doc-instructions">
+        <div class="instruction-item">
+          <span>📝</span> <span><strong>10 Questões</strong> objetivas com 5 alternativas (A-E)</span>
+        </div>
+        <div class="instruction-item">
+          <span>⚖️</span> <span>Gabarito fundamentado e resolução detalhada na íntegra</span>
+        </div>
+        <div class="instruction-item">
+          <span>👓</span> <span>Layout com contraste balanceado para leitura repousante</span>
+        </div>
+      </div>
+    </article>
+
+    <!-- PAINEL DE RESULTADOS (OCULTO ATÉ FINALIZAR) -->
+    <section class="results-panel" id="resultsPanel" aria-live="polite">
+      <div class="results-hero">
+        <h2>Resultado da Avaliação</h2>
+        <div class="score-circle-wrapper">
+          <span class="score-big" id="scoreHits">0</span>
+          <span class="score-total">de 10 acertos</span>
+        </div>
+        <p class="score-summary-text" id="scorePercentageText">0% de aproveitamento</p>
+        <div id="scoreStatusBadge" class="score-badge-status">Status</div>
+
+        <!-- Filtros rápidos para ver erros e acertos -->
+        <div class="filter-pills" id="filterPills">
+          <button type="button" class="filter-pill active" onclick="filterQuestions('all')">Todas (10)</button>
+          <button type="button" class="filter-pill" id="filterBtnErrors" onclick="filterQuestions('wrong')">Erros</button>
+          <button type="button" class="filter-pill" id="filterBtnHits" onclick="filterQuestions('hit')">Acertos</button>
+        </div>
+      </div>
+
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-number" style="color: var(--correct-dark);" id="statHitsCount">0</div>
+          <div class="stat-label">Questões Corretas</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number" style="color: var(--wrong-dark);" id="statErrorsCount">0</div>
+          <div class="stat-label">Questões Incorretas</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number" style="color: #0284c7;" id="statTotalPoints">0%</div>
+          <div class="stat-label">Aproveitamento Total</div>
+        </div>
+      </div>
+
+      <!-- Quadro-Gabarito Oficial do Documento -->
+      <h3 style="font-size: 1.25rem; color: var(--text-heading); margin-bottom: 0.6rem; display: flex; align-items: center; gap: 0.5rem;">
+        <span>📋</span> Gabarito Oficial e Resoluções Fundamentadas
+      </h3>
+      <p style="font-size: 0.95rem; color: var(--text-muted); margin-bottom: 1rem;">
+        A síntese dos gabaritos oficiais para as dez questões apresentadas encontra-se estruturada a seguir, detalhando os dispositivos legais correlatos e os núcleos temáticos de cada item:
+      </p>
+
+      <div class="table-container">
+        <table class="gabarito-table">
+          <thead>
+            <tr>
+              <th style="width: 14%;">Questão</th>
+              <th style="width: 12%;">Gabarito</th>
+              <th style="width: 38%;">Dispositivo Legal Fundamentador</th>
+              <th style="width: 36%;">Foco Temático Principal</th>
+            </tr>
+          </thead>
+          <tbody id="gabaritoTableBody">
+            <!-- Povoado via JavaScript -->
+          </tbody>
+        </table>
+      </div>
+
+      <div style="margin-top: 1.8rem; text-align: center;">
+        <p style="font-size: 0.95rem; color: var(--text-muted); margin-bottom: 1rem;">
+          Role para baixo para conferir a <strong>resolução detalhada e comentada</strong> integrada a cada questão respondida!
+        </p>
+        <button type="button" class="btn-secondary" onclick="restartQuiz()">
+          🔄 Refazer Simulado do Início
+        </button>
+      </div>
+    </section>
+
+    <!-- ÁREA DE QUESTÕES DO SIMULADO -->
+    <div id="questionsContainer">
+      <!-- As 10 questões serão renderizadas aqui fielmente -->
+    </div>
+
+    <!-- BARRA DE AÇÃO PRINCIPAL -->
+    <div class="action-bar" id="actionBar">
+      <button type="button" class="btn-primary" id="btnFinishQuiz" onclick="handleFinishClick()">
+        <span>✓</span> Finalizar e Ver Resoluções
+      </button>
+      <button type="button" class="btn-secondary" id="btnResetQuiz" onclick="confirmResetQuiz()">
+        Limpar Respostas
+      </button>
+    </div>
+
+  </main>
+
+  <!-- MODAL CUSTOMIZADO (SUBSTITUI ALERT E CONFIRM) -->
+  <div class="custom-modal" id="customModal" role="dialog" aria-modal="true">
+    <div class="modal-box">
+      <h3 class="modal-title" id="modalTitle">Aviso</h3>
+      <p class="modal-desc" id="modalMessage">Mensagem informativa.</p>
+      <div class="modal-actions" id="modalActions">
+        <button type="button" class="btn-primary" onclick="closeModal()">Entendido</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       SCRIPTS: DADOS DAS QUESTÕES NA ÍNTEGRA E LÓGICA DE INTERAÇÃO
+       ========================================================================== -->
+  <script>
+    // DADOS DAS 10 QUESTÕES EXTRAÍDOS COM FIDELIDADE ABSOLUTA DO DOCUMENTO
+    const quizData = [
+      {
+        id: 1,
+        theme: "Finalidades formativas do Ensino Médio",
+        legalBasis: "Art. 35, incisos I a IV da LDB",
+        statement: `
+          <p>O artigo 35 da Lei de Diretrizes e Bases da Educação Nacional (Lei nº 9.394/1996) define o ensino médio como a etapa final da educação básica, determinando que sua duração regular mínima seja de três anos e fixando as diretrizes que norteiam a formação do educando nessa fase escolar. Em relação às finalidades expressamente consignadas no texto legal do artigo 35, analise as afirmativas a seguir:</p>
+          <ul class="statement-items">
+            <li class="statement-item"><span class="statement-roman">I.</span><span>A consolidação e o aprofundamento dos conhecimentos adquiridos no ensino fundamental, possibilitando o prosseguimento de estudos.</span></li>
+            <li class="statement-item"><span class="statement-roman">II.</span><span>A preparação básica para o trabalho e a cidadania do educando, para continuar aprendendo, de modo a ser capaz de se adaptar com flexibilidade a novas condições de ocupação ou aperfeiçoamento posteriores.</span></li>
+            <li class="statement-item"><span class="statement-roman">III.</span><span>O aprimoramento do educando como pessoa humana, incluindo a formação ética e o desenvolvimento da autonomia intelectual e do pensamento crítico.</span></li>
+            <li class="statement-item"><span class="statement-roman">IV.</span><span>A compreensão dos fundamentos científico-tecnológicos dos processos produtivos, relacionando a teoria com a prática, no ensino de cada disciplina.</span></li>
+            <li class="statement-item"><span class="statement-roman">V.</span><span>A especialização técnica compulsória precoce, subordinada exclusivamente às demandas conjunturais de mão de obra do setor produtivo local.</span></li>
+          </ul>
+          <p class="statement-prompt">Estão CORRETAS apenas as afirmativas:</p>
+        `,
+        options: {
+          A: "I e II.",
+          B: "I, II e III.",
+          C: "I, II, III e IV.",
+          D: "II, III, IV e V.",
+          E: "I, III, IV e V."
+        },
+        correctAnswer: "C",
+        resolution: "O artigo 35 da LDB consagra os pilares da formação omnilateral na etapa final da educação básica. O legislador estruturou suas finalidades em quatro incisos: a consolidação e o aprofundamento das aprendizagens do ensino fundamental para permitir a continuidade dos estudos (inciso I); a preparação básica para o trabalho e para a cidadania, capacitando o sujeito a continuar aprendendo e a se adaptar com autonomia a novas exigências socioprodutivas (inciso II); o aprimoramento como pessoa humana, incorporando valores éticos, autonomia intelectual e pensamento crítico (inciso III); e a compreensão dos fundamentos científico-tecnológicos dos processos produtivos, articulando teoria e prática no ensino de cada disciplina (inciso IV). As afirmativas I, II, III e IV reproduzem fielmente essas finalidades legais. Em contrapartida, a afirmativa V contraria a filosofia da LDB ao postular uma especialização compulsória e subordinada de modo estrito ao mercado, ignorando o princípio formativo integral que norteia o ensino médio e a própria concepção histórica dos Institutos Federais. Portanto, a alternativa correta é a letra C."
+      },
+      {
+        id: 2,
+        theme: "Estruturação pedagógica e projetos de vida",
+        legalBasis: "Art. 35-B, § 1º, incisos I a IV da LDB",
+        statement: `
+          <p>A estruturação pedagógica e curricular do ensino médio passou por significativas alterações legislativas promovidas pela Lei nº 14.945/2024, que introduziu o artigo 35-B na Lei nº 9.394/1996. A respeito dos elementos estruturantes das propostas pedagógicas e das normas organizacionais contidas no referido artigo, assinale a alternativa CORRETA:</p>
+        `,
+        options: {
+          A: "O ensino médio será ministrado prioritariamente sob a modalidade de educação a distância (EaD), permitindo-se a presencialidade apenas para as atividades de laboratório e oficinas práticas.",
+          B: "As propostas pedagógicas deverão contemplar a promoção de metodologias investigativas, a conexão dos processos de ensino e aprendizagem com a vida comunitária e social no território, o reconhecimento do trabalho em seu caráter formativo e a articulação entre saberes.",
+          C: "O projeto de vida dos estudantes passa a ser restrito unicamente ao alinhamento vocational com o mercado de trabalho regional, excluindo-se o desenvolvimento nas dimensões física, cognitiva e socioemocional.",
+          D: "No ensino médio em tempo integral, fica vedado aos sistemas de ensino o cômputo e o reconhecimento de experiências extraescolares, tais como estágios curriculares, projetos de extensão universitária ou participação em grêmios estudantis.",
+          E: "O currículo do ensino médio fica circunscrito exclusivamente à formação geral básica, suprimindo em definitivo os itinerários formativos da arquitetura da educação básica regular."
+        },
+        correctAnswer: "B",
+        resolution: "A inclusão do artigo 35-B pela Lei nº 14.945/2024 buscou redefinir a proposta pedagógica do ensino médio e a centralidade formativa do currículo. Conforme preceitua o § 1º do art. 35-B, os estabelecimentos escolares devem pautar seus projetos pedagógicos na promoção de metodologias investigativas, no enraizamento dos processos educacionais na vida comunitária e territorial, no trabalho em sua dimensão ontológica e formativa, e na articulação integradora entre saberes gerais e técnicos. A alternativa B descreve com rigor esses fundamentos. A alternativa A incorre em erro porque o § 3º estabelece que o ensino médio será ofertado de forma presencial, sendo a mediação tecnológica uma prerrogativa de caráter estritamente excepcional regulamentada pelos sistemas. A alternativa C está incorreta por desconsiderar que os projetos de vida englobam dimensões física, cognitiva e socioemocional (§ 2º). A alternativa D é falsa, já que o § 4º autoriza expressamente o cômputo de estágios, aprendizagem e projetos de iniciação científica para integralização no tempo integral. Por fim, a alternativa E falha ao afirmar a supressão dos itinerários, componentes que permanecem vigentes e articulados à formação geral básica pelo caput do dispositivo."
+      },
+      {
+        id: 3,
+        theme: "Carga horária da FGB e especificidade técnica",
+        legalBasis: "Art. 35-C, caput e parágrafo único da LDB",
+        statement: `
+          <p>Em consonância com o artigo 35-C da Lei nº 9.394/1996, inserido pela Lei nº 14.945/2024, a formação geral básica ocorrerá mediante a articulação harmônica entre a Base Nacional Comum Curricular (BNCC) e a parte diversificada tratada no artigo 26 da referida lei. No que diz respeito à carga horária mínima total legalmente estabelecida e às suas especificidades para a formação técnica e profissional, assinale a afirmativa CORRETA:</p>
+        `,
+        options: {
+          A: "A formação geral básica tem carga horária uniforme de 1.800 horas para qualquer modalidade ou itinerário de ensino médio ofertado.",
+          B: "A formação geral básica possui carga horária mínima total de 2.400 horas, mas, no caso da formação técnica e profissional prevista no inciso V do caput do artigo 36 da LDB, sua carga horária mínima será de 2.100 horas.",
+          C: "A carga horária mínima da formação geral básica nos cursos técnicos integrados é fixada em 1.000 horas, reservando-se 2.000 horas compulsoriamente para o aprendizado prático em empresas.",
+          D: "No percurso com habilitação profissional técnica, a carga horária da formação geral básica é mantida em 2.400 horas, sendo proibida a destinação de qualquer fração dessa carga para conteúdos articulados com o curso técnico.",
+          E: "A formação técnica e profissional afasta a obrigatoriedade da formação geral básica, regendo-se unicamente pela carga horária prática contida no Catálogo Nacional de Cursos Técnicos."
+        },
+        correctAnswer: "B",
+        resolution: "Com a reformulação do ensino médio introduzida pela Lei nº 14.945/2024, o artigo 35-C estabeleceu que a formação geral básica (FGB) tem carga horária mínima total de 2.400 horas, revogando o limite anterior de 1.800 horas. Todavia, o parágrafo único desse artigo introduziu uma regra de flexibilização direcionada especificamente à formação técnica e profissional: quando o estudante opta pelo itinerário técnico (art. 36, inciso V), a carga horária mínima da FGB passa a ser de 2.100 horas, facultando-se que até 300 horas dessa carga sejam destinadas ao aprofundamento de componentes da BNCC diretamente conexos com o curso técnico cursado. Tal arranjo assegura a densidade acadêmica das disciplinas propedêuticas sem inviabilizar a integralização das habilitações técnicas regulamentadas no Catálogo Nacional de Cursos Técnicos, as quais demandam entre 800 e 1.200 horas específicas. Assim, a alternativa B é a única correta. As alternativas A, C e D erram as cargas horárias prescritas em lei, e a alternativa E ignora o princípio da indissociabilidade entre formação geral e profissional na educação técnica de nível médio."
+      },
+      {
+        id: 4,
+        theme: "Áreas do conhecimento e disciplinas da BNCC",
+        legalBasis: "Art. 35-D, inciso IV da LDB",
+        statement: `
+          <p>O artigo 35-D da Lei nº 9.394/1996 estabelece direitos e objetivos de aprendizagem para a Base Nacional Comum Curricular do ensino médio, conforme diretrizes emanadas pelo Conselho Nacional de Educação. Quanto às áreas do conhecimento e aos componentes curriculares explicitamente previstos na legislação, assinale a afirmativa CORRETA:</p>
+        `,
+        options: {
+          A: "A área de linguagens e suas tecnologias prescinde do ensino da língua inglesa quando o estabelecimento escolar optar por ofertar habilitação técnica e profissional.",
+          B: "A área de ciências da natureza e suas tecnologias compõe-se restritivamente de física e química, tendo sido a biologia transferida de forma exclusiva para a parte diversificada regional.",
+          C: "A área de ciências humanas e sociais aplicadas é integrada expressamente por filosofia, geografia, história e sociologia.",
+          D: "A oferta de educação física e de arte tornou-se facultativa para as redes escolares, cabendo exclusivamente a cada docente decidir sobre sua inclusão no plano de ensino.",
+          E: "O ensino de língua espanhola passa a ser o único componente obrigatório de língua estrangeira moderna na formação geral básica, sendo o inglês considerado meramente optativo."
+        },
+        correctAnswer: "C",
+        resolution: "O artigo 35-D da LDB restabeleceu as quatro grandes áreas do conhecimento da BNCC e explicitou no texto legal a composição de seus componentes curriculares. De acordo com o inciso IV do art. 35-D, a área de ciências humanas e sociais aplicadas é integrada organicamente pelos estudos e saberes de filosofia, geografia, história e sociologia, tornando a afirmativa C plenamente correta. Por sua vez, a alternativa A está errada porque a língua inglesa é componente obrigatório da área de linguagens (art. 35-D, inciso I), inclusive nos itinerários técnicos. A alternativa B é falsa, pois a biologia integra obrigatoriamente a área de ciências da natureza e suas tecnologias ao lado da química e da física (art. 35-D, inciso III). A alternativa D é incorreta, já que artes e educação física compõem obrigatoriamente a base curricular nacional comum. A alternativa E não prospera porque o espanhol é facultado preferencialmente aos sistemas de ensino como língua estrangeira adicional (§ 3º), não substituindo a primazia legal da língua inglesa."
+      },
+      {
+        id: 5,
+        theme: "Oferta e diretrizes dos itinerários formativos",
+        legalBasis: "Art. 36, caput, §§ 1º-A, 2º-A e 6º da LDB",
+        statement: `
+          <p>No que concerne às diretrizes de organização, composição e oferta dos itinerários formativos previstas no artigo 36 da Lei nº 9.394/1996, com as modificações normativas vigentes, assinale a alternativa <strong>INCORRETA</strong>:</p>
+        `,
+        options: {
+          A: "Os itinerários formativos, ressalvadas as especificidades da formação técnica e profissional, terão carga horária mínima legalmente fixada de 600 horas.",
+          B: "Os sistemas de ensino deverão garantir que todas as suas escolas de ensino médio ofertem, no mínimo, 2 itinerários formativos, contemplando aprofundamento e integração de estudos com ênfase em áreas do conhecimento diferentes.",
+          C: "Cada itinerário formativo de aprofundamento deverá contemplar integralmente ao menos uma das áreas do conhecimento previstas na legislação ou a formação técnica e profissional.",
+          D: "A formação técnica e profissional poderá incluir a vivência de trabalho no setor produtivo ou em ambientes de simulação, bem como conceder certificações intermediárias de qualificação para o trabalho.",
+          E: "As escolas de ensino médio são obrigadas a ofertar, individualmente e em cada unidade física escolar, a totalidade dos cursos técnicos constantes do Catálogo Nacional de Cursos Técnicos."
+        },
+        correctAnswer: "E",
+        resolution: "O artigo 36 da LDB regula a parte flexível do currículo, atribuindo aos itinerários formativos um piso legal de 600 horas (caput), ressalvadas as exigências horárias maiores das formações técnicas. O § 2º-A desse artigo obriga os sistemas a assegurarem que todas as escolas de ensino médio ofertem no mínimo dois itinerários com ênfases distintas, e o § 1º-A exige que o itinerário contemple o aprofundamento integral de ao menos uma área do conhecimento ou a formação técnica. As alternativas A, B, C e D descrevem corretamente esses preceitos e as prerrogativas de vivência prática e certificação intermediária (§ 6º). No entanto, a alternativa E é manifestamente incorreta (sendo o gabarito solicitado pela questão), haja vista que a LDB não compele as escolas a ofertarem todos os cursos do Catálogo Nacional de Cursos Técnicos, mas sim a garantirem opções formativas compatíveis com os recursos locais e as diretrizes do sistema de ensino."
+      },
+      {
+        id: 6,
+        theme: "Preparação para o trabalho e regime de cooperação",
+        legalBasis: "Art. 36-A, parágrafo único da LDB",
+        statement: `
+          <p>A Seção IV-A do Capítulo II do Título V da LDB, introduzida pela Lei nº 11.741/2008, regulamenta a Educação Profissional Técnica de Nível Médio. No que tange à relação entre a formação geral do educando e a preparação para o trabalho tratada no artigo 36-A e em seu parágrafo único, assinale a afirmativa CORRETA:</p>
+        `,
+        options: {
+          A: "A preparação para o exercício de profissões técnicas substitui integralmente a formação geral do educando, dispensando a aplicação dos parâmetros da Base Nacional Comum Curricular.",
+          B: "A preparação geral para o trabalho e, facultativamente, a habilitação profissional poderão ser desenvolvidas nos próprios estabelecimentos de ensino médio ou em cooperação com instituições especializadas em educação profissional.",
+          C: "A preparação técnica de nível médio destina-se unicamente aos maiores de dezoito anos que já estejam inseridos no mercado de trabalho formal sob regime celetista.",
+          D: "A oferta de educação profissional técnica de nível médio é prerrogativa exclusiva de entidades corporativas privadas, sendo vedada a sua ministração direta em instituições públicas de ensino regular.",
+          E: "O ensino médio não poderá, em nenhuma circunstância ou arranjo institucional, certificar ou habilitar o estudante ao exercício regular de profissões técnicas."
+        },
+        correctAnswer: "B",
+        resolution: "A inclusão da Seção IV-A na LDB consolidou o marco legal da Educação Profissional Técnica de Nível Médio (EPTNM). O artigo 36-A estabelece que a formação geral do educando é o pressuposto basilar sobre o qual se assenta a preparação para profissões técnicas. Para operacionalizar essa diretriz sem sobrecarregar unicamente a infraestrutura da escola propedêutica regular, o parágrafo único do art. 36-A dispõe que a preparação geral para o trabalho e a habilitação profissional facultativa podem ser estruturadas nos próprios estabelecimentos escolares ou por meio de parcerias e cooperação com instituições especializadas em educação profissional. A alternativa B espelha integralmente esse preceito normativo. A alternativa A é errônea ao afirmar a substituição da base geral; a C e a D instituem restrições subjetivas e institucionais que não constam na lei; e a E desconsidera a própria finalidade habilitadora expressa na Seção IV-A."
+      },
+      {
+        id: 7,
+        theme: "Formas articulada e subsequente da EPTNM",
+        legalBasis: "Art. 36-B, incisos I e II da LDB",
+        statement: `
+          <p>O artigo 36-B da Lei nº 9.394/1996 estipula as formas sob as quais a educação profissional técnica de nível médio será desenvolvida. Considerando as disposições legais sobre essas formas e seus critérios regulamentares, assinale a alternativa CORRETA:</p>
+        `,
+        options: {
+          A: "A educação profissional técnica de nível médio é ofertada apenas na forma supletiva periódica, destinada a estudantes em defasagem idade-série.",
+          B: "Desenvolve-se nas formas articulada com o ensino médio e subsequente, sendo esta última expressamente destinada a quem já tenha concluído o ensino médio.",
+          C: "A forma subsequente pressupõe que o estudante curse simultaneamente a formação geral básica em outra instituição de ensino médio por meio de regime de cooperação compulsória.",
+          D: "A forma articulada é reservada apenas aos egressos da educação superior que buscam reconversão profissional acelerada.",
+          E: "A educação profissional técnica de nível médio desvincula-se dos sistemas de ensino e das diretrizes curriculares nacionais, respondendo unicamente às exigências estatutárias de associações de classe."
+        },
+        correctAnswer: "B",
+        resolution: "Nos termos do artigo 36-B, a educação profissional técnica de nível médio bifurca-se formalmente em duas modalidades organizacionais: articulada com o ensino médio (voltada a quem está cursando ou ingressando no ensino médio) e subsequente (destinada unicamente àqueles que já concluíram o ensino médio em momento anterior). Por essa razão, a alternativa B é a correta. A alternativa A está incorreta por criar nomenclaturas sem previsão legal; a C comete equívoco ao confundir a forma subsequente (que pressupõe escolaridade média já finalizada) com arranjos de concomitância; a D falha ao restringir a modalidade articulada a portadores de curso superior; e a E nega a obrigatoriedade de observância das diretrizes curriculares nacionais e das normas complementares dos sistemas de ensino fixada no parágrafo único do artigo."
+      },
+      {
+        id: 8,
+        theme: "Educação técnica articulada integrada",
+        legalBasis: "Art. 36-C, inciso I da LDB",
+        statement: `
+          <p>O artigo 36-C, inciso I, da Lei nº 9.394/1996 define os parâmetros operacionais da educação profissional técnica de nível médio desenvolvida na forma articulada integrada. Caracteriza CORRETAMENTE esse modelo de oferta:</p>
+        `,
+        options: {
+          A: "A oferta destinada a quem já tenha concluído o ensino fundamental, sendo o curso planejado de modo a conduzir o estudante à habilitação profissional técnica e ao certificado de conclusão do ensino médio, sob matrícula única na mesma instituição de ensino.",
+          B: "O ingresso condicionado à prévia aprovação em exame vestibular unificado de ensino superior, funcionando em regime de dependência interinstitucional descentralizada.",
+          C: "A realização de duas matrículas simultâneas e independentes em estabelecimentos escolares distintos, sem qualquer vínculo pedagógico ou curricular entre as instituições.",
+          D: "A exclusão dos conteúdos de formação propedêutica e cidadã, centrando-se exclusivamente no treinamento operacional em laboratório industrial.",
+          E: "A emissão exclusiva de um certificado provisório de qualificação ocupacional básica, ficando vedada a habilitação técnica plena no âmbito do ensino médio regular."
+        },
+        correctAnswer: "A",
+        resolution: "O modelo integrado de formação profissional técnica de nível médio, previsto no art. 36-C, inciso I, traduz uma das principais marcas identitárias dos Institutos Federais. Ele é direcionado aos estudantes que já concluíram o ensino fundamental e assegura, por meio de um único plano de curso e de uma matrícula única no mesmo estabelecimento de ensino, a fusão indissociável entre a formação geral básica da BNCC e os componentes científico-tecnológicos da habilitação profissional técnica. Ao concluir o percurso, o estudante obtém concomitantemente o certificado de conclusão do ensino médio e o respectivo diploma de técnico. Essas características validam a alternativa A. As alternativas B, C e D descaracterizam a forma integrada ao introduzir requisitos de ensino superior, matrículas dispersas em redes distintas ou a eliminação da base comum. A alternativa E está errada porque a conclusão regular confere habilitação técnica plena e válida em todo o território nacional."
+      },
+      {
+        id: 9,
+        theme: "Educação técnica articulada concomitante",
+        legalBasis: "Art. 36-C, inciso II da LDB",
+        statement: `
+          <p>A educação profissional técnica de nível médio articulada com o ensino médio pode ser desenvolvida também na forma concomitante, conforme delineado no artigo 36-C, inciso II, da Lei nº 9.394/1996. A respeito das exigências formais e das possibilidades de arranjo institucional dessa oferta, assinale a afirmativa CORRETA:</p>
+        `,
+        options: {
+          A: "A forma concomitante ocorre mediante matrícula única centralizada no órgão regional de educação, sendo vedada a sua realização em instituições de ensino distintas.",
+          B: "É oferecida a quem ingresse no ensino médio ou já o esteja cursando, efetuando-se matrículas distintas para cada curso.",
+          C: "Exige obrigatoriamente que ambos os cursos sejam ministrados no mesmo turno e compartilhem em tempo integral os mesmos professores e o mesmo espaço físico.",
+          D: "Não admite o aproveitamento de oportunidades de cursos disponíveis na mesma instituição, sendo permitida exclusivamente mediante convênio entre escolas públicas e entidades privadas.",
+          E: "Concede diploma de habilitação técnica ao estudante independentemente da comprovação de conclusão do ensino médio propedêutico regular."
+        },
+        correctAnswer: "B",
+        resolution: "Conforme estipulado no artigo 36-C, inciso II, da LDB, a forma articulada concomitante atende a quem já está matriculado no ensino médio regular ou nele ingressando, distinguindo-se estruturalmente da integrada pela exigência formal de matrículas distintas para cada curso (o de ensino médio propedêutico e o de habilitação técnica). A própria legislação prevê que a concomitância pode operar em três formatos: na mesma instituição escolar; em instituições de ensino distintas com aproveitamento recíproco de vagas; ou em instituições distintas sob convênio de intercomplementaridade visando a um projeto pedagógico convergente. Dessa maneira, a alternativa B é a única correta. A alternativa A contraria o comando de matrículas distintas; a C impõe restrições de turno e espaço físico inexistentes na lei; a D proíbe indevidamente a concomitância na mesma escola autorizada pela alínea 'a' do inciso II; e a alternativa E desconsidera que a expedição do diploma técnico permanece subordinada à conclusão cabal do ensino médio."
+      },
+      {
+        id: 10,
+        theme: "Diplomas, terminalidade e certificação",
+        legalBasis: "Art. 36-D, caput e parágrafo único; Art. 36, § 6º da LDB",
+        statement: `
+          <p>No que tange à validade e aos efeitos dos diplomas de cursos técnicos, bem como às certificações intermediárias de qualificação profissional, à luz dos artigos 36-D e 36, § 6º, da Lei nº 9.394/1996, analise as afirmativas:</p>
+          <ul class="statement-items">
+            <li class="statement-item"><span class="statement-roman">I.</span><span>Os diplomas de cursos de educação profissional técnica de nível médio, quando devidamente registrados, têm validade nacional e habilitam o titular ao prosseguimento de estudos na educação superior.</span></li>
+            <li class="statement-item"><span class="statement-roman">II.</span><span>Os cursos de educação profissional técnica de nível médio estruturados e organizados em etapas com terminalidade possibilitam a obtenção de certificados intermediários de qualificação profissional.</span></li>
+            <li class="statement-item"><span class="statement-roman">III.</span><span>O certificado intermediário de qualificação profissional substitui integralmente a necessidade de conclusão do ensino médio para fins de acesso a cargos públicos que exijam nível médio completo.</span></li>
+            <li class="statement-item"><span class="statement-roman">IV.</span><span>Os diplomas de educação profissional técnica de nível médio conferem automaticamente o título de graduação tecnológica, permitindo o ingresso direto em cursos de pós-graduação stricto sensu.</span></li>
+          </ul>
+          <p class="statement-prompt">Estão CORRETAS apenas as afirmativas:</p>
+        `,
+        options: {
+          A: "I e II.",
+          B: "I e III.",
+          C: "II e IV.",
+          D: "I, II e IV.",
+          E: "III e IV."
+        },
+        correctAnswer: "A",
+        resolution: "O artigo 36-D, caput, da LDB confere eficácia federativa aos diplomas de educação profissional técnica de nível médio, asseverando que, uma vez devidamente registrados, eles possuem validade nacional e habilitam formalmente seus titulares ao prosseguimento de estudos na educação superior, legitimando a assertiva I. Em complemento, o parágrafo único do art. 36-D, articulado com o art. 36, § 6º, estabelece que os cursos técnicos organizados em módulos estruturados com terminalidade conferem aos discentes certificados intermediários de qualificação profissional à medida que completam etapas formativas com correspondência no mercado ocupacional, confirmando a correção da assertiva II. Todavia, a assertiva III está incorreta porque o certificado intermediário atesta apenas a qualificação ocupacional de uma etapa, não conferindo o status de ensino médio concluído. Da mesma forma, a assertiva IV é falsa, visto que o diploma técnico tem nível médio e não equivale a diploma de graduação tecnológica nem autoriza matrícula direta na pós-graduação stricto sensu. Corretas apenas as afirmativas I e II, o que torna a alternativa A a resposta definitiva."
+      }
+    ];
+
+    // ESTADO DA APLICAÇÃO
+    const userAnswers = {}; // { 1: 'C', 2: 'B', ... }
+    let isSubmitted = false;
+    let currentFilter = 'all';
+
+    // ELEMENTOS DOM
+    const questionsContainer = document.getElementById('questionsContainer');
+    const navStrip = document.getElementById('navStrip');
+    const progressBadge = document.getElementById('progressBadge');
+    const resultsPanel = document.getElementById('resultsPanel');
+    const gabaritoTableBody = document.getElementById('gabaritoTableBody');
+    const btnScrollResults = document.getElementById('btnScrollResults');
+
+    // INICIALIZAÇÃO
+    window.onload = function() {
+      renderQuestions();
+      renderNavStrip();
+      renderGabaritoTable();
+      setupFontControls();
+    };
+
+    // RENDERIZAÇÃO DAS QUESTÕES
+    function renderQuestions() {
+      questionsContainer.innerHTML = '';
+
+      quizData.forEach((q) => {
+        const card = document.createElement('article');
+        card.className = 'question-card';
+        card.id = `questao-${q.id}`;
+        card.setAttribute('data-id', q.id);
+
+        let optionsHtml = '';
+        ['A', 'B', 'C', 'D', 'E'].forEach(letter => {
+          optionsHtml += `
+            <label class="option-label" id="label-q${q.id}-${letter}" onclick="selectOption(${q.id}, '${letter}')">
+              <input type="radio" class="option-input" name="q${q.id}" value="${letter}">
+              <span class="option-letter">${letter}</span>
+              <span class="option-text">${q.options[letter]}</span>
+              <span class="option-status-icon" id="icon-q${q.id}-${letter}"></span>
+            </label>
+          `;
+        });
+
+        card.innerHTML = `
+          <div class="question-top">
+            <span class="q-number-badge">Questão ${q.id.toString().padStart(2, '0')}</span>
+            <span class="q-theme-badge">${q.theme}</span>
+          </div>
+
+          <div class="statement-text">
+            ${q.statement}
+          </div>
+
+          <div class="options-group" id="group-q${q.id}">
+            ${optionsHtml}
+          </div>
+
+          <!-- BLOCO DE RESOLUÇÃO (REVELADO AO FINALIZAR) -->
+          <div class="resolution-box" id="res-box-${q.id}">
+            <div id="user-status-q${q.id}"></div>
+            <div class="resolution-header">
+              <div class="res-title">
+                <span>📖</span> Resolução Detalhada da Questão ${q.id.toString().padStart(2, '0')}
+              </div>
+              <div style="display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap;">
+                <span class="res-gabarito-tag">Gabarito: Letra ${q.correctAnswer}</span>
+                <span class="res-legal-basis">${q.legalBasis}</span>
+              </div>
+            </div>
+            <div class="resolution-body">
+              ${q.resolution}
+            </div>
+          </div>
+        `;
+
+        questionsContainer.appendChild(card);
+      });
+    }
+
+    // NAVEGAÇÃO SUPERIOR (PILLS 1 A 10)
+    function renderNavStrip() {
+      navStrip.innerHTML = '';
+      quizData.forEach(q => {
+        const pill = document.createElement('a');
+        pill.className = 'nav-pill';
+        pill.id = `pill-q${q.id}`;
+        pill.href = `#questao-${q.id}`;
+        pill.innerText = q.id.toString().padStart(2, '0');
+        pill.title = `Ir para Questão ${q.id}`;
+        pill.onclick = (e) => {
+          e.preventDefault();
+          const target = document.getElementById(`questao-${q.id}`);
+          if (target) {
+            target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          }
+        };
+        navStrip.appendChild(pill);
+      });
+    }
+
+    // POVOAR TABELA DE GABARITO OFICIAL
+    function renderGabaritoTable() {
+      gabaritoTableBody.innerHTML = '';
+      quizData.forEach(q => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td><strong>Questão ${q.id.toString().padStart(2, '0')}</strong></td>
+          <td><span class="table-badge-letter">${q.correctAnswer}</span></td>
+          <td style="color: #334155; font-weight: 500;">${q.legalBasis}</td>
+          <td style="color: #475569;">${q.theme}</td>
+        `;
+        gabaritoTableBody.appendChild(tr);
+      });
+    }
+
+    // SELEÇÃO DE ALTERNATIVA
+    function selectOption(questionId, letter) {
+      if (isSubmitted) return; // Bloqueia edição após entrega
+
+      userAnswers[questionId] = letter;
+
+      // Atualiza visual dos radio buttons da questão
+      ['A', 'B', 'C', 'D', 'E'].forEach(l => {
+        const label = document.getElementById(`label-q${questionId}-${l}`);
+        if (l === letter) {
+          label.classList.add('selected');
+        } else {
+          label.classList.remove('selected');
+        }
+      });
+
+      // Atualiza pill na barra fixa
+      const pill = document.getElementById(`pill-q${questionId}`);
+      if (pill) {
+        pill.classList.add('answered');
+      }
+
+      updateProgress();
+    }
+
+    function updateProgress() {
+      const answeredCount = Object.keys(userAnswers).length;
+      progressBadge.innerText = `${answeredCount} de 10 respondidas`;
+    }
+
+    // SUBMISSÃO E CORREÇÃO
+    function handleFinishClick() {
+      const answeredCount = Object.keys(userAnswers).length;
+      const totalQuestions = quizData.length;
+
+      if (answeredCount < totalQuestions) {
+        const missing = totalQuestions - answeredCount;
+        openModal(
+          "Questões Pendentes",
+          `Você respondeu ${answeredCount} de ${totalQuestions} questões. Ainda restam ${missing} questão(ões) em branco.<br><br>Deseja finalizar a prova e conferir as resoluções mesmo assim?`,
+          [
+            { text: "Continuar respondendo", primary: false, onClick: closeModal },
+            { text: "Sim, finalizar e corrigir", primary: true, onClick: () => { closeModal(); executeCorrection(); } }
+          ]
+        );
+      } else {
+        openModal(
+          "Finalizar Simulado",
+          "Todas as 10 questões foram preenchidas. Deseja registrar suas respostas e abrir as resoluções comentadas?",
+          [
+            { text: "Revisar respostas", primary: false, onClick: closeModal },
+            { text: "Confirmar e ver gabarito", primary: true, onClick: () => { closeModal(); executeCorrection(); } }
+          ]
+        );
+      }
+    }
+
+    // EXECUÇÃO DA CORREÇÃO
+    function executeCorrection() {
+      isSubmitted = true;
+      let hits = 0;
+      let errors = 0;
+
+      quizData.forEach(q => {
+        const userChoice = userAnswers[q.id];
+        const isCorrect = userChoice === q.correctAnswer;
+        const resBox = document.getElementById(`res-box-${q.id}`);
+        const userStatusDiv = document.getElementById(`user-status-q${q.id}`);
+        const pill = document.getElementById(`pill-q${q.id}`);
+
+        if (isCorrect) {
+          hits++;
+        } else {
+          errors++;
+        }
+
+        // Aplica estilização de acerto / erro nas opções
+        ['A', 'B', 'C', 'D', 'E'].forEach(letter => {
+          const label = document.getElementById(`label-q${q.id}-${letter}`);
+          const iconSpan = document.getElementById(`icon-q${q.id}-${letter}`);
+          label.style.cursor = 'default';
+
+          if (letter === q.correctAnswer) {
+            label.classList.add('is-correct-answer');
+            iconSpan.innerHTML = '✔ <small style="font-weight:700;">(Gabarito Oficial)</small>';
+          } else if (letter === userChoice && !isCorrect) {
+            label.classList.add('is-user-wrong');
+            iconSpan.innerHTML = '✖ <small style="font-weight:700;">(Sua escolha)</small>';
+          }
+        });
+
+        // Configura barra de feedback individual na questão
+        if (!userChoice) {
+          userStatusDiv.innerHTML = `
+            <div class="user-feedback-bar unanswered">
+              <span>⚠️ Questão deixada em branco. O gabarito oficial é a letra <strong>${q.correctAnswer}</strong>.</span>
+            </div>
+          `;
+          if (pill) pill.classList.add('wrong-pill');
+        } else if (isCorrect) {
+          userStatusDiv.innerHTML = `
+            <div class="user-feedback-bar hit">
+              <span>🎉 Parabéns! Você acertou esta questão (Opção ${userChoice}).</span>
+            </div>
+          `;
+          if (pill) pill.classList.add('correct-pill');
+        } else {
+          userStatusDiv.innerHTML = `
+            <div class="user-feedback-bar miss">
+              <span>❌ Você assinalou a alternativa <strong>${userChoice}</strong>. A resposta correta é a <strong>Letra ${q.correctAnswer}</strong>.</span>
+            </div>
+          `;
+          if (pill) pill.classList.add('wrong-pill');
+        }
+
+        // Torna a resolução detalhada visível
+        if (resBox) {
+          resBox.style.display = 'block';
+        }
+      });
+
+      // Atualiza o painel de resultados no topo
+      const percentage = Math.round((hits / quizData.length) * 100);
+      document.getElementById('scoreHits').innerText = hits;
+      document.getElementById('scorePercentageText').innerText = `${percentage}% de aproveitamento`;
+      document.getElementById('statHitsCount').innerText = hits;
+      document.getElementById('statErrorsCount').innerText = errors;
+      document.getElementById('statTotalPoints').innerText = `${percentage}%`;
+
+      const badgeStatus = document.getElementById('scoreStatusBadge');
+      if (percentage >= 80) {
+        badgeStatus.innerText = "Excelente Desempenho! Alta probabilidade de aprovação.";
+        badgeStatus.style.background = "#dcfce7";
+        badgeStatus.style.color = "#15803d";
+      } else if (percentage >= 60) {
+        badgeStatus.innerText = "Bom desempenho! Recomenda-se reforçar os pontos de atenção.";
+        badgeStatus.style.background = "#eff6ff";
+        badgeStatus.style.color = "#1d4ed8";
+      } else {
+        badgeStatus.innerText = "Atenção necessária: revise detidamente a fundamentação das questões.";
+        badgeStatus.style.background = "#fef2f2";
+        badgeStatus.style.color = "#b91c1c";
+      }
+
+      document.getElementById('quizStatusText').innerText = `Simulado Finalizado: ${hits}/10 acertos`;
+      resultsPanel.style.display = 'block';
+      btnScrollResults.style.display = 'inline-flex';
+
+      // Rola a visualização suavemente para o painel de resultados
+      resultsPanel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+      // Atualiza botões da barra de ação inferior
+      document.getElementById('btnFinishQuiz').style.display = 'none';
+      document.getElementById('btnResetQuiz').innerText = 'Refazer Simulado';
+    }
+
+    // FILTRO DE QUESTÕES (TODAS / ERROS / ACERTOS)
+    function filterQuestions(filterType) {
+      currentFilter = filterType;
+      
+      // Atualiza estado visual das abas
+      const pills = document.querySelectorAll('.filter-pill');
+      pills.forEach(p => p.classList.remove('active'));
+      event.target.classList.add('active');
+
+      quizData.forEach(q => {
+        const card = document.getElementById(`questao-${q.id}`);
+        const userChoice = userAnswers[q.id];
+        const isHit = userChoice === q.correctAnswer;
+
+        if (filterType === 'all') {
+          card.style.display = 'block';
+        } else if (filterType === 'hit') {
+          card.style.display = isHit ? 'block' : 'none';
+        } else if (filterType === 'wrong') {
+          card.style.display = !isHit ? 'block' : 'none';
+        }
+      });
+    }
+
+    // REINICIALIZAÇÃO DO QUIZ
+    function confirmResetQuiz() {
+      if (Object.keys(userAnswers).length === 0 && !isSubmitted) {
+        return;
+      }
+      openModal(
+        "Reiniciar Simulado",
+        "Tem certeza que deseja reiniciar o simulado? Todas as seleções e a correção atual serão limpas.",
+        [
+          { text: "Cancelar", primary: false, onClick: closeModal },
+          { text: "Sim, recomeçar", primary: true, onClick: () => { closeModal(); restartQuiz(); } }
+        ]
+      );
+    }
+
+    function restartQuiz() {
+      // Limpar estados
+      for (const key in userAnswers) {
+        delete userAnswers[key];
+      }
+      isSubmitted = false;
+      currentFilter = 'all';
+
+      // Resetar interface
+      resultsPanel.style.display = 'none';
+      btnScrollResults.style.display = 'none';
+      document.getElementById('btnFinishQuiz').style.display = 'inline-flex';
+      document.getElementById('btnResetQuiz').innerText = 'Limpar Respostas';
+      document.getElementById('quizStatusText').innerText = 'Simulado em andamento';
+
+      renderQuestions();
+      renderNavStrip();
+      updateProgress();
+
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // ACESSIBILIDADE E TIPOGRAFIA DE LEITURA
+    function setupFontControls() {
+      let currentZoomLevel = 1.05;
+
+      document.getElementById('btnToggleFont').onclick = () => {
+        document.body.classList.toggle('use-sans');
+        const isSans = document.body.classList.contains('use-sans');
+        document.getElementById('btnToggleFont').innerHTML = isSans ? '<span>Aa</span> Serif' : '<span>Aa</span> Sans';
+      };
+
+      document.getElementById('btnZoomPlus').onclick = () => {
+        if (currentZoomLevel < 1.35) {
+          currentZoomLevel += 0.05;
+          document.documentElement.style.setProperty('--reading-size', `${currentZoomLevel.toFixed(2)}rem`);
+        }
+      };
+
+      document.getElementById('btnZoomMinus').onclick = () => {
+        if (currentZoomLevel > 0.90) {
+          currentZoomLevel -= 0.05;
+          document.documentElement.style.setProperty('--reading-size', `${currentZoomLevel.toFixed(2)}rem`);
+        }
+      };
+
+      document.getElementById('btnScrollResults').onclick = () => {
+        resultsPanel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      };
+    }
+
+    // MODAL DE DIÁLOGO CUSTOMIZADO (ZERO USO DE ALERT/CONFIRM)
+    function openModal(title, message, buttons) {
+      document.getElementById('modalTitle').innerText = title;
+      document.getElementById('modalMessage').innerHTML = message;
+      const actionsContainer = document.getElementById('modalActions');
+      actionsContainer.innerHTML = '';
+
+      buttons.forEach(btn => {
+        const buttonEl = document.createElement('button');
+        buttonEl.type = 'button';
+        buttonEl.className = btn.primary ? 'btn-primary' : 'btn-secondary';
+        buttonEl.innerHTML = btn.text;
+        buttonEl.onclick = btn.onClick;
+        actionsContainer.appendChild(buttonEl);
+      });
+
+      document.getElementById('customModal').style.display = 'flex';
+    }
+
+    function closeModal() {
+      document.getElementById('customModal').style.display = 'none';
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,907 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ECA para Concurso IFMG - Educação e Trabalho Protegido (Arts. 53 a 69)</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background-color: #ffffff;
+      color: #1e293b; /* Slate 800: contraste ideal sem cansar a visão */
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Grifos em estilo marca-texto de concurso */
+    mark.highlight-yellow {
+      background-color: #fef08a; /* Amarelo suave */
+      color: #0f172a;
+      font-weight: 600;
+      padding: 0.12rem 0.35rem;
+      border-radius: 0.25rem;
+    }
+
+    mark.highlight-green {
+      background-color: #bbf7d0; /* Verde suave para prazos e permissões */
+      color: #064e3b;
+      font-weight: 600;
+      padding: 0.12rem 0.35rem;
+      border-radius: 0.25rem;
+    }
+
+    mark.highlight-red {
+      background-color: #fecaca; /* Vermelho suave para vedações e alertas */
+      color: #7f1d1d;
+      font-weight: 600;
+      padding: 0.12rem 0.35rem;
+      border-radius: 0.25rem;
+    }
+
+    /* Garantia absoluta de ausência de scroll horizontal nas tabelas */
+    table.no-scroll-table {
+      table-layout: fixed;
+      width: 100%;
+      word-break: break-word;
+      overflow-wrap: break-word;
+      border-collapse: collapse;
+    }
+
+    table.no-scroll-table th,
+    table.no-scroll-table td {
+      hyphens: auto;
+      word-wrap: break-word;
+    }
+  </style>
+</head>
+<body class="bg-white text-slate-800 leading-relaxed min-h-screen">
+
+  <!-- BARRA DE PROGRESSO DE LEITURA -->
+  <div id="progressBar" class="fixed top-0 left-0 h-1 bg-amber-500 z-50 transition-all duration-150" style="width: 0%;"></div>
+
+  <!-- CABEÇALHO PRINCIPAL -->
+  <header class="w-full bg-white border-b border-slate-200 py-6 px-4 sm:px-8">
+    <div class="max-w-4xl mx-auto">
+      <div class="flex flex-wrap items-center gap-2 mb-3">
+        <span class="bg-slate-100 text-slate-700 text-xs font-semibold px-2.5 py-1 rounded border border-slate-300">
+          IFMG • Professor EBTT
+        </span>
+        <span class="bg-slate-100 text-slate-700 text-xs font-semibold px-2.5 py-1 rounded border border-slate-300">
+          Geografia
+        </span>
+        <span class="bg-amber-100 text-amber-900 text-xs font-bold px-2.5 py-1 rounded border border-amber-300">
+          Legislação Educacional • Lei nº 8.069/1990
+        </span>
+      </div>
+      <h1 class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight leading-tight">
+        Estatuto da Criança e do Adolescente: Educação e Proteção no Trabalho
+      </h1>
+      <p class="text-sm sm:text-base text-slate-600 mt-2 font-medium">
+        Título II: Capítulos IV (arts. 53 a 59-A) e V (arts. 60 a 69) da Lei Federal nº 8.069/1990 aplicados à Carreira EBTT do IFMG.
+      </p>
+    </div>
+  </header>
+
+  <!-- CONTAINER PRINCIPAL -->
+  <main class="max-w-4xl mx-auto px-4 sm:px-8 py-8 space-y-10">
+
+    <!-- REPRODUTOR DE ÁUDIO EMBARCADO (TOPO DA PÁGINA) -->
+    <section class="bg-white border-2 border-slate-200 rounded-2xl p-5 sm:p-6 shadow-sm">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-100">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-amber-100 text-amber-800 flex items-center justify-center font-bold text-lg">
+            🎧
+          </div>
+          <div>
+            <h2 class="text-base sm:text-lg font-bold text-slate-900">Reprodutor da Aula em Áudio</h2>
+            <p class="text-xs sm:text-sm text-slate-500">Ouça o áudio da matéria enquanto faz a leitura guiada.</p>
+          </div>
+        </div>
+        <span class="inline-flex items-center text-xs font-semibold px-2.5 py-1 bg-emerald-50 text-emerald-700 rounded-full border border-emerald-200">
+          Pronto para reprodução
+        </span>
+      </div>
+
+      <!-- Configuração simples do nome do arquivo MP3 -->
+      <div class="mt-4 bg-slate-50 p-3.5 rounded-xl border border-slate-200 text-xs sm:text-sm">
+        <label for="audioFileNameInput" class="block font-semibold text-slate-700 mb-1">
+          Arquivo MP3 local (na mesma pasta deste arquivo HTML):
+        </label>
+        <div class="flex flex-col sm:flex-row gap-2">
+          <input 
+            type="text" 
+            id="audioFileNameInput" 
+            value="audio16legs.mp3" 
+            placeholder="ex: audio16legs.mp3" 
+            class="flex-1 bg-white border border-slate-300 rounded-lg px-3 py-2 text-slate-800 focus:outline-none focus:ring-2 focus:ring-amber-500 text-sm font-mono"
+          />
+          <button 
+            id="loadAudioBtn"
+            type="button" 
+            class="px-4 py-2 bg-slate-800 hover:bg-slate-900 text-white font-medium rounded-lg text-sm transition-colors shadow-sm cursor-pointer"
+          >
+            Carregar Áudio
+          </button>
+        </div>
+        <p class="text-slate-500 text-xs mt-1.5">
+          Dica: salve seu arquivo de áudio com o nome <code class="font-mono bg-white px-1 py-0.5 rounded border border-slate-200">audio16legs.mp3</code> na mesma pasta ou digite o nome correto acima e clique em "Carregar Áudio".
+        </p>
+      </div>
+
+      <!-- Componente nativo HTML5 Audio -->
+      <div class="mt-4">
+        <audio id="audioPlayer" controls class="w-full rounded-lg outline-none">
+          <source id="audioSource" src="audio16legs.mp3" type="audio/mpeg">
+          Seu navegador não suporta a reprodução deste elemento de áudio.
+        </audio>
+        <div id="audioStatus" class="text-xs text-slate-500 mt-1 font-medium">
+          Origem atual: <span class="font-mono text-slate-700" id="currentTrackLabel">audio16legs.mp3</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- INTRODUÇÃO E CONTEXTO INSTITUCIONAL DO IFMG -->
+    <article class="prose prose-slate max-w-none space-y-4">
+      <div class="bg-slate-50 border-l-4 border-slate-600 p-4 rounded-r-xl">
+        <p class="text-sm sm:text-base text-slate-700 leading-relaxed m-0">
+          No âmbito da Carreira de Magistério do Ensino Básico, Técnico e Tecnológico (EBTT) do <strong>Instituto Federal de Educação, Ciência e Tecnologia de Minas Gerais (IFMG)</strong>, a aplicação da Lei Federal nº 8.069/1990 (Estatuto da Criança e do Adolescente - ECA) transcende o mero domínio conceitual para consolidar-se como <mark class="highlight-yellow">diretriz de conduta funcional</mark>. A atuação nos cursos técnicos integrados ao ensino médio coloca os docentes em contato diário com estudantes em desenvolvimento psicofísico, demandando segurança jurídica na condução de processos avaliativos, no acompanhamento da frequência e na observância das salvaguardas voltadas à profissionalização dos discentes.
+        </p>
+      </div>
+
+      <p class="text-base text-slate-700 leading-relaxed">
+        Historicamente, o ECA operou uma ruptura paradigmática com a <em>doutrina da situação irregular</em> do antigo Código de Menores (Lei nº 6.697/1979), institucionalizando a <mark class="highlight-yellow">Doutrina da Proteção Integral</mark> preconizada pela Convenção Internacional sobre os Direitos da Criança e positivada no <strong>artigo 227 da Constituição Federal de 1988</strong>. Crianças (<mark class="highlight-yellow">pessoas até 12 anos de idade incompletos</mark>) e adolescentes (<mark class="highlight-yellow">pessoas entre 12 e 18 anos</mark>) deixaram de figurar como meros objetos tutelados de intervenção estatal para se tornarem <mark class="highlight-yellow">sujeitos plenos de direitos fundamentais, dotados de prioridade absoluta</mark>. Essa evolução projeta obrigações funcionais indelegáveis sobre os estabelecimentos de ensino federais e seu corpo docente.
+      </p>
+    </article>
+
+    <hr class="border-slate-200" />
+
+    <!-- SEÇÃO 1: O DIREITO FUNDAMENTAL À EDUCAÇÃO -->
+    <section class="space-y-6">
+      <div class="border-b border-slate-200 pb-3">
+        <h2 class="text-xl sm:text-2xl font-bold text-slate-900 flex items-center gap-2">
+          <span class="w-2.5 h-6 bg-slate-800 rounded-sm inline-block"></span>
+          1. O Direito Fundamental à Educação (Arts. 53 a 59-A)
+        </h2>
+        <p class="text-sm text-slate-500 mt-1">
+          Capítulo IV do Título II: educação escolar como direito indispensável à emancipação humana, vinculando a atuação pedagógica a objetivos estruturantes.
+        </p>
+      </div>
+
+      <!-- Tríplice Finalidade e Art. 53 -->
+      <div class="bg-white border border-slate-200 rounded-xl p-5 sm:p-6 shadow-sm space-y-4">
+        <h3 class="text-lg font-bold text-slate-900 border-b border-slate-100 pb-2">
+          A Tríplice Finalidade da Educação e as Prerrogativas Estudantis (Art. 53)
+        </h3>
+        <p class="text-sm sm:text-base text-slate-700">
+          O artigo 53 do Estatuto consagra as finalidades norteadoras da educação nacional, espelhando fielmente o artigo 205 da Carta Magna:
+        </p>
+        
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-1">
+          <div class="p-3 bg-slate-50 border border-slate-200 rounded-lg text-center">
+            <span class="text-xs uppercase tracking-wider font-bold text-slate-500 block mb-1">Finalidade 1</span>
+            <span class="text-sm font-semibold text-slate-900"><mark class="highlight-yellow">Pleno desenvolvimento da pessoa</mark> do educando</span>
+          </div>
+          <div class="p-3 bg-slate-50 border border-slate-200 rounded-lg text-center">
+            <span class="text-xs uppercase tracking-wider font-bold text-slate-500 block mb-1">Finalidade 2</span>
+            <span class="text-sm font-semibold text-slate-900"><mark class="highlight-yellow">Preparo para o exercício da cidadania</mark></span>
+          </div>
+          <div class="p-3 bg-slate-50 border border-slate-200 rounded-lg text-center">
+            <span class="text-xs uppercase tracking-wider font-bold text-slate-500 block mb-1">Finalidade 3</span>
+            <span class="text-sm font-semibold text-slate-900"><mark class="highlight-yellow">Qualificação para o trabalho</mark> produtivo</span>
+          </div>
+        </div>
+
+        <h4 class="text-sm font-bold uppercase tracking-wider text-slate-600 pt-3">
+          Catálogo Taxativo de Garantias Expressas (Incissos do Art. 53):
+        </h4>
+
+        <ul class="space-y-3 text-sm sm:text-base text-slate-700">
+          <li class="flex items-start gap-2">
+            <span class="font-bold text-slate-900 shrink-0">• Inciso I:</span>
+            <span>
+              <strong>Igualdade de condições para o acesso e permanência na escola:</strong> O dever institucional não se esgota na matrícula; impõe a manutenção de políticas de assistência estudantil, acolhimento pedagógico e adaptação metodológica para coibir o abandono escolar e a evasão precoce.
+            </span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="font-bold text-slate-900 shrink-0">• Inciso II:</span>
+            <span>
+              <strong>Direito de ser respeitado por seus educadores:</strong> Proíbe condutas vexatórias, discriminatórias, apelidos depreciativos ou práticas pedagógicas que violem a integridade moral e psicológica do jovem.
+            </span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="font-bold text-slate-900 shrink-0">• Inciso III:</span>
+            <span>
+              <mark class="highlight-yellow">Direito de contestar critérios avaliativos e recorrer às instâncias escolares superiores:</mark> A avaliação educacional <mark class="highlight-red">não constitui ato de soberania técnica irrecorrível</mark> do professor. O estudante possui a prerrogativa formal de impugnar conceitos, enunciados, rubricas e notas, demandando a revisão dos critérios perante instâncias colegiadas da instituição, tais como Colegiados de Curso, Conselhos de Classe e Diretorias de Ensino do IFMG.
+            </span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="font-bold text-slate-900 shrink-0">• Inciso IV:</span>
+            <span>
+              <strong>Direito de organização e participação em entidades estudantis:</strong> É vedado à gestão escolar impedir ou burocratizar indevidamente a formação autônoma de agremiações, a exemplo de grêmios estudantis, centros acadêmicos e representações discentes nos órgãos colegiados da instituição.
+            </span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="font-bold text-slate-900 shrink-0">• Inciso V:</span>
+            <span>
+              <strong>Acesso à escola pública e gratuita próxima da residência:</strong> Mecanismo reforçado pela Lei nº 13.845/2019, que assegurou vaga no mesmo estabelecimento escolar a <mark class="highlight-yellow">irmãos que frequentem a mesma etapa ou ciclo de ensino</mark> da educação básica, facilitando a logística familiar e a retenção estudantil.
+            </span>
+          </li>
+        </ul>
+
+        <div class="mt-4 p-3.5 bg-amber-50/60 border border-amber-200 rounded-lg text-xs sm:text-sm text-slate-800">
+          <strong>Parágrafo Único do Art. 53 (Gestão Participativa da Família):</strong> É direito dos pais ou responsáveis ter <mark class="highlight-yellow">ciência do processo pedagógico</mark>, bem como <mark class="highlight-yellow">participar da definição das propostas educacionais</mark>.
+        </div>
+      </div>
+
+      <!-- Prevenção de Drogas e Idoneidade (Arts. 53-A e 59-A) -->
+      <div class="bg-white border border-slate-200 rounded-xl p-5 sm:p-6 shadow-sm space-y-4">
+        <h3 class="text-lg font-bold text-slate-900 border-b border-slate-100 pb-2">
+          Prevenção de Substâncias e Controle de Idoneidade Profissional (Arts. 53-A e 59-A)
+        </h3>
+        <p class="text-sm sm:text-base text-slate-700">
+          Inovações legislativas recentes introduziram deveres de proteção direta no ambiente escolar:
+        </p>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div class="p-4 border border-slate-200 rounded-lg bg-slate-50">
+            <h4 class="font-bold text-slate-900 text-sm mb-1">Art. 53-A (Lei nº 13.840/2019)</h4>
+            <p class="text-xs sm:text-sm text-slate-700 leading-normal">
+              Obriga as instituições de ensino, clubes recreativos e entidades congêneres a implementar <mark class="highlight-yellow">programas contínuos de conscientização, prevenção e enfrentamento ao uso indevido e dependência de drogas ilícitas</mark>.
+            </p>
+          </div>
+          <div class="p-4 border border-slate-200 rounded-lg bg-slate-50">
+            <h4 class="font-bold text-slate-900 text-sm mb-1">Art. 59-A (Lei nº 14.811/2024 - Lei Anti-Bullying)</h4>
+            <p class="text-xs sm:text-sm text-slate-700 leading-normal">
+              Instituições sociais que recebam recursos públicos devem exigir e arquivar certidões de antecedentes criminais de todos os colaboradores, <mark class="highlight-green">atualizadas semestralmente (a cada 6 meses)</mark>. No parágrafo único: todos os estabelecimentos de ensino devem manter fichas cadastrais e certidões criminais permanentemente atualizadas.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Obrigações do Estado e Direito Público Subjetivo (Arts. 54 e 55) -->
+      <div class="bg-white border border-slate-200 rounded-xl p-5 sm:p-6 shadow-sm space-y-4">
+        <h3 class="text-lg font-bold text-slate-900 border-b border-slate-100 pb-2">
+          Obrigações do Estado e a Natureza do Direito à Educação (Arts. 54 e 55)
+        </h3>
+        <p class="text-sm sm:text-base text-slate-700">
+          O artigo 54 do Estatuto define as incumbências materiais do Estado na oferta educacional:
+        </p>
+        <ul class="list-disc pl-5 space-y-1.5 text-sm sm:text-base text-slate-700">
+          <li>Ensino fundamental obrigatório e gratuito, inclusive para os que a ele não tiveram acesso na idade própria;</li>
+          <li>Progressiva extensão da obrigatoriedade e da gratuidade ao ensino médio;</li>
+          <li>Atendimento educacional especializado (AEE) a educandos com deficiência, preferencialmente na rede regular de ensino;</li>
+          <li>Atendimento em creche e pré-escola às crianças de 0 a 5 anos de idade (redação pela Lei nº 13.306/2016);</li>
+          <li>Oferta de ensino noturno regular, adequado às condições do educando trabalhador;</li>
+          <li>Programas suplementares de material didático-escolar, transporte, alimentação e assistência à saúde.</li>
+        </ul>
+
+        <div class="p-4 bg-slate-100/70 border-l-4 border-slate-700 rounded-r-lg space-y-2 text-xs sm:text-sm text-slate-800">
+          <p>
+            <strong>Natureza Jurídica do Acesso (Art. 54, § 1º):</strong> O acesso ao ensino obrigatório e gratuito é <mark class="highlight-yellow">direito público subjetivo</mark>.
+          </p>
+          <p>
+            <strong>Responsabilidade da Autoridade (Art. 54, § 2º):</strong> O não oferecimento do ensino obrigatório pelo poder público ou sua oferta irregular importa <mark class="highlight-red">responsabilidade da autoridade competente</mark>.
+          </p>
+          <p>
+            <strong>Dever dos Pais (Art. 55):</strong> Os pais ou responsável têm a obrigação de matricular seus filhos ou pupilos na rede regular de ensino. A omissão sem justa causa configura infração administrativa no ECA e <mark class="highlight-red">crime de abandono intelectual</mark> (Art. 246 do Código Penal).
+          </p>
+        </div>
+      </div>
+
+      <!-- Notificação Compulsória ao Conselho Tutelar (Art. 56) -->
+      <div class="bg-white border border-slate-200 rounded-xl p-5 sm:p-6 shadow-sm space-y-4">
+        <div class="flex items-center justify-between border-b border-slate-100 pb-2">
+          <h3 class="text-lg font-bold text-slate-900">
+            A Notificação Compulsória ao Conselho Tutelar (Art. 56)
+          </h3>
+          <span class="text-xs font-bold text-red-700 bg-red-100 px-2 py-0.5 rounded border border-red-200">
+            Ponto Mais Cobrado em Concursos
+          </span>
+        </div>
+        <p class="text-sm sm:text-base text-slate-700">
+          Os dirigentes de estabelecimentos de ensino fundamental e médio comunicarão ao Conselho Tutelar os casos especificados no quadro legal:
+        </p>
+
+        <!-- TABELA 1: Art. 56 (Totalmente ajustada sem scroll horizontal) -->
+        <div class="w-full border border-slate-300 rounded-lg overflow-hidden my-4 bg-white">
+          <table class="no-scroll-table text-xs sm:text-sm">
+            <thead>
+              <tr class="bg-slate-100 border-b border-slate-300 text-slate-800">
+                <th class="p-2 sm:p-3 text-left font-bold" style="width: 30%;">Hipótese Normativa (Art. 56)</th>
+                <th class="p-2 sm:p-3 text-left font-bold" style="width: 46%;">Pressuposto Procedimental</th>
+                <th class="p-2 sm:p-3 text-left font-bold" style="width: 24%;">Destinatário</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-200">
+              <tr class="hover:bg-slate-50">
+                <td class="p-2 sm:p-3 font-semibold text-slate-900 align-top">
+                  I - Maus-tratos envolvendo seus alunos
+                </td>
+                <td class="p-2 sm:p-3 text-slate-700 align-top">
+                  <mark class="highlight-green">Notificação imediata</mark>, baseada em indícios ou confirmação técnica.
+                </td>
+                <td class="p-2 sm:p-3 text-slate-800 align-top font-medium">
+                  Conselho Tutelar do Município
+                </td>
+              </tr>
+              <tr class="bg-amber-50/40 hover:bg-amber-50">
+                <td class="p-2 sm:p-3 font-semibold text-slate-900 align-top">
+                  II - Reiteração de faltas injustificadas e de evasão escolar
+                </td>
+                <td class="p-2 sm:p-3 text-slate-700 align-top">
+                  <mark class="highlight-yellow">APENAS E TÃO SOMENTE APÓS ESGOTADOS OS RECURSOS ESCOLARES</mark> (busca ativa interna, contatos com a família, serviço social).
+                </td>
+                <td class="p-2 sm:p-3 text-slate-800 align-top font-medium">
+                  Conselho Tutelar do Município
+                </td>
+              </tr>
+              <tr class="hover:bg-slate-50">
+                <td class="p-2 sm:p-3 font-semibold text-slate-900 align-top">
+                  III - Elevados níveis de repetência
+                </td>
+                <td class="p-2 sm:p-3 text-slate-700 align-top">
+                  Notificação diagnóstica direcionada à intervenção conjunta da rede protetiva.
+                </td>
+                <td class="p-2 sm:p-3 text-slate-800 align-top font-medium">
+                  Conselho Tutelar do Município
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="p-4 bg-red-50/50 border border-red-200 rounded-lg text-xs sm:text-sm text-slate-800">
+          <p class="font-bold text-red-900 mb-1">⚠️ A armadilha clássica de prova da banca:</p>
+          <p>
+            A escola <strong>não</strong> pode transferir burocraticamente suas responsabilidades ao Conselho Tutelar na primeira falta injustificada. A instituição deve primeiro acionar seus mecanismos próprios (busca ativa, pedagogo, assistência estudantil). <mark class="highlight-yellow">Somente após esgotadas todas as instâncias e recursos internos da escola</mark> é que se autoriza e impõe a notificação compulsória ao Conselho Tutelar.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <hr class="border-slate-200" />
+
+    <!-- SEÇÃO 2: O DIREITO À PROFISSIONALIZAÇÃO E PROTEÇÃO NO TRABALHO -->
+    <section class="space-y-6">
+      <div class="border-b border-slate-200 pb-3">
+        <h2 class="text-xl sm:text-2xl font-bold text-slate-900 flex items-center gap-2">
+          <span class="w-2.5 h-6 bg-slate-800 rounded-sm inline-block"></span>
+          2. O Direito à Profissionalização e à Proteção no Trabalho (Arts. 60 a 69)
+        </h2>
+        <p class="text-sm text-slate-500 mt-1">
+          Capítulo V do Título II: relevância central para os cursos técnicos integrados, laboratórios didáticos, estágios e programas de aprendizagem no IFMG.
+        </p>
+      </div>
+
+      <!-- O Marco Etário Constitucional e Art. 60 -->
+      <div class="bg-white border border-slate-200 rounded-xl p-5 sm:p-6 shadow-sm space-y-4">
+        <h3 class="text-lg font-bold text-slate-900 border-b border-slate-100 pb-2">
+          O Marco Etário do Trabalho e a Harmonização Constitucional (Art. 60 + CF/88)
+        </h3>
+        <p class="text-sm sm:text-base text-slate-700">
+          O texto original do Art. 60 do ECA diz que <em>"é proibido qualquer trabalho a menores de quatorze anos de idade, salvo na condição de aprendiz"</em>. No entanto, por força da <strong>Emenda Constitucional nº 20/1998 (art. 7º, XXXIII da CF/88)</strong>, o ordenamento jurídico consolidou a seguinte regra etária:
+        </p>
+
+        <div class="space-y-2.5">
+          <div class="flex items-start gap-3 p-3 bg-red-50/60 border border-red-200 rounded-lg">
+            <span class="px-2 py-0.5 bg-red-200 text-red-900 font-bold text-xs rounded shrink-0">Até 14 anos incompletos</span>
+            <span class="text-xs sm:text-sm text-slate-800">
+              <mark class="highlight-red">PROIBIÇÃO TOTAL E ABSOLUTA DE QUALQUER TRABALHO</mark>, não se admitindo sequer a condição de aprendiz.
+            </span>
+          </div>
+
+          <div class="flex items-start gap-3 p-3 bg-amber-50/60 border border-amber-200 rounded-lg">
+            <span class="px-2 py-0.5 bg-amber-200 text-amber-900 font-bold text-xs rounded shrink-0">De 14 a 16 anos incompletos</span>
+            <span class="text-xs sm:text-sm text-slate-800">
+              Permitido <mark class="highlight-yellow">UNICAMENTE na condição legal de APRENDIZ</mark> (contrato especial).
+            </span>
+          </div>
+
+          <div class="flex items-start gap-3 p-3 bg-emerald-50/60 border border-emerald-200 rounded-lg">
+            <span class="px-2 py-0.5 bg-emerald-200 text-emerald-900 font-bold text-xs rounded shrink-0">De 16 a 18 anos incompletos</span>
+            <span class="text-xs sm:text-sm text-slate-800">
+              Trabalho regular <mark class="highlight-green">PERMITIDO</mark>, desde que respeitadas todas as <strong>vedações protetivas</strong> do Art. 67.
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Aprendizagem Profissional (Arts. 62 a 66) -->
+      <div class="bg-white border border-slate-200 rounded-xl p-5 sm:p-6 shadow-sm space-y-4">
+        <h3 class="text-lg font-bold text-slate-900 border-b border-slate-100 pb-2">
+          A Disciplina da Aprendizagem Profissional (Arts. 62 a 66)
+        </h3>
+        <p class="text-sm sm:text-base text-slate-700">
+          O <strong>Artigo 62</strong> conceitua a aprendizagem como a formação técnico-profissional metódica, ministrada segundo as diretrizes da legislação educacional vigente. A atividade produtiva está subordinada aos objetivos de formação.
+        </p>
+
+        <h4 class="text-sm font-bold text-slate-800 pt-1">
+          O Tripé Obrigatório da Formação Profissional (Art. 63):
+        </h4>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+          <div class="p-3 bg-slate-50 border border-slate-200 rounded-lg text-center">
+            <span class="text-xs font-bold text-slate-500 block mb-1">Pilar 1</span>
+            <span class="text-xs sm:text-sm font-semibold text-slate-900"><mark class="highlight-yellow">Garantia de acesso e frequência obrigatória</mark> ao ensino regular</span>
+          </div>
+          <div class="p-3 bg-slate-50 border border-slate-200 rounded-lg text-center">
+            <span class="text-xs font-bold text-slate-500 block mb-1">Pilar 2</span>
+            <span class="text-xs sm:text-sm font-semibold text-slate-900"><mark class="highlight-yellow">Atividade compatível</mark> com o estágio de desenvolvimento do adolescente</span>
+          </div>
+          <div class="p-3 bg-slate-50 border border-slate-200 rounded-lg text-center">
+            <span class="text-xs font-bold text-slate-500 block mb-1">Pilar 3</span>
+            <span class="text-xs sm:text-sm font-semibold text-slate-900"><mark class="highlight-yellow">Horário especial</mark> que não prejudique o aproveitamento e rendimento escolar</span>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-3 pt-2 text-xs sm:text-sm text-slate-700">
+          <div class="p-3 bg-slate-50 border border-slate-200 rounded-lg">
+            <strong>Direitos Trabalhistas e Previdenciários (Art. 65):</strong> Ao adolescente aprendiz maior de 14 anos são assegurados os direitos trabalhistas e previdenciários integrais (remuneração horária piso, CTPS assinada, FGTS).
+          </div>
+          <div class="p-3 bg-slate-50 border border-slate-200 rounded-lg">
+            <strong>Adolescente com Deficiência (Art. 66):</strong> Ao adolescente portador de deficiência é assegurado trabalho protegido, com adaptações funcionais e sem barreira de limite etário máximo para aprendizagem.
+          </div>
+        </div>
+      </div>
+
+      <!-- Vedações Expressas ao Trabalho (Art. 67) -->
+      <div class="bg-white border border-slate-200 rounded-xl p-5 sm:p-6 shadow-sm space-y-4">
+        <h3 class="text-lg font-bold text-slate-900 border-b border-slate-100 pb-2">
+          As Vedações Expressas ao Trabalho do Menor de 18 Anos (Art. 67)
+        </h3>
+        <p class="text-sm sm:text-base text-slate-700">
+          Ao adolescente empregado, aprendiz, em regime familiar ou em estágio curricular é <mark class="highlight-red">terminantemente proibido</mark>:
+        </p>
+
+        <!-- TABELA 2: Vedações do Art. 67 (Sem scroll horizontal) -->
+        <div class="w-full border border-slate-300 rounded-lg overflow-hidden my-3 bg-white">
+          <table class="no-scroll-table text-xs sm:text-sm">
+            <thead>
+              <tr class="bg-slate-100 border-b border-slate-300 text-slate-800">
+                <th class="p-2 sm:p-3 text-left font-bold" style="width: 32%;">Vetor de Restrição Legal</th>
+                <th class="p-2 sm:p-3 text-left font-bold" style="width: 68%;">Definição e Parâmetro Estatutário</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-200">
+              <tr class="hover:bg-slate-50">
+                <td class="p-2 sm:p-3 font-semibold text-slate-900 align-top">
+                  I - Trabalho Noturno
+                </td>
+                <td class="p-2 sm:p-3 text-slate-700 align-top">
+                  Atividade executada no período compreendido entre as <mark class="highlight-yellow">22 (vinte e duas) horas de um dia e as 5 (cinco) horas do dia seguinte</mark>.
+                </td>
+              </tr>
+              <tr class="hover:bg-slate-50">
+                <td class="p-2 sm:p-3 font-semibold text-slate-900 align-top">
+                  II - Ambientes Agressivos e Nocivos
+                </td>
+                <td class="p-2 sm:p-3 text-slate-700 align-top">
+                  Trabalho exercido em condições consideradas <mark class="highlight-red">perigosas, insalubres ou penosas</mark>, segundo normas regulamentadoras do trabalho.
+                </td>
+              </tr>
+              <tr class="hover:bg-slate-50">
+                <td class="p-2 sm:p-3 font-semibold text-slate-900 align-top">
+                  III - Locais Incompatíveis com a Formação
+                </td>
+                <td class="p-2 sm:p-3 text-slate-700 align-top">
+                  Atividades realizadas em locais prejudiciais à sua formação e ao seu desenvolvimento <mark class="highlight-yellow">físico, psíquico, moral e social</mark>.
+                </td>
+              </tr>
+              <tr class="hover:bg-slate-50">
+                <td class="p-2 sm:p-3 font-semibold text-slate-900 align-top">
+                  IV - Incompatibilidade com Horário Escolar
+                </td>
+                <td class="p-2 sm:p-3 text-slate-700 align-top">
+                  Qualquer ocupação cumprida em horários e locais que <mark class="highlight-yellow">não permitam a frequência regular às aulas</mark>.
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Trabalho Educativo (Arts. 68 e 69) -->
+      <div class="bg-white border border-slate-200 rounded-xl p-5 sm:p-6 shadow-sm space-y-4">
+        <h3 class="text-lg font-bold text-slate-900 border-b border-slate-100 pb-2">
+          Trabalho Educativo e Parâmetros Gerais (Arts. 68 e 69)
+        </h3>
+        <p class="text-sm sm:text-base text-slate-700">
+          O <strong>Artigo 68</strong> conceitua o trabalho educativo como a atividade laboral em que as <mark class="highlight-yellow">exigências pedagógicas relativas ao desenvolvimento pessoal e social do educando prevalecem sobre o aspecto produtivo</mark>.
+        </p>
+
+        <div class="p-4 bg-emerald-50/60 border border-emerald-300 rounded-xl text-xs sm:text-sm text-slate-800">
+          <p class="font-bold text-emerald-950 mb-1">Regra de Ouro do Artigo 68, § 2º (Pegadinha Frequente de Concurso):</p>
+          <p>
+            A remuneração paga ao adolescente pelo trabalho realizado ou a participação na venda dos produtos decorrentes do labor <mark class="highlight-green">NÃO DESNATURA E NÃO DESFIGURA</mark> o caráter educativo da atividade.
+          </p>
+        </div>
+
+        <p class="text-xs sm:text-sm text-slate-600 mt-2">
+          O <strong>Artigo 69</strong> arremata estabelecendo que a preparação para o trabalho deve atender ao respeito à condição peculiar da pessoa em desenvolvimento e à capacitação profissional condizente com as exigências contemporâneas.
+        </p>
+      </div>
+    </section>
+
+    <hr class="border-slate-200" />
+
+    <!-- SEÇÃO 3: SÍNTESE DE MEMORIZAÇÃO -->
+    <section class="space-y-6">
+      <div class="border-b border-slate-200 pb-3">
+        <h2 class="text-xl sm:text-2xl font-bold text-slate-900 flex items-center gap-2">
+          <span class="w-2.5 h-6 bg-slate-800 rounded-sm inline-block"></span>
+          3. Síntese de Memorização: Tópicos Essenciais
+        </h2>
+        <p class="text-sm text-slate-500 mt-1">
+          Pontos chaves formulados em bullets de retenção acelerada para o dia da prova.
+        </p>
+      </div>
+
+      <!-- Tópicos Educação -->
+      <div class="bg-white border border-slate-200 rounded-xl p-5 sm:p-6 shadow-sm space-y-3">
+        <h3 class="font-bold text-slate-900 text-base flex items-center gap-2">
+          <span class="text-amber-600">📌</span> Tópicos Essenciais: Direito à Educação (Arts. 53 a 59-A)
+        </h3>
+        <ul class="space-y-2.5 text-xs sm:text-sm text-slate-700">
+          <li class="flex items-start gap-2">
+            <span class="text-slate-400 font-bold shrink-0">1.</span>
+            <span><strong>Finalidade Tripla (Art. 53):</strong> Pleno desenvolvimento da pessoa + preparo para a cidadania + qualificação para o trabalho.</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-slate-400 font-bold shrink-0">2.</span>
+            <span><strong>Contestação de Critérios Avaliativos (Art. 53, III):</strong> É direito do estudante recorrer às instâncias escolares superiores (Conselho de Classe, Colegiado, Reitoria). Critérios docentes não são soberanos.</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-slate-400 font-bold shrink-0">3.</span>
+            <span><strong>Vaga para Irmãos (Art. 53, V):</strong> Garantida no mesmo estabelecimento apenas para irmãos que frequentem a <mark class="highlight-yellow">mesma etapa ou ciclo</mark> da educação básica.</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-slate-400 font-bold shrink-0">4.</span>
+            <span><strong>Dever de Matrícula (Art. 55):</strong> Incumbe aos pais/responsáveis matricular os filhos na rede regular. A recusa tipifica infração administrativa e abandono intelectual (CP).</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-slate-400 font-bold shrink-0">5.</span>
+            <span><strong>Tríplice Notificação Compulsória (Art. 56):</strong> Maus-tratos (imediata); evasão/infrequência (<mark class="highlight-yellow">somente após esgotados os recursos escolares</mark>); e repetência reiterada. Destinatário: Conselho Tutelar.</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-slate-400 font-bold shrink-0">6.</span>
+            <span><strong>Prevenção a Drogas (Art. 53-A):</strong> Escolas devem desenvolver ações permanentes de prevenção ao uso de drogas ilícitas.</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-slate-400 font-bold shrink-0">7.</span>
+            <span><strong>Antecedentes Criminais (Art. 59-A):</strong> Entidades com fomento estatal que atuam com crianças devem renovar certidões de funcionários <mark class="highlight-green">a cada 6 meses</mark>.</span>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Tópicos Trabalho Protegido -->
+      <div class="bg-white border border-slate-200 rounded-xl p-5 sm:p-6 shadow-sm space-y-3">
+        <h3 class="font-bold text-slate-900 text-base flex items-center gap-2">
+          <span class="text-amber-600">📌</span> Tópicos Essenciais: Proteção no Trabalho (Arts. 60 a 69)
+        </h3>
+        <ul class="space-y-2.5 text-xs sm:text-sm text-slate-700">
+          <li class="flex items-start gap-2">
+            <span class="text-slate-400 font-bold shrink-0">1.</span>
+            <span><strong>Faixas Etárias:</strong> Proibido até 14 anos incompletos. De 14 a 16 anos incompletos, apenas aprendiz. De 16 a 18 anos, trabalho comum com restrições.</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-slate-400 font-bold shrink-0">2.</span>
+            <span><strong>Tripé da Aprendizagem (Art. 63):</strong> Acesso e frequência escolar + compatibilidade de tarefas + horário especial.</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-slate-400 font-bold shrink-0">3.</span>
+            <span><strong>Tétrade Proibitiva (Art. 67):</strong> Vedados ao menor de 18 anos: <mark class="highlight-red">noturno, perigoso, insalubre e penoso</mark>.</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-slate-400 font-bold shrink-0">4.</span>
+            <span><strong>Conceito de Horário Noturno (Art. 67, I):</strong> Compreendido entre as <mark class="highlight-yellow">22 horas de um dia e as 5 horas do dia seguinte</mark>.</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-slate-400 font-bold shrink-0">5.</span>
+            <span><strong>Trabalho Educativo (Art. 68, § 2º):</strong> Remuneração ou venda de produtos <mark class="highlight-green">NÃO desfigura</mark> a natureza educativa.</span>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <hr class="border-slate-200" />
+
+    <!-- SEÇÃO 4: DEFINIÇÕES BÁSICAS PARA LEMBRAR NO DIA DA PROVA -->
+    <section class="space-y-6">
+      <div class="border-b border-slate-200 pb-3">
+        <h2 class="text-xl sm:text-2xl font-bold text-slate-900 flex items-center gap-2">
+          <span class="w-2.5 h-6 bg-slate-800 rounded-sm inline-block"></span>
+          4. Principais Definições Básicas para Lembrar no Dia da Prova
+        </h2>
+        <p class="text-sm text-slate-500 mt-1">
+          Glossário jurídico-operacional com a literalidade e sentido estrito cobrados pelas bancas.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        
+        <div class="p-4 bg-white border border-slate-200 rounded-xl shadow-xs">
+          <span class="text-xs uppercase font-bold text-amber-700 bg-amber-50 px-2 py-0.5 rounded border border-amber-200 inline-block mb-1.5">Art. 54, § 1º</span>
+          <h4 class="font-bold text-slate-900 text-sm mb-1">Direito Público Subjetivo</h4>
+          <p class="text-xs sm:text-sm text-slate-700">
+            Poder de ação exigível judicialmente pelo cidadão contra o Estado para assegurar vaga e matrícula compulsória imediata na educação básica.
+          </p>
+        </div>
+
+        <div class="p-4 bg-white border border-slate-200 rounded-xl shadow-xs">
+          <span class="text-xs uppercase font-bold text-slate-600 bg-slate-100 px-2 py-0.5 rounded border border-slate-200 inline-block mb-1.5">Art. 53, III</span>
+          <h4 class="font-bold text-slate-900 text-sm mb-1">Instâncias Escolares Superiores</h4>
+          <p class="text-xs sm:text-sm text-slate-700">
+            Colegiados acadêmicos (Conselho de Classe, Colegiado de Curso, Diretoria de Ensino) competentes para rever avaliações contestadas pelos alunos.
+          </p>
+        </div>
+
+        <div class="p-4 bg-white border border-slate-200 rounded-xl shadow-xs">
+          <span class="text-xs uppercase font-bold text-amber-700 bg-amber-50 px-2 py-0.5 rounded border border-amber-200 inline-block mb-1.5">Art. 56, II</span>
+          <h4 class="font-bold text-slate-900 text-sm mb-1">Esgotamento dos Recursos Escolares</h4>
+          <p class="text-xs sm:text-sm text-slate-700">
+            Totalidade das providências internas prévias da escola (busca ativa discente, reuniões com a família, orientador) antes de acionar o Conselho Tutelar.
+          </p>
+        </div>
+
+        <div class="p-4 bg-white border border-slate-200 rounded-xl shadow-xs">
+          <span class="text-xs uppercase font-bold text-slate-600 bg-slate-100 px-2 py-0.5 rounded border border-slate-200 inline-block mb-1.5">Art. 56</span>
+          <h4 class="font-bold text-slate-900 text-sm mb-1">Conselho Tutelar</h4>
+          <p class="text-xs sm:text-sm text-slate-700">
+            Órgão permanente e autônomo, não jurisdicional, encarregado de zelar pelos direitos dos menores, sendo destinatário das notificações compulsórias escolares.
+          </p>
+        </div>
+
+        <div class="p-4 bg-white border border-slate-200 rounded-xl shadow-xs">
+          <span class="text-xs uppercase font-bold text-slate-600 bg-slate-100 px-2 py-0.5 rounded border border-slate-200 inline-block mb-1.5">Art. 62</span>
+          <h4 class="font-bold text-slate-900 text-sm mb-1">Contrato de Aprendizagem</h4>
+          <p class="text-xs sm:text-sm text-slate-700">
+            Contrato de trabalho especial ajustado por escrito, por prazo determinado, focado na formação técnico-profissional metódica do jovem.
+          </p>
+        </div>
+
+        <div class="p-4 bg-white border border-slate-200 rounded-xl shadow-xs">
+          <span class="text-xs uppercase font-bold text-slate-600 bg-slate-100 px-2 py-0.5 rounded border border-slate-200 inline-block mb-1.5">Art. 68</span>
+          <h4 class="font-bold text-slate-900 text-sm mb-1">Trabalho Educativo</h4>
+          <p class="text-xs sm:text-sm text-slate-700">
+            Atividade em que a finalidade formativa-pedagógica prevalece sobre a produção econômica. A remuneração ou venda não anula seu caráter educativo.
+          </p>
+        </div>
+
+        <div class="p-4 bg-white border border-slate-200 rounded-xl shadow-xs md:col-span-2">
+          <span class="text-xs uppercase font-bold text-slate-600 bg-slate-100 px-2 py-0.5 rounded border border-slate-200 inline-block mb-1.5">Art. 69, I</span>
+          <h4 class="font-bold text-slate-900 text-sm mb-1">Pessoa em Desenvolvimento</h4>
+          <p class="text-xs sm:text-sm text-slate-700">
+            Conceito orientador que reconhece a condição biopsicossocial peculiar de crianças e adolescentes, impondo limites rígidos à sua exposição laboral e disciplinar.
+          </p>
+        </div>
+
+      </div>
+    </section>
+
+    <hr class="border-slate-200" />
+
+    <!-- SEÇÃO 5: QUADRO COMPARATIVO DAS INFRAÇÕES E DEVERES NO AMBIENTE ESCOLAR -->
+    <section class="space-y-6">
+      <div class="border-b border-slate-200 pb-3">
+        <h2 class="text-xl sm:text-2xl font-bold text-slate-900 flex items-center gap-2">
+          <span class="w-2.5 h-6 bg-slate-800 rounded-sm inline-block"></span>
+          5. Quadro Comparativo: Infrações e Deveres no Ambiente Escolar
+        </h2>
+        <p class="text-sm text-slate-500 mt-1">
+          Síntese das responsabilidades funcionais dos agentes educacionais e sanções aplicáveis.
+        </p>
+      </div>
+
+      <!-- TABELA 3: Infrações e Deveres (Inteira na tela sem nenhum scroll horizontal) -->
+      <div class="w-full border border-slate-300 rounded-lg overflow-hidden bg-white">
+        <table class="no-scroll-table text-xs sm:text-sm">
+          <thead>
+            <tr class="bg-slate-100 border-b border-slate-300 text-slate-800">
+              <th class="p-2 sm:p-2.5 text-left font-bold" style="width: 22%;">Agente</th>
+              <th class="p-2 sm:p-2.5 text-left font-bold" style="width: 33%;">Dever Legal no ECA</th>
+              <th class="p-2 sm:p-2.5 text-left font-bold" style="width: 15%;">Artigo</th>
+              <th class="p-2 sm:p-2.5 text-left font-bold" style="width: 30%;">Efeito da Omissão / Ilegalidade</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-200">
+            <tr class="hover:bg-slate-50">
+              <td class="p-2 sm:p-2.5 font-bold text-slate-900 align-top">
+                Docente do IFMG
+              </td>
+              <td class="p-2 sm:p-2.5 text-slate-700 align-top">
+                Respeitar o aluno e viabilizar a revisão de critérios avaliativos por instâncias colegiadas.
+              </td>
+              <td class="p-2 sm:p-2.5 text-slate-600 align-top font-mono text-[11px] sm:text-xs">
+                Arts. 53, II e III; 56
+              </td>
+              <td class="p-2 sm:p-2.5 text-slate-700 align-top">
+                Processo Disciplinar (PAD) e anulação formal da avaliação.
+              </td>
+            </tr>
+
+            <tr class="hover:bg-slate-50">
+              <td class="p-2 sm:p-2.5 font-bold text-slate-900 align-top">
+                Direção do Campus
+              </td>
+              <td class="p-2 sm:p-2.5 text-slate-700 align-top">
+                Notificar o Conselho Tutelar em maus-tratos, faltas (após busca interna) e repetência.
+              </td>
+              <td class="p-2 sm:p-2.5 text-slate-600 align-top font-mono text-[11px] sm:text-xs">
+                Art. 56
+              </td>
+              <td class="p-2 sm:p-2.5 text-slate-700 align-top">
+                <mark class="highlight-red">Infração administrativa</mark> (Art. 245 ECA: multa de 3 a 20 salários).
+              </td>
+            </tr>
+
+            <tr class="hover:bg-slate-50">
+              <td class="p-2 sm:p-2.5 font-bold text-slate-900 align-top">
+                Pais / Responsáveis
+              </td>
+              <td class="p-2 sm:p-2.5 text-slate-700 align-top">
+                Matricular compulsoriamente os menores na rede regular de ensino.
+              </td>
+              <td class="p-2 sm:p-2.5 text-slate-600 align-top font-mono text-[11px] sm:text-xs">
+                Art. 55
+              </td>
+              <td class="p-2 sm:p-2.5 text-slate-700 align-top">
+                Medidas protetivas tutelares e denúncia por <mark class="highlight-red">abandono intelectual</mark> (Art. 246 CP).
+              </td>
+            </tr>
+
+            <tr class="hover:bg-slate-50">
+              <td class="p-2 sm:p-2.5 font-bold text-slate-900 align-top">
+                Empregador / Tomador
+              </td>
+              <td class="p-2 sm:p-2.5 text-slate-700 align-top">
+                Garantir frequência escolar, horário especial e vedar trabalho noturno/perigoso/insalubre.
+              </td>
+              <td class="p-2 sm:p-2.5 text-slate-600 align-top font-mono text-[11px] sm:text-xs">
+                Arts. 63 e 67
+              </td>
+              <td class="p-2 sm:p-2.5 text-slate-700 align-top">
+                Nulidade da aprendizagem, vínculo empregatício ilícito e multas do MPT.
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <hr class="border-slate-200" />
+
+    <!-- SEÇÃO 6: APLICAÇÕES PRÁTICAS NO CONTEXTO DO IFMG -->
+    <section class="space-y-6">
+      <div class="border-b border-slate-200 pb-3">
+        <h2 class="text-xl sm:text-2xl font-bold text-slate-900 flex items-center gap-2">
+          <span class="w-2.5 h-6 bg-slate-800 rounded-sm inline-block"></span>
+          6. Aplicações Práticas no Contexto de um Campus do IFMG
+        </h2>
+        <p class="text-sm text-slate-500 mt-1">
+          Cenários operacionais reais da Carreira Docente EBTT em Geografia.
+        </p>
+      </div>
+
+      <div class="space-y-4">
+        
+        <!-- Caso 1 -->
+        <div class="p-4 sm:p-5 border border-slate-200 rounded-xl bg-white shadow-xs">
+          <div class="flex items-center gap-2 mb-2">
+            <span class="w-6 h-6 rounded-full bg-slate-800 text-white flex items-center justify-center font-bold text-xs">1</span>
+            <h3 class="font-bold text-slate-900 text-sm sm:text-base">Divergências Metodológicas em Avaliação Prática de Geografia</h3>
+          </div>
+          <p class="text-xs sm:text-sm text-slate-700 leading-relaxed">
+            Em avaliações de disciplinas técnicas ou de campo em Geografia (como saídas de campo, relatórios geomorfológicos e análises cartográficas), a insatisfação justificada de um aluno menor de dezoito anos quanto aos critérios de correção <mark class="highlight-red">não pode ser repelida monocraticamente pelo docente</mark> sob o pretexto de soberania de cátedra irrestrita. O Estatuto (<mark class="highlight-yellow">Art. 53, III</mark>) faculta ao estudante o direito formal de protocolar recurso e exigir o escrutínio do colegiado de curso ou conselho pedagógico competente.
+          </p>
+        </div>
+
+        <!-- Caso 2 -->
+        <div class="p-4 sm:p-5 border border-slate-200 rounded-xl bg-white shadow-xs">
+          <div class="flex items-center gap-2 mb-2">
+            <span class="w-6 h-6 rounded-full bg-slate-800 text-white flex items-center justify-center font-bold text-xs">2</span>
+            <h3 class="font-bold text-slate-900 text-sm sm:text-base">Manejo Pedagógico da Infrequência e Evasão</h3>
+          </div>
+          <p class="text-xs sm:text-sm text-slate-700 leading-relaxed">
+            Verificando que discentes de curso técnico integrado deixaram de comparecer às aulas, a coordenação de curso e a diretoria do campus do IFMG <mark class="highlight-red">não podem lavrar notificação imediata</mark> ao Conselho Tutelar. O <mark class="highlight-yellow">Artigo 56, inciso II</mark> exige documentalmente o percurso administrativo escolar prévio: mobilização do Núcleo de Assistência Estudantil, realização de busca ativa, telefonemas e comunicações com a família, e registro circunstanciado de tentativas frustradas de reintegração discente. Apenas e tão somente após o esgotamento desses recursos é que se notifica o Conselho Tutelar.
+          </p>
+        </div>
+
+        <!-- Caso 3 -->
+        <div class="p-4 sm:p-5 border border-slate-200 rounded-xl bg-white shadow-xs">
+          <div class="flex items-center gap-2 mb-2">
+            <span class="w-6 h-6 rounded-full bg-slate-800 text-white flex items-center justify-center font-bold text-xs">3</span>
+            <h3 class="font-bold text-slate-900 text-sm sm:text-base">Regulamentação de Laboratórios e Oficinas Técnicas</h3>
+          </div>
+          <p class="text-xs sm:text-sm text-slate-700 leading-relaxed">
+            Estudantes adolescentes que atuam em laboratórios de solos, geoprocessamento, topografia ou ensaios minerais do IFMG em regime de monitoria, estágio curricular ou jovem aprendiz <mark class="highlight-red">não podem ser submetidos a condições insalubres ou perigosas</mark> (como manuseio direto de reagentes químicos ácidos sem EPI adequado ou operação pesada de risco), sob pena de afronta direta ao <mark class="highlight-yellow">Artigo 67, inciso II do ECA</mark> e responsabilização civil e administrativa objetiva da instituição federal.
+          </p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ÁREA FINAL DE AÇÃO: BOTÃO PARA QUESTÕES -->
+    <div class="pt-8 pb-12 flex flex-col items-center justify-center text-center border-t border-slate-200">
+      <div class="bg-slate-50 border border-slate-200 rounded-2xl p-6 sm:p-8 w-full max-w-xl text-center shadow-xs">
+        <span class="text-3xl mb-2 block">📝</span>
+        <h3 class="text-lg sm:text-xl font-bold text-slate-900 mb-1">
+          Fixação e Resolução de Questões
+        </h3>
+        <p class="text-xs sm:text-sm text-slate-600 mb-5">
+          Concluiu a leitura teórica? Teste seus conhecimentos no simulado prático para o concurso do IFMG.
+        </p>
+
+        <!-- Botão direcionando para questoes16legs.html -->
+        <a 
+          href="questoes16legs.html" 
+          id="btnIrQuestoes"
+          class="inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-slate-900 hover:bg-slate-800 text-white font-semibold text-sm sm:text-base rounded-xl transition duration-150 shadow-md hover:shadow-lg w-full sm:w-auto"
+        >
+          <span>Ir para as Questões do Concurso</span>
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+          </svg>
+        </a>
+
+        <div class="text-[11px] text-slate-400 mt-3">
+          Redireciona para o arquivo local <code class="font-mono bg-white px-1 py-0.5 rounded border border-slate-200">questoes16legs.html</code>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- RODAPÉ COMPACTO -->
+  <footer class="w-full bg-white border-t border-slate-200 py-6 text-center text-xs text-slate-500">
+    <div class="max-w-4xl mx-auto px-4">
+      Material de Estudo Especializado • Professor EBTT Geografia (IFMG) • Lei Federal nº 8.069/1990
+    </div>
+  </footer>
+
+  <!-- SCRIPT DE GERENCIAMENTO DO ÁUDIO E SCROLL PROGRESS -->
+  <script>
+    // Gerenciador do Reprodutor de Áudio
+    const audioPlayer = document.getElementById('audioPlayer');
+    const audioSource = document.getElementById('audioSource');
+    const audioFileNameInput = document.getElementById('audioFileNameInput');
+    const loadAudioBtn = document.getElementById('loadAudioBtn');
+    const currentTrackLabel = document.getElementById('currentTrackLabel');
+    const btnIrQuestoes = document.getElementById('btnIrQuestoes');
+
+    // Função para recarregar o áudio com base no input
+    function updateAudioFile() {
+      const fileName = audioFileNameInput.value.trim();
+      if (fileName) {
+        audioSource.src = fileName;
+        audioPlayer.load();
+        currentTrackLabel.textContent = fileName;
+      }
+    }
+
+    loadAudioBtn.addEventListener('click', updateAudioFile);
+    audioFileNameInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        updateAudioFile();
+      }
+    });
+
+    // Barra de progresso de rolagem
+    window.addEventListener('scroll', () => {
+      const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+      const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const scrolled = height > 0 ? (winScroll / height) * 100 : 0;
+      document.getElementById('progressBar').style.width = scrolled + '%';
+    });
+
+    // Fallback de navegação para suportar tanto 'questoes16legs.html' quanto 'questões.html' se necessário
+    btnIrQuestoes.addEventListener('click', function(e) {
+      // Deixa o fluxo padrão do href funcionar
+    });
+  </script>
+</body>
+</html>

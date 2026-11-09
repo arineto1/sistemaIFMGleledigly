@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Estatuto do IFMG (Resolução Consup nº 45/2025) - Aula Completa</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <style>
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: #ffffff;
+      color: #1e293b; /* Slate 800 - alta legibilidade e descanso visual */
+    }
+
+    /* Grifos e destaques visuais com contraste confortável */
+    .grifo {
+      background-color: #fef08a; /* Amarelo suave */
+      color: #713f12; /* Tom terroso escuro */
+      font-weight: 600;
+      padding: 0.1rem 0.35rem;
+      border-radius: 0.25rem;
+    }
+
+    .grifo-alerta {
+      background-color: #fee2e2; /* Vermelho suave */
+      color: #991b1b;
+      font-weight: 600;
+      padding: 0.1rem 0.35rem;
+      border-radius: 0.25rem;
+    }
+
+    .grifo-verde {
+      background-color: #dcfce7; /* Verde suave */
+      color: #166534;
+      font-weight: 600;
+      padding: 0.1rem 0.35rem;
+      border-radius: 0.25rem;
+    }
+
+    /* Ajuste para que tabelas quebrem linhas perfeitamente sem scroll horizontal */
+    table {
+      width: 100% !important;
+      table-layout: fixed;
+      border-collapse: collapse;
+      word-wrap: break-word;
+      overflow-wrap: break-word;
+    }
+
+    th, td {
+      white-space: normal !important;
+      word-break: normal;
+      overflow-wrap: break-word;
+    }
+
+    /* Suavização de scroll */
+    html {
+      scroll-behavior: smooth;
+    }
+  </style>
+</head>
+<body class="bg-white text-slate-800 antialiased selection:bg-yellow-200 selection:text-slate-900 leading-relaxed">
+
+  <!-- TOPO / CABEÇALHO DA AULA -->
+  <header class="border-b border-slate-200 bg-white sticky top-0 z-30 shadow-xs">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 py-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+      <div>
+        <span class="inline-block text-xs uppercase tracking-wider font-bold text-slate-500 bg-slate-100 px-2.5 py-1 rounded">
+          Concurso Docente EBTT • Banca IFMG
+        </span>
+        <h1 class="text-lg sm:text-xl font-extrabold text-slate-900 mt-1">
+          Estatuto do IFMG (Resolução Consup nº 45/2025)
+        </h1>
+      </div>
+      <div class="flex items-center gap-2">
+        <a href="#audio-section" class="text-xs font-semibold text-slate-700 bg-slate-100 hover:bg-slate-200 px-3 py-1.5 rounded transition">
+          🎧 Áudio da Aula
+        </a>
+        <a href="questoes19legs.html" class="text-xs font-semibold text-white bg-slate-900 hover:bg-slate-800 px-3 py-1.5 rounded transition">
+          Ir para Questões →
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-4xl mx-auto px-4 sm:px-6 py-8">
+
+    <!-- REPRODUTOR DE ÁUDIO MP3 -->
+    <section id="audio-section" class="mb-10 p-5 rounded-xl border border-slate-300 bg-slate-50">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-3">
+        <div class="flex items-center gap-2.5">
+          <span class="flex h-9 w-9 items-center justify-center rounded-lg bg-slate-200 text-slate-800 font-bold text-lg">
+            🎧
+          </span>
+          <div>
+            <h2 class="text-sm font-bold text-slate-900 uppercase tracking-wide">Áudio da Aula / Resumo Falado</h2>
+            <p class="text-xs text-slate-600">Ouça o conteúdo sintetizado enquanto acompanha a leitura dos tópicos.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Player de Áudio HTML5 -->
+      <div class="mt-2">
+        <audio id="audioPlayer" controls class="w-full h-11 rounded-lg focus:outline-none">
+          <!-- ESPAÇO PARA O NOME DO SEU ARQUIVO MP3: Altere o src abaixo conforme o nome do seu arquivo local -->
+          <source id="audioSource" src="aula_estatuto_ifmg.mp3" type="audio/mpeg">
+          Seu navegador não suporta a execução de áudio HTML5.
+        </audio>
+      </div>
+
+      <!-- Caixa de controle rápido do nome do arquivo (facilita testes sem precisar mexer no código) -->
+      <div class="mt-3 pt-3 border-t border-slate-200 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs text-slate-600">
+        <div class="flex items-center gap-1.5">
+          <span class="font-medium text-slate-700">Arquivo MP3 configurado:</span>
+          <code id="currentAudioName" class="font-mono bg-white px-2 py-0.5 rounded border border-slate-300 text-slate-800 font-semibold">aula_estatuto_ifmg.mp3</code>
+        </div>
+        <div class="flex items-center gap-1">
+          <input type="text" id="audioFileNameInput" placeholder="ex: meu_audio.mp3" class="px-2 py-1 text-xs border border-slate-300 rounded bg-white text-slate-800 focus:ring-1 focus:ring-slate-400 focus:outline-none">
+          <button onclick="atualizarAudio()" class="px-2.5 py-1 bg-slate-800 text-white rounded font-medium hover:bg-slate-700 transition">
+            Alterar
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- INTRODUÇÃO DA AULA -->
+    <article class="space-y-12 text-slate-800 text-base leading-relaxed">
+
+      <!-- TÍTULO PRINCIPAL E METADADOS -->
+      <div class="border-b border-slate-200 pb-6">
+        <h1 class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight leading-snug">
+          Estatuto do IFMG (Resolução Consup nº 45/2025): Fundamentos Normativos, Governança Colegiada e Análise Estratégica para o Concurso Docente
+        </h1>
+        <p class="mt-3 text-sm text-slate-600">
+          Material técnico-didático estruturado com foco nos pontos de máxima incidência para o concurso de 
+          <strong>Professor de Geografia do IFMG</strong>.
+        </p>
+      </div>
+
+      <!-- SEÇÃO 1 -->
+      <section class="space-y-4">
+        <h2 class="text-xl sm:text-2xl font-bold text-slate-900 border-l-4 border-slate-700 pl-3">
+          1. Natureza Jurídica, Histórico e Ordenamento Normativo
+        </h2>
+        
+        <p>
+          O Instituto Federal de Educação, Ciência e Tecnologia de Minas Gerais (IFMG) rege-se institucionalmente pelo Estatuto aprovado pela <span class="grifo">Resolução Consup nº 45, de 5 de novembro de 2025</span>, ato normativo que <span class="grifo">revogou formalmente a Resolução Consup nº 12/2018</span> e reestruturou as bases regimentais da autarquia. Originado no contexto de reconfiguração da Rede Federal de Educação Profissional, Científica e Tecnológica instituída pela <span class="grifo">Lei Federal nº 11.892/2008</span>, o IFMG constitui-se como <span class="grifo">pessoa jurídica de direito público interno sob a forma autárquica</span>, dotada de <span class="grifo">autonomia administrativa, financeira, patrimonial, didático-pedagógica e disciplinar</span>.
+        </p>
+
+        <p>
+          A vinculação institucional dá-se perante o Ministério da Educação (MEC). A sede e o foro da Reitoria estão fixados em Belo Horizonte, na <span class="grifo">Avenida Professor Mário Werneck, nº 2.590, Bairro Buritis</span>.
+        </p>
+
+        <p>
+          A configuração socioespacial do IFMG assenta-se na descentralização <span class="grifo">multicampi e pluricurricular</span>. No que tange à supervisão e avaliação, o IFMG goza de <span class="grifo">estrita equiparação às universidades federais</span>, o que lhe confere prerrogativa privativa para criar e extinguir cursos (mediante autorização de seu Conselho Superior) e registrar os próprios diplomas.
+        </p>
+
+        <!-- TABELA 1: HIERARQUIA NORMATIVA -->
+        <div class="mt-6">
+          <h3 class="text-sm font-bold text-slate-900 uppercase tracking-wider mb-2">
+            Hierarquia Normativa Institucional do IFMG
+          </h3>
+          <div class="border border-slate-300 rounded-lg overflow-hidden bg-white">
+            <table class="w-full text-xs sm:text-sm">
+              <thead class="bg-slate-100 border-b border-slate-300 text-slate-800 font-bold">
+                <tr>
+                  <th class="py-2.5 px-3 text-left w-1/4">Nível</th>
+                  <th class="py-2.5 px-3 text-left w-1/4">Instrumento</th>
+                  <th class="py-2.5 px-3 text-left w-1/4">Matéria Principal</th>
+                  <th class="py-2.5 px-3 text-left w-1/4">Instância</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-slate-200">
+                <tr class="hover:bg-slate-50">
+                  <td class="py-2 px-3 font-semibold text-slate-900">Legislação Federal</td>
+                  <td class="py-2 px-3">Lei nº 11.892/2008 e correlatas</td>
+                  <td class="py-2 px-3">Criação da Rede, finalidades, cotas mínimas e prerrogativas universitárias.</td>
+                  <td class="py-2 px-3">Congresso Nacional e Presidência</td>
+                </tr>
+                <tr class="hover:bg-slate-50">
+                  <td class="py-2 px-3 font-semibold text-slate-900">Estatuto Institucional</td>
+                  <td class="py-2 px-3"><span class="grifo">Resolução Consup nº 45/2025</span></td>
+                  <td class="py-2 px-3">Macroestrutura, princípios, competências e governança superior.</td>
+                  <td class="py-2 px-3">Conselho Superior (Consup)</td>
+                </tr>
+                <tr class="hover:bg-slate-50">
+                  <td class="py-2 px-3 font-semibold text-slate-900">Regimento Geral</td>
+                  <td class="py-2 px-3"><span class="grifo">Resolução Consup nº 46/2025</span></td>
+                  <td class="py-2 px-3">Detalhamento administrativo, rotinas acadêmicas e órgãos setoriais.</td>
+                  <td class="py-2 px-3">Conselho Superior (Consup)</td>
+                </tr>
+                <tr class="hover:bg-slate-50">
+                  <td class="py-2 px-3 font-semibold text-slate-900">Regimentos Específicos</td>
+                  <td class="py-2 px-3">Resoluções e Portarias próprias</td>
+                  <td class="py-2 px-3">Regulamentação de órgãos isolados: Reitoria, Campi, Polo de Inovação e conselhos.</td>
+                  <td class="py-2 px-3">Consup, Reitoria e Diretorias-Gerais</td>
+                </tr>
+                <tr class="hover:bg-slate-50">
+                  <td class="py-2 px-3 font-semibold text-slate-900">Atos Normativos Infralegais</td>
+                  <td class="py-2 px-3">Instruções Normativas, Portarias e Notas</td>
+                  <td class="py-2 px-3">Padronização de processos internos, fluxos didáticos e rotinas de gestão.</td>
+                  <td class="py-2 px-3">Reitor, Pró-Reitores e Colegiados</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- SEÇÃO 2 -->
+      <section class="space-y-4">
+        <h2 class="text-xl sm:text-2xl font-bold text-slate-900 border-l-4 border-slate-700 pl-3">
+          2. Missão, Princípios Norteadores e Objetivos Institucionais
+        </h2>
+
+        <p>
+          A atuação do IFMG orienta-se pela oferta de uma educação pública, gratuita, inclusiva e socialmente referenciada. A formação profissional e técnica subordina-se à <span class="grifo">emancipação humana, cidadania e justiça social</span>, afastando a visão estritamente tecnicista ou utilitarista.
+        </p>
+
+        <h3 class="text-lg font-bold text-slate-900 mt-4">Princípios Institucionais (Art. 5º do Estatuto):</h3>
+        <ul class="list-disc list-inside space-y-2 pl-2">
+          <li><strong>Justiça social, equidade e gestão democrática:</strong> Decisões colegiadas, transparentes e participativas.</li>
+          <li><strong>Formação humana integral:</strong> Articulação permanente entre trabalho, ciência, cultura e tecnologia.</li>
+          <li><strong>Diversidade e inclusão social:</strong> Respeito e acolhimento pleno à diversidade étnico-racial, de gênero, orientação sexual, religiosa, regional e geracional.</li>
+          <li><strong>Tetra-indissociabilidade formativa:</strong> Indissociabilidade entre <span class="grifo">ensino, pesquisa aplicada, extensão e inovação</span> (superando o tradicional trinômio universitário ao incluir expressamente a inovação).</li>
+          <li><strong>Verticalização do ensino:</strong> Itinerários contínuos que permitem ao aluno avançar desde cursos de qualificação básica até a pós-graduação <em>stricto sensu</em> na mesma instituição.</li>
+          <li><strong>Vinculação aos Arranjos Produtivos, Sociais e Culturais Locais (APLs):</strong> Resposta concreta às especificidades territoriais e produtivas de Minas Gerais.</li>
+          <li><strong>Universalidade do saber e gratuidade pública:</strong> Garantia estatal de acesso irrestrito ao conhecimento.</li>
+        </ul>
+
+        <h3 class="text-lg font-bold text-slate-900 mt-4">Cotas Legais Obrigatórias de Vagas (Art. 8º do Estatuto):</h3>
+        <p>
+          O Estatuto reproduz com força vinculante os percentuais fixados pela Lei nº 11.892/2008, os quais direcionam o orçamento e a abertura de vagas em todos os campi:
+        </p>
+
+        <!-- TABELA 2: COTAS DE VAGAS -->
+        <div class="mt-4">
+          <div class="border border-slate-300 rounded-lg overflow-hidden bg-white">
+            <table class="w-full text-xs sm:text-sm">
+              <thead class="bg-slate-100 border-b border-slate-300 text-slate-800 font-bold">
+                <tr>
+                  <th class="py-2.5 px-3 text-left w-1/3">Nível / Modalidade</th>
+                  <th class="py-2.5 px-3 text-left w-1/4">Percentual Estatutário</th>
+                  <th class="py-2.5 px-3 text-left w-5/12">Finalidade Estratégica</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-slate-200">
+                <tr class="hover:bg-slate-50">
+                  <td class="py-2.5 px-3 font-semibold text-slate-900">Educação Profissional Técnica de Nível Médio</td>
+                  <td class="py-2.5 px-3"><span class="grifo text-base">Mínimo de 50%</span></td>
+                  <td class="py-2.5 px-3">Prioridade absoluta para cursos na <span class="grifo">forma integrada</span> (ensino regular e EJA).</td>
+                </tr>
+                <tr class="hover:bg-slate-50">
+                  <td class="py-2.5 px-3 font-semibold text-slate-900">Licenciaturas e Formação Pedagógica</td>
+                  <td class="py-2.5 px-3"><span class="grifo text-base">Mínimo de 20%</span></td>
+                  <td class="py-2.5 px-3">Formação de professores para a educação básica pública (ciências, matemática, linguagens, humanidades).</td>
+                </tr>
+                <tr class="hover:bg-slate-50">
+                  <td class="py-2.5 px-3 font-semibold text-slate-900">Outros Cursos Superiores e Pós-Graduação</td>
+                  <td class="py-2.5 px-3"><span class="grifo-verde text-base">Até 30%</span></td>
+                  <td class="py-2.5 px-3">Bacharelados, engenharias, tecnólogos, especializações, mestrados e doutorados.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <p class="text-xs text-slate-600 mt-2">
+          * A Educação a Distância (EaD) perpassa transversalmente todos esses níveis para interiorização das oportunidades.
+        </p>
+      </section>
+
+      <!-- SEÇÃO 3 -->
+      <section class="space-y-4">
+        <h2 class="text-xl sm:text-2xl font-bold text-slate-900 border-l-4 border-slate-700 pl-3">
+          3. Arquitetura Administrativa e Acadêmica: Centralização e Descentralização
+        </h2>
+
+        <p>
+          A governança do IFMG equilibra descentralização operacional e unidade diretiva central, evitando fragmentações e assegurando padrões uniformes de qualidade e infraestrutura.
+        </p>
+
+        <h3 class="text-lg font-bold text-slate-900 mt-2">Estrutura Centralizada: Reitoria</h3>
+        <p>
+          A Reitoria é o órgão executivo central de planejamento, articulação, integridade e supervisão sistêmica, chefiada pelo <span class="grifo">Reitor</span> (mandato de <span class="grifo">4 anos</span>, eleito democraticamente e nomeado por decreto do Presidente da República). Integra:
+        </p>
+        <ul class="list-disc list-inside space-y-2 pl-2">
+          <li><strong>Gabinete do Reitor e Órgãos de Integridade:</strong> Assessoria de Integridade e Normas, Auditoria Interna, Corregedoria e Ouvidoria Geral.</li>
+          <li><strong>Diretorias Sistêmicas:</strong> Diretoria de Tecnologia da Informação (DTI) e Diretoria de Desenvolvimento Institucional (DDI).</li>
+          <li><strong>PROEN (Pró-Reitoria de Ensino e Assuntos Estudantis):</strong> Diretrizes pedagógicas, regulação de cursos, processos seletivos e assistência estudantil.</li>
+          <li><strong>PROEXC (Pró-Reitoria de Extensão, Esporte e Cultura):</strong> Articulação comunitária, cultura, desporto, lazer e estágios curriculares.</li>
+          <li><strong>PROPPG (Pró-Reitoria de Inovação, Pesquisa e Pós-Graduação):</strong> Fomento científico, pós-graduação <em>stricto</em> e <em>lato sensu</em> e Núcleo de Inovação Tecnológica (NIT).</li>
+          <li><strong>PROAP (Pró-Reitoria de Administração e Planejamento):</strong> Orçamento, finanças, compras públicas, obras civis e patrimônio imobiliário.</li>
+          <li><strong>PROGEP (Pró-Reitoria de Gestão com Pessoas):</strong> Carreira docente e técnica, admissões, capacitação e aplicação do RSC.</li>
+          <li><strong>Procuradoria Federal junto ao IFMG:</strong> Representação jurídica e controle preventivo de legalidade vinculada à AGU.</li>
+        </ul>
+
+        <h3 class="text-lg font-bold text-slate-900 mt-4">Estrutura Descentralizada: Unidades Acadêmicas e de Inovação</h3>
+        <ul class="list-disc list-inside space-y-2 pl-2">
+          <li><strong>Campi:</strong> Unidades descentralizadas que executam as atividades finalísticas, dirigidas por um <span class="grifo">Diretor-Geral eleito pela comunidade local para mandato de 4 anos</span>, nomeado por ato do Reitor.</li>
+          <li><strong>Conselho Acadêmico do Campus:</strong> Instância máxima consultiva e deliberativa no âmbito do campus, presidida pelo Diretor-Geral e integrada por docentes, técnicos, discentes e gestores locais de ensino, pesquisa, extensão e administração.</li>
+          <li><strong>Modelos de Dimensionamento (Resolução Consup nº 44/2025):</strong> Parametrizam a alocação de Cargos de Direção (CD) e Funções Gratificadas (FG) conforme a tipologia do campus (150, 90/70 Agrícola, 70/45 e 40/26), com margem de ajuste discricionário local de até <span class="grifo">25% das FGs</span>.</li>
+          <li><strong>Polo de Inovação:</strong> Unidade com autonomia operacional voltada exclusivamente ao desenvolvimento tecnológico aplicado e PD&amp;I em parceria com o setor produtivo.</li>
+          <li><strong>Centros de Referência e Unidades Avançadas:</strong> Estruturas vinculadas aos campi ou à Reitoria para interiorização ágil de cursos técnicos e cooperação territorial transitória.</li>
+        </ul>
+      </section>
+
+      <!-- SEÇÃO 4 -->
+      <section class="space-y-4">
+        <h2 class="text-xl sm:text-2xl font-bold text-slate-900 border-l-4 border-slate-700 pl-3">
+          4. Órgãos Colegiados Superiores e Especializados: Consup, Colégio de Dirigentes e CEPE
+        </h2>
+
+        <!-- CONSUP -->
+        <div class="p-4 rounded-lg border border-slate-300 bg-white space-y-3">
+          <h3 class="text-lg font-bold text-slate-900">
+            A) Conselho Superior (Consup) - Instância Máxima
+          </h3>
+          <p>
+            Órgão colegiado de cúpula com caráter <span class="grifo">deliberativo e consultivo</span>, responsável pelas diretrizes estratégicas e normativas de todo o IFMG.
+          </p>
+          <ul class="list-disc list-inside space-y-1.5 text-sm pl-2">
+            <li><strong>Presidência:</strong> Exclusiva do <span class="grifo">Reitor(a)</span> do IFMG (membro nato).</li>
+            <li><strong>Composição Segmentar:</strong> Representantes do corpo docente, corpo técnico-administrativo e corpo discente, cada qual com bancada equivalente a <span class="grifo">1/3 do total de campi</span> (mínimo de 2 e máximo de 5 membros titulares e suplentes por segmento). Representação equivalente de Diretores-Gerais de campi (1/3 das unidades). Conta ainda com 2 egressos, 6 representantes da sociedade civil (trabalhadores, empresários, poder público) e 1 membro do MEC/SETEC.</li>
+            <li><strong>Membros Honorários:</strong> Ex-reitores regulares possuem assento permanente com <span class="grifo">apenas voz, sem direito a voto</span>.</li>
+            <li><strong>Eleitorado Discente:</strong> Voto privativo para discentes com <span class="grifo">matrícula regular e ativa</span> em cursos técnicos, de graduação ou pós-graduação.</li>
+            <li><strong>Mandato:</strong> <span class="grifo">2 anos</span>, admitida <span class="grifo">uma única recondução consecutiva</span> para membros eleitos.</li>
+            <li><strong>Funcionamento:</strong> Ordinariamente a cada <span class="grifo">2 meses</span>. Extraordinariamente por iniciativa do Reitor ou por requerimento de <span class="grifo-alerta">2/3 dos conselheiros</span>.</li>
+            <li><strong>Competência Marcante de Prova:</strong> Autoriza a criação e extinção de cursos técnicos e superiores. <span class="grifo-alerta">ATENÇÃO: Conforme o Art. 12, § 2º, essa competência do Consup NÃO se aplica aos cursos de Formação Inicial e Continuada (FIC)!</span></li>
+          </ul>
+        </div>
+
+        <!-- COLÉGIO DE DIRIGENTES -->
+        <div class="p-4 rounded-lg border border-slate-300 bg-white space-y-3">
+          <h3 class="text-lg font-bold text-slate-900">
+            B) Colégio de Dirigentes - Instância de Gestão Executiva
+          </h3>
+          <p>
+            Órgão superior de assessoramento direto com natureza <span class="grifo-alerta">EXCLUSIVAMENTE CONSULTIVA</span> (não delibera normas nem aprova cursos).
+          </p>
+          <ul class="list-disc list-inside space-y-1.5 text-sm pl-2">
+            <li><strong>Presidência:</strong> <span class="grifo">Reitor(a)</span> do IFMG.</li>
+            <li><strong>Composição Estrita:</strong> Reitor, todos os Pró-Reitores em exercício, todos os Diretores-Gerais de Campi e o Diretor do Polo de Inovação. Não há representação direta de docentes, técnicos ou estudantes de base.</li>
+            <li><strong>Funcionamento:</strong> Ordinariamente a cada <span class="grifo">2 meses</span>. Extraordinariamente pelo Reitor ou por <span class="grifo-alerta">3/5 de seus integrantes</span>.</li>
+            <li><strong>Competências Típicas:</strong> Sugerir critérios de partilha de orçamento entre as unidades, propor minutas-padrão de convênios e avaliar o Calendário Acadêmico de Referência.</li>
+          </ul>
+        </div>
+
+        <!-- CEPE -->
+        <div class="p-4 rounded-lg border border-slate-300 bg-white space-y-3">
+          <h3 class="text-lg font-bold text-slate-900">
+            C) Conselho de Ensino, Pesquisa e Extensão (Cepe) - Colegiado Pedagógico
+          </h3>
+          <p>
+            Regulamentado pelo Regimento Geral (Resolução Consup nº 46/2025) e pela Resolução Consup nº 62/2024. Possui natureza <span class="grifo">normativa e consultiva</span> técnica em matéria didático-acadêmica.
+          </p>
+          <ul class="list-disc list-inside space-y-1.5 text-sm pl-2">
+            <li><strong>Presidência Diferenciada:</strong> Não é presidido pelo Reitor! A presidência é exercida em <span class="grifo">RODÍZIO ANUAL</span> entre os Pró-Reitores acadêmicos (PROEN, PROPPG e PROEXC).</li>
+            <li><strong>Regra do Voto da Presidência:</strong> O Pró-Reitor investido na presidência do Cepe possui <span class="grifo-alerta">apenas voto de minerva (desempate)</span>.</li>
+            <li><strong>Composição:</strong> Os 3 Pró-Reitores acadêmicos, diretores técnicos setoriais das três pró-reitorias e bancadas eleitas (2 titulares e 2 suplentes por segmento): Comitê de Ensino, Comitê de Pesquisa, Comitê de Extensão, Colégio de Dirigentes, Docentes, Técnicos e Discentes.</li>
+            <li><strong>Incompatibilidades Expressas:</strong> Vedado o acúmulo de mandato no Cepe com mandatos vigentes no Consup ou na Câmara de Avaliação de Projetos de Pesquisa (CAAPP). Vedado mais de um membro titular eleito do mesmo campus. A perda de mandato ocorre com 2 faltas injustificadas.</li>
+            <li><strong>Funcionamento:</strong> Ordinariamente a cada 2 meses. Extraordinariamente pelo Presidente ou por <span class="grifo-alerta">2/3 dos conselheiros</span> (aviso prévio de 72h).</li>
+            <li><strong>Espécies de Atos:</strong> Instruções Normativas Conjuntas (matérias normativas diretas), Pareceres Técnicos (submetidos ao Consup para criação de cursos) e Notas Técnicas Conjuntas (orientações interpretativas).</li>
+          </ul>
+        </div>
+
+        <!-- TABELA 3: COMPARATIVO DOS COLEGIADOS -->
+        <div class="mt-6">
+          <h3 class="text-sm font-bold text-slate-900 uppercase tracking-wider mb-2">
+            Quadro Comparativo dos Colegiados Superiores (Cai Muito em Prova)
+          </h3>
+          <div class="border border-slate-300 rounded-lg overflow-hidden bg-white">
+            <table class="w-full text-xs sm:text-sm">
+              <thead class="bg-slate-100 border-b border-slate-300 text-slate-800 font-bold">
+                <tr>
+                  <th class="py-2.5 px-3 text-left w-1/4">Critério</th>
+                  <th class="py-2.5 px-3 text-left w-1/4">Conselho Superior (Consup)</th>
+                  <th class="py-2.5 px-3 text-left w-1/4">Colégio de Dirigentes</th>
+                  <th class="py-2.5 px-3 text-left w-1/4">Conselho de Ensino, Pesquisa e Extensão (Cepe)</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-slate-200">
+                <tr class="hover:bg-slate-50">
+                  <td class="py-2 px-3 font-semibold text-slate-900">Natureza Regimental</td>
+                  <td class="py-2 px-3"><span class="grifo">Deliberativo e Consultivo</span> (Órgão Máximo)</td>
+                  <td class="py-2 px-3"><span class="grifo-alerta">Exclusivamente Consultivo</span></td>
+                  <td class="py-2 px-3"><span class="grifo">Normativo e Consultivo</span> (Didático)</td>
+                </tr>
+                <tr class="hover:bg-slate-50">
+                  <td class="py-2 px-3 font-semibold text-slate-900">Quem Preside?</td>
+                  <td class="py-2 px-3">Reitor(a) do IFMG</td>
+                  <td class="py-2 px-3">Reitor(a) do IFMG</td>
+                  <td class="py-2 px-3"><span class="grifo">Rodízio Anual</span> entre os 3 Pró-Reitores Acadêmicos</td>
+                </tr>
+                <tr class="hover:bg-slate-50">
+                  <td class="py-2 px-3 font-semibold text-slate-900">Voto do Presidente</td>
+                  <td class="py-2 px-3">Comum e de qualidade</td>
+                  <td class="py-2 px-3">Comum de direção</td>
+                  <td class="py-2 px-3"><span class="grifo-alerta">Apenas voto de minerva</span> (desempate)</td>
+                </tr>
+                <tr class="hover:bg-slate-50">
+                  <td class="py-2 px-3 font-semibold text-slate-900">Reunião Ordinária</td>
+                  <td class="py-2 px-3">Bimestral (a cada 2 meses)</td>
+                  <td class="py-2 px-3">Bimestral (a cada 2 meses)</td>
+                  <td class="py-2 px-3">Bimestral (a cada 2 meses)</td>
+                </tr>
+                <tr class="hover:bg-slate-50">
+                  <td class="py-2 px-3 font-semibold text-slate-900">Quórum Extraordinário</td>
+                  <td class="py-2 px-3">Presidente ou <span class="grifo-alerta font-bold">2/3</span> dos membros</td>
+                  <td class="py-2 px-3">Presidente ou <span class="grifo-alerta font-bold">3/5</span> dos membros</td>
+                  <td class="py-2 px-3">Presidente ou <span class="grifo-alerta font-bold">2/3</span> dos membros</td>
+                </tr>
+                <tr class="hover:bg-slate-50">
+                  <td class="py-2 px-3 font-semibold text-slate-900">Mandato de Eleitos</td>
+                  <td class="py-2 px-3">2 anos (1 recondução consecutiva)</td>
+                  <td class="py-2 px-3">Vinculado ao exercício do cargo diretivo</td>
+                  <td class="py-2 px-3">2 anos (1 recondução consecutiva)</td>
+                </tr>
+                <tr class="hover:bg-slate-50">
+                  <td class="py-2 px-3 font-semibold text-slate-900">Atos Primários</td>
+                  <td class="py-2 px-3">Resoluções do Consup</td>
+                  <td class="py-2 px-3">Propostas e Pareceres Técnicos</td>
+                  <td class="py-2 px-3">Instruções Normativas e Pareceres</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- SEÇÃO 5 -->
+      <section class="space-y-4">
+        <h2 class="text-xl sm:text-2xl font-bold text-slate-900 border-l-4 border-slate-700 pl-3">
+          5. Regimes Disciplinares: Docentes e Discentes nas Instâncias Próprias
+        </h2>
+
+        <p>
+          O Estatuto do IFMG (Resolução Consup nº 45/2025) separa expressamente a disciplina em dois regimes jurídicos distintos: o <span class="grifo">Artigo 51</span> para os servidores (docentes e técnicos) e o <span class="grifo">Artigo 50</span> para o corpo discente.
+        </p>
+
+        <!-- REGIME DOCENTE -->
+        <div class="p-4 rounded-lg border border-slate-300 bg-white space-y-3">
+          <h3 class="text-lg font-bold text-slate-900">
+            Regime Disciplinar Docente e Técnico-Administrativo
+          </h3>
+          <p>
+            Subordina-se estritamente à legislação federal comum aplicável ao funcionalismo público da União, notadamente a <span class="grifo">Lei Federal nº 8.112/1990</span> e normas de processo administrativo (Lei nº 9.784/1999).
+          </p>
+          <ul class="list-disc list-inside space-y-1.5 text-sm pl-2">
+            <li><strong>Escala de Penalidades (Lei 8.112/1990):</strong> Advertência (prescreve em 3 anos), Suspensão por até 90 dias (prescreve em 5 anos; passível de conversão em multa de 50%), Demissão (falta grave ou inassiduidade/abandono de cargo), Cassação de Aposentadoria/Disponibilidade e Destituição de Cargo em Comissão/Função Gratificada.</li>
+            <li><strong>Instâncias de Apuração:</strong> A <span class="grifo">Corregedoria do IFMG</span> faz o juízo preliminar de admissibilidade (podendo arquivar, propor TAC para faltas leves ou instaurar processo). A apuração é conduzida por Comissão de Sindicância ou Processo Administrativo Disciplinar (PAD) formada por <span class="grifo">3 servidores públicos estáveis</span> com grau de escolaridade igual ou superior ao do acusado.</li>
+            <li><strong>Competências de Julgamento:</strong> Faltas leves e médias são punidas pelo Diretor-Geral do Campus (por delegação) ou pelo Reitor. Penalidades de demissão de servidores concursados do IFMG demandam julgamento pelo <span class="grifo">Ministro de Estado da Educação</span>.</li>
+            <li><strong>Instância Recursal Plena no IFMG:</strong> Das penalidades aplicadas no âmbito autárquico pelo Reitor, cabe recurso hierárquico ao <span class="grifo">plenário do Conselho Superior (Consup)</span>.</li>
+          </ul>
+        </div>
+
+        <!-- REGIME DISCENTE -->
+        <div class="p-4 rounded-lg border border-slate-300 bg-white space-y-3">
+          <h3 class="text-lg font-bold text-slate-900">
+            Regime Disciplinar Discente
+          </h3>
+          <p>
+            Fixado por regulamento específico aprovado pelo Conselho Superior e detalhado no âmbito de cada unidade descentralizada pelos Conselhos Acadêmicos.
+          </p>
+          <ul class="list-disc list-inside space-y-1.5 text-sm pl-2">
+            <li><strong>Natureza Socioeducativa:</strong> Prevalece o caráter formativo, preventivo e pedagógico sobre a lógica punitiva estrita. É proibida qualquer punição coletiva ou atentatória aos direitos do Estatuto da Criança e do Adolescente (ECA).</li>
+            <li><strong>Sanções Aplicáveis:</strong> Advertência verbal reservada, advertência escrita (com notificação compulsória dos pais se menor), suspensão temporária de frequência/atividades e, em casos extremos de falta gravíssima comprovada, o <span class="grifo-alerta">cancelamento compulsório de matrícula (desligamento)</span>.</li>
+            <li><strong>Instâncias Locais:</strong> Conduzido pela Comissão Disciplinar Discente do campus; aplicação pelo <span class="grifo">Diretor-Geral do Campus</span>.</li>
+            <li><strong>Instâncias Recursais:</strong> Recurso ao <span class="grifo">Conselho Acadêmico do Campus</span> e, em grau final institucional, ao <span class="grifo">Conselho Superior (Consup)</span>.</li>
+          </ul>
+        </div>
+
+        <!-- TABELA 4: SÍNTESE COMPARATIVA DISCIPLINAR -->
+        <div class="mt-6">
+          <h3 class="text-sm font-bold text-slate-900 uppercase tracking-wider mb-2">
+            Quadro Sintético: Regime Docente vs. Regime Discente
+          </h3>
+          <div class="border border-slate-300 rounded-lg overflow-hidden bg-white">
+            <table class="w-full text-xs sm:text-sm">
+              <thead class="bg-slate-100 border-b border-slate-300 text-slate-800 font-bold">
+                <tr>
+                  <th class="py-2.5 px-3 text-left w-1/4">Elemento de Comparação</th>
+                  <th class="py-2.5 px-3 text-left w-3/8">Regime Docente / Servidores</th>
+                  <th class="py-2.5 px-3 text-left w-3/8">Regime Discente</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-slate-200">
+                <tr class="hover:bg-slate-50">
+                  <td class="py-2 px-3 font-semibold text-slate-900">Artigo do Estatuto</td>
+                  <td class="py-2 px-3"><span class="grifo">Artigo 51</span></td>
+                  <td class="py-2 px-3"><span class="grifo">Artigo 50</span></td>
+                </tr>
+                <tr class="hover:bg-slate-50">
+                  <td class="py-2 px-3 font-semibold text-slate-900">Norma Substantiva</td>
+                  <td class="py-2 px-3">Estatuto Federal: <span class="grifo">Lei nº 8.112/1990</span></td>
+                  <td class="py-2 px-3">Resolução própria do Consup + Regimento do Campus</td>
+                </tr>
+                <tr class="hover:bg-slate-50">
+                  <td class="py-2 px-3 font-semibold text-slate-900">Finalidade Central</td>
+                  <td class="py-2 px-3">Estrita legalidade funcional e dever de ofício</td>
+                  <td class="py-2 px-3"><span class="grifo-verde">Socioeducativa, formativa e pedagógica</span></td>
+                </tr>
+                <tr class="hover:bg-slate-50">
+                  <td class="py-2 px-3 font-semibold text-slate-900">Sanção Mais Gravosa</td>
+                  <td class="py-2 px-3"><span class="grifo-alerta">Demissão</span> ou Cassação de Aposentadoria</td>
+                  <td class="py-2 px-3"><span class="grifo-alerta">Cancelamento compulsório da matrícula</span></td>
+                </tr>
+                <tr class="hover:bg-slate-50">
+                  <td class="py-2 px-3 font-semibold text-slate-900">Autoridade Julgadora Final</td>
+                  <td class="py-2 px-3">Reitor (sanções autárquicas) ou Ministro do MEC</td>
+                  <td class="py-2 px-3">Diretor-Geral do Campus</td>
+                </tr>
+                <tr class="hover:bg-slate-50">
+                  <td class="py-2 px-3 font-semibold text-slate-900">Grau Recursal Máximo</td>
+                  <td class="py-2 px-3">Plenário do <span class="grifo">Conselho Superior (Consup)</span></td>
+                  <td class="py-2 px-3">Conselho Acadêmico do Campus e <span class="grifo">Consup</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- SEÇÃO 6 -->
+      <section class="space-y-4">
+        <h2 class="text-xl sm:text-2xl font-bold text-slate-900 border-l-4 border-slate-700 pl-3">
+          6. Síntese Didática e Pontos de Memorização Estratégica para o Dia da Prova
+        </h2>
+
+        <!-- TÓPICOS RÁPIDOS DE MEMORIZAÇÃO -->
+        <div class="space-y-3">
+          <h3 class="text-base font-bold text-slate-900">
+            Definições Básicas em Tópicos Curtos para Lembrar no Dia da Prova:
+          </h3>
+          <ul class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">
+            <li class="p-3 rounded-lg border border-slate-200 bg-slate-50/50">
+              📌 <strong>Norma do Estatuto:</strong> <span class="grifo">Resolução Consup nº 45/2025</span> (revogou a anterior Resolução 12/2018).
+            </li>
+            <li class="p-3 rounded-lg border border-slate-200 bg-slate-50/50">
+              📌 <strong>Regimento Geral:</strong> <span class="grifo">Resolução Consup nº 46/2025</span>.
+            </li>
+            <li class="p-3 rounded-lg border border-slate-200 bg-slate-50/50">
+              📌 <strong>Sede da Reitoria:</strong> Bairro Buritis, Belo Horizonte (MG).
+            </li>
+            <li class="p-3 rounded-lg border border-slate-200 bg-slate-50/50">
+              📌 <strong>Vagas Cursos Técnicos:</strong> <span class="grifo">Mínimo de 50%</span> (foco no integrado).
+            </li>
+            <li class="p-3 rounded-lg border border-slate-200 bg-slate-50/50">
+              📌 <strong>Vagas Licenciaturas:</strong> <span class="grifo">Mínimo de 20%</span> para formação docente básica.
+            </li>
+            <li class="p-3 rounded-lg border border-slate-200 bg-slate-50/50">
+              📌 <strong>Quadrinômio Formativo:</strong> Ensino + Pesquisa + Extensão + <span class="grifo">Inovação</span>.
+            </li>
+            <li class="p-3 rounded-lg border border-slate-200 bg-slate-50/50">
+              📌 <strong>Consup:</strong> Colegiado máximo <span class="grifo">deliberativo e consultivo</span>, presidido pelo Reitor.
+            </li>
+            <li class="p-3 rounded-lg border border-slate-200 bg-slate-50/50">
+              📌 <strong>Colégio de Dirigentes:</strong> Órgão de liderança executiva <span class="grifo-alerta">exclusivamente consultivo</span>, presidido pelo Reitor.
+            </li>
+            <li class="p-3 rounded-lg border border-slate-200 bg-slate-50/50">
+              📌 <strong>Cepe:</strong> Colegiado didático <span class="grifo">normativo e consultivo</span> presidido em <span class="grifo">rodízio anual</span> pelos 3 Pró-Reitores acadêmicos.
+            </li>
+            <li class="p-3 rounded-lg border border-slate-200 bg-slate-50/50">
+              📌 <strong>Voto no Cepe:</strong> Presidente do Cepe vota <span class="grifo-alerta">apenas em desempate (minerva)</span>.
+            </li>
+            <li class="p-3 rounded-lg border border-slate-200 bg-slate-50/50">
+              📌 <strong>Quórum Extraordinário:</strong> Consup e Cepe exigem <span class="grifo-alerta">2/3</span>; Colégio de Dirigentes exige <span class="grifo-alerta">3/5</span>.
+            </li>
+            <li class="p-3 rounded-lg border border-slate-200 bg-slate-50/50">
+              📌 <strong>Exceção dos Cursos FIC:</strong> Competência do Consup para criar cursos <span class="grifo-alerta">NÃO se aplica aos cursos FIC</span> (Art. 12, § 2º).
+            </li>
+            <li class="p-3 rounded-lg border border-slate-200 bg-slate-50/50">
+              📌 <strong>Disciplina Docente:</strong> Regime Jurídico Único Federal (<span class="grifo">Lei 8.112/90</span>) com recurso ao Consup.
+            </li>
+            <li class="p-3 rounded-lg border border-slate-200 bg-slate-50/50">
+              📌 <strong>Disciplina Discente:</strong> Caráter formativo-socioeducativo, com apuração local e recurso final ao Consup.
+            </li>
+          </ul>
+        </div>
+
+        <!-- ARMADILHAS E PEGADINHAS DA BANCA -->
+        <div class="mt-6 p-4 rounded-xl border border-red-200 bg-white space-y-3">
+          <h3 class="text-base font-bold text-red-900 flex items-center gap-2">
+            <span>⚠️</span> Armadilhas e Pegadinhas Clássicas da Banca IFMG:
+          </h3>
+          <ul class="space-y-2.5 text-sm">
+            <li class="flex items-start gap-2">
+              <span class="text-red-700 font-bold">1.</span>
+              <p>
+                <strong>Afirmar que o Colégio de Dirigentes pode autorizar cursos ou aprovar normas:</strong> 
+                <span class="grifo-alerta">FALSO!</span> O Colégio de Dirigentes tem função <strong>exclusivamente consultiva</strong>. Quem autoriza cursos regulares é o Consup.
+              </p>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-red-700 font-bold">2.</span>
+              <p>
+                <strong>Afirmar que o Reitor preside o Cepe:</strong> 
+                <span class="grifo-alerta">FALSO!</span> O Reitor preside o Consup e o Colégio de Dirigentes. O Cepe é presidido pelos <strong>Pró-Reitores de Ensino, Pesquisa e Extensão em rodízio anual obrigatório</strong>.
+              </p>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-red-700 font-bold">3.</span>
+              <p>
+                <strong>Inversão de Quórum Extraordinário:</strong> A banca troca o quórum de <strong>2/3</strong> do Consup e do Cepe pelo de <strong>3/5</strong> do Colégio de Dirigentes. Fixe: Dirigentes = 3/5; Plenários Gerais = 2/3.
+              </p>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-red-700 font-bold">4.</span>
+              <p>
+                <strong>Submissão de Cursos FIC ao Consup:</strong> A assertiva dirá que a criação de qualquer curso no IFMG depende de homologação prévia do Consup. <span class="grifo-alerta">PEGADINHA!</span> O Art. 12, § 2º, ressalva expressamente que essa exigência <strong>não se aplica aos cursos de Formação Inicial e Continuada (FIC)</strong>.
+              </p>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-red-700 font-bold">5.</span>
+              <p>
+                <strong>Voto do Presidente do Cepe:</strong> A questão dirá que o Presidente do Cepe vota em primeiro lugar ou possui dois votos. Ele possui <strong>apenas voto de qualidade/minerva para desempatar</strong>.
+              </p>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-red-700 font-bold">6.</span>
+              <p>
+                <strong>Eleitorado Discente Irrestrito:</strong> A banca dirá que participantes de palestras ou cursos livres votam no Consup. Falso: somente discentes com <strong>matrícula regular e ativa</strong> em cursos técnicos, superiores ou pós-graduação têm direito a voto.
+              </p>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- BOTÃO FINAL PARA A PÁGINA DE QUESTÕES -->
+      <section class="mt-12 pt-8 border-t border-slate-300 flex flex-col items-center justify-center text-center space-y-4">
+        <div class="space-y-1">
+          <h3 class="text-lg font-bold text-slate-900">Conteúdo Teórico Concluído!</h3>
+          <p class="text-sm text-slate-600 max-w-md">
+            Fixe a literalidade dos artigos e os detalhes numéricos com exercícios focados na banca organizadora.
+          </p>
+        </div>
+        
+        <a href="questoes19legs.html" 
+           class="inline-flex items-center justify-center gap-2 px-8 py-4 bg-slate-900 hover:bg-slate-800 text-white font-bold text-base rounded-xl shadow hover:shadow-md transition duration-200">
+          <span>Praticar Questões do Estatuto (questoes19legs.html)</span>
+          <span class="text-lg">→</span>
+        </a>
+      </section>
+
+    </article>
+  </main>
+
+  <!-- RODAPÉ -->
+  <footer class="mt-16 border-t border-slate-200 bg-slate-50 py-6 text-center text-xs text-slate-500">
+    <p>Material de Preparação para o Concurso de Professor do IFMG • Atualizado conforme a Resolução Consup nº 45/2025.</p>
+  </footer>
+
+  <!-- JAVASCRIPT: CONTROLE DO PLAYER DE ÁUDIO -->
+  <script>
+    function atualizarAudio() {
+      const input = document.getElementById('audioFileNameInput');
+      const player = document.getElementById('audioPlayer');
+      const source = document.getElementById('audioSource');
+      const label = document.getElementById('currentAudioName');
+
+      let novoNome = input.value.trim();
+      if (!novoNome) {
+        novoNome = 'aula_estatuto_ifmg.mp3';
+      }
+
+      // Atualiza o source e recarrega o reprodutor
+      source.src = novoNome;
+      player.load();
+      label.textContent = novoNome;
+      input.value = '';
+    }
+  </script>
+</body>
+</html>

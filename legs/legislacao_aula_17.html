@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LDB: Ensino Médio e EPTNM | Preparatório IFMG - Geografia</title>
+  <!-- Tailwind CSS via CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts: Inter para máxima legibilidade -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background-color: #ffffff;
+      color: #1f2937;
+      text-rendering: optimizeLegibility;
+      -webkit-font-smoothing: antialiased;
+    }
+    /* Estilo de marca-texto (grifador de estudo) */
+    .grifado {
+      background-color: #fef08a; /* amarelo marca-texto suave */
+      color: #111827;
+      font-weight: 600;
+      padding: 0.125rem 0.25rem;
+      border-radius: 0.25rem;
+      border-bottom: 2px solid #facc15;
+    }
+    .grifado-verde {
+      background-color: #dcfce7; /* verde menta para normas atualizadas */
+      color: #14532d;
+      font-weight: 600;
+      padding: 0.125rem 0.25rem;
+      border-radius: 0.25rem;
+      border-bottom: 2px solid #86efac;
+    }
+    /* Tabelas responsivas sem scroll horizontal forçado */
+    table {
+      width: 100% !important;
+      border-collapse: collapse;
+      table-layout: fixed;
+    }
+    th, td {
+      word-wrap: break-word;
+      overflow-wrap: break-word;
+      hyphens: auto;
+    }
+  </style>
+</head>
+<body class="bg-white text-zinc-800 min-h-screen flex flex-col antialiased selection:bg-amber-200 selection:text-zinc-900">
+
+  <!-- Cabeçalho Institucional / Concurso -->
+  <header class="border-b border-zinc-200 bg-white sticky top-0 z-30 shadow-xs">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 py-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+      <div>
+        <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-zinc-100 text-zinc-700 border border-zinc-300">
+          Carreira EBTT • Banca Comissão Central IFMG
+        </span>
+        <h1 class="text-xl sm:text-2xl font-extrabold text-zinc-950 mt-1">
+          Legislação Educacional: LDB (Lei nº 9.394/1996)
+        </h1>
+        <p class="text-xs sm:text-sm text-zinc-600 font-medium">
+          Ensino Médio e Educação Profissional Técnica de Nível Médio • Foco em Geografia
+        </p>
+      </div>
+      <div class="flex items-center gap-2">
+        <a href="#questoes-section" class="inline-flex items-center justify-center px-4 py-2 text-xs sm:text-sm font-semibold rounded-lg bg-zinc-900 text-white hover:bg-zinc-800 transition">
+          Ir para Questões ↓
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Container Principal -->
+  <main class="max-w-5xl mx-auto px-4 sm:px-6 py-8 flex-1 w-full space-y-10">
+
+    <!-- REPRODUTOR DE ÁUDIO MP3 CONFIGURÁVEL -->
+    <section class="bg-white border-2 border-zinc-300 rounded-2xl p-5 sm:p-6 shadow-sm">
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-4 border-b border-zinc-200">
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="text-xl">🎧</span>
+            <h2 class="text-lg font-bold text-zinc-900">Reprodutor de Áudio da Aula</h2>
+            <span class="text-xs bg-emerald-50 text-emerald-700 border border-emerald-300 px-2 py-0.5 rounded-md font-medium">Pronto para tocar</span>
+          </div>
+          <p class="text-xs sm:text-sm text-zinc-600 mt-0.5">
+            Insira abaixo o nome do arquivo MP3 salvo na mesma pasta desta página (ex.: <code class="font-mono bg-zinc-100 px-1 py-0.5 rounded text-zinc-800">aula_ldb.mp3</code>).
+          </p>
+        </div>
+
+        <!-- Seletor de Arquivo MP3 -->
+        <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 w-full md:w-auto">
+          <div class="relative flex-1 sm:w-64">
+            <label for="audioFileName" class="block text-[11px] font-semibold text-zinc-500 uppercase tracking-wider mb-1">
+              Nome do arquivo MP3:
+            </label>
+            <input 
+              type="text" 
+              id="audioFileName" 
+              value="aula_ldb.mp3" 
+              placeholder="ex: audio_aula.mp3"
+              class="w-full text-xs sm:text-sm px-3 py-2 border border-zinc-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-zinc-800 font-mono bg-zinc-50 text-zinc-900"
+            >
+          </div>
+          <button 
+            id="btnCarregarAudio" 
+            type="button"
+            class="sm:self-end px-4 py-2 bg-zinc-800 hover:bg-zinc-950 text-white rounded-lg text-xs sm:text-sm font-semibold transition flex items-center justify-center gap-1.5 shadow-xs"
+          >
+            <span>Carregar</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Player de Áudio e Controles Adicionais -->
+      <div class="pt-4 flex flex-col gap-3">
+        <audio id="meuAudioPlayer" controls class="w-full h-11 rounded-lg">
+          <source id="meuAudioSource" src="aula_ldb.mp3" type="audio/mpeg">
+          Seu navegador não suporta a execução de áudio HTML5.
+        </audio>
+
+        <div class="flex flex-wrap items-center justify-between gap-3 text-xs text-zinc-600 pt-1">
+          <!-- Atalhos de Velocidade -->
+          <div class="flex items-center gap-1">
+            <span class="font-medium mr-1 text-zinc-700">Velocidade:</span>
+            <button type="button" class="btn-speed px-2 py-1 rounded border border-zinc-300 hover:bg-zinc-100 font-medium text-zinc-800" data-speed="1.0">1.0x</button>
+            <button type="button" class="btn-speed px-2 py-1 rounded border border-zinc-300 hover:bg-zinc-100 font-medium text-zinc-800" data-speed="1.25">1.25x</button>
+            <button type="button" class="btn-speed px-2 py-1 rounded border border-zinc-300 hover:bg-zinc-100 font-medium text-zinc-800" data-speed="1.5">1.5x</button>
+            <button type="button" class="btn-speed px-2 py-1 rounded border border-zinc-300 hover:bg-zinc-100 font-medium text-zinc-800" data-speed="1.75">1.75x</button>
+            <button type="button" class="btn-speed px-2 py-1 rounded border border-zinc-300 hover:bg-zinc-100 font-medium text-zinc-800" data-speed="2.0">2.0x</button>
+          </div>
+
+          <!-- Pular 10s -->
+          <div class="flex items-center gap-2">
+            <button type="button" id="btnRecuar10" class="px-2.5 py-1 rounded border border-zinc-300 hover:bg-zinc-100 text-zinc-800 font-medium flex items-center gap-1">
+              ↺ -10s
+            </button>
+            <button type="button" id="btnAvancar10" class="px-2.5 py-1 rounded border border-zinc-300 hover:bg-zinc-100 text-zinc-800 font-medium flex items-center gap-1">
+              +10s ↻
+            </button>
+            <span id="audioStatus" class="font-mono text-[11px] text-zinc-500 ml-1">Arquivo: aula_ldb.mp3</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- INTRODUÇÃO GERAL -->
+    <article class="space-y-4">
+      <div class="border-b border-zinc-200 pb-3">
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-zinc-950 tracking-tight">
+          Diretrizes da Educação Básica e Profissional Técnica de Nível Médio na LDB: Análise Normativa e Fundamentos para o Concurso do IFMG
+        </h2>
+      </div>
+
+      <p class="text-base sm:text-lg leading-relaxed text-zinc-800">
+        A conformação jurídica e pedagógica da Educação Básica e da Educação Profissional e Tecnológica (EPT) no Brasil constitui um dos temas mais recorrentes e estruturantes nos concursos públicos da <span class="grifado">Carreira de Magistério do Ensino Básico, Técnico e Tecnológico (EBTT)</span>, particularmente nas seleções promovidas pela <span class="font-semibold text-zinc-900">Comissão Central de Concurso Público do Instituto Federal de Minas Gerais (IFMG)</span>. Para a docência na área de <span class="grifado">Geografia</span>, a compreensão desses marcos normativos ultrapassa a mera memorização de dispositivos legais: exige a capacidade de apreender como a divisão social e técnica do trabalho, as contradições territoriais e as disputas em torno do projeto societário de formação da juventude se materializam no texto da <span class="font-bold text-zinc-900">Lei de Diretrizes e Bases da Educação Nacional (Lei nº 9.394/1996)</span>.
+      </p>
+
+      <p class="text-base leading-relaxed text-zinc-800">
+        A legislação educacional brasileira sofreu sucessivas modificações com o objetivo de responder aos influxos econômicos globais e às demandas de reestruturação do Ensino Médio. A promulgação da <span class="grifado-verde">Lei nº 14.945, de 31 de julho de 2024</span>, representou uma profunda reorganização da arquitetura curricular dessa etapa, reformulando preceitos introduzidos anteriormente pela Lei nº 13.415/2017 e <span class="grifado">revogando formalmente o art. 35-A</span> para instaurar os <span class="font-semibold text-zinc-900">arts. 35-B, 35-C e 35-D</span>, além de redefinir os parâmetros operacionais dos itinerários formativos no <span class="font-semibold text-zinc-900">art. 36</span>. Paralelamente, as formas de articulação da Educação Profissional Técnica de Nível Médio (EPTNM), estabelecidas a partir do <span class="font-semibold text-zinc-900">art. 36-A</span>, preservam o estatuto epistemológico e institucional que subsidia a própria identidade da Rede Federal: <span class="grifado">a superação da dualidade histórica entre a formação propedêutica e a instrumentalização para o mercado de trabalho</span>.
+      </p>
+    </article>
+
+    <!-- SEÇÃO 1: ART. 35 -->
+    <section class="space-y-6 pt-4 border-t border-zinc-200">
+      <div class="flex items-center gap-2">
+        <span class="flex items-center justify-center w-7 h-7 rounded-md bg-zinc-900 text-white font-bold text-sm">1</span>
+        <h2 class="text-xl sm:text-2xl font-bold text-zinc-950">
+          Fundamentos Histórico-Ontológicos e Finalidades Formativas do Ensino Médio (Art. 35)
+        </h2>
+      </div>
+
+      <p class="text-base leading-relaxed text-zinc-800">
+        Historicamente, o Ensino Médio brasileiro consolidou-se sob a marca da cisão estrutural: de um lado, a escola propedêutica, destinada às elites e voltada para o ingresso no ensino superior; de outro, a formação técnica ou profissionalizante, reservada aos filhos da classe trabalhadora para abastecer postos operacionais do sistema produtivo. A LDB de 1996 buscou desconstruir esse paradigma ao situar o Ensino Médio no art. 35 como a <span class="grifado">etapa conclusiva da Educação Básica</span>, com <span class="grifado">duração mínima de três anos</span>, orientada por um princípio de integralidade formativa que recusa a especialização precoce em detrimento da cidadania plena.
+      </p>
+
+      <p class="text-base leading-relaxed text-zinc-800">
+        O art. 35 da LDB explicita <span class="font-semibold text-zinc-900">quatro finalidades formativas essenciais</span> que delimitam o horizonte pedagógico da etapa:
+      </p>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div class="border border-zinc-200 rounded-xl p-4 bg-white shadow-xs">
+          <span class="text-xs font-bold uppercase tracking-wider text-zinc-500">Inciso I • Continuidade</span>
+          <h4 class="font-bold text-zinc-900 mt-1 mb-1.5 text-sm sm:text-base">Consolidação e aprofundamento</h4>
+          <p class="text-xs sm:text-sm text-zinc-700 leading-relaxed">
+            Consolidação e o aprofundamento dos conhecimentos assimilados ao longo do Ensino Fundamental, viabilizando a <span class="grifado">continuidade formativa</span> do educando em níveis mais complexos do saber.
+          </p>
+        </div>
+        <div class="border border-zinc-200 rounded-xl p-4 bg-white shadow-xs">
+          <span class="text-xs font-bold uppercase tracking-wider text-zinc-500">Inciso II • Cidadania e Trabalho</span>
+          <h4 class="font-bold text-zinc-900 mt-1 mb-1.5 text-sm sm:text-base">Preparação básica</h4>
+          <p class="text-xs sm:text-sm text-zinc-700 leading-relaxed">
+            Preparação <span class="grifado">básica</span> para o trabalho e a cidadania, capacitando o jovem a exercer sua condição de cidadão e a desenvolver <span class="grifado">flexibilidade intelectual para continuar aprendendo</span> diante das transformações produtivas.
+          </p>
+        </div>
+        <div class="border border-zinc-200 rounded-xl p-4 bg-white shadow-xs">
+          <span class="text-xs font-bold uppercase tracking-wider text-zinc-500">Inciso III • Formação Humana</span>
+          <h4 class="font-bold text-zinc-900 mt-1 mb-1.5 text-sm sm:text-base">Aprimoramento como pessoa humana</h4>
+          <p class="text-xs sm:text-sm text-zinc-700 leading-relaxed">
+            Aprimoramento do educando como pessoa humana, incorporando de modo expressivo a <span class="grifado">formação ética</span>, a edificação da <span class="grifado">autonomia intelectual</span> e a consolidação do <span class="grifado">pensamento crítico</span>.
+          </p>
+        </div>
+        <div class="border border-zinc-200 rounded-xl p-4 bg-white shadow-xs">
+          <span class="text-xs font-bold uppercase tracking-wider text-zinc-500">Inciso IV • Práxis Pedagógica</span>
+          <h4 class="font-bold text-zinc-900 mt-1 mb-1.5 text-sm sm:text-base">Fundamentos científico-tecnológicos</h4>
+          <p class="text-xs sm:text-sm text-zinc-700 leading-relaxed">
+            Compreensão dos fundamentos científico-tecnológicos dos processos produtivos modernos, estabelecendo como imperativo didático a <span class="grifado">articulação permanente entre teoria e prática no ensino de cada componente</span>.
+          </p>
+        </div>
+      </div>
+
+      <p class="text-base leading-relaxed text-zinc-800">
+        <span class="font-semibold text-zinc-900">Conexão com a docência de Geografia:</span> Essa quarta finalidade ganha densidade teórica notável. A Geografia desempenha papel central na desmistificação do espaço geográfico como produto de dinâmicas socioespaciais e relações técnicas de produção, superando abordagens meramente mnemônicas para demonstrar como o conhecimento científico ampara as intervenções territoriais e as cadeias produtivas globais.
+      </p>
+
+      <!-- Tabela 1: Finalidades Art. 35 -->
+      <div class="space-y-2">
+        <h3 class="text-base font-bold text-zinc-900">
+          Tabela Sintética: Finalidades Formativas do Ensino Médio (Art. 35 da LDB) e Distorções da Banca
+        </h3>
+        <div class="border border-zinc-300 rounded-xl overflow-hidden bg-white">
+          <table class="text-xs sm:text-sm">
+            <thead>
+              <tr class="bg-zinc-100 border-b border-zinc-300 text-zinc-900 font-bold">
+                <th class="p-2.5 sm:p-3 text-left w-2/12 sm:w-2/12">Inciso</th>
+                <th class="p-2.5 sm:p-3 text-left w-3/12 sm:w-3/12">Finalidade Legal Expressa</th>
+                <th class="p-2.5 sm:p-3 text-left w-3/12 sm:w-3/12">Núcleo Conceitual</th>
+                <th class="p-2.5 sm:p-3 text-left w-4/12 sm:w-4/12">Distorção Típica em Questões (Pegadinhas)</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-zinc-200 text-zinc-700">
+              <tr class="hover:bg-zinc-50">
+                <td class="p-2.5 sm:p-3 font-mono font-bold text-zinc-950">Inciso I</td>
+                <td class="p-2.5 sm:p-3 font-medium text-zinc-900">Consolidação e aprofundamento dos conhecimentos do ensino fundamental</td>
+                <td class="p-2.5 sm:p-3">Continuidade dos estudos e progressão acadêmica contínua.</td>
+                <td class="p-2.5 sm:p-3 text-red-950 bg-red-50/40">Trocar "aprofundamento" por "revisão propedêutica e preparatória para exames vestibulares".</td>
+              </tr>
+              <tr class="hover:bg-zinc-50">
+                <td class="p-2.5 sm:p-3 font-mono font-bold text-zinc-950">Inciso II</td>
+                <td class="p-2.5 sm:p-3 font-medium text-zinc-900">Preparação básica para o trabalho e a cidadania</td>
+                <td class="p-2.5 sm:p-3">Formação ampla que confere flexibilidade para aprendizagens futuras.</td>
+                <td class="p-2.5 sm:p-3 text-red-950 bg-red-50/40">Substituir "preparação básica" por "habilitação profissional técnica compulsória e imediata".</td>
+              </tr>
+              <tr class="hover:bg-zinc-50">
+                <td class="p-2.5 sm:p-3 font-mono font-bold text-zinc-950">Inciso III</td>
+                <td class="p-2.5 sm:p-3 font-medium text-zinc-900">Aprimoramento do educando como pessoa humana</td>
+                <td class="p-2.5 sm:p-3">Autonomia intelectual, ética e pensamento crítico emancipatório.</td>
+                <td class="p-2.5 sm:p-3 text-red-950 bg-red-50/40">Reduzir a finalidade a competências puramente comportamentais e socioemocionais submissas ao mercado.</td>
+              </tr>
+              <tr class="hover:bg-zinc-50">
+                <td class="p-2.5 sm:p-3 font-mono font-bold text-zinc-950">Inciso IV</td>
+                <td class="p-2.5 sm:p-3 font-medium text-zinc-900">Compreensão dos fundamentos científico-tecnológicos</td>
+                <td class="p-2.5 sm:p-3"><span class="grifado">Relação permanente entre teoria e prática</span> em cada componente.</td>
+                <td class="p-2.5 sm:p-3 text-red-950 bg-red-50/40">Isolar a prática científica e técnica unicamente em oficinas profissionalizantes do curso técnico.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Tópicos de Memorização Art. 35 -->
+      <div class="bg-zinc-50 border border-zinc-200 rounded-xl p-4 sm:p-5">
+        <h4 class="text-xs sm:text-sm font-bold uppercase tracking-wider text-zinc-900 mb-2 flex items-center gap-1.5">
+          <span>📌</span> Tópicos para Memorização do Art. 35 (Grave para o dia da prova)
+        </h4>
+        <ul class="space-y-1.5 text-xs sm:text-sm text-zinc-800 list-disc list-inside">
+          <li><strong>Etapa e duração:</strong> <span class="grifado">Etapa final da Educação Básica</span>, com duração mínima obrigatória de <span class="grifado">3 (três) anos</span>.</li>
+          <li><strong>Quatro eixos de incidência legal:</strong>
+            <ul class="pl-6 list-circle space-y-1 mt-1 text-zinc-700">
+              <li>Consolidar e aprofundar conhecimentos prévios para a progressão formativa;</li>
+              <li>Preparar basicamente para o trabalho e a cidadania com autonomia de aprendizagem contínua;</li>
+              <li>Promover a formação ética, a autonomia intelectual e o pensamento crítico do educando;</li>
+              <li>Dominar os fundamentos científico-tecnológicos vinculando teoria e prática em cada disciplina.</li>
+            </ul>
+          </li>
+          <li><strong>Princípio epistemológico crucial:</strong> A <span class="grifado">vinculação teoria-prática não é monopólio da educação profissional</span>, mas sim uma diretriz curricular obrigatória para todos os componentes do Ensino Médio regular.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- SEÇÃO 2: ARTS. 35-B A 36 -->
+    <section class="space-y-6 pt-4 border-t border-zinc-200">
+      <div class="flex items-center gap-2">
+        <span class="flex items-center justify-center w-7 h-7 rounded-md bg-zinc-900 text-white font-bold text-sm">2</span>
+        <h2 class="text-xl sm:text-2xl font-bold text-zinc-950">
+          Arquitetura Curricular e Itinerários Formativos Técnicos (Arts. 35-B a 36)
+        </h2>
+      </div>
+
+      <p class="text-base leading-relaxed text-zinc-800">
+        A promulgação da <span class="grifado-verde">Lei nº 14.945/2024</span> alterou de forma substantiva a sistemática do Ensino Médio. O legislador <span class="grifado">revogou integralmente o art. 35-A da LDB</span>, que estipulava o teto rígido de 1.800 horas para a Base Nacional Comum Curricular (BNCC), redistribuindo os preceitos formativos entre os novos <span class="font-semibold text-zinc-900">arts. 35-B, 35-C e 35-D</span>, além de reconfigurar o <span class="font-semibold text-zinc-900">art. 36</span>.
+      </p>
+
+      <!-- Art. 35-B -->
+      <div class="space-y-2">
+        <h3 class="text-lg font-bold text-zinc-950">Princípios da Proposta Pedagógica (Art. 35-B)</h3>
+        <p class="text-base leading-relaxed text-zinc-800">
+          O art. 35-B determina que o currículo do Ensino Médio é constituído indissociavelmente pela <span class="grifado">Formação Geral Básica (FGB)</span> e pelos <span class="grifado">Itinerários Formativos</span>. As unidades escolares, ao elaborarem suas propostas pedagógicas, devem observar diretrizes de densidade metodológica e social:
+        </p>
+        <ul class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs sm:text-sm text-zinc-800 pt-1">
+          <li class="p-3 border border-zinc-200 rounded-lg bg-zinc-50/50">✓ Promoção prioritária de <strong>metodologias investigativas</strong>;</li>
+          <li class="p-3 border border-zinc-200 rounded-lg bg-zinc-50/50">✓ Conexão orgânica dos saberes com o <strong>território e a vida comunitária local</strong>;</li>
+          <li class="p-3 border border-zinc-200 rounded-lg bg-zinc-50/50">✓ Validação do <strong>trabalho em sua dimensão formativa e ontológica</strong>;</li>
+          <li class="p-3 border border-zinc-200 rounded-lg bg-zinc-50/50">✓ Integração interdisciplinar orientada pelas áreas de conhecimento e pela formação profissional.</li>
+        </ul>
+        <p class="text-sm text-zinc-700 leading-relaxed pt-1">
+          <strong>Aproveitamento de experiências extraescolares:</strong> O dispositivo faculta aos sistemas de ensino o aproveitamento de experiências extraescolares para integralização da carga horária, tais como <span class="grifado">estágios supervisionados, cursos certificados de qualificação profissional, participação em projetos de iniciação científica, extensão universitária</span> e desempenho de mandatos de liderança em agremiações discentes.
+        </p>
+      </div>
+
+      <!-- Art. 35-C e Art. 36 -->
+      <div class="space-y-3">
+        <h3 class="text-lg font-bold text-zinc-950">Reorganização da Carga Horária (Arts. 35-C e 36)</h3>
+        <p class="text-base leading-relaxed text-zinc-800">
+          A partilha horária entre a base comum e os aprofundamentos diversificados obedece a regras quantitativas com reflexos diretos nas questões objetivas da banca:
+        </p>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div class="border-2 border-zinc-200 rounded-xl p-4 bg-white">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-bold uppercase tracking-wider text-zinc-600">Itinerário Regular Propedêutico</span>
+              <span class="text-xs font-mono font-bold px-2 py-0.5 rounded bg-zinc-100 text-zinc-800 border border-zinc-300">Art. 35-C, caput</span>
+            </div>
+            <div class="mt-2 space-y-1.5 text-xs sm:text-sm text-zinc-800">
+              <p>• Formação Geral Básica (FGB): <span class="grifado">mínimo de 2.400 horas</span>.</p>
+              <p>• Itinerários Formativos por áreas: <span class="grifado">mínimo de 600 horas</span>.</p>
+              <p>• Carga global mínima da etapa: <strong class="text-zinc-950">3.000 horas</strong>.</p>
+              <p class="text-xs text-zinc-500 pt-1 border-t border-zinc-100">Derruba o antigo teto de 1.800h da Reforma de 2017.</p>
+            </div>
+          </div>
+
+          <div class="border-2 border-zinc-200 rounded-xl p-4 bg-white">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-bold uppercase tracking-wider text-zinc-600">Itinerário Técnico e Profissional</span>
+              <span class="text-xs font-mono font-bold px-2 py-0.5 rounded bg-zinc-100 text-zinc-800 border border-zinc-300">Art. 35-C, parágrafo único</span>
+            </div>
+            <div class="mt-2 space-y-1.5 text-xs sm:text-sm text-zinc-800">
+              <p>• Formação Geral Básica (FGB): <span class="grifado">mínimo de 2.100 horas</span>.</p>
+              <p>• Articulação pedagógica: <span class="grifado">até 300 horas</span> da FGB podem ser orientadas ao aprofundamento de conteúdos da BNCC integrados à habilitação técnica.</p>
+              <p>• Carga técnica: regulada pelo Catálogo Nacional de Cursos Técnicos (800h, 1.000h ou 1.200h).</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Art. 35-D: Áreas e Geografia -->
+      <div class="space-y-2">
+        <h3 class="text-lg font-bold text-zinc-950">As Áreas do Conhecimento e a Restauração da Geografia (Art. 35-D)</h3>
+        <p class="text-base leading-relaxed text-zinc-800">
+          O art. 35-D distribui os direitos e objetivos de aprendizagem da BNCC nas quatro áreas fundamentais:
+        </p>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs sm:text-sm">
+          <div class="p-3 border border-zinc-200 rounded-lg bg-zinc-50">
+            <strong>1. Linguagens e suas Tecnologias:</strong> Língua Portuguesa e literaturas, Língua Inglesa, Artes e Educação Física. (Espanhol de oferta facultativa segundo disponibilidade da rede).
+          </div>
+          <div class="p-3 border border-zinc-200 rounded-lg bg-zinc-50">
+            <strong>2. Matemática e suas Tecnologias:</strong> Matemática com estudos e aprofundamentos quantitativos e analíticos.
+          </div>
+          <div class="p-3 border border-zinc-200 rounded-lg bg-zinc-50">
+            <strong>3. Ciências da Natureza e suas Tecnologias:</strong> Biologia, Física e Química articuladas.
+          </div>
+          <div class="p-3 border-2 border-zinc-300 rounded-lg bg-white">
+            <strong class="text-zinc-950">4. Ciências Humanas e Sociais Aplicadas:</strong>
+            <p class="mt-1 text-zinc-800">
+              Integrada expressamente por <span class="grifado">Filosofia, GEOGRAFIA, História e Sociologia</span>.
+            </p>
+          </div>
+        </div>
+        <p class="text-sm text-zinc-700 leading-relaxed pt-1">
+          <strong>Impacto para o concurso do IFMG:</strong> A reinserção nominal e expressa da <span class="grifado">Geografia</span> afasta discussões pretéritas sobre diluição disciplinar, assegurando sua presença compulsória no Ensino Médio e resguardando a legitimidade do provimento efetivo do cargo docente.
+        </p>
+      </div>
+
+      <!-- Art. 36: Oferta institucional e exceção das escolas técnicas -->
+      <div class="space-y-2">
+        <h3 class="text-lg font-bold text-zinc-950">Oferta Institucional dos Itinerários Formativos (Art. 36)</h3>
+        <p class="text-base leading-relaxed text-zinc-800">
+          A legislação impõe que cada estabelecimento de ensino médio regular mantenha uma oferta mínima de <span class="grifado">dois itinerários formativos com ênfases distintas</span>, garantindo diversidade de opções aos estudantes.
+        </p>
+        <div class="p-4 rounded-xl border border-amber-300 bg-amber-50/50 text-xs sm:text-sm text-amber-950 space-y-1">
+          <p class="font-bold flex items-center gap-1.5">
+            <span>⚡</span> Exceção Legal Vital para Concursos de IFs (Art. 36, § 2º-B):
+          </p>
+          <p>
+            As escolas e instituições que oferecerem o <span class="grifado">itinerário de formação técnica e profissional</span> estão <span class="grifado">dispensadas da exigência de oferta mínima de dois itinerários</span>, podendo concentrar seus esforços na oferta técnica singular vinculada ao seu Projeto Pedagógico Institucional (PPI).
+          </p>
+        </div>
+      </div>
+
+      <!-- Tabela 2: Matriz Comparativa Carga Horária -->
+      <div class="space-y-2">
+        <h3 class="text-base font-bold text-zinc-900">
+          Tabela Comparativa: Carga Horária e Itinerários no Ensino Médio (Lei 14.945/2024)
+        </h3>
+        <div class="border border-zinc-300 rounded-xl overflow-hidden bg-white">
+          <table class="text-xs sm:text-sm">
+            <thead>
+              <tr class="bg-zinc-100 border-b border-zinc-300 text-zinc-900 font-bold">
+                <th class="p-2.5 sm:p-3 text-left w-3/12">Variável Legal</th>
+                <th class="p-2.5 sm:p-3 text-left w-3/12">Itinerário Regular (Áreas)</th>
+                <th class="p-2.5 sm:p-3 text-left w-3/12">Itinerário Técnico/Profissional</th>
+                <th class="p-2.5 sm:p-3 text-left w-3/12">Dispositivo na LDB</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-zinc-200 text-zinc-700">
+              <tr class="hover:bg-zinc-50">
+                <td class="p-2.5 sm:p-3 font-semibold text-zinc-950">Carga Mínima Total</td>
+                <td class="p-2.5 sm:p-3 font-mono font-medium text-zinc-900">3.000 horas</td>
+                <td class="p-2.5 sm:p-3 font-mono font-medium text-zinc-900">3.000 horas (geral da etapa)</td>
+                <td class="p-2.5 sm:p-3 text-zinc-600">Art. 24, I c/c Res. CNE</td>
+              </tr>
+              <tr class="hover:bg-zinc-50">
+                <td class="p-2.5 sm:p-3 font-semibold text-zinc-950">Piso da Formação Geral (FGB)</td>
+                <td class="p-2.5 sm:p-3 font-mono font-bold text-zinc-950"><span class="grifado">2.400 horas</span></td>
+                <td class="p-2.5 sm:p-3 font-mono font-bold text-zinc-950"><span class="grifado">2.100 horas</span></td>
+                <td class="p-2.5 sm:p-3 text-zinc-600">Art. 35-C, caput e parágrafo único</td>
+              </tr>
+              <tr class="hover:bg-zinc-50">
+                <td class="p-2.5 sm:p-3 font-semibold text-zinc-950">Margem de Articulação</td>
+                <td class="p-2.5 sm:p-3">Vedada desidratação da FGB</td>
+                <td class="p-2.5 sm:p-3"><span class="grifado">Até 300h da FGB</span> integradas aos saberes técnicos</td>
+                <td class="p-2.5 sm:p-3 text-zinc-600">Art. 35-C, parágrafo único</td>
+              </tr>
+              <tr class="hover:bg-zinc-50">
+                <td class="p-2.5 sm:p-3 font-semibold text-zinc-950">Piso dos Itinerários</td>
+                <td class="p-2.5 sm:p-3 font-mono font-medium text-zinc-900">600 horas</td>
+                <td class="p-2.5 sm:p-3">Carga do CNCT (800h, 1.000h ou 1.200h)</td>
+                <td class="p-2.5 sm:p-3 text-zinc-600">Art. 36, caput</td>
+              </tr>
+              <tr class="hover:bg-zinc-50">
+                <td class="p-2.5 sm:p-3 font-semibold text-zinc-950">Obrigatoriedade de Oferta</td>
+                <td class="p-2.5 sm:p-3">Mínimo de <span class="grifado">2 itinerários distintos</span> por escola</td>
+                <td class="p-2.5 sm:p-3"><span class="grifado">Isenta da duplicidade</span> de itinerários</td>
+                <td class="p-2.5 sm:p-3 text-zinc-600">Art. 36, § 2º-A e § 2º-B</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Tópicos de Memorização Estrutura Curricular -->
+      <div class="bg-zinc-50 border border-zinc-200 rounded-xl p-4 sm:p-5">
+        <h4 class="text-xs sm:text-sm font-bold uppercase tracking-wider text-zinc-900 mb-2 flex items-center gap-1.5">
+          <span>📌</span> Tópicos para Memorização da Estrutura Curricular
+        </h4>
+        <ul class="space-y-1.5 text-xs sm:text-sm text-zinc-800 list-disc list-inside">
+          <li><strong>Composição binária indissociável:</strong> Formação Geral Básica (FGB) + Itinerários Formativos.</li>
+          <li><strong>Regra do curso regular:</strong> <span class="grifado">2.400h de FGB + 600h de Itinerário = 3.000 horas</span> mínimas.</li>
+          <li><strong>Regra do curso técnico:</strong> <span class="grifado">2.100h de FGB</span> (permitindo até 300h de conexão contextualizada com o curso técnico).</li>
+          <li><strong>Geografia expressa na lei:</strong> Presente no Art. 35-D dentro de Ciências Humanas e Sociais Aplicadas.</li>
+          <li><strong>Oferta mínima por escola:</strong> Mínimo de 2 itinerários; <span class="grifado">escolas com itinerário técnico NÃO precisam ofertar dois</span>.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- SEÇÃO 3: ARTS. 36-A A 36-C (FORMAS DE ARTICULAÇÃO) -->
+    <section class="space-y-6 pt-4 border-t border-zinc-200">
+      <div class="flex items-center gap-2">
+        <span class="flex items-center justify-center w-7 h-7 rounded-md bg-zinc-900 text-white font-bold text-sm">3</span>
+        <h2 class="text-xl sm:text-2xl font-bold text-zinc-950">
+          Formas de Articulação da Educação Profissional Técnica de Nível Médio (Arts. 36-A a 36-C)
+        </h2>
+      </div>
+
+      <p class="text-base leading-relaxed text-zinc-800">
+        A Seção IV-A do Capítulo II do Título V da LDB delineia o modelo normativo da Educação Profissional Técnica de Nível Médio (EPTNM), introduzido substantivamente pela Lei nº 11.741/2008 para superar os vetos separatistas legados pela reforma educacional da década de 1990. O art. 36-A estabelece o postulado de que o Ensino Médio, atendida a formação geral do estudante, poderá prepará-lo para o exercício de profissões técnicas.
+      </p>
+
+      <p class="text-base leading-relaxed text-zinc-800">
+        O art. 36-B define a tipologia estrutural da EPTNM em duas grandes formas operacionais: <span class="grifado">articulada com o ensino médio</span> e <span class="grifado">subsequente</span>:
+      </p>
+
+      <!-- Tipos Principais -->
+      <div class="space-y-4">
+        <!-- Subsequente -->
+        <div class="p-4 border border-zinc-200 rounded-xl bg-white shadow-xs">
+          <div class="flex items-center justify-between">
+            <h4 class="font-bold text-zinc-950 text-base">1. Forma Subsequente (Art. 36-B, II)</h4>
+            <span class="text-xs bg-zinc-100 text-zinc-700 border border-zinc-300 font-mono px-2 py-0.5 rounded">Pós-Médio</span>
+          </div>
+          <p class="text-xs sm:text-sm text-zinc-700 leading-relaxed mt-1">
+            Destinada <span class="grifado">exclusivamente a quem já concluiu o Ensino Médio</span> regular. Constitui trajetória profissionalizante autônoma para quem já detém a formação básica completa.
+          </p>
+        </div>
+
+        <!-- Articulada -->
+        <div class="p-4 border-2 border-zinc-300 rounded-xl bg-white space-y-3">
+          <div class="flex items-center justify-between">
+            <h4 class="font-bold text-zinc-950 text-base">2. Forma Articulada com o Ensino Médio (Art. 36-C)</h4>
+            <span class="text-xs bg-zinc-100 text-zinc-700 border border-zinc-300 font-mono px-2 py-0.5 rounded">Simultânea</span>
+          </div>
+          <p class="text-xs sm:text-sm text-zinc-700 leading-relaxed">
+            Cursada simultaneamente à formação básica de nível médio, desdobrando-se obrigatoriamente em duas modalidades:
+          </p>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-3 pt-1">
+            <!-- Integrada -->
+            <div class="border border-zinc-200 rounded-lg p-3.5 bg-zinc-50">
+              <span class="text-xs font-bold uppercase text-zinc-700 tracking-wider">A) Integrada (Art. 36-C, I)</span>
+              <p class="text-xs sm:text-sm text-zinc-800 mt-1 leading-relaxed">
+                • <strong>Ingresso:</strong> Exige <span class="grifado">Ensino Fundamental concluído</span>.<br>
+                • <strong>Matrícula:</strong> <span class="grifado">Matrícula ÚNICA</span>.<br>
+                • <strong>Local:</strong> Na <span class="grifado">mesma instituição de ensino</span>.<br>
+                • <strong>Projeto:</strong> Currículo unificado, indivisível, que integra ciência, cultura, trabalho e tecnologia (coração identitário dos <strong>Institutos Federais</strong>).
+              </p>
+            </div>
+
+            <!-- Concomitante -->
+            <div class="border border-zinc-200 rounded-lg p-3.5 bg-zinc-50">
+              <span class="text-xs font-bold uppercase text-zinc-700 tracking-wider">B) Concomitante (Art. 36-C, II)</span>
+              <p class="text-xs sm:text-sm text-zinc-800 mt-1 leading-relaxed">
+                • <strong>Ingresso:</strong> Para quem <span class="grifado">já está cursando ou ingressando no Ensino Médio</span>.<br>
+                • <strong>Matrícula:</strong> Exige imperativamente <span class="grifado">MATRÍCULAS DISTINTAS</span>.<br>
+                • Apresenta 3 subformatos operacionais definidos em lei.
+              </p>
+            </div>
+          </div>
+
+          <!-- Os 3 subformatos da concomitante -->
+          <div class="mt-2 pt-2 border-t border-zinc-200 text-xs sm:text-sm text-zinc-700 space-y-1.5">
+            <p class="font-bold text-zinc-900">Formatos Institucionais da Concomitante (Art. 36-C, II):</p>
+            <p>1. <strong>Na mesma instituição:</strong> Aproveitamento de vagas e infraestrutura da própria escola;</p>
+            <p>2. <strong>Em instituições distintas:</strong> O aluno cursa o Médio na Escola A e o Técnico na Escola B sem articulação pedagógica formal;</p>
+            <p>3. <strong>Em instituições distintas mediante convênio de intercomplementaridade:</strong> As escolas firmam acordo formal visando explicitamente ao planejamento conjunto e ao desenvolvimento de um <span class="grifado">PROJETO PEDAGÓGICO UNIFICADO</span>.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tabela 3: Formas de Articulação EPTNM -->
+      <div class="space-y-2">
+        <h3 class="text-base font-bold text-zinc-900">
+          Tabela Comparativa: Formas de Articulação da EPTNM (Arts. 36-B e 36-C da LDB)
+        </h3>
+        <div class="border border-zinc-300 rounded-xl overflow-hidden bg-white">
+          <table class="text-xs sm:text-sm">
+            <thead>
+              <tr class="bg-zinc-100 border-b border-zinc-300 text-zinc-900 font-bold">
+                <th class="p-2 sm:p-3 text-left w-2/12 sm:w-2/12">Modalidade</th>
+                <th class="p-2 sm:p-3 text-left w-2/12 sm:w-2/12">Requisito Ingresso</th>
+                <th class="p-2 sm:p-3 text-left w-2/12 sm:w-2/12">Matrícula</th>
+                <th class="p-2 sm:p-3 text-left w-3/12 sm:w-3/12">Estabelecimento Executor</th>
+                <th class="p-2 sm:p-3 text-left w-3/12 sm:w-3/12">Integração Pedagógica</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-zinc-200 text-zinc-700">
+              <tr class="hover:bg-zinc-50">
+                <td class="p-2 sm:p-3 font-bold text-zinc-950">Articulada Integrada</td>
+                <td class="p-2 sm:p-3">Ensino Fundamental concluído</td>
+                <td class="p-2 sm:p-3 font-semibold text-zinc-900"><span class="grifado">Matrícula única</span></td>
+                <td class="p-2 sm:p-3 font-medium text-zinc-900"><span class="grifado">Mesma instituição</span></td>
+                <td class="p-2 sm:p-3 font-medium text-zinc-900">Projeto pedagógico unificado e indissociável (Modelo dos IFs)</td>
+              </tr>
+              <tr class="hover:bg-zinc-50">
+                <td class="p-2 sm:p-3 font-bold text-zinc-950">Concomitante Mesma Escola</td>
+                <td class="p-2 sm:p-3">Cursando ou ingressando no Ensino Médio</td>
+                <td class="p-2 sm:p-3 text-red-950 bg-red-50/30">Matrículas distintas</td>
+                <td class="p-2 sm:p-3">Mesma instituição</td>
+                <td class="p-2 sm:p-3">Justaposição curricular com uso da infraestrutura</td>
+              </tr>
+              <tr class="hover:bg-zinc-50">
+                <td class="p-2 sm:p-3 font-bold text-zinc-950">Concomitante Escolas Distintas</td>
+                <td class="p-2 sm:p-3">Cursando ou ingressando no Ensino Médio</td>
+                <td class="p-2 sm:p-3 text-red-950 bg-red-50/30">Matrículas distintas</td>
+                <td class="p-2 sm:p-3">Instituições distintas e independentes</td>
+                <td class="p-2 sm:p-3">Currículos autônomos e percursos desarticulados</td>
+              </tr>
+              <tr class="hover:bg-zinc-50">
+                <td class="p-2 sm:p-3 font-bold text-zinc-950">Concomitante Intercomplementar</td>
+                <td class="p-2 sm:p-3">Cursando ou ingressando no Ensino Médio</td>
+                <td class="p-2 sm:p-3 text-red-950 bg-red-50/30">Matrículas distintas</td>
+                <td class="p-2 sm:p-3">Instituições distintas unidas por convênio</td>
+                <td class="p-2 sm:p-3 font-bold text-zinc-950"><span class="grifado">Projeto pedagógico unificado</span> por convênio formal</td>
+              </tr>
+              <tr class="hover:bg-zinc-50">
+                <td class="p-2 sm:p-3 font-bold text-zinc-950">Subsequente</td>
+                <td class="p-2 sm:p-3 font-bold text-zinc-950"><span class="grifado">Ensino Médio concluído</span></td>
+                <td class="p-2 sm:p-3">Matrícula técnica exclusiva</td>
+                <td class="p-2 sm:p-3">Instituição de educação profissional</td>
+                <td class="p-2 sm:p-3">Foco exclusivo na habilitação pós-básica</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Tópicos de Memorização Articulação -->
+      <div class="bg-zinc-50 border border-zinc-200 rounded-xl p-4 sm:p-5">
+        <h4 class="text-xs sm:text-sm font-bold uppercase tracking-wider text-zinc-900 mb-2 flex items-center gap-1.5">
+          <span>📌</span> Tópicos para Memorização Rápida (Regra de Ouro da Articulação)
+        </h4>
+        <ul class="space-y-1.5 text-xs sm:text-sm text-zinc-800 list-disc list-inside">
+          <li><strong>Integrada = Um para tudo:</strong> 1 aluno, 1 instituição, <span class="grifado">1 matrícula única</span> e 1 projeto pedagógico unificado indissociável.</li>
+          <li><strong>Concomitante = Duas matrículas:</strong> Cursado ao mesmo tempo que o Ensino Médio, mas <span class="grifado">obrigatoriamente com 2 matrículas separadas</span>.</li>
+          <li><strong>Pegadinha do convênio:</strong> A concomitante intercomplementar tem escolas diferentes e 2 matrículas, mas o <span class="grifado">projeto pedagógico é UNIFICADO</span>.</li>
+          <li><strong>Subsequente:</strong> Requer diploma do Ensino Médio já concluído antes de iniciar.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- SEÇÃO 4: ART. 36-D E ART. 41 -->
+    <section class="space-y-6 pt-4 border-t border-zinc-200">
+      <div class="flex items-center gap-2">
+        <span class="flex items-center justify-center w-7 h-7 rounded-md bg-zinc-900 text-white font-bold text-sm">4</span>
+        <h2 class="text-xl sm:text-2xl font-bold text-zinc-950">
+          Certificações Intermediárias, Diplomas e Validação de Saberes (Art. 36-D e Art. 41)
+        </h2>
+      </div>
+
+      <p class="text-base leading-relaxed text-zinc-800">
+        O art. 36-D trata da validação dos estudos profissionais técnicos de nível médio, assegurando sua legitimidade perante o sistema educacional e o mundo do trabalho.
+      </p>
+
+      <div class="space-y-4">
+        <!-- Diplomas e Ensino Superior -->
+        <div class="border border-zinc-200 rounded-xl p-4 bg-white">
+          <h4 class="font-bold text-zinc-950 text-sm sm:text-base">Validade Nacional e Acesso ao Ensino Superior (Art. 36-D, caput)</h4>
+          <p class="text-xs sm:text-sm text-zinc-700 leading-relaxed mt-1">
+            Os diplomas de cursos de EPTNM, desde que devidamente registrados pelo sistema competente, desfrutam de <span class="grifado">validade nacional</span> e conferem, sem restrições, o direito à habilitação para o <span class="grifado">prosseguimento de estudos na educação superior</span>. É expressamente vedada a criação de qualquer obstáculo regulatório ao prosseguimento de estudos do técnico diplomado.
+          </p>
+        </div>
+
+        <!-- Certificações Intermediárias -->
+        <div class="border-2 border-zinc-300 rounded-xl p-4 bg-white space-y-2">
+          <h4 class="font-bold text-zinc-950 text-sm sm:text-base">Regramento das Certificações Intermediárias (Art. 36-D, parágrafo único)</h4>
+          <p class="text-xs sm:text-sm text-zinc-700 leading-relaxed">
+            A lei autoriza a concessão de <span class="grifado">certificados de qualificação para o trabalho</span> desde que atendidos critérios normativos estritos:
+          </p>
+          <ul class="text-xs sm:text-sm text-zinc-800 space-y-1 list-disc list-inside">
+            <li>O curso deve ser formalmente estruturado em <span class="grifado">etapas com terminalidade</span> profissional comprovada.</li>
+            <li><strong>Restrição literal da LDB para provas:</strong> A lei prevê expressamente essa certificação intermediária nas formas <span class="grifado">articulada concomitante</span> e <span class="grifado">subsequente</span>.</li>
+            <li><em>Atenção crítica:</em> Na forma integrada da Rede Federal, a estrutura modular fragmentada com saídas parciais não é o padrão legal do dispositivo, resguardando a integralidade formativa omnilateral.</li>
+          </ul>
+        </div>
+
+        <!-- Art. 41: Reconhecimento de Saberes -->
+        <div class="border border-zinc-200 rounded-xl p-4 bg-white">
+          <h4 class="font-bold text-zinc-950 text-sm sm:text-base">Reconhecimento de Competências Profissionais (Art. 41)</h4>
+          <p class="text-xs sm:text-sm text-zinc-700 leading-relaxed mt-1">
+            Em convergência com o art. 36-D, o art. 41 estabelece que os conhecimentos e habilidades adquiridos na educação profissional e tecnológica, <span class="grifado">inclusive na experiência de trabalho</span>, poderão ser objeto de <span class="grifado">avaliação, reconhecimento e certificação institucional</span> para prosseguimento ou conclusão de estudos.
+          </p>
+        </div>
+      </div>
+
+      <!-- Tópicos de Memorização Art. 36-D -->
+      <div class="bg-zinc-50 border border-zinc-200 rounded-xl p-4 sm:p-5">
+        <h4 class="text-xs sm:text-sm font-bold uppercase tracking-wider text-zinc-900 mb-2 flex items-center gap-1.5">
+          <span>📌</span> Tópicos para Memorização do Art. 36-D
+        </h4>
+        <ul class="space-y-1.5 text-xs sm:text-sm text-zinc-800 list-disc list-inside">
+          <li><strong>Diplomas de técnico registrado:</strong> Têm plena <span class="grifado">validade nacional</span> e garantem acesso irrestrito ao <span class="grifado">Ensino Superior</span>.</li>
+          <li><strong>Certificações intermediárias:</strong> Exigem cursos com <span class="grifado">etapas com terminalidade</span>.</li>
+          <li><strong>Formas autorizadas na letra da lei:</strong> Previstas para a <span class="grifado">concomitante</span> e para a <span class="grifado">subsequente</span>.</li>
+          <li><strong>Certificação de saberes práticos (Art. 41):</strong> Experiências laborais podem ser formalmente aferidas e convalidadas curricularmente.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- SEÇÃO 5: MATRIZ TÁTICA IFMG (TABELA COMPLETA DE ARMADILHAS) -->
+    <section class="space-y-6 pt-4 border-t border-zinc-200">
+      <div class="flex items-center gap-2">
+        <span class="flex items-center justify-center w-7 h-7 rounded-md bg-zinc-900 text-white font-bold text-sm">5</span>
+        <h2 class="text-xl sm:text-2xl font-bold text-zinc-950">
+          Matriz Tática de Resolução de Questões para a Banca IFMG
+        </h2>
+      </div>
+
+      <p class="text-base leading-relaxed text-zinc-800">
+        A Comissão Central de Concurso Público do IFMG e as bancas da Rede Federal privilegiam com frequência a literalidade do texto legal, combinada com a inversão proposital de expressões-chave. Analise o quadro de blindagem para não cair em pegadinhas clássicas:
+      </p>
+
+      <!-- Tabela 4: Mapeamento de Armadilhas -->
+      <div class="border border-zinc-300 rounded-xl overflow-hidden bg-white">
+        <table class="text-xs sm:text-sm">
+          <thead>
+            <tr class="bg-zinc-100 border-b border-zinc-300 text-zinc-900 font-bold">
+              <th class="p-2.5 sm:p-3 text-left w-3/12">Tópico da Lei</th>
+              <th class="p-2.5 sm:p-3 text-left w-4/12">Armadilha Clássica da Banca (Item Falso)</th>
+              <th class="p-2.5 sm:p-3 text-left w-5/12">Realidade Legal / Ponto de Acerto</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-zinc-200 text-zinc-700">
+            <tr class="hover:bg-zinc-50">
+              <td class="p-2.5 sm:p-3 font-bold text-zinc-950">Carga Horária FGB Regular</td>
+              <td class="p-2.5 sm:p-3 text-red-950 bg-red-50/40">Afirmar que a FGB regular mantém o teto de 1.800 horas da reforma de 2017.</td>
+              <td class="p-2.5 sm:p-3 font-semibold text-zinc-900"><span class="grifado">Falso.</span> A Lei nº 14.945/2024 fixou o piso da FGB regular em <span class="grifado">2.400 horas</span>.</td>
+            </tr>
+            <tr class="hover:bg-zinc-50">
+              <td class="p-2.5 sm:p-3 font-bold text-zinc-950">Carga Horária FGB Técnica</td>
+              <td class="p-2.5 sm:p-3 text-red-950 bg-red-50/40">Afirmar que a FGB do itinerário técnico possui o mesmo piso de 2.400h do regular.</td>
+              <td class="p-2.5 sm:p-3 font-semibold text-zinc-900"><span class="grifado">Falso.</span> O piso da FGB no percurso técnico é de <span class="grifado">2.100 horas</span> (com até 300h integráveis).</td>
+            </tr>
+            <tr class="hover:bg-zinc-50">
+              <td class="p-2.5 sm:p-3 font-bold text-zinc-950">Conceito de Integrada</td>
+              <td class="p-2.5 sm:p-3 text-red-950 bg-red-50/40">Descrever a modalidade integrada alegando que o estudante realiza matrículas distintas.</td>
+              <td class="p-2.5 sm:p-3 font-semibold text-zinc-900"><span class="grifado">Falso.</span> A modalidade integrada exige impreterivelmente <span class="grifado">matrícula ÚNICA</span> na mesma instituição.</td>
+            </tr>
+            <tr class="hover:bg-zinc-50">
+              <td class="p-2.5 sm:p-3 font-bold text-zinc-950">Concomitante Intercomplementar</td>
+              <td class="p-2.5 sm:p-3 text-red-950 bg-red-50/40">Dizer que as escolas parceiras executam projetos pedagógicos completamente separados.</td>
+              <td class="p-2.5 sm:p-3 font-semibold text-zinc-900"><span class="grifado">Falso.</span> O convênio exige explicitamente um <span class="grifado">projeto pedagógico UNIFICADO</span>.</td>
+            </tr>
+            <tr class="hover:bg-zinc-50">
+              <td class="p-2.5 sm:p-3 font-bold text-zinc-950">Certificações Parciais</td>
+              <td class="p-2.5 sm:p-3 text-red-950 bg-red-50/40">Declarar que qualquer disciplina concluída confere certificado intermediário automático.</td>
+              <td class="p-2.5 sm:p-3 font-semibold text-zinc-900"><span class="grifado">Falso.</span> Exige organização curricular prévia em <span class="grifado">etapas com terminalidade</span>.</td>
+            </tr>
+            <tr class="hover:bg-zinc-50">
+              <td class="p-2.5 sm:p-3 font-bold text-zinc-950">Presença da Geografia</td>
+              <td class="p-2.5 sm:p-3 text-red-950 bg-red-50/40">Classificar a Geografia como estudo transdisciplinar diluído sem obrigatoriedade legal.</td>
+              <td class="p-2.5 sm:p-3 font-semibold text-zinc-900"><span class="grifado">Falso.</span> O art. 35-D <span class="grifado">inscreve expressamente a Geografia</span> em Ciências Humanas na BNCC.</td>
+            </tr>
+            <tr class="hover:bg-zinc-50">
+              <td class="p-2.5 sm:p-3 font-bold text-zinc-950">Exigência de Itinerários</td>
+              <td class="p-2.5 sm:p-3 text-red-950 bg-red-50/40">Impor que colégios e institutos técnicos devem ofertar no mínimo dois itinerários.</td>
+              <td class="p-2.5 sm:p-3 font-semibold text-zinc-900"><span class="grifado">Falso.</span> Escolas de formação técnica são <span class="grifado">isentas da obrigatoriedade de duplicidade</span>.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- SEÇÃO 6: SÍNTESE DE VÉSPERA -->
+    <section class="space-y-4 pt-4 border-t border-zinc-200">
+      <div class="flex items-center gap-2">
+        <span class="flex items-center justify-center w-7 h-7 rounded-md bg-zinc-900 text-white font-bold text-sm">6</span>
+        <h2 class="text-xl sm:text-2xl font-bold text-zinc-950">
+          Síntese de Véspera: Pontos Críticos para o Dia da Prova
+        </h2>
+      </div>
+
+      <div class="border-2 border-zinc-300 rounded-2xl p-5 sm:p-6 bg-white space-y-3">
+        <p class="text-xs uppercase font-bold tracking-wider text-zinc-500">Checklist Final de Alta Retenção</p>
+        <ul class="space-y-2 text-xs sm:text-sm text-zinc-800 list-disc list-inside">
+          <li><strong>Finalidades do Ensino Médio (Art. 35):</strong> Consolidação e aprofundamento do fundamental; preparação básica para cidadania e trabalho; aprimoramento ético e autonomia crítica; domínio dos fundamentos científico-tecnológicos ligando teoria e prática em cada matéria.</li>
+          <li><strong>Matemática da Carga Horária (Lei nº 14.945/2024):</strong>
+            <ul class="pl-6 list-circle space-y-1 mt-1 text-zinc-700">
+              <li>Carga Total: <span class="grifado">3.000 horas</span> mínimas na etapa;</li>
+              <li>FGB Regular: <span class="grifado">2.400 horas</span> mínimas;</li>
+              <li>FGB Técnica: <span class="grifado">2.100 horas</span> (com margem de até 300h integráveis à formação técnica);</li>
+              <li>Itinerários Regulares: piso legal de <span class="grifado">600 horas</span>.</li>
+            </ul>
+          </li>
+          <li><strong>Componentes Nominais em Ciências Humanas (Art. 35-D):</strong> <span class="grifado">Filosofia, Geografia, História e Sociologia</span> positivadas na lei.</li>
+          <li><strong>Regime das 3 Formas de EPTNM (Arts. 36-B e 36-C):</strong>
+            <ul class="pl-6 list-circle space-y-1 mt-1 text-zinc-700">
+              <li><strong>Integrada:</strong> Fundamental concluído + mesma instituição + <span class="grifado">matrícula única</span>;</li>
+              <li><strong>Concomitante:</strong> Cursando o Médio + <span class="grifado">matrículas distintas</span> (mesma escola, escolas distintas ou convênio com projeto unificado);</li>
+              <li><strong>Subsequente:</strong> Exclusivo para quem já concluiu integralmente o Médio.</li>
+            </ul>
+          </li>
+          <li><strong>Certificações e Diplomas (Art. 36-D):</strong> Diplomas registrados dão acesso livre ao Ensino Superior; certificações intermediárias exigem etapas com terminalidade (concomitante e subsequente).</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- SEÇÃO FINAL: BOTÃO PARA QUESTÕES -->
+    <section id="questoes-section" class="py-12 border-t border-zinc-200 text-center space-y-4">
+      <div class="max-w-xl mx-auto space-y-2">
+        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-zinc-100 text-zinc-700 border border-zinc-300">
+          Próxima Etapa do Treinamento
+        </span>
+        <h3 class="text-xl sm:text-2xl font-bold text-zinc-950">
+          Pronto para testar seus conhecimentos?
+        </h3>
+        <p class="text-xs sm:text-sm text-zinc-600">
+          Acesse o caderno de questões para fixar os tópicos e treinar os pontos de acerto da banca examinadora do IFMG.
+        </p>
+      </div>
+
+      <div class="pt-2">
+        <a 
+          href="questoes17legs.html" 
+          class="inline-flex items-center justify-center gap-2 px-8 py-4 bg-zinc-900 hover:bg-zinc-800 text-white font-bold text-base sm:text-lg rounded-xl shadow-md hover:shadow-lg transition transform active:scale-98"
+        >
+          <span>Ir para Questões</span>
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+          </svg>
+        </a>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Rodapé Simples -->
+  <footer class="border-t border-zinc-200 bg-white py-6 text-center text-xs text-zinc-500">
+    <p>Material de estudo e retenção legal • Concurso Público IFMG - Área: Geografia • LDB (Lei nº 9.394/1996 atualizada)</p>
+  </footer>
+
+  <!-- SCRIPT PARA CONTROLE DO ÁUDIO -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const audioPlayer = document.getElementById('meuAudioPlayer');
+      const audioSource = document.getElementById('meuAudioSource');
+      const audioInput = document.getElementById('audioFileName');
+      const btnCarregar = document.getElementById('btnCarregarAudio');
+      const audioStatus = document.getElementById('audioStatus');
+      const speedButtons = document.querySelectorAll('.btn-speed');
+      const btnRecuar10 = document.getElementById('btnRecuar10');
+      const btnAvancar10 = document.getElementById('btnAvancar10');
+
+      // Atualizar o arquivo de áudio dinamicamente
+      function carregarAudio() {
+        const fileName = audioInput.value.trim();
+        if (!fileName) {
+          audioStatus.textContent = "Digite um nome de arquivo válido.";
+          audioStatus.classList.add("text-red-600");
+          return;
+        }
+
+        audioSource.src = fileName;
+        audioPlayer.load();
+        audioStatus.textContent = "Arquivo carregado: " + fileName;
+        audioStatus.classList.remove("text-red-600");
+      }
+
+      btnCarregar.addEventListener('click', carregarAudio);
+
+      // Carregar ao pressionar Enter no campo de texto
+      audioInput.addEventListener('keypress', function (e) {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          carregarAudio();
+        }
+      });
+
+      // Controle de velocidade de reprodução
+      speedButtons.forEach(btn => {
+        btn.addEventListener('click', function () {
+          const speed = parseFloat(this.getAttribute('data-speed'));
+          audioPlayer.playbackRate = speed;
+
+          speedButtons.forEach(b => {
+            b.classList.remove('bg-zinc-900', 'text-white');
+            b.classList.add('border-zinc-300', 'text-zinc-800');
+          });
+
+          this.classList.add('bg-zinc-900', 'text-white');
+          this.classList.remove('text-zinc-800');
+        });
+      });
+
+      // Recuar 10 segundos
+      btnRecuar10.addEventListener('click', function () {
+        audioPlayer.currentTime = Math.max(0, audioPlayer.currentTime - 10);
+      });
+
+      // Avançar 10 segundos
+      btnAvancar10.addEventListener('click', function () {
+        audioPlayer.currentTime = Math.min(audioPlayer.duration || Infinity, audioPlayer.currentTime + 10);
+      });
+    });
+  </script>
+</body>
+</html>

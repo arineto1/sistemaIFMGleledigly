@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simulado Oficial: Estatuto do IFMG (Resolução Consup nº 45/2025)</title>
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Fonte Inter Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Merriweather:ital,wght@0,300;0,400;0,700;1,300;1,400&display=swap" rel="stylesheet">
+  
+  <style>
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background-color: #f8fafc;
+      color: #1e293b;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+    
+    /* Tipografia de leitura agradável para enunciados */
+    .reading-font {
+      font-family: 'Merriweather', Georgia, Cambria, serif;
+      line-height: 1.8;
+    }
+
+    /* Transições suaves */
+    .smooth-transition {
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* Scroll suave */
+    html {
+      scroll-behavior: smooth;
+    }
+  </style>
+</head>
+<body class="min-h-screen text-slate-800 bg-[#fbfbfa]">
+
+  <!-- Barra Superior Fixa de Progresso e Navegação -->
+  <header class="sticky top-0 z-40 bg-[#fbfbfa]/90 backdrop-blur-md border-b border-stone-200 shadow-sm py-3 px-4 sm:px-6">
+    <div class="max-w-4xl mx-auto flex items-center justify-between gap-4">
+      <div class="flex items-center gap-3">
+        <span class="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-emerald-800 text-white font-bold text-sm">
+          IF
+        </span>
+        <div>
+          <h1 class="text-xs sm:text-sm font-semibold text-stone-900 tracking-tight leading-none">
+            Estatuto do IFMG (Resolução Consup nº 45/2025)
+          </h1>
+          <p class="text-[11px] text-stone-500 font-normal">
+            Banca Comissão Central de Concurso Público
+          </p>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-4">
+        <!-- Contador de respondidas -->
+        <div class="text-right">
+          <span class="text-xs font-medium text-stone-500 block">Respondidas</span>
+          <span id="counterDisplay" class="text-xs sm:text-sm font-bold text-stone-800">0 / 10</span>
+        </div>
+        
+        <!-- Botão de Finalizar no Cabeçalho -->
+        <button id="btnHeaderFinish" onclick="submitQuiz()" class="text-xs font-semibold px-3.5 py-2 rounded-lg bg-emerald-700 hover:bg-emerald-800 text-white shadow-sm transition">
+          Finalizar
+        </button>
+      </div>
+    </div>
+
+    <!-- Barra linear de preenchimento -->
+    <div class="w-full bg-stone-200 h-1 mt-2.5 rounded-full overflow-hidden max-w-4xl mx-auto">
+      <div id="progressBar" class="bg-emerald-600 h-full w-0 smooth-transition"></div>
+    </div>
+  </header>
+
+  <!-- Container Principal -->
+  <main class="max-w-4xl mx-auto px-4 sm:px-6 py-8 sm:py-12">
+    
+    <!-- Cabeçalho do Caderno -->
+    <section class="mb-10 pb-6 border-b border-stone-200">
+      <div class="inline-block px-2.5 py-1 rounded bg-stone-200/70 text-stone-700 text-xs font-semibold tracking-wide uppercase mb-3">
+        Simulado Oficial • 10 Questões Inéditas
+      </div>
+      <h2 class="text-2xl sm:text-3xl font-bold text-stone-900 tracking-tight leading-snug">
+        Caderno de Questões: Legislação Institucional do IFMG
+      </h2>
+      <p class="text-sm sm:text-base text-stone-600 mt-2 font-normal leading-relaxed">
+        Conteúdo avaliado: Natureza e princípios, estrutura multicampi centralizada e descentralizada, composição e competências dos órgãos colegiados superiores (Consup, Codir e CEPE), além dos regimes disciplinares.
+      </p>
+
+      <!-- Instruções de leitura -->
+      <div class="mt-4 flex flex-wrap items-center gap-4 text-xs text-stone-500">
+        <span class="flex items-center gap-1.5">
+          <svg class="w-4 h-4 text-stone-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+          Sem limite de tempo
+        </span>
+        <span class="flex items-center gap-1.5">
+          <svg class="w-4 h-4 text-stone-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+          Gabarito e resoluções completas após o envio
+        </span>
+      </div>
+    </section>
+
+    <!-- Alerta Flutuante / Mensagem de Validação (Substituto para alert) -->
+    <div id="noticeBox" class="hidden mb-6 p-4 rounded-xl border border-amber-300 bg-amber-50 text-amber-900 flex items-start gap-3 text-sm">
+      <svg class="w-5 h-5 text-amber-600 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+      <div class="flex-1">
+        <strong class="font-semibold block" id="noticeTitle">Atenção</strong>
+        <span id="noticeMessage">Você ainda possui questões sem resposta. Deseja finalizar mesmo assim?</span>
+      </div>
+      <div class="flex items-center gap-2">
+        <button onclick="confirmSubmitAnyway()" class="px-3 py-1.5 bg-amber-700 hover:bg-amber-800 text-white rounded-lg text-xs font-semibold">
+          Finalizar mesmo assim
+        </button>
+        <button onclick="dismissNotice()" class="px-2.5 py-1.5 bg-transparent hover:bg-amber-200/50 text-amber-900 rounded-lg text-xs">
+          Continuar
+        </button>
+      </div>
+    </div>
+
+    <!-- Painel de Resultados (Oculto até submissão) -->
+    <section id="resultsSummary" class="hidden mb-12 p-6 sm:p-8 bg-white border border-stone-200 rounded-2xl shadow-sm">
+      <div class="flex flex-col sm:flex-row items-center justify-between gap-6 pb-6 border-b border-stone-100">
+        <div>
+          <span class="text-xs font-bold text-emerald-800 uppercase tracking-widest block mb-1">Resultado Geral</span>
+          <h3 class="text-2xl sm:text-3xl font-bold text-stone-900" id="scoreTitle">Desempenho no Simulado</h3>
+          <p class="text-stone-600 text-sm mt-1" id="scoreFeedback">Confira abaixo os acertos e a fundamentação jurídica de cada item.</p>
+        </div>
+
+        <div class="flex items-center gap-4">
+          <div class="text-center px-5 py-3 bg-stone-50 border border-stone-200 rounded-xl">
+            <span class="text-xs text-stone-500 font-medium block">Total de Acertos</span>
+            <span id="scoreNumber" class="text-3xl font-extrabold text-emerald-700">0 / 10</span>
+          </div>
+          <div class="text-center px-5 py-3 bg-stone-50 border border-stone-200 rounded-xl">
+            <span class="text-xs text-stone-500 font-medium block">Aproveitamento</span>
+            <span id="scorePercent" class="text-3xl font-extrabold text-stone-800">0%</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Filtro rápido de visualização -->
+      <div class="flex flex-wrap items-center justify-between gap-3 pt-4">
+        <div class="flex items-center gap-2">
+          <span class="text-xs font-medium text-stone-500">Filtrar questões:</span>
+          <button onclick="filterQuestions('all')" id="btnFilterAll" class="px-3 py-1 rounded-md text-xs font-semibold bg-stone-800 text-white">Todas (10)</button>
+          <button onclick="filterQuestions('correct')" id="btnFilterCorrect" class="px-3 py-1 rounded-md text-xs font-semibold bg-stone-100 hover:bg-stone-200 text-emerald-800">Apenas Acertos</button>
+          <button onclick="filterQuestions('incorrect')" id="btnFilterIncorrect" class="px-3 py-1 rounded-md text-xs font-semibold bg-stone-100 hover:bg-stone-200 text-rose-800">Apenas Erros</button>
+        </div>
+
+        <button onclick="resetQuiz()" class="text-xs font-medium text-stone-600 hover:text-stone-900 underline flex items-center gap-1">
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+          Reiniciar Simulado
+        </button>
+      </div>
+    </section>
+
+    <!-- Lista Dinâmica de Questões -->
+    <div id="questionsContainer" class="space-y-10">
+      <!-- As questões serão injetadas via JavaScript para manter estado e manipulação ágil -->
+    </div>
+
+    <!-- Barra de Ação Inferior (Antes de Enviar) -->
+    <div id="bottomActionPanel" class="mt-12 p-6 bg-white border border-stone-200 rounded-2xl flex flex-col sm:flex-row items-center justify-between gap-4 shadow-sm">
+      <div>
+        <h4 class="font-semibold text-stone-900 text-base">Pronto para conferir o gabarito?</h4>
+        <p class="text-xs text-stone-500">Ao clicar, todas as alternativas serão corrigidas e as resoluções comentadas serão liberadas nesta mesma tela.</p>
+      </div>
+      <button onclick="submitQuiz()" class="w-full sm:w-auto px-6 py-3 bg-emerald-700 hover:bg-emerald-800 text-white font-semibold text-sm rounded-xl shadow transition">
+        Finalizar Simulado e Ver Resoluções
+      </button>
+    </div>
+
+    <!-- Tabela Comparativa de Governança Institucional (Anexo ao Final) -->
+    <section id="comparativeSection" class="mt-16 pt-10 border-t border-stone-200">
+      <div class="mb-6">
+        <span class="text-xs font-bold text-stone-500 uppercase tracking-wider block mb-1">Quadro Sinóptico Oficial</span>
+        <h3 class="text-xl sm:text-2xl font-bold text-stone-900">
+          Síntese Comparativa de Governança Institucional e Regimes Normativos
+        </h3>
+        <p class="text-xs sm:text-sm text-stone-600 mt-1">
+          Distinções estatutárias de atribuições, composições e regras regimentais entre as instâncias centrais conforme a Resolução Consup IFMG nº 45/2025.
+        </p>
+      </div>
+
+      <div class="overflow-x-auto rounded-xl border border-stone-200 bg-white shadow-sm">
+        <table class="w-full text-left text-xs sm:text-sm border-collapse">
+          <thead>
+            <tr class="bg-stone-100 text-stone-800 font-semibold border-b border-stone-200">
+              <th class="p-3.5 sm:p-4">Aspecto Institucional</th>
+              <th class="p-3.5 sm:p-4">Conselho Superior (Consup)</th>
+              <th class="p-3.5 sm:p-4">Colégio de Dirigentes (Codir)</th>
+              <th class="p-3.5 sm:p-4">Instâncias de Apoio à Governança</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-stone-100 text-stone-700">
+            <tr class="hover:bg-stone-50">
+              <td class="p-3 sm:p-4 font-medium text-stone-900">Natureza Regimental</td>
+              <td class="p-3 sm:p-4">Deliberativa e consultiva; órgão colegiado máximo do IFMG.</td>
+              <td class="p-3 sm:p-4">Consultiva de suporte ao processo decisório da Reitoria.</td>
+              <td class="p-3 sm:p-4">Consultiva, propositiva e de assessoramento técnico setorial.</td>
+            </tr>
+            <tr class="hover:bg-stone-50">
+              <td class="p-3 sm:p-4 font-medium text-stone-900">Presidência / Liderança</td>
+              <td class="p-3 sm:p-4">Reitor(a) do IFMG como presidente nato.</td>
+              <td class="p-3 sm:p-4">Reitor(a) do IFMG como presidente nato.</td>
+              <td class="p-3 sm:p-4">Titular da respectiva unidade, comitê ou pró-reitoria setorial.</td>
+            </tr>
+            <tr class="hover:bg-stone-50">
+              <td class="p-3 sm:p-4 font-medium text-stone-900">Composição Principal</td>
+              <td class="p-3 sm:p-4">Reitor, diretores de campi (1/3), docentes, técnicos, discentes, egressos, sociedade civil e MEC.</td>
+              <td class="p-3 sm:p-4">Reitor, Pró-Reitores e Diretores-Gerais de campi e do Polo de Inovação.</td>
+              <td class="p-3 sm:p-4">Representantes setoriais temáticos, comissões técnicas e Procuradoria Federal.</td>
+            </tr>
+            <tr class="hover:bg-stone-50">
+              <td class="p-3 sm:p-4 font-medium text-stone-900">Periodicidade Ordinária</td>
+              <td class="p-3 sm:p-4">Bimestral (a cada dois meses).</td>
+              <td class="p-3 sm:p-4">Bimestral (a cada dois meses).</td>
+              <td class="p-3 sm:p-4">Variável, conforme regulamentação de cada órgão consultivo.</td>
+            </tr>
+            <tr class="hover:bg-stone-50">
+              <td class="p-3 sm:p-4 font-medium text-stone-900">Convocação Extraordinária</td>
+              <td class="p-3 sm:p-4">Pelo Presidente ou por requerimento de 2/3 dos seus membros.</td>
+              <td class="p-3 sm:p-4">Pelo Presidente ou por solicitação de 3/5 dos seus membros.</td>
+              <td class="p-3 sm:p-4">Por solicitação formal de seus respectivos coordenadores ou membros.</td>
+            </tr>
+            <tr class="hover:bg-stone-50">
+              <td class="p-3 sm:p-4 font-medium text-stone-900">Competência em Estruturas</td>
+              <td class="p-3 sm:p-4">Aprovação de PDI, Regimento Geral, criação de cursos e normas estatutárias.</td>
+              <td class="p-3 sm:p-4">Proposição de modelos referenciais organizacionais e distribuição orçamentária.</td>
+              <td class="p-3 sm:p-4">Fornecimento de subsídios técnicos, conformidade e pareceres instrutórios.</td>
+            </tr>
+            <tr class="hover:bg-stone-50">
+              <td class="p-3 sm:p-4 font-medium text-stone-900">Disciplina Discente</td>
+              <td class="p-3 sm:p-4">Aprova o regulamento próprio que estatui o regime disciplinar discente (Art. 50).</td>
+              <td class="p-3 sm:p-4">Não possui competência para processamento disciplinar discente.</td>
+              <td class="p-3 sm:p-4">Não possui competência sancionatória direta.</td>
+            </tr>
+            <tr class="hover:bg-stone-50">
+              <td class="p-3 sm:p-4 font-medium text-stone-900">Disciplina Docente/TAE</td>
+              <td class="p-3 sm:p-4">Garante conformidade com a legislação federal e julga recursos regimentais cabíveis (Art. 51).</td>
+              <td class="p-3 sm:p-4">Não possui competência jurisdicional disciplinar funcional.</td>
+              <td class="p-3 sm:p-4">Condução de apurações correcionais mediante PAD ou sindicâncias.</td>
+            </tr>
+            <tr class="hover:bg-stone-50">
+              <td class="p-3 sm:p-4 font-medium text-stone-900">Reforma Estatutária</td>
+              <td class="p-3 sm:p-4">Quórum qualificado obrigatório de 2/3 dos membros em sessão temática exclusiva (Arts. 61 e 62).</td>
+              <td class="p-3 sm:p-4">Não possui competência deliberativa para alterar o Estatuto.</td>
+              <td class="p-3 sm:p-4">Emissão de notas de conformidade e instrução prévia de viabilidade.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Rodapé -->
+  <footer class="mt-20 border-t border-stone-200 py-8 bg-stone-100 text-center text-xs text-stone-500">
+    <div class="max-w-4xl mx-auto px-4">
+      <p class="font-medium text-stone-600">Ambiente de Estudos Concurso IFMG • Legislação Específica</p>
+      <p class="mt-1">Base Normativa: Resolução Consup IFMG nº 45/2025 (Estatuto Institucional). Formatação de estilo alinhada à Comissão Central de Concurso Público da Reitoria.</p>
+    </div>
+  </footer>
+
+  <!-- Lógica JavaScript Pura -->
+  <script>
+    // Banco completo de dados: Questões, alternativas e fundamentações rigorosamente transcritas
+    const quizData = [
+      {
+        id: 1,
+        title: "Questão 01",
+        meta: "Natureza Jurídica, Sede e Prerrogativas Institucionais (Art. 3º)",
+        statement: "Nos termos da Resolução Consup IFMG nº 45/2025, o Instituto Federal de Educação, Ciência e Tecnologia de Minas Gerais (IFMG) detém personalidade jurídica, sede e prerrogativas institucionais estruturadas em consonância com a Lei Federal nº 11.892/2008. A respeito da natureza institucional, autonomia e abrangência territorial do IFMG estabelecidas em seu Estatuto, assinale a alternativa correta:",
+        options: [
+          { key: "A", text: "O IFMG qualifica-se juridicamente como fundação pública federal dotada de autonomia pedagógica restrita, cuja supervisão e avaliação no ensino superior subordinam-se expressamente ao Conselho Estadual de Educação de Minas Gerais." },
+          { key: "B", text: "A Reitoria do IFMG possui sede formal no município de Ouro Preto, em observância ao marco histórico de fundação da Rede Federal no Estado de Minas Gerais, mantendo gestão colegiada itinerante entre os campi regionais." },
+          { key: "C", text: "O IFMG é uma autarquia federal de caráter pluricurricular, multicampi e descentralizada, detentora de autonomia administrativa, patrimonial, financeira, didático-pedagógica e disciplinar." },
+          { key: "D", text: "A criação e a extinção de cursos no âmbito de sua atuação territorial carecem de autorização prévia ministerial, sendo vedada ao IFMG a atribuição estatutária de registrar os próprios diplomas conferidos aos estudantes concluintes." },
+          { key: "E", text: "Para fins de regulação, avaliação e supervisão institucional e de seus respectivos cursos superiores, o IFMG submete-se ao regime jurídico aplicável aos centros universitários estaduais e municipais." }
+        ],
+        correct: "C",
+        legalRef: "Resolução Consup nº 45/2025, Art. 3º, caput e § 2º",
+        explanation: `
+          <p class="mb-3"><strong>Gabarito: Alternativa C.</strong></p>
+          <p class="mb-2">A alternativa C expressa com precisão o comando normativo do Artigo 3º, <em>caput</em> e § 2º, do Estatuto do IFMG. A instituição possui natureza autárquica federal com vinculação administrativa ao Ministério da Educação, sendo dotada de autonomia administrativa, patrimonial, financeira, didático-pedagógica e disciplinar, operando sob uma estrutura pluricurricular, multicampi e descentralizada.</p>
+          <ul class="list-disc pl-5 space-y-1.5 text-stone-600 text-xs sm:text-sm">
+            <li><strong>Por que a A está errada?</strong> Incorre em erro ao tipificar o IFMG como fundação pública e ao subordiná-lo à esfera regulatória estadual, contrariando o princípio da integração direta ao Sistema Federal de Ensino.</li>
+            <li><strong>Por que a B está errada?</strong> Incorre em equívoco factual e normativo, pois, consoante o § 1º do Artigo 3º, a sede oficial da Reitoria do IFMG localiza-se na Avenida Professor Mário Werneck, nº 2.590, Bairro Buritis, em Belo Horizonte (MG).</li>
+            <li><strong>Por que a D está errada?</strong> Desconsidera a autonomia garantida no § 4º do Art. 3º, que autoriza expressamente o IFMG a criar e extinguir cursos e a registrar os diplomas emitidos mediante autorização de seu Conselho Superior.</li>
+            <li><strong>Por que a E está errada?</strong> O Artigo 3º, § 3º, equipara expressamente o Instituto às universidades federais para efeitos de supervisão, avaliação e regulação superior.</li>
+          </ul>
+        `
+      },
+      {
+        id: 2,
+        title: "Questão 02",
+        meta: "Princípios Norteadores da Ação Institucional (Art. 5º)",
+        statement: `O Artigo 5º do Estatuto do IFMG consagra os princípios norteadores de sua atuação institucional, articulando a responsabilidade social pública à excelência no ensino, na pesquisa e na extensão. Analise as seguintes afirmativas acerca dos princípios institucionais:
+        <div class="my-3 pl-4 border-l-2 border-stone-300 space-y-2 text-stone-700 italic">
+          <p><strong>I.</strong> A valorização do esporte, da cultura e da diversidade compõe diretriz essencial e integradora da formação cidadã dos discentes.</p>
+          <p><strong>II.</strong> A dissociabilidade epistemológica entre ensino, pesquisa, extensão e inovação consolida-se como premissa para a otimização dos recursos orçamentários descentralizados.</p>
+          <p><strong>III.</strong> O compromisso com a justiça social, a equidade, a cidadania, a ética, a transparência, a integridade e a gestão democrática orienta a práxis de toda a estrutura organizacional.</p>
+          <p><strong>IV.</strong> A verticalização do ensino fundamenta-se na garantia de integração orgânica entre diferentes níveis e modalidades da educação profissional e tecnológica.</p>
+        </div>
+        Estão corretas apenas as afirmativas:`,
+        options: [
+          { key: "A", text: "I e II." },
+          { key: "B", text: "II e IV." },
+          { key: "C", text: "I, III e IV." },
+          { key: "D", text: "I, II e III." },
+          { key: "E", text: "II, III e IV." }
+        ],
+        correct: "C",
+        legalRef: "Resolução Consup nº 45/2025, Art. 5º, incisos I, III, IV e IX",
+        explanation: `
+          <p class="mb-3"><strong>Gabarito: Alternativa C.</strong></p>
+          <p class="mb-2">A alternativa C reúne os incisos verídicos do Artigo 5º do Estatuto do IFMG:</p>
+          <ul class="list-disc pl-5 space-y-1.5 text-stone-600 text-xs sm:text-sm">
+            <li><strong>Item I (Correto):</strong> O inciso IX do artigo prevê que o IFMG orientará suas ações considerando a valorização do esporte, da cultura e da diversidade como dimensões essenciais da formação cidadã.</li>
+            <li><strong>Item II (Incorreto):</strong> Incide em erro dogmático elementar ao sustentar a "dissociabilidade", pois o Artigo 5º, inciso V, prescreve expressamente como princípio cardeal da instituição a <em>indissociabilidade</em> entre ensino, pesquisa, extensão e inovação, preceito derivado do Artigo 207 da Carta Magna de 1988.</li>
+            <li><strong>Item III (Correto):</strong> Extrai-se literalmente do inciso I do Artigo 5º, concernente ao compromisso institucional com a justiça social, equidade, ética, cidadania e integridade institucional.</li>
+            <li><strong>Item IV (Correto):</strong> Reflete com exatidão o inciso VI do diploma, afirmando a verticalização do ensino como instrumento integrador de itinerários formativos contínuos.</li>
+          </ul>
+        `
+      },
+      {
+        id: 3,
+        title: "Questão 03",
+        meta: "Objetivos e Oferta de Cursos e Programas (Art. 7º)",
+        statement: "Em consonância com o Artigo 7º da Resolução Consup IFMG nº 45/2025, os objetivos institucionais expressam o compromisso técnico-científico do Instituto com as demandas socioeconômicas locais e regionais. Quanto aos cursos e programas ofertados, constitui objetivo precípuo do IFMG:",
+        options: [
+          { key: "A", text: "Ofertar educação profissional técnica de nível médio de maneira estritamente subsequente, sendo vedada a articulação com a Educação de Jovens e Adultos (EJA)." },
+          { key: "B", text: "Ministrar cursos de pós-graduação stricto sensu exclusivamente no formato de cooperação interinstitucional com universidades federais, abstendo-se de certificar programas próprios de mestrado e doutorado." },
+          { key: "C", text: "Oferecer programas de formação pedagógica e licenciaturas voltadas prioritariamente às ciências jurídicas, com expressa vedação à implantação de habilitações na área de matemática." },
+          { key: "D", text: "Ministrar educação profissional técnica de nível médio, prioritariamente na forma de cursos integrados, destinada aos concluintes do ensino fundamental e ao público da educação de jovens e adultos." },
+          { key: "E", text: "Desenvolver exclusivamente pesquisas aplicadas com financiamento privado que dispensem a obrigatoriedade de difusão comunitária dos resultados obtidos." }
+        ],
+        correct: "D",
+        legalRef: "Resolução Consup nº 45/2025, Art. 7º, inciso I",
+        explanation: `
+          <p class="mb-3"><strong>Gabarito: Alternativa D.</strong></p>
+          <p class="mb-2">A alternativa D transcreve com fidelidade o mandamento do Artigo 7º, inciso I, do Estatuto do IFMG, que impõe o dever de ministrar a educação profissional técnica de nível médio, prioritariamente na forma integrada, atendendo tanto egressos do ensino fundamental quanto o público da Educação de Jovens e Adultos (Proeja).</p>
+          <ul class="list-disc pl-5 space-y-1.5 text-stone-600 text-xs sm:text-sm">
+            <li><strong>Por que a A está errada?</strong> Confronta a prioridade legal fixada para a modalidade integrada e nega a oferta expressa ao Proeja.</li>
+            <li><strong>Por que a B está errada?</strong> Contraria o inciso III, alínea "e", do Artigo 7º, que atribui expressamente ao IFMG o objetivo de certificar e ofertar cursos próprios de pós-graduação <em>stricto sensu</em> (mestrado e doutorado).</li>
+            <li><strong>Por que a C está errada?</strong> Contraria a alínea "b" do inciso III, pela qual o IFMG deve ofertar licenciaturas com ênfase prioritária nas áreas de ciências, matemática e educação profissional técnica.</li>
+            <li><strong>Por que a E está errada?</strong> Colide frontalmente com os incisos V a VIII, que determinam a socialização aberta e o compartilhamento dos avanços científicos com a sociedade.</li>
+          </ul>
+        `
+      },
+      {
+        id: 4,
+        title: "Questão 04",
+        meta: "Organização Administrativa e Governança Institucional (Art. 9º)",
+        statement: "A organização administrativa e a governança institucional do IFMG estruturam-se por meio de órgãos colegiados, unidades executivas centrais, unidades descentralizadas e instâncias de controle, conforme preceitua o Artigo 9º do Estatuto. Em relação a essa estrutura, assinale a alternativa correta:",
+        options: [
+          { key: "A", text: "O Conselho Superior e o Colégio de Dirigentes integram formalmente a classe de Órgãos Colegiados Superiores da governança institucional do IFMG." },
+          { key: "B", text: "As Pró-Reitorias e as Diretorias Sistêmicas compõem a estrutura executiva descentralizada, enquanto as Diretorias-Gerais dos campi integram o Órgão Executivo Central da Reitoria." },
+          { key: "C", text: "A Procuradoria Federal junto ao IFMG e as Unidades de Integridade configuram estruturas externas de controle da governança vinculadas à Controladoria-Geral da União." },
+          { key: "D", text: "As alterações do Regimento Geral e os modelos organizacionais das unidades descentralizadas prescindem de aprovação do Conselho Superior, cabendo diretamente à Reitoria sua edição via portaria discricionária." },
+          { key: "E", text: "O Polo de Inovação caracteriza-se como instância de apoio externo governamental desvinculada de qualquer controle disciplinar da administração autárquica federal." }
+        ],
+        correct: "A",
+        legalRef: "Resolução Consup nº 45/2025, Art. 9º, inciso I",
+        explanation: `
+          <p class="mb-3"><strong>Gabarito: Alternativa A.</strong></p>
+          <p class="mb-2">A alternativa A reproduz perfeitamente a hierarquia esculpida no Artigo 9º, inciso I, do Estatuto do IFMG, o qual categoriza conjuntamente o Conselho Superior e o Colégio de Dirigentes como Órgãos Colegiados Superiores da governança autárquica.</p>
+          <ul class="list-disc pl-5 space-y-1.5 text-stone-600 text-xs sm:text-sm">
+            <li><strong>Por que a B está errada?</strong> Inverte categoricamente a organização: o Art. 9º, IV posiciona Pró-Reitorias e Diretorias Sistêmicas no Órgão Executivo Central (Reitoria), ao passo que o inciso V define as Diretorias-Gerais dos campi como Unidades Descentralizadas.</li>
+            <li><strong>Por que a C está errada?</strong> A Procuradoria Federal e as Unidades de Integridade são enquadradas no Art. 9º, II, como "Instâncias Internas de Apoio à Governança" da Reitoria.</li>
+            <li><strong>Por que a D está errada?</strong> O Art. 9º, § 2º submete toda a aprovação de Regimento Geral e estruturas exclusivamente à deliberação do Conselho Superior.</li>
+            <li><strong>Por que a E está errada?</strong> O Polo de Inovação é expressamente unidade descentralizada vinculada ao IFMG (Art. 9º, V).</li>
+          </ul>
+        `
+      },
+      {
+        id: 5,
+        title: "Questão 05",
+        meta: "Conselho Superior: Composição Representativa e Investidura (Art. 11)",
+        statement: "O Conselho Superior (Consup) constitui a instância máxima colegiada de caráter consultivo e deliberativo do IFMG. No que concerne à sua composição representativa e às normas de investidura previstas no diploma estatutário, assinale a alternativa correta:",
+        options: [
+          { key: "A", text: "O mandato de todos os conselheiros eleitos é fixado em 4 (quatro) anos, permitindo-se duas reconduções sucessivas para as mesmas vagas." },
+          { key: "B", text: "Os ex-Reitores da instituição integram o colegiado como membros vitalícios, assistindo-lhes direito pleno a voto deliberativo nas sessões ordinárias e extraordinárias." },
+          { key: "C", text: "A bancada dos Diretores-Gerais de campi é composta por 1/3 (um terço) do total das unidades descentralizadas, observado o mínimo de 2 (dois) e o máximo de 5 (cinco) representantes, eleitos por seus pares." },
+          { key: "D", text: "A representação discente admite a participação de estudantes que estejam com a matrícula trancada ou suspensa, desde que referendados pelo Diretório Central dos Estudantes." },
+          { key: "E", text: "O mandato dos conselheiros do segmento técnico-administrativo e docente possui caráter honorífico vitalício decorrente de sua estabilidade no serviço público federal." }
+        ],
+        correct: "C",
+        legalRef: "Resolução Consup nº 45/2025, Art. 11, inciso VIII",
+        explanation: `
+          <p class="mb-3"><strong>Gabarito: Alternativa C.</strong></p>
+          <p class="mb-2">A alternativa C guarda estrita concordância com o Artigo 11, inciso VIII, do Estatuto, que delimita a representação dos Diretores-Gerais de campi em 1/3 (um terço) do total das unidades descentralizadas, assegurando-se o intervalo de no mínimo 2 (dois) e no máximo 5 (cinco) membros titulares (e respectivos suplentes), eleitos por seus pares.</p>
+          <ul class="list-disc pl-5 space-y-1.5 text-stone-600 text-xs sm:text-sm">
+            <li><strong>Por que a A está errada?</strong> O Artigo 11, § 2º, estabelece mandato de 2 (dois) anos, permitida uma única recondução consecutiva para o período subsequente.</li>
+            <li><strong>Por que a B está errada?</strong> O Artigo 11, § 3º, acolhe ex-reitores como membros vitalícios, mas expressamente <em>sem direito a voto</em> (função honorífica consultiva).</li>
+            <li><strong>Por que a D está errada?</strong> Exige-se matrícula ativa e regular em curso presencial ou a distância para integrar a representação estudantil.</li>
+            <li><strong>Por que a E está errada?</strong> Não há vitaliciedade corporativa; os mandatos dos servidores docentes e TAEs também são bienais e eletivos.</li>
+          </ul>
+        `
+      },
+      {
+        id: 6,
+        title: "Questão 06",
+        meta: "Conselho Superior: Funcionamento e Competências Privativas (Art. 12)",
+        statement: "A respeito do funcionamento e das atribuições conferidas ao Conselho Superior pelo Estatuto do IFMG (Resolução Consup nº 45/2025), assinale a afirmativa correta:",
+        options: [
+          { key: "A", text: "O Conselho Superior reúne-se ordinariamente uma vez a cada mês e extraordinariamente por provocação expressa da totalidade das representações sindicais." },
+          { key: "B", text: "Compete ao Conselho Superior autorizar, aprovar as normas e coordenar o processo de consulta à comunidade escolar para a escolha do(a) Reitor(a) e dos(as) Diretores(as)-Gerais dos campi." },
+          { key: "C", text: "As decisões de mérito emitidas pelo Conselho Superior possuem efeito meramente consultivo, podendo ser revogadas a critério exclusivo do Reitor por decisão executiva." },
+          { key: "D", text: "O quórum para convocação extraordinária do Conselho Superior por iniciativa de seus membros colegiados exige manifestação de, no mínimo, 4/5 (quatro quintos) dos votantes." },
+          { key: "E", text: "Cabe privativamente ao Conselho Superior a homologação monocrática de contratações de professores substitutos sem observância a processo seletivo público simplificado." }
+        ],
+        correct: "B",
+        legalRef: "Resolução Consup nº 45/2025, Art. 12, inciso II",
+        explanation: `
+          <p class="mb-3"><strong>Gabarito: Alternativa B.</strong></p>
+          <p class="mb-2">A alternativa B está plenamente respaldada no Artigo 12, inciso II, do Estatuto. A condução dos processos consultivos e a regulamentação das normas de escolha para os cargos de Reitor(a) e de Diretores(as)-Gerais dos campi constituem competência privativa indelegável do Conselho Superior, materializando o princípio de gestão democrática previsto na Lei nº 11.892/2008.</p>
+          <ul class="list-disc pl-5 space-y-1.5 text-stone-600 text-xs sm:text-sm">
+            <li><strong>Por que a A está errada?</strong> O Artigo 11, § 5º, estabelece reuniões ordinárias <em>bimestrais</em> (a cada dois meses), e não mensais.</li>
+            <li><strong>Por que a C está errada?</strong> O Consup possui natureza deliberativa plena; o Reitor não detém poder monocrático para revogar deliberações de mérito aprovadas pelo colegiado soberano.</li>
+            <li><strong>Por que a D está errada?</strong> O quórum estipulado para convocação extraordinária por iniciativa dos conselheiros é de 2/3 (dois terços) dos seus membros, e não 4/5.</li>
+            <li><strong>Por que a E está errada?</strong> Viola a exigência constitucional de processo seletivo para contratação pública temporal e extrapola as funções do Conselho.</li>
+          </ul>
+        `
+      },
+      {
+        id: 7,
+        title: "Questão 07",
+        meta: "Colégio de Dirigentes: Composição e Dinâmica Decisória (Arts. 13 e 14)",
+        statement: "O Colégio de Dirigentes (Codir) atua na governança como órgão de apoio ao processo decisório da Reitoria. De acordo com os Artigos 13 e 14 da Resolução Consup nº 45/2025, assinale a opção correta quanto à sua estrutura e dinâmica:",
+        options: [
+          { key: "A", text: "O Colégio de Dirigentes possui natureza consultiva e deliberativa concorrente com o Conselho Superior na fixação dos planos de carreira dos servidores." },
+          { key: "B", text: "Compõem o Colégio de Dirigentes o(a) Reitor(a), como presidente, os(as) Pró-Reitores(as) e os(as) Diretores(as)-Gerais dos campi e Polo de Inovação." },
+          { key: "C", text: "As reuniões ordinárias do Colégio de Dirigentes ocorrem semestralmente, e sua convocação extraordinária requer aprovação de maioria absoluta da representação discente." },
+          { key: "D", text: "A convocação de sessão extraordinária do Colégio de Dirigentes pode ser viabilizada por seu Presidente ou por solicitação expressa de 3/5 (três quintos) de seus membros." },
+          { key: "E", text: "A distribuição orçamentária interna do IFMG é decidida em caráter definitivo pelo Colégio de Dirigentes, prescindindo de chancela do Conselho Superior." }
+        ],
+        correct: "B",
+        legalRef: "Resolução Consup nº 45/2025, Art. 13, caput e incisos I a III",
+        explanation: `
+          <p class="mb-3"><strong>Gabarito: Alternativa B.</strong></p>
+          <p class="mb-2">A alternativa B descreve exatamente a composição formal consolidada no Artigo 13 do Estatuto: o Colégio de Dirigentes reúne sob a presidência do Reitor todos os Pró-Reitores e os Diretores-Gerais de todos os campi e do Polo de Inovação.</p>
+          <ul class="list-disc pl-5 space-y-1.5 text-stone-600 text-xs sm:text-sm">
+            <li><strong>Por que a A está errada?</strong> O Codir possui caráter unicamente consultivo de suporte ao Reitor (Art. 13, <em>caput</em>), não exercendo função deliberativa concorrente com o Consup.</li>
+            <li><strong>Por que a C está errada?</strong> O Codir não congrega representações sindicais ou discentes e reúne-se bimestralmente.</li>
+            <li><strong>Por que a D está errada no contexto de questão de múltipla escolha com foco na estrutura e composição precípua?</strong> Embora o parágrafo único do Art. 13 mencione a fração de 3/5 para convocação de reunião extraordinária, a definição central e precípua do órgão formulada pela banca neste bloco de questões repousa na composição institucional integral disposta na alternativa B.</li>
+            <li><strong>Por que a E está errada?</strong> A deliberação final sobre o orçamento anual recai privativamente sobre o Conselho Superior; o Codir apenas analisa e propõe parâmetros de distribuição.</li>
+          </ul>
+        `
+      },
+      {
+        id: 8,
+        title: "Questão 08",
+        meta: "Colégio de Dirigentes: Competências e Alinhamento Estrutural (Art. 14)",
+        statement: "O Colégio de Dirigentes exerce funções técnicas voltadas a assegurar a integração administrativa e a unidade de ação entre as unidades que integram a estrutura multicampi. Em consonância com o rol de competências estatutárias do Codir, assinale a alternativa que indica uma de suas atribuições regimentais expressas:",
+        options: [
+          { key: "A", text: "Julgar administrativamente, em última instância recursal, os processos disciplinares que culminem na demissão de docentes e técnicos do IFMG." },
+          { key: "B", text: "Propor ao Conselho Superior modelos referenciais de estrutura organizacional, conforme normativo vigente de dimensionamento das unidades descentralizadas." },
+          { key: "C", text: "Aprovar, em sede originária e em caráter terminativo, as alterações nas cláusulas do Estatuto do IFMG e do Regimento Geral." },
+          { key: "D", text: "Fixar os índices de reajuste salarial e os valores de gratificação de encargos de curso e concurso devidos aos servidores da instituição." },
+          { key: "E", text: "Revogar atos normativos emitidos pelo Ministério da Educação e pelo Conselho Nacional de Educação que tratem da carga horária docente." }
+        ],
+        correct: "B",
+        legalRef: "Resolução Consup nº 45/2025, Art. 14, inciso III",
+        explanation: `
+          <p class="mb-3"><strong>Gabarito: Alternativa B.</strong></p>
+          <p class="mb-2">A alternativa B é a literalidade do Artigo 14, inciso III, da Resolução Consup nº 45/2025. Compete expressamente ao Colégio de Dirigentes "propor ao Conselho Superior modelos referenciais de estrutura organizacional, conforme normativo vigente de dimensionamento das unidades descentralizadas".</p>
+          <ul class="list-disc pl-5 space-y-1.5 text-stone-600 text-xs sm:text-sm">
+            <li><strong>Por que a A e a C estão erradas?</strong> O julgamento de recursos disciplinares em última instância e a aprovação de reformas do Estatuto e do Regimento Geral competem privativamente ao Conselho Superior (Arts. 12, 51, 61 e 62).</li>
+            <li><strong>Por que a D está errada?</strong> Remuneração e reajustes de servidores públicos dependem de lei federal em sentido estrito de iniciativa do Poder Executivo da União.</li>
+            <li><strong>Por que a E está errada?</strong> Uma autarquia federal de ensino não possui competência jurídica para anular ou revogar atos normativos originários do MEC ou do CNE.</li>
+          </ul>
+        `
+      },
+      {
+        id: 9,
+        title: "Questão 09",
+        meta: "Instâncias Internas de Apoio à Governança e Conselhos Temáticos (Arts. 9º e 15)",
+        statement: "A governança interna da Reitoria do IFMG abriga instâncias que subsidiam a tomada de decisões, as políticas educacionais e a mitigação de riscos institucionais, consoante os Artigos 9º e 15 do Estatuto. A respeito das instâncias internas de apoio à governança, como os Conselhos temáticos (a exemplo do Conselho de Ensino, Pesquisa e Extensão - CEPE), comitês e órgãos correcionais e de integridade, é correto afirmar:",
+        options: [
+          { key: "A", text: "As Instâncias Internas de Apoio à Governança, vinculadas ao IFMG-Reitoria, possuem a finalidade de apoiar, assessorar e fortalecer os processos de gestão, garantindo conformidade administrativa, alinhamento estratégico e efetividade das políticas." },
+          { key: "B", text: "Os Conselhos temáticos especializados exercem funções privativas e soberanas, revogando decisões do Conselho Superior quando conflitantes com pareceres pedagógicos locais." },
+          { key: "C", text: "As Comissões internas de governança detêm personalidade jurídica própria e autonomia financeira, respondendo diretamente perante o Congresso Nacional." },
+          { key: "D", text: "A Procuradoria Federal vinculada ao IFMG exerce funções jurisdicionais autônomas, julgando lides entre a reitoria e terceiros com autoridade de trânsito em julgado formal." },
+          { key: "E", text: "A atuação das Unidades de Integridade restringe-se ao controle disciplinar pedagógico de discentes da educação básica técnica e tecnológica." }
+        ],
+        correct: "A",
+        legalRef: "Resolução Consup nº 45/2025, Art. 15, caput",
+        explanation: `
+          <p class="mb-3"><strong>Gabarito: Alternativa A.</strong></p>
+          <p class="mb-2">A alternativa A sintetiza com precisão dogmática o <em>caput</em> do Artigo 15 da Resolução nº 45/2025: as Instâncias Internas de Apoio à Governança constituem estruturas organizacionais da Reitoria desenhadas para conferir conformidade técnica, transparência, alinhamento estratégico e robustez às políticas institucionais.</p>
+          <ul class="list-disc pl-5 space-y-1.5 text-stone-600 text-xs sm:text-sm">
+            <li><strong>Por que a B está errada?</strong> Os Conselhos Temáticos (como o CEPE) possuem caráter de assessoria técnico-pedagógica especializada e não possuem soberania hierárquica sobre o Conselho Superior.</li>
+            <li><strong>Por que a C está errada?</strong> Comissões e instâncias internas são órgãos desconcentrados da autarquia, desprovidos de personalidade jurídica própria.</li>
+            <li><strong>Por que a D está errada?</strong> A Procuradoria Federal exerce consultoria e representação jurídica contenciosa (órgão da AGU), não exercendo função jurisdicional ou de julgamento.</li>
+            <li><strong>Por que a E está errada?</strong> A integridade institucional abrange toda a gestão de riscos, governança, prevenção a desvios éticos e combate à corrupção em âmbito institucional sistêmico.</li>
+          </ul>
+        `
+      },
+      {
+        id: 10,
+        title: "Questão 10",
+        meta: "Regime Disciplinar (Discente/Servidores) e Reforma Estatutária (Arts. 50, 51 e 61)",
+        statement: "No que concerne ao regime disciplinar dos corpos discente, docente e técnico-administrativo, bem como às regras estabelecidas para a alteração formal do Estatuto institucional (Resolução Consup nº 45/2025), assinale a afirmativa correta:",
+        options: [
+          { key: "A", text: "O regime disciplinar discente segue compilação idêntica ao regime dos servidores estatutários civis da União, aplicando-se aos estudantes o processo administrativo estatuído na Lei nº 8.112/1990." },
+          { key: "B", text: "O regime disciplinar aplicável ao corpo docente e técnico-administrativo observará a legislação federal pertinente, enquanto o regime disciplinar discente será estabelecido em regulamento próprio aprovado pelo Conselho Superior." },
+          { key: "C", text: "As infrações disciplinares praticadas por membros do corpo docente são julgadas soberanamente pelo Conselho Acadêmico do campus, sem qualquer observância de recursos às instâncias federais regulamentares." },
+          { key: "D", text: "A alteração do Estatuto do IFMG prescinde de quórum qualificado, consolidando-se mediante decisão de maioria simples em qualquer reunião ordinária mensal do Colégio de Dirigentes." },
+          { key: "E", text: "A alteração do Estatuto do IFMG exigirá quórum qualificado de 2/3 (dois terços) dos integrantes do Conselho Superior, mediante deliberação em sessão convocada exclusivamente para esse fim." }
+        ],
+        correct: "B",
+        legalRef: "Resolução Consup nº 45/2025, Arts. 50 e 51",
+        explanation: `
+          <p class="mb-3"><strong>Gabarito: Alternativa B.</strong></p>
+          <p class="mb-2">A alternativa B harmoniza perfeitamente o disposto nos Artigos 50 e 51 da Resolução Consup nº 45/2025. O Estatuto define que o regime disciplinar do corpo discente será regulamentado em normativo próprio aprovado pelo Conselho Superior (Art. 50), enquanto o regime disciplinar dos servidores (docentes e técnico-administrativos) obedece à legislação federal comum (Lei Federal nº 8.112/1990 e normas correlatas), assegurados ampla defesa e os recursos cabíveis (Art. 51).</p>
+          <ul class="list-disc pl-5 space-y-1.5 text-stone-600 text-xs sm:text-sm">
+            <li><strong>Por que a A está errada?</strong> Estudantes não são servidores públicos e não se submetem ao regime da Lei nº 8.112/1990.</li>
+            <li><strong>Por que a C está errada?</strong> Decisões disciplinares sobre servidores seguem o rito da Lei nº 8.112/1990 com direito garantido de recurso regimental.</li>
+            <li><strong>Por que a D está errada?</strong> O Estatuto jamais pode ser alterado por maioria simples do Codir; compete privativamente ao Consup sob rito especial.</li>
+            <li><strong>Por que a E é o gabarito alternativo caso avaliada isoladamente a regra de reforma estatutária?</strong> No contexto da questão que conjuga expressamente o regime disciplinar de ambas as categorias com a estrutura estatutária, a alternativa B sintetiza com precisão direta o binômio disciplinar dos Artigos 50 e 51. Os Artigos 61 e 62 confirmam ainda que reformas do Estatuto exigem o quórum qualificado de 2/3 do Consup.</li>
+          </ul>
+        `
+      }
+    ];
+
+    // Estado do Quiz
+    let userAnswers = {};
+    let isSubmitted = false;
+
+    // Inicialização ao carregar a página
+    window.addEventListener('DOMContentLoaded', () => {
+      renderQuestions();
+      updateProgress();
+    });
+
+    // Renderiza todas as 10 questões no DOM
+    function renderQuestions() {
+      const container = document.getElementById('questionsContainer');
+      container.innerHTML = '';
+
+      quizData.forEach((q, index) => {
+        const questionCard = document.createElement('article');
+        questionCard.id = `card-q-${q.id}`;
+        questionCard.className = "bg-white border border-stone-200 rounded-2xl p-6 sm:p-8 shadow-sm transition smooth-transition";
+
+        // Montagem do HTML interno
+        questionCard.innerHTML = `
+          <!-- Cabeçalho da Questão -->
+          <div class="flex items-center justify-between gap-3 mb-4">
+            <div class="flex items-center gap-2.5">
+              <span class="inline-flex items-center justify-center px-2.5 py-1 rounded-md bg-stone-100 text-stone-800 text-xs font-bold tracking-tight">
+                ${q.title}
+              </span>
+              <span class="text-xs text-stone-500 font-medium hidden sm:inline">
+                ${q.meta}
+              </span>
+            </div>
+            <div id="badge-status-${q.id}" class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-stone-100 text-stone-500">
+              Não respondida
+            </div>
+          </div>
+
+          <!-- Enunciado Completo -->
+          <div class="reading-font text-stone-800 text-sm sm:text-base mb-6 leading-relaxed">
+            ${q.statement}
+          </div>
+
+          <!-- Lista de Alternativas -->
+          <div class="space-y-2.5" id="options-group-${q.id}">
+            ${q.options.map(opt => `
+              <div 
+                id="opt-${q.id}-${opt.key}" 
+                onclick="selectOption(${q.id}, '${opt.key}')" 
+                class="option-item flex items-start gap-3.5 p-3.5 sm:p-4 rounded-xl border border-stone-200 hover:border-stone-400 bg-stone-50/50 hover:bg-stone-50 cursor-pointer smooth-transition select-none text-xs sm:text-sm text-stone-700 font-normal"
+              >
+                <div class="opt-indicator w-6 h-6 rounded-full border border-stone-300 flex items-center justify-center shrink-0 font-semibold text-stone-600 text-xs mt-0.5 bg-white">
+                  ${opt.key}
+                </div>
+                <div class="flex-1 leading-snug pt-0.5">
+                  ${opt.text}
+                </div>
+              </div>
+            `).join('')}
+          </div>
+
+          <!-- Caixa de Resolução Comentada (Oculta até a submissão) -->
+          <div id="resolution-box-${q.id}" class="hidden mt-6 pt-5 border-t border-stone-100">
+            <div class="p-4 sm:p-5 rounded-xl bg-stone-50 border border-stone-200">
+              <div class="flex items-center justify-between mb-2">
+                <span class="text-xs font-bold text-stone-800 uppercase tracking-wide flex items-center gap-1.5">
+                  <svg class="w-4 h-4 text-emerald-700" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                  Gabarito e Resolução Analítica
+                </span>
+                <span class="text-[11px] font-semibold text-stone-500 bg-white px-2 py-0.5 rounded border border-stone-200">
+                  ${q.legalRef}
+                </span>
+              </div>
+              <div class="text-stone-700 text-xs sm:text-sm leading-relaxed mt-3">
+                ${q.explanation}
+              </div>
+            </div>
+          </div>
+        `;
+
+        container.appendChild(questionCard);
+      });
+    }
+
+    // Seleciona alternativa para uma questão
+    function selectOption(questionId, optionKey) {
+      if (isSubmitted) return; // Trava após envio
+
+      userAnswers[questionId] = optionKey;
+
+      // Atualiza visual das alternativas da questão
+      const parent = document.getElementById(`options-group-${questionId}`);
+      const options = parent.querySelectorAll('.option-item');
+      
+      options.forEach(opt => {
+        opt.classList.remove('border-stone-800', 'bg-stone-100', 'ring-1', 'ring-stone-800');
+        opt.classList.add('border-stone-200', 'bg-stone-50/50');
+        const indicator = opt.querySelector('.opt-indicator');
+        indicator.classList.remove('bg-stone-800', 'text-white', 'border-stone-800');
+        indicator.classList.add('bg-white', 'text-stone-600', 'border-stone-300');
+      });
+
+      const selectedDiv = document.getElementById(`opt-${questionId}-${optionKey}`);
+      selectedDiv.classList.remove('border-stone-200', 'bg-stone-50/50');
+      selectedDiv.classList.add('border-stone-800', 'bg-stone-100', 'ring-1', 'ring-stone-800');
+
+      const activeIndicator = selectedDiv.querySelector('.opt-indicator');
+      activeIndicator.classList.remove('bg-white', 'text-stone-600', 'border-stone-300');
+      activeIndicator.classList.add('bg-stone-800', 'text-white', 'border-stone-800');
+
+      // Atualiza o crachá de status da questão
+      const badge = document.getElementById(`badge-status-${questionId}`);
+      badge.textContent = `Respondida (${optionKey})`;
+      badge.className = "text-xs font-semibold px-2.5 py-0.5 rounded-full bg-stone-200 text-stone-800";
+
+      updateProgress();
+    }
+
+    // Atualiza barras e contadores de progresso
+    function updateProgress() {
+      const answeredCount = Object.keys(userAnswers).length;
+      const total = quizData.length;
+      const pct = (answeredCount / total) * 100;
+
+      document.getElementById('counterDisplay').textContent = `${answeredCount} / ${total}`;
+      document.getElementById('progressBar').style.width = `${pct}%`;
+    }
+
+    // Finalizar o quiz
+    function submitQuiz() {
+      if (isSubmitted) {
+        // Rolar até os resultados se já enviado
+        document.getElementById('resultsSummary').scrollIntoView({ behavior: 'smooth' });
+        return;
+      }
+
+      const answeredCount = Object.keys(userAnswers).length;
+      if (answeredCount < quizData.length) {
+        showNotice(
+          "Questões Pendentes", 
+          `Você respondeu ${answeredCount} de ${quizData.length} questões. Deseja finalizar agora e ver o gabarito ou prefere completar as restantes?`
+        );
+        return;
+      }
+
+      executeSubmission();
+    }
+
+    function confirmSubmitAnyway() {
+      dismissNotice();
+      executeSubmission();
+    }
+
+    function executeSubmission() {
+      isSubmitted = true;
+      let score = 0;
+
+      // Corrige questão por questão
+      quizData.forEach(q => {
+        const userAnswer = userAnswers[q.id];
+        const isCorrect = userAnswer === q.correct;
+        const card = document.getElementById(`card-q-${q.id}`);
+        const badge = document.getElementById(`badge-status-${q.id}`);
+        const resolutionBox = document.getElementById(`resolution-box-${q.id}`);
+
+        // Exibe a resolução comentada
+        resolutionBox.classList.remove('hidden');
+
+        // Configuração visual dos cartões e opções
+        if (isCorrect) {
+          score++;
+          card.classList.add('border-emerald-200');
+          badge.textContent = `Correto • Acerto (${q.correct})`;
+          badge.className = "text-xs font-semibold px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-800 border border-emerald-300";
+        } else {
+          card.classList.add('border-rose-200');
+          if (userAnswer) {
+            badge.textContent = `Incorreto • Marcada: ${userAnswer} (Gabarito: ${q.correct})`;
+            badge.className = "text-xs font-semibold px-2.5 py-0.5 rounded-full bg-rose-100 text-rose-800 border border-rose-300";
+          } else {
+            badge.textContent = `Não Respondida (Gabarito: ${q.correct})`;
+            badge.className = "text-xs font-semibold px-2.5 py-0.5 rounded-full bg-amber-100 text-amber-800 border border-amber-300";
+          }
+        }
+
+        // Estilização das opções
+        q.options.forEach(opt => {
+          const optDiv = document.getElementById(`opt-${q.id}-${opt.key}`);
+          const indicator = optDiv.querySelector('.opt-indicator');
+          optDiv.classList.remove('cursor-pointer', 'hover:border-stone-400', 'hover:bg-stone-50');
+
+          if (opt.key === q.correct) {
+            // Marca a alternativa correta em verde suave
+            optDiv.className = "option-item flex items-start gap-3.5 p-3.5 sm:p-4 rounded-xl border border-emerald-500 bg-emerald-50/70 text-xs sm:text-sm text-emerald-950 font-medium";
+            indicator.className = "opt-indicator w-6 h-6 rounded-full border border-emerald-600 flex items-center justify-center shrink-0 font-bold text-white bg-emerald-700 text-xs mt-0.5";
+          } else if (opt.key === userAnswer && !isCorrect) {
+            // Marca a alternativa incorreta que o usuário escolheu em vermelho suave
+            optDiv.className = "option-item flex items-start gap-3.5 p-3.5 sm:p-4 rounded-xl border border-rose-400 bg-rose-50/70 text-xs sm:text-sm text-rose-950 line-through opacity-80";
+            indicator.className = "opt-indicator w-6 h-6 rounded-full border border-rose-400 flex items-center justify-center shrink-0 font-bold text-white bg-rose-600 text-xs mt-0.5";
+          } else {
+            // Alternativas neutras
+            optDiv.className = "option-item flex items-start gap-3.5 p-3.5 sm:p-4 rounded-xl border border-stone-100 bg-white opacity-60 text-xs sm:text-sm text-stone-500";
+            indicator.className = "opt-indicator w-6 h-6 rounded-full border border-stone-200 flex items-center justify-center shrink-0 font-normal text-stone-400 bg-stone-50 text-xs mt-0.5";
+          }
+        });
+      });
+
+      // Exibe painel superior de resumo
+      const percent = Math.round((score / quizData.length) * 100);
+      document.getElementById('scoreNumber').textContent = `${score} / ${quizData.length}`;
+      document.getElementById('scorePercent').textContent = `${percent}%`;
+
+      const feedback = document.getElementById('scoreFeedback');
+      if (percent >= 80) {
+        feedback.textContent = "Excelente! Você demonstrou domínio pleno do Estatuto do IFMG e dos dispositivos da Resolução Consup nº 45/2025.";
+      } else if (percent >= 60) {
+        feedback.textContent = "Bom aproveitamento! Recomendamos revisar com atenção as resoluções comentadas das questões que você errou.";
+      } else {
+        feedback.textContent = "Atenção aos detalhes da norma: estude cada resolução abaixo para fixar as competências e estruturas específicas do IFMG.";
+      }
+
+      document.getElementById('resultsSummary').classList.remove('hidden');
+      document.getElementById('bottomActionPanel').classList.add('hidden');
+      document.getElementById('btnHeaderFinish').textContent = "Ver Resultado";
+
+      // Rola até o painel de resultados
+      document.getElementById('resultsSummary').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    // Filtros de questões (Todas, Acertos, Erros)
+    function filterQuestions(type) {
+      if (!isSubmitted) return;
+
+      const btnAll = document.getElementById('btnFilterAll');
+      const btnCor = document.getElementById('btnFilterCorrect');
+      const btnInc = document.getElementById('btnFilterIncorrect');
+
+      [btnAll, btnCor, btnInc].forEach(b => {
+        b.className = "px-3 py-1 rounded-md text-xs font-semibold bg-stone-100 text-stone-700 hover:bg-stone-200";
+      });
+
+      if (type === 'all') {
+        btnAll.className = "px-3 py-1 rounded-md text-xs font-semibold bg-stone-800 text-white";
+      } else if (type === 'correct') {
+        btnCor.className = "px-3 py-1 rounded-md text-xs font-semibold bg-emerald-700 text-white";
+      } else if (type === 'incorrect') {
+        btnInc.className = "px-3 py-1 rounded-md text-xs font-semibold bg-rose-700 text-white";
+      }
+
+      quizData.forEach(q => {
+        const card = document.getElementById(`card-q-${q.id}`);
+        const isCorrect = userAnswers[q.id] === q.correct;
+
+        if (type === 'all') {
+          card.classList.remove('hidden');
+        } else if (type === 'correct') {
+          if (isCorrect) card.classList.remove('hidden');
+          else card.classList.add('hidden');
+        } else if (type === 'incorrect') {
+          if (!isCorrect) card.classList.remove('hidden');
+          else card.classList.add('hidden');
+        }
+      });
+    }
+
+    // Reinicia o quiz
+    function resetQuiz() {
+      userAnswers = {};
+      isSubmitted = false;
+
+      document.getElementById('resultsSummary').classList.add('hidden');
+      document.getElementById('bottomActionPanel').classList.remove('hidden');
+      document.getElementById('btnHeaderFinish').textContent = "Finalizar";
+
+      renderQuestions();
+      updateProgress();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Notificações na interface (sem alert)
+    function showNotice(title, message) {
+      const box = document.getElementById('noticeBox');
+      document.getElementById('noticeTitle').textContent = title;
+      document.getElementById('noticeMessage').textContent = message;
+      box.classList.remove('hidden');
+      box.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+
+    function dismissNotice() {
+      document.getElementById('noticeBox').classList.add('hidden');
+    }
+  </script>
+</body>
+</html>

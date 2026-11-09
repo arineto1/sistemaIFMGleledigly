@@ -1,0 +1,950 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LDB: EPT e Educação Superior | Preparatório IFMG</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Fonte Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #ffffff;
+            color: #1e293b; /* Slate 800: máxima legibilidade sem o contraste agressivo do preto puro */
+        }
+        /* Estilo padronizado de grifo para memorização */
+        .grifo {
+            background-color: #fef08a; /* Amarelo suave pastel */
+            color: #713f12; /* Âmbar escuro */
+            font-weight: 600;
+            padding: 0.125rem 0.35rem;
+            border-radius: 0.25rem;
+        }
+        .grifo-destaque {
+            background-color: #fed7aa; /* Laranja pastel para prazos críticos e pegadinhas */
+            color: #7c2d12;
+            font-weight: 700;
+            padding: 0.125rem 0.35rem;
+            border-radius: 0.25rem;
+        }
+        /* Força quebra de texto e adaptação total de tabelas sem scroll horizontal */
+        table {
+            table-layout: fixed;
+            width: 100%;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+        }
+        th, td {
+            word-break: break-word;
+            hyphens: auto;
+        }
+    </style>
+</head>
+<body class="bg-white min-h-screen text-slate-800 antialiased selection:bg-amber-200 selection:text-amber-900">
+
+    <!-- Barra Superior / Menu de Navegação Rápida -->
+    <header class="sticky top-0 z-50 bg-white/95 backdrop-blur border-b border-slate-200">
+        <div class="max-w-5xl mx-auto px-4 py-3 flex flex-wrap items-center justify-between gap-3">
+            <div class="flex items-center gap-2">
+                <span class="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-slate-100 text-slate-700 font-bold text-xs border border-slate-300">
+                    IF
+                </span>
+                <div>
+                    <h1 class="text-sm font-bold text-slate-900 leading-tight">Concurso Docente EBTT · IFMG</h1>
+                    <p class="text-xs text-slate-500">Legislação Educacional: LDB (Arts. 39 a 57)</p>
+                </div>
+            </div>
+            <nav class="flex items-center gap-2 text-xs">
+                <a href="#audio-box" class="px-2.5 py-1.5 rounded-md hover:bg-slate-100 text-slate-600 transition">Áudio</a>
+                <a href="#ept-fundamentos" class="px-2.5 py-1.5 rounded-md hover:bg-slate-100 text-slate-600 transition hidden sm:inline-block">EPT</a>
+                <a href="#superior-normas" class="px-2.5 py-1.5 rounded-md hover:bg-slate-100 text-slate-600 transition hidden sm:inline-block">Educação Superior</a>
+                <a href="#tabela-pegadinhas" class="px-2.5 py-1.5 rounded-md hover:bg-slate-100 text-slate-600 transition">Pegadinhas</a>
+                <a href="questoes18legs.html" class="px-3 py-1.5 rounded-md bg-slate-900 hover:bg-slate-800 text-white font-medium shadow-sm transition">
+                    Ir para Questões &rarr;
+                </a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="max-w-5xl mx-auto px-4 py-8 space-y-12">
+
+        <!-- ========================================== -->
+        <!-- MÓDULO DO REPRODUTOR DE ÁUDIO              -->
+        <!-- ========================================== -->
+        <section id="audio-box" class="bg-white border-2 border-slate-200 rounded-2xl p-5 sm:p-6 shadow-sm">
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-4 border-b border-slate-100">
+                <div>
+                    <div class="flex items-center gap-2">
+                        <span class="inline-block w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                        <span class="text-xs font-bold uppercase tracking-wider text-slate-500">Recurso de Áudio-Aula</span>
+                    </div>
+                    <h2 class="text-lg font-bold text-slate-900 mt-0.5">Reprodutor de Áudio da Aula</h2>
+                    <p class="text-xs text-slate-600 mt-1">
+                        Insira o nome do arquivo MP3 salvo na mesma pasta do arquivo HTML para reproduzir a aula narrada.
+                    </p>
+                </div>
+
+                <!-- Input para configurar o nome do arquivo MP3 -->
+                <div class="w-full md:w-auto flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
+                    <div class="relative flex-1 sm:w-64">
+                        <span class="absolute inset-y-0 left-0 pl-2.5 flex items-center pointer-events-none text-slate-400 text-xs">
+                            🎵
+                        </span>
+                        <input 
+                            type="text" 
+                            id="audioFileNameInput" 
+                            value="aula_ldb.mp3" 
+                            placeholder="ex: audio_aula.mp3"
+                            class="w-full pl-8 pr-3 py-2 text-xs font-mono bg-slate-50 border border-slate-300 rounded-lg text-slate-800 focus:outline-none focus:ring-2 focus:ring-slate-400 focus:bg-white transition"
+                            title="Digite o nome do arquivo de áudio localizado na mesma pasta"
+                        />
+                    </div>
+                    <button 
+                        type="button" 
+                        id="btnCarregarAudio"
+                        class="px-4 py-2 bg-slate-800 hover:bg-slate-700 active:bg-slate-900 text-white text-xs font-semibold rounded-lg shadow-sm transition flex items-center justify-center gap-1.5"
+                    >
+                        <span>Carregar</span>
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Player de Áudio Nativo HTML5 -->
+            <div class="pt-4">
+                <audio id="mainAudioPlayer" controls class="w-full h-11 focus:outline-none rounded-lg">
+                    <source id="mainAudioSource" src="aula_ldb.mp3" type="audio/mpeg">
+                    Seu navegador não suporta a execução de áudio via HTML5.
+                </audio>
+                <div class="mt-2 flex items-center justify-between text-[11px] text-slate-500 font-mono">
+                    <span id="audioStatusText">Arquivo atual configurado: <strong class="text-slate-700">aula_ldb.mp3</strong></span>
+                    <span class="text-slate-400">Certifique-se de que o arquivo .mp3 está no mesmo diretório deste arquivo HTML</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================== -->
+        <!-- CABEÇALHO DO ARTIGO / TÍTULO               -->
+        <!-- ========================================== -->
+        <article class="space-y-10">
+            <header class="border-b border-slate-200 pb-8 space-y-3">
+                <div class="inline-flex items-center gap-2 px-3 py-1 bg-slate-100 rounded-full text-xs font-semibold text-slate-700">
+                    <span>Lei Federal nº 9.394/1996</span>
+                    <span>&bull;</span>
+                    <span>Título V, Capítulos III e IV</span>
+                </div>
+                <h1 class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight leading-tight">
+                    Legislação Educacional Aplicada à EPT e à Educação Superior: Diretrizes da Lei nº 9.394/1996 no Contexto do Magistério Federal do IFMG
+                </h1>
+                <p class="text-base sm:text-lg text-slate-600 leading-relaxed">
+                    A Lei de Diretrizes e Bases da Educação Nacional (LDB – Lei nº 9.394/1996) conforma o arcabouço normativo fundamental da organização educacional brasileira. No contexto do concurso público para o magistério do <strong class="text-slate-900">Ensino Básico, Técnico e Tecnológico (EBTT) do Instituto Federal de Minas Gerais (IFMG)</strong>, conduzido pela Comissão Central de Concurso Público da Reitoria, a interpretação dogmática dos Capítulos III (arts. 39 a 42-B) e IV (arts. 43 a 57) do Título V transcende a memorização mecânica. Exige-se uma compreensão da evolução estrutural das políticas públicas que vincularam a formação profissional e o subsistema de educação superior às demandas socioeconômicas do país.
+                </p>
+                <p class="text-sm text-slate-600 leading-relaxed bg-slate-50 border-l-4 border-slate-400 p-3 rounded-r-lg">
+                    <strong>Perfil da Banca Central IFMG:</strong> A banca examinadora adota um perfil de exigência que combina a <mark class="grifo">literalidade estrita dos dispositivos</mark> com a capacidade do candidato de discernir mecanismos de flexibilização curricular, regimes de frequência e aprovação, prerrogativas de autonomia universitária e as inovações introduzidas pela <mark class="grifo-destaque">Lei nº 14.645/2023</mark>.
+                </p>
+            </header>
+
+            <!-- ======================================================== -->
+            <!-- SEÇÃO 1: FUNDAMENTOS E EVOLUÇÃO NORMATIVA DA EPT        -->
+            <!-- ======================================================== -->
+            <section id="ept-fundamentos" class="space-y-6">
+                <div>
+                    <h2 class="text-xl sm:text-2xl font-bold text-slate-900 pb-2 border-b border-slate-200">
+                        1. Fundamentos e Evolução Normativa da Educação Profissional e Tecnológica (EPT)
+                    </h2>
+                </div>
+
+                <div class="space-y-4 text-slate-700 leading-relaxed">
+                    <h3 class="text-lg font-semibold text-slate-900">Superação do Dualismo Histórico e Princípios Estruturantes</h3>
+                    <p>
+                        A gênese da formação profissional no Brasil caracterizou-se pela segmentação de classes, estruturada pelo Decreto-Lei nº 4.127/1942 e pelas Leis Orgânicas do Ensino da década de 1940 (Reforma Capanema), nas quais a preparação técnica e manual era direcionada às populações vulneráveis, enquanto o ensino secundário propedêutico ficava reservado às elites com acesso exclusivo à universidade. Essa dualidade estrutural manteve os egressos de cursos técnicos submetidos a exames de complementação ou impedidos de transitar livremente para o nível superior até a promulgação da primeira LDB (Lei nº 4.024/1961), que estabeleceu a equiparação formativa preliminar.
+                    </p>
+                    <p>
+                        A ordem jurídica vigente, consolidada pela redação dada pela Lei nº 11.741/2008 ao art. 39 da Lei nº 9.394/1996, redefine a Educação Profissional e Tecnológica (EPT) como política pública integradora dos objetivos da educação nacional, conectando-a aos diferentes níveis e modalidades de ensino e às dimensões do <mark class="grifo">trabalho, da ciência e da tecnologia</mark>.
+                    </p>
+                    <ul class="list-disc pl-5 space-y-2 text-sm sm:text-base">
+                        <li>
+                            <strong class="text-slate-900">Trabalho como princípio educativo essencial:</strong> Supera a mera qualificação instrumental para o mercado fabril e promove o desenvolvimento <mark class="grifo">omnilateral</mark> (integral) do estudante.
+                        </li>
+                        <li>
+                            <strong class="text-slate-900">Ciência:</strong> Figura como a apreensão dos fundamentos teóricos dos processos de transformação da matéria e da sociedade.
+                        </li>
+                        <li>
+                            <strong class="text-slate-900">Tecnologia:</strong> Constitui a mediação prática e criativa entre o conhecimento científico e as necessidades produtivas e sociais.
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Tabela 1: Categorias Curriculares de EPT -->
+                <div class="space-y-2 pt-2">
+                    <h4 class="text-sm font-bold uppercase tracking-wider text-slate-600">
+                        Quadro Comparativo: Categorias Curriculares de EPT (Art. 39 da LDB)
+                    </h4>
+                    <div class="border border-slate-200 rounded-xl bg-white shadow-sm overflow-hidden">
+                        <table class="text-left text-xs sm:text-sm divide-y divide-slate-200">
+                            <thead class="bg-slate-50 text-slate-800 font-semibold">
+                                <tr>
+                                    <th scope="col" class="p-3 w-1/4">Categoria Curricular</th>
+                                    <th scope="col" class="p-3 w-1/6">Previsão Legal</th>
+                                    <th scope="col" class="p-3 w-1/4">Nível Educacional</th>
+                                    <th scope="col" class="p-3 w-1/3">Requisitos de Acesso e Certificação</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-slate-200 text-slate-700">
+                                <tr class="hover:bg-slate-50/50 transition">
+                                    <td class="p-3 font-semibold text-slate-900">
+                                        Formação Inicial e Continuada (FIC) ou Qualificação Profissional
+                                    </td>
+                                    <td class="p-3 font-mono text-xs">Art. 39, § 2º, I; Art. 42</td>
+                                    <td class="p-3">Educação não formal / Cursos de capacitação livre</td>
+                                    <td class="p-3 leading-snug">
+                                        Aberto à comunidade geral; a matrícula é condicionada à <mark class="grifo">capacidade de aproveitamento e não necessariamente ao nível de escolaridade formal prévia</mark>.
+                                    </td>
+                                </tr>
+                                <tr class="hover:bg-slate-50/50 transition">
+                                    <td class="p-3 font-semibold text-slate-900">
+                                        Educação Profissional Técnica de Nível Médio
+                                    </td>
+                                    <td class="p-3 font-mono text-xs">Art. 39, § 2º, II; Arts. 36-A a 36-D</td>
+                                    <td class="p-3">Educação Básica (Ensino Médio)</td>
+                                    <td class="p-3 leading-snug">
+                                        Exige matrícula concomitante ou conclusão prévia do ensino fundamental; confere diploma com validade nacional de <mark class="grifo">técnico de nível médio</mark>.
+                                    </td>
+                                </tr>
+                                <tr class="hover:bg-slate-50/50 transition">
+                                    <td class="p-3 font-semibold text-slate-900">
+                                        Educação Profissional Tecnológica de Graduação
+                                    </td>
+                                    <td class="p-3 font-mono text-xs">Art. 39, § 2º, III; Art. 44, II</td>
+                                    <td class="p-3">Educação Superior (Graduação Plena)</td>
+                                    <td class="p-3 leading-snug">
+                                        Exige conclusão do ensino médio e classificação em processo seletivo; confere <mark class="grifo">diploma pleno de tecnólogo</mark> para todos os efeitos legais.
+                                    </td>
+                                </tr>
+                                <tr class="hover:bg-slate-50/50 transition">
+                                    <td class="p-3 font-semibold text-slate-900">
+                                        Educação Profissional Tecnológica de Pós-Graduação
+                                    </td>
+                                    <td class="p-3 font-mono text-xs">Art. 39, § 2º, III; Art. 44, III</td>
+                                    <td class="p-3">Educação Superior (Pós-Graduação)</td>
+                                    <td class="p-3 leading-snug">
+                                        Destinada a portadores de diploma de graduação; abrange modalidades <em>lato sensu</em> (especialização tecnológica) e <em>stricto sensu</em> (mestrado e doutorado profissionais).
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ======================================================== -->
+            <!-- SEÇÃO 2: O IMPACTO DA LEI Nº 14.645/2023 NA EPT         -->
+            <!-- ======================================================== -->
+            <section class="space-y-6">
+                <div>
+                    <h2 class="text-xl sm:text-2xl font-bold text-slate-900 pb-2 border-b border-slate-200">
+                        2. O Impacto da Lei nº 14.645/2023 no Marco Regulatório da EPT
+                    </h2>
+                </div>
+
+                <p class="text-slate-700 leading-relaxed">
+                    A sanção da <mark class="grifo-destaque">Lei nº 14.645/2023</mark> transformou os dispositivos de transição curricular entre os níveis médio e superior. O legislador estabeleceu mecanismos compulsórios de integração para viabilizar itinerários contínuos e assegurar o aproveitamento de créditos formativos acumulados.
+                </p>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="p-4 border border-slate-200 rounded-xl bg-white space-y-2">
+                        <span class="text-xs font-bold font-mono text-slate-500 uppercase">Art. 39, § 4º da LDB</span>
+                        <h4 class="font-bold text-slate-900">Aproveitamento de Créditos do Ensino Técnico no Superior</h4>
+                        <p class="text-sm text-slate-600 leading-relaxed">
+                            Autoriza e estimula as instituições de educação superior a realizarem o <mark class="grifo">aproveitamento de créditos, saberes e competências</mark> desenvolvidos por estudantes concluintes de cursos técnicos de nível médio, desde que circunscritos à <mark class="grifo">mesma área de formação tecnológica</mark>. Materializa o conceito de verticalização formativa típico dos Institutos Federais.
+                        </p>
+                    </div>
+
+                    <div class="p-4 border border-slate-200 rounded-xl bg-white space-y-2">
+                        <span class="text-xs font-bold font-mono text-slate-500 uppercase">Art. 42-A da LDB</span>
+                        <h4 class="font-bold text-slate-900">Eixos Tecnológicos e Trajetórias Contínuas</h4>
+                        <p class="text-sm text-slate-600 leading-relaxed">
+                            A EPT, estruturada em <mark class="grifo">eixos tecnológicos</mark>, observará o princípio da integração curricular entre cursos e programas, com o objetivo de instituir <mark class="grifo">itinerários formativos contínuos e trajetórias progressivas</mark> de formação entre todos os níveis escolares, balizadas pelo CNCT e CNCST.
+                        </p>
+                    </div>
+
+                    <div class="p-4 border border-slate-200 rounded-xl bg-white space-y-2">
+                        <span class="text-xs font-bold font-mono text-slate-500 uppercase">Art. 42-B da LDB</span>
+                        <h4 class="font-bold text-slate-900">Avaliação Nacional Periódica da EPT</h4>
+                        <p class="text-sm text-slate-600 leading-relaxed">
+                            Vincula expressamente a oferta de educação profissional técnica e tecnológica aos <mark class="grifo">processos nacionais periódicos de avaliação institucional e de cursos</mark> previstos no art. 9º, inciso VII-A da LDB, assegurados pela União em colaboração federativa.
+                        </p>
+                    </div>
+
+                    <div class="p-4 border border-slate-200 rounded-xl bg-white space-y-2">
+                        <span class="text-xs font-bold font-mono text-slate-500 uppercase">Arts. 41 e 42 da LDB</span>
+                        <h4 class="font-bold text-slate-900">Certificação de Saberes e Cursos Abertos</h4>
+                        <p class="text-sm text-slate-600 leading-relaxed">
+                            O conhecimento e as habilidades adquiridos no trabalho formal ou informal podem ser objeto de <mark class="grifo">aferição, reconhecimento e certificação institucional</mark> para prosseguimento de estudos. Os cursos de qualificação aberta <mark class="grifo">não podem exigir escolaridade formal</mark> como critério excludente de ingresso.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ======================================================== -->
+            <!-- SEÇÃO 3: EDUCAÇÃO SUPERIOR: FINALIDADES E TIPOLOGIA     -->
+            <!-- ======================================================== -->
+            <section id="superior-normas" class="space-y-6">
+                <div>
+                    <h2 class="text-xl sm:text-2xl font-bold text-slate-900 pb-2 border-b border-slate-200">
+                        3. A Educação Superior na LDB: Finalidades e Tipologia
+                    </h2>
+                </div>
+
+                <div class="space-y-4">
+                    <h3 class="text-lg font-semibold text-slate-900">
+                        Finalidades Institucionais da Educação Superior (Art. 43 da LDB)
+                    </h3>
+                    <p class="text-slate-700 text-sm sm:text-base leading-relaxed">
+                        O art. 43 expressa os objetivos teleológicos que vinculam todas as Instituições de Ensino Superior (IES) brasileiras. Nos certames da Reitoria do IFMG, a precisão literal dos seus oito incisos é cobrada com frequência em itens de múltipla escolha:
+                    </p>
+
+                    <div class="space-y-2 text-sm text-slate-700 bg-white border border-slate-200 rounded-xl p-4 sm:p-5">
+                        <div class="p-2 rounded hover:bg-slate-50 transition border-b border-slate-100 pb-3">
+                            <span class="font-mono text-xs font-bold text-slate-500">Inciso I:</span>
+                            <p class="mt-0.5"><strong class="text-slate-900">Estímulo à Criação e ao Pensamento Crítico:</strong> Estimular a criação cultural e o desenvolvimento do <mark class="grifo">espírito científico e do pensamento reflexivo</mark>.</p>
+                        </div>
+                        <div class="p-2 rounded hover:bg-slate-50 transition border-b border-slate-100 pb-3">
+                            <span class="font-mono text-xs font-bold text-slate-500">Inciso II:</span>
+                            <p class="mt-0.5"><strong class="text-slate-900">Formação Profissional Cidadã:</strong> Formar diplomados nas diferentes áreas do conhecimento, aptos para a inserção em setores profissionais e para a participação no desenvolvimento da sociedade brasileira, colaborando na sua formação contínua.</p>
+                        </div>
+                        <div class="p-2 rounded hover:bg-slate-50 transition border-b border-slate-100 pb-3">
+                            <span class="font-mono text-xs font-bold text-slate-500">Inciso III:</span>
+                            <p class="mt-0.5"><strong class="text-slate-900">Pesquisa e Compreensão Humanística:</strong> Incentivar o trabalho de pesquisa e investigação científica, visando ao progresso da ciência e da tecnologia, bem como à criação e difusão da cultura, desenvolvendo o <mark class="grifo">entendimento do homem e do meio em que vive</mark>.</p>
+                        </div>
+                        <div class="p-2 rounded hover:bg-slate-50 transition border-b border-slate-100 pb-3">
+                            <span class="font-mono text-xs font-bold text-slate-500">Inciso IV:</span>
+                            <p class="mt-0.5"><strong class="text-slate-900">Difusão e Comunicação Pública do Saber:</strong> Promover a divulgação de conhecimentos culturais, científicos e técnicos que constituem patrimônio da humanidade e comunicar o saber por intermédio do ensino, de publicações ou de outras formas de comunicação.</p>
+                        </div>
+                        <div class="p-2 rounded hover:bg-slate-50 transition border-b border-slate-100 pb-3">
+                            <span class="font-mono text-xs font-bold text-slate-500">Inciso V:</span>
+                            <p class="mt-0.5"><strong class="text-slate-900">Sistematização Intergeracional do Saber:</strong> Suscitar o desejo permanente de aperfeiçoamento cultural e profissional e possibilitar sua concretização, integrando os conhecimentos adquiridos numa estrutura intelectual sistematizadora para as sucessivas gerações.</p>
+                        </div>
+                        <div class="p-2 rounded hover:bg-slate-50 transition border-b border-slate-100 pb-3">
+                            <span class="font-mono text-xs font-bold text-slate-500">Inciso VI:</span>
+                            <p class="mt-0.5"><strong class="text-slate-900">Resolução de Problemas Sociais e Regionais:</strong> Estimular o conhecimento dos problemas do mundo presente, <mark class="grifo">em particular os nacionais e regionais</mark>, prestando serviços especializados à comunidade e estabelecendo com esta uma relação de reciprocidade.</p>
+                        </div>
+                        <div class="p-2 rounded hover:bg-slate-50 transition border-b border-slate-100 pb-3">
+                            <span class="font-mono text-xs font-bold text-slate-500">Inciso VII:</span>
+                            <p class="mt-0.5"><strong class="text-slate-900">Extensão Dialógica e Comunitária:</strong> Promover a extensão, aberta à participação da população, visando à difusão das conquistas e benefícios resultantes da criação cultural e da pesquisa científica geradas na instituição.</p>
+                        </div>
+                        <div class="p-2 rounded hover:bg-slate-50 transition">
+                            <span class="font-mono text-xs font-bold text-slate-500">Inciso VIII:</span>
+                            <p class="mt-0.5"><strong class="text-slate-900">Compromisso Orgânico com a Educação Básica:</strong> Atuar em favor da <mark class="grifo-destaque">universalização e do aprimoramento da educação básica</mark>, mediante a formação e a capacitação de profissionais, a realização de pesquisas pedagógicas e o desenvolvimento de atividades de extensão que aproximem os dois níveis escolares.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tabela 2: Tipologia de Cursos Superiores (Art. 44) -->
+                <div class="space-y-2 pt-2">
+                    <h4 class="text-sm font-bold uppercase tracking-wider text-slate-600">
+                        Quadro Comparativo: Tipologia de Cursos Superiores (Art. 44 da LDB)
+                    </h4>
+                    <div class="border border-slate-200 rounded-xl bg-white shadow-sm overflow-hidden">
+                        <table class="text-left text-xs sm:text-sm divide-y divide-slate-200">
+                            <thead class="bg-slate-50 text-slate-800 font-semibold">
+                                <tr>
+                                    <th scope="col" class="p-3 w-1/4">Tipo de Curso (Art. 44)</th>
+                                    <th scope="col" class="p-3 w-1/4">Condições de Acesso</th>
+                                    <th scope="col" class="p-3 w-1/5">Certificação / Titulação</th>
+                                    <th scope="col" class="p-3 w-3/10">Regime e Efeitos Jurídicos</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-slate-200 text-slate-700">
+                                <tr class="hover:bg-slate-50/50 transition">
+                                    <td class="p-3 font-semibold text-slate-900">
+                                        I - Sequenciais por Campo de Saber
+                                    </td>
+                                    <td class="p-3">Concluintes do ensino médio que atendam aos requisitos institucionais</td>
+                                    <td class="p-3 font-semibold text-amber-900">
+                                        <mark class="grifo">Certificado</mark> (não outorga diploma nem grau acadêmico)
+                                    </td>
+                                    <td class="p-3 leading-snug">
+                                        Formação rápida circunscrita a um campo do saber; <mark class="grifo-destaque">sem equiparação à graduação plena</mark>.
+                                    </td>
+                                </tr>
+                                <tr class="hover:bg-slate-50/50 transition">
+                                    <td class="p-3 font-semibold text-slate-900">
+                                        II - Cursos de Graduação
+                                    </td>
+                                    <td class="p-3">
+                                        Concluintes do ensino médio obrigatoriamente <mark class="grifo">classificados em processo seletivo</mark>
+                                    </td>
+                                    <td class="p-3 font-semibold text-slate-900">
+                                        <mark class="grifo">Diploma</mark> (Bacharelado, Licenciatura ou Tecnologia)
+                                    </td>
+                                    <td class="p-3 leading-snug">
+                                        Habilitam para profissões regulamentadas, pós-graduação <em>stricto sensu</em> e concursos privativos de nível superior.
+                                    </td>
+                                </tr>
+                                <tr class="hover:bg-slate-50/50 transition">
+                                    <td class="p-3 font-semibold text-slate-900">
+                                        III - Cursos de Pós-Graduação
+                                    </td>
+                                    <td class="p-3">
+                                        Diplomados em graduação que preencham os requisitos do edital
+                                    </td>
+                                    <td class="p-3">
+                                        <strong>Certificado</strong> (<em>lato sensu</em>) ou <strong>Diploma</strong> (<em>stricto sensu</em>)
+                                    </td>
+                                    <td class="p-3 leading-snug">
+                                        Aprofundamento técnico (especialização) ou preparação acadêmica para pesquisa e magistério superior (mestrado/doutorado).
+                                    </td>
+                                </tr>
+                                <tr class="hover:bg-slate-50/50 transition">
+                                    <td class="p-3 font-semibold text-slate-900">
+                                        IV - Cursos de Extensão
+                                    </td>
+                                    <td class="p-3">
+                                        Candidatos que atendam aos pré-requisitos fixados pela instituição
+                                    </td>
+                                    <td class="p-3">
+                                        <strong>Certificado</strong> de participação ou conclusão
+                                    </td>
+                                    <td class="p-3 leading-snug">
+                                        Abertos à comunidade externa; <mark class="grifo">não exigem conclusão do ensino médio</mark>, salvo norma do regimento interno.
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ======================================================== -->
+            <!-- SEÇÃO 4: REGIME ACADÊMICO, FREQUÊNCIA E DIPLOMAS        -->
+            <!-- ======================================================== -->
+            <section class="space-y-6">
+                <div>
+                    <h2 class="text-xl sm:text-2xl font-bold text-slate-900 pb-2 border-b border-slate-200">
+                        4. Organização do Regime Acadêmico, Frequência e Validação de Títulos
+                    </h2>
+                </div>
+
+                <div class="space-y-4 text-slate-700 leading-relaxed text-sm sm:text-base">
+                    <div class="border border-slate-200 rounded-xl p-5 bg-white space-y-3">
+                        <h3 class="text-base font-bold text-slate-900">
+                            Calendário Escolar e Dias Efetivos de Trabalho Acadêmico (Art. 47)
+                        </h3>
+                        <p>
+                            O art. 47 determina que o ano letivo regular na educação superior, independentemente do ano civil, compreende, no mínimo, <mark class="grifo-destaque">200 (duzentos) dias de trabalho acadêmico efetivo</mark>.
+                        </p>
+                        <p class="text-slate-800 font-semibold bg-amber-50 border border-amber-200 p-3 rounded-lg">
+                            ⚠️ RESSALVA CRUCIAL DE PROVA: <span class="font-normal">O texto legal impõe uma ressalva expressa: <mark class="grifo-destaque">EXCLUI-SE desse cômputo obrigatório o período reservado aos exames finais</mark>, quando previstos no regulamento institucional.</span>
+                        </p>
+                        <p>
+                            A frequência às atividades acadêmicas é <mark class="grifo">obrigatória para discentes e docentes</mark>. A aprovação pressupõe a assiduidade mínima regimental, sendo vedada a dispensa de presença em cursos presenciais (salvo EAD ou amparo legal específico, ex: gestantes e regime de exceção médico).
+                        </p>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="border border-slate-200 rounded-xl p-4 bg-white space-y-2">
+                            <h4 class="font-bold text-slate-900 text-sm">Abreviamento de Curso (Art. 47, § 2º)</h4>
+                            <p class="text-xs sm:text-sm text-slate-600">
+                                Discentes com aproveitamento extraordinário, comprovado por provas e instrumentos de aferição aplicados por <mark class="grifo">banca examinadora especial</mark>, poderão ter abreviada a duração dos seus cursos.
+                            </p>
+                        </div>
+
+                        <div class="border border-slate-200 rounded-xl p-4 bg-white space-y-2">
+                            <h4 class="font-bold text-slate-900 text-sm">Obrigatoriedade Noturna (Art. 47, § 4º)</h4>
+                            <p class="text-xs sm:text-sm text-slate-600">
+                                As instituições públicas de ensino superior são obrigadas a ofertar cursos de graduação no <mark class="grifo">período noturno</mark>, garantindo os mesmos padrões de qualidade do período diurno.
+                            </p>
+                        </div>
+
+                        <div class="border border-slate-200 rounded-xl p-4 bg-white space-y-2">
+                            <h4 class="font-bold text-slate-900 text-sm">Transferências Regulares e Ex Officio (Art. 49)</h4>
+                            <p class="text-xs sm:text-sm text-slate-600">
+                                A transferência voluntária depende de vagas e processo seletivo. A transferência compulsória (<mark class="grifo"><em>ex officio</em></mark>) aplica-se exclusivamente a servidores públicos federais (civis ou militares) e dependentes removidos de ofício.
+                            </p>
+                        </div>
+
+                        <div class="border border-slate-200 rounded-xl p-4 bg-white space-y-2">
+                            <h4 class="font-bold text-slate-900 text-sm">Alunos Não Regulares (Art. 50)</h4>
+                            <p class="text-xs sm:text-sm text-slate-600">
+                                Havendo vagas remanescentes em disciplinas isoladas, as IES podem matricular interessados não regulares que comprovem suficiência curricular, mediante seleção prévia.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Transparência Obrigatória e Diplomas -->
+                    <div class="border border-slate-200 rounded-xl p-5 bg-white space-y-4">
+                        <h3 class="text-base font-bold text-slate-900">
+                            Publicidade Obrigatória ("Grade e Corpo Docente") e Regime de Diplomas (Arts. 47 e 48)
+                        </h3>
+                        <div class="space-y-2 text-sm text-slate-700">
+                            <p>
+                                <strong class="text-slate-900">Transparência Ativa na Internet (Lei nº 13.168/2015):</strong> As IES devem disponibilizar em sítio eletrônico oficial sob o título padronizado <em>"Grade e Corpo Docente"</em> todas as matrizes, ementas, cargas horárias e relação nominal dos professores (com titulação e regime de trabalho), com prazo limite de até <mark class="grifo-destaque">1 (um) mês antes do início das aulas</mark>.
+                            </p>
+                        </div>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
+                            <div class="p-3 bg-slate-50 border border-slate-200 rounded-lg">
+                                <span class="text-xs font-bold font-mono text-slate-700 block mb-1">Graduação Estrangeira (Art. 48, § 2º)</span>
+                                <p class="text-xs text-slate-600">
+                                    A revalidação é prerrogativa atribuída <mark class="grifo-destaque">exclusivamente às universidades públicas</mark> que ministrem curso congênere reconhecido na mesma área.
+                                </p>
+                            </div>
+                            <div class="p-3 bg-slate-50 border border-slate-200 rounded-lg">
+                                <span class="text-xs font-bold font-mono text-slate-700 block mb-1">Pós-Graduação Estrangeira (Art. 48, § 3º)</span>
+                                <p class="text-xs text-slate-600">
+                                    O reconhecimento pode ser realizado por <mark class="grifo">universidades públicas ou universidades privadas</mark> que possuam programas <em>stricto sensu</em> avaliados e recomendados pela Capes.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ======================================================== -->
+            <!-- SEÇÃO 5: O EXERCÍCIO DA AUTONOMIA PELAS FEDERAIS        -->
+            <!-- ======================================================== -->
+            <section class="space-y-6">
+                <div>
+                    <h2 class="text-xl sm:text-2xl font-bold text-slate-900 pb-2 border-b border-slate-200">
+                        5. O Exercício da Autonomia pelas Instituições Federais (Arts. 52 a 57)
+                    </h2>
+                </div>
+
+                <div class="space-y-4 text-slate-700 leading-relaxed text-sm sm:text-base">
+                    <p>
+                        O art. 52 da LDB caracteriza as universidades como instituições pluridisciplinares de formação de quadros profissionais de nível superior, de pesquisa, de extensão e de domínio e cultivo do saber humano. Por força do <strong class="text-slate-900">art. 2º da Lei Federal nº 11.892/2008</strong>, os Institutos Federais de Educação, Ciência e Tecnologia possuem natureza autárquica e detêm <mark class="grifo">autonomia didático-científica, administrativa e de gestão financeira e patrimonial idêntica à conferida às universidades federais</mark>.
+                    </p>
+
+                    <div class="p-4 bg-slate-50 border border-slate-200 rounded-xl space-y-2">
+                        <h4 class="font-bold text-slate-900 text-sm">Parâmetros Obrigatórios de Qualificação Docente (Art. 52 da LDB):</h4>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs sm:text-sm">
+                            <div class="p-3 bg-white border border-slate-200 rounded-lg">
+                                <span class="font-bold text-slate-900 block mb-0.5">Titulação Docente Mínima:</span>
+                                Pelo menos <mark class="grifo-destaque">um terço (1/3)</mark> do corpo docente com titulação de mestrado ou doutorado.
+                            </div>
+                            <div class="p-3 bg-white border border-slate-200 rounded-lg">
+                                <span class="font-bold text-slate-900 block mb-0.5">Regime de Dedicação:</span>
+                                Pelo menos <mark class="grifo-destaque">um terço (1/3)</mark> do corpo docente contratado em regime de tempo integral.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tabela 3: Dimensões da Autonomia Institucional -->
+                    <div class="space-y-2 pt-2">
+                        <h4 class="text-sm font-bold uppercase tracking-wider text-slate-600">
+                            Dimensões da Autonomia Institucional (Arts. 53 a 57 da LDB)
+                        </h4>
+                        <div class="border border-slate-200 rounded-xl bg-white shadow-sm overflow-hidden">
+                            <table class="text-left text-xs sm:text-sm divide-y divide-slate-200">
+                                <thead class="bg-slate-50 text-slate-800 font-semibold">
+                                    <tr>
+                                        <th scope="col" class="p-3 w-1/5">Dimensão</th>
+                                        <th scope="col" class="p-3 w-1/6">Fundamento</th>
+                                        <th scope="col" class="p-3 w-1/3">Prerrogativas Asseguradas</th>
+                                        <th scope="col" class="p-3 w-3/10">Condicionantes Normativas</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-slate-200 text-slate-700">
+                                    <tr class="hover:bg-slate-50/50 transition">
+                                        <td class="p-3 font-semibold text-slate-900">Didático-Científica</td>
+                                        <td class="p-3 font-mono text-xs">Art. 53, I a III e parágrafo único</td>
+                                        <td class="p-3 leading-snug">
+                                            Criar, organizar e extinguir cursos e programas em sua sede; fixar currículos, planos de ensino e projetos de pesquisa/extensão.
+                                        </td>
+                                        <td class="p-3 leading-snug">
+                                            Decisões privativas dos <mark class="grifo">colegiados de ensino e pesquisa</mark>, observadas as diretrizes curriculares e limites orçamentários.
+                                        </td>
+                                    </tr>
+                                    <tr class="hover:bg-slate-50/50 transition">
+                                        <td class="p-3 font-semibold text-slate-900">Administrativa</td>
+                                        <td class="p-3 font-mono text-xs">Art. 53, IV a VII; Art. 56</td>
+                                        <td class="p-3 leading-snug">
+                                            Fixar número de vagas; elaborar e reformar estatutos e regimentos; conferir graus e títulos acadêmicos; firmar convênios.
+                                        </td>
+                                        <td class="p-3 leading-snug">
+                                            Gestão democrática: os docentes ocuparão obrigatoriamente <mark class="grifo-destaque">70% dos assentos</mark> nos colegiados decisórios e comissões normativas.
+                                        </td>
+                                    </tr>
+                                    <tr class="hover:bg-slate-50/50 transition">
+                                        <td class="p-3 font-semibold text-slate-900">Gestão Financeira e Patrimonial</td>
+                                        <td class="p-3 font-mono text-xs">Arts. 54 e 55</td>
+                                        <td class="p-3 leading-snug">
+                                            Administrar bens e rendas; elaborar proposta orçamentária; captar e aplicar receitas próprias decorrentes de serviços ou convênios.
+                                        </td>
+                                        <td class="p-3 leading-snug">
+                                            Limites do orçamento público; repasses das dotações efetuados pelo Poder Executivo em <mark class="grifo">duodécimos orçamentários</mark> compulsórios.
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="p-3 bg-white border border-slate-200 rounded-lg flex items-center gap-3">
+                        <span class="text-xl">⏱️</span>
+                        <div class="text-xs sm:text-sm">
+                            <strong class="text-slate-900">Piso de Aulas em Sala (Art. 57 da LDB):</strong> Nas instituições públicas de educação superior, o docente ficará legalmente obrigado ao cumprimento do mínimo de <mark class="grifo-destaque">oito (8) horas semanais de aulas</mark>.
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ======================================================== -->
+            <!-- SEÇÃO 6: SÍNTESE CONCEITUAL PARA PROVA OBJETIVA         -->
+            <!-- ======================================================== -->
+            <section class="space-y-6">
+                <div>
+                    <h2 class="text-xl sm:text-2xl font-bold text-slate-900 pb-2 border-b border-slate-200">
+                        6. Síntese Conceitual para a Prova Objetiva (Memorização Rápida)
+                    </h2>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Coluna EPT -->
+                    <div class="border border-slate-200 rounded-xl p-5 bg-white space-y-3">
+                        <div class="flex items-center gap-2 border-b border-slate-100 pb-2">
+                            <span class="w-2.5 h-2.5 rounded-full bg-slate-400"></span>
+                            <h3 class="font-bold text-slate-900 text-base">Diretrizes da EPT (Arts. 39 a 42-B)</h3>
+                        </div>
+                        <ul class="space-y-2 text-xs sm:text-sm text-slate-700">
+                            <li class="flex items-start gap-2">
+                                <span class="text-slate-400">&bull;</span>
+                                <div><strong class="text-slate-900">Integração Curricular:</strong> Articulação indissociável entre <mark class="grifo">trabalho, ciência e tecnologia</mark>.</div>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span class="text-slate-400">&bull;</span>
+                                <div><strong class="text-slate-900">3 Níveis de Oferta:</strong> FIC (qualificação profissional), Técnico de Nível Médio e Tecnológico (Graduação e Pós).</div>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span class="text-slate-400">&bull;</span>
+                                <div><strong class="text-slate-900">Aproveitamento de Estudos (Art. 39, § 4º):</strong> IES podem aproveitar créditos de cursos técnicos da mesma área tecnológica.</div>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span class="text-slate-400">&bull;</span>
+                                <div><strong class="text-slate-900">Eixos Tecnológicos (Art. 42-A):</strong> Base para itinerários contínuos e trajetórias formativas progressivas.</div>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span class="text-slate-400">&bull;</span>
+                                <div><strong class="text-slate-900">Catálogos Referenciais:</strong> CNCT (cursos técnicos) e CNCST (graduação tecnológica).</div>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span class="text-slate-400">&bull;</span>
+                                <div><strong class="text-slate-900">Avaliação da EPT (Art. 42-B):</strong> Processos nacionais periódicos de avaliação institucional e de cursos.</div>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span class="text-slate-400">&bull;</span>
+                                <div><strong class="text-slate-900">Cursos Especiais Livres (Art. 42):</strong> Condicionados apenas à <mark class="grifo">capacidade de aproveitamento</mark>, sem exigência de escolaridade prévia.</div>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span class="text-slate-400">&bull;</span>
+                                <div><strong class="text-slate-900">Certificação de Saberes (Art. 41):</strong> Reconhecimento de competências do trabalho para continuidade de estudos.</div>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Coluna Superior -->
+                    <div class="border border-slate-200 rounded-xl p-5 bg-white space-y-3">
+                        <div class="flex items-center gap-2 border-b border-slate-100 pb-2">
+                            <span class="w-2.5 h-2.5 rounded-full bg-slate-400"></span>
+                            <h3 class="font-bold text-slate-900 text-base">Educação Superior (Arts. 43 a 57)</h3>
+                        </div>
+                        <ul class="space-y-2 text-xs sm:text-sm text-slate-700">
+                            <li class="flex items-start gap-2">
+                                <span class="text-slate-400">&bull;</span>
+                                <div><strong class="text-slate-900">Finalidade VIII do Art. 43:</strong> Compromisso expresso de atuar na <mark class="grifo">universalização e aprimoramento da educação básica</mark>.</div>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span class="text-slate-400">&bull;</span>
+                                <div><strong class="text-slate-900">Cursos Sequenciais (Art. 44, I):</strong> Conferem apenas <mark class="grifo">certificado</mark> (não outorgam diploma nem grau acadêmico).</div>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span class="text-slate-400">&bull;</span>
+                                <div><strong class="text-slate-900">Calendário Acadêmico (Art. 47):</strong> Mínimo de <mark class="grifo-destaque">200 dias de trabalho efetivo</mark>, <mark class="grifo-destaque">excluídos os exames finais</mark>.</div>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span class="text-slate-400">&bull;</span>
+                                <div><strong class="text-slate-900">Abreviamento (Art. 47, § 2º):</strong> Alunos extraordinários avaliados por <mark class="grifo">banca examinadora especial</mark>.</div>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span class="text-slate-400">&bull;</span>
+                                <div><strong class="text-slate-900">Revalidação de Graduação Estrangeira:</strong> Competência exclusiva de <mark class="grifo-destaque">universidades públicas</mark>.</div>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span class="text-slate-400">&bull;</span>
+                                <div><strong class="text-slate-900">Reconhecimento de Pós Estrangeira:</strong> Universidades públicas ou <mark class="grifo">privadas</mark> com curso Capes equivalente.</div>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span class="text-slate-400">&bull;</span>
+                                <div><strong class="text-slate-900">Quórum Docente em Colegiados:</strong> Mínimo obrigatório de <mark class="grifo-destaque">70% dos assentos</mark> para os professores.</div>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span class="text-slate-400">&bull;</span>
+                                <div><strong class="text-slate-900">Carga Horária Semanal em Sala:</strong> Mínimo de <mark class="grifo-destaque">8 horas semanais de aulas</mark> nas IES públicas.</div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ======================================================== -->
+            <!-- SEÇÃO 7: TABELA DE PEGADINHAS LITERAIS DE BANCA         -->
+            <!-- ======================================================== -->
+            <section id="tabela-pegadinhas" class="space-y-4">
+                <div>
+                    <h2 class="text-xl sm:text-2xl font-bold text-slate-900 pb-2 border-b border-slate-200">
+                        7. Tabela Comparativa de Pegadinhas Literais de Banca
+                    </h2>
+                    <p class="text-slate-600 text-sm mt-1">
+                        Confronte os enunciados falaciosos mais comuns formulados por bancas examinadoras federais com a regra dogmática e o fundamento legal da LDB.
+                    </p>
+                </div>
+
+                <div class="border border-slate-200 rounded-xl bg-white shadow-sm overflow-hidden">
+                    <table class="text-left text-xs sm:text-sm divide-y divide-slate-200">
+                        <thead class="bg-slate-50 text-slate-800 font-semibold">
+                            <tr>
+                                <th scope="col" class="p-3 w-7/20 text-rose-900">Afirmação Falaciosa (Pegadinha)</th>
+                                <th scope="col" class="p-3 w-9/20 text-emerald-950">Regra Dogmática e Literal da LDB</th>
+                                <th scope="col" class="p-3 w-1/5">Dispositivo</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-200 text-slate-700">
+                            <tr class="hover:bg-slate-50/50 transition">
+                                <td class="p-3 text-rose-800 font-medium leading-snug">
+                                    O curso superior sequencial confere grau acadêmico pleno e diploma equivalente ao curso superior de tecnologia.
+                                </td>
+                                <td class="p-3 leading-snug">
+                                    O curso sequencial outorga tão somente <mark class="grifo">certificado</mark> de complementação superior, sendo insuscetível de conferir diploma de graduação.
+                                </td>
+                                <td class="p-3 font-mono text-xs text-slate-500">Art. 44, inciso I</td>
+                            </tr>
+                            <tr class="hover:bg-slate-50/50 transition">
+                                <td class="p-3 text-rose-800 font-medium leading-snug">
+                                    O ano letivo superior é composto por no mínimo 200 dias de efetivo trabalho acadêmico, incluindo o tempo de exames finais.
+                                </td>
+                                <td class="p-3 leading-snug">
+                                    O ano letivo regular de ensino superior possui no mínimo 200 dias úteis, <mark class="grifo-destaque">excluído expressamente</mark> o período reservado aos exames finais.
+                                </td>
+                                <td class="p-3 font-mono text-xs text-slate-500">Art. 47, caput</td>
+                            </tr>
+                            <tr class="hover:bg-slate-50/50 transition">
+                                <td class="p-3 text-rose-800 font-medium leading-snug">
+                                    A revalidação de diplomas de graduação obtidos em instituições do exterior pode ser concedida por universidades públicas e privadas.
+                                </td>
+                                <td class="p-3 leading-snug">
+                                    A revalidação de diplomas de graduação estrangeiros constitui prerrogativa atribuída <mark class="grifo-destaque">exclusivamente a universidades públicas</mark>.
+                                </td>
+                                <td class="p-3 font-mono text-xs text-slate-500">Art. 48, § 2º</td>
+                            </tr>
+                            <tr class="hover:bg-slate-50/50 transition">
+                                <td class="p-3 text-rose-800 font-medium leading-snug">
+                                    O reconhecimento de diplomas de pós-graduação <em>stricto sensu</em> do exterior depende de atuação restrita de universidades federais.
+                                </td>
+                                <td class="p-3 leading-snug">
+                                    O reconhecimento de títulos estrangeiros de mestrado e doutorado pode ser realizado por <mark class="grifo">universidades públicas ou privadas</mark> com cursos recomendados pela Capes.
+                                </td>
+                                <td class="p-3 font-mono text-xs text-slate-500">Art. 48, § 3º</td>
+                            </tr>
+                            <tr class="hover:bg-slate-50/50 transition">
+                                <td class="p-3 text-rose-800 font-medium leading-snug">
+                                    A inscrição em cursos especiais abertos à comunidade (FIC) submete-se à obrigatoriedade de conclusão do ensino fundamental.
+                                </td>
+                                <td class="p-3 leading-snug">
+                                    A matrícula em cursos especiais é condicionada à <mark class="grifo">capacidade de aproveitamento e não necessariamente ao nível de escolaridade formal</mark>.
+                                </td>
+                                <td class="p-3 font-mono text-xs text-slate-500">Art. 42, caput</td>
+                            </tr>
+                            <tr class="hover:bg-slate-50/50 transition">
+                                <td class="p-3 text-rose-800 font-medium leading-snug">
+                                    As decisões sobre ampliação de vagas e alteração de matrizes curriculares cabem unipessoalmente ao Reitor da universidade ou do Instituto.
+                                </td>
+                                <td class="p-3 leading-snug">
+                                    As decisões curriculares e de vagas competem <mark class="grifo">privativamente aos colegiados de ensino e pesquisa</mark>, respeitada a dotação orçamentária.
+                                </td>
+                                <td class="p-3 font-mono text-xs text-slate-500">Art. 53, parágrafo único</td>
+                            </tr>
+                            <tr class="hover:bg-slate-50/50 transition">
+                                <td class="p-3 text-rose-800 font-medium leading-snug">
+                                    O quórum representativo do corpo docente em colegiados que alterem o estatuto da instituição deve corresponder a 50% mais um assento.
+                                </td>
+                                <td class="p-3 leading-snug">
+                                    A LDB impõe que os docentes ocuparão obrigatoriamente <mark class="grifo-destaque">setenta por cento (70%) dos assentos</mark> nos órgãos colegiados e comissões decisórias.
+                                </td>
+                                <td class="p-3 font-mono text-xs text-slate-500">Art. 56, parágrafo único</td>
+                            </tr>
+                            <tr class="hover:bg-slate-50/50 transition">
+                                <td class="p-3 text-rose-800 font-medium leading-snug">
+                                    Nas instituições públicas de ensino superior, o professor cumpre jornada mínima obrigatória de regência em sala de aula de 12 horas semanais.
+                                </td>
+                                <td class="p-3 leading-snug">
+                                    A jornada mínima de magistério efetivo fixada pela LDB para os docentes do ensino superior público é de <mark class="grifo-destaque">oito (8) horas semanais de aulas</mark>.
+                                </td>
+                                <td class="p-3 font-mono text-xs text-slate-500">Art. 57, caput</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- ======================================================== -->
+            <!-- SEÇÃO 8: QUESTÕES COMENTADAS PADRÃO IFMG                -->
+            <!-- ======================================================== -->
+            <section class="space-y-6">
+                <div>
+                    <h2 class="text-xl sm:text-2xl font-bold text-slate-900 pb-2 border-b border-slate-200">
+                        8. Questões Inéditas Comentadas no Padrão do Concurso IFMG
+                    </h2>
+                </div>
+
+                <!-- Questão 01 -->
+                <div class="border border-slate-200 rounded-xl p-5 bg-white space-y-4">
+                    <div class="flex items-center justify-between">
+                        <span class="text-xs font-bold uppercase tracking-wider text-slate-500 font-mono">Questão 01 · EPT e Lei 14.645/2023</span>
+                        <span class="text-xs font-semibold px-2 py-0.5 rounded bg-slate-100 text-slate-700">Padrão IFMG</span>
+                    </div>
+                    <p class="text-sm sm:text-base text-slate-800 leading-relaxed">
+                        <strong>Enunciado:</strong> O Instituto Federal de Educação, Ciência e Tecnologia de Minas Gerais (IFMG), em consonância com as competências delineadas em seu plano de desenvolvimento e no Título V da Lei nº 9.394/1996, desenvolve cursos articulados de Educação Profissional e Tecnológica (EPT). Sobre as normas aplicáveis à EPT, considerando as alterações promovidas pela Lei nº 14.645/2023, analise as afirmativas a seguir:
+                    </p>
+                    <div class="space-y-2 text-xs sm:text-sm text-slate-700 pl-2">
+                        <p><strong>I.</strong> A matrícula em cursos de formação inicial e continuada ou qualificação profissional, quando organizados como cursos especiais abertos à comunidade, subordina-se à aferição da capacidade de aproveitamento do estudante, dispensando compulsoriamente a exigência de escolaridade prévia padronizada.</p>
+                        <p><strong>II.</strong> O princípio da verticalização na EPT fundamenta-se na independência estanque entre os currículos técnicos de nível médio e os programas superiores de tecnologia, ficando as instituições de ensino superior proibidas de validar créditos da educação básica.</p>
+                        <p><strong>III.</strong> A organização da educação profissional e tecnológica por eixos tecnológicos pressupõe o princípio da integração curricular entre cursos e programas, com a finalidade de instituir itinerários formativos contínuos e trajetórias progressivas de formação entre todos os níveis escolares.</p>
+                        <p><strong>IV.</strong> A oferta de educação profissional técnica de nível médio e tecnológica de graduação é balizada formalmente pela avaliação periódica da qualidade das instituições e de seus cursos, observadas as diretrizes do sistema federal de ensino.</p>
+                    </div>
+
+                    <div class="text-xs sm:text-sm font-semibold text-slate-800 pt-1">
+                        Assinale a alternativa correta:
+                    </div>
+                    <div class="grid grid-cols-1 gap-1.5 text-xs sm:text-sm text-slate-700">
+                        <div class="p-2 rounded bg-slate-50 border border-slate-200">A) Apenas as afirmativas II e III estão corretas.</div>
+                        <div class="p-2 rounded bg-slate-50 border border-slate-200">B) Apenas as afirmativas I e IV estão corretas.</div>
+                        <div class="p-2 rounded bg-amber-50 border border-amber-300 font-semibold text-amber-950">C) Apenas as afirmativas I, III e IV estão corretas. (Gabarito)</div>
+                        <div class="p-2 rounded bg-slate-50 border border-slate-200">D) Apenas as afirmativas II, III e IV estão corretas.</div>
+                        <div class="p-2 rounded bg-slate-50 border border-slate-200">E) Todas as afirmativas estão corretas.</div>
+                    </div>
+
+                    <div class="p-4 bg-slate-50 border-l-4 border-slate-400 rounded-r-lg space-y-2 text-xs sm:text-sm text-slate-700">
+                        <strong class="text-slate-900 block">Comentário Analítico:</strong>
+                        <p>• <strong>Afirmativa I (Correta):</strong> Reproduz o art. 42 da LDB, que permite o ingresso com base na capacidade de aproveitamento individual sem impor nível de escolaridade formal.</p>
+                        <p>• <strong>Afirmativa II (Incorreta):</strong> O art. 39, § 4º (inserido pela Lei nº 14.645/2023) estabelece expressamente que as IES poderão aproveitar créditos, saberes e competências desenvolvidos em cursos técnicos na mesma área de formação tecnológica.</p>
+                        <p>• <strong>Afirmativa III (Correta):</strong> Reproduz fielmente a redação do art. 42-A da LDB (eixos tecnológicos e trajetórias contínuas).</p>
+                        <p>• <strong>Afirmativa IV (Correta):</strong> Reflete o texto do art. 42-B, subordinando a oferta de cursos técnicos e tecnológicos à avaliação periódica institucional e de cursos.</p>
+                        <p class="font-bold text-slate-900">Gabarito Oficial: Letra C.</p>
+                    </div>
+                </div>
+
+                <!-- Questão 02 -->
+                <div class="border border-slate-200 rounded-xl p-5 bg-white space-y-4">
+                    <div class="flex items-center justify-between">
+                        <span class="text-xs font-bold uppercase tracking-wider text-slate-500 font-mono">Questão 02 · Educação Superior e Autonomia</span>
+                        <span class="text-xs font-semibold px-2 py-0.5 rounded bg-slate-100 text-slate-700">Padrão IFMG</span>
+                    </div>
+                    <p class="text-sm sm:text-base text-slate-800 leading-relaxed">
+                        <strong>Enunciado:</strong> O Capítulo IV do Título V da Lei nº 9.394/1996 disciplina as diretrizes normativas e a estrutura acadêmica da Educação Superior. De acordo com as disposições literais da LDB sobre o regime acadêmico, cursos superiores e prerrogativas institucionais, assinale a alternativa juridicamente <strong>CORRETA</strong>:
+                    </p>
+
+                    <div class="grid grid-cols-1 gap-1.5 text-xs sm:text-sm text-slate-700">
+                        <div class="p-2 rounded bg-slate-50 border border-slate-200">A) O ano letivo regular de ensino superior possui a duração obrigatória de duzentos dias de trabalho acadêmico efetivo, incluindo no cômputo os períodos destinados à realização dos exames finais.</div>
+                        <div class="p-2 rounded bg-slate-50 border border-slate-200">B) Os diplomas de graduação expedidos por universidades estrangeiras podem ser revalidados por universidades públicas ou privadas, contanto que mantenham cursos de pós-graduação recomendados na mesma área.</div>
+                        <div class="p-2 rounded bg-slate-50 border border-slate-200">C) Os cursos sequenciais por campo de saber habilitam o egresso à expedição de diploma de nível superior pleno, autorizando-o ao exercício de atividades privativas de portadores de título de graduação.</div>
+                        <div class="p-2 rounded bg-amber-50 border border-amber-300 font-semibold text-amber-950">D) As universidades e os Institutos Federais gozam de autonomia didático-científica para criar, organizar e extinguir cursos e programas de educação superior em sua sede, incumbindo essa deliberação aos seus colegiados de ensino e pesquisa, respeitados os limites orçamentários disponíveis. (Gabarito)</div>
+                        <div class="p-2 rounded bg-slate-50 border border-slate-200">E) A representação do corpo docente nos colegiados deliberativos e nas comissões normativas das instituições públicas de ensino superior é paritária em relação à soma das representações estudantis e técnico-administrativas.</div>
+                    </div>
+
+                    <div class="p-4 bg-slate-50 border-l-4 border-slate-400 rounded-r-lg space-y-2 text-xs sm:text-sm text-slate-700">
+                        <strong class="text-slate-900 block">Comentário Analítico:</strong>
+                        <p>• <strong>A está incorreta:</strong> O art. 47, <em>caput</em>, exclui expressamente da contagem dos 200 dias o tempo reservado a exames finais.</p>
+                        <p>• <strong>B está incorreta:</strong> Conforme o art. 48, § 2º, a revalidação de diplomas estrangeiros de graduação é de competência privativa das universidades públicas.</p>
+                        <p>• <strong>C está incorreta:</strong> O art. 44, inciso I, outorga apenas certificado, não conferindo grau pleno de graduação nem diploma.</p>
+                        <p>• <strong>D está correta:</strong> Reproduz as prerrogativas do art. 53, inciso I e parágrafo único da LDB (autonomia deliberativa dos colegiados acadêmicos sobre criação/extinção de cursos na sede).</p>
+                        <p>• <strong>E está incorreta:</strong> O art. 56, parágrafo único, veda o regime paritário, exigindo 70% de representação obrigatória para a categoria docente.</p>
+                        <p class="font-bold text-slate-900">Gabarito Oficial: Letra D.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ======================================================== -->
+            <!-- SEÇÃO 9: SÍNTESE CONCLUSIVA                             -->
+            <!-- ======================================================== -->
+            <section class="border-t border-slate-200 pt-8 space-y-3">
+                <h3 class="text-xl font-bold text-slate-900">Síntese Conclusiva</h3>
+                <p class="text-sm sm:text-base text-slate-600 leading-relaxed">
+                    O domínio dos Capítulos III e IV do Título V da LDB é essencial para a atuação pedagógica do docente no IFMG e para a obtenção de pontuação no concurso. A compreensão das alterações introduzidas pela Lei nº 14.645/2023 evidencia a tendência de superação das barreiras entre a educação básica técnica e a educação superior. O candidato deve focar na precisão textual dos preceitos legais: o itinerário formativo contínuo estruturado em eixos tecnológicos; os critérios de acesso e certificação dos cursos do art. 44; o regime de 200 dias de efetivo trabalho acadêmico (excluídos os exames finais); a diferenciação entre revalidação e reconhecimento de diplomas estrangeiros; o quórum de 70% da representação docente nos colegiados; e a jornada mínima de 8 horas semanais em sala de aula nas IES públicas. A retenção desses parâmetros normativos assegura o preparo técnico necessário para a resolução das questões da banca examinadora.
+                </p>
+            </section>
+        </article>
+
+        <!-- ========================================== -->
+        <!-- BOTÃO DE TRANSIÇÃO PARA QUESTÕES           -->
+        <!-- ========================================== -->
+        <section class="border-t border-slate-200 pt-8 pb-12 text-center">
+            <div class="bg-white border-2 border-dashed border-slate-300 rounded-2xl p-6 sm:p-8 space-y-4">
+                <div class="inline-flex items-center justify-center w-12 h-12 rounded-full bg-slate-100 text-slate-800 text-xl font-bold">
+                    📝
+                </div>
+                <h3 class="text-xl font-bold text-slate-900">Pronto para testar seus conhecimentos?</h3>
+                <p class="text-sm text-slate-600 max-w-xl mx-auto">
+                    Avance para o simulador de questões da banca para fixar todos os prazos, artigos e pegadinhas memorizados nesta aula.
+                </p>
+                <div class="pt-2">
+                    <a 
+                        href="questoes18legs.html" 
+                        class="inline-flex items-center justify-center gap-2 px-8 py-3.5 bg-slate-900 hover:bg-slate-800 active:bg-slate-950 text-white font-bold text-sm sm:text-base rounded-xl shadow-md hover:shadow-lg transition transform hover:-translate-y-0.5"
+                    >
+                        <span>Acessar Módulo de Questões (questoes18legs.html)</span>
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Rodapé -->
+    <footer class="bg-white border-t border-slate-200 py-6 text-center text-xs text-slate-500">
+        <p>Preparatório para Concurso Público de Professor EBTT · Geografia · IFMG</p>
+        <p class="mt-1 text-slate-400">Material de estudo individual focado na literalidade da LDB (Lei Federal nº 9.394/1996)</p>
+    </footer>
+
+    <!-- Script de Gestão do Reprodutor de Áudio -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var audioPlayer = document.getElementById('mainAudioPlayer');
+            var audioSource = document.getElementById('mainAudioSource');
+            var inputFileName = document.getElementById('audioFileNameInput');
+            var btnCarregar = document.getElementById('btnCarregarAudio');
+            var statusText = document.getElementById('audioStatusText');
+
+            function atualizarArquivoAudio() {
+                var fileName = inputFileName.value.trim();
+                if (!fileName) {
+                    fileName = 'aula_ldb.mp3';
+                    inputFileName.value = fileName;
+                }
+                
+                audioSource.src = fileName;
+                audioPlayer.load();
+                
+                statusText.innerHTML = 'Arquivo atual configurado: <strong class="text-slate-800 font-mono">' + fileName + '</strong>';
+            }
+
+            // Ação ao clicar no botão Carregar
+            btnCarregar.addEventListener('click', function () {
+                atualizarArquivoAudio();
+            });
+
+            // Ação ao pressionar tecla ENTER no campo de texto
+            inputFileName.addEventListener('keydown', function (e) {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    atualizarArquivoAudio();
+                }
+            });
+        });
+    </script>
+</body>
+</html>

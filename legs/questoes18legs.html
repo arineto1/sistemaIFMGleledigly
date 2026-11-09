@@ -1,0 +1,1033 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simulado Interativo: LDB (EPT e Educação Superior) - Banca IFMG</title>
+  <style>
+    /* Variáveis e paleta suave para leitura prolongada e conforto visual */
+    :root {
+      --bg-page: #f8fafc;
+      --bg-card: #ffffff;
+      --bg-subtle: #f1f5f9;
+      --text-main: #1e293b;
+      --text-muted: #475569;
+      --text-light: #64748b;
+      --border-color: #e2e8f0;
+      --primary: #1e3a8a;
+      --primary-hover: #1e40af;
+      --primary-light: #eff6ff;
+      --accent-green: #065f46;
+      --bg-green: #ecfdf5;
+      --border-green: #10b981;
+      --accent-red: #991b1b;
+      --bg-red: #fef2f2;
+      --border-red: #f87171;
+      --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05);
+      --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.07), 0 2px 4px -2px rgba(0, 0, 0, 0.04);
+      --radius: 10px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-page);
+      color: var(--text-main);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      line-height: 1.68;
+      font-size: 16px;
+      -webkit-font-smoothing: antialiased;
+      padding-bottom: 90px;
+    }
+
+    /* Container com largura ideal para evitar fadiga ocular (65-80 caracteres por linha) */
+    .container {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 24px 16px;
+    }
+
+    /* Cabeçalho Editorial */
+    header {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius);
+      padding: 28px 24px;
+      margin-bottom: 24px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .badge-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+
+    .badge {
+      display: inline-block;
+      font-size: 0.78rem;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .badge-blue {
+      background-color: #dbeafe;
+      color: #1e40af;
+    }
+
+    .badge-gray {
+      background-color: #f1f5f9;
+      color: #475569;
+    }
+
+    h1 {
+      font-size: 1.55rem;
+      font-weight: 700;
+      color: #0f172a;
+      line-height: 1.35;
+      margin-bottom: 8px;
+    }
+
+    .subtitle {
+      font-size: 0.96rem;
+      color: var(--text-muted);
+      margin-bottom: 18px;
+    }
+
+    /* Barra de progresso interativa */
+    .progress-box {
+      margin-top: 16px;
+      padding-top: 16px;
+      border-top: 1px solid var(--border-color);
+    }
+
+    .progress-info {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+    }
+
+    .progress-track {
+      width: 100%;
+      height: 9px;
+      background-color: var(--bg-subtle);
+      border-radius: 999px;
+      overflow: hidden;
+      border: 1px solid var(--border-color);
+    }
+
+    .progress-fill {
+      width: 0%;
+      height: 100%;
+      background-color: #2563eb;
+      transition: width 0.3s ease;
+    }
+
+    /* Cartão da Questão */
+    .question-card {
+      background-color: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius);
+      padding: 26px 22px;
+      margin-bottom: 24px;
+      box-shadow: var(--shadow-sm);
+      transition: border-color 0.2s ease;
+    }
+
+    .question-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .question-title {
+      font-size: 1.12rem;
+      font-weight: 700;
+      color: #0f172a;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .question-status-tag {
+      font-size: 0.8rem;
+      font-weight: 600;
+      padding: 3px 9px;
+      border-radius: 999px;
+      display: none;
+    }
+
+    .status-correct {
+      background-color: var(--bg-green);
+      color: var(--accent-green);
+      border: 1px solid var(--border-green);
+      display: inline-flex;
+    }
+
+    .status-incorrect {
+      background-color: var(--bg-red);
+      color: var(--accent-red);
+      border: 1px solid var(--border-red);
+      display: inline-flex;
+    }
+
+    .status-unanswered {
+      background-color: #fef3c7;
+      color: #92400e;
+      border: 1px solid #fcd34d;
+      display: inline-flex;
+    }
+
+    .question-text {
+      font-size: 1rem;
+      color: var(--text-main);
+      margin-bottom: 20px;
+      white-space: pre-line;
+      text-align: justify;
+    }
+
+    /* Lista de Alternativas */
+    .options-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .option-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 13px 16px;
+      background-color: #fafbfc;
+      border: 1.5px solid var(--border-color);
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.15s ease-in-out;
+      user-select: none;
+    }
+
+    .option-item:hover {
+      background-color: var(--primary-light);
+      border-color: #93c5fd;
+    }
+
+    .option-item input[type="radio"] {
+      margin-top: 4px;
+      appearance: none;
+      width: 18px;
+      height: 18px;
+      border: 2px solid #94a3b8;
+      border-radius: 50%;
+      outline: none;
+      transition: all 0.15s ease-in-out;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+
+    .option-item input[type="radio"]:checked {
+      border-color: #2563eb;
+      background-color: #2563eb;
+      box-shadow: inset 0 0 0 3px #ffffff;
+    }
+
+    .option-item.selected {
+      background-color: #eff6ff;
+      border-color: #3b82f6;
+    }
+
+    .option-letter {
+      font-weight: 700;
+      color: #334155;
+      font-size: 0.96rem;
+      min-width: 22px;
+    }
+
+    .option-content {
+      font-size: 0.97rem;
+      color: var(--text-main);
+      flex: 1;
+      line-height: 1.58;
+    }
+
+    /* Estilos pós-correção */
+    .option-item.is-correct-answer {
+      background-color: var(--bg-green) !important;
+      border-color: var(--border-green) !important;
+      color: var(--accent-green) !important;
+    }
+
+    .option-item.is-user-wrong {
+      background-color: var(--bg-red) !important;
+      border-color: var(--border-red) !important;
+      color: var(--accent-red) !important;
+    }
+
+    .badge-choice {
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 2px 6px;
+      border-radius: 4px;
+      margin-left: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .badge-choice-correct {
+      background-color: #10b981;
+      color: #ffffff;
+    }
+
+    .badge-choice-wrong {
+      background-color: #ef4444;
+      color: #ffffff;
+    }
+
+    /* Caixa de Resolução Comentada */
+    .resolution-box {
+      margin-top: 22px;
+      padding: 20px;
+      background-color: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-left: 5px solid #2563eb;
+      border-radius: 8px;
+      display: none;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .resolution-header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+      gap: 8px;
+    }
+
+    .resolution-title {
+      font-size: 0.98rem;
+      font-weight: 700;
+      color: #1e3a8a;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .legal-tag {
+      background-color: #e0e7ff;
+      color: #3730a3;
+      font-size: 0.8rem;
+      font-weight: 600;
+      padding: 3px 10px;
+      border-radius: 6px;
+    }
+
+    .resolution-text {
+      font-size: 0.95rem;
+      color: #334155;
+      line-height: 1.68;
+      text-align: justify;
+    }
+
+    /* Painel Geral de Resultados */
+    #score-summary-card {
+      background: #ffffff;
+      border: 2px solid #3b82f6;
+      border-radius: var(--radius);
+      padding: 28px 24px;
+      margin-bottom: 28px;
+      box-shadow: var(--shadow-md);
+      display: none;
+      animation: fadeIn 0.4s ease;
+    }
+
+    .summary-title {
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: #0f172a;
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .summary-stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 14px;
+      margin: 18px 0;
+    }
+
+    .stat-box {
+      background: var(--bg-subtle);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 14px 16px;
+      text-align: center;
+    }
+
+    .stat-val {
+      font-size: 1.7rem;
+      font-weight: 800;
+      color: #1e293b;
+      line-height: 1.2;
+    }
+
+    .stat-label {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--text-light);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .summary-feedback {
+      background-color: #eff6ff;
+      border-left: 4px solid #3b82f6;
+      padding: 14px 16px;
+      border-radius: 6px;
+      font-size: 0.95rem;
+      color: #1e3a8a;
+      margin-bottom: 16px;
+    }
+
+    .summary-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    /* Barra Flutuante / Botões de Ação */
+    .action-panel {
+      position: sticky;
+      bottom: 16px;
+      background: rgba(255, 255, 255, 0.96);
+      backdrop-filter: blur(8px);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 16px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+      z-index: 50;
+    }
+
+    .panel-status {
+      font-size: 0.92rem;
+      font-weight: 600;
+      color: var(--text-muted);
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+      transition: all 0.2s ease;
+    }
+
+    .btn-primary {
+      background-color: var(--primary);
+      color: #ffffff;
+    }
+
+    .btn-primary:hover {
+      background-color: var(--primary-hover);
+      box-shadow: 0 4px 12px rgba(30, 58, 138, 0.25);
+    }
+
+    .btn-secondary {
+      background-color: #ffffff;
+      color: #334155;
+      border: 1.5px solid var(--border-color);
+    }
+
+    .btn-secondary:hover {
+      background-color: var(--bg-subtle);
+      border-color: #cbd5e1;
+    }
+
+    /* Modal Interno para confirmação (sem uso de confirm()/alert()) */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(15, 23, 42, 0.45);
+      backdrop-filter: blur(3px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      z-index: 100;
+      animation: fadeIn 0.2s ease;
+    }
+
+    .modal-box {
+      background: #ffffff;
+      border-radius: 12px;
+      max-width: 480px;
+      width: 100%;
+      padding: 24px;
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2);
+    }
+
+    .modal-box h3 {
+      font-size: 1.2rem;
+      color: #0f172a;
+      margin-bottom: 10px;
+    }
+
+    .modal-box p {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      margin-bottom: 20px;
+    }
+
+    .modal-buttons {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 640px) {
+      .container {
+        padding: 14px 12px;
+      }
+      header {
+        padding: 20px 16px;
+      }
+      .question-card {
+        padding: 18px 14px;
+      }
+      .action-panel {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .btn {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    
+    <!-- Cabeçalho Informativo -->
+    <header>
+      <div class="badge-bar">
+        <span class="badge badge-blue">Banca Comissão Central • Reitoria IFMG</span>
+        <span class="badge badge-gray">Lei Federal nº 9.394/1996</span>
+        <span class="badge badge-gray">Arts. 39 a 57</span>
+      </div>
+      <h1>LDB: Educação Profissional, Tecnológica e Educação Superior</h1>
+      <p class="subtitle">
+        Caderno de 10 questões completas no estilo da Reitoria do IFMG. Responda às questões e visualize imediatamente a pontuação, o gabarito comentado e a fundamentação legal de cada item.
+      </p>
+
+      <div class="progress-box">
+        <div class="progress-info">
+          <span>Progresso do Simulado</span>
+          <span id="progress-text">0 de 10 respondidas</span>
+        </div>
+        <div class="progress-track">
+          <div class="progress-fill" id="progress-bar"></div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Card de Resultado Final (Aparece após término) -->
+    <section id="score-summary-card" aria-live="polite">
+      <div class="summary-title">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+          <polyline points="22 4 12 14.01 9 11.01"></polyline>
+        </svg>
+        <span>Resultado do Simulado</span>
+      </div>
+      
+      <div class="summary-stats-grid">
+        <div class="stat-box">
+          <div class="stat-val" id="stat-hits" style="color: #10b981;">0</div>
+          <div class="stat-label">Acertos</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-val" id="stat-errors" style="color: #ef4444;">0</div>
+          <div class="stat-label">Erros</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-val" id="stat-percent">0%</div>
+          <div class="stat-label">Aproveitamento</div>
+        </div>
+      </div>
+
+      <div class="summary-feedback" id="summary-feedback-text">
+        <!-- Feedback dinâmico -->
+      </div>
+
+      <div class="summary-actions">
+        <button class="btn btn-secondary" id="btn-toggle-resolutions" onclick="toggleAllResolutions()">
+          Recolher/Expandir Resoluções
+        </button>
+        <button class="btn btn-primary" onclick="resetQuiz()">
+          Refazer Simulado
+        </button>
+      </div>
+    </section>
+
+    <!-- Formulário contendo as 10 Questões -->
+    <form id="quiz-form" onsubmit="return false;">
+      <div id="questions-wrapper"></div>
+    </form>
+
+    <!-- Painel Inferior de Ação -->
+    <div class="action-panel" id="action-panel">
+      <div class="panel-status" id="panel-counter">0 de 10 respondidas</div>
+      <button type="button" class="btn btn-primary" id="btn-finish" onclick="attemptSubmit()">
+        Finalizar e Ver Resoluções
+      </button>
+    </div>
+
+  </div>
+
+  <!-- Modal de Confirmação para Questões Pendentes -->
+  <div class="modal-overlay" id="confirm-modal">
+    <div class="modal-box">
+      <h3>Questões em aberto</h3>
+      <p id="modal-msg">Você respondeu apenas X das 10 questões. Deseja finalizar o simulado mesmo assim e conferir o gabarito com as resoluções?</p>
+      <div class="modal-buttons">
+        <button class="btn btn-secondary" onclick="closeModal()">Continuar Respondendo</button>
+        <button class="btn btn-primary" onclick="confirmSubmit()">Sim, Finalizar</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Banco completo de dados extraído na íntegra do simulado
+    const quizData = [
+      {
+        id: 1,
+        title: "Questão 1",
+        enunciado: "O Capítulo III do Título V da Lei de Diretrizes e Bases da Educação Nacional (Lei nº 9.394/1996) disciplina a Educação Profissional e Tecnológica (EPT), estabelecendo sua articulação com a estrutura educacional mais ampla. Nos termos do art. 39 da referida lei, a EPT integra-se aos diferentes níveis e modalidades de educação e às dimensões do trabalho, da ciência e da tecnologia. A respeito da organização, dos níveis e da abrangência dessa modalidade, assinale a alternativa correta:",
+        options: {
+          A: "Os cursos de educação profissional tecnológica de graduação e pós-graduação organizar-se-ão, no que concerne a objetivos, características e duração, em estrita consonância com as diretrizes curriculares nacionais estabelecidas pelo Conselho Nacional de Educação.",
+          B: "A educação profissional e tecnológica compreende exclusivamente dois níveis formativos: a qualificação profissional de nível fundamental e a educação profissional técnica de nível médio.",
+          C: "A oferta de pós-graduação tecnológica é restrita a instituições universitárias com regime de tempo integral, sendo vedada sua oferta por instituições especializadas de educação profissional.",
+          D: "Os cursos e programas de formação inicial e continuada de trabalhadores dependem, para seu regular funcionamento, de autorização prévia e homologação pelo Ministério da Educação.",
+          E: "A formação profissional técnica de nível médio destina-se unicamente a egressos do ensino médio, sendo expressamente proibida sua integração ou concomitância com a etapa da educação básica regular."
+        },
+        correct: "A",
+        legalRef: "Art. 39, § 3º da Lei nº 9.394/1996",
+        resolucao: "A alternativa A expressa com precisão a determinação contida no art. 39, § 3º, da Lei nº 9.394/1996, ao disciplinar que os cursos de educação profissional tecnológica de graduação e pós-graduação estruturam-se no tocante a objetivos, características e carga horária de acordo com as diretrizes curriculares nacionais emanadas do Conselho Nacional de Educação.\n\nEm contrapartida, a alternativa B comete equívoco taxionômico ao omitir a educação tecnológica de nível superior (graduação e pós-graduação), que compõe expressamente o nível superior da EPT elencado no art. 39, § 1º, inciso III. A alternativa C contraria a ordenação jurídica nacional ao ignorar que instituições especializadas da Rede Federal, a exemplo dos Institutos Federais de Educação, Ciência e Tecnologia, possuem atribuição legal expressa para a oferta de pós-graduação stricto e lato sensu tecnológica. A alternativa D é incorreta porque a legislação concede flexibilidade na organização de cursos de qualificação inicial e continuada (FIC), não condicionando sua oferta a atos de autorização prévia por portaria ministerial direta do MEC. Por fim, a alternativa E colide com os arts. 36-A, 36-B e 36-C da LDB, os quais consagram as modalidades de articulação integrada e concomitante entre o ensino médio e a formação técnica de nível médio."
+      },
+      {
+        id: 2,
+        title: "Questão 2",
+        enunciado: "As instituições que integram as redes de Educação Profissional e Tecnológica desenvolvem percursos formativos diversificados com vistas a atender tanto a demandas da produção social quanto a necessidades comunitárias locais. Acerca dos cursos de formação inicial e continuada (FIC) e dos cursos especiais abertos à comunidade, analise as afirmativas a seguir à luz dos artigos 39 e 42 da Lei nº 9.394/1996:\n\nI. Os cursos e programas de formação inicial e continuada ou qualificação profissional compõem legalmente o escopo da educação profissional e tecnológica.\nII. As instituições de educação profissional e tecnológica, além dos seus cursos regulares, oferecerão cursos especiais, abertos à comunidade.\nIII. O ingresso nos cursos especiais abertos à comunidade é condicionado à capacidade de aproveitamento do candidato e não necessariamente ao seu nível de escolaridade.\nIV. A certificação emitida em cursos especiais abertos à comunidade confere automaticamente o grau de técnico de nível médio, dispensando requisitos curriculares complementares.\n\nÉ correto o que se afirma em:",
+        options: {
+          A: "I, II e III, apenas.",
+          B: "I e IV, apenas.",
+          C: "II e IV, apenas.",
+          D: "III e IV, apenas.",
+          E: "I, II, III e IV."
+        },
+        correct: "A",
+        legalRef: "Art. 39, § 1º, inciso I e Art. 42 da Lei nº 9.394/1996",
+        resolucao: "O gabarito recai sobre a alternativa A, uma vez que as proposições I, II e III encontram respaldo integral e literal nos artigos 39 e 42 da LDB. O item I reflete o art. 39, § 1º, inciso I, que insere a formação inicial e continuada (FIC) ou qualificação profissional no espectro formal da educação profissional e tecnológica. Os itens II e III reproduzem os preceitos centrais do art. 42, dispositivo no qual a lei estabelece que as instituições de EPT oferecerão cursos especiais abertos à comunidade, condicionando a matrícula à capacidade discente de aproveitamento formativo, prescindindo da exigência de determinado grau ou nível de escolaridade formal prévia. Esse desenho institucional visa promover a democratização do conhecimento técnico e a inserção laboral célere da comunidade externa.\n\nPor sua vez, o item IV revela-se insustentável: a certificação decorrente de cursos especiais de extensão comunitária ou de qualificação profissional inicial não confere habilitação de técnico de nível médio, grau que depende da integralização de itinerário estruturado do Catálogo Nacional de Cursos Técnicos e da necessária conclusão do ensino médio regular, nos termos dos arts. 36-B, 36-D e 40 da LDB."
+      },
+      {
+        id: 3,
+        title: "Questão 3",
+        enunciado: "Com a promulgação da Lei nº 14.645/2023, a LDB passou a vigorar com novos dispositivos no Capítulo da Educação Profissional e Tecnológica, estruturando a oferta institucional por meio de eixos tecnológicos. O art. 42-A da Lei nº 9.394/1996 instituiu parâmetros específicos para garantir a continuidade formativa dos estudantes. Considerando esse regramento legal, a educação profissional e tecnológica organizada em eixos tecnológicos deve observar:",
+        options: {
+          A: "o princípio da terminalidade rígida de cada curso, que veda a transposição ou o aproveitamento de créditos formativos entre níveis de ensino distintos.",
+          B: "a exclusão definitiva de qualificações profissionais iniciais do percurso formativo contínuo, reservando a estrutura de eixos apenas aos cursos superiores de graduação.",
+          C: "a subordinação das matrizes curriculares exclusivamente às tabelas corporativas municipais, dispensando os catálogos nacionais de cursos técnicos e tecnológicos.",
+          D: "o princípio da integração curricular entre cursos e programas, de modo a viabilizar itinerários formativos contínuos e trajetórias progressivas de formação entre todos os níveis educacionais.",
+          E: "a limitação do aproveitamento incremental de estudos a discentes que comprovem vínculo formal e ininterrupto de emprego na respectiva área de formação técnica."
+        },
+        correct: "D",
+        legalRef: "Art. 42-A, caput, da Lei nº 9.394/1996",
+        resolucao: "A alternativa D constitui a assertiva exata, reproduzindo a norma inaugurada pela Lei nº 14.645/2023 no caput do art. 42-A da LDB. O legislador introduziu no ordenamento educacional o princípio da integração curricular entre cursos e programas articulados em eixos tecnológicos, conferindo base jurídica para itinerários contínuos e trajetórias progressivas de formação entre os diferentes níveis educacionais. Isso assegura que o percurso formativo reconheça saberes acumulados e facilite a transição incremental da qualificação básica até os níveis superiores de tecnologia.\n\nAs alternativas restantes incorrem em vícios jurídicos flagrantes. A alternativa A defende uma compartimentalização vedada pela reforma de 2023, que priorizou a flexibilidade curricular em detrimento de barreiras corporativas estanques. A alternativa B diverge do art. 42-A, § 2º, que abarca a qualificação inicial na estrutura de eixos. A alternativa C ignora a vigência dos instrumentos unificados do Ministério da Educação (como o CNCT e o CNCST), aos quais as instituições federais e estaduais vinculam suas matrizes curriculares. Já a alternativa E inventa exigência restritiva incompatível com o espírito da lei, visto que o direito à progressão nos itinerários independe de ocupação formal no mercado formal de trabalho."
+      },
+      {
+        id: 4,
+        title: "Questão 4",
+        enunciado: "A articulação entre a experiência laboral, a qualidade do ensino e as trajetórias acadêmicas é balizada pelos arts. 41 e 42-B da Lei de Diretrizes e Bases da Educação Nacional. Em relação aos processos de avaliação, reconhecimento e regulação na Educação Profissional e Tecnológica, assinale a alternativa correta:",
+        options: {
+          A: "Os saberes e competências adquiridos na educação profissional e tecnológica, inclusive no ambiente de trabalho, são restritos a efeitos de progressão funcional em empresas privadas, não podendo ser objeto de reconhecimento para fins de prosseguimento de estudos formais.",
+          B: "A oferta de educação profissional técnica e tecnológica será orientada pela avaliação da qualidade das instituições e dos cursos, processo nacional assegurado pela União em colaboração com os sistemas de ensino.",
+          C: "O processo nacional de avaliação das instituições e cursos de EPT possui caráter puramente amostral, sendo despido de qualquer repercussão sobre atos autorizatórios ou regulatórios dos sistemas de ensino.",
+          D: "A certificação de competências profissionais desenvolvidas no exercício de funções laborais prescinde da aplicação de instrumentos formais de avaliação pedagógica por parte da instituição certificadora credenciada.",
+          E: "É expressamente vedado às instituições de ensino profissional técnico e tecnológico estruturar matrizes modulares ou validar saberes decorrentes de experiências não escolares."
+        },
+        correct: "B",
+        legalRef: "Art. 42-B e Art. 9º, inciso VII-A, da Lei nº 9.394/1996",
+        resolucao: "A alternativa B reflete a conformação dada pela Lei nº 14.645/2023, que instituiu o art. 42-B e o art. 9º, inciso VII-A, na LDB, fixando a obrigação de que a oferta de educação profissional técnica e tecnológica seja orientada pelo processo nacional de avaliação de cursos e instituições de EPT, sob coordenação da União e colaboração federativa dos sistemas de ensino.\n\nA alternativa A é incorreta por colidir frontalmente com o art. 41 da LDB, que autoriza expressamente que saberes adquiridos na educação profissional e no ambiente de trabalho sejam objeto de avaliação, validação e certificação para o prosseguimento ou a conclusão de estudos formais. A alternativa C equivoca-se ao alegar inocuidade avaliativa, haja vista que a avaliação nacional compõe os ciclos de regulação e supervisão da qualidade educacional. A alternativa D é inverídica porque o próprio art. 41 preconiza a necessidade de processos formais de avaliação e reconhecimento para conferir validade legal aos saberes práticos certificados. Finalmente, a alternativa E contraria o princípio da valorização da experiência extraescolar e a integração curricular que norteiam o ensino técnico contemporâneo."
+      },
+      {
+        id: 5,
+        title: "Questão 5",
+        enunciado: "O art. 43 da Lei nº 9.394/1996 estabelece as finalidades precípuas da Educação Superior no contexto do desenvolvimento social, científico e pedagógico do país. Entre as opções a seguir, assinale a alternativa que NÃO constitui uma finalidade fixada expressamente pelo referido diploma para esse nível educacional:",
+        options: {
+          A: "Estimular a criação cultural e o desenvolvimento do espírito científico e do pensamento reflexivo.",
+          B: "Formar diplomados nas diferentes áreas de conhecimento, aptos para a inserção em setores profissionais e para a participação no desenvolvimento da sociedade brasileira, e colaborar na sua formação contínua.",
+          C: "Promover a divulgação de conhecimentos culturais, científicos e técnicos que constituem patrimônio da humanidade e comunicar o saber através do ensino, de publicações ou de outras formas de comunicação.",
+          D: "Assegurar a alfabetização plena e a formação de leitores como requisitos precípuos para a integralização curricular e a concessão de titulação acadêmica de nível superior.",
+          E: "Atuar em favor da universalização e do aprimoramento da educação básica, mediante a formação e a capacitação de profissionais, a realização de pesquisas pedagógicas e o desenvolvimento de atividades de extensão que aproximem os dois níveis escolares."
+        },
+        correct: "D",
+        legalRef: "Art. 43 e Art. 22, parágrafo único, da Lei nº 9.394/1996",
+        resolucao: "A alternativa D é a opção que deve ser assinalada, por constituir distrator material que não pertence ao art. 43 da Lei nº 9.394/1996. A alfabetização plena e a formação de leitores constituem objetivos precípuos da Educação Básica, expressamente situados no art. 22, parágrafo único, da LDB, incluído pela Lei nº 14.407/2022, destinando-se a consolidar as competências fundamentais nos anos iniciais da vida escolar.\n\nAs demais opções refletem com exatidão preceitos das finalidades superiores do art. 43: a alternativa A deriva do inciso I (fomento à criação cultural e desenvolvimento do espírito científico); a alternativa B decorre do inciso II (diplomação de profissionais habilitados para atuar no desenvolvimento da sociedade e compromisso com sua formação continuada); a alternativa C extrai-se do inciso IV (divulgação e comunicação social do conhecimento científico e patrimonial da humanidade); e a alternativa E alinha-se ao inciso VIII (dever da universidade de atuar no aprimoramento e universalização da educação básica por meio de pesquisa, extensão e formação continuada de docentes)."
+      },
+      {
+        id: 6,
+        title: "Questão 6",
+        enunciado: "O art. 44 da Lei de Diretrizes e Bases da Educação Nacional estrutura a educação superior em diferentes cursos e programas, estabelecendo os requisitos formais de escolaridade e avaliação para ingresso discente. A respeito dessa tipologia e das normas que disciplinam seu acesso, assinale a opção correta:",
+        options: {
+          A: "Os cursos sequenciais por campo de saber, de diferentes níveis de abrangência, destinam-se a candidatos que atendam aos requisitos estabelecidos pelas instituições de ensino, desde que tenham concluído o ensino médio ou equivalente.",
+          B: "Os cursos de graduação são abertos a quaisquer candidatos aprovados em processos seletivos vestibulares, mesmo que não apresentem comprovação formal de conclusão do ensino médio no ato da matrícula.",
+          C: "Os programas de pós-graduação, compreendendo mestrado e doutorado, são franqueados a discentes matriculados no penúltimo semestre da educação básica, desde que demonstrem aptidão precoce para a iniciação científica.",
+          D: "Os cursos de extensão exigem, por determinação legal federal, a submissão prévia a concurso vestibular unificado nacional como critério indeclinável de admissibilidade.",
+          E: "Os cursos sequenciais por campo de saber conferem diploma equivalente ao de graduação plena, garantindo acesso direto e automático a programas de doutorado acadêmico."
+        },
+        correct: "A",
+        legalRef: "Art. 44, inciso I, da Lei nº 9.394/1996",
+        resolucao: "A alternativa A traduz a exata prescrição do art. 44, inciso I, da LDB, ao conceituar os cursos sequenciais por campo de saber em seus diferentes níveis de abrangência, condicionando seu acesso ao atendimento dos requisitos de cada instituição e à necessária comprovação prévia de conclusão do ensino médio ou equivalente.\n\nA alternativa B incorre em erro capital ao suprimir a exigência concorrente de conclusão do ensino médio para os cursos de graduação, imposta pelo art. 44, inciso II, tornando nula a matrícula do candidato aprovado em vestibular que não ostente certificado dessa etapa prévia. A alternativa C é juridicamente inconsistente, pois o art. 44, inciso III, reserva os cursos de pós-graduação estritamente a candidatos já diplomados em cursos de graduação que satisfaçam as normas do edital. A alternativa D viola o art. 44, inciso IV, visto que os cursos de extensão são concebidos com flexibilidade para a comunidade que atenda aos critérios acadêmicos da atividade, sem submissão a vestibular unificado nacional. Já a alternativa E é falsa, pois os cursos sequenciais conferem certificado de conclusão ou diplomação sequencial, que não se confunde com grau de nível superior de graduação plena, sendo inidôneos para franquear ingresso direto em cursos de doutorado."
+      },
+      {
+        id: 7,
+        title: "Questão 7",
+        enunciado: "A respeito da organização do calendário acadêmico, da duração das atividades formativas e do controle de assiduidade discente e docente na Educação Superior, o art. 47 da Lei nº 9.394/1996 estabelece balizas temporais e operacionais que vinculam as instituições de ensino. Analise as seguintes assertivas:\n\nI. Na educação superior, o ano letivo regular, independente do ano civil, tem, no mínimo, duzentos dias de trabalho acadêmico efetivo, excluído o tempo reservado aos exames finais, quando houver.\nII. É obrigatória a frequência de alunos e professores, salvo nos programas de educação a distância regulamentados.\nIII. O calendário letivo superior deve guardar coincidência matemática inafastável com o ano civil, sendo juridicamente nulos os semestres letivos que ultrapassem o dia 31 de dezembro do exercício correspondente.\n\nEstá correto o que se afirma em:",
+        options: {
+          A: "I, apenas.",
+          B: "I e II, apenas.",
+          C: "I e III, apenas.",
+          D: "II e III, apenas.",
+          E: "I, II e III."
+        },
+        correct: "B",
+        legalRef: "Art. 47, caput e § 3º da Lei nº 9.394/1996",
+        resolucao: "A alternativa B é a correta, abrangendo exclusivamente as proposições I e II. O item I reproduz o caput do art. 47 da LDB, que impõe a obrigatoriedade de no mínimo duzentos dias de trabalho acadêmico efetivo para o ano letivo regular da educação superior, descontado expressamente o período reservado para eventuais exames finais. O item II assenta-se no art. 47, § 3º, que vincula a assiduidade presencial de estudantes e professores, ressalvando unicamente a modalidade de educação a distância, regida por sistemática própria de mediação tecnológica.\n\nA proposição III é manifestamente falsa: o art. 47, caput, consigna textualmente que o ano letivo na educação superior opera de forma \"independente do ano civil\". Esse postulado confere legitimidade aos ajustes acadêmicos em virtude de paralisações, reposições ou reformas curriculares internas, permitindo que semestres letivos avancem sobre o calendário civil subsequente sem qualquer vício de legalidade ou prejuízo à validade dos atos universitários praticados."
+      },
+      {
+        id: 8,
+        title: "Questão 8",
+        enunciado: "Mariana, estudante matriculada em curso de graduação superior tecnológica de um Instituto Federal, demonstrou extraordinário domínio conceitual e prático em componentes curriculares subsequentes do seu itinerário acadêmico, decorrente de sua vivência profissional prévia e participação em núcleos de inovação e pesquisa aplicada. Com base nisso, requereu formalmente a abreviação do tempo de duração do seu curso.\n\nÀ luz do art. 47, § 2º, da Lei nº 9.394/1996, o pleito de Mariana:",
+        options: {
+          A: "é expressamente proibido pela ordem jurídica educacional brasileira, que consagra a rigidez absoluta dos prazos regulamentares de integralização fixados pelas Diretrizes Curriculares Nacionais.",
+          B: "poderá ser atendido, visto que os discentes com extraordinário aproveitamento nos estudos, demonstrado por provas e instrumentos de avaliação específicos aplicados por banca examinadora especial, poderão ter abreviada a duração dos cursos, de acordo com as normas dos sistemas de ensino.",
+          C: "depende, para sua concessão, de homologação individual mediante ato discricionário do Ministro da Educação, publicado previamente no Diário Oficial da União.",
+          D: "implicará a conversão automática do curso de tecnologia em bacharelado tradicional, vedada a antecipação da colação de grau no formato tecnológico original.",
+          E: "só poderá ser deferido caso a requerente tenha publicado monografia científica em periódico internacional indexado de impacto internacional A1."
+        },
+        correct: "B",
+        legalRef: "Art. 47, § 2º da Lei nº 9.394/1996",
+        resolucao: "A alternativa B consagra a solução preconizada no art. 47, § 2º, da Lei nº 9.394/1996. O ordenamento jurídico pátrio afasta a rigidez temporal irrefletida ao prever que discentes detentores de extraordinário aproveitamento acadêmico podem abreviar a duração de seus cursos, mediante comprovação de proficiência aferida por banca examinadora especial constituída pela instituição de ensino superior, consoante critérios definidos pelo respectivo sistema de ensino.\n\nA alternativa A é incorreta por sustentar uma rigidez temporal que a própria lei buscou mitigar em favor do mérito cognitivo e do desenvolvimento pessoal do educando. A alternativa C atribui indevidamente ao Ministro da Educação uma competência interna da esfera pedagógica institucional das faculdades, centros e institutos. A alternativa D carece de fundamento legal, pois o procedimento de abreviação não transmuta a natureza da matriz tecnológica para bacharelado, apenas reduz o lapso temporal até a colação de grau no próprio curso de origem. A alternativa E erra ao restringir a demonstração avaliativa à publicação de artigos internacionais A1, ignorando a competência das bancas avaliadoras locais na aplicação de provas e instrumentos pedagógicos customizados."
+      },
+      {
+        id: 9,
+        title: "Questão 9",
+        enunciado: "A garantia da autonomia didático-científica das universidades, igualmente estendida às instituições que integram a Rede Federal de Educação Profissional, Científica e Tecnológica por força de equiparação legal, visa resguardar a liberdade investigativa e a condução acadêmica autônoma. Em conformidade com o art. 53, parágrafo único, da Lei nº 9.394/1996, caberá aos colegiados de ensino e pesquisa decidir, dentro dos recursos orçamentários disponíveis, sobre determinadas matérias essenciais. NÃO integra o rol de matérias de deliberação expressa desses colegiados, previsto no parágrafo único:",
+        options: {
+          A: "Criação, expansão, modificação e extinção de cursos.",
+          B: "Ampliação e diminuição de vagas acadêmicas.",
+          C: "Elaboração da programação dos cursos e fixação de seus currículos.",
+          D: "Programação das pesquisas e das atividades de extensão, bem como contratação e dispensa de professores e planos de carreira docente.",
+          E: "Concessão autônoma de incentivos fiscais e desoneração tributária para entidades empresariais parceiras em projetos de extensão universitária."
+        },
+        correct: "E",
+        legalRef: "Art. 53, parágrafo único, da Lei nº 9.394/1996",
+        resolucao: "A alternativa E é a alternativa que deve ser assinalada, por apontar uma competência estranha aos colegiados acadêmicos. A concessão de incentivos fiscais, remissões ou isenções tributárias submete-se ao princípio da reserva legal tributária (art. 150, § 6º, da Constituição Federal), tratando-se de matéria privativa de direito público financeiro e tributário exercida pelo Poder Legislativo correspondente, sem qualquer ingerência da autonomia universitária.\n\nEm contraste, as alternativas A, B, C e D espelham detalhadamente as atribuições didático-científicas descritas nos incisos do parágrafo único do art. 53 da LDB. Compete soberanamente aos colegiados deliberativos de ensino e pesquisa decidir sobre criação, alteração ou extinção de cursos; fixação de vagas discentes em consonância com a demanda social; estruturação da programação curricular; definição das linhas de pesquisa e extensão; bem como sobre contratação, movimentação docente e planos de carreira universitários, respeitada a disponibilidade orçamentária da instituição."
+      },
+      {
+        id: 10,
+        title: "Questão 10",
+        enunciado: "Os artigos 54 e 57 da Lei nº 9.394/1996 tratam, respectivamente, da autonomia de gestão financeira e patrimonial das universidades públicas e da jornada de trabalho docente em sala de aula nas instituições públicas de ensino superior. A respeito das regras disciplinadas nesses dispositivos, assinale a alternativa correta:",
+        options: {
+          A: "As universidades mantidas pelo Poder Público gozam, na forma da lei, de estatuto jurídico especial para atender às peculiaridades de sua estrutura e gestão, devendo seus recursos orçamentários ser repassados sob a forma de dotações globais.",
+          B: "Nas instituições públicas de educação superior, o docente é obrigado a ministrar um patamar mínimo indeclinável de vinte horas semanais de aulas em sala de aula, independentemente de sua atuação em projetos de pesquisa ou extensão.",
+          C: "A autonomia financeira assegurada às universidades autoriza a supressão de prestação de contas aos órgãos de controle interno e externo da administração pública federal.",
+          D: "As prerrogativas de autonomia universitária jamais poderão ser estendidas a instituições de ensino superior que não possuam a designação formal de universidade, mesmo que demonstrem alta qualificação para o ensino e pesquisa.",
+          E: "As verbas repassadas às instituições federais sob a forma de dotações globais constituem receitas privadas institucionais, ficando imunes à fiscalização do Tribunal de Contas da União."
+        },
+        correct: "A",
+        legalRef: "Art. 54, caput e § 1º da Lei nº 9.394/1996",
+        resolucao: "A alternativa A representa a síntese dogmática do art. 54, caput e § 1º, da Lei nº 9.394/1996. A LDB outorgou às universidades mantidas pelo Poder Público estatuto jurídico especial para responder às particularidades de suas funções formativas e administrativas, exigindo que os repasses orçamentários assumam a forma de dotações globais. Tais dotações são liberadas em cotas programadas em comum acordo com o Poder Executivo, conferindo governabilidade financeira à gestão das reitorias e diretorias-gerais.\n\nA alternativa B incorre em erro de balizamento ao assinalar um mínimo de vinte horas, contrariando o art. 57 da LDB, que fixa em apenas oito horas semanais a carga horária mínima de aulas presenciais obrigatórias para docentes de instituições públicas de ensino superior, liberando a jornada remanescente para pesquisa, orientação e extensão. A alternativa C viola o art. 55 da LDB e o ordenamento orçamentário-constitucional, que submetem as dotações universitárias à fiscalização contábil, financeira e operacional do Tribunal de Contas da União e da Controladoria-Geral da União. A alternativa D ignora expressamente o art. 54, § 2º, dispositivo que viabiliza a extensão dos atributos da autonomia universitária a instituições congêneres de alta qualificação técnica e científica, como os Institutos Federais. Finalmente, a alternativa E fracassa ao tentar descaracterizar a natureza pública das verbas orçamentárias federais, sujeitas a escrituração rígida e responsabilização funcional por malversação de recursos públicos."
+      }
+    ];
+
+    // Estado da aplicação
+    const userAnswers = {};
+    let isSubmitted = false;
+
+    // Renderização inicial
+    function renderQuiz() {
+      const container = document.getElementById('questions-wrapper');
+      container.innerHTML = '';
+
+      quizData.forEach((q) => {
+        const card = document.createElement('div');
+        card.className = 'question-card';
+        card.id = `card-q${q.id}`;
+
+        let optionsHtml = '';
+        const letters = ['A', 'B', 'C', 'D', 'E'];
+
+        letters.forEach((letter) => {
+          optionsHtml += `
+            <label class="option-item" id="opt-label-${q.id}-${letter}">
+              <input type="radio" name="question_${q.id}" value="${letter}" onchange="selectOption(${q.id}, '${letter}')">
+              <span class="option-letter">${letter})</span>
+              <span class="option-content" id="opt-text-${q.id}-${letter}">${q.options[letter]}</span>
+            </label>
+          `;
+        });
+
+        card.innerHTML = `
+          <div class="question-header">
+            <span class="question-title">
+              <span>${q.title}</span>
+            </span>
+            <span class="question-status-tag" id="status-tag-${q.id}"></span>
+          </div>
+          <div class="question-text">${escapeHtml(q.enunciado)}</div>
+          <div class="options-list" id="options-group-${q.id}">
+            ${optionsHtml}
+          </div>
+          <div class="resolution-box" id="res-box-${q.id}">
+            <div class="resolution-header">
+              <div class="resolution-title">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <line x1="12" y1="16" x2="12" y2="12"></line>
+                  <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                </svg>
+                <span>Resolução Comentada & Análise Dogmática</span>
+              </div>
+              <span class="legal-tag">${q.legalRef}</span>
+            </div>
+            <div class="resolution-text">${escapeHtml(q.resolucao).replace(/\n\n/g, '<br><br>')}</div>
+          </div>
+        `;
+
+        container.appendChild(card);
+      });
+
+      updateProgress();
+    }
+
+    // Escape seguro de caracteres HTML
+    function escapeHtml(text) {
+      const map = {
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        '"': '&quot;',
+        "'": '&#039;'
+      };
+      return text.replace(/[&<>"']/g, (m) => map[m]);
+    }
+
+    // Seleção de alternativa
+    function selectOption(questionId, letter) {
+      if (isSubmitted) return;
+
+      userAnswers[questionId] = letter;
+
+      // Atualiza estilo dos radio buttons da questão
+      const letters = ['A', 'B', 'C', 'D', 'E'];
+      letters.forEach((l) => {
+        const item = document.getElementById(`opt-label-${questionId}-${l}`);
+        if (l === letter) {
+          item.classList.add('selected');
+        } else {
+          item.classList.remove('selected');
+        }
+      });
+
+      updateProgress();
+    }
+
+    // Atualização de contadores e barra de progresso
+    function updateProgress() {
+      const answeredCount = Object.keys(userAnswers).length;
+      const total = quizData.length;
+      const percentage = Math.round((answeredCount / total) * 100);
+
+      document.getElementById('progress-bar').style.width = percentage + '%';
+      document.getElementById('progress-text').textContent = `${answeredCount} de ${total} respondidas`;
+      document.getElementById('panel-counter').textContent = `${answeredCount} de ${total} respondidas (${percentage}%)`;
+    }
+
+    // Verificação antes de finalizar
+    function attemptSubmit() {
+      if (isSubmitted) return;
+
+      const answeredCount = Object.keys(userAnswers).length;
+      const total = quizData.length;
+
+      if (answeredCount < total) {
+        const remaining = total - answeredCount;
+        document.getElementById('modal-msg').textContent = 
+          `Você respondeu ${answeredCount} das 10 questões (restam ${remaining}). Deseja finalizar agora e ver o gabarito comentado?`;
+        document.getElementById('confirm-modal').style.display = 'flex';
+      } else {
+        processSubmission();
+      }
+    }
+
+    function closeModal() {
+      document.getElementById('confirm-modal').style.display = 'none';
+    }
+
+    function confirmSubmit() {
+      closeModal();
+      processSubmission();
+    }
+
+    // Correção e exibição das resoluções na mesma página
+    function processSubmission() {
+      isSubmitted = true;
+      let hits = 0;
+      let errors = 0;
+
+      // Desabilitar todas as opções de input
+      const allRadios = document.querySelectorAll('input[type="radio"]');
+      allRadios.forEach(radio => radio.disabled = true);
+
+      // Avaliação questão por questão
+      quizData.forEach((q) => {
+        const userChoice = userAnswers[q.id];
+        const isCorrect = userChoice === q.correct;
+        const statusTag = document.getElementById(`status-tag-${q.id}`);
+        const resBox = document.getElementById(`res-box-${q.id}`);
+        const card = document.getElementById(`card-q${q.id}`);
+
+        if (isCorrect) {
+          hits++;
+          statusTag.className = 'question-status-tag status-correct';
+          statusTag.textContent = '✓ Você acertou';
+          card.style.borderColor = 'var(--border-green)';
+        } else if (userChoice) {
+          errors++;
+          statusTag.className = 'question-status-tag status-incorrect';
+          statusTag.textContent = '✗ Você errou';
+          card.style.borderColor = 'var(--border-red)';
+        } else {
+          errors++;
+          statusTag.className = 'question-status-tag status-unanswered';
+          statusTag.textContent = '○ Em branco';
+        }
+
+        // Destaca a alternativa correta oficial
+        const correctLabel = document.getElementById(`opt-label-${q.id}-${q.correct}`);
+        correctLabel.classList.add('is-correct-answer');
+        const correctText = document.getElementById(`opt-text-${q.id}-${q.correct}`);
+        correctText.innerHTML += ` <span class="badge-choice badge-choice-correct">Gabarito Oficial</span>`;
+
+        // Se o usuário errou, destaca em tom contrastante a opção assinalada incorretamente
+        if (userChoice && !isCorrect) {
+          const wrongLabel = document.getElementById(`opt-label-${q.id}-${userChoice}`);
+          wrongLabel.classList.add('is-user-wrong');
+          const wrongText = document.getElementById(`opt-text-${q.id}-${userChoice}`);
+          wrongText.innerHTML += ` <span class="badge-choice badge-choice-wrong">Sua resposta</span>`;
+        }
+
+        // Exibe a resolução completa e fundamentação legal abaixo da questão
+        resBox.style.display = 'block';
+      });
+
+      // Configurar placar geral
+      const total = quizData.length;
+      const percent = Math.round((hits / total) * 100);
+
+      document.getElementById('stat-hits').textContent = hits;
+      document.getElementById('stat-errors').textContent = errors;
+      document.getElementById('stat-percent').textContent = percent + '%';
+
+      // Feedback pedagógico
+      let feedbackMsg = '';
+      if (percent >= 90) {
+        feedbackMsg = '<strong>Excelente desempenho!</strong> Domínio aprofundado dos artigos da LDB pertinentes à Educação Profissional e Superior e aderência precisa ao estilo da banca IFMG.';
+      } else if (percent >= 70) {
+        feedbackMsg = '<strong>Bom aproveitamento!</strong> Você demonstra compreensão segura dos principais institutos da lei. Recomendamos atenção aos detalhes de prazos, competências colegiadas e inovações da Lei nº 14.645/2023.';
+      } else {
+        feedbackMsg = '<strong>Oportunidade de aprofundamento.</strong> A banca IFMG costuma cobrar a literalidade conjugada com a interpretação estrita da norma. Leia com atenção as resoluções comentadas de cada questão abaixo.';
+      }
+      document.getElementById('summary-feedback-text').innerHTML = feedbackMsg;
+
+      // Exibir o card de resultado
+      const summaryCard = document.getElementById('score-summary-card');
+      summaryCard.style.display = 'block';
+
+      // Atualiza o painel fixo
+      document.getElementById('btn-finish').style.display = 'none';
+      document.getElementById('panel-counter').innerHTML = `Finalizado • <strong>${hits} de 10 acertos (${percent}%)</strong>`;
+
+      // Rola suavemente até o resumo de resultados
+      summaryCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    // Alternar visibilidade de todas as resoluções
+    let allResolutionsVisible = true;
+    function toggleAllResolutions() {
+      allResolutionsVisible = !allResolutionsVisible;
+      quizData.forEach((q) => {
+        const box = document.getElementById(`res-box-${q.id}`);
+        box.style.display = allResolutionsVisible ? 'block' : 'none';
+      });
+      const btn = document.getElementById('btn-toggle-resolutions');
+      btn.textContent = allResolutionsVisible ? 'Recolher Resoluções' : 'Expandir Resoluções';
+    }
+
+    // Reiniciar simulado
+    function resetQuiz() {
+      for (const prop in userAnswers) {
+        delete userAnswers[prop];
+      }
+      isSubmitted = false;
+      allResolutionsVisible = true;
+
+      document.getElementById('score-summary-card').style.display = 'none';
+      document.getElementById('btn-finish').style.display = 'inline-flex';
+      
+      renderQuiz();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Inicialização da página
+    window.onload = function() {
+      renderQuiz();
+    };
+  </script>
+</body>
+</html>

@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simulado ECA - Educação e Proteção no Trabalho | IFMG</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+            serif: ['"Source Serif 4"', 'Georgia', 'serif'],
+          },
+          colors: {
+            paper: '#FAF9F6',
+            card: '#FFFFFF',
+            ink: {
+              DEFAULT: '#1E293B',
+              muted: '#475569',
+              subtle: '#64748B',
+              dark: '#0F172A'
+            },
+            ifmg: {
+              primary: '#0F766E',
+              dark: '#115E59',
+              light: '#F0FDFA',
+              border: '#CCFBF1'
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    /* Otimizações finas para conforto visual e leitura prolongada */
+    body {
+      background-color: #F8F9FA;
+      color: #1E293B;
+      text-rendering: optimizeLegibility;
+      -webkit-font-smoothing: antialiased;
+    }
+    .question-stem {
+      line-height: 1.75;
+      font-size: 1.05rem;
+    }
+    .option-label {
+      transition: all 0.15s ease-in-out;
+      border: 1.5px solid #E2E8F0;
+    }
+    .option-label:hover {
+      background-color: #F1F5F9;
+      border-color: #CBD5E1;
+    }
+    .option-input:checked + .option-box {
+      border-color: #0F766E;
+      background-color: #F0FDFA;
+    }
+    .option-input:checked + .option-box .radio-indicator {
+      border-color: #0F766E;
+      background-color: #0F766E;
+      box-shadow: inset 0 0 0 3px #FFFFFF;
+    }
+    /* Estilos pós-correção */
+    .option-box.correct-choice {
+      border-color: #16A34A !important;
+      background-color: #F0FDF4 !important;
+    }
+    .option-box.wrong-choice {
+      border-color: #DC2626 !important;
+      background-color: #FEF2F2 !important;
+    }
+    /* Barra de progresso sutil no topo */
+    #progress-sticky {
+      backdrop-filter: blur(8px);
+      background-color: rgba(248, 249, 250, 0.92);
+    }
+  </style>
+</head>
+<body class="font-sans antialiased selection:bg-teal-100 selection:text-teal-900 pb-20">
+
+  <!-- Barra de Acompanhamento Fixa Superior -->
+  <header id="progress-sticky" class="sticky top-0 z-40 border-b border-slate-200/80 shadow-xs">
+    <div class="max-w-4xl mx-auto px-4 py-3 flex items-center justify-between">
+      <div class="flex items-center space-x-3">
+        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-teal-100 text-teal-800 border border-teal-200">
+          IFMG • Reitoria
+        </span>
+        <span class="text-xs sm:text-sm font-medium text-ink-subtle hidden sm:inline">
+          ECA: Arts. 53 a 69
+        </span>
+      </div>
+      <div class="flex items-center space-x-4">
+        <span id="answered-counter" class="text-xs sm:text-sm font-semibold text-ink-muted">
+          0 de 10 respondidas
+        </span>
+        <button id="btn-quick-check" onclick="scrollToSubmit()" class="text-xs bg-slate-100 hover:bg-slate-200 text-slate-700 font-medium px-3 py-1.5 rounded-md border border-slate-300 transition">
+          Finalizar
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Cabeçalho Principal do Simulado -->
+  <main class="max-w-4xl mx-auto px-4 sm:px-6 pt-8">
+    <div class="bg-card rounded-2xl border border-slate-200 p-6 sm:p-8 mb-8 shadow-xs">
+      <div class="border-b border-slate-100 pb-5 mb-5">
+        <span class="text-xs tracking-wider uppercase font-bold text-teal-700">Caderno de Questões Temáticas</span>
+        <h1 class="text-2xl sm:text-3xl font-bold font-serif text-ink-dark mt-1">
+          Estatuto da Criança e do Adolescente (Lei nº 8.069/1990)
+        </h1>
+        <p class="text-sm sm:text-base text-ink-muted mt-2 leading-relaxed">
+          <strong>Foco Temático:</strong> Educação e Permanência Escolar (arts. 53 a 59-A) e Trabalho Protegido do Adolescente / Aprendizagem Profissional (arts. 60 a 69).
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs sm:text-sm text-ink-muted">
+        <div class="flex items-center space-x-2 bg-slate-50 p-2.5 rounded-lg border border-slate-100">
+          <svg class="w-4 h-4 text-teal-600 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+          <span><strong>Banca:</strong> Comissão IFMG</span>
+        </div>
+        <div class="flex items-center space-x-2 bg-slate-50 p-2.5 rounded-lg border border-slate-100">
+          <svg class="w-4 h-4 text-teal-600 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          <span><strong>Extensão:</strong> 10 Questões Integrais</span>
+        </div>
+        <div class="flex items-center space-x-2 bg-slate-50 p-2.5 rounded-lg border border-slate-100">
+          <svg class="w-4 h-4 text-teal-600 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
+          <span>Gabarito e Justificativa na página</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Formulário com as Questões -->
+    <form id="quiz-form" onsubmit="event.preventDefault(); submitQuiz();">
+      <div id="questions-container" class="space-y-8">
+        <!-- Renderizado dinamicamente via JS para total controle e interatividade -->
+      </div>
+
+      <!-- Barra de Envio e Feedback Inicial -->
+      <div id="submit-section" class="mt-10 p-6 bg-card rounded-2xl border border-slate-200 shadow-sm text-center">
+        <p id="submission-warning" class="text-sm text-amber-700 font-medium mb-3 hidden">
+          Atenção: Você ainda possui questões não respondidas. Deseja finalizar mesmo assim?
+        </p>
+        <button type="button" id="btn-submit" onclick="submitQuiz()" class="inline-flex items-center justify-center px-8 py-3.5 bg-teal-700 hover:bg-teal-800 active:bg-teal-900 text-white font-semibold rounded-xl shadow transition duration-150 ease-in-out text-base">
+          Finalizar Simulado e Ver Resultados
+        </button>
+      </div>
+    </form>
+
+    <!-- Painel de Resultados (Aparece abaixo do formulário após envio) -->
+    <section id="results-panel" class="mt-12 hidden">
+      <div class="bg-card rounded-2xl border-2 border-teal-600 p-6 sm:p-8 shadow-sm">
+        <div class="text-center pb-6 border-b border-slate-200">
+          <span class="inline-block px-3 py-1 rounded-full text-xs font-bold tracking-wide uppercase bg-teal-100 text-teal-800 mb-2">
+            Desempenho Geral
+          </span>
+          <h2 class="text-2xl sm:text-3xl font-bold font-serif text-ink-dark">
+            Resultado do Simulado
+          </h2>
+          <div class="mt-4 flex flex-wrap justify-center items-baseline gap-2">
+            <span id="score-number" class="text-5xl font-black text-teal-700 font-serif">0</span>
+            <span class="text-2xl font-bold text-slate-400">/ 10</span>
+            <span id="score-percentage" class="text-lg font-semibold text-ink-muted ml-2">(0%)</span>
+          </div>
+          <p id="score-feedback" class="text-sm font-medium text-ink-muted mt-2"></p>
+        </div>
+
+        <div class="pt-6 text-center">
+          <p class="text-sm text-ink-muted max-w-xl mx-auto">
+            Abaixo você confere o <strong>gabarito oficial resumido</strong> e as <strong>resoluções analíticas completas</strong> de cada uma das 10 questões, fundamentadas na letra da lei e na jurisprudência do ECA.
+          </p>
+        </div>
+      </div>
+
+      <!-- Gabarito Sintético -->
+      <div class="mt-8 bg-card rounded-2xl border border-slate-200 p-6 shadow-xs">
+        <h3 class="text-lg font-bold font-serif text-ink-dark mb-4 flex items-center gap-2">
+          <svg class="w-5 h-5 text-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/></svg>
+          Gabarito Rápido
+        </h3>
+        <div class="grid grid-cols-2 sm:grid-cols-5 gap-3" id="quick-answer-grid">
+          <!-- Gerado via JS com cores indicando acerto/erro do usuário -->
+        </div>
+      </div>
+
+      <!-- Resoluções Comentadas Completas (conforme documento) -->
+      <div class="mt-8">
+        <div class="flex items-center justify-between mb-4">
+          <h3 class="text-xl font-bold font-serif text-ink-dark">
+            Resoluções e Justificativas Detalhadas
+          </h3>
+          <span class="text-xs font-semibold uppercase tracking-wider text-teal-700 bg-teal-50 px-3 py-1 rounded-md border border-teal-200">
+            Artigo por Artigo
+          </span>
+        </div>
+        
+        <div id="detailed-resolutions" class="space-y-6">
+          <!-- Injetado dinamicamente -->
+        </div>
+      </div>
+
+      <!-- Botão para Refazer -->
+      <div class="mt-10 text-center">
+        <button onclick="resetQuiz()" class="inline-flex items-center px-6 py-3 border border-slate-300 text-sm font-semibold rounded-xl text-slate-700 bg-white hover:bg-slate-50 transition shadow-xs">
+          <svg class="w-4 h-4 mr-2 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+          Reiniciar Simulado
+        </button>
+      </div>
+    </section>
+
+  </main>
+
+  <script>
+    // Banco de dados com exatamente as 10 questões e resoluções completas do documento
+    const quizData = [
+      {
+        id: 1,
+        topic: "Direito à Educação • Arts. 53 do ECA",
+        statement: "No que tange às garantias fundamentais asseguradas no âmbito escolar pela Lei Federal nº 8.069/1990 (Estatuto da Criança e do Adolescente – ECA), o Art. 53 estrutura os pilares para o pleno desenvolvimento da pessoa, o preparo para o exercício da cidadania e a qualificação para o trabalho. Considerando as prerrogativas expressamente outorgadas aos educandos, assinale a alternativa CORRETA:",
+        options: {
+          A: "A prerrogativa de contestar critérios avaliativos circunscreve-se à relação pedagógica direta com o docente da disciplina, descabendo a interposição de recursos a instâncias colegiadas ou superiores para preservar a soberania didática do professor.",
+          B: "O direito à organização e à participação ativa em entidades estudantis pressupõe autorização prévia e discricionária outorgada pelo conselho de classe ou pela direção da respectiva instituição de ensino.",
+          C: "Ao estudante são expressamente assegurados tanto o direito de ser respeitado por seus educadores quanto a garantia formal de contestar critérios avaliativos, facultando-se o recurso às instâncias escolares superiores.",
+          D: "O acesso à escola pública próxima à residência configura diretriz programática desprovida de vinculação com a distribuição de vagas para irmãos que cursem a mesma etapa letiva.",
+          E: "A participação na definição das propostas pedagógicas da escola é faculdade privativa dos profissionais da educação diplomados, competindo aos pais exclusivamente a ciência passiva dos boletins de frequência e notas."
+        },
+        correct: "C",
+        resolution: "A alternativa correta é a <strong>C</strong>. O Estatuto da Criança e do Adolescente estrutura no Art. 53 garantias procedimentais e de dignidade dentro do espaço escolar. Conforme preceitua o Art. 53, inciso II, o educando tem o direito subjetivo fundamental de ser respeitado por seus educadores. De modo complementar e indissociável, o inciso III consagra o \"direito de contestar critérios avaliativos, podendo recorrer às instâncias escolares superiores\". Esta formulação estabelece que os parâmetros pedagógicos de correção e pontuação não são imunes ao devido processo legal educacional, outorgando ao discente e aos seus responsáveis a prerrogativa de buscar a revisão perante conselhos pedagógicos, colegiados de curso ou instâncias diretivas.<br><br><strong>Análise dos itens incorretos:</strong><br>• <strong>A:</strong> Incorreta porque contraria a garantia estatutária do duplo grau de jurisdição escolar (Art. 53, III), não ficando a contestação restrita ao docente.<br>• <strong>B:</strong> Viola o Art. 53, IV, que preconiza a livre organização estudantil sem sujeição ao veto discricionário da direção escolar.<br>• <strong>D:</strong> Ignora a alteração da Lei nº 13.845/2019 no inciso V, que assegura vagas no mesmo estabelecimento a irmãos que frequentem a mesma etapa ou ciclo da educação básica.<br>• <strong>E:</strong> Colide frontalmente com o parágrafo único do Art. 53, que assegura aos pais e responsáveis ciência do processo pedagógico e participação na definição das propostas educacionais."
+      },
+      {
+        id: 2,
+        topic: "Garantia de Vagas para Irmãos • Art. 53, V (Lei nº 13.845/2019)",
+        statement: "A Lei nº 13.845/2019 alterou substancialmente o inciso V do Art. 53 da Lei nº 8.069/1990 com o objetivo de compatibilizar a organização do cotidiano familiar com a convivência comunitária no contexto do ensino básico público. À luz da redação vigente do dispositivo estatutário, o acesso à escola pública e gratuita próxima da residência:",
+        options: {
+          A: "Determina a lotação compulsória de todos os irmãos no mesmo espaço físico de sala de aula, ainda que pertençam a etapas de desenvolvimento distintas.",
+          B: "Assegura a matrícula em uma mesma unidade escolar para irmãos que frequentem a mesma etapa ou ciclo de ensino da educação básica.",
+          C: "Condiciona a concessão de vagas compartilhadas entre irmãos à inexistência de fila de espera geral no município.",
+          D: "Assegura a transferência sumária e automática de irmãos matriculados entre redes distintas, inclusive entre a rede pública e a conveniada particular, sem restrições de ciclo.",
+          E: "Aplica-se exclusivamente às turmas da educação infantil, decaindo a garantia de preferência a partir do ingresso no ensino fundamental regular."
+        },
+        correct: "B",
+        resolution: "A alternativa correta é a <strong>B</strong>. O inciso V do Art. 53 da Lei nº 8.069/1990 assegura o \"acesso à escola pública e gratuita, próxima de sua residência, garantindo-se vagas no mesmo estabelecimento a irmãos que frequentem a mesma etapa ou ciclo de ensino da educação básica\". Essa inovação legislativa incorporada ao ECA materializa o princípio da proteção integral e a promoção do bem-estar e da segurança familiar, reconhecendo que a proximidade física da escola e a concentração dos irmãos no mesmo estabelecimento reduzem a sobrecarga logística e orçamentária dos responsáveis, minimizando fatores determinantes para a inassiduidade e a evasão precoce.<br><br><strong>Análise dos itens incorretos:</strong><br>• <strong>A:</strong> A garantia refere-se ao \"mesmo estabelecimento\" de ensino, e não à mesma sala física de aula.<br>• <strong>C:</strong> A garantia não se condiciona a listas gerais de espera, constituindo direito legalmente estruturado.<br>• <strong>D:</strong> Exige identidade de \"etapa ou ciclo de ensino da educação básica\" na rede pública, não gerando permutas irrestritas entre sistemas privados e públicos.<br>• <strong>E:</strong> Abrange genericamente a educação básica (educação infantil, ensino fundamental e ensino médio), sem restrição exclusiva à educação infantil."
+      },
+      {
+        id: 3,
+        topic: "Dever do Estado e Estudante Trabalhador • Art. 54 do ECA",
+        statement: "O Art. 54 da Lei nº 8.069/1990 elenca o conjunto de deveres que vinculam o Estado na implementação do direito à educação de crianças e adolescentes. Ao disciplinar as condições operacionais para a permanência escolar do educando que já se encontra formalmente inserido no mercado produtivo, o diploma estatutário estabelece expressamente:",
+        options: {
+          A: "A autorização tácita para redução de até cinquenta por cento da carga horária curricular mínima do ensino médio para os adolescentes que comprovem vínculo formal de aprendizagem.",
+          B: "O dever estatal de assegurar a oferta de ensino noturno regular, adequado às condições peculiares do adolescente trabalhador.",
+          C: "A compulsoriedade de migração dos jovens trabalhadores com idade entre 15 e 17 anos para a modalidade exclusiva de Educação de Jovens e Adultos (EJA).",
+          D: "A dispensa da frequência escolar mínima prevista em lei quando o jovem cumpre jornada de aprendizagem técnica em entidade desportiva conveniada.",
+          E: "O caráter meramente discricionário da abertura de turnos noturnos regulares, desonerando a administração pública da responsabilidade pela omissão de oferta da vaga."
+        },
+        correct: "B",
+        resolution: "A alternativa correta é a <strong>B</strong>. O Art. 54 do ECA elenca os deveres intransponíveis do Estado no campo educacional, determinando no inciso VI a \"oferta de ensino noturno regular, adequado às condições do adolescente trabalhador\". O preceito constitucional e estatutário visa assegurar que a necessidade socioeconômica de inserção do adolescente no mundo do trabalho não o conduza à exclusão educacional forçada, impondo ao poder público a obrigação positiva de manter turmas regulares em turnos noturnos compatíveis com a jornada laboral do jovem.<br><br><strong>Análise dos itens incorretos:</strong><br>• <strong>A:</strong> O ECA e a LDB não autorizam abatimento de horas curriculares obrigatórias da educação básica.<br>• <strong>C:</strong> A prioridade legal é a permanência no ensino regular correspondente à faixa etária, não a migração mandatória para a EJA.<br>• <strong>D:</strong> A frequência escolar é cogente e requisito obrigatório para a validade do contrato de trabalho/aprendizagem.<br>• <strong>E:</strong> A educação obrigatória e gratuita é direito público subjetivo (Art. 54, § 1º); a omissão ou irregularidade na oferta enseja responsabilidade da autoridade competente (Art. 54, § 2º)."
+      },
+      {
+        id: 4,
+        topic: "Evasão Escolar e Notificação Compulsória • Art. 56 do ECA",
+        statement: "Durante a análise dos relatórios de frequência escolar em um campus do Instituto Federal, a equipe pedagógica verifica que determinado estudante adolescente acumula sucessivas faltas não justificadas e demonstra risco concreto de evasão definitiva. Em observância ao Art. 56 da Lei nº 8.069/1990, os dirigentes de estabelecimentos de ensino devem agir mediante:",
+        options: {
+          A: "Comunicação obrigatória e imediata à Promotoria de Justiça de Infância e Juventude, com pedido formal de instauração de procedimento sancionatório contra a família.",
+          B: "Encaminhamento compulsório do caso ao Conselho Tutelar ao verificar a reiteração de faltas injustificadas e de evasão escolar, após esgotados os recursos escolares.",
+          C: "Cancelamento administrativo definitivo da matrícula discente, formalizando a desvinculação institucional após vinte dias letivos de inassiduidade consecutiva.",
+          D: "Comunicação direta à delegacia de polícia da comarca para verificação de infração criminal de deserção de menores.",
+          E: "Notificação ao Conselho Tutelar restrita aos casos em que o absenteísmo supere noventa por cento dos dias letivos previstos no regimento escolar."
+        },
+        correct: "B",
+        resolution: "A alternativa correta é a <strong>B</strong>. O Art. 56 da Lei nº 8.069/1990 determina imperativamente que \"os dirigentes de estabelecimentos de ensino fundamental comunicarão ao Conselho Tutelar os casos de: I - maus-tratos envolvendo seus alunos; II - reiteração de faltas injustificadas e de evasão escolar, esgotados os recursos escolares; III - elevados níveis de repetência\". O dispositivo consolida a doutrina da proteção integral ao impor à escola uma postura pró-ativa prévia: os gestores não devem transferir ao órgão tutelar as primeiras faltas de modo burocrático e irresponsável, mas agir pedagogicamente (\"esgotados os recursos escolares\") por meio de busca ativa, diálogo com a família e articulação interna antes da remessa formal da situação ao Conselho Tutelar.<br><br><strong>Análise dos itens incorretos:</strong><br>• <strong>A e D:</strong> O destinatário legal primário da comunicação é o Conselho Tutelar, não a Promotoria ou autoridade policial com vistas sancionatórias imediatas.<br>• <strong>C:</strong> Cancelar a matrícula violaria o direito primordial de acesso e permanência na escola pública (Art. 53, I).<br>• <strong>E:</strong> A lei fala expressamente em \"reiteração de faltas injustificadas e evasão escolar, esgotados os recursos escolares\", sem percentual regimental pré-fixado de noventa por cento."
+      },
+      {
+        id: 5,
+        topic: "Integridade Funcional em Instituições Sociais • Art. 59-A (Lei nº 14.811/2024)",
+        statement: "No âmbito do ordenamento educacional e das instituições que prestam assistência a menores, a Lei Federal nº 14.811/2024 introduziu o Art. 59-A na Lei nº 8.069/1990, estabelecendo medidas protetivas e critérios de integridade funcional para instituições sociais. Em conformidade com o regramento legal em vigor, é CORRETO afirmar que:",
+        options: {
+          A: "A averiguação periódica de certidões de idoneidade jurídica é dispensada para organizações privadas, incidindo o preceito unicamente sobre entidades estatais diretas.",
+          B: "A exigência de controle documental alcança apenas o corpo docente da instituição, restando dispensados os servidores e empregados de apoio administrativo ou serviços gerais.",
+          C: "As certidões de antecedentes criminais apresentadas no ato da contratação possuem prazo de validade indeterminado para fins de exercício das atividades funcionais na entidade.",
+          D: "As instituições sociais públicas ou privadas que desenvolvam atividades com crianças e adolescentes e recebam recursos públicos devem exigir e manter certidões de antecedentes criminais de todos os seus colaboradores, atualizando-as a cada seis meses.",
+          E: "A documentação de antecedentes criminais pode ser integralmente suprida por termo de autoafirmação de conduta ilibada formalizado pelo contratado perante a junta administrativa."
+        },
+        correct: "D",
+        resolution: "A alternativa correta é a <strong>D</strong>. O Art. 59-A foi acrescentado ao Estatuto da Criança e do Adolescente pela recente Lei nº 14.811/2024 como mecanismo institucional de prevenção à violência contra crianças e adolescentes em ambientes escolares, de convivência ou de acolhimento. Dispõe expressamente o caput do artigo: \"As instituições sociais públicas ou privadas que desenvolvam atividades com crianças e adolescentes e que recebam recursos públicos deverão exigir e manter certidões de antecedentes criminais de todos os seus colaboradores, as quais deverão ser atualizadas a cada 6 (seis) meses\".<br><br><strong>Análise dos itens incorretos:</strong><br>• <strong>A:</strong> Atinge indistintamente entidades \"públicas ou privadas\" conveniadas ou receptoras de recursos públicos.<br>• <strong>B:</strong> A exigência recai sobre \"todos os seus colaboradores\", não apenas o corpo pedagógico docente.<br>• <strong>C:</strong> As certidões não possuem prazo perpétuo; há obrigatoriedade de atualização semestral periódica.<br>• <strong>E:</strong> A exigência legal é formal e estrita (certidões oficiais de antecedentes criminais), não sendo suprível por mera declaração particular unilateral."
+      },
+      {
+        id: 6,
+        topic: "Idade Mínima para o Trabalho e Aprendizagem • Art. 60 do ECA",
+        statement: "Em harmonia com as disposições do Art. 7º, inciso XXXIII, da Constituição da República Federativa do Brasil de 1988 e do Art. 60 do Estatuto da Criança e do Adolescente (Lei nº 8.069/1990), o regramento protetivo aplicável ao trabalho do menor estipula que:",
+        options: {
+          A: "É permitido qualquer trabalho a menores a partir dos doze anos de idade, desde que sob a forma de estágio educativo extracurricular não remunerado.",
+          B: "O trabalho sob vínculo de estágio curricular profissional é amplamente autorizado a partir dos treze anos completos de idade.",
+          C: "É proibido qualquer trabalho a menores de quatorze anos de idade, salvo expressamente na condição de aprendiz.",
+          D: "O adolescente a partir de catorze anos de idade pode ser contratado sob o regime empregatício geral e irrestrito da CLT, com jornadas e condições idênticas às dos trabalhadores adultos.",
+          E: "A restrição ao trabalho antes dos dezesseis anos é de natureza programática, restando descaracterizada caso haja expressa anuência judicial e patronal conjunta."
+        },
+        correct: "C",
+        resolution: "A alternativa correta é a <strong>C</strong>. O Art. 60 da Lei nº 8.069/1990 estatui a regra basilar da proteção contra a exploração infantil: \"É proibido qualquer trabalho a menores de quatorze anos de idade, salvo na condição de aprendiz\". Em perfeita harmonia com o Art. 7º, XXXIII, da CF/88, veda-se qualquer trabalho aos menores de 16 anos, ressalvada a condição de aprendiz a partir dos 14 anos. Dessa forma, entre 14 e 16 anos incompletos, a única vinculação laboral legalmente admitida no ordenamento jurídico pátrio é o contrato especial de aprendizagem profissional.<br><br><strong>Análise dos itens incorretos:</strong><br>• <strong>A e B:</strong> Não se permite trabalho, estágio ou vínculo formal aos 12 ou 13 anos de idade sob nenhuma circunstância ordinária.<br>• <strong>D:</strong> O jovem de 14 e 15 anos só pode trabalhar sob a modalidade tutelada da aprendizagem; o vínculo geral de emprego CLT só é facultado a partir dos 16 anos completos (com as devidas restrições de insalubridade e noturno).<br>• <strong>E:</strong> As normas de proibição ao trabalho infantil precoce possuem eficácia plena e natureza cogente/indisponível."
+      },
+      {
+        id: 7,
+        topic: "Princípios da Formação Técnico-Profissional • Art. 63 do ECA",
+        statement: "A formação técnico-profissional destinada aos adolescentes sujeita-se a diretrizes estritas que visam evitar a precarização precoce da mão de obra e garantir a primazia do aprendizado. Conforme o Art. 63 da Lei nº 8.069/1990, a formação técnico-profissional obedecerá aos seguintes princípios norteadores:",
+        options: {
+          A: "Autonomia financeira do jovem, desvinculação em relação aos calendários de avaliação escolar e jornada de trabalho proporcional à produtividade individual.",
+          B: "Primazia do resultado material da produção fabril sobre a formação teórica e admissão de compensação de descanso por prêmio em pecúnia.",
+          C: "Garantia de acesso e frequência obrigatória ao ensino regular, atividade compatível com o desenvolvimento do adolescente e horário especial para o exercício das atividades.",
+          D: "Supressão do intervalo interjornadas para fins de compatibilização horária, com permissão irrestrita de regime de plantão no setor de serviços.",
+          E: "Regime de dedicação exclusiva às práticas de produção industrial, sendo a assiduidade escolar considerada critério secundário e facultativo de capacitação."
+        },
+        correct: "C",
+        resolution: "A alternativa correta é a <strong>C</strong>. O Art. 63 do Estatuto da Criança e do Adolescente prescreve de modo taxativo que a formação técnico-profissional deve se orientar por três premissas fundamentais: \"I - garantia de acesso e frequência obrigatória ao ensino regular; II - atividade compatível com o desenvolvimento do adolescente; III - horário especial para o exercício das atividades\". A previsão destes pilares tem por escopo garantir que a formação não precarize o desenvolvimento biopsicossocial do menor e que a atividade produtiva jamais suplante a sua formação escolar primária.<br><br><strong>Análise dos itens incorretos:</strong><br>• <strong>A e E:</strong> A frequência escolar é obrigatória e condicional (Art. 63, I), descabendo flexibilizá-la ou considerá-la acessória.<br>• <strong>B:</strong> Na formação técnica, o aspecto pedagógico prevalece inequivocamente sobre a produção.<br>• <strong>D:</strong> É vedada a supressão de descansos legais ou a imposição de regimes de plantão nocivos que firam a higidez física e horários especiais do adolescente."
+      },
+      {
+        id: 8,
+        topic: "Restrições e Condições Permitidas de Trabalho • Art. 67 do ECA",
+        statement: "O Art. 67 da Lei nº 8.069/1990 consagra limitações protetivas taxativas destinadas a blindar a saúde, a segurança e a integridade biopsicossocial do jovem trabalhador. Dentre as modalidades e condições laborais a seguir, assinale a única que se afigura PERMITIDA ao adolescente empregado ou aprendiz:",
+        options: {
+          A: "Prestação de trabalho em horário diurno, executado em condições de ambiente salubre e mediante compatibilidade com a assiduidade e a frequência às aulas regulares.",
+          B: "Trabalho noturno, compreendido legalmente como aquele realizado no intervalo entre as vinte e duas horas de um dia e as cinco horas do dia seguinte.",
+          C: "Trabalho perigoso ou insalubre, devidamente atestado e qualificado em laudo técnico da segurança e medicina do trabalho.",
+          D: "Exercício de atividades classificadas como penosas por envolver esforço biomecânico extenuante incompatível com as forças do jovem trabalhador.",
+          E: "Trabalho desenvolvido em ambientes ou postos de serviço cuja rotina se demonstre manifestamente prejudicial ao seu desenvolvimento físico, psíquico, moral e social."
+        },
+        correct: "A",
+        resolution: "A alternativa correta é a <strong>A</strong>. O regime jurídico de proteção ao trabalho juvenil estabelece limites materiais intransponíveis. O trabalho só é legalmente tolerado ao adolescente se respeitadas as condições de regularidade física, moral e psicológica, com destaque para a exigência de compatibilidade total com o itinerário escolar, tal como decorre da interpretação combinada do Art. 67, inciso IV, e do Art. 63, incisos I e III.<br><br><strong>Análise dos itens incorretos (todas são vedações expressas do Art. 67):</strong><br>• <strong>B:</strong> Vedado pelo Art. 67, inciso I: trabalho noturno realizado entre 22h e 5h.<br>• <strong>C:</strong> Vedado pelo Art. 67, inciso II: trabalho perigoso ou insalubre.<br>• <strong>D:</strong> Vedado pelo Art. 67, inciso II: trabalho penoso.<br>• <strong>E:</strong> Vedado pelo Art. 67, inciso III: trabalho prejudicial à formação do menor e ao seu desenvolvimento físico, psíquico, moral e social."
+      },
+      {
+        id: 9,
+        topic: "Conceito Jurídico de Trabalho Educativo • Art. 68, Caput, do ECA",
+        statement: "O trabalho educativo constitui ferramenta pedagógica essencial no processo de formação integral e inserção social da juventude. De acordo com a definição positivada no Art. 68, caput, da Lei nº 8.069/1990, entende-se por trabalho educativo:",
+        options: {
+          A: "A prestação laboral informal desenvolvida no âmbito do mercado corporativo, na qual o pagamento financeiro suprime as exigências do processo regular de ensino.",
+          B: "A atividade laboral em que as exigências pedagógicas relativas ao desenvolvimento pessoal e social do educando prevalecem sobre o aspecto produtivo.",
+          C: "O voluntariado não remunerado no terceiro setor que proíbe, sob pena de nulidade absoluta, o recebimento de qualquer auxílio financeiro ou bolsa formadora.",
+          D: "O modelo de capacitação técnica em que o produto material do trabalho reverte com exclusividade à mantença institucional, sem direitos creditórios ao menor.",
+          E: "Toda modalidade produtiva em que o objetivo mercantil se sobressai às orientações de cunho socioeducativo, desde que chancelada pelo Ministério do Trabalho."
+        },
+        correct: "B",
+        resolution: "A alternativa correta é a <strong>B</strong>. O trabalho educativo encontra assento legal no Art. 68 do ECA, que o qualifica de maneira explícita: \"Entende-se por trabalho educativo a atividade laboral em que as exigências pedagógicas relativas ao desenvolvimento pessoal e social do educando prevalecem sobre o aspecto produtivo\". O núcleo essencial da conceituação repousa no princípio de que o produto ou serviço executado é mero instrumento pedagógico acidental, não constituindo a finalidade principal da relação institucional mantida com o educando.<br><br><strong>Análise dos itens incorretos:</strong><br>• <strong>A:</strong> Não se trata de informalidade de mercado nem afasta as exigências do processo regular de ensino.<br>• <strong>C:</strong> O trabalho educativo não veda auxílio pecuniário ou bolsa (Art. 68, § 1º).<br>• <strong>D:</strong> Não se define pela retenção patronal de lucros ou expropriação creditória da atividade do menor.<br>• <strong>E:</strong> A finalidade mercantil jamais pode se sobrepor às metas formativas do educando."
+      },
+      {
+        id: 10,
+        topic: "Remuneração e Bolsa no Trabalho Educativo • Art. 68, § 1º, do ECA",
+        statement: "Acerca da percepção de valores econômicos no regime de trabalho educativo e de suas repercussões na qualificação jurídica da atividade desenvolvida pelo jovem, o Art. 68, § 1º, do Estatuto da Criança e do Adolescente determina que:",
+        options: {
+          A: "O repasse de valores pecuniários transforma a relação jurídica em vínculo empregatício convencional subordinado, com incidência plena e retroativa da legislação trabalhista comum.",
+          B: "A concessão de remuneração estipendiária confere à atividade cunho societário, exigindo registro do aprendiz em juntas comerciais locais.",
+          C: "A remuneração que o adolescente recebe pelo trabalho efetuado ou a concessão de bolsa de aprendizagem não descaracteriza a natureza educativa da atividade.",
+          D: "O pagamento de contraprestação financeira retira do estabelecimento formador a obrigação de monitorar e garantir o rendimento educacional do estudante.",
+          E: "A validade do pagamento de bolsa de aprendizagem fica estritamente condicionada à homologação mensal do respectivo termo pelo Juizado da Infância e da Juventude."
+        },
+        correct: "C",
+        resolution: "A alternativa correta é a <strong>C</strong>. O Art. 68, § 1º, da Lei nº 8.069/1990 preconiza de maneira categórica que \"a remuneração que o adolescente recebe pelo trabalho efetuado ou a concessão de bolsa de aprendizagem não descaracteriza a natureza educativa da atividade\". O legislador estatutário teve a cautela de estabelecer esse comando para evitar que a atribuição de uma ajuda pecuniária — fundamental para o sustento de jovens em vulnerabilidade — fosse interpretada como a gênese automática de um contrato ordinário de emprego regido pela CLT, o que acabaria desestimulando entidades e instituições a conferirem suporte material aos alunos durante suas práticas de desenvolvimento.<br><br><strong>Análise dos itens incorretos:</strong><br>• <strong>A:</strong> O próprio texto da lei expressa que a retribuição pecuniária NÃO descaracteriza a índole pedagógica da atividade.<br>• <strong>B:</strong> Não guarda relação societária ou necessidade de registro em juntas comerciais.<br>• <strong>D:</strong> O dever formativo-institucional da entidade supervisora permanece intacto independentemente da bolsa.<br>• <strong>E:</strong> Inexiste exigência legal no ECA de homologação judicial mensal de termos de pagamento de bolsa educativa."
+      }
+    ];
+
+    // Estado da aplicação
+    const userAnswers = {};
+    let isSubmitted = false;
+
+    // Inicialização da interface
+    function initQuiz() {
+      const container = document.getElementById('questions-container');
+      container.innerHTML = '';
+
+      quizData.forEach((q, idx) => {
+        const questionCard = document.createElement('div');
+        questionCard.className = 'bg-card rounded-2xl border border-slate-200 p-6 sm:p-8 shadow-xs transition duration-200';
+        questionCard.id = `card-q-${q.id}`;
+
+        const letterOptions = Object.entries(q.options).map(([letter, text]) => {
+          return `
+            <label class="option-label block rounded-xl cursor-pointer relative overflow-hidden" for="q${q.id}_${letter}">
+              <input type="radio" 
+                     name="question_${q.id}" 
+                     id="q${q.id}_${letter}" 
+                     value="${letter}" 
+                     class="option-input sr-only"
+                     onchange="handleSelectAnswer(${q.id}, '${letter}')">
+              <div class="option-box p-4 rounded-xl flex items-start gap-3 transition">
+                <span class="radio-indicator flex-shrink-0 w-6 h-6 mt-0.5 rounded-full border-2 border-slate-300 flex items-center justify-center font-bold text-xs text-transparent">
+                  ✓
+                </span>
+                <div class="flex-1">
+                  <span class="font-bold text-ink-dark mr-1.5">${letter})</span>
+                  <span class="text-ink text-sm sm:text-base leading-relaxed">${text}</span>
+                </div>
+              </div>
+            </label>
+          `;
+        }).join('');
+
+        questionCard.innerHTML = `
+          <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 pb-3 mb-4">
+            <span class="text-xs font-bold uppercase tracking-wider text-teal-700 bg-teal-50 px-2.5 py-1 rounded-md border border-teal-100">
+              Questão ${q.id.toString().padStart(2, '0')}
+            </span>
+            <span class="text-xs font-medium text-ink-subtle">
+              ${q.topic}
+            </span>
+            <span id="badge-q-${q.id}" class="text-xs font-semibold px-2 py-0.5 rounded hidden"></span>
+          </div>
+
+          <p class="question-stem font-serif text-ink-dark mb-6">
+            ${q.statement}
+          </p>
+
+          <div class="space-y-3" id="options-group-${q.id}">
+            ${letterOptions}
+          </div>
+
+          <!-- Área para resolução individual pós-envio -->
+          <div id="inline-resolution-${q.id}" class="mt-6 pt-5 border-t border-slate-100 hidden">
+            <div class="p-4 sm:p-5 rounded-xl bg-slate-50 border border-slate-200 text-sm leading-relaxed text-ink">
+              <div class="flex items-center gap-2 mb-2">
+                <span class="font-bold text-xs uppercase tracking-wider text-teal-800 bg-teal-100 px-2 py-0.5 rounded">Gabarito: ${q.correct}</span>
+                <span class="font-semibold text-ink-dark">Fundamentação:</span>
+              </div>
+              <div class="text-ink-muted text-sm leading-relaxed">
+                ${q.resolution}
+              </div>
+            </div>
+          </div>
+        `;
+
+        container.appendChild(questionCard);
+      });
+
+      updateProgressCounter();
+    }
+
+    // Gerenciamento de resposta
+    function handleSelectAnswer(questionId, selectedLetter) {
+      if (isSubmitted) return; // Trava após envio
+      userAnswers[questionId] = selectedLetter;
+      updateProgressCounter();
+      document.getElementById('submission-warning').classList.add('hidden');
+    }
+
+    function updateProgressCounter() {
+      const answeredCount = Object.keys(userAnswers).length;
+      document.getElementById('answered-counter').textContent = `${answeredCount} de ${quizData.length} respondidas`;
+    }
+
+    function scrollToSubmit() {
+      document.getElementById('submit-section').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    // Submissão do simulado e correção completa
+    function submitQuiz() {
+      if (isSubmitted) {
+        document.getElementById('results-panel').scrollIntoView({ behavior: 'smooth' });
+        return;
+      }
+
+      const answeredCount = Object.keys(userAnswers).length;
+      if (answeredCount < quizData.length) {
+        const warning = document.getElementById('submission-warning');
+        if (warning.classList.contains('hidden')) {
+          warning.classList.remove('hidden');
+          warning.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          return;
+        }
+      }
+
+      isSubmitted = true;
+      let correctAnswersCount = 0;
+
+      // Desativar inputs e pintar opções
+      quizData.forEach(q => {
+        const userAnswer = userAnswers[q.id];
+        const isRight = userAnswer === q.correct;
+        if (isRight) correctAnswersCount++;
+
+        // Atualizar crachá na questão
+        const badge = document.getElementById(`badge-q-${q.id}`);
+        badge.classList.remove('hidden');
+        if (isRight) {
+          badge.className = 'text-xs font-semibold px-2 py-0.5 rounded bg-green-100 text-green-800 border border-green-200';
+          badge.textContent = '✓ Você acertou';
+        } else {
+          badge.className = 'text-xs font-semibold px-2 py-0.5 rounded bg-rose-100 text-rose-800 border border-rose-200';
+          badge.textContent = userAnswer ? `✕ Você marcou (${userAnswer})` : '✕ Sem resposta';
+        }
+
+        // Colorir opções
+        ['A', 'B', 'C', 'D', 'E'].forEach(letter => {
+          const input = document.getElementById(`q${q.id}_${letter}`);
+          input.disabled = true;
+          const box = input.nextElementSibling;
+
+          if (letter === q.correct) {
+            box.classList.add('correct-choice');
+          } else if (letter === userAnswer && !isRight) {
+            box.classList.add('wrong-choice');
+          }
+        });
+
+        // Revelar resolução embutida
+        document.getElementById(`inline-resolution-${q.id}`).classList.remove('hidden');
+      });
+
+      // Atualizar painel de resultados
+      const percentage = Math.round((correctAnswersCount / quizData.length) * 100);
+      document.getElementById('score-number').textContent = correctAnswersCount;
+      document.getElementById('score-percentage').textContent = `(${percentage}%)`;
+
+      const feedback = document.getElementById('score-feedback');
+      if (correctAnswersCount >= 9) {
+        feedback.textContent = 'Excelente domínio! Seus conhecimentos sobre os artigos 53 a 69 do ECA estão no nível exigido pela Reitoria do IFMG.';
+      } else if (correctAnswersCount >= 7) {
+        feedback.textContent = 'Bom rendimento! Revise os pontos específicos da notificação ao Conselho Tutelar e trabalho protegido para fechar a prova.';
+      } else {
+        feedback.textContent = 'Aproveite as resoluções comentadas abaixo para consolidar as nuances legais do ECA e refaça o simulado em seguida.';
+      }
+
+      // Preencher gabarito rápido
+      const quickGrid = document.getElementById('quick-answer-grid');
+      quickGrid.innerHTML = '';
+      quizData.forEach(q => {
+        const userAns = userAnswers[q.id];
+        const hit = userAns === q.correct;
+        const div = document.createElement('div');
+        div.className = `p-3 rounded-xl border text-center ${hit ? 'bg-green-50 border-green-200' : 'bg-rose-50 border-rose-200'}`;
+        div.innerHTML = `
+          <div class="text-xs font-bold text-slate-500 uppercase">Q${q.id}</div>
+          <div class="text-base font-black ${hit ? 'text-green-700' : 'text-rose-700'} mt-0.5">
+            ${q.correct} ${hit ? '<span class="text-xs font-normal">✓</span>' : `<span class="text-xs font-normal">(${userAns || '-'})</span>`}
+          </div>
+        `;
+        quickGrid.appendChild(div);
+      });
+
+      // Preencher bloco de resoluções completas
+      const detailedContainer = document.getElementById('detailed-resolutions');
+      detailedContainer.innerHTML = '';
+      quizData.forEach(q => {
+        const card = document.createElement('div');
+        card.className = 'bg-card rounded-2xl border border-slate-200 p-6 sm:p-7 shadow-xs';
+        card.innerHTML = `
+          <div class="flex items-center justify-between border-b border-slate-100 pb-3 mb-4">
+            <h4 class="font-serif font-bold text-lg text-ink-dark">
+              Questão ${q.id.toString().padStart(2, '0')} • Gabarito Oficial: <span class="text-teal-700 font-sans">${q.correct}</span>
+            </h4>
+            <span class="text-xs text-ink-subtle font-medium">${q.topic}</span>
+          </div>
+          <p class="text-xs sm:text-sm text-slate-500 italic mb-4 bg-slate-50 p-3 rounded-lg border border-slate-100">
+            "${q.statement.substring(0, 160)}..."
+          </p>
+          <div class="text-ink text-sm sm:text-base leading-relaxed">
+            ${q.resolution}
+          </div>
+        `;
+        detailedContainer.appendChild(card);
+      });
+
+      // Atualizar botões
+      document.getElementById('btn-submit').classList.add('hidden');
+      document.getElementById('btn-quick-check').textContent = 'Resultados';
+      document.getElementById('results-panel').classList.remove('hidden');
+
+      // Scroll suave para os resultados
+      document.getElementById('results-panel').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    // Reiniciar Simulado
+    function resetQuiz() {
+      for (const prop in userAnswers) {
+        delete userAnswers[prop];
+      }
+      isSubmitted = false;
+      document.getElementById('btn-submit').classList.remove('hidden');
+      document.getElementById('btn-quick-check').textContent = 'Finalizar';
+      document.getElementById('results-panel').classList.add('hidden');
+      document.getElementById('submission-warning').classList.add('hidden');
+      initQuiz();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Iniciar aplicação na carga
+    window.addEventListener('DOMContentLoaded', () => {
+      initQuiz();
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,868 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simulado IFMG: Lei nº 14.133/2021 – Contratos Administrativos</title>
+  <style>
+    :root {
+      --bg-canvas: #f6f7f9;
+      --bg-surface: #ffffff;
+      --bg-surface-alt: #f1f4f8;
+      --text-main: #1f2937;
+      --text-muted: #4b5563;
+      --text-soft: #6b7280;
+      --border-color: #d1d5db;
+      --border-light: #e5e7eb;
+      --primary: #15803d;
+      --primary-hover: #166534;
+      --primary-soft: #ecfdf5;
+      --primary-border: #86efac;
+      --danger: #b91c1c;
+      --danger-soft: #fef2f2;
+      --danger-border: #fca5a5;
+      --warning: #b45309;
+      --warning-soft: #fffbeb;
+      --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.03);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-canvas);
+      color: var(--text-main);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      font-size: 16px;
+      line-height: 1.75;
+      padding: 32px 16px 80px 16px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .container {
+      max-width: 860px;
+      margin: 0 auto;
+    }
+
+    /* Cabeçalho Institucional */
+    header.exam-header {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-top: 5px solid var(--primary);
+      border-radius: 8px;
+      padding: 28px 32px;
+      margin-bottom: 24px;
+      box-shadow: var(--card-shadow);
+    }
+
+    .badge-banca {
+      display: inline-block;
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--primary);
+      background-color: var(--primary-soft);
+      border: 1px solid var(--primary-border);
+      padding: 4px 10px;
+      border-radius: 4px;
+      margin-bottom: 12px;
+    }
+
+    header.exam-header h1 {
+      font-size: 1.55rem;
+      font-weight: 800;
+      line-height: 1.35;
+      color: #111827;
+      margin-bottom: 10px;
+    }
+
+    header.exam-header p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      margin-bottom: 6px;
+    }
+
+    .meta-topics {
+      background-color: var(--bg-surface-alt);
+      border-left: 3px solid var(--primary);
+      padding: 12px 16px;
+      margin-top: 14px;
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      border-radius: 0 4px 4px 0;
+    }
+
+    /* Barra de Progresso Superior */
+    .progress-bar-container {
+      position: sticky;
+      top: 16px;
+      z-index: 50;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      padding: 12px 20px;
+      margin-bottom: 24px;
+      box-shadow: var(--card-shadow);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .progress-text {
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      white-space: nowrap;
+    }
+
+    .progress-track {
+      flex: 1;
+      height: 8px;
+      background: var(--border-light);
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      width: 0%;
+      background: var(--primary);
+      transition: width 0.3s ease;
+    }
+
+    /* Cartão de Questão */
+    .question-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 28px 32px;
+      margin-bottom: 28px;
+      box-shadow: var(--card-shadow);
+      transition: border-color 0.2s ease;
+    }
+
+    .question-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border-light);
+    }
+
+    .question-num {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #111827;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .question-status-tag {
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      padding: 3px 8px;
+      border-radius: 4px;
+      display: none;
+    }
+
+    .question-status-tag.correct {
+      display: inline-block;
+      background-color: var(--primary-soft);
+      color: var(--primary);
+      border: 1px solid var(--primary-border);
+    }
+
+    .question-status-tag.incorrect {
+      display: inline-block;
+      background-color: var(--danger-soft);
+      color: var(--danger);
+      border: 1px solid var(--danger-border);
+    }
+
+    .question-body {
+      font-size: 1rem;
+      color: var(--text-main);
+      text-align: justify;
+      margin-bottom: 22px;
+      line-height: 1.8;
+    }
+
+    /* Lista de Alternativas */
+    .options-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .option-label {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      padding: 12px 16px;
+      border: 1px solid var(--border-light);
+      border-radius: 6px;
+      background-color: #fafbfc;
+      cursor: pointer;
+      transition: all 0.15s ease-in-out;
+      user-select: none;
+    }
+
+    .option-label:hover {
+      background-color: #f3f4f6;
+      border-color: var(--border-color);
+    }
+
+    .option-label input[type="radio"] {
+      margin-top: 4px;
+      accent-color: var(--primary);
+      width: 17px;
+      height: 17px;
+      cursor: pointer;
+    }
+
+    .option-content {
+      font-size: 0.96rem;
+      line-height: 1.65;
+      color: var(--text-main);
+      flex: 1;
+    }
+
+    .option-letter {
+      font-weight: 700;
+      color: #111827;
+      margin-right: 4px;
+    }
+
+    /* Estados Pós-Correção */
+    .option-label.is-selected {
+      background-color: #f0fdf4;
+      border-color: #bbf7d0;
+    }
+
+    .option-label.is-correct-target {
+      background-color: var(--primary-soft) !important;
+      border-color: var(--primary-border) !important;
+      font-weight: 500;
+    }
+
+    .option-label.is-wrong-target {
+      background-color: var(--danger-soft) !important;
+      border-color: var(--danger-border) !important;
+      text-decoration: line-through;
+      color: var(--danger);
+    }
+
+    /* Resolução Imediata Oculta */
+    .resolution-box {
+      display: none;
+      margin-top: 24px;
+      padding: 20px;
+      background-color: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-left: 4px solid var(--primary);
+      border-radius: 6px;
+      font-size: 0.94rem;
+      line-height: 1.7;
+    }
+
+    .resolution-box.visible {
+      display: block;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .resolution-title {
+      font-weight: 700;
+      color: #0f172a;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* Botão de Finalização */
+    .actions-footer {
+      text-align: center;
+      margin: 40px 0;
+    }
+
+    .btn-finish {
+      background-color: var(--primary);
+      color: #ffffff;
+      border: none;
+      font-size: 1.05rem;
+      font-weight: 700;
+      padding: 14px 36px;
+      border-radius: 6px;
+      cursor: pointer;
+      box-shadow: 0 4px 6px -1px rgba(21, 128, 61, 0.25);
+      transition: background-color 0.2s ease, transform 0.1s ease;
+    }
+
+    .btn-finish:hover {
+      background-color: var(--primary-hover);
+    }
+
+    .btn-finish:active {
+      transform: scale(0.99);
+    }
+
+    .btn-reset {
+      background-color: transparent;
+      color: var(--text-soft);
+      border: 1px solid var(--border-color);
+      font-size: 0.95rem;
+      font-weight: 600;
+      padding: 10px 24px;
+      border-radius: 6px;
+      cursor: pointer;
+      margin-left: 12px;
+      display: none;
+      transition: background-color 0.2s ease;
+    }
+
+    .btn-reset:hover {
+      background-color: var(--border-light);
+      color: var(--text-main);
+    }
+
+    /* Painel do Resultado Global */
+    .score-panel {
+      display: none;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 32px;
+      margin-bottom: 36px;
+      box-shadow: var(--card-shadow);
+      text-align: center;
+    }
+
+    .score-panel.visible {
+      display: block;
+      animation: fadeIn 0.4s ease;
+    }
+
+    .score-title {
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: #111827;
+      margin-bottom: 8px;
+    }
+
+    .score-value {
+      font-size: 2.5rem;
+      font-weight: 900;
+      color: var(--primary);
+      margin: 10px 0;
+    }
+
+    .score-meta {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      margin-bottom: 20px;
+    }
+
+    /* Seção de Resoluções Completas e Tabelas */
+    .detailed-section {
+      display: none;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 36px 32px;
+      margin-top: 40px;
+      box-shadow: var(--card-shadow);
+    }
+
+    .detailed-section.visible {
+      display: block;
+      animation: fadeIn 0.4s ease;
+    }
+
+    .detailed-section h2 {
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: #111827;
+      border-bottom: 2px solid var(--border-light);
+      padding-bottom: 12px;
+      margin-bottom: 24px;
+    }
+
+    .detailed-section h3 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #1e293b;
+      margin-top: 28px;
+      margin-bottom: 12px;
+    }
+
+    .res-item {
+      margin-bottom: 28px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--border-light);
+      text-align: justify;
+    }
+
+    .res-item:last-child {
+      border-bottom: none;
+    }
+
+    /* Tabelas Comparativas */
+    .table-container {
+      width: 100%;
+      overflow-x: auto;
+      margin: 18px 0;
+    }
+
+    table.data-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.9rem;
+      background-color: #ffffff;
+      text-align: left;
+    }
+
+    table.data-table th,
+    table.data-table td {
+      padding: 10px 14px;
+      border: 1px solid var(--border-color);
+      vertical-align: top;
+    }
+
+    table.data-table th {
+      background-color: var(--bg-surface-alt);
+      color: #111827;
+      font-weight: 700;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 640px) {
+      body { padding: 16px 8px 60px 8px; }
+      header.exam-header { padding: 20px 18px; }
+      .question-card { padding: 20px 18px; }
+      .score-panel { padding: 24px 18px; }
+      .detailed-section { padding: 24px 18px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- Cabeçalho -->
+  <header class="exam-header">
+    <span class="badge-banca">Comissão Central de Concurso Público da Reitoria do IFMG</span>
+    <h1>Caderno de Questões: Lei nº 14.133/2021</h1>
+    <p><strong>Tema Central:</strong> Contratos Administrativos, Execução e Sanções</p>
+    <div class="meta-topics">
+      <strong>Dispositivos Avaliados:</strong> Título III, Capítulos I (arts. 89 a 95), VI (arts. 115 a 123) e Título IV, Capítulo I (arts. 155 a 163).<br>
+      <strong>Foco da Avaliação:</strong> Formalização do termo de contrato e instrumentos substitutivos; cláusulas obrigatórias; fiscalização técnica versus administrativa nos contratos escolares; recebimento provisório e definitivo de bens; infrações administrativas e penalidades.
+    </div>
+  </header>
+
+  <!-- Barra de Progresso Fixo -->
+  <div class="progress-bar-container" id="progressBarContainer">
+    <span class="progress-text" id="progressText">0 de 10 respondidas</span>
+    <div class="progress-track">
+      <div class="progress-fill" id="progressFill"></div>
+    </div>
+  </div>
+
+  <!-- Painel de Pontuação (Visível após submissão) -->
+  <section class="score-panel" id="scorePanel">
+    <div class="score-title">Resultado do Simulado</div>
+    <div class="score-value" id="scoreValue">0 / 10</div>
+    <div class="score-meta" id="scoreMeta">Aproveitamento: 0%</div>
+    <p id="scoreFeedback">Confira abaixo as correções em cada questão e a fundamentação jurídica detalhada.</p>
+  </section>
+
+  <!-- Container de Questões Geradas Via JS -->
+  <main id="questionsContainer"></main>
+
+  <!-- Ações -->
+  <div class="actions-footer">
+    <button type="button" class="btn-finish" id="btnFinish" onclick="submitQuiz()">Finalizar e Corrigir Simulado</button>
+    <button type="button" class="btn-reset" id="btnReset" onclick="resetQuiz()">Reiniciar Simulado</button>
+  </div>
+
+  <!-- Seção Inferior de Resoluções e Gabarito Integral -->
+  <section class="detailed-section" id="detailedSection">
+    <h2>Gabarito Oficial e Resoluções Analíticas Fundamentadas</h2>
+
+    <div class="table-container">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th style="width: 15%;">Questão</th>
+            <th style="width: 25%;">Alternativa Correta</th>
+            <th>Dispositivo Legal de Referência</th>
+          </tr>
+        </thead>
+        <tbody id="summaryTableBody">
+          <!-- Injetado dinamicamente -->
+        </tbody>
+      </table>
+    </div>
+
+    <div id="fullResolutionsContent">
+      <!-- Injetado dinamicamente -->
+    </div>
+  </section>
+
+</div>
+
+<script>
+  const questionsData = [
+    {
+      id: 1,
+      text: "Em procedimento formalizado pela Diretoria de Administração de um dos campi do Instituto Federal de Educação, Ciência e Tecnologia de Minas Gerais (IFMG), realizou-se contratação direta por dispensa de licitação em razão do valor, com fundamento no art. 75, inciso II, da Lei nº 14.133/2021, objetivando a aquisição de vidrarias laboratoriais e reagentes para aulas práticas de cursos técnicos integrados. O valor total do fornecimento perfez R$ 42.000,00, restando estipulado que a entrega dos materiais seria imediata e integral, sem previsão de obrigações futuras da fornecedora adjudicatária nem cláusula de assistência técnica. Considerando os preceitos da Lei nº 14.133/2021 relativos à formalização dos contratos administrativos e aos instrumentos substitutivos, assinale a alternativa correta.",
+      options: [
+        { letter: "A", text: "O instrumento de contrato solene e bilateral é de lavratura obrigatória e indelegável, uma vez que a dispensa de licitação em razão do valor não autoriza a substituição instrumental quando a despesa excede 20% do limite legal para compras gerais." },
+        { letter: "B", text: "A Administração Pública do IFMG tem a prerrogativa discricionária de substituir o instrumento de contrato por outro documento hábil, a exemplo de nota de empenho de despesa, carta-contrato ou autorização de fornecimento, haja vista enquadrar-se em dispensa por valor e envolver entrega imediata e integral da qual não resultem obrigações futuras." },
+        { letter: "C", text: "O termo de contrato poderá ser dispensado em favor de ordem de compra tão somente se houver expressa renúncia do contratado ao reajustamento monetário e prévia prestação de garantia securitária de execução." },
+        { letter: "D", text: "A avença retratada autoriza o IFMG a formalizar contrato verbal com o fornecedor, pois a legislação licitatória faculta ajustes não escritos para aquisições de entrega rápida até o limite global de dispensa fixado no art. 75, inciso II." },
+        { letter: "E", text: "Caso o fornecedor convocado recuse a retirada da respectiva nota de empenho dentro do prazo assinalado pelo edital, restará descaracterizada qualquer infração funcional da empresa, competindo à instituição exclusivamente a anulação sem sanções do procedimento de dispensa." }
+      ],
+      correct: "B",
+      legalRef: "Art. 95, incisos I e II, da Lei nº 14.133/2021",
+      resolution: "A assertiva B é a única correta. O art. 95 da Lei nº 14.133/2021 disciplina os instrumentos substitutivos do termo formal de contrato, dispondo que a formalização do termo solene é dispensável em hipóteses taxativas, permitindo-se à Administração Pública substituí-lo por carta-contrato, nota de empenho de despesa, autorização de compra ou ordem de execução de serviço. Essa substituição encontra respaldo explícito nos incisos I e II do referido artigo: contratações formalizadas mediante dispensa de licitação em razão de valor e aquisições com entrega imediata e integral das quais não advenham obrigações supervenientes, inclusive assistência técnica pós-venda, sem restrição imposta pelo montante despendido na dispensa legal.<br><br>Em contrapartida, a alternativa A incorre em erro ao formular uma vedação apócrifa condicionada ao teto de 25% do limite legal. A alternativa C improcede, pois a emissão de nota de empenho em entregas integrais e instantâneas não pressupõe prévia outorga de caução. A alternativa D é contrária ao art. 95, § 2º, que reputa nulo contrato verbal com o Poder Público, tolerando apenas pequenas compras de pronto pagamento de até R$ 10.000,00 (atualizado anualmente). A alternativa E descumpre o art. 90, § 5º, segundo o qual a recusa injustificada em retirar o instrumento substitutivo equipara-se à inexecução total do ajuste."
+    },
+    {
+      id: 2,
+      text: "Durante a elaboração das minutas-padrão de termos contratuais para prestação de serviços e fornecimentos no âmbito da Reitoria do IFMG, a assessoria técnica submeteu à Procuradoria Federal as cláusulas econômico-financeiras pertinentes à preservação do equilíbrio contratual e aos índices de atualização de preços. À luz do art. 92 da Lei nº 14.133/2021, que trata das cláusulas essenciais do contrato administrativo, assinale a alternativa correta.",
+      options: [
+        { letter: "A", text: "A estipulação de cláusula definidora do índice de reajustamento de preços restringe-se aos contratos administrativos cuja vigência inicial prefixada seja superior a 12 (doze) meses, prescindindo-se de tal menção nas avenças de duração semestral." },
+        { letter: "B", text: "Independentemente do prazo de duração estipulado para a avença, o contrato deverá obrigatoriamente conter cláusula que estabeleça o índice de reajustamento de preço, com data-base vinculada à data do orçamento estimado." },
+        { letter: "C", text: "Nos contratos de serviços continuados sob o regime de dedicação exclusiva de mão de obra, as alterações de custos decorrentes de novas convenções coletivas de trabalho serão atendidas por reajustamento em sentido estrito vinculado a índices gerais de inflação." },
+        { letter: "D", text: "As cláusulas que estabelecem as condições de pagamento e as sanções pecuniárias constituem disposições facultativas em contratações de valor inferior ao patamar das licitações de modalidade pregão." },
+        { letter: "E", text: "A data-base para o cômputo do primeiro reajuste em sentido estrito deve vincular-se inflexivelmente à data da publicação do extrato contratual no Portal Nacional de Contratações Públicas (PNCP)." }
+      ],
+      correct: "B",
+      legalRef: "Art. 92, § 3º, da Lei nº 14.133/2021",
+      resolution: "A alternativa B expressa a inteligência exata do art. 92, inciso V e § 3º, da Lei nº 14.133/2021. A inovação legislativa estipula que, com absoluta independência do prazo de duração da contratação, é cláusula cogente a fixação do índice de reajustamento de preço, cuja data-base deve restar preferencialmente atrelada à data do orçamento estimado pela Administração Pública.<br><br>A assertiva A está incorreta por reproduzir o entendimento superado da Lei nº 8.666/1993. A proposição C distorce a mecânica, pois para serviços continuados com mão de obra exclusiva a recomposição de convenções coletivas ocorre privativamente por repactuação de preços (art. 92, § 4º). A assertiva D erra ao tratar cláusulas essenciais como facultativas. A alternativa E destoa da lei, cujo marco referencial é a estimativa ou a apresentação da proposta, e não a publicação no PNCP."
+    },
+    {
+      id: 3,
+      text: "Concluído o certame licitatório promovido pelo IFMG para contratação de sociedade empresária habilitada na execução de reformas de quadras poliesportivas em três campi regionais, o licitante classificado em primeiro lugar foi formalmente convocado para assinar o termo de contrato de engenharia no prazo editalício de 5 (cinco) dias úteis. A respeito dos mecanismos legais de convocação, prorrogação de prazo e consequências da recusa à contratação previstos no art. 90 da Lei nº 14.133/2021, assinale a alternativa correta.",
+      options: [
+        { letter: "A", text: "O prazo de convocação para assinatura do termo contratual não comporta prorrogação em contratos de engenharia, impondo-se a convocação imediata do segundo classificado no primeiro dia útil subsequente ao término do prazo." },
+        { letter: "B", text: "A eventual recusa injustificada do adjudicatário em assinar o contrato no decurso do prazo fixado desobriga o particular de qualquer penalidade pecuniária, ressalvada a retenção temporária das amostras apresentadas no certame." },
+        { letter: "C", text: "O prazo de convocação poderá ser prorrogado 1 (uma) vez, por igual período, mediante solicitação da parte manifestada durante o seu transcurso, desde que devidamente justificada e formalmente aceita pela Administração do IFMG." },
+        { letter: "D", text: "Constatada a recusa injustificada do primeiro colocado, é terminantemente defeso à Administração convocar os licitantes remanescentes, devendo a licitação ser sumariamente revogada por perda superveniente de objeto." },
+        { letter: "E", text: "Na hipótese de chamamento dos licitantes remanescentes em decorrência da recusa do primeiro colocado, a celebração do contrato dar-se-á obrigatoriamente pelo valor máximo estimado no edital, desconsiderando-se a proposta formulada pelo desistente." }
+      ],
+      correct: "C",
+      legalRef: "Art. 90, § 1º, da Lei nº 14.133/2021",
+      resolution: "A alternativa C revela-se irrepreensível à luz do art. 90, § 1º, da Lei nº 14.133/2021. O comando legal positiva que o interregno assinalado em edital para assinar o termo de contrato comporta uma única prorrogação, por período idêntico, demandando requerimento formulado antes da extinção do prazo primitivo e fundamentação fática aceita pela Administração.<br><br>A assertiva A ignora a faculdade expressa de dilação temporal. A alternativa B desconsidera os efeitos da recusa ilegítima (perda de garantia e instauração de processo sancionatório, art. 90, § 5º). A alternativa D desconsidera a faculdade de convocar licitantes remanescentes (art. 90, § 2º e § 4º). A assertiva E erra ao afirmar a contratação pelo valor máximo estimado, pois o chamamento busca manter a proposta do licitante ou negociar o preço do primeiro colocado."
+    },
+    {
+      id: 4,
+      text: "Na gestão de contratos de prestação de serviços continuados com alocação exclusiva de postos de trabalho no ambiente de suporte educacional do IFMG (como limpeza escolar, vigilância e portaria), a fiscalização é distribuída entre os papéis de Fiscal Técnico e Fiscal Administrativo. Em estrita conformidade com os postulados do art. 117 da Lei nº 14.133/2021 e as disposições regulamentares federais pertinentes, assinale a alternativa que demarca de modo exato a linha funcional de cada agente.",
+      options: [
+        { letter: "A", text: "O Fiscal Técnico responsabiliza-se primordialmente pela verificação dos depósitos previdenciários e do recolhimento do FGTS dos funcionários terceirizados, cabendo ao Fiscal Administrativo o controle quantitativo e a inspeção dos métodos de limpeza aplicados nas salas de aula." },
+        { letter: "B", text: "O Fiscal Técnico responde pelo acompanhamento do contrato com o objetivo de avaliar a execução do objeto nos moldes contratados e verificar a quantidade e a qualidade dos serviços prestados, enquanto o Fiscal Administrativo responde pelo acompanhamento dos aspectos administrativos da execução, com ênfase no cumprimento das obrigações previdenciárias, fiscais e trabalhistas." },
+        { letter: "C", text: "O Fiscal Administrativo detém competência punitiva originária para aplicar unilateralmente advertências escritas e reter definitivamente cauções, atuando de maneira independente do gestor do contrato e da comissão de penalidades." },
+        { letter: "D", text: "As funções de fiscalização técnica e administrativa em ambiente educacional são privativas de empresas privadas de auditoria contratadas pela Reitoria, sendo nula a designação de servidores públicos estáveis para tais misteres." },
+        { letter: "E", text: "A atuação do Fiscal Administrativo cessa obrigatoriamente após a emissão da primeira nota de empenho, cabendo unicamente ao setor de contabilidade o monitoramento periódico da regularidade trabalhista da terceirizada." }
+      ],
+      correct: "B",
+      legalRef: "Art. 117 da Lei nº 14.133/2021 c/c Decreto Federal nº 11.246/2022",
+      resolution: "A alternativa B consagra de forma fidedigna a distribuição de atribuições entre a fiscalização técnica e a fiscalização administrativa delineada pelo art. 117 da Lei nº 14.133/2021 e disciplinada pelo Decreto Federal nº 11.246/2022. Cabe ao fiscal técnico examinar a dimensão material da execução contratual (qualidade, quantidade e cronograma), enquanto o fiscal administrativo atua como auditor documental e trabalhista (folha de pagamento, FGTS, previdência e encargos).<br><br><div class='table-container'><table class='data-table'><thead><tr><th>Critério</th><th>Fiscalização Técnica</th><th>Fiscalização Administrativa</th></tr></thead><tbody><tr><td><strong>Objeto de Tutela</strong></td><td>Dimensão material e qualitativa do objeto</td><td>Regularidade formal, documental e trabalhista-fiscal</td></tr><tr><td><strong>Rotinas Operacionais</strong></td><td>Vistorias in loco, medições e ateste material</td><td>Conferência de guias de FGTS, eSocial e CNDs</td></tr><tr><td><strong>Competência Sancionatória</strong></td><td>Inexistente; noticia intercorrências ao gestor</td><td>Inexistente; submete desconformidades ao gestor</td></tr></tbody></table></div><br>A alternativa A inverte as funções; a C outorga poder punitivo privativo de autoridade ao fiscal; a D ignora que a fiscalização é múnus público primário de servidores; e a E extingue erroneamente a fiscalização após o primeiro empenho."
+    },
+    {
+      id: 5,
+      text: "Uma sociedade empresária contratada pelo IFMG para prestação de serviços de apoio operacional escolar inadimpliu reiteradamente as obrigações salariais de seus empregados e omitiu-se no recolhimento das guias rescisórias devidas aos trabalhadores demitidos no término do período letivo. Diante do ajuizamento de reclamações trabalhistas requerendo a imputação de responsabilidade ao Instituto Federal de Educação, e considerando as diretrizes do art. 121 da Lei nº 14.133/2021, assinale a alternativa correta.",
+      options: [
+        { letter: "A", text: "O inadimplemento das obrigações trabalhistas por parte do contratado gera presunção legal de responsabilidade solidária automática da autarquia educacional contratante perante a Justiça Laboral." },
+        { letter: "B", text: "A autarquia contratante somente responderá subsidiariamente pelos encargos trabalhistas se comprovada a sua conduta culposa na fiscalização do cumprimento das obrigações da contratada, não havendo transferência direta e objetiva de tais débitos pelo mero inadimplemento." },
+        { letter: "C", text: "A inadimplência da contratada em relação aos encargos fiscais e comerciais decorrentes da execução da avença acarreta a assunção compulsória de todas as obrigações tributárias pela Fazenda Nacional." },
+        { letter: "D", text: "É expressamente vedado ao IFMG proceder à retenção cautelar de pagamentos faturados à empresa inadimplente, ainda que existam relatórios comprobatórios de descumprimento contumaz da folha salarial dos terceirizados." },
+        { letter: "E", text: "Nos contratos escolares que envolvam fornecimento com dedicação exclusiva de mão de obra, os créditos trabalhistas vencidos sub-rogam os trabalhadores imediatamente como titulares primários do contrato administrativo originário." }
+      ],
+      correct: "B",
+      legalRef: "Art. 121, § 2º, da Lei nº 14.133/2021",
+      resolution: "A assertiva B reflete o enquadramento dogmático do art. 121, § 2º, da Lei nº 14.133/2021, harmonizado com o Tema 246 do STF (RE 760.931) e a Súmula 331 do TST. A responsabilidade subsidiária da Administração Pública não opera de forma automática e nem solidária: pressupõe a cabal comprovação de falha culposa na fiscalização (culpa in vigilando).<br><br>A alternativa A é errônea ao prever solidariedade ou presunção automática. A alternativa C ignora o art. 121, § 1º, que blinda a Administração contra encargos fiscais e comerciais da empresa. A alternativa D nega a faculdade/dever de retenção cautelar autorizada pela legislação e jurisprudência dos Tribunais de Contas. A alternativa E inventa uma sub-rogação inexistente na relação de direito público."
+    },
+    {
+      id: 6,
+      text: "Com vistas ao aparelhamento dos laboratórios de informática pedagógica de uma unidade de ensino do IFMG, foram adquiridos duzentos microcomputadores, os quais foram entregues pela fornecedora no almoxarifado setorial acompanhados da respectiva nota fiscal. No que concerne ao recebimento provisório e definitivo de compras sob a égide do art. 140 da Lei nº 14.133/2021, assinale a alternativa correta.",
+      options: [
+        { letter: "A", text: "O recebimento provisório para a aquisição de bens é realizado de forma sumária pelo responsável pelo acompanhamento e fiscalização, ao passo que o recebimento definitivo é efetuado por servidor ou comissão designada pela autoridade, mediante termo detalhado que comprove o atendimento das exigências contratuais." },
+        { letter: "B", text: "O recebimento provisório de compras de equipamentos de informática requer laudo pericial exaustivo firmado por três engenheiros civis da Reitoria antes do descarregamento da carga no depósito." },
+        { letter: "C", text: "A lavratura do termo de recebimento definitivo pelo gestor do contrato faz cessar de modo pleno e imediato a responsabilidade do fabricante ou fornecedor por quaisquer vícios redibitórios ou defeitos funcionais futuros." },
+        { letter: "D", text: "A Lei nº 14.133/2021 determinou prazo rígido, uniforme e decadencial de 90 (noventa) dias corridos para a conclusão do recebimento definitivo de quaisquer bens, sendo juridicamente vedada a previsão de prazos diversos em edital ou contrato." },
+        { letter: "E", text: "Se parcela dos computadores apresentar avarias visíveis ou configurações em desacordo com o edital, a Administração deve rejeitar a totalidade da remessa, sendo vedado o recebimento e pagamento proporcional da quantidade conforme." }
+      ],
+      correct: "A",
+      legalRef: "Art. 140, inciso II, alíneas 'a' e 'b', da Lei nº 14.133/2021",
+      resolution: "A alternativa A traz o conteúdo exato do art. 140, inciso II, alíneas 'a' e 'b', da Lei nº 14.133/2021. Em aquisições de bens, o recebimento provisório é sumário, atestado pelo responsável pelo acompanhamento do contrato; já o recebimento definitivo é formal, feito por servidor ou comissão mediante termo minucioso que atesta conformidade integral.<br><br>A assertiva B é absurda ao exigir perícia de engenheiros civis para microcomputadores. A assertiva C falseia o art. 140, § 2º, já que o aceite definitivo não exime o contratado das garantias legais e vícios redibitórios. A assertiva D contraria o § 3º do art. 140, que delegou a fixação de prazos ao edital/regulamento, superando os prazos engessados da antiga lei. A alternativa E desconsidera a viabilidade expressa do recebimento e liquidação parcial das parcelas incontroversas."
+    },
+    {
+      id: 7,
+      text: "Durante o período letivo, a empresa vencedora do certame para fornecimento contínuo de gêneros alimentícios perecíveis destinados à alimentação discente do IFMG descumpriu o cronograma de remessas por sucessivas semanas, entregou insumos com padrões sanitários reprovados pela equipe técnica e, sem justo motivo, suspendeu unilateralmente as atividades, acarretando desabastecimento generalizado da cantina institucional. De acordo com os arts. 155 e 156 da Lei nº 14.133/2021, a conduta da empresa tipifica-se como:",
+      options: [
+        { letter: "A", text: "Infração de pequena relevância executiva, subsumível unicamente à reprimenda verbal documentada em ata, obstada qualquer sanção de impedimento à participação em licitações." },
+        { letter: "B", text: "Ocorrência típica de caso fortuito endógeno que enseja tão somente a rescisão consensual do pacto, desautorizada a cobrança de penalidades moratórias ou compensatórias." },
+        { letter: "C", text: "Infração administrativa tipificada por dar causa à inexecução parcial que cause grave dano à Administração, ao funcionamento dos serviços públicos ou ao interesse coletivo, ou por dar causa à inexecução total, habilitando a incidência de penalidades gravosas como impedimento de licitar ou declaração de inidoneidade." },
+        { letter: "D", text: "Mera mora tolerável em fornecimentos perecíveis escolares, com vedação explícita à cumulação de multa pecuniária e processo de responsabilização." },
+        { letter: "E", text: "Fato da administração consubstanciado na alteração do calendário de aulas, eximindo o particular de qualquer apuração de responsabilidade de natureza sancionatória." }
+      ],
+      correct: "C",
+      legalRef: "Art. 155, incisos II e III, c/c Art. 156, §§ 4º e 5º, da Lei nº 14.133/2021",
+      resolution: "A assertiva C constitui a subsunção técnica impecável aos arts. 155 e 156 da Lei nº 14.133/2021. O abandono e a entrega imprópria configuram as infrações dos incisos II e III do art. 155: inexecução parcial com grave dano ao funcionamento do serviço público/interesse coletivo e inexecução total. Tais faltas habilitam expressamente a sanção de impedimento de licitar (art. 156, § 4º) ou de inidoneidade (art. 156, § 5º).<br><br>A alternativa A atenua de forma teratológica o dano; a B falseia um caso fortuito inexistente; a D ignora o § 7º do art. 156, que autoriza a cumulação de multa com as sanções restritivas de direitos; e a E atribui culpa indevida ao calendário escolar."
+    },
+    {
+      id: 8,
+      text: "O Diretor-Geral de um dos campi do IFMG, diante da apuração de falhas pontuais e sem reflexos estruturais em contrato de impressão gráfica e reprografia, instaurou procedimento para aplicação da penalidade de advertência à contratada. Relativamente às balizas normativas dos arts. 156 e 157 da Lei nº 14.133/2021 sobre as sanções de advertência e multa, assinale a alternativa correta.",
+      options: [
+        { letter: "A", text: "A advertência é a resposta sancionatória privativa aplicável aos casos de falsificação ideológica em propostas comerciais e conluio entre competidores." },
+        { letter: "B", text: "A sanção de advertência será aplicada exclusivamente pela infração administrativa de dar causa à inexecução parcial do contrato, quando não se justificar a imposição de penalidade mais grave." },
+        { letter: "C", text: "A penalidade de multa não comporta graduação contratual e deve situar-se imperativamente entre 10% (dez por cento) e 60% (sessenta por cento) do valor global corrigido da avença original." },
+        { letter: "D", text: "A Lei nº 14.133/2021 veda a cumulação da sanção pecuniária de multa com qualquer uma das outras sanções legalmente catalogadas, sob pena de incorrer em bis in idem punitivo." },
+        { letter: "E", text: "Previamente à aplicação de sanções de advertência ou de multa, a legislação não impõe a concessão de prazo de defesa escrita ao particular, bastando a constatação documental dos fatos no processo administrativo interno." }
+      ],
+      correct: "B",
+      legalRef: "Art. 156, § 2º, da Lei nº 14.133/2021",
+      resolution: "A alternativa B é a única correta. O art. 156, § 2º, da Lei nº 14.133/2021 instituiu tipicidade fechada ao ditar que a sanção de advertência 'será aplicada exclusivamente pela infração administrativa prevista no inciso I do caput do art. 155 desta Lei [dar causa à inexecução parcial do contrato], quando não se justificar a imposição de penalidade mais grave'.<br><br>A assertiva A comete erro primário, pois fraudes e conluios exigem declaração de inidoneidade. A assertiva C contradiz o art. 156, § 3º, que fixa os limites da multa entre 0,5% e 30% do contrato. A alternativa D nega a cumulação permitida expressamente pelo art. 156, § 7º. A assertiva E vulnera o art. 157, que impõe o prazo indispensável de 15 dias úteis para defesa prévia."
+    },
+    {
+      id: 9,
+      text: "Em auditoria instaurada pela Reitoria do IFMG, comprovou-se que uma concorrente em licitação de transporte estudantil apresentou atestado de capacidade técnica falsificado com o intuito de burlar requisitos habilitatórios do edital. Ao disciplinar o processo de responsabilização e a delimitação das penalidades de impedimento de licitar e contratar e de declaração de inidoneidade (arts. 156 e 158 da Lei nº 14.133/2021), a legislação estatui que:",
+      options: [
+        { letter: "A", text: "A sanção de declaração de inidoneidade impede o responsável de licitar ou contratar no âmbito da Administração Pública direta e indireta de todos os entes federativos (União, Estados, Distrito Federal e Municípios), pelo prazo de 3 (três) a 6 (seis) anos." },
+        { letter: "B", text: "A sanção de impedimento de licitar e contratar atinge a capacidade de licitar da sociedade perante toda a Administração Pública brasileira, unificada pelo PNCP, pelo prazo inflexível de 5 (cinco) anos." },
+        { letter: "C", text: "A declaração de inidoneidade prescinde de parecer técnico-jurídico prévio, constituindo ato administrativo afeto à alçada ordinária de pregoeiros e fiscais executores da avença." },
+        { letter: "D", text: "A sanção de impedimento de licitar perdura pelo interregno de 3 (três) a 8 (oito) anos, enquanto a declaração de inidoneidade não poderá ultrapassar o teto estanque de 1 (um) ano." },
+        { letter: "E", text: "A abrangência territorial e federativa do impedimento de licitar e contratar e da declaração de inidoneidade é exatamente a mesma, diferenciando-se os institutos unicamente pela necessidade de recolhimento de fiança penal." }
+      ],
+      correct: "A",
+      legalRef: "Art. 156, §§ 4º e 5º, da Lei nº 14.133/2021",
+      resolution: "A alternativa A traz o exato teor normativo emanado do art. 156, § 5º, da Lei nº 14.133/2021. A declaração de inidoneidade é a sanção máxima para fraudes e ilícitos dolosos qualificados: produz eficácia em toda a federação (União, Estados, DF e Municípios) e vigora pelo prazo de 3 a 6 anos.<br><br><div class='table-container'><table class='data-table'><thead><tr><th>Parâmetro</th><th>Impedimento de Licitar e Contratar</th><th>Declaração de Inidoneidade</th></tr></thead><tbody><tr><td><strong>Previsão Legal</strong></td><td>Art. 156, § 4º</td><td>Art. 156, § 5º</td></tr><tr><td><strong>Prazo</strong></td><td>Até 3 anos</td><td>De 3 a 6 anos</td></tr><tr><td><strong>Extensão Federativa</strong></td><td>Apenas o Ente Federativo sancionador</td><td>Toda a Federação (União, Estados, DF e Municípios)</td></tr><tr><td><strong>Competência</strong></td><td>Autoridade designada em regulamento</td><td>Ministros de Estado, Secretários ou Dirigente Máximo de Autarquia</td></tr></tbody></table></div><br>A alternativa B erra o alcance e o prazo do impedimento (até 3 anos no próprio ente); a C esquece que a inidoneidade é privativa de autoridade de cúpula e exige análise jurídica mandatória (art. 156, § 6º); a D inverte prazos; e a E ignora a disparidade de abrangência federativa entre as sanções."
+    },
+    {
+      id: 10,
+      text: "Instaurado processo administrativo de responsabilização no IFMG para apuração de ilícitos que ensejem as penas de impedimento de licitar e contratar ou declaração de inidoneidade, a instituição deve ater-se aos princípios da segregação, ampla defesa e aos preceitos de reabilitação positivados nos arts. 158 e 163 da Lei nº 14.133/2021. A respeito desse rito e do instituto da reabilitação, assinale a alternativa correta:",
+      options: [
+        { letter: "A", text: "O processo para aplicação das sanções de impedimento de licitar e contratar e de declaração de inidoneidade será conduzido por comissão composta de 2 (dois) ou mais servidores estáveis, assegurando-se ao intimado o prazo de 15 (quinze) dias úteis para apresentação de defesa escrita e especificação de provas." },
+        { letter: "B", text: "A intimação do indiciado no processo de responsabilização deflagra o prazo preclusivo de 5 (cinco) dias corridos para a protocolização de memoriais de defesa, vedada dilação probatória suplementar." },
+        { letter: "C", text: "A reabilitação da pessoa jurídica declarada inidônea pode ser concedida de plano pela autoridade administrativa independentemente da reparação do dano e da quitação da sanção de multa aplicada." },
+        { letter: "D", text: "O deferimento do pleito de reabilitação prescinde de análise jurídica prévia, configurando juízo discricionário imotivado da autoridade competente." },
+        { letter: "E", text: "A ação sancionatória da Administração prescreve no lapso decadencial de 180 (cento e oitenta) dias a contar do término do contrato, operando-se a prescrição mesmo que pendente decisão definitiva em comissão regularmente designada." }
+      ],
+      correct: "A",
+      legalRef: "Art. 158, caput e § 1º, c/c Art. 163 da Lei nº 14.133/2021",
+      resolution: "A alternativa A representa a consonância integral com o regramento estampado no art. 158, caput e § 1º, da Lei nº 14.133/2021. O procedimento de apuração das sanções mais severas (impedimento e inidoneidade) deve ser conduzido por comissão composta de no mínimo 2 servidores estáveis, com concessão de prazo de 15 dias úteis para defesa escrita e produção de provas.<br><br>A assertiva B é incorreta ao fixar prazo de 5 dias corridos (a lei adota 15 dias úteis, arts. 158 e 183). A assertiva C descumpre o art. 163, que exige ressarcimento integral do dano e pagamento da multa como condições prévias à reabilitação. A assertiva D desrespeita a exigência de parecer jurídico prévio (art. 163, V). A alternativa E erra ao arbitrar prazo semestral, visto que a prescrição extintiva é de 5 anos (art. 158, § 4º)."
+    }
+  ];
+
+  // Estado da Aplicação
+  const userAnswers = {};
+  let isSubmitted = false;
+
+  // Renderização inicial
+  function initExam() {
+    const container = document.getElementById('questionsContainer');
+    const summaryBody = document.getElementById('summaryTableBody');
+    const fullResDiv = document.getElementById('fullResolutionsContent');
+
+    container.innerHTML = '';
+    summaryBody.innerHTML = '';
+    fullResDiv.innerHTML = '';
+
+    questionsData.forEach((q, idx) => {
+      // 1. Renderizar cartões de questão
+      const card = document.createElement('article');
+      card.className = 'question-card';
+      card.id = `qCard_${q.id}`;
+
+      let optionsHtml = '';
+      q.options.forEach(opt => {
+        optionsHtml += `
+          <label class="option-label" id="optLabel_${q.id}_${opt.letter}" onclick="selectOption(${q.id}, '${opt.letter}')">
+            <input type="radio" name="question_${q.id}" value="${opt.letter}">
+            <div class="option-content">
+              <span class="option-letter">${opt.letter})</span> ${opt.text}
+            </div>
+          </label>
+        `;
+      });
+
+      card.innerHTML = `
+        <div class="question-header">
+          <span class="question-num">Questão ${String(q.id).padStart(2, '0')}</span>
+          <span class="question-status-tag" id="tag_${q.id}"></span>
+        </div>
+        <div class="question-body">${q.text}</div>
+        <div class="options-list">${optionsHtml}</div>
+        <div class="resolution-box" id="resBox_${q.id}">
+          <div class="resolution-title">
+            <span>Fundamentação & Gabarito Oficial (Alternativa ${q.correct})</span>
+          </div>
+          <p><strong>Dispositivo:</strong> ${q.legalRef}</p>
+          <div style="margin-top: 8px;">${q.resolution}</div>
+        </div>
+      `;
+      container.appendChild(card);
+
+      // 2. Montar Tabela do Quadro Síntese
+      const row = document.createElement('tr');
+      row.innerHTML = `
+        <td><strong>Questão ${String(q.id).padStart(2, '0')}</strong></td>
+        <td><strong style="color: var(--primary);">Alternativa ${q.correct}</strong></td>
+        <td>${q.legalRef}</td>
+      `;
+      summaryBody.appendChild(row);
+
+      // 3. Montar Resoluções Detalhadas na Seção Final
+      const resItem = document.createElement('div');
+      resItem.className = 'res-item';
+      resItem.innerHTML = `
+        <h3>Resolução da Questão ${String(q.id).padStart(2, '0')} — Gabarito: ${q.correct}</h3>
+        <p style="margin-bottom: 6px; font-size: 0.9rem; color: var(--text-soft);"><em>Referência normativa: ${q.legalRef}</em></p>
+        <div style="font-size: 0.98rem; line-height: 1.8;">${q.resolution}</div>
+      `;
+      fullResDiv.appendChild(resItem);
+    });
+
+    updateProgress();
+  }
+
+  // Seleção de resposta
+  function selectOption(qId, letter) {
+    if (isSubmitted) return; // Bloqueado após correção
+
+    userAnswers[qId] = letter;
+
+    // Atualizar rádio e estilo
+    const labels = document.querySelectorAll(`[id^="optLabel_${qId}_"]`);
+    labels.forEach(lbl => lbl.classList.remove('is-selected'));
+
+    const activeLabel = document.getElementById(`optLabel_${qId}_${letter}`);
+    if (activeLabel) {
+      activeLabel.classList.add('is-selected');
+      const radio = activeLabel.querySelector('input[type="radio"]');
+      if (radio) radio.checked = true;
+    }
+
+    updateProgress();
+  }
+
+  // Atualização de Progresso
+  function updateProgress() {
+    const answeredCount = Object.keys(userAnswers).length;
+    const total = questionsData.length;
+    const pct = Math.round((answeredCount / total) * 100);
+
+    document.getElementById('progressText').innerText = `${answeredCount} de ${total} respondidas`;
+    document.getElementById('progressFill').style.width = `${pct}%`;
+  }
+
+  // Finalização e Correção
+  function submitQuiz() {
+    const total = questionsData.length;
+    const answeredCount = Object.keys(userAnswers).length;
+
+    if (answeredCount < total) {
+      const confirmIncomplete = confirm(`Você respondeu ${answeredCount} de ${total} questões. Deseja finalizar mesmo assim?`);
+      if (!confirmIncomplete) return;
+    }
+
+    isSubmitted = true;
+    let correctCount = 0;
+
+    questionsData.forEach(q => {
+      const userChoice = userAnswers[q.id];
+      const isCorrect = userChoice === q.correct;
+      if (isCorrect) correctCount++;
+
+      // Tag no topo da questão
+      const tag = document.getElementById(`tag_${q.id}`);
+      if (tag) {
+        if (isCorrect) {
+          tag.innerText = "Correta";
+          tag.className = "question-status-tag correct";
+        } else {
+          tag.innerText = userChoice ? "Incorreta" : "Em Branco";
+          tag.className = "question-status-tag incorrect";
+        }
+      }
+
+      // Estilizar alternativas
+      const correctLabel = document.getElementById(`optLabel_${q.id}_${q.correct}`);
+      if (correctLabel) {
+        correctLabel.classList.add('is-correct-target');
+      }
+
+      if (userChoice && !isCorrect) {
+        const wrongLabel = document.getElementById(`optLabel_${q.id}_${userChoice}`);
+        if (wrongLabel) {
+          wrongLabel.classList.add('is-wrong-target');
+        }
+      }
+
+      // Desabilitar inputs
+      const radios = document.querySelectorAll(`input[name="question_${q.id}"]`);
+      radios.forEach(r => r.disabled = true);
+
+      // Exibir caixa de resolução dentro do card
+      const resBox = document.getElementById(`resBox_${q.id}`);
+      if (resBox) resBox.classList.add('visible');
+    });
+
+    // Exibir painel de pontuação global
+    const scorePct = Math.round((correctCount / total) * 100);
+    document.getElementById('scoreValue').innerText = `${correctCount} / ${total}`;
+    document.getElementById('scoreMeta').innerText = `Aproveitamento: ${scorePct}% de acertos`;
+
+    let feedback = "";
+    if (scorePct >= 80) {
+      feedback = "Excelente desempenho! Domínio refinado da jurisprudência e da literalidade da Lei nº 14.133/2021 no padrão exigido pelo IFMG.";
+    } else if (scorePct >= 60) {
+      feedback = "Bom aproveitamento! Fique atento às distinções sutis entre fiscalização técnica/administrativa e às regras de abrangência das sanções.";
+    } else {
+      feedback = "Recomenda-se a revisão aprofundada dos arts. 89 a 95 (formalização contratual) e 155 a 163 (regime sancionatório).";
+    }
+    document.getElementById('scoreFeedback').innerText = feedback;
+
+    document.getElementById('scorePanel').classList.add('visible');
+    document.getElementById('detailedSection').classList.add('visible');
+    document.getElementById('btnFinish').style.display = 'none';
+    document.getElementById('btnReset').style.display = 'inline-block';
+
+    // Rolar suavemente para o resultado
+    document.getElementById('scorePanel').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  // Reiniciar simulado
+  function resetQuiz() {
+    for (let key in userAnswers) {
+      delete userAnswers[key];
+    }
+    isSubmitted = false;
+
+    document.getElementById('scorePanel').classList.remove('visible');
+    document.getElementById('detailedSection').classList.remove('visible');
+    document.getElementById('btnFinish').style.display = 'inline-block';
+    document.getElementById('btnReset').style.display = 'none';
+
+    initExam();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  // Inicialização no carregamento
+  window.addEventListener('DOMContentLoaded', initExam);
+</script>
+
+</body>
+</html>

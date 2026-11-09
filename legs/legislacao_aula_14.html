@@ -1,0 +1,905 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lei nº 14.133/2021 | Concurso Docente IFMG - Contratos, Execução e Sanções</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Merriweather:ital,wght@0,300;0,400;0,700;1,300&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Merriweather', 'serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#f8fafc',
+                            100: '#f1f5f9',
+                            800: '#1e293b',
+                            900: '#0f172a',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Estilos de impressão e fluidez para tabelas */
+        body {
+            background-color: #ffffff;
+            color: #1e293b;
+        }
+        
+        /* Garantia estrita de ausência de scroll horizontal nas tabelas */
+        table {
+            table-layout: fixed;
+            width: 100%;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+        }
+        
+        td, th {
+            word-break: break-word;
+            white-space: normal;
+        }
+
+        /* Estilo visual para marcas de texto (grifos de estudo) */
+        .grifo {
+            background-color: #fef08a; /* Amarelo caneta marca-texto suave */
+            color: #422006;
+            padding: 0.12rem 0.35rem;
+            border-radius: 0.25rem;
+            font-weight: 600;
+        }
+
+        .grifo-azul {
+            background-color: #e0f2fe; /* Azul suave para termos técnicos */
+            color: #0369a1;
+            padding: 0.12rem 0.35rem;
+            border-radius: 0.25rem;
+            font-weight: 600;
+        }
+
+        .grifo-alerta {
+            background-color: #fee2e2; /* Vermelho suave para pegadinhas e vedações */
+            color: #991b1b;
+            padding: 0.12rem 0.35rem;
+            border-radius: 0.25rem;
+            font-weight: 600;
+        }
+
+        .grifo-verde {
+            background-color: #dcfce7; /* Verde suave para prazos e permissões */
+            color: #166534;
+            padding: 0.12rem 0.35rem;
+            border-radius: 0.25rem;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body class="bg-white text-slate-800 font-sans antialiased selection:bg-amber-200 selection:text-amber-900">
+
+    <!-- BARRA SUPERIOR DE PROGRESSO DE LEITURA -->
+    <div id="readingProgress" class="fixed top-0 left-0 h-1 bg-slate-900 z-50 w-0 transition-all duration-150"></div>
+
+    <!-- CABEÇALHO DA PÁGINA -->
+    <header class="border-b border-slate-200 bg-white sticky top-0 z-40 shadow-xs">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 py-3.5 flex flex-col sm:flex-row items-center justify-between gap-3">
+            <div class="flex items-center space-x-3">
+                <span class="inline-flex items-center justify-center w-8 h-8 rounded-md bg-slate-900 text-white font-bold text-sm">
+                    IF
+                </span>
+                <div>
+                    <h1 class="text-sm sm:text-base font-bold text-slate-900 tracking-tight">
+                        Concurso Público Docente EBTT | IFMG
+                    </h1>
+                    <p class="text-xs text-slate-500 font-medium">Banca Reitoria IFMG • Geografia • Lei 14.133/2021</p>
+                </div>
+            </div>
+            <div class="flex items-center space-x-2 text-xs">
+                <a href="#audio-box" class="px-2.5 py-1.5 rounded-md border border-slate-300 hover:bg-slate-50 text-slate-700 font-medium transition">
+                    🎧 Player de Áudio
+                </a>
+                <a href="#pontos-prova" class="px-2.5 py-1.5 rounded-md border border-slate-300 hover:bg-slate-50 text-slate-700 font-medium transition">
+                    ⚠️ Pegadinhas
+                </a>
+                <a href="questoes14legs.html" class="px-3 py-1.5 rounded-md bg-slate-900 text-white hover:bg-slate-800 font-semibold transition">
+                    Ir para Questões →
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- CONTEÚDO PRINCIPAL -->
+    <main class="max-w-5xl mx-auto px-4 sm:px-6 py-8">
+
+        <!-- BLOCO DO REPRODUTOR DE ÁUDIO MP3 -->
+        <section id="audio-box" class="mb-10 p-5 sm:p-6 bg-white border border-slate-200 rounded-xl shadow-xs">
+            <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-3">
+                <div class="flex items-center space-x-3">
+                    <div class="p-2.5 bg-slate-100 rounded-lg text-slate-800">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path>
+                        </svg>
+                    </div>
+                    <div>
+                        <h2 class="text-base font-bold text-slate-900">Áudio da Aula (Estudo Ativo & Revisão)</h2>
+                        <p class="text-xs text-slate-600">Acompanhe a aula didática em áudio enquanto lê os grifos estratégicos da lei.</p>
+                    </div>
+                </div>
+                <span class="text-xs font-semibold px-2.5 py-1 bg-slate-100 text-slate-700 rounded-full border border-slate-200">
+                    MP3 Integrado
+                </span>
+            </div>
+
+            <!-- CONTROLE DE ÁUDIO -->
+            <div class="space-y-3 pt-2">
+                <audio id="audioPlayer" controls class="w-full h-11 rounded-lg focus:outline-none">
+                    <!-- CONFIGURAÇÃO PADRÃO: Substitua 'audio14legs.mp3' pelo nome do seu arquivo na mesma pasta -->
+                    <source id="audioSource" src="audio14legs.mp3" type="audio/mpeg">
+                    Seu navegador não suporta a reprodução deste arquivo de áudio.
+                </audio>
+
+                <!-- CAMPO EDITÁVEL CASO O USUÁRIO QUEIRA ALTERAR O NOME DO ARQUIVO RAPIDAMENTE NO NAVEGADOR -->
+                <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 pt-2 text-xs border-t border-slate-100 text-slate-600">
+                    <label for="fileNameInput" class="font-medium shrink-0">
+                        Nome do arquivo MP3 na mesma pasta:
+                    </label>
+                    <div class="flex items-center gap-2 w-full">
+                        <input type="text" id="fileNameInput" value="audio14legs.mp3" 
+                            class="w-full px-3 py-1.5 border border-slate-300 rounded-md font-mono text-xs focus:ring-1 focus:ring-slate-800 focus:border-slate-800 text-slate-800 bg-white" 
+                            placeholder="exemplo: audio_aula.mp3">
+                        <button type="button" onclick="carregarAudio()" 
+                            class="px-3 py-1.5 bg-slate-800 hover:bg-slate-900 text-white rounded-md font-medium shrink-0 transition">
+                            Carregar
+                        </button>
+                    </div>
+                </div>
+                <p id="audioStatus" class="text-[11px] text-slate-500 italic">
+                    Carregando padrão: <code class="text-slate-800 font-semibold font-mono">audio14legs.mp3</code> (coloque o arquivo mp3 na mesma pasta deste arquivo HTML).
+                </p>
+            </div>
+        </section>
+
+        <!-- BANNER DE ORIENTAÇÃO DE ESTUDO -->
+        <section class="mb-8 p-5 bg-white border-l-4 border-slate-800 border-y border-r border-slate-200 rounded-r-lg">
+            <h2 class="text-base font-bold text-slate-900 flex items-center gap-2 mb-1.5">
+                <span>🎯</span> Diretriz de Estudo para a Banca Reitoria do IFMG
+            </h2>
+            <p class="text-sm text-slate-700 leading-relaxed">
+                Esta aula abrange rigorosamente a literalidade dos dispositivos do edital: <strong class="text-slate-900">Título III, Capítulos I (arts. 89 a 95), VI (arts. 115 a 123)</strong> e <strong class="text-slate-900">Título IV, Capítulo I (arts. 155 a 163)</strong> da Lei nº 14.133/2021, integrados à prática do Professor EBTT em laboratórios de Geografia e projetos institucionais.
+            </p>
+            <div class="mt-3 flex flex-wrap gap-2 text-xs">
+                <span class="inline-flex items-center px-2 py-0.5 rounded bg-yellow-100 text-yellow-900 font-medium">Amarelo: Ponto Crítico de Prova</span>
+                <span class="inline-flex items-center px-2 py-0.5 rounded bg-red-100 text-red-900 font-medium">Vermelho: Vedações & Pegadinhas</span>
+                <span class="inline-flex items-center px-2 py-0.5 rounded bg-green-100 text-green-900 font-medium">Verde: Prazos & Números Frequentes</span>
+                <span class="inline-flex items-center px-2 py-0.5 rounded bg-sky-100 text-sky-900 font-medium">Azul: Competências & Papéis</span>
+            </div>
+        </section>
+
+        <!-- SUMÁRIO DINÂMICO -->
+        <nav class="mb-10 p-5 bg-white border border-slate-200 rounded-xl">
+            <h3 class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-3">Índice da Aula</h3>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2 text-xs">
+                <a href="#sec-1" class="p-2 rounded hover:bg-slate-50 border border-transparent hover:border-slate-200 text-slate-700 font-medium">1. Formalização e Substitutivos (arts. 89-95)</a>
+                <a href="#sec-2" class="p-2 rounded hover:bg-slate-50 border border-transparent hover:border-slate-200 text-slate-700 font-medium">2. Execução e Fiscalização (arts. 115-123)</a>
+                <a href="#sec-3" class="p-2 rounded hover:bg-slate-50 border border-transparent hover:border-slate-200 text-slate-700 font-medium">3. Recebimento do Objeto (art. 140)</a>
+                <a href="#sec-4" class="p-2 rounded hover:bg-slate-50 border border-transparent hover:border-slate-200 text-slate-700 font-medium">4. Infrações e Sanções (arts. 155-163)</a>
+                <a href="#pontos-prova" class="p-2 rounded hover:bg-slate-50 border border-transparent hover:border-slate-200 text-slate-700 font-medium">5. Matriz de Pegadinhas da Banca</a>
+                <a href="#sec-6" class="p-2 rounded hover:bg-slate-50 border border-transparent hover:border-slate-200 text-slate-700 font-medium">6. Definições de Véspera</a>
+            </div>
+        </nav>
+
+        <!-- SEÇÃO 1 -->
+        <article id="sec-1" class="mb-14 pt-4 border-t border-slate-200">
+            <header class="mb-6">
+                <span class="text-xs font-bold text-slate-500 tracking-wider uppercase">Unidade 01</span>
+                <h2 class="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight mt-1">
+                    1. Formalização dos Contratos Administrativos e Instrumentos Substitutivos (arts. 89 a 95)
+                </h2>
+            </header>
+
+            <div class="space-y-5 text-sm sm:text-base leading-relaxed text-slate-700">
+                <h3 class="text-base sm:text-lg font-bold text-slate-900 pt-2 border-b border-slate-100 pb-1">
+                    1.1 Regime Geral de Formalização e Convocação
+                </h3>
+                <p>
+                    O contrato administrativo é o ajuste bilateral firmado pela Administração Pública sob a égide do direito público para a consecução de objetivos de interesse coletivo, marcado pela presença de <span class="grifo">cláusulas exorbitantes</span> que conferem prerrogativas extraordinárias ao ente estatal. A Lei nº 14.133/2021 consagra o <span class="grifo">princípio da forma escrita</span> como regra geral, determinando que os atos contratuais sejam formalizados preferencialmente sob a modalidade digital e divulgados obrigatoriamente no <span class="grifo-azul">Portal Nacional de Contratações Públicas (PNCP)</span>, <span class="grifo">condição inafastável para a eficácia</span> dos atos.
+                </p>
+
+                <p>
+                    O procedimento formal de convocação do particular adjudicatário encontra-se disciplinado no art. 90 da legislação de regência:
+                </p>
+
+                <ul class="space-y-3 pl-4 border-l-2 border-slate-200">
+                    <li>
+                        <strong class="text-slate-900">• Prazo de comparecimento:</strong> O licitante vencedor é convocado para assinar o termo de contrato ou aceitar o instrumento correspondente no prazo estipulado em edital, sendo admitida <span class="grifo-verde">uma única prorrogação, por igual período</span>, mediante justificativa prévia e acolhida pela autoridade competente.
+                    </li>
+                    <li>
+                        <strong class="text-slate-900">• Recusa injustificada:</strong> O não comparecimento ou a negativa em firmar a avença dentro do prazo caracterizam <span class="grifo-alerta">inadimplemento formal da proposta</span>, sujeitando o infrator às sanções legais e facultando à Administração revogar a contratação ou convocar os demais classificados, respeitada a ordem decrescente, para celebrarem o contrato sob as <span class="grifo">exatas condições da primeira colocada</span>.
+                    </li>
+                    <li>
+                        <strong class="text-slate-900">• Decurso do prazo de vigência das propostas:</strong> Ultrapassado o prazo fixado no instrumento convocatório sem que a Administração formule a convocação formal, os participantes ficam <span class="grifo-verde">integralmente desobrigados</span> dos compromissos consignados nas respectivas propostas.
+                    </li>
+                </ul>
+
+                <h3 class="text-base sm:text-lg font-bold text-slate-900 pt-4 border-b border-slate-100 pb-1">
+                    1.2 Cláusulas Essenciais e Obrigatórias (art. 92)
+                </h3>
+                <p>
+                    O art. 92 estabelece as cláusulas que devem obrigatoriamente integrar a estrutura de qualquer contrato administrativo, operando como garantias institucionais de segurança jurídica, isonomia e equilíbrio contratual. A banca examinadora explora frequentemente a distinção entre cláusulas imperativas e matérias meramente facultativas.
+                </p>
+
+                <!-- TABELA 1: SEM SCROLL HORIZONTAL (100% FLUIDA) -->
+                <div class="my-6 border border-slate-200 rounded-lg overflow-hidden bg-white">
+                    <div class="bg-slate-50 px-4 py-2.5 border-b border-slate-200 font-bold text-xs uppercase tracking-wider text-slate-700">
+                        Tabela 1: Cláusulas Obrigatórias do Art. 92 (Aparência Integral na Página)
+                    </div>
+                    <table class="w-full text-xs sm:text-sm text-left">
+                        <thead>
+                            <tr class="bg-slate-100 border-b border-slate-200 text-slate-800 font-semibold">
+                                <th class="w-1/4 p-2.5 sm:p-3 font-bold border-r border-slate-200">Cláusula Essencial</th>
+                                <th class="w-2/5 p-2.5 sm:p-3 font-bold border-r border-slate-200">Conteúdo e Exigência Normativa</th>
+                                <th class="w-1/3 p-2.5 sm:p-3 font-bold">Função na Gestão Pública</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-200 text-slate-700">
+                            <tr class="hover:bg-slate-50">
+                                <td class="p-2.5 sm:p-3 font-semibold text-slate-900 border-r border-slate-200">Objeto e elementos característicos</td>
+                                <td class="p-2.5 sm:p-3 border-r border-slate-200">Vinculação estrita ao edital e proposta vencedora, definindo escopo, especificações e quantitativos.</td>
+                                <td class="p-2.5 sm:p-3">Impede desvios de finalidade e modificações qualitativas indevidas.</td>
+                            </tr>
+                            <tr class="hover:bg-slate-50">
+                                <td class="p-2.5 sm:p-3 font-semibold text-slate-900 border-r border-slate-200">Regime de execução ou fornecimento</td>
+                                <td class="p-2.5 sm:p-3 border-r border-slate-200">Fixação das formas de entrega ou execução das obras/serviços (global, unitária, integrada).</td>
+                                <td class="p-2.5 sm:p-3">Disciplina medições periódicas e desembolsos orçamentários.</td>
+                            </tr>
+                            <tr class="hover:bg-slate-50">
+                                <td class="p-2.5 sm:p-3 font-semibold text-slate-900 border-r border-slate-200">Preço e condições de pagamento</td>
+                                <td class="p-2.5 sm:p-3 border-r border-slate-200">Valor ajustado, critérios de liquidação e previsão de encargos moratórios por atraso da Administração.</td>
+                                <td class="p-2.5 sm:p-3">Garante a previsibilidade orçamentária e a higidez do fluxo financeiro.</td>
+                            </tr>
+                            <tr class="hover:bg-slate-50">
+                                <td class="p-2.5 sm:p-3 font-semibold text-slate-900 border-r border-slate-200">Reajustamento e repactuação</td>
+                                <td class="p-2.5 sm:p-3 border-r border-slate-200"><span class="grifo-verde">Obrigatoriedade de índice de reajuste</span>, observada a anualidade a contar do orçamento estimado.</td>
+                                <td class="p-2.5 sm:p-3">Preserva o equilíbrio econômico-financeiro frente à inflação ordinária.</td>
+                            </tr>
+                            <tr class="hover:bg-slate-50">
+                                <td class="p-2.5 sm:p-3 font-semibold text-slate-900 border-r border-slate-200">Garantias contratuais</td>
+                                <td class="p-2.5 sm:p-3 border-r border-slate-200">Definição das modalidades aceitas (caução em moeda/títulos, seguro-garantia, fiança bancária).</td>
+                                <td class="p-2.5 sm:p-3">Resguarda a execução do objeto e cobre a eventual aplicação de multas.</td>
+                            </tr>
+                            <tr class="hover:bg-slate-50">
+                                <td class="p-2.5 sm:p-3 font-semibold text-slate-900 border-r border-slate-200">Matriz de alocação de riscos</td>
+                                <td class="p-2.5 sm:p-3 border-r border-slate-200"><span class="grifo">Obrigatória nos contratos de grande vulto</span> e nas contratações integradas e semi-integradas.</td>
+                                <td class="p-2.5 sm:p-3">Reparte antecipadamente entre as partes a responsabilidade por riscos supervenientes.</td>
+                            </tr>
+                            <tr class="hover:bg-slate-50">
+                                <td class="p-2.5 sm:p-3 font-semibold text-slate-900 border-r border-slate-200">Extinção e penalidades</td>
+                                <td class="p-2.5 sm:p-3 border-r border-slate-200">Tipificação das causas de rescisão motivada e gradação expressa do regime sancionatório cabível.</td>
+                                <td class="p-2.5 sm:p-3">Atende ao princípio da legalidade estrita e da tipicidade punitiva.</td>
+                            </tr>
+                            <tr class="hover:bg-slate-50">
+                                <td class="p-2.5 sm:p-3 font-semibold text-slate-900 border-r border-slate-200">Foro da sede da Administração</td>
+                                <td class="p-2.5 sm:p-3 border-r border-slate-200"><span class="grifo">Foro do órgão ou entidade pública</span> para dirimir controvérsias judiciais não resolvidas.</td>
+                                <td class="p-2.5 sm:p-3">Prerrogativa pública indispensável em favor do interesse público.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3 class="text-base sm:text-lg font-bold text-slate-900 pt-4 border-b border-slate-100 pb-1">
+                    1.3 Instrumentos Substitutivos do Termo de Contrato (art. 95)
+                </h3>
+                <p>
+                    Embora a celebração do termo de contrato seja o modelo preferencial, a Lei nº 14.133/2021 prevê situações pontuais nas quais o instrumento formal é dispensado e legitimamente substituído por documentos simplificados. São instrumentos substitutivos idôneos: a <span class="grifo-azul">carta-contrato</span>, a <span class="grifo-azul">nota de empenho de despesa</span>, a <span class="grifo-azul">autorização de compra</span> e a <span class="grifo-azul">ordem de execução de serviço</span>.
+                </p>
+
+                <p>As hipóteses de substituição autorizadas pelo texto legal configuram exceções taxativas:</p>
+
+                <ol class="list-decimal space-y-3 pl-5">
+                    <li>
+                        <strong class="text-slate-900">Contratação direta em razão do valor:</strong> Ajustes celebrados com fundamento nas dispensas de licitação previstas nos incisos I e II do caput do art. 75 da Lei nº 14.133/2021 (obras e serviços de engenharia ou compras e serviços gerais enquadrados nos limites monetários vigentes).
+                    </li>
+                    <li>
+                        <strong class="text-slate-900">Compras com entrega imediata e integral:</strong> Compras realizadas <span class="grifo">sob qualquer valor de referência</span>, desde que preenchidos cumulativamente dois requisitos: a entrega do bem deve ocorrer integralmente no prazo de <span class="grifo-verde">até 30 (trinta) dias</span> contados da requisição oficial, e da operação <span class="grifo-alerta">não podem decorrer obrigações futuras</span> para a contratada (ex: assistência técnica continuada).
+                    </li>
+                    <li>
+                        <strong class="text-slate-900">Pequenas compras de pronto pagamento (§ 2º do art. 95):</strong> Compras ou serviços de pequeno valor (originalmente até R$ 10.000,00, atualizado periodicamente por decreto), realizadas sob a sistemática de suprimento de fundos, que <span class="grifo-verde">prescindem inclusive da expedição prévia de nota de empenho</span>.
+                    </li>
+                </ol>
+
+                <!-- CAIXA DE MEMORIZAÇÃO -->
+                <div class="mt-6 p-4 sm:p-5 bg-white border border-slate-300 rounded-lg shadow-xs">
+                    <h4 class="text-xs font-bold uppercase tracking-wider text-slate-800 flex items-center gap-1.5 mb-2">
+                        <span>📌</span> Tópicos de Memorização para o Dia da Prova: Formalização
+                    </h4>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-2 text-xs sm:text-sm text-slate-700">
+                        <div class="p-2 border-l-2 border-slate-800 bg-slate-50">
+                            <strong>Regra de Eficácia:</strong> O contrato administrativo deve ser escrito e divulgado no PNCP para produzir efeitos jurídicos regulares.
+                        </div>
+                        <div class="p-2 border-l-2 border-slate-800 bg-slate-50">
+                            <strong>Instrumentos Típicos:</strong> Nota de empenho, carta-contrato, ordem de serviço ou autorização de compra.
+                        </div>
+                        <div class="p-2 border-l-2 border-slate-800 bg-slate-50">
+                            <strong>Critérios de Dispensa do Termo:</strong> Dispensa por valor (art. 75, I e II) OU fornecimento imediato e integral sem encargos futuros.
+                        </div>
+                        <div class="p-2 border-l-2 border-slate-800 bg-slate-50">
+                            <strong>Definição de Entrega Imediata:</strong> Fornecimento integral consumado em até 30 dias após o pedido formal.
+                        </div>
+                    </div>
+                    <div class="mt-3 p-2 bg-amber-50 border border-amber-200 rounded text-xs text-amber-900">
+                        ⚠️ <strong>Atenção à Pegadinha Clássica:</strong> Compras de valor vultoso (milhões) podem utilizar nota de empenho substitutiva, contanto que seja entrega imediata (até 30 dias) e sem obrigações futuras!
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <!-- SEÇÃO 2 -->
+        <article id="sec-2" class="mb-14 pt-4 border-t border-slate-200">
+            <header class="mb-6">
+                <span class="text-xs font-bold text-slate-500 tracking-wider uppercase">Unidade 02</span>
+                <h2 class="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight mt-1">
+                    2. Execução Contratual e Governança da Fiscalização em Instituições Federais de Ensino (arts. 115 a 123)
+                </h2>
+            </header>
+
+            <div class="space-y-5 text-sm sm:text-base leading-relaxed text-slate-700">
+                <h3 class="text-base sm:text-lg font-bold text-slate-900 pt-2 border-b border-slate-100 pb-1">
+                    2.1 Princípios Gerais e Vinculação Contratual
+                </h3>
+                <p>
+                    As partes encontram-se rigorosamente submetidas ao pactuado no contrato administrativo e às exigências do edital. Nos termos do art. 115, a execução deve pautar-se pela boa-fé e continuidade, sendo expressamente <span class="grifo-alerta">vedado à Administração Pública atrasar ou paralisar injustificadamente</span> o cronograma, inclusive diante de transições na gestão pública (ex: troca de Reitor ou Diretor-Geral de campus do IFMG).
+                </p>
+                <p>
+                    Durante toda a execução, a contratada deve comprovar a <span class="grifo">manutenção das condições de habilitação</span> jurídica, fiscal e técnica. Da mesma forma, impõe-se a manutenção do percentual legal de reserva de cargos para pessoas com deficiência (PCD), reabilitados da Previdência Social ou egressos do sistema prisional (art. 116).
+                </p>
+
+                <h3 class="text-base sm:text-lg font-bold text-slate-900 pt-4 border-b border-slate-100 pb-1">
+                    2.2 Segregação Funcional: Fiscalização Técnica versus Fiscalização Administrativa
+                </h3>
+                <p>
+                    O art. 117 da Lei nº 14.133/2021 preconiza o dever de fiscalização contínua do contrato por representante formalmente designado. Em âmbito federal, a governança operacional é delineada pelo <span class="grifo-azul">Decreto Federal nº 11.246/2022</span>, o qual consagra o princípio da segregação de funções para diferenciar a atuação do <strong class="text-slate-900">Fiscal Técnico</strong>, do <strong class="text-slate-900">Fiscal Administrativo</strong> e do <strong class="text-slate-900">Gestor do Contrato</strong>.
+                </p>
+
+                <!-- TABELA 2: SEM SCROLL HORIZONTAL (100% FLUIDA) -->
+                <div class="my-6 border border-slate-200 rounded-lg overflow-hidden bg-white">
+                    <div class="bg-slate-50 px-4 py-2.5 border-b border-slate-200 font-bold text-xs uppercase tracking-wider text-slate-700">
+                        Tabela 2: Segregação Funcional na Fiscalização Contratual no IFMG
+                    </div>
+                    <table class="w-full text-xs sm:text-sm text-left">
+                        <thead>
+                            <tr class="bg-slate-100 border-b border-slate-200 text-slate-800 font-semibold">
+                                <th class="w-1/4 p-2.5 sm:p-3 font-bold border-r border-slate-200">Agente Designado</th>
+                                <th class="w-1/4 p-2.5 sm:p-3 font-bold border-r border-slate-200">Escopo Principal</th>
+                                <th class="w-1/4 p-2.5 sm:p-3 font-bold border-r border-slate-200">Atribuições Típicas</th>
+                                <th class="w-1/4 p-2.5 sm:p-3 font-bold">Cotidiano no IFMG</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-200 text-slate-700">
+                            <tr class="hover:bg-slate-50">
+                                <td class="p-2.5 sm:p-3 font-semibold text-slate-900 border-r border-slate-200">
+                                    <span class="grifo-azul">Fiscal Técnico</span>
+                                </td>
+                                <td class="p-2.5 sm:p-3 border-r border-slate-200">Avaliação do objeto sob o prisma físico, quantitativo e qualitativo.</td>
+                                <td class="p-2.5 sm:p-3 border-r border-slate-200">Medição de etapas, testes de funcionamento, conformidade com o TR e emissão do <span class="grifo">recebimento provisório técnico</span>.</td>
+                                <td class="p-2.5 sm:p-3">Professor de Geografia conferindo drones, receptores GNSS ou microscópios do laboratório.</td>
+                            </tr>
+                            <tr class="hover:bg-slate-50">
+                                <td class="p-2.5 sm:p-3 font-semibold text-slate-900 border-r border-slate-200">
+                                    <span class="grifo-azul">Fiscal Administrativo</span>
+                                </td>
+                                <td class="p-2.5 sm:p-3 border-r border-slate-200">Acompanhamento dos deveres fiscais, previdenciários e trabalhistas.</td>
+                                <td class="p-2.5 sm:p-3 border-r border-slate-200">Conferência de folhas de ponto, guias de FGTS/INSS, certidões negativas e escala de férias de terceirizados.</td>
+                                <td class="p-2.5 sm:p-3">Servidor do setor de Gestão de Pessoas/Contratos fiscalizando contratos de limpeza e vigilância.</td>
+                            </tr>
+                            <tr class="hover:bg-slate-50">
+                                <td class="p-2.5 sm:p-3 font-semibold text-slate-900 border-r border-slate-200">
+                                    <span class="grifo-azul">Gestor do Contrato</span>
+                                </td>
+                                <td class="p-2.5 sm:p-3 border-r border-slate-200">Coordenação gerencial, estratégica e formal do contrato.</td>
+                                <td class="p-2.5 sm:p-3 border-r border-slate-200">Centralização documental, aditivos, liquidação, aplicação do <span class="grifo">recebimento definitivo</span> e sanções.</td>
+                                <td class="p-2.5 sm:p-3">Diretor de Administração e Planejamento ou Chefe do Setor de Contratos do Campus.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3 class="text-base sm:text-lg font-bold text-slate-900 pt-4 border-b border-slate-100 pb-1">
+                    2.3 Responsabilidade pelos Encargos e Regras de Subcontratação (arts. 121 a 123)
+                </h3>
+                <p>A repartição de responsabilidades civis e administrativas é matéria de cobrança certa em provas da banca:</p>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-3 pt-1">
+                    <div class="p-3 border border-slate-200 rounded-lg bg-slate-50">
+                        <strong class="text-slate-900 text-xs font-bold uppercase tracking-wider block mb-1">Encargos Trabalhistas (Art. 121)</strong>
+                        <p class="text-xs sm:text-sm">
+                            A inadimplência do particular não transfere automaticamente a dívida. A Administração responde de forma <span class="grifo">SUBSIDIÁRIA</span> apenas nos serviços com dedicação exclusiva de mão de obra e mediante prova cabal de omissão culposa na fiscalização (<span class="italic">culpa in vigilando</span>, Tema 246/STF).
+                        </p>
+                    </div>
+
+                    <div class="p-3 border border-slate-200 rounded-lg bg-slate-50">
+                        <strong class="text-slate-900 text-xs font-bold uppercase tracking-wider block mb-1">Encargos Previdenciários (Art. 121, § 2º)</strong>
+                        <p class="text-xs sm:text-sm">
+                            Em matéria previdenciária, a responsabilidade da Administração Pública é <span class="grifo-alerta">SOLIDÁRIA</span> pelo recolhimento das contribuições incidentes sobre a execução do contrato.
+                        </p>
+                    </div>
+
+                    <div class="p-3 border border-slate-200 rounded-lg bg-slate-50">
+                        <strong class="text-slate-900 text-xs font-bold uppercase tracking-wider block mb-1">Encargos Fiscais e Comerciais (Art. 121, § 1º)</strong>
+                        <p class="text-xs sm:text-sm">
+                            Responsabilidade <span class="grifo">EXCLUSIVA</span> do contratado. A sua inadimplência não onera a Administração e não autoriza qualquer tipo de transferência da dívida.
+                        </p>
+                    </div>
+
+                    <div class="p-3 border border-slate-200 rounded-lg bg-slate-50">
+                        <strong class="text-slate-900 text-xs font-bold uppercase tracking-wider block mb-1">Subcontratação (Art. 122)</strong>
+                        <p class="text-xs sm:text-sm">
+                            Admite-se apenas a subcontratação <span class="grifo-verde">PARCIAL</span>, desde que autorizada expressamente no edital. É <span class="grifo-alerta">nula e proibida a subcontratação total</span> do objeto.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="p-3 bg-white border border-slate-300 rounded-lg text-xs sm:text-sm">
+                    ⏱️ <strong class="text-slate-900">Prazo para Decisão Administrativa (art. 123):</strong> A Administração tem o dever de decidir sobre pedidos do contratado no prazo de <span class="grifo-verde">1 (um) mês</span>, prorrogável motivadamente por igual período.
+                </div>
+
+                <!-- CAIXA DE MEMORIZAÇÃO -->
+                <div class="mt-4 p-4 sm:p-5 bg-white border border-slate-300 rounded-lg shadow-xs">
+                    <h4 class="text-xs font-bold uppercase tracking-wider text-slate-800 flex items-center gap-1.5 mb-2">
+                        <span>📌</span> Tópicos de Memorização para o Dia da Prova: Execução e Fiscalização
+                    </h4>
+                    <ul class="text-xs sm:text-sm space-y-1.5 text-slate-700">
+                        <li>• <strong>Fiscal Técnico:</strong> Confere objeto, especificações, funcionamento e emite recebimento provisório.</li>
+                        <li>• <strong>Fiscal Administrativo:</strong> Confere encargos trabalhistas, previdenciários e certidões da terceirizada.</li>
+                        <li>• <strong>Gestor do Contrato:</strong> Coordena, adita, liquida, atesta recebimento definitivo e abre sanção.</li>
+                        <li>• <strong>Responsabilidade Trabalhista:</strong> <span class="grifo">Subsidiária</span> (exige comprovação de falha fiscalizatória).</li>
+                        <li>• <strong>Responsabilidade Previdenciária:</strong> <span class="grifo-alerta">Solidária</span> por expressa previsão legal.</li>
+                        <li>• <strong>Subcontratação Integral:</strong> Terminantemente vedada.</li>
+                    </ul>
+                </div>
+            </div>
+        </article>
+
+        <!-- SEÇÃO 3 -->
+        <article id="sec-3" class="mb-14 pt-4 border-t border-slate-200">
+            <header class="mb-6">
+                <span class="text-xs font-bold text-slate-500 tracking-wider uppercase">Unidade 03</span>
+                <h2 class="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight mt-1">
+                    3. Dinâmica do Recebimento do Objeto Contratual (art. 140)
+                </h2>
+            </header>
+
+            <div class="space-y-5 text-sm sm:text-base leading-relaxed text-slate-700">
+                <h3 class="text-base sm:text-lg font-bold text-slate-900 pt-2 border-b border-slate-100 pb-1">
+                    3.1 Recebimento Provisório versus Recebimento Definitivo
+                </h3>
+                <p>
+                    O recebimento formal materializa a chancela do adimplemento contratual e autoriza o processo de liquidação da despesa. A Lei nº 14.133/2021 estabelece sistemáticas distintas conforme a natureza da contratação:
+                </p>
+
+                <!-- TABELA 3: SEM SCROLL HORIZONTAL (100% FLUIDA) -->
+                <div class="my-6 border border-slate-200 rounded-lg overflow-hidden bg-white">
+                    <div class="bg-slate-50 px-4 py-2.5 border-b border-slate-200 font-bold text-xs uppercase tracking-wider text-slate-700">
+                        Tabela 3: Comparativo de Recebimento Provisório e Definitivo (Art. 140)
+                    </div>
+                    <table class="w-full text-xs sm:text-sm text-left">
+                        <thead>
+                            <tr class="bg-slate-100 border-b border-slate-200 text-slate-800 font-semibold">
+                                <th class="w-1/3 p-2.5 sm:p-3 font-bold border-r border-slate-200">Natureza do Objeto</th>
+                                <th class="w-1/3 p-2.5 sm:p-3 font-bold border-r border-slate-200">Recebimento Provisório</th>
+                                <th class="w-1/3 p-2.5 sm:p-3 font-bold">Recebimento Definitivo</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-200 text-slate-700">
+                            <tr class="hover:bg-slate-50">
+                                <td class="p-2.5 sm:p-3 font-semibold text-slate-900 border-r border-slate-200">
+                                    Compras de Bens Móveis / Materiais
+                                </td>
+                                <td class="p-2.5 sm:p-3 border-r border-slate-200">
+                                    Termo <span class="grifo">SUMÁRIO</span> (recibo de entrega física assinado pelo fiscal ou almoxarifado).
+                                </td>
+                                <td class="p-2.5 sm:p-3">
+                                    Termo <span class="grifo-azul">DETALHADO</span> (após testes técnicos e aferição integral das especificações).
+                                </td>
+                            </tr>
+                            <tr class="hover:bg-slate-50">
+                                <td class="p-2.5 sm:p-3 font-semibold text-slate-900 border-r border-slate-200">
+                                    Obras e Serviços (Engenharia e Gerais)
+                                </td>
+                                <td class="p-2.5 sm:p-3 border-r border-slate-200">
+                                    Termo <span class="grifo-azul">DETALHADO</span> (elaborado pelo fiscal técnico após vistoria das medições).
+                                </td>
+                                <td class="p-2.5 sm:p-3">
+                                    Termo <span class="grifo-azul">DETALHADO</span> (lavrado por comissão ou gestor após período de observação e testes).
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3 class="text-base sm:text-lg font-bold text-slate-900 pt-4 border-b border-slate-100 pb-1">
+                    3.2 Limites da Quitação e Responsabilidade Civil Pós-Contratual
+                </h3>
+                <p>
+                    O recebimento definitivo afasta apenas o inadimplemento formal aparente, <span class="grifo-alerta">NÃO exonerando o particular</span> da responsabilidade civil por vícios redibitórios ou defeitos ocultos (art. 140, § 2º).
+                </p>
+                <div class="p-4 bg-slate-50 border border-slate-200 rounded-lg text-xs sm:text-sm">
+                    🏗️ <strong class="text-slate-900">Garantia Quinquenal em Obras Públicas (art. 140, § 6º):</strong>
+                    Nas obras de engenharia, mesmo após a lavratura do termo definitivo, o contratado responde objetivamente pela solidez e segurança da obra pelo prazo irredutível de <span class="grifo-verde">5 (cinco) anos</span>, em conformidade com o art. 618 do Código Civil.
+                </div>
+
+                <!-- CAIXA DE MEMORIZAÇÃO -->
+                <div class="mt-4 p-4 sm:p-5 bg-white border border-slate-300 rounded-lg shadow-xs">
+                    <h4 class="text-xs font-bold uppercase tracking-wider text-slate-800 flex items-center gap-1.5 mb-2">
+                        <span>📌</span> Tópicos de Memorização para o Dia da Prova: Recebimento do Objeto
+                    </h4>
+                    <ul class="text-xs sm:text-sm space-y-1 text-slate-700">
+                        <li>• <strong>Bens:</strong> Provisório = <span class="grifo">Sumário</span> | Definitivo = <span class="grifo-azul">Detalhado</span>.</li>
+                        <li>• <strong>Obras/Serviços:</strong> Provisório = <span class="grifo-azul">Detalhado</span> | Definitivo = <span class="grifo-azul">Detalhado</span>.</li>
+                        <li>• <strong>Quem recebe provisoriamente:</strong> Fiscal técnico ou servidor do almoxarifado.</li>
+                        <li>• <strong>Quem recebe definitivamente:</strong> Gestor do contrato ou comissão especialmente designada.</li>
+                        <li>• <strong>Prazo de responsabilidade em obras:</strong> Mínimo legal de <span class="grifo-verde">5 anos</span>.</li>
+                    </ul>
+                </div>
+            </div>
+        </article>
+
+        <!-- SEÇÃO 4 -->
+        <article id="sec-4" class="mb-14 pt-4 border-t border-slate-200">
+            <header class="mb-6">
+                <span class="text-xs font-bold text-slate-500 tracking-wider uppercase">Unidade 04</span>
+                <h2 class="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight mt-1">
+                    4. Regime de Infrações Administrativas e Sanções Disciplinares (arts. 155 a 163)
+                </h2>
+            </header>
+
+            <div class="space-y-5 text-sm sm:text-base leading-relaxed text-slate-700">
+                <h3 class="text-base sm:text-lg font-bold text-slate-900 pt-2 border-b border-slate-100 pb-1">
+                    4.1 O Catálogo Taxativo de Infrações Administrativas (art. 155)
+                </h3>
+                <p>
+                    A nova lei consagrou o princípio da estrita tipicidade sancionatória, estabelecendo um rol legalmente delimitado de condutas puníveis:
+                </p>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs sm:text-sm pt-1">
+                    <div class="p-2.5 bg-slate-50 border border-slate-200 rounded">1. Inexecução parcial do contrato</div>
+                    <div class="p-2.5 bg-slate-50 border border-slate-200 rounded">2. Inexecução parcial com grave dano ao interesse público</div>
+                    <div class="p-2.5 bg-slate-50 border border-slate-200 rounded">3. Inexecução total do contrato</div>
+                    <div class="p-2.5 bg-slate-50 border border-slate-200 rounded">4. Deixar de entregar a documentação exigida</div>
+                    <div class="p-2.5 bg-slate-50 border border-slate-200 rounded">5. Não manter a proposta formulada</div>
+                    <div class="p-2.5 bg-slate-50 border border-slate-200 rounded">6. Recusar a assinatura do termo de contrato</div>
+                    <div class="p-2.5 bg-slate-50 border border-slate-200 rounded">7. Ensejar o retardamento injustificado da entrega</div>
+                    <div class="p-2.5 bg-slate-50 border border-slate-200 rounded">8. Apresentar declaração ou documento falso</div>
+                    <div class="p-2.5 bg-slate-50 border border-slate-200 rounded">9. Fraudar a licitação ou a execução contratual</div>
+                    <div class="p-2.5 bg-slate-50 border border-slate-200 rounded">10. Comportar-se de modo inidôneo</div>
+                    <div class="p-2.5 bg-slate-50 border border-slate-200 rounded">11. Praticar atos ilícitos para frustrar o certame</div>
+                    <div class="p-2.5 bg-slate-50 border border-slate-200 rounded">12. Cometer ato lesivo previsto na Lei Anticorrupção</div>
+                </div>
+
+                <h3 class="text-base sm:text-lg font-bold text-slate-900 pt-4 border-b border-slate-100 pb-1">
+                    4.2 As Quatro Espécies de Sanções Administrativas (art. 156)
+                </h3>
+
+                <div class="space-y-4">
+                    <div class="p-4 border-l-4 border-slate-400 bg-white border-y border-r border-slate-200 rounded-r-lg">
+                        <h4 class="font-bold text-slate-900 text-sm sm:text-base">A) Advertência (art. 156, § 2º)</h4>
+                        <p class="text-xs sm:text-sm mt-1">
+                            Aplicada <span class="grifo">exclusivamente na inexecução parcial leve</span> (inciso I do art. 155), quando da falha não resultar grave dano à Administração e não couber multa mais severa. Não gera impedimento de licitar.
+                        </p>
+                    </div>
+
+                    <div class="p-4 border-l-4 border-amber-500 bg-white border-y border-r border-slate-200 rounded-r-lg">
+                        <h4 class="font-bold text-slate-900 text-sm sm:text-base">B) Multa (art. 156, § 3º)</h4>
+                        <p class="text-xs sm:text-sm mt-1">
+                            Aplicável em <span class="grifo">QUALQUER uma das 12 infrações</span>. Percentual delimitado entre <span class="grifo-verde">0,5% e 30%</span> do valor do contrato. É a <span class="grifo">ÚNICA sanção que pode ser cumulada</span> com qualquer das outras espécies punitivas.
+                        </p>
+                    </div>
+
+                    <div class="p-4 border-l-4 border-orange-600 bg-white border-y border-r border-slate-200 rounded-r-lg">
+                        <h4 class="font-bold text-slate-900 text-sm sm:text-base">C) Impedimento de Licitar e Contratar (art. 156, § 4º)</h4>
+                        <p class="text-xs sm:text-sm mt-1">
+                            Prazo punitivo de <span class="grifo-verde">até 3 (três) anos</span>. Abrange o <span class="grifo">âmbito da esfera federativa sancionadora</span>. No IFMG, impede contratações com <span class="grifo-azul">toda a União Federal</span> (ministérios, autarquias e universidades federais), mas não impede com governos estaduais ou prefeituras municipais.
+                        </p>
+                    </div>
+
+                    <div class="p-4 border-l-4 border-red-700 bg-white border-y border-r border-slate-200 rounded-r-lg">
+                        <h4 class="font-bold text-slate-900 text-sm sm:text-base">D) Declaração de Inidoneidade para Licitar ou Contratar (art. 156, § 5º)</h4>
+                        <p class="text-xs sm:text-sm mt-1">
+                            Sanção máxima com prazo de <span class="grifo-verde">3 (três) a 6 (seis) anos</span>. Alcance amplo e nacional: atinge <span class="grifo-alerta">TODOS os entes federativos</span> (União, Estados, DF e Municípios). Competência privativa e exclusiva do <span class="grifo-azul">Reitor</span> (no IFMG) ou Ministro de Estado, exigindo parecer prévio da AGU/Procuradoria Federal.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- TABELA 4: SEM SCROLL HORIZONTAL (100% FLUIDA) -->
+                <div class="my-6 border border-slate-200 rounded-lg overflow-hidden bg-white">
+                    <div class="bg-slate-50 px-4 py-2.5 border-b border-slate-200 font-bold text-xs uppercase tracking-wider text-slate-700">
+                        Tabela 4: Matriz Comparativa das Quatro Espécies Sancionatórias
+                    </div>
+                    <table class="w-full text-xs sm:text-sm text-left">
+                        <thead>
+                            <tr class="bg-slate-100 border-b border-slate-200 text-slate-800 font-semibold">
+                                <th class="w-1/4 p-2.5 sm:p-3 font-bold border-r border-slate-200">Sanção</th>
+                                <th class="w-1/4 p-2.5 sm:p-3 font-bold border-r border-slate-200">Duração / Valor</th>
+                                <th class="w-1/4 p-2.5 sm:p-3 font-bold border-r border-slate-200">Alcance Federativo</th>
+                                <th class="w-1/4 p-2.5 sm:p-3 font-bold">Competência Funcional</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-200 text-slate-700">
+                            <tr class="hover:bg-slate-50">
+                                <td class="p-2.5 sm:p-3 font-semibold text-slate-900 border-r border-slate-200">Advertência</td>
+                                <td class="p-2.5 sm:p-3 border-r border-slate-200">Aplicação imediata</td>
+                                <td class="p-2.5 sm:p-3 border-r border-slate-200">Restrita ao contrato</td>
+                                <td class="p-2.5 sm:p-3">Autoridade designada em regimento</td>
+                            </tr>
+                            <tr class="hover:bg-slate-50">
+                                <td class="p-2.5 sm:p-3 font-semibold text-slate-900 border-r border-slate-200">Multa</td>
+                                <td class="p-2.5 sm:p-3 border-r border-slate-200"><span class="grifo-verde">0,5% a 30%</span> do valor</td>
+                                <td class="p-2.5 sm:p-3 border-r border-slate-200">Patrimonial (desconto/garantia)</td>
+                                <td class="p-2.5 sm:p-3">Autoridade designada em regimento</td>
+                            </tr>
+                            <tr class="hover:bg-slate-50">
+                                <td class="p-2.5 sm:p-3 font-semibold text-slate-900 border-r border-slate-200">Impedimento</td>
+                                <td class="p-2.5 sm:p-3 border-r border-slate-200"><span class="grifo-verde">Até 3 anos</span></td>
+                                <td class="p-2.5 sm:p-3 border-r border-slate-200">No ente sancionador (<span class="grifo-azul">Toda a União</span>)</td>
+                                <td class="p-2.5 sm:p-3">Autoridade designada em regimento</td>
+                            </tr>
+                            <tr class="hover:bg-slate-50">
+                                <td class="p-2.5 sm:p-3 font-semibold text-slate-900 border-r border-slate-200">Inidoneidade</td>
+                                <td class="p-2.5 sm:p-3 border-r border-slate-200"><span class="grifo-verde">De 3 a 6 anos</span></td>
+                                <td class="p-2.5 sm:p-3 border-r border-slate-200"><span class="grifo-alerta">Todos os entes do Brasil</span></td>
+                                <td class="p-2.5 sm:p-3"><span class="grifo">Exclusiva do Reitor</span> (no IFMG) ou Ministro</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3 class="text-base sm:text-lg font-bold text-slate-900 pt-4 border-b border-slate-100 pb-1">
+                    4.3 Processo Administrativo de Responsabilização (PAR) e Reabilitação
+                </h3>
+                <ul class="space-y-2.5 text-xs sm:text-sm pl-4 border-l-2 border-slate-200">
+                    <li>
+                        <strong class="text-slate-900">• Comissão Processante do PAR:</strong> Composta por no mínimo <span class="grifo-verde">2 (dois) servidores estáveis</span> (art. 158).
+                    </li>
+                    <li>
+                        <strong class="text-slate-900">• Prazo Geral de Defesa:</strong> Sempre de <span class="grifo-verde">15 (quinze) dias úteis</span> para qualquer uma das quatro sanções administrativas (arts. 157 e 158).
+                    </li>
+                    <li>
+                        <strong class="text-slate-900">• Prescrição da Punição:</strong> Prescreve em <span class="grifo-verde">5 (cinco) anos</span> a pretensão punitiva, contados da ciência inequívoca da infração pelo órgão.
+                    </li>
+                    <li>
+                        <strong class="text-slate-900">• Publicidade Compulsória:</strong> Registro obrigatório no CEIS e CNEP no prazo de <span class="grifo-verde">15 (quinze) dias úteis</span> após o ato sancionatório.
+                    </li>
+                    <li>
+                        <strong class="text-slate-900">• Requisitos de Reabilitação (art. 163):</strong> Ressarcimento ao erário, pagamento da multa, cumprimento de prazo mínimo (<span class="grifo-verde">1 ano</span> para impedimento; <span class="grifo-verde">3 anos</span> para inidoneidade) e obrigatoriedade de <span class="grifo">implantação de Programa de Integridade (Compliance)</span> nos casos de fraude ou atos da Lei Anticorrupção.
+                    </li>
+                </ul>
+
+                <!-- CAIXA DE MEMORIZAÇÃO -->
+                <div class="mt-4 p-4 sm:p-5 bg-white border border-slate-300 rounded-lg shadow-xs">
+                    <h4 class="text-xs font-bold uppercase tracking-wider text-slate-800 flex items-center gap-1.5 mb-2">
+                        <span>📌</span> Tópicos de Memorização para o Dia da Prova: Sanções
+                    </h4>
+                    <ul class="text-xs sm:text-sm space-y-1 text-slate-700">
+                        <li>• <strong>Única sanção cumulável:</strong> Multa (0,5% a 30%).</li>
+                        <li>• <strong>Prazo do Impedimento:</strong> Até 3 anos (alcance: União).</li>
+                        <li>• <strong>Prazo da Inidoneidade:</strong> 3 a 6 anos (alcance: Nacional irrestrito).</li>
+                        <li>• <strong>Quem aplica Inidoneidade no IFMG:</strong> Privativo do Reitor com parecer jurídico obrigatório.</li>
+                        <li>• <strong>Prazo de Defesa:</strong> 15 dias úteis para todas as espécies de sanção.</li>
+                        <li>• <strong>Comissão de Processo:</strong> Mínimo de 2 servidores estáveis.</li>
+                    </ul>
+                </div>
+            </div>
+        </article>
+
+        <!-- SEÇÃO 5: TABELA DE PEGADINHAS -->
+        <article id="pontos-prova" class="mb-14 pt-4 border-t border-slate-200">
+            <header class="mb-6">
+                <span class="text-xs font-bold text-slate-500 tracking-wider uppercase">Unidade 05</span>
+                <h2 class="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight mt-1">
+                    5. Matriz de Pontos Críticos e Pegadinhas da Banca Examinadora (Reitoria IFMG)
+                </h2>
+                <p class="text-xs sm:text-sm text-slate-600 mt-1">
+                    Comparativo direto entre o texto expresso da Lei nº 14.133/2021 e as armadilhas comuns em questões objetivas.
+                </p>
+            </header>
+
+            <!-- TABELA 5: SEM SCROLL HORIZONTAL (100% FLUIDA) -->
+            <div class="border border-slate-200 rounded-lg overflow-hidden bg-white shadow-xs">
+                <table class="w-full text-xs sm:text-sm text-left">
+                    <thead>
+                        <tr class="bg-slate-100 border-b border-slate-200 text-slate-900 font-bold">
+                            <th class="w-1/4 p-2.5 sm:p-3 border-r border-slate-200">Tópico Controversor</th>
+                            <th class="w-2/5 p-2.5 sm:p-3 border-r border-slate-200">Realidade Legal (Lei 14.133/2021)</th>
+                            <th class="w-1/3 p-2.5 sm:p-3">Armadilha Frequente da Banca</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-200 text-slate-700">
+                        <tr class="hover:bg-slate-50">
+                            <td class="p-2.5 sm:p-3 font-semibold text-slate-900 border-r border-slate-200">Instrumento Substitutivo</td>
+                            <td class="p-2.5 sm:p-3 border-r border-slate-200">Permitido para pronta entrega (<span class="grifo-verde">até 30 dias</span>) sem encargos futuros, <span class="grifo">independentemente do valor</span>.</td>
+                            <td class="p-2.5 sm:p-3 text-red-900">Afirmar que compras acima do teto de dispensa de valor exigem sempre o termo de contrato formal.</td>
+                        </tr>
+                        <tr class="hover:bg-slate-50">
+                            <td class="p-2.5 sm:p-3 font-semibold text-slate-900 border-r border-slate-200">Cumulatividade de Sanções</td>
+                            <td class="p-2.5 sm:p-3 border-r border-slate-200">Apenas a <span class="grifo">MULTA</span> é cumulável com as demais punições administrativas.</td>
+                            <td class="p-2.5 sm:p-3 text-red-900">Afirmar que o Reitor pode aplicar cumulativamente advertência com impedimento ou impedimento com inidoneidade.</td>
+                        </tr>
+                        <tr class="hover:bg-slate-50">
+                            <td class="p-2.5 sm:p-3 font-semibold text-slate-900 border-r border-slate-200">Extensão do Impedimento</td>
+                            <td class="p-2.5 sm:p-3 border-r border-slate-200">Gera restrição no âmbito do respectivo ente (<span class="grifo-azul">no IFMG: toda a União</span>).</td>
+                            <td class="p-2.5 sm:p-3 text-red-900">Limitar os efeitos do impedimento apenas ao campus que comprou ou dizer que o impedimento é nacional.</td>
+                        </tr>
+                        <tr class="hover:bg-slate-50">
+                            <td class="p-2.5 sm:p-3 font-semibold text-slate-900 border-r border-slate-200">Recebimento Definitivo em Obras</td>
+                            <td class="p-2.5 sm:p-3 border-r border-slate-200">Mantém a responsabilidade civil objetiva da construtora pelo prazo legal irredutível de <span class="grifo-verde">5 anos</span>.</td>
+                            <td class="p-2.5 sm:p-3 text-red-900">Afirmar que o recebimento definitivo dá quitação plena e exonera o contratado de falhas estruturais.</td>
+                        </tr>
+                        <tr class="hover:bg-slate-50">
+                            <td class="p-2.5 sm:p-3 font-semibold text-slate-900 border-r border-slate-200">Atribuição do Fiscal Administrativo</td>
+                            <td class="p-2.5 sm:p-3 border-r border-slate-200">Verifica obrigações trabalhistas, previdenciárias e fiscais da empresa terceirizada.</td>
+                            <td class="p-2.5 sm:p-3 text-red-900">Inverter tarefas, dizendo que o fiscal administrativo atesta medições e especificações técnicas de materiais.</td>
+                        </tr>
+                        <tr class="hover:bg-slate-50">
+                            <td class="p-2.5 sm:p-3 font-semibold text-slate-900 border-r border-slate-200">Prazos de Defesa</td>
+                            <td class="p-2.5 sm:p-3 border-r border-slate-200">São universalmente de <span class="grifo-verde">15 dias ÚTEIS</span> para todas as quatro penalidades.</td>
+                            <td class="p-2.5 sm:p-3 text-red-900">Usar prazos em dias corridos ou o antigo prazo da Lei 8.666/93 (5 dias úteis).</td>
+                        </tr>
+                        <tr class="hover:bg-slate-50">
+                            <td class="p-2.5 sm:p-3 font-semibold text-slate-900 border-r border-slate-200">Competência de Inidoneidade</td>
+                            <td class="p-2.5 sm:p-3 border-r border-slate-200">Competência <span class="grifo">indelegável do Reitor</span> (dirigente autárquico máximo), após manifestação jurídica.</td>
+                            <td class="p-2.5 sm:p-3 text-red-900">Afirmar que o Diretor-Geral de Campus ou o Pró-Reitor de Administração pode assinar a declaração de inidoneidade.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </article>
+
+        <!-- SEÇÃO 6: DEFINIÇÕES BÁSICAS DE VÉSPERA -->
+        <article id="sec-6" class="mb-14 pt-4 border-t border-slate-200">
+            <header class="mb-6">
+                <span class="text-xs font-bold text-slate-500 tracking-wider uppercase">Unidade 06</span>
+                <h2 class="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight mt-1">
+                    6. Definições Básicas para Fixação e Revisão de Véspera
+                </h2>
+                <p class="text-xs sm:text-sm text-slate-600 mt-1">
+                    Conceitos-chave condensados para releitura rápida no dia que antecede a prova objetiva.
+                </p>
+            </header>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs sm:text-sm">
+                <div class="p-3 bg-white border border-slate-200 rounded-lg">
+                    <strong class="text-slate-900 block mb-1">📄 Instrumento Substitutivo</strong>
+                    <p class="text-slate-600">Documento simplificado (nota de empenho, carta-contrato, ordem de serviço) cabível em dispensa de valor ou fornecimento imediato em até 30 dias sem obrigações acessórias futuras.</p>
+                </div>
+
+                <div class="p-3 bg-white border border-slate-200 rounded-lg">
+                    <strong class="text-slate-900 block mb-1">🔍 Fiscal Técnico</strong>
+                    <p class="text-slate-600">Servidor responsável pelo ateste da conformidade qualitativa e quantitativa do objeto, realizando medições e assinando o recebimento provisório técnico.</p>
+                </div>
+
+                <div class="p-3 bg-white border border-slate-200 rounded-lg">
+                    <strong class="text-slate-900 block mb-1">📑 Fiscal Administrativo</strong>
+                    <p class="text-slate-600">Servidor encarregado de acompanhar os recolhimentos trabalhistas, previdenciários e a regularidade documental da empresa prestadora de serviços contínuos.</p>
+                </div>
+
+                <div class="p-3 bg-white border border-slate-200 rounded-lg">
+                    <strong class="text-slate-900 block mb-1">👔 Gestor do Contrato</strong>
+                    <p class="text-slate-600">Agente que centraliza as deliberações gerenciais, autoriza pagamentos, aditamentos, subscreve o recebimento definitivo e instaura autos sancionatórios.</p>
+                </div>
+
+                <div class="p-3 bg-white border border-slate-200 rounded-lg">
+                    <strong class="text-slate-900 block mb-1">📦 Recebimento Provisório de Bens</strong>
+                    <p class="text-slate-600">Formalizado por recibo sumário na entrega física para permitir a contagem de prazo e subsequente verificação técnica.</p>
+                </div>
+
+                <div class="p-3 bg-white border border-slate-200 rounded-lg">
+                    <strong class="text-slate-900 block mb-1">✅ Recebimento Definitivo de Bens</strong>
+                    <p class="text-slate-600">Formalizado por termo detalhado após ensaios e testes, atestando conformidade plena com o edital e autorizando a liquidação.</p>
+                </div>
+
+                <div class="p-3 bg-white border border-slate-200 rounded-lg">
+                    <strong class="text-slate-900 block mb-1">⚠️ Advertência</strong>
+                    <p class="text-slate-600">Penalidade mais branda, cabível apenas na inexecução parcial do contrato sem prejuízo grave ao serviço público.</p>
+                </div>
+
+                <div class="p-3 bg-white border border-slate-200 rounded-lg">
+                    <strong class="text-slate-900 block mb-1">💰 Multa</strong>
+                    <p class="text-slate-600">Sanção patrimonial calculada entre 0,5% e 30% do contrato, sendo a única passível de cumulação legal com qualquer outra sanção.</p>
+                </div>
+
+                <div class="p-3 bg-white border border-slate-200 rounded-lg">
+                    <strong class="text-slate-900 block mb-1">⛔ Impedimento de Licitar</strong>
+                    <p class="text-slate-600">Duração de até 3 anos, operando seus efeitos perante toda a esfera federativa sancionadora (no caso do IFMG: toda a União).</p>
+                </div>
+
+                <div class="p-3 bg-white border border-slate-200 rounded-lg">
+                    <strong class="text-slate-900 block mb-1">🚫 Declaração de Inidoneidade</strong>
+                    <p class="text-slate-600">Sanção máxima de 3 a 6 anos, de competência indelegável do Reitor ou Ministro, com irradiação sobre toda a Administração Pública brasileira.</p>
+                </div>
+
+                <div class="p-3 bg-white border border-slate-200 rounded-lg col-span-1 md:col-span-2">
+                    <strong class="text-slate-900 block mb-1">🔄 Reabilitação</strong>
+                    <p class="text-slate-600">Demanda ressarcimento integral, quitação de multas, transcurso de prazo mínimo (1 ano para impedimento; 3 anos para inidoneidade) e comprovação de compliance nos casos de fraude ou atos da Lei Anticorrupção.</p>
+                </div>
+            </div>
+        </article>
+
+        <!-- BLOCO FINAL COM O BOTÃO DE ACESSO ÀS QUESTÕES -->
+        <section class="mt-16 pt-8 pb-12 border-t-2 border-slate-200 text-center">
+            <div class="max-w-xl mx-auto space-y-4">
+                <span class="inline-block p-3 bg-slate-100 rounded-full text-slate-800">
+                    <svg class="w-8 h-8 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path>
+                    </svg>
+                </span>
+                <h3 class="text-xl sm:text-2xl font-bold text-slate-900">Pronto para Testar Seus Conhecimentos?</h3>
+                <p class="text-sm text-slate-600 leading-relaxed">
+                    Você concluiu a leitura dos tópicos de memorização da Lei nº 14.133/2021. Clique abaixo para resolver os simulados e fixar os pontos de prova.
+                </p>
+                <div class="pt-3">
+                    <a href="questoes14legs.html" 
+                       class="inline-flex items-center justify-center px-8 py-4 text-base font-bold text-white bg-slate-900 hover:bg-slate-800 rounded-xl shadow-md hover:shadow-lg transition-all duration-200 transform hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-slate-900">
+                        <span>Acessar Caderno de Questões</span>
+                        <svg class="w-5 h-5 ml-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                        </svg>
+                    </a>
+                </div>
+                <p class="text-xs text-slate-400 pt-2">
+                    Arquivo de destino: <code class="font-mono text-slate-600">questoes14legs.html</code>
+                </p>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- RODAPÉ DA PÁGINA -->
+    <footer class="border-t border-slate-200 bg-white py-6 text-center text-xs text-slate-500">
+        <div class="max-w-5xl mx-auto px-4">
+            <p>Guia Didático e Técnico para o Concurso Público de Professor EBTT do IFMG • Lei nº 14.133/2021</p>
+            <p class="mt-1">Página construída com foco em legibilidade contínua, memorização rápida e sem scrolls horizontais.</p>
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT: CONTROLE DO PLAYER DE ÁUDIO E BARRA DE LEITURA -->
+    <script>
+        // Função para atualizar dinamicamente o arquivo MP3 digitado pelo usuário
+        function carregarAudio() {
+            const input = document.getElementById('fileNameInput');
+            const player = document.getElementById('audioPlayer');
+            const source = document.getElementById('audioSource');
+            const status = document.getElementById('audioStatus');
+            
+            const novoNome = input.value.trim();
+            if (!novoNome) {
+                status.textContent = "Por favor, digite o nome do arquivo MP3 (ex: audio.mp3).";
+                status.className = "text-[11px] text-red-600 font-semibold";
+                return;
+            }
+
+            source.src = novoNome;
+            player.load();
+            status.innerHTML = 'Fonte atualizada para: <code class="font-bold text-slate-800 font-mono">' + novoNome + '</code>. Pronto para reproduzir!';
+            status.className = "text-[11px] text-emerald-700 font-medium";
+        }
+
+        // Barra de progresso de leitura suave no topo
+        window.addEventListener('scroll', () => {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            const progressBar = document.getElementById('readingProgress');
+            if (progressBar) {
+                progressBar.style.width = scrolled + '%';
+            }
+        });
+    </script>
+</body>
+</html>

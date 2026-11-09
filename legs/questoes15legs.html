@@ -1,0 +1,1182 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simulado Interativo: ECA – Princípios, Dignidade e Prevenção | Estilo IFMG</title>
+  <style>
+    /* ==========================================================================
+       Design System & Variáveis de Estilo
+       Foco: Leitura prolongada, alto contraste amigável, ergonomia visual
+       ========================================================================== */
+    :root {
+      --bg-page: #fbfbfa;          /* Fundo suave quente para evitar fadiga de tela */
+      --bg-surface: #ffffff;       /* Fundo dos cartões e módulos */
+      --bg-subtle: #f4f4f0;        /* Destaques e seções neutras secundárias */
+      --text-main: #1f2937;        /* Grafite escuro para máxima legibilidade */
+      --text-muted: #4b5563;       /* Texto secundário e notas de rodapé */
+      --text-heading: #0f172a;     /* Títulos em azul escuro quase preto */
+      --primary: #1e3a5f;          /* Azul institucional acadêmico */
+      --primary-hover: #152b47;
+      --primary-light: #e8eef5;
+      --border-color: #e5e7eb;
+      --border-focus: #2563eb;
+      
+      /* Cores de Feedback Avaliativo */
+      --correct-bg: #f0fdf4;
+      --correct-border: #22c55e;
+      --correct-text: #14532d;
+      --correct-badge: #16a34a;
+
+      --wrong-bg: #fef2f2;
+      --wrong-border: #ef4444;
+      --wrong-text: #7f1d1d;
+      --wrong-badge: #dc2626;
+
+      --neutral-badge: #64748b;
+      
+      --font-stack: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      --font-serif: "Charter", "Bitstream Charter", "Sitka Text", "Cambria", Georgia, serif;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+      --shadow-md: 0 4px 10px rgba(0,0,0,0.05), 0 2px 4px rgba(0,0,0,0.03);
+      --radius: 10px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-page);
+      color: var(--text-main);
+      font-family: var(--font-stack);
+      line-height: 1.75;
+      font-size: 16px;
+      -webkit-font-smoothing: antialiased;
+      padding: 24px 16px 80px 16px;
+    }
+
+    .container {
+      max-width: 860px;
+      margin: 0 auto;
+    }
+
+    /* Cabeçalho da Prova */
+    header.exam-header {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-top: 5px solid var(--primary);
+      border-radius: var(--radius);
+      padding: 28px 32px;
+      margin-bottom: 24px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .exam-badge {
+      display: inline-block;
+      background: var(--primary-light);
+      color: var(--primary);
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 4px 10px;
+      border-radius: 6px;
+      margin-bottom: 12px;
+    }
+
+    .exam-header h1 {
+      font-size: 24px;
+      color: var(--text-heading);
+      margin-bottom: 10px;
+      line-height: 1.35;
+    }
+
+    .exam-meta {
+      font-size: 14px;
+      color: var(--text-muted);
+      border-top: 1px dashed var(--border-color);
+      padding-top: 12px;
+      margin-top: 12px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    /* Barra Superior de Progresso e Ações */
+    .sticky-bar {
+      position: sticky;
+      top: 12px;
+      z-index: 100;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(8px);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius);
+      padding: 12px 20px;
+      margin-bottom: 24px;
+      box-shadow: var(--shadow-md);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: all 0.3s ease;
+    }
+
+    .sticky-bar .progress-info {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-heading);
+    }
+
+    .sticky-bar .btn-nav {
+      background: var(--primary);
+      color: #fff;
+      border: none;
+      padding: 8px 18px;
+      border-radius: 6px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .sticky-bar .btn-nav:hover {
+      background: var(--primary-hover);
+    }
+
+    /* Card de Questão */
+    .question-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius);
+      padding: 28px 30px;
+      margin-bottom: 24px;
+      box-shadow: var(--shadow-sm);
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .question-card:focus-within {
+      border-color: #cbd5e1;
+    }
+
+    .question-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .q-number {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--primary);
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+
+    .q-status {
+      font-size: 12px;
+      font-weight: 600;
+      padding: 2px 8px;
+      border-radius: 4px;
+      background: var(--bg-subtle);
+      color: var(--text-muted);
+    }
+
+    .question-text {
+      font-family: var(--font-serif);
+      font-size: 17px;
+      color: var(--text-main);
+      margin-bottom: 20px;
+      text-align: justify;
+    }
+
+    .roman-items {
+      background: var(--bg-subtle);
+      border-left: 3px solid var(--primary);
+      border-radius: 0 6px 6px 0;
+      padding: 14px 18px;
+      margin-bottom: 20px;
+      font-size: 15px;
+    }
+
+    .roman-items div {
+      margin-bottom: 8px;
+    }
+    .roman-items div:last-child {
+      margin-bottom: 0;
+    }
+
+    /* Alternativas */
+    .options-group {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+
+    .option-item {
+      display: flex;
+      align-items: flex-start;
+      padding: 12px 16px;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      cursor: pointer;
+      background: #fff;
+      transition: all 0.15s ease;
+      user-select: none;
+    }
+
+    .option-item:hover {
+      background-color: #f8fafc;
+      border-color: #cbd5e1;
+    }
+
+    .option-item input[type="radio"] {
+      margin-top: 4px;
+      margin-right: 12px;
+      accent-color: var(--primary);
+      cursor: pointer;
+      width: 17px;
+      height: 17px;
+      flex-shrink: 0;
+    }
+
+    .option-label {
+      font-size: 15px;
+      color: var(--text-main);
+      line-height: 1.55;
+      flex-grow: 1;
+    }
+
+    .option-letter {
+      font-weight: 700;
+      margin-right: 4px;
+    }
+
+    /* Estilos pós-correção */
+    .option-item.selected-correct {
+      background-color: var(--correct-bg) !important;
+      border-color: var(--correct-border) !important;
+      color: var(--correct-text) !important;
+      font-weight: 600;
+    }
+
+    .option-item.selected-wrong {
+      background-color: var(--wrong-bg) !important;
+      border-color: var(--wrong-border) !important;
+      color: var(--wrong-text) !important;
+    }
+
+    .option-item.show-answer-correct {
+      border: 2px dashed var(--correct-border) !important;
+      background-color: #f0fdf4 !important;
+    }
+
+    .badge-feedback {
+      display: inline-block;
+      margin-left: 8px;
+      padding: 2px 7px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: bold;
+      text-transform: uppercase;
+    }
+    .badge-feedback.correct {
+      background: var(--correct-badge);
+      color: #fff;
+    }
+    .badge-feedback.wrong {
+      background: var(--wrong-badge);
+      color: #fff;
+    }
+
+    /* Seção da Resolução da Questão (Inline, na mesma página) */
+    .resolution-box {
+      display: none;
+      margin-top: 22px;
+      padding: 20px 24px;
+      background-color: #fcfcfb;
+      border-top: 2px solid var(--primary);
+      border-radius: 0 0 var(--radius) var(--radius);
+      font-size: 15px;
+    }
+
+    .resolution-box.visible {
+      display: block;
+      animation: fadeIn 0.4s ease-in;
+    }
+
+    .res-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 12px;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--primary);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .res-text {
+      color: #334155;
+      line-height: 1.7;
+      text-align: justify;
+    }
+
+    .res-text p {
+      margin-bottom: 12px;
+    }
+    .res-text p:last-child {
+      margin-bottom: 0;
+    }
+
+    /* Tabelas dentro da fundamentação */
+    .res-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 16px 0;
+      font-size: 13.5px;
+      background: #fff;
+      border-radius: 6px;
+      overflow: hidden;
+      border: 1px solid var(--border-color);
+    }
+
+    .res-table th, .res-table td {
+      border: 1px solid #e2e8f0;
+      padding: 9px 12px;
+      text-align: left;
+    }
+
+    .res-table th {
+      background-color: #f1f5f9;
+      font-weight: 700;
+      color: #1e293b;
+    }
+
+    /* Seção Global de Resultados (Abaixo do Quiz) */
+    #results-section {
+      display: none;
+      background: var(--bg-surface);
+      border: 2px solid var(--primary);
+      border-radius: var(--radius);
+      padding: 32px 30px;
+      margin-top: 40px;
+      box-shadow: var(--shadow-md);
+    }
+
+    #results-section.visible {
+      display: block;
+      animation: slideUp 0.4s ease-out;
+    }
+
+    .score-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 24px;
+      background: var(--bg-subtle);
+      border-radius: 8px;
+      margin-bottom: 28px;
+    }
+
+    .score-circle {
+      width: 90px;
+      height: 90px;
+      border-radius: 50%;
+      background: var(--primary);
+      color: #fff;
+      font-size: 32px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 14px;
+      box-shadow: 0 4px 12px rgba(30, 58, 95, 0.25);
+    }
+
+    .score-title {
+      font-size: 22px;
+      color: var(--text-heading);
+      margin-bottom: 6px;
+    }
+
+    .score-feedback {
+      font-size: 15px;
+      color: var(--text-muted);
+      max-width: 580px;
+    }
+
+    /* Tabela Resumo do Gabarito */
+    .summary-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+      font-size: 14px;
+    }
+
+    .summary-table th, .summary-table td {
+      border: 1px solid var(--border-color);
+      padding: 10px 14px;
+      text-align: center;
+    }
+
+    .summary-table th {
+      background: #f8fafc;
+      font-weight: 700;
+      color: #334155;
+    }
+
+    .summary-table td.left {
+      text-align: left;
+    }
+
+    .status-badge {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 12px;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .status-badge.hit {
+      background: #dcfce7;
+      color: #15803d;
+    }
+
+    .status-badge.miss {
+      background: #fee2e2;
+      color: #b91c1c;
+    }
+
+    /* Botões Principais */
+    .action-container {
+      margin: 36px 0;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      justify-content: center;
+    }
+
+    .btn {
+      padding: 14px 28px;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      border: none;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: #fff;
+      box-shadow: 0 4px 8px rgba(30, 58, 95, 0.2);
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-hover);
+      transform: translateY(-1px);
+    }
+
+    .btn-secondary {
+      background: #fff;
+      color: var(--text-main);
+      border: 1px solid var(--border-color);
+    }
+
+    .btn-secondary:hover {
+      background: #f1f5f9;
+    }
+
+    /* Modal de Alerta Customizado (substitui alert()) */
+    .custom-modal-backdrop {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(15, 23, 42, 0.6);
+      backdrop-filter: blur(3px);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+    }
+
+    .custom-modal-backdrop.active {
+      display: flex;
+    }
+
+    .custom-modal {
+      background: #ffffff;
+      border-radius: var(--radius);
+      max-width: 440px;
+      width: 100%;
+      padding: 24px;
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+
+    .custom-modal h3 {
+      font-size: 19px;
+      color: var(--text-heading);
+      margin-bottom: 10px;
+    }
+
+    .custom-modal p {
+      font-size: 14px;
+      color: var(--text-muted);
+      margin-bottom: 20px;
+      line-height: 1.6;
+    }
+
+    .modal-actions {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Responsividade */
+    @media (max-width: 640px) {
+      body { padding: 12px 8px 60px 8px; }
+      header.exam-header { padding: 20px 16px; }
+      .question-card { padding: 20px 16px; }
+      .sticky-bar { padding: 10px 14px; }
+      .score-card { padding: 16px; }
+      .res-table { font-size: 12px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+
+    <!-- Cabeçalho Institucional -->
+    <header class="exam-header">
+      <span class="exam-badge">Concurso Público • Reitoria do IFMG</span>
+      <h1>Simulado Objetiva: Estatuto da Criança e do Adolescente (Lei nº 8.069/1990)</h1>
+      <p style="color: var(--text-muted); font-size: 15px;">
+        <strong>Conteúdo Programático:</strong> Título I (arts. 1º a 6º), Título II, Cap. II (arts. 15 a 18-B) e Título III, Cap. I (arts. 70 a 73). Doutrina da proteção integral, critérios etários, liberdade, respeito, vedações a castigos físicos (Lei Menino Bernardo) e prevenção.
+      </p>
+      <div class="exam-meta">
+        <span>📋 <strong>Total:</strong> 10 Questões Inéditas e Adaptadas</span>
+        <span>⚖️ <strong>Banca:</strong> Comissão Central de Concurso IFMG</span>
+        <span>⏱️ <strong>Modo:</strong> Resolução Integral com Gabarito e Justificativa</span>
+      </div>
+    </header>
+
+    <!-- Barra Dinâmica de Acompanhamento -->
+    <div class="sticky-bar" id="sticky-bar">
+      <div class="progress-info" id="progress-text">Respondidas: 0 de 10</div>
+      <button type="button" class="btn-nav" onclick="scrollToFinalizar()">Finalizar Prova</button>
+    </div>
+
+    <!-- Formulário do Quiz com as 10 Questões -->
+    <form id="quiz-form">
+      <div id="questions-wrapper">
+        <!-- Renderizado dinamicamente via JavaScript -->
+      </div>
+
+      <!-- Ações de Envio -->
+      <div class="action-container" id="quiz-actions">
+        <button type="button" class="btn btn-primary" onclick="finalizarQuiz()">
+          Finalizar e Ver Gabarito com Resoluções
+        </button>
+        <button type="button" class="btn btn-secondary" onclick="limparRespostas()">
+          Limpar Marcações
+        </button>
+      </div>
+    </form>
+
+    <!-- Seção de Resultados e Resoluções (Abaixo do Quiz) -->
+    <section id="results-section">
+      <div class="score-card">
+        <div class="score-circle" id="score-display">0/10</div>
+        <h2 class="score-title" id="score-status">Resultado da Avaliação</h2>
+        <p class="score-feedback" id="score-desc">
+          Confira abaixo o espelho de desempenho e a resolução analítica detalhada com fundamentos em cada questão do caderno.
+        </p>
+      </div>
+
+      <h3 style="color: var(--text-heading); font-size: 18px; margin-bottom: 12px;">Quadro Sinóptico de Respostas</h3>
+      <div style="overflow-x: auto;">
+        <table class="summary-table">
+          <thead>
+            <tr>
+              <th>Questão</th>
+              <th>Sua Escolha</th>
+              <th>Gabarito Oficial</th>
+              <th>Status</th>
+              <th>Fundamentação Legal</th>
+              <th>Ação</th>
+            </tr>
+          </thead>
+          <tbody id="summary-tbody">
+            <!-- Preenchido via script -->
+          </tbody>
+        </table>
+      </div>
+
+      <div style="text-align: center; margin-top: 32px;">
+        <button type="button" class="btn btn-secondary" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+          Voltar ao Início do Caderno
+        </button>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- Modal Customizado de Alerta -->
+  <div class="custom-modal-backdrop" id="custom-modal">
+    <div class="custom-modal">
+      <h3 id="modal-title">Atenção</h3>
+      <p id="modal-message">Mensagem de aviso.</p>
+      <div class="modal-actions">
+        <button type="button" class="btn btn-primary" onclick="fecharModal()">Compreendido</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    /* ==========================================================================
+       Banco de Dados Integral das 10 Questões e Resoluções Comentadas
+       ========================================================================== */
+    const quizData = [
+      {
+        id: 1,
+        artigo: "Art. 2º, caput e parágrafo único",
+        enunciado: "No que concerne à doutrina da proteção integral e aos critérios definidores da infância e da adolescência positivados no Título I da Lei Federal nº 8.069/1990 (Estatuto da Criança e do Adolescente – ECA), assinale a alternativa CORRETA:",
+        options: {
+          A: "Considera-se criança a pessoa com até doze anos de idade completos, e adolescente aquela entre doze e dezoito anos de idade incompletos.",
+          B: "O Estatuto da Criança e do Adolescente aplica-se com exclusividade absoluta a pessoas com idade inferior a dezoito anos, inexistindo qualquer hipótese legal de extensão de seus dispositivos a indivíduos maiores de idade.",
+          C: "Considera-se criança, para os efeitos legais, a pessoa até doze anos de idade incompletos, e adolescente aquela entre doze e dezoito anos de idade, admitindo-se a aplicação excepcional do Estatuto às pessoas entre dezoito e vinte e um anos nos casos expressos em lei.",
+          D: "A transição etária entre a condição de criança e de adolescente opera-se aos quatorze anos, marco biológico e cognitivo fixado pela legislação para a autorização de contratação sob a condição de aprendiz.",
+          E: "A proteção integral instituída pelo diploma legal destina-se prioritariamente a crianças e adolescentes que se encontrem em situação irregular, abandono material ou conflito com a lei, mantendo as premissas estruturais do revogado Código de Menores."
+        },
+        gabarito: "C",
+        resolucao: `
+          <p><strong>Gabarito Oficial: Alternativa C.</strong></p>
+          <p>A alternativa <strong>C</strong> consolida a orientação legal contida no <strong>art. 2º do Estatuto da Criança e do Adolescente</strong>, o qual demarca os critérios etários no ordenamento brasileiro ao estatuir que se considera criança a pessoa até doze anos de idade incompletos, reservando-se a classificação de adolescente àquela situada entre doze e dezoito anos de idade. De forma articulada, o parágrafo único do referido artigo admite a incidência excepcional dos preceitos estatutários àqueles situados entre dezoito e vinte e um anos de idade em hipóteses taxativas, a exemplo do cumprimento estendido de medidas socioeducativas até a idade-limite de vinte e um anos (art. 121, § 5º, do ECA) e do deferimento de tutela a pessoa de até dezoito anos incompletos (art. 36).</p>
+          <p><strong>Erros das demais alternativas:</strong><br>
+          • <em>A</em> incorre em erro técnico ao utilizar a expressão doze anos de idade "completos" e desfigurar os limites temporais da adolescência, que se encerra exatamente ao se atingir a maioridade civil aos dezoito anos.<br>
+          • <em>B</em> mostra-se juridicamente indefensável, porquanto nega a cláusula de extensão aos maiores de dezoito e menores de vinte e um anos consagrada expressamente no parágrafo único do art. 2º.<br>
+          • <em>D</em> falseia o marco divisor de fases etárias, posto que os quatorze anos constituem patamar restrito à admissibilidade de aprendizagem profissional e proteção laboral, não modificando o nascimento da adolescência aos doze anos.<br>
+          • <em>E</em> reproduz a já superada doutrina da situação irregular do revogado Código de Menores (Lei nº 6.697/1979), a qual condicionava a intervenção estatal ao desvio social ou desamparo da infância, perspectiva abandonada pela doutrina da proteção integral que reconhece toda e qualquer criança e adolescente como titular universal de prerrogativas jurídicas.</p>
+        `
+      },
+      {
+        id: 2,
+        artigo: "Art. 4º, parágrafo único, alíneas 'a', 'c' e 'd'",
+        enunciado: "O art. 4º da Lei Federal nº 8.069/1990 impõe à família, à comunidade, à sociedade em geral e ao poder público o dever de assegurar, com absoluta prioridade, a efetivação dos direitos fundamentais referentes à vida, à saúde, à alimentação, à educação, ao esporte, ao lazer, à profissionalização, à cultura, à dignidade, ao respeito, à liberdade e à convivência familiar e comunitária.<br><br>De acordo com o parágrafo único do referido dispositivo, a garantia de prioridade compreende:",
+        itensRomanos: [
+          "I. Primazia de receber proteção e socorro em quaisquer circunstâncias.",
+          "II. Precedência de atendimento exclusivamente nos órgãos judiciais e de segurança pública.",
+          "III. Preferência na formulação e na execução das políticas sociais públicas.",
+          "IV. Destinação privilegiada de recursos públicos nas áreas relacionadas com a proteção à infância e à juventude."
+        ],
+        options: {
+          A: "I, II e III, apenas.",
+          B: "I, III e IV, apenas.",
+          C: "II e IV, apenas.",
+          D: "II, III e IV, apenas.",
+          E: "I, II, III e IV."
+        },
+        gabarito: "B",
+        resolucao: `
+          <p><strong>Gabarito Oficial: Alternativa B.</strong></p>
+          <p>A resolução decorre da literalidade das balizas que definem o postulado constitucional e infraconstitucional da prioridade absoluta, disciplinado no parágrafo único do art. 4º da Lei nº 8.069/1990 e no art. 227 da Constituição da República. O dispositivo legal esmiúça o alcance do comando programático em quatro vertentes cogentes:</p>
+          <table class="res-table">
+            <thead>
+              <tr>
+                <th>Vertente Legal</th>
+                <th>Dispositivo</th>
+                <th>Alcance da Proteção</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Proteção e Socorro</strong></td>
+                <td>Art. 4º, p. único, "a"</td>
+                <td>Primazia fática e operacional de receber proteção e socorro em quaisquer circunstâncias emergenciais ou cotidianas.</td>
+              </tr>
+              <tr>
+                <td><strong>Serviços Públicos</strong></td>
+                <td>Art. 4º, p. único, "b"</td>
+                <td>Precedência de atendimento nos serviços públicos ou de relevância pública geral (não restrito ao Judiciário).</td>
+              </tr>
+              <tr>
+                <td><strong>Políticas Sociais</strong></td>
+                <td>Art. 4º, p. único, "c"</td>
+                <td>Preferência deliberada durante o planejamento, formulação e execução executiva das políticas governamentais.</td>
+              </tr>
+              <tr>
+                <td><strong>Alocação Orçamentária</strong></td>
+                <td>Art. 4º, p. único, "d"</td>
+                <td>Destinação orçamentária privilegiada e vinculação de receitas na proteção da infância e juventude.</td>
+              </tr>
+            </tbody>
+          </table>
+          <p>Dessa estrutura extrai-se que as proposições I, III e IV correspondem perfeitamente às alíneas "a", "c" e "d" do texto da lei, tornando correta a alternativa B. Em contraposição, a proposição II é inteiramente falsa, haja vista que a precedência de atendimento não se circunscreve aos aparelhos judiciais e policiais, espraiando-se genericamente sobre quaisquer serviços públicos ou de relevância pública, com ênfase nas redes básicas de educação e saúde.</p>
+        `
+      },
+      {
+        id: 3,
+        artigo: "Art. 6º, caput",
+        enunciado: "Em consonância com as normas fundamentais e diretrizes hermenêuticas insculpidas nos arts. 5º e 6º da Lei Federal nº 8.069/1990, assinale a afirmativa CORRETA:",
+        options: {
+          A: "Apenas as ofensas corporais praticadas com dolo direto ensejam a punição por violação de direitos da criança ou do adolescente, excluindo-se do alcance da norma a negligência e as condutas culposas.",
+          B: "Na interpretação do Estatuto, prevalecerão os critérios técnico-financeiros e a discricionariedade orçamentária dos entes federados sobre a condição peculiar de desenvolvimento do estudante.",
+          C: "O princípio da legalidade administrativa autoriza a submissão de estudantes menores de dezoito anos a castigos moderados e tratamentos constrangedores, desde que expressamente previstos no regimento disciplinar de instituições federais de ensino.",
+          D: "Na interpretação da Lei nº 8.069/1990 levar-se-ão em conta os fins sociais a que ela se dirige, as exigências do bem comum, os direitos e deveres individuais e coletivos, e a condição peculiar da criança e do adolescente como pessoas em desenvolvimento.",
+          E: "A condição de pessoa em desenvolvimento cessa formalmente a partir do momento em que o adolescente adquire o direito de voto facultativo aos dezesseis anos, restringindo a incidência dos princípios interpretativos do art. 6º à primeira infância."
+        },
+        gabarito: "D",
+        resolucao: `
+          <p><strong>Gabarito Oficial: Alternativa D.</strong></p>
+          <p>A alternativa <strong>D</strong> expressa com exatidão a dicção do <strong>art. 6º do ECA</strong>, dispositivo que funciona como diretriz hermenêutica superior e vinculante para a aplicação de todo o complexo normativo protetivo: na interpretação da lei, o operador do direito e o educador deverão levar em consideração os fins sociais a que o texto se destina, as exigências do bem comum, a harmonização entre direitos e deveres individuais e coletivos, bem como a premissa antropológica e biológica de que crianças e adolescentes configuram pessoas humanas em singular processo de desenvolvimento.</p>
+          <p><strong>Erros das demais opções:</strong><br>
+          • <em>A</em> é equivocada, pois o art. 5º sanciona categoricamente qualquer forma de negligência, discriminação, exploração, violência, crueldade ou opressão, punindo atentados perpetrados tanto por conduta comissiva quanto por conduta omissiva negligente (culpa).<br>
+          • <em>B</em> desvirtua o princípio do melhor interesse infanto-juvenil, dado que a discricionariedade técnica e as restrições orçamentárias de cunho secundário não podem aniquilar direitos fundamentais de matriz prioritária.<br>
+          • <em>C</em> contraria o ordenamento, pois regulamentos disciplinares escolares ou institucionais encontram limite intransponível nos direitos fundamentais previstos na legislação federal, sendo desprovidos de autoridade para legitimar coações degradantes ou castigos corporais.<br>
+          • <em>E</em> padece de sustentação, haja vista que o exercício facultativo da capacidade eleitoral ativa aos dezesseis anos de idade (art. 14, § 1º, II, 'c', da CF/88) não emancipa civilmente o cidadão nem desconstitui sua qualidade tutelar de pessoa em desenvolvimento perante o ECA.</p>
+        `
+      },
+      {
+        id: 4,
+        artigo: "Art. 16, caput e incisos c/c Art. 17",
+        enunciado: "O direito à liberdade constitui um dos pilares da cidadania infanto-juvenil tutelados pelo Estatuto da Criança e do Adolescente. Consoante o disposto no art. 16 da Lei Federal nº 8.069/1990, o direito à liberdade abrange aspectos definidos pelo legislador.<br><br>Assinale a alternativa que indica uma prerrogativa que NÃO integra o rol dos aspectos do direito à liberdade estipulados no art. 16 do referido diploma:",
+        options: {
+          A: "Ir, vir e estar nos logradouros públicos e espaços comunitários, ressalvadas as restrições legais.",
+          B: "Participar da vida familiar e comunitária, sem discriminação.",
+          C: "Buscar refúgio, auxílio e orientação.",
+          D: "Participar da vida política, na forma da lei.",
+          E: "Inviolabilidade da integridade física, psíquica e moral, abrangendo a preservação dos espaços e objetos pessoais."
+        },
+        gabarito: "E",
+        resolucao: `
+          <p><strong>Gabarito Oficial: Alternativa E.</strong></p>
+          <p>A inviolabilidade da integridade física, psíquica e moral do educando, congregando a preservação da imagem, da identidade, da autonomia, dos valores, ideias e crenças, dos espaços e objetos pessoais, constitui o substrato definidor do <strong>direito ao respeito</strong>, conforme estatuído na redação do <strong>art. 17 do ECA</strong>, e não do direito à liberdade.</p>
+          <p>O legislador estatutário teve o cuidado analítico de distinguir a <em>liberdade</em> (art. 16) do <em>respeito</em> (art. 17) e da <em>dignidade</em> (art. 18). Nesse passo, a liberdade contempla o trânsito nos logradouros públicos e espaços comunitários, ressalvadas restrições (art. 16, I); opinião e expressão (art. 16, II); crença e culto (art. 16, III); brincar, praticar esportes e divertir-se (art. 16, IV); convivência familiar e comunitária sem discriminação (art. 16, V); participação na vida política (art. 16, VI); e a garantia de buscar refúgio, auxílio e orientação protetiva perante os órgãos de apoio (art. 16, VII). As alternativas A, B, C e D refletem aspectos genuínos do direito à liberdade.</p>
+        `
+      },
+      {
+        id: 5,
+        artigo: "Art. 17 c/c Art. 18",
+        enunciado: "No âmbito das rotinas institucionais e pedagógicas de um campus de Instituto Federal, a coordenação de assuntos estudantis constatou a afixação desautorizada de fotografias e dados qualificativos de discentes adolescentes em murais de circulação pública, expondo-os a escárnio em razão de transgressões disciplinares ocorridas em sala de aula.<br><br>À luz dos arts. 17 e 18 da Lei Federal nº 8.069/1990, que disciplinam os direitos ao respeito e à dignidade, assinale a afirmativa CORRETA:",
+        options: {
+          A: "O direito ao respeito restringe-se à tutela contra abusos de natureza patrimonial, não alcançando a dimensão moral ou a imagem subjetiva de estudantes no ambiente escolar.",
+          B: "O direito ao respeito consiste na inviolabilidade da integridade física, psíquica e moral da criança e do adolescente, abrangendo a preservação da imagem, da identidade, da autonomia, dos valores, ideias e crenças, dos espaços e objetos pessoais.",
+          C: "O encargo de velar pela dignidade da criança e do adolescente restringe-se exclusivamente aos pais e ao Conselho Tutelar, eximindo-se os agentes públicos de estabelecimentos de ensino de responsabilidade por métodos vexatórios institucionais.",
+          D: "A exposição aterrorizante ou vexatória de discentes menores de dezoito anos é juridicamente tolerada caso seja adotada como mecanismo pedagógico dissuasório de infrações regimentais repetidas.",
+          E: "A preservação da identidade do adolescente autor de ato infracional ou falta disciplinar não se estende aos estabelecimentos públicos de educação profissional, sobrepondo-se o princípio da publicidade administrativa ampla aos direitos de personalidade do estudante."
+        },
+        gabarito: "B",
+        resolucao: `
+          <p><strong>Gabarito Oficial: Alternativa B.</strong></p>
+          <p>A resposta correta reside na alternativa <strong>B</strong>, a qual reproduz textualmente a definição jurídica do direito ao respeito disposta no <strong>art. 17 da Lei Federal nº 8.069/1990</strong>, preceito que se articula diretamente com o art. 18 ao cominar à comunidade e ao poder público o encargo indeclinável de zelar pela dignidade infanto-juvenil, preservando o indivíduo de condutas humilhantes, vexatórias, violentas ou aterrorizantes.</p>
+          <p><strong>Análise dos equívocos:</strong><br>
+          • <em>A</em> restringe indevidamente a amplitude do direito ao respeito à esfera patrimonial, desconsiderando a centralidade da higidez moral e identitária do jovem.<br>
+          • <em>C</em> é incorreta pelo fato de o art. 18 atribuir expressamente a "todos" — abrangendo de forma imperativa o corpo de servidores públicos da educação — o dever jurídico de salvaguardar a dignidade das crianças e adolescentes.<br>
+          • <em>D</em> é repudiada pelo ordenamento, na medida em que práticas pedagógicas intimidatórias ou degradantes configuram ilícitos civis e administrativos (arts. 5º e 18-A).<br>
+          • <em>E</em> confronta a garantia de sigilo e a inviolabilidade da imagem, preceitos que vedam a exposição pública e estigmatizante de adolescentes aos quais se atribua falta disciplinar ou ato infracional.</p>
+        `
+      },
+      {
+        id: 6,
+        artigo: "Art. 18-A, parágrafo único, I, 'a' e 'b'",
+        enunciado: "A Lei Federal nº 13.010/2014 (Lei Menino Bernardo) alterou o Estatuto da Criança e do Adolescente para assegurar o direito de crianças e adolescentes serem educados e cuidados sem o uso de castigo físico ou de tratamento cruel ou degradante.<br><br>A respeito das definições técnicas e jurídicas postas no parágrafo único do art. 18-A da Lei Federal nº 8.069/1990, assinale a afirmativa CORRETA:",
+        options: {
+          A: "Castigo físico é a ação disciplinar de natureza psicológica que resulte em constrangimento interpessoal ou estigmatização pública perante a comunidade escolar.",
+          B: "Considera-se tratamento cruel ou degradante exclusivamente a agressão que deixe sequelas anatômicas permanentes ou fraturas comprovadas por exame pericial de corpo de delito.",
+          C: "Castigo físico é legalmente conceituado como a ação de natureza disciplinar ou punitiva aplicada com o uso da força física sobre a criança ou o adolescente que resulte em sofrimento físico ou lesão.",
+          D: "Tratamento cruel ou degradante consiste unicamente na conduta que demande a internação hospitalar imediata do educando vitimado pela atuação de agentes públicos estatais.",
+          E: "O uso da força física como método coercitivo de correção e admoestação é admitido pela legislação brasileira quando exercido com moderação por servidores encarregados da disciplina escolar."
+        },
+        gabarito: "C",
+        resolucao: `
+          <p><strong>Gabarito Oficial: Alternativa C.</strong></p>
+          <p>A formulação jurídica veiculada na alternativa <strong>C</strong> é a única procedente perante o regramento instituído pela Lei nº 13.010/2014 (Lei Menino Bernardo), uma vez que o <strong>parágrafo único, inciso I, do art. 18-A do ECA</strong> classifica o <strong>castigo físico</strong> sob o prisma material estrito de <em>"ação de natureza disciplinar ou punitiva aplicada com o uso da força física sobre a criança ou o adolescente que resulte em: a) sofrimento físico; ou b) lesão"</em>.</p>
+          <table class="res-table">
+            <thead>
+              <tr>
+                <th>Figura Típica (Art. 18-A)</th>
+                <th>Meio de Execução</th>
+                <th>Resultado Exigido pela Lei</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Castigo Físico</strong> (Inciso I)</td>
+                <td>Emprego instrumental de <strong>força física</strong> (mecânica/corporal) punitiva.</td>
+                <td>Produção comprovada de <strong>sofrimento físico</strong> ou de <strong>lesão corporal</strong>.</td>
+              </tr>
+              <tr>
+                <td><strong>Tratamento Cruel ou Degradante</strong> (Inciso II)</td>
+                <td>Conduta de agressão moral, verbal, psicológica ou forma cruel de tratamento.</td>
+                <td>Ação que resulte em <strong>humilhação</strong>, <strong>ameaça grave</strong> ou <strong>ridicularização</strong> da vítima.</td>
+              </tr>
+            </tbody>
+          </table>
+          <p>Por conseguinte, a alternativa A incorre em atecnia ao aduzir que o castigo físico decorreria de violência puramente psicológica. As alternativas B e D erram gravemente ao criarem exigências não constantes da lei, como fraturas permanentes ou internação hospitalar. A alternativa E erra ao supor que agentes públicos educacionais gozariam de prerrogativa corretiva violenta com 'moderação', quando a proibição legal do uso da força sob pretexto disciplinar é peremptória.</p>
+        `
+      },
+      {
+        id: 7,
+        artigo: "Art. 18-B, parágrafo único",
+        enunciado: "Nos termos do art. 18-B da Lei Federal nº 8.069/1990, os pais, os integrantes da família ampliada, os responsáveis, os agentes públicos executores de medidas socioeducativas ou qualquer pessoa encarregada de cuidar de crianças e de adolescentes, tratá-los, educá-los ou protegê-los que utilizarem castigo físico ou tratamento cruel ou degradante estarão sujeitos a medidas administrativas progressivas.<br><br>A aplicação dessas sanções de proteção familiar e individual, nos termos expressos do parágrafo único do art. 18-B, compete ao:",
+        options: {
+          A: "Juiz da Vara da Infância e da Juventude, necessariamente por meio de sentença em processo contencioso com trânsito em julgado.",
+          B: "Ministério Público Estadual ou Federal, de modo privativo após o encerramento de inquérito civil preparatório.",
+          C: "Conselho Tutelar da respectiva localidade, sem prejuízo de outras providências legais.",
+          D: "Dirigente máximo do estabelecimento de ensino, por meio de processo administrativo disciplinar sumário.",
+          E: "Delegado de Polícia da circunscrição, com exclusividade mediante instauração de termo circunstanciado."
+        },
+        gabarito: "C",
+        resolucao: `
+          <p><strong>Gabarito Oficial: Alternativa C.</strong></p>
+          <p>A resolução impõe assinalar a alternativa <strong>C</strong>, com arrimo direto no <strong>parágrafo único do art. 18-B da Lei Federal nº 8.069/1990</strong>, o qual dispõe de maneira indubitável que as medidas de natureza preventiva, orientadora e correcional elencadas nos seus incisos <em>serão aplicadas pelo Conselho Tutelar</em>, sem prejuízo de outras providências de ordem jurisdicional ou administrativa cabíveis perante o caso concreto.</p>
+          <p>O rol do art. 18-B engloba: encaminhamento a programa de proteção à família (I); encaminhamento a acompanhamento psicológico ou psiquiátrico (II); frequência obrigatória em cursos de orientação parental (III); determinação para encaminhar a criança a tratamento especializado (IV); e advertência formal (V). Como o desígnio dessas providências possui perfil protetivo e pedagógico-administrativo, o legislador atribuiu expressamente sua execução ao Conselho Tutelar, autoridade comunitária não jurisdicional. Portanto, as opções A, B, D e E estão equivocadas ao pretenderem deslocar essa competência para magistrados, promotores, dirigentes escolares ou autoridades policiais.</p>
+        `
+      },
+      {
+        id: 8,
+        artigo: "Art. 70-A, parágrafo único",
+        enunciado: "O Título III, Capítulo I, do ECA disciplina a política de prevenção geral contra violações de direitos fundamentais. Em consonância com o art. 70-A da Lei Federal nº 8.069/1990, os entes federados atuarão articuladamente na formulação de políticas públicas voltadas a erradicar o uso de castigos corporais e formas degradantes de convivência.<br><br>Nos termos do parágrafo único do art. 70-A, assinale a opção que indica o grupo que terá expressa PRIORIDADE de atendimento nas ações e políticas públicas de prevenção e proteção:",
+        options: {
+          A: "As famílias monoparentais com egressos de cumprimento de medida socioeducativa de semiliberdade.",
+          B: "As famílias com crianças e adolescentes com deficiência.",
+          C: "Os discentes regularmente matriculados em cursos técnicos integrados ao ensino médio da rede federal de ensino.",
+          D: "As famílias em situação de vulnerabilidade que mantenham domicílio contínuo em assentamentos rurais.",
+          E: "Os adolescentes inseridos no mercado de trabalho formal sob o vínculo de estágio não obrigatório."
+        },
+        gabarito: "B",
+        resolucao: `
+          <p><strong>Gabarito Oficial: Alternativa B.</strong></p>
+          <p>O gabarito encontra-se na alternativa <strong>B</strong>, a qual reflete o teor taxativo do <strong>parágrafo único do art. 70-A do Estatuto da Criança e do Adolescente</strong>, inserido pela Lei Menino Bernardo (Lei nº 13.010/2014): <em>"As famílias com crianças e adolescentes com deficiência terão prioridade de atendimento nas ações e políticas públicas de prevenção e proteção."</em></p>
+          <p>A <em>ratio legis</em> dessa primazia vincula-se ao estado de hipervulnerabilidade em que se encontram as crianças e jovens com deficiência física, sensorial ou intelectual, nos quais a dependência funcional pode ampliar os riscos de vitimização por maus-tratos sob o falso pretexto de manejo comportamental doméstico. As demais alternativas (A, C, D e E) inventam critérios sem respaldo na literalidade do Estatuto para a prioridade específica tratada no art. 70-A.</p>
+        `
+      },
+      {
+        id: 9,
+        artigo: "Art. 70, Art. 70-B, Art. 72 e Art. 73",
+        enunciado: "No que tange ao dever geral de prevenção e à normatização disposta nos arts. 70 a 73 da Lei Federal nº 8.069/1990, analise as afirmativas a seguir:",
+        itensRomanos: [
+          "I. É dever imposto a toda a coletividade prevenir a ocorrência de ameaça ou violação dos direitos da criança e do adolescente.",
+          "II. As entidades públicas e privadas atuantes nas áreas de saúde e de educação devem capacitar seus profissionais para o desenvolvimento de competências voltadas à identificação de evidências e ao diagnóstico de maus-tratos.",
+          "III. As obrigações expressas positivadas no Estatuto possuem natureza exaustiva, de maneira que se excluem da prevenção especial quaisquer outras decorrentes dos princípios gerais da lei.",
+          "IV. A inobservância das normas legais de prevenção importará em responsabilidade da pessoa física ou jurídica, nos termos da lei."
+        ],
+        options: {
+          A: "I, II e IV, apenas.",
+          B: "I e III, apenas.",
+          C: "II e III, apenas.",
+          D: "III e IV, apenas.",
+          E: "I, II, III e IV."
+        },
+        gabarito: "A",
+        resolucao: `
+          <p><strong>Gabarito Oficial: Alternativa A.</strong></p>
+          <p>A alternativa <strong>A</strong> é a correta ao reconhecer a juridicidade dos itens <strong>I, II e IV</strong>:<br>
+          • <strong>Item I (Verdadeiro):</strong> Art. 70: <em>"É dever de todos prevenir a ocorrência de ameaça ou violação dos direitos da criança e do adolescente."</em><br>
+          • <strong>Item II (Verdadeiro):</strong> Art. 70-B: As entidades públicas e privadas que atuem nas áreas de saúde e educação devem capacitar continuadamente seus profissionais para detecção de maus-tratos e violência.<br>
+          • <strong>Item IV (Verdadeiro):</strong> Art. 73: <em>"A inobservância das normas de prevenção importará em responsabilidade da pessoa física ou jurídica, nos termos desta Lei."</em></p>
+          <p>• <strong>Item III (Falso):</strong> O art. 72 consagra cláusula aberta de garantia, estatuindo expressamente que <em>"as obrigações previstas nesta Lei <strong>não excluem</strong> da prevenção especial outras decorrentes dos princípios por ela adotados."</em> O rol protetivo tem índole exemplificativa (<em>numerus apertus</em>), e não taxativa ou exaustiva.</p>
+        `
+      },
+      {
+        id: 10,
+        artigo: "Art. 13 c/c Arts. 18, 18-A, 70 e 245",
+        enunciado: "Durante a execução de atividades educacionais em um campus de Instituto Federal, um professor constata que um estudante de catorze anos apresenta escoriações corporais recentes e intenso abalo emocional, confidenciando que é submetido em seu domicílio a castigos com violência física sistemática perpetrados por seus guardiões legais como método corretivo e pedagógico.<br><br>Diante do ordenamento legal que rege os princípios de proteção integral, respeito e dever de prevenção, o procedimento legalmente exigido do servidor e da instituição de ensino consiste em:",
+        options: {
+          A: "Instaurar conciliação pedagógica interna com a família, abstendo-se da notificação de órgãos de defesa social para resguardar a imagem institucional da escola.",
+          B: "Subordinar a adoção de medidas protetivas à expressa autorização documental dos responsáveis legais da vítima.",
+          C: "Efetuar a comunicação obrigatória e imediata do fato ao Conselho Tutelar do município, sem prejuízo da deflagração de outras providências legais pertinentes.",
+          D: "Aplicar de forma direta, pelo conselho escolar docente, sanção de advertência vinculada ao art. 18-B aos familiares agressores.",
+          E: "Arquivar internamente o relato discente por se tratar de matéria inserida na discricionariedade do poder familiar doméstico e infensa ao controle público."
+        },
+        gabarito: "C",
+        resolucao: `
+          <p><strong>Gabarito Oficial: Alternativa C.</strong></p>
+          <p>O gabarito recai sobre a alternativa <strong>C</strong>, com respaldo na interpretação harmônica do <strong>art. 13 c/c os arts. 18, 18-A, 70 e 245 da Lei Federal nº 8.069/1990</strong>. Segundo estabelece o ECA, a ocorrência de suspeita ou confirmação de maus-tratos, castigo físico ou tratamento degradante contra infantes e adolescentes acarreta aos agentes de estabelecimentos de ensino o dever indeclinável de <em>notificação formal e imediata ao Conselho Tutelar da comarca</em>.</p>
+          <p>A notificação qualifica-se como dever funcional cogente, não cabendo ao servidor condicioná-la à concordância dos próprios responsáveis suspeitos (rejeitando a alternativa B) nem contemporizar por 'conciliação interna' para poupar a imagem escolar (rejeitando a alternativa A). A omissão na comunicação acarreta responsabilização por infração administrativa expressa no art. 245 do Estatuto. Outrossim, o conselho docente não tem competência para aplicar as medidas do art. 18-B (opção D errada) e o poder familiar não se reveste de soberania para violar a integridade corporal protegida pela Lei Menino Bernardo (opção E errada).</p>
+        `
+      }
+    ];
+
+    /* Armazena o estado das respostas do usuário */
+    const userAnswers = {};
+
+    /* ==========================================================================
+       Renderização Dinâmica do Quiz
+       ========================================================================== */
+    function renderQuiz() {
+      const container = document.getElementById("questions-wrapper");
+      container.innerHTML = "";
+
+      quizData.forEach((q, index) => {
+        const qCard = document.createElement("article");
+        qCard.className = "question-card";
+        qCard.id = `q-card-${q.id}`;
+
+        let romanHtml = "";
+        if (q.itensRomanos && q.itensRomanos.length > 0) {
+          romanHtml = `
+            <div class="roman-items">
+              ${q.itensRomanos.map(item => `<div>${item}</div>`).join("")}
+            </div>
+          `;
+        }
+
+        const optionsHtml = Object.keys(q.options).map(letter => {
+          return `
+            <label class="option-item" id="opt-container-${q.id}-${letter}">
+              <input type="radio" name="q_${q.id}" value="${letter}" onchange="registrarResposta(${q.id}, '${letter}')">
+              <span class="option-label">
+                <span class="option-letter">${letter})</span> ${q.options[letter]}
+              </span>
+            </label>
+          `;
+        }).join("");
+
+        qCard.innerHTML = `
+          <div class="question-header">
+            <span class="q-number">Questão ${String(q.id).padStart(2, '0')}</span>
+            <span class="q-status" id="q-status-${q.id}">Pendente</span>
+          </div>
+          <div class="question-text">${q.enunciado}</div>
+          ${romanHtml}
+          <div class="options-group">
+            ${optionsHtml}
+          </div>
+          <div class="resolution-box" id="res-box-${q.id}">
+            <div class="res-header">
+              <span>📖 Resolução e Fundamentação Técnica</span>
+            </div>
+            <div class="res-text">${q.resolucao}</div>
+          </div>
+        `;
+
+        container.appendChild(qCard);
+      });
+
+      atualizarProgresso();
+    }
+
+    /* Atualização de Escolha do Candidato */
+    function registrarResposta(questionId, letter) {
+      userAnswers[questionId] = letter;
+      
+      const statusBadge = document.getElementById(`q-status-${questionId}`);
+      if (statusBadge) {
+        statusBadge.textContent = `Marcada (${letter})`;
+        statusBadge.style.background = "#e2e8f0";
+        statusBadge.style.color = "#0f172a";
+      }
+
+      atualizarProgresso();
+    }
+
+    function atualizarProgresso() {
+      const total = quizData.length;
+      const respondidas = Object.keys(userAnswers).length;
+      const textElement = document.getElementById("progress-text");
+      if (textElement) {
+        textElement.textContent = `Respondidas: ${respondidas} de ${total}`;
+      }
+    }
+
+    function scrollToFinalizar() {
+      const actions = document.getElementById("quiz-actions");
+      if (actions) {
+        actions.scrollIntoView({ behavior: "smooth", block: "center" });
+      }
+    }
+
+    /* ==========================================================================
+       Finalização do Quiz e Correção Analítica
+       ========================================================================== */
+    function finalizarQuiz() {
+      const total = quizData.length;
+      const respondidas = Object.keys(userAnswers).length;
+
+      if (respondidas < total) {
+        exibirModal(
+          "Questões em Aberto",
+          `Você respondeu ${respondidas} de ${total} questões. Recomendamos assinalar todas as alternativas antes de conferir o gabarito oficial.`
+        );
+      }
+
+      let acertos = 0;
+      const summaryBody = document.getElementById("summary-tbody");
+      summaryBody.innerHTML = "";
+
+      quizData.forEach(q => {
+        const userChoice = userAnswers[q.id] || null;
+        const acertou = (userChoice === q.gabarito);
+        if (acertou) acertos++;
+
+        // Desabilitar inputs de rádio para congelar a prova
+        const inputs = document.querySelectorAll(`input[name="q_${q.id}"]`);
+        inputs.forEach(input => input.disabled = true);
+
+        // Estilizar alternativas da questão
+        Object.keys(q.options).forEach(letter => {
+          const optEl = document.getElementById(`opt-container-${q.id}-${letter}`);
+          if (!optEl) return;
+
+          // Se for o gabarito oficial
+          if (letter === q.gabarito) {
+            optEl.classList.add("selected-correct");
+            const badge = document.createElement("span");
+            badge.className = "badge-feedback correct";
+            badge.textContent = "Gabarito";
+            optEl.querySelector(".option-label").appendChild(badge);
+          }
+
+          // Se o usuário errou marcando esta
+          if (userChoice && userChoice === letter && letter !== q.gabarito) {
+            optEl.classList.add("selected-wrong");
+            const badge = document.createElement("span");
+            badge.className = "badge-feedback wrong";
+            badge.textContent = "Sua Escolha";
+            optEl.querySelector(".option-label").appendChild(badge);
+          }
+        });
+
+        // Atualizar status no topo do cartão da questão
+        const statusEl = document.getElementById(`q-status-${q.id}`);
+        if (statusEl) {
+          if (acertou) {
+            statusEl.textContent = "Correta ✓";
+            statusEl.style.background = "#dcfce7";
+            statusEl.style.color = "#15803d";
+          } else {
+            statusEl.textContent = `Incorreta ✗ (Gabarito: ${q.gabarito})`;
+            statusEl.style.background = "#fee2e2";
+            statusEl.style.color = "#b91c1c";
+          }
+        }
+
+        // Exibir a resolução comentada logo abaixo da questão respondida (mesma página)
+        const resBox = document.getElementById(`res-box-${q.id}`);
+        if (resBox) {
+          resBox.classList.add("visible");
+        }
+
+        // Adicionar linha na tabela sumária de resultados
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+          <td><strong>Q-${String(q.id).padStart(2, '0')}</strong></td>
+          <td><strong>${userChoice ? userChoice : "—"}</strong></td>
+          <td style="color: var(--primary); font-weight: bold;">${q.gabarito}</td>
+          <td>
+            <span class="status-badge ${acertou ? 'hit' : 'miss'}">
+              ${acertou ? 'ACERTOU' : 'ERROU'}
+            </span>
+          </td>
+          <td class="left" style="font-size: 13px;">${q.artigo}</td>
+          <td>
+            <a href="#q-card-${q.id}" style="color: var(--primary); text-decoration: underline; font-weight: 600; font-size: 13px;">
+              Ver na Questão
+            </a>
+          </td>
+        `;
+        summaryBody.appendChild(tr);
+      });
+
+      // Atualizar Cartão Geral de Nota
+      const scoreDisplay = document.getElementById("score-display");
+      const scoreStatus = document.getElementById("score-status");
+      const scoreDesc = document.getElementById("score-desc");
+      const resultsSection = document.getElementById("results-section");
+
+      scoreDisplay.textContent = `${acertos}/${total}`;
+      const percent = (acertos / total) * 100;
+
+      if (percent >= 80) {
+        scoreStatus.textContent = `Excelente Desempenho! (${percent}%)`;
+        scoreDesc.textContent = "Você demonstrou alto domínio dos princípios fundamentais, da Lei Menino Bernardo e das normas de prevenção aplicáveis ao IFMG.";
+      } else if (percent >= 50) {
+        scoreStatus.textContent = `Aproveitamento Regular (${percent}%)`;
+        scoreDesc.textContent = "Bom resultado! Revise a literalidade das competências administrativas do Conselho Tutelar e os detalhes hermenêuticos do art. 6º.";
+      } else {
+        scoreStatus.textContent = `Abaixo do Esperado (${percent}%)`;
+        scoreDesc.textContent = "Aconselha-se a leitura pormenorizada dos arts. 1º a 6º, 15 a 18-B e 70 a 73 da Lei nº 8.069/1990 para fixar os conceitos.";
+      }
+
+      // Torna visível a seção de resultado e rola até ela suavemente
+      resultsSection.classList.add("visible");
+      resultsSection.scrollIntoView({ behavior: "smooth", block: "start" });
+
+      // Ocultar botão de envio para evitar duplo envio
+      const actions = document.getElementById("quiz-actions");
+      if (actions) {
+        actions.innerHTML = `
+          <button type="button" class="btn btn-secondary" onclick="limparRespostas()">Refazer Prova Completa</button>
+        `;
+      }
+    }
+
+    /* Limpar / Reiniciar Prova */
+    function limparRespostas() {
+      for (const prop of Object.keys(userAnswers)) {
+        delete userAnswers[prop];
+      }
+      renderQuiz();
+      
+      const resultsSection = document.getElementById("results-section");
+      resultsSection.classList.remove("visible");
+
+      const actions = document.getElementById("quiz-actions");
+      actions.innerHTML = `
+        <button type="button" class="btn btn-primary" onclick="finalizarQuiz()">
+          Finalizar e Ver Gabarito com Resoluções
+        </button>
+        <button type="button" class="btn btn-secondary" onclick="limparRespostas()">
+          Limpar Marcações
+        </button>
+      `;
+
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    /* Funções do Modal Customizado (Substituição de alert) */
+    function exibirModal(titulo, mensagem) {
+      document.getElementById("modal-title").textContent = titulo;
+      document.getElementById("modal-message").textContent = mensagem;
+      document.getElementById("custom-modal").classList.add("active");
+    }
+
+    function fecharModal() {
+      document.getElementById("custom-modal").classList.remove("active");
+    }
+
+    /* Inicialização no carregamento da janela */
+    window.addEventListener("DOMContentLoaded", () => {
+      renderQuiz();
+    });
+  </script>
+</body>
+</html>
