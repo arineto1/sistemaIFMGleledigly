@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simulado: Climatologia do Brasil - IFMG</title>
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Google Fonts: Lora (para leitura confortável e editorial) e Inter (para interfaces) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lora:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+  
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            serif: ['Lora', 'serif'],
+          },
+          colors: {
+            paper: '#FAF8F5',
+            'paper-card': '#FFFFFF',
+            'paper-border': '#E6E2D8',
+            'paper-hover': '#F3EFE6',
+            'ink-dark': '#212529',
+            'ink-muted': '#555E68',
+            'if-green': '#1E5E3A',
+            'if-red': '#B91C1C',
+            'academic-blue': '#1B365D',
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      background-color: #FAF8F5;
+      color: #212529;
+      font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+      -webkit-font-smoothing: antialiased;
+    }
+    
+    /* Scroll suave */
+    html {
+      scroll-behavior: smooth;
+    }
+
+    /* Estilização para leitura de longo curso */
+    .prose-reading {
+      font-family: 'Lora', serif;
+      line-height: 1.8;
+      font-size: 1.075rem;
+    }
+
+    /* Rádio customizado com toque de tipografia editorial */
+    .custom-radio {
+      accent-color: #1B365D;
+    }
+
+    /* Destaques visuais pós-submissão */
+    .option-correct {
+      background-color: #F0FDF4 !important;
+      border-color: #22C55E !important;
+      color: #14532D !important;
+    }
+    .option-wrong {
+      background-color: #FEF2F2 !important;
+      border-color: #EF4444 !important;
+      color: #7F1D1D !important;
+    }
+    .option-neutral {
+      opacity: 0.65;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col selection:bg-amber-100 selection:text-amber-900">
+
+  <!-- Barra de Acessibilidade / Topo Institucional -->
+  <header class="bg-[#1B365D] text-white border-b border-slate-700 sticky top-0 z-40 shadow-sm">
+    <div class="max-w-5xl mx-auto px-4 py-3 flex flex-wrap items-center justify-between gap-3">
+      <div class="flex items-center space-x-3">
+        <div class="w-8 h-8 rounded bg-white/10 flex items-center justify-center font-bold text-sm tracking-wider border border-white/20">
+          IF
+        </div>
+        <div>
+          <span class="text-xs uppercase tracking-widest text-slate-300 font-semibold block leading-tight">Concurso Público Docente</span>
+          <h1 class="text-sm font-medium text-white sm:text-base">Reitoria IFMG &bull; Climatologia do Brasil</h1>
+        </div>
+      </div>
+      
+      <!-- Contador de Progresso e Ações Rápidas -->
+      <div class="flex items-center gap-3">
+        <span id="answeredCounter" class="text-xs bg-white/15 px-3 py-1.5 rounded-full font-mono font-medium">
+          Respondidas: 0 / 10
+        </span>
+        <button id="quickFinishTopBtn" onclick="submitQuiz()" class="hidden sm:inline-flex text-xs bg-emerald-600 hover:bg-emerald-500 text-white font-medium px-3.5 py-1.5 rounded transition shadow-sm">
+          Entregar Simulado
+        </button>
+      </div>
+    </div>
+    
+    <!-- Barra de progresso contínua -->
+    <div class="w-full bg-slate-800 h-1">
+      <div id="quizProgressBar" class="bg-emerald-400 h-1 w-0 transition-all duration-300"></div>
+    </div>
+  </header>
+
+  <!-- Container Principal -->
+  <main class="flex-1 max-w-4xl mx-auto w-full px-4 sm:px-6 py-8">
+    
+    <!-- Cabeçalho Editorial do Simulado -->
+    <div class="bg-paper-card border border-paper-border rounded-xl p-6 sm:p-8 mb-8 shadow-sm">
+      <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+        <span class="inline-flex items-center px-2.5 py-1 rounded text-xs font-semibold uppercase tracking-wider bg-slate-100 text-slate-700 border border-slate-200">
+          Prova Objetiva de Geografia
+        </span>
+        <span class="text-xs text-ink-muted">10 Questões &bull; Nível Superior / IFMG</span>
+      </div>
+      
+      <h2 class="text-2xl sm:text-3xl font-serif font-bold text-ink-dark mb-4 leading-tight">
+        Climatologia do Brasil e Fenômenos Climáticos Extremos
+      </h2>
+      
+      <p class="text-ink-muted text-sm sm:text-base leading-relaxed mb-4">
+        Simulado estruturado conforme os padrões e rigor analítico da banca <strong>Comissão Central de Concurso Público da Reitoria do IFMG</strong>. Ao concluir, você terá acesso imediato à sua pontuação detalhada e a todas as resoluções comentadas mantidas nesta mesma página para estudo contínuo.
+      </p>
+
+      <div class="flex flex-wrap gap-2 text-xs text-ink-muted border-t border-paper-border pt-4">
+        <span class="bg-paper px-2.5 py-1 rounded border border-paper-border">Bibliografia: Ayoade (2013)</span>
+        <span class="bg-paper px-2.5 py-1 rounded border border-paper-border">Mendonça & Danni-Oliveira (2007)</span>
+        <span class="bg-paper px-2.5 py-1 rounded border border-paper-border">Ross (2014)</span>
+      </div>
+
+      <!-- Navegador Rápido de Questões (Pills) -->
+      <div class="mt-6 pt-4 border-t border-paper-border">
+        <div class="text-xs font-semibold uppercase tracking-wider text-ink-muted mb-2">Pular para questão:</div>
+        <div class="flex flex-wrap gap-2" id="questionPillNav">
+          <!-- Gerado via JS de 1 a 10 -->
+        </div>
+      </div>
+    </div>
+
+    <!-- Alerta Informativo Flutuante / Inline -->
+    <div id="unansweredWarning" class="hidden mb-6 p-4 rounded-lg bg-amber-50 border border-amber-200 text-amber-900 text-sm flex items-center justify-between">
+      <div class="flex items-center gap-2">
+        <svg class="w-5 h-5 text-amber-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+          <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/>
+        </svg>
+        <span id="unansweredText">Você ainda possui questões sem resposta. Deseja finalizar mesmo assim?</span>
+      </div>
+      <button onclick="confirmSubmission()" class="text-xs font-semibold px-3 py-1.5 rounded bg-amber-600 hover:bg-amber-700 text-white transition ml-3 flex-shrink-0">
+        Sim, finalizar
+      </button>
+    </div>
+
+    <!-- Lista de Questões -->
+    <form id="quizForm" onsubmit="event.preventDefault(); submitQuiz();" class="space-y-8">
+      <div id="questionsContainer" class="space-y-8">
+        <!-- Renderizado dinamicamente via JS mantendo integridade absoluta -->
+      </div>
+
+      <!-- Barra de Envio / Ações Inferiores -->
+      <div class="bg-paper-card border border-paper-border rounded-xl p-6 shadow-sm flex flex-col sm:flex-row items-center justify-between gap-4 mt-8">
+        <div>
+          <h4 class="text-base font-semibold text-ink-dark">Pronto para submeter sua folha de respostas?</h4>
+          <p class="text-sm text-ink-muted">Suas respostas serão comparadas com o gabarito oficial e as resoluções serão exibidas logo abaixo de cada questão.</p>
+        </div>
+        <div class="flex items-center gap-3 w-full sm:w-auto">
+          <button type="button" onclick="resetQuiz()" id="resetBtn" class="hidden px-4 py-2.5 border border-slate-300 hover:bg-slate-50 text-ink-dark rounded-lg font-medium text-sm transition">
+            Refazer Simulado
+          </button>
+          <button type="submit" id="submitBtn" class="w-full sm:w-auto px-6 py-3 bg-[#1B365D] hover:bg-[#142947] text-white font-medium rounded-lg shadow transition text-sm flex items-center justify-center gap-2">
+            <span>Finalizar Simulado</span>
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </form>
+
+    <!-- PAINEL DE RESULTADOS E RESUMO (Aparece ao terminar o simulado) -->
+    <section id="resultsSection" class="hidden mt-12 pt-8 border-t-2 border-slate-300">
+      
+      <!-- Card do Score -->
+      <div class="bg-white border-2 border-slate-300 rounded-xl p-6 sm:p-8 shadow-md mb-8">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-6">
+          <div>
+            <span class="text-xs uppercase tracking-widest font-bold text-slate-500">Resultado Oficial do Simulado</span>
+            <h3 class="text-2xl sm:text-3xl font-serif font-bold text-ink-dark mt-1">
+              Desempenho Geral
+            </h3>
+            <p id="scoreFeedbackText" class="text-sm sm:text-base text-ink-muted mt-2">
+              Confira seu percentual de acertos e analise abaixo a resolução oficial fundamentada na bibliografia de referência.
+            </p>
+          </div>
+
+          <!-- Placar Circular / Estatística -->
+          <div class="flex items-center gap-4 bg-paper p-4 rounded-xl border border-paper-border self-start md:self-auto">
+            <div class="text-center px-3">
+              <div id="scoreNumber" class="text-4xl sm:text-5xl font-mono font-bold text-academic-blue">0</div>
+              <div class="text-xs uppercase font-medium text-ink-muted tracking-wider">de 10 Acertos</div>
+            </div>
+            <div class="h-12 w-px bg-paper-border"></div>
+            <div class="text-center px-3">
+              <div id="scorePercentage" class="text-3xl sm:text-4xl font-mono font-bold text-emerald-700">0%</div>
+              <div class="text-xs uppercase font-medium text-ink-muted tracking-wider">Aproveitamento</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Grade Resumo do Gabarito -->
+        <div class="mt-6 pt-6 border-t border-paper-border">
+          <h4 class="text-xs uppercase tracking-wider font-bold text-ink-muted mb-3">Conferência Rápida de Respostas:</h4>
+          <div id="summaryBadges" class="grid grid-cols-2 sm:grid-cols-5 md:grid-cols-10 gap-2">
+            <!-- Pílulas preenchidas via script -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Tabela Oficial de Gabarito e Eixos Temáticos -->
+      <div class="bg-paper-card border border-paper-border rounded-xl p-6 mb-12 shadow-sm">
+        <h4 class="text-lg font-serif font-bold text-ink-dark mb-3">Tabela de Gabarito e Eixos Temáticos</h4>
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-sm border-collapse">
+            <thead>
+              <tr class="border-b border-paper-border bg-paper text-ink-muted text-xs uppercase tracking-wider">
+                <th class="py-2.5 px-3">Questão</th>
+                <th class="py-2.5 px-3">Gabarito</th>
+                <th class="py-2.5 px-3">Sua Resposta</th>
+                <th class="py-2.5 px-4">Eixo Temático</th>
+              </tr>
+            </thead>
+            <tbody id="gabaritoTableBody" class="divide-y divide-paper-border text-ink-dark">
+              <!-- Preenchido via script -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- Rodapé com referências -->
+  <footer class="bg-paper border-t border-paper-border text-ink-muted py-8 mt-12 text-center text-xs">
+    <div class="max-w-4xl mx-auto px-4 space-y-2">
+      <p class="font-medium text-ink-dark">Simulado Temático de Climatologia &bull; IFMG</p>
+      <p>Base bibliográfica: AYOADE, J. O. (2013); MENDONÇA, F.; DANNI-OLIVEIRA, I. M. (2007); ROSS, J. L. S. (2014).</p>
+      <p class="text-slate-400">Desenvolvido com foco em legibilidade, contraste balanceado e estudo aprofundado.</p>
+    </div>
+  </footer>
+
+  <!-- DADOS E LÓGICA DO SIMULADO -->
+  <script>
+    // Banco com as 10 questões idênticas na íntegra ao caderno de questões
+    const quizData = [
+      {
+        id: 1,
+        theme: "Gênese da mEc, evapotranspiração florestal e mecanismo dos 'rios voadores'",
+        enunciado: "No que concerne à circulação atmosférica na América do Sul e à dinâmica termodinâmica das massas de ar que atuam sobre o território brasileiro, a Massa Equatorial Continental (mEc) desempenha papel estruturador no balanço hídrico continental. Com base nas formulações de Mendonça e Danni-Oliveira (2007) e Ross (2014), assinale a alternativa que descreve corretamente as propriedades genéticas da mEc e o mecanismo dos fluxos aéreos de umidade conhecidos como \"rios voadores\":",
+        options: {
+          A: "A mEc origina-se sobre a bacia ocidental amazônica como uma massa quente e extremamente seca em sua gênese continental, adquirindo umidade unicamente a partir de sua advecção sobre as represas da bacia do Prata ao longo do outono austral.",
+          B: "O processo de evapotranspiração da Floresta Amazônica satura de vapor d'água a massa de ar quente mEc; os ventos alísios convergem e a deslocam para o oeste até encontrar a barreira orográfica da Cordilheira dos Andes, sendo defletida para o Centro-Oeste e Sudeste pelos Jatos de Baixos Níveis.",
+          C: "A mEc atua de forma predominante durante o inverno austral, momento em que sua subsidência sobre o Brasil Central estabelece cristas estacionárias que bloqueiam a penetração de tempestades tropicais em direção ao Cone Sul.",
+          D: "Os \"rios voadores\" configuram-se como correntes oceânicas de superfície propulsionadas pela Massa Equatorial Continental em direção à plataforma rasa do Nordeste, intensificando as taxas de ressurgência marinha ao longo do ano.",
+          E: "A atuação da mEc no semiárido sertanejo ocorre sob regime permanente, sobrepondo-se aos efeitos do Anticiclone Subtropical do Atlântico Sul e suprimindo a sazonalidade seca regional."
+        },
+        correct: "B",
+        resolution: "O gabarito oficial é a alternativa B. A análise climática da América do Sul desenvolvida por Mendonça e Danni-Oliveira (2007) e Ross (2014) evidencia que a Massa Equatorial Continental (mEc) é uma das raras massas continentais do planeta que ostenta índices altíssimos de umidade relativa e instabilidade convecional. Esse perfil termodinâmico decorre diretamente da reciclagem do vapor promovida pela biomassa da Floresta Amazônica mediante o processo contínuo de evapotranspiração. A circulação de leste conduzida pelos ventos alísios carreia esse volume de vapor em direção à extremidade oeste da bacia amazônica, onde o ar encontra o anteparo orográfico intransponível da Cordilheira dos Andes. Sem conseguir avançar para o oeste, o fluxo de ar converge e é defletido em direção ao sul e sudeste, organizando os Jatos de Baixos Níveis (JBN) que constituem os chamados \"rios voadores\", responsáveis por abastecer as precipitações de verão nas regiões Centro-Oeste e Sudeste. Por conseguinte, mostram-se incorretas as afirmativas que rotulam a mEc como seca em sua gênese continental ou dependente de represas da bacia do Prata, que delimitam seu apogeu expansivo no inverno austral em detrimento do verão, que conceituam os rios voadores como correntes oceânicas de ressurgência marinha ou que defendem sua regulação irrestrita e permanente sobre o semiárido sertanejo em supressão à atuação anticiclônica regional."
+      },
+      {
+        id: 2,
+        theme: "Dinâmica meridional da mPa, canalização topográfica e friagem na Amazônia Ocidental",
+        enunciado: "Durante o período de outono-inverno austral, a circulação extratropical intensifica a incursão da Massa Polar Atlântica (mPa) pelo interior do continente sul-americano. O avanço setentrional de seu pulso anticiclônico pelo interior continental provoca um fenômeno bem caracterizado na climatologia regional brasileira:",
+        options: {
+          A: "O fenômeno da friagem, marcado pela queda abrupta das temperaturas mínimas na Amazônia Ocidental e no Pantanal mato-grossense, canalizado pelo corredor topográfico entre a Cordilheira dos Andes e o Planalto Central.",
+          B: "O surgimento de frentes oclusas estacionárias no semiárido sertanejo, extinguindo as condições de estiagem na depressão interplanáltica.",
+          C: "O desenvolvimento de vórtices anticiclônicos de altos níveis superaquecidos sobre o Acre e Rondônia, elevando a amplitude térmica diária com médias térmicas vespertinas superiores a 40 °C.",
+          D: "A ocorrência de geadas negras contínuas em toda a faixa de transição litorânea entre o Amapá e o Pará, esterilizando a camada de serapilheira da floresta de terra firme.",
+          E: "O bloqueio da circulação de leste na calha do rio Amazonas, gerando arrefecimento adiabático estático sem alteração dos ventos de superfície."
+        },
+        correct: "A",
+        resolution: "O gabarito oficial é a alternativa A. O fenômeno da friagem configura uma das mais nítidas respostas climáticas do continente sul-americano à movimentação das massas de ar polar no período do outono-inverno. Conforme apontam Mendonça e Danni-Oliveira (2007), a Massa Polar Atlântica (mPa) adentra o continente pelo estuário do Prata como um anticiclone migratório raso, denso e frio. Em decorrência de sua densidade elevada, a massa de ar é impedida de ascender a grandes altitudes e encontra um canal de escoamento facilitado pelas terras baixas da bacia sedimentar Platina e pelas planícies do Chaco e Pantanal, margeando a leste as bordas dos planaltos centrais e a oeste a muralha dos Andes. Ao atingir Rondônia, Acre, Mato Grosso e o sul do Amazonas, a massa polar substitui a atmosfera quente e úmida equatorial pré-existente, ocasionando quedas drásticas da temperatura ambiente — que podem descer repentinamente para valores entre 8 °C e 12 °C — acompanhadas por ventos moderados e queda de pressão. Estão incorretas as demais alternativas, pois a friagem não se manifesta na forma de frentes oclusas estacionárias sobre o Sertão com extinção de estiagens, não desencadeia vórtices anticiclônicos quentes de altos níveis com tardes de 40 °C na Amazônia e tampouco se materializa como geadas negras costeiras nas baixadas florestadas do Amapá e Pará."
+      },
+      {
+        id: 3,
+        theme: "Frontogênese litorânea, encontro mPa/mTa e regime de chuvas de outono-inverno no Nordeste",
+        enunciado: "Em sua trajetória pela fachada leste do Brasil, a Massa Polar Atlântica (mPa) interage de maneira pronunciada com a Massa Tropical Atlântica (mTa). A respeito da interação entre esses dois sistemas meteorológicos ao longo do ano, segundo as contribuições de Ayoade (2013) e Mendonça e Danni-Oliveira (2007), é correto afirmar que:",
+        options: {
+          A: "a mTa empurra a mPa de volta para as altas latitudes austrais, impedindo a formação de qualquer precipitação na costa da Região Sudeste entre os meses de maio e agosto.",
+          B: "o deslocamento da mPa em direção ao Equador força a subsidência térmica permanente da mTa no litoral da Bahia, extinguindo toda e qualquer nebulosidade convectiva e estratiforme.",
+          C: "o confronto entre a mPa (fria e densa) e a mTa (quente e úmida) gera frontogênese, respondendo pela concentração de chuvas frontais no outono e inverno na costa leste do Nordeste.",
+          D: "a costa leste do Nordeste mantém-se imune à penetração de frentes frias em virtude da ausência de gradientes de pressão entre o oceano e o continente.",
+          E: "a mTa transforma-se em massa polar continental ao cruzar a linha do Equador em direção ao Ceará, provocando resfriamento advectivo no Sertão."
+        },
+        correct: "C",
+        resolution: "O gabarito oficial é a alternativa C. Na análise dos regimes climáticos litorâneos conduzida por Ayoade (2013) e Mendonça e Danni-Oliveira (2007), a fachada oriental do Nordeste (faixa da Zona da Mata que se estende do sul da Bahia até o Rio Grande do Norte) apresenta uma singular inversão em seu regime pluviométrico anual, concentrando seu período mais chuvoso no outono e no inverno. Esse processo tem como motor genético a frontogênese costeira, deflagrada quando a mPa se desloca para o norte pela costa atlântica e encontra a Massa Tropical Atlântica (mTa), quente, úmida e instável. O ar frio e denso da mPa atua como uma cunha mecânica em baixos níveis, forçando o ar tropical ascendente a resfriar-se adiabaticamente, o que satura o vapor e desencadeia chuvas frontais e estratiformes persistentes ao longo da costa oriental. Restam refutadas as demais opções, já que a mTa não repele a mPa impedindo chuvas no litoral do Sudeste entre maio e agosto, a intrusão setentrional da mPa não promove subsidência com dissipação integral de nebulosidade na costa baiana e a mTa não sofre metamorfose para massa de ar polar continental ao tangenciar a costa semiárida setentrional."
+      },
+      {
+        id: 4,
+        theme: "Convecção sinótica da ZCAS, orientação noroeste-sudeste e chuvas estivais no Centro-Sudeste",
+        enunciado: "A Zona de Convergência do Atlântico Sul (ZCAS) constitui um dos principais sistemas meteorológicos determinantes do regime hidrológico e pluviométrico da porção centro-sudeste do Brasil. Sobre a estrutura dinâmica, a sazonalidade e as repercussões sinóticas da ZCAS, assinale a afirmativa correta:",
+        options: {
+          A: "Consiste em uma faixa restrita de calmaria anticiclônica instalada no litoral sul de Santa Catarina e Rio Grande do Sul, típica dos meses de estiagem invernal.",
+          B: "Configura uma banda persistente de convecção e nebulosidade com orientação noroeste-sudeste, que se estende do sul da Amazônia ao Atlântico Central, associada a episódios de precipitação volumosa e contínua no verão.",
+          C: "Trata-se de uma célula de circulação forçada gerada pelo recuo precoce da Massa Equatorial Continental (mEc), deflagrando veranicos severos no sul de Goiás e no Triângulo Mineiro.",
+          D: "É um sistema restrito às altitudes superiores a 2.500 m da Serra da Mantiqueira, caracterizado pela ocorrência exclusiva de precipitações sólidas orográficas.",
+          E: "Atua isoladamente sem vinculação à circulação de altos níveis, operando de modo desvinculado da Alta da Bolívia e das frentes frias litorâneas."
+        },
+        correct: "B",
+        resolution: "O gabarito oficial é a alternativa B. A Zona de Convergência do Atlântico Sul (ZCAS) é estruturada no sistema de monção da América do Sul como o mais expressivo indutor de acumulados pluviométricos severos no semestre de verão sobre os estados de Minas Gerais, Espírito Santo, Rio de Janeiro, Goiás e Mato Grosso. Conforme detalham Mendonça e Danni-Oliveira (2007), a ZCAS apresenta-se em escala sinótica como uma extensa faixa de nebulosidade convectiva contínua orientada no sentido noroeste-sudeste, estendendo-se desde o sul da bacia amazônica até o Atlântico subtropical. Para a caracterização do evento meteorológico, exige-se sua persistência na mesma posição geográfica por pelo menos quatro dias consecutivos, alimentada pela convergência em baixos níveis do canal de umidade amazônico acoplado a sistemas frontais semiestacionários no litoral. O sistema opera em franca sincronia com a dinâmica de altos níveis, em especial com a divergência anticlônica da Alta da Bolívia e com o Cavado do Nordeste. As alternativas concorrentes falham por interpretá-la como calmaria anticiclônica restrita ao litoral sul catarinense, célula de circulação forçada geradora de secas provocada pelo recuo da mEc, sistema microclimático restrito aos topos da Mantiqueira com gelo orográfico, ou vórtice puramente local sem interconexão com as correntes de altos níveis."
+      },
+      {
+        id: 5,
+        theme: "Condicionantes da semiaridez nordestina: relevo da Borborema versus subsidência atmosférica",
+        enunciado: "No debate geomorfológico e climatológico a respeito dos condicionantes da semiaridez no Sertão nordestino, obras de referência como as de Ayoade (2013), Mendonça e Danni-Oliveira (2007) e Ross (2014) discutem o papel dos fatores orográficos frente aos controles atmosféricos de escala regional e global. A fundamentação científica para os baixos acumulados e a acentuada irregularidade temporal das chuvas sertanejas estabelece que:",
+        options: {
+          A: "a orografia do Planalto da Borborema detém a totalidade da umidade oceânica, constituindo a causa única e suficiente da semiaridez ao longo de todo o interior semiárido nordestino.",
+          B: "a semiaridez decorre prioritariamente da passagem da corrente marinha fria das Malvinas ao longo da costa setentrional brasileira, atuando como dessecador térmico primário.",
+          C: "a gênese da semiaridez sertaneja vincula-se primordialmente a mecanismos dinâmicos de grande escala, como a subsidência de ar associada às Células de Hadley e Walker e à divergência de alísios, cabendo ao relevo da Borborema uma influência estritamente local em suas encostas de sotavento.",
+          D: "o interior nordestino permanece sob o controle perene da Massa Polar Atlântica, cujos núcleos frios criam cristas divergentes que barram nuvens de tempestade durante o ano inteiro.",
+          E: "as condições de aridez no Sertão decorrem da ausência de radiação solar direta na depressão sertaneja, impedindo a formação de núcleos convectivos termais."
+        },
+        correct: "C",
+        resolution: "O gabarito oficial é a alternativa C. Ao superarem o determinismo topográfico que atribuía ao relevo a causa exclusiva da aridez no Nordeste, obras fundamentais como as de Ayoade (2013), Mendonça e Danni-Oliveira (2007) e Ross (2014) demonstram que o Planalto da Borborema não possui escala orográfica nem extensão territorial para bloquear as massas de ar sobre os amplos platôs e depressões que compõem o Polígono das Secas. A escarpa da Borborema provoca chuvas orográficas restritas à sua encosta leste (barlavento) e acarreta um efeito de sombra de chuva (ar catabático descendente aquecido adiabaticamente) estritamente local em sua vertente de sotavento. A razão determinante da semiaridez regional reside nos fatores dinâmicos da circulação atmosférica global: o interior sertanejo permanece submetido à subsidência de ar dos ramos descendentes das Células de Hadley e Walker, que produzem compressão adiabática, estabilidade atmosférica e uma marcante inversão térmica em altitude (em torno de 2.000 m), inibindo os movimentos convectivos que formariam nuvens cumulunimbus. Esse processo é complementado pela divergência dos ventos alísios e pela estagnação da crista do Anticiclone do Atlântico Sul. Assim, tornam-se insustentáveis as teses de que a Borborema isoladamente barra a umidade de toda a região, de que a corrente polar fria das Malvinas atua na costa nordestina equatorial, ou de que a região é governada perenemente por massas de ar polar antárticas."
+      },
+      {
+        id: 6,
+        theme: "Tipologias e regimes térmico-pluviométricos dos climas brasileiros",
+        enunciado: "A regionalização climática brasileira fundamenta-se na interação entre a latitude, a configuração do relevo e os centros de ação das massas de ar. A respeito das tipologias climáticas no território nacional, analise a matriz comparativa abaixo:",
+        customContent: `
+          <div class="my-4 overflow-x-auto rounded-lg border border-paper-border bg-paper">
+            <table class="w-full text-left text-xs sm:text-sm">
+              <thead class="bg-slate-100 text-slate-700 font-semibold border-b border-paper-border">
+                <tr>
+                  <th class="py-2.5 px-3">Tipologia Climática</th>
+                  <th class="py-2.5 px-3">Faixa de Abrangência Típica</th>
+                  <th class="py-2.5 px-3">Padrão Térmico e Pluviométrico</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-paper-border font-serif">
+                <tr>
+                  <td class="py-2.5 px-3 font-sans font-semibold text-academic-blue">I. Tropical de Altitude</td>
+                  <td class="py-2.5 px-3">Serras e planaltos do Sudeste</td>
+                  <td class="py-2.5 px-3">Temperaturas amenizadas pela altitude topográfica; chuvas concentradas no semestre de verão e estiagem conspícua no inverno.</td>
+                </tr>
+                <tr>
+                  <td class="py-2.5 px-3 font-sans font-semibold text-academic-blue">II. Subtropical</td>
+                  <td class="py-2.5 px-3">Porção meridional ao sul do Trópico de Capricórnio</td>
+                  <td class="py-2.5 px-3">Médias térmicas do mês mais frio inferiores a 18 °C; pronunciada amplitude térmica anual e pluviosidade bem distribuída sem estação seca evidente.</td>
+                </tr>
+                <tr>
+                  <td class="py-2.5 px-3 font-sans font-semibold text-academic-blue">III. Tropical Semiárido</td>
+                  <td class="py-2.5 px-3">Depressões interplanálticas do interior do Nordeste</td>
+                  <td class="py-2.5 px-3">Pluviosidade geralmente inferior a 800 mm anuais concentrada em poucos meses; elevada evapotranspiração potencial e balanço hídrico negativo.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="font-serif text-ink-dark mt-2 mb-3">Com base em Ross (2014) e Mendonça e Danni-Oliveira (2007), verifica-se que:</p>
+        `,
+        options: {
+          A: "apenas a afirmativa I é correta.",
+          B: "apenas a afirmativa II é correta.",
+          C: "apenas as afirmativas I e III são corretas.",
+          D: "apenas as afirmativas II e III são corretas.",
+          E: "as afirmativas I, II e III são corretas."
+        },
+        correct: "E",
+        resolution: "O gabarito oficial é a alternativa E. Todas as três caracterizações constantes na tabela estão corretas e sustentadas pela literatura de Ross (2014) e Mendonça e Danni-Oliveira (2007). O clima Tropical de Altitude (I) restringe-se às áreas planálticas e serranas do Sudeste (Mantiqueira, Espinhaço e Serra do Mar), onde a cota altimétrica reduz a média térmica estival por conta do gradiente térmico vertical médio, preservando o regime pluviométrico de verões úmidos e invernos secos com declínio das médias mínimas. O clima Subtropical (II), posicionado ao sul do paralelo de 23° 27' S, caracteriza-se pela mesotermia acentuada, onde a transição estacional gera amplitudes térmicas anuais pronunciadas e precipitação bem distribuída pelo território em decorrência da passagem sucessiva de frentes frias móveis ao longo de todos os meses, o que afasta a existência de uma estação seca definida. O clima Tropical Semiárido (III) desenvolve-se nas depressões interplanálticas sertanejas com médias pluviométricas reduzidas (abaixo de 800 mm anuais), alta concentração em poucos meses e acentuada variabilidade interanual, onde a radiação solar intensa gera taxas de evapotranspiração potencial muito superiores ao volume de água precipitado. Sendo todos os itens válidos e fidedignos, a alternativa sintética correta é a E."
+      },
+      {
+        id: 7,
+        theme: "Análise rítmica e sazonalidade higrométrica do Clima Tropical Continental",
+        enunciado: "O clima Tropical Típico (ou Continental) recobre extensas superfícies do Planalto Central brasileiro. À luz da análise rítmica da sucessão dos tipos de tempo e da sazonalidade higrométrica descritas na bibliografia climatológica brasileira, a principal característica desse domínio reside na:",
+        options: {
+          A: "distribuição pluviométrica rigorosamente homogênea durante os doze meses do ano, sem ocorrência de deficit hídrico estacional.",
+          B: "alternância expressiva entre um semestre chuvoso e quente no verão (dominado pela mEc e pela convecção termodinâmica) e um semestre seco e ensolarado no inverno (marcado por subsidência de ar e sistemas de alta pressão).",
+          C: "ausência total de variação térmica diária durante o inverno devido à formação contínua de espessos estratos de nevoeiro advectivo marítimo.",
+          D: "hegemonia permanente da Massa Tropical Continental (mTc), gerando índices de umidade relativa do ar inferiores a 10% durante todas as estações do ano.",
+          E: "prevalência de precipitações frontais no verão e eventos constantes de precipitação de neve nas chapadas durante os meses invernais."
+        },
+        correct: "B",
+        resolution: "O gabarito oficial é a alternativa B. O clima Tropical Típico, Tropical Continental ou Tropical Semiúmido (classificação Aw de Köppen) governa o domínio dos Cerrados e vastas extensões do Centro-Oeste e Sudeste. Aplicando os preceitos metodológicos da climatologia dinâmica formulados por Monteiro (1971) e consolidados em Mendonça e Danni-Oliveira (2007), esse tipo climático tem como assinatura rítmica fundamental a nítida oposição entre duas estações. O semestre de verão caracteriza-se por temperaturas elevadas e convecção diária vigorosa impulsionada pela presença da Massa Equatorial Continental e pela convergência de umidade que estrutura a ZCAS, gerando excedente hídrico no solo. No semestre de inverno, a retração da mEc e a consolidação de cristas de alta pressão associadas ao Anticiclone Subtropical do Atlântico Sul (ASAS/mTa) impõem estabilidade, ar descendente subsidente, ausência prolongada de chuvas por até seis meses, amplitudes térmicas diárias pronunciadas e índices de umidade relativa frequentemente críticos durante o período vespertino. Mostram-se incorretas as afirmativas que indicam isogenia pluviométrica anual (ausência de meses secos, típica do subtropical), ausência de amplitude térmica diária no inverno devido a nevoeiros contínuos, soberania perene da mTc em todas as estações ou presença de nevascas regulares nas chapadas planaltinas."
+      },
+      {
+        id: 8,
+        theme: "Gênese da mTc na Depressão do Chaco, características e impactos no tempo regional",
+        enunciado: "A Massa Tropical Continental (mTc) apresenta atributos termodinâmicos singulares no quadro da circulação atmosférica sul-americana. De acordo com Mendonça e Danni-Oliveira (2007), a mTc distingue-se por:",
+        options: {
+          A: "originar-se na depressão sedimentar do Chaco / Pantanal como uma massa de ar quente e seca, cuja advecção sobre o Centro-Oeste e interior das Regiões Sul e Sudeste deflagra períodos de veranico, ondas de calor e pronunciada queda da umidade do ar.",
+          B: "formar-se sobre as superfícies oceânicas do Atlântico Equatorial, penetrando pelo litoral nordestino como carreadora de chuvas orográficas constantes ao longo de todo o ano.",
+          C: "ser gerada nas estepes semiáridas da Patagônia, ingressando pelo sul do Brasil com características subpolares frias e saturadas de vapor d'água.",
+          D: "constituir o principal núcleo dinâmico responsável pelas chuvas convectivas ininterruptas na bacia hidrográfica do rio São Francisco.",
+          E: "apresentar arrefecimento advectivo em sua gênese que suprime o desenvolvimento de baixas pressões térmicas em todo o Cone Sul."
+        },
+        correct: "A",
+        resolution: "O gabarito oficial é a alternativa A. No conjunto das massas de ar que atuam sobre a América do Sul, a Massa Tropical Continental (mTc) possui como especificidade o fato de ser a única quente e essencialmente seca em toda a sua extensão. Segundo os registros conceituais de Mendonça e Danni-Oliveira (2007) e Ross (2014), sua área de gênese é a Depressão do Gran Chaco (abrangendo áreas do Paraguai, norte da Argentina e o Pantanal mato-grossense), uma bacia continental cercada de barreiras que se sobreaquece intensamente pela forte insolação e perda de umidade. No fim do inverno e na primavera, sua área de ação expande-se sobre o oeste da Região Sul, o Centro-Oeste e setores de São Paulo e Minas Gerais, gerando períodos de estabilidade com tempo ensolarado, elevação pronunciada das temperaturas máximas (ondas de calor) e expressivo bloqueio à infiltração de instabilidades úmidas. São incorretas as assertivas que alocam a gênese da mTc no oceano Atlântico Equatorial, que a relacionam às estepes frias da Patagônia com propriedades subpolares, ou que a responsabilizam pela alimentação de tempestades convectivas contínuas na calha do rio São Francisco."
+      },
+      {
+        id: 9,
+        theme: "Teleconexões do ENOS (El Niño) sobre as Células de Walker e Hadley e impactos regionais",
+        enunciado: "A variabilidade climática interanual na América do Sul é fortemente influenciada pelas teleconexões do fenômeno El Niño–Oscilação Sul (ENOS). Em anos regidos pela fase positiva do fenômeno (El Niño clássico, com aquecimento anômalo das águas superficiais do Pacífico Equatorial Central e Oriental), as alterações nos ramos da circulação geral da atmosfera induzem, comumente, o seguinte padrão regional no Brasil:",
+        options: {
+          A: "Abundância de chuvas e inundações históricas na Amazônia oriental e no Semiárido, acompanhadas de secas severas e prolongadas em toda a bacia hidrográfica do rio Uruguai.",
+          B: "Aceleração descendente da Célula de Walker sobre o Norte e Nordeste, inibindo a convecção e deflagrando secas pluviométricas acentuadas, associada à intensificação da Corrente de Jato Subtropical, que bloqueia sistemas frontais e provoca precipitações volumosas e persistentes na Região Sul.",
+          C: "Neutralização das frentes frias no litoral fluminense e paulista, ocasionando a completa extinção do ciclo hidrológico de verão no Sudeste.",
+          D: "Arrefecimento generalizado de toda a bacia sedimentar amazônica, impedindo a evapotranspiração da floresta equatorial e gerando temperaturas negativas em Manaus.",
+          E: "Instalação de clima do tipo desértico no Paraná e em Santa Catarina em razão da ausência total de massas de ar com componente marítima."
+        },
+        correct: "B",
+        resolution: "O gabarito oficial é a alternativa B. A manifestação do fenômeno oceano-atmosférico El Niño (fase positiva do modo acoplado ENOS) promove anomalias expressivas na circulação global e regional. Conforme sintetizado por Ayoade (2013) e Mendonça e Danni-Oliveira (2007), o aquecimento das águas no Pacífico Equatorial enfraquece os ventos alísios zonais e transfere o ramo ascendente da Célula de Walker para o meio do oceano. Em resposta dinâmica, o ramo descendente (subsidente) dessa célula posiciona-se sobre a Amazônia oriental e a Região Nordeste do Brasil, gerando estabilidade forçada e inibindo a ascensão de ar úmido, o que deflagra estiagens severas e secas históricas. Ao mesmo tempo, os gradientes térmicos meridionais intensificam a Corrente de Jato Subtropical nos altos níveis da troposfera média sobre a América do Sul. Esse fluxo de ventos intensos retém a passagem das frentes frias oriundas do polo, represando os sistemas sinóticos e os pulsos de umidade sobre o Rio Grande do Sul, Santa Catarina e a bacia do Prata, o que ocasiona eventos de precipitação contínua, enchentes severas e transbordamento de bacias hidrográficas no Sul. Descartam-se as opções que indicam o padrão invertido (cheias na Amazônia e seca no Sul), que preconizam a paralisação estática da mPa sem geração de chuvas, ou que sugerem arrefecimento nival com temperaturas negativas em Manaus e desertificação no planalto paranaense."
+      },
+      {
+        id: 10,
+        theme: "Processos físicos de perda radiativa noturna e formação de geadas sob domínio da mPa",
+        enunciado: "Nas porções planálticas da Região Sul e nas terras altas das serras do Sudeste brasileiro, o avanço da Massa Polar Atlântica (mPa) pós-frontal no período de inverno propicia a ocorrência de geadas. Sobre os processos micrometeorológicos e as condicionantes termodinâmicas que regulam a formação da geada branca por radiação, assinale a afirmativa correta:",
+        options: {
+          A: "Ocorre sob forte turbulência mecânica atmosférica associada a ventos velozes e cobertura integral de nuvens baixas, o que potencializa a perda convectiva do calor latente do solo.",
+          B: "Caracteriza-se pela ausência completa de congelamento na vegetação superficial, decorrendo exclusivamente da precipitação contínua de cristais de neve transportados pela borda ativa da mTa.",
+          C: "Instala-se em condições de calmaria e céu límpido após a passagem da frente polar, quando a expressiva perda noturna de radiação de onda longa rebaixa a temperatura do ar adjacente à superfície para valores iguais ou inferiores a 0 °C, sublimando o vapor d'água quando a temperatura atinge o ponto de orvalho negativo.",
+          D: "Registra-se prioritariamente no cume dos espigões e topos de morro em função do ar polar ser menos denso que o ar tropical quente, o que faz com que o ar frio flutue sobre os vales e planícies de inundação.",
+          E: "A formação de cristais de gelo na superfície ocorre pela advecção exclusiva de massas de ar quente e úmido procedentes do vale do rio Amazonas ao longo do solstício de verão."
+        },
+        correct: "C",
+        resolution: "O gabarito oficial é a alternativa C. A geada por radiação (frequentemente designada no meio agrícola e biogeográfico como \"geada branca\") é um fenômeno de natureza micrometeorológica regulado pela perda radiativa noturna desimpedida. Segundo as análises de Ayoade (2013) e Mendonça e Danni-Oliveira (2007), esse processo opera quando, imediatamente após a passagem da frente fria, o centro anticiclônico da Massa Polar Atlântica (mPa) se instala sobre as regiões serranas do Sul e Sudeste. A massa de ar pós-frontal traz consigo ar frio, baixa nebulosidade e vento em calmaria. Sob noites longas de inverno sem cobertura de nuvens, a radiação terrestre de onda longa escapa livremente para o espaço sideral, esfriando a camada laminar de ar imediatamente em contato com a vegetação e o solo. Quando a temperatura desse ar cai abaixo de 0 °C e atinge o ponto de orvalho negativo, o vapor d'água ambiente se deposita diretamente sob a forma de cristais brancos de gelo sobre as folhas e superfícies expostas. São incorretas as alternativas que associam a geada branca a ventos turbulentos e nuvens baixas (fatores que impedem a perda radiativa e misturam o ar), que a confundem com precipitações sólidas de nuvens como a neve, que invertem os princípios de densidade do ar afirmando que o ar polar leve sobe para as cumeadas deixando o ar quente nos vales (o ar frio é mais denso e escorre gravitacionalmente para o fundo dos vales por drenagem catabática, tornando as baixadas os locais de geada mais severa), ou que vinculam o fenômeno a invasões de massas amazônicas quentes no solstício de verão."
+      }
+    ];
+
+    // Estado da Aplicação
+    const userAnswers = {};
+    let isSubmitted = false;
+
+    // Inicialização da Página
+    window.addEventListener('DOMContentLoaded', () => {
+      renderPillNavigation();
+      renderQuestions();
+    });
+
+    // Renderiza a barra rápida de navegação (pills 1 a 10)
+    function renderPillNavigation() {
+      const container = document.getElementById('questionPillNav');
+      container.innerHTML = quizData.map((q, idx) => `
+        <a href="#card-q-${q.id}" id="nav-pill-${q.id}" 
+           class="w-8 h-8 rounded-lg flex items-center justify-center text-xs font-semibold border border-paper-border bg-paper text-ink-muted hover:border-slate-400 transition">
+          ${q.id < 10 ? '0' + q.id : q.id}
+        </a>
+      `).join('');
+    }
+
+    // Renderiza as 10 questões mantendo a formatação completa
+    function renderQuestions() {
+      const container = document.getElementById('questionsContainer');
+      container.innerHTML = quizData.map((q) => {
+        const optionKeys = ['A', 'B', 'C', 'D', 'E'];
+        return `
+          <article id="card-q-${q.id}" class="bg-paper-card border border-paper-border rounded-xl p-6 sm:p-8 shadow-sm transition-all duration-300">
+            <!-- Cabeçalho da Questão -->
+            <div class="flex flex-wrap items-center justify-between gap-2 border-b border-paper-border pb-3 mb-5">
+              <div class="flex items-center gap-2.5">
+                <span class="w-8 h-8 rounded-md bg-[#1B365D] text-white flex items-center justify-center font-mono font-bold text-sm">
+                  ${q.id < 10 ? '0' + q.id : q.id}
+                </span>
+                <span class="text-xs uppercase font-bold tracking-wider text-slate-500">Questão Objetiva</span>
+              </div>
+              <span class="text-xs font-medium text-slate-500 bg-paper px-2.5 py-1 rounded border border-paper-border">
+                ${q.theme}
+              </span>
+            </div>
+
+            <!-- Enunciado Principal -->
+            <div class="prose-reading text-ink-dark mb-5">
+              ${q.enunciado}
+            </div>
+
+            <!-- Conteúdo Customizado (Ex: Tabela da Q6) -->
+            ${q.customContent ? q.customContent : ''}
+
+            <!-- Lista de Alternativas -->
+            <div class="space-y-3 font-sans mt-4" id="options-group-${q.id}">
+              ${optionKeys.map(letter => `
+                <label id="label-q${q.id}-${letter}" 
+                       class="flex items-start gap-3 p-3.5 sm:p-4 rounded-lg border border-paper-border hover:bg-paper-hover cursor-pointer transition text-sm sm:text-base text-ink-dark">
+                  <input type="radio" 
+                         name="q${q.id}" 
+                         value="${letter}" 
+                         onchange="handleSelectOption(${q.id}, '${letter}')"
+                         class="custom-radio mt-1 w-4 h-4 flex-shrink-0 cursor-pointer">
+                  <div class="flex-1 leading-relaxed">
+                    <span class="font-bold mr-1.5">${letter})</span>
+                    <span>${q.options[letter]}</span>
+                  </div>
+                  <span id="badge-feedback-q${q.id}-${letter}" class="hidden ml-2 flex-shrink-0"></span>
+                </label>
+              `).join('')}
+            </div>
+
+            <!-- Seção de Resolução Analítica Comentada (Embutida na mesma questão) -->
+            <div id="resolution-q${q.id}" class="hidden mt-6 pt-6 border-t border-dashed border-paper-border">
+              <div class="bg-amber-50/70 border border-amber-200/80 rounded-xl p-5 text-ink-dark">
+                <div class="flex items-center gap-2 mb-2.5">
+                  <span class="bg-[#1B365D] text-white text-xs font-mono font-bold px-2 py-0.5 rounded">
+                    Gabarito: Alternativa ${q.correct}
+                  </span>
+                  <span class="text-xs font-bold uppercase tracking-wider text-amber-900">
+                    Resolução Analítica e Fundamentação
+                  </span>
+                </div>
+                <div class="font-serif text-sm sm:text-[15px] leading-relaxed text-[#2C2E33] space-y-2">
+                  <p>${q.resolution}</p>
+                </div>
+              </div>
+            </div>
+
+          </article>
+        `;
+      }).join('');
+    }
+
+    // Registra a seleção de alternativa
+    function handleSelectOption(qId, letter) {
+      if (isSubmitted) return;
+      userAnswers[qId] = letter;
+      updateNavigationPills();
+      updateProgressBar();
+    }
+
+    // Atualiza estado visual das pílulas e contador
+    function updateNavigationPills() {
+      const answeredCount = Object.keys(userAnswers).length;
+      document.getElementById('answeredCounter').innerText = `Respondidas: ${answeredCount} / 10`;
+
+      quizData.forEach(q => {
+        const pill = document.getElementById(`nav-pill-${q.id}`);
+        if (userAnswers[q.id]) {
+          pill.classList.remove('bg-paper', 'text-ink-muted');
+          pill.classList.add('bg-[#1B365D]', 'text-white', 'border-[#1B365D]');
+        }
+      });
+    }
+
+    // Atualiza a barra fina no topo
+    function updateProgressBar() {
+      const answeredCount = Object.keys(userAnswers).length;
+      const pct = (answeredCount / quizData.length) * 100;
+      document.getElementById('quizProgressBar').style.width = `${pct}%`;
+    }
+
+    // Submissão do Simulado
+    function submitQuiz() {
+      if (isSubmitted) return;
+
+      const answeredCount = Object.keys(userAnswers).length;
+      if (answeredCount < quizData.length) {
+        const warning = document.getElementById('unansweredWarning');
+        const text = document.getElementById('unansweredText');
+        text.innerText = `Atenção: Você respondeu ${answeredCount} de 10 questões. Deseja finalizar mesmo assim?`;
+        warning.classList.remove('hidden');
+        warning.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        return;
+      }
+
+      confirmSubmission();
+    }
+
+    // Processamento da Submissão e Correção
+    function confirmSubmission() {
+      isSubmitted = true;
+      document.getElementById('unansweredWarning').classList.add('hidden');
+
+      let score = 0;
+      const letters = ['A', 'B', 'C', 'D', 'E'];
+
+      quizData.forEach(q => {
+        const userAnswer = userAnswers[q.id];
+        const isCorrect = userAnswer === q.correct;
+        if (isCorrect) score++;
+
+        // Desabilita os inputs
+        letters.forEach(letter => {
+          const input = document.querySelector(`input[name="q${q.id}"][value="${letter}"]`);
+          if (input) input.disabled = true;
+
+          const label = document.getElementById(`label-q${q.id}-${letter}`);
+          const badge = document.getElementById(`badge-feedback-q${q.id}-${letter}`);
+
+          // Estilização das opções
+          if (letter === q.correct) {
+            // Opção correta oficial sempre ganha destaque esmeralda
+            label.classList.add('option-correct');
+            badge.classList.remove('hidden');
+            badge.innerHTML = `<span class="inline-flex items-center text-xs font-semibold px-2 py-0.5 rounded bg-emerald-100 text-emerald-800 border border-emerald-300">Gabarito Oficial</span>`;
+          } else if (userAnswer === letter && !isCorrect) {
+            // Opção marcada errada pelo usuário
+            label.classList.add('option-wrong');
+            badge.classList.remove('hidden');
+            badge.innerHTML = `<span class="inline-flex items-center text-xs font-semibold px-2 py-0.5 rounded bg-rose-100 text-rose-800 border border-rose-300">Sua Resposta</span>`;
+          } else {
+            label.classList.add('option-neutral');
+          }
+        });
+
+        // Revela a resolução na própria questão
+        const resBox = document.getElementById(`resolution-q${q.id}`);
+        if (resBox) resBox.classList.remove('hidden');
+
+        // Atualiza a pílula de navegação com cor de acerto/erro
+        const pill = document.getElementById(`nav-pill-${q.id}`);
+        pill.classList.remove('bg-[#1B365D]', 'text-white', 'border-[#1B365D]');
+        if (isCorrect) {
+          pill.classList.add('bg-emerald-600', 'text-white', 'border-emerald-600');
+        } else {
+          pill.classList.add('bg-rose-600', 'text-white', 'border-rose-600');
+        }
+      });
+
+      // Atualiza botões
+      document.getElementById('submitBtn').classList.add('hidden');
+      document.getElementById('quickFinishTopBtn').classList.add('hidden');
+      document.getElementById('resetBtn').classList.remove('hidden');
+
+      // Exibe painel de estatísticas
+      renderScoreboard(score);
+      renderGabaritoTable();
+
+      const resultsSection = document.getElementById('resultsSection');
+      resultsSection.classList.remove('hidden');
+      resultsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    // Renderiza pontuação e feedback
+    function renderScoreboard(score) {
+      const percentage = Math.round((score / quizData.length) * 100);
+      document.getElementById('scoreNumber').innerText = score;
+      document.getElementById('scorePercentage').innerText = `${percentage}%`;
+
+      const feedback = document.getElementById('scoreFeedbackText');
+      if (score >= 9) {
+        feedback.innerText = "Excelente desempenho! Domínio aprofundado da circulação atmosférica e dinâmica climática regional do IFMG.";
+      } else if (score >= 7) {
+        feedback.innerText = "Muito bom resultado! Você possui base conceitual consistente com a bibliografia de Mendonça, Ayoade e Ross.";
+      } else if (score >= 5) {
+        feedback.innerText = "Desempenho intermediário. Vale revisar com atenção os pontos críticos, como semiaridez dinâmica e o papel da mPa/mEc.";
+      } else {
+        feedback.innerText = "Recomenda-se estudo detalhado das resoluções analíticas apresentadas abaixo para consolidar os tópicos do edital.";
+      }
+
+      // Badges resumidos
+      const summaryBadges = document.getElementById('summaryBadges');
+      summaryBadges.innerHTML = quizData.map(q => {
+        const hit = userAnswers[q.id] === q.correct;
+        return `
+          <a href="#card-q-${q.id}" class="p-2 rounded border text-center transition ${hit ? 'bg-emerald-50 border-emerald-300 text-emerald-800' : 'bg-rose-50 border-rose-300 text-rose-800'}">
+            <div class="text-[10px] uppercase font-bold">Q${q.id}</div>
+            <div class="font-mono font-bold text-sm">${hit ? '✓ Acerto' : '✗ Erro'}</div>
+          </a>
+        `;
+      }).join('');
+    }
+
+    // Renderiza a tabela oficial de Gabarito + Sua Resposta + Eixos Temáticos
+    function renderGabaritoTable() {
+      const tbody = document.getElementById('gabaritoTableBody');
+      tbody.innerHTML = quizData.map(q => {
+        const uAns = userAnswers[q.id] || "—";
+        const isHit = uAns === q.correct;
+        return `
+          <tr class="hover:bg-paper/70 transition">
+            <td class="py-3 px-3 font-mono font-bold text-xs sm:text-sm">Questão ${q.id < 10 ? '0' + q.id : q.id}</td>
+            <td class="py-3 px-3">
+              <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-mono font-bold bg-emerald-100 text-emerald-900 border border-emerald-300">
+                ${q.correct}
+              </span>
+            </td>
+            <td class="py-3 px-3">
+              <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-mono font-bold ${isHit ? 'bg-emerald-50 text-emerald-800' : 'bg-rose-100 text-rose-900'}">
+                ${uAns} ${isHit ? '(Correta)' : (uAns !== "—" ? '(Incorreta)' : '(Não respondida)')}
+              </span>
+            </td>
+            <td class="py-3 px-4 text-xs sm:text-sm text-ink-muted">
+              ${q.theme}
+            </td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    // Reinicia o simulado limpo
+    function resetQuiz() {
+      // Limpa dados de resposta
+      for (const key in userAnswers) {
+        delete userAnswers[key];
+      }
+      isSubmitted = false;
+
+      // Reseta visual e formulário
+      document.getElementById('quizForm').reset();
+      document.getElementById('resultsSection').classList.add('hidden');
+      document.getElementById('unansweredWarning').classList.add('hidden');
+      document.getElementById('resetBtn').classList.add('hidden');
+      document.getElementById('submitBtn').classList.remove('hidden');
+      document.getElementById('quickFinishTopBtn').classList.remove('hidden');
+      
+      document.getElementById('answeredCounter').innerText = 'Respondidas: 0 / 10';
+      document.getElementById('quizProgressBar').style.width = '0%';
+
+      // Re-renderiza tudo para restabelecer os event listeners e classes originais
+      renderPillNavigation();
+      renderQuestions();
+
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  </script>
+</body>
+</html>

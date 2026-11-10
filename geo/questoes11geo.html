@@ -1,0 +1,1285 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simulado IFMG - Climatologia e Dinâmica Atmosférica Geral</title>
+  
+  <!-- Fonte para leitura confortável e sem fadiga visual -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Charter:ital,wght@0,400;0,700;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- KaTeX para renderização precisa de fórmulas termodinâmicas e notações científicas -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js" onload="renderMathInPage()"></script>
+
+  <style>
+    :root {
+      /* Paleta com fundo suave (off-white aquecido) para conforto ocular */
+      --bg-body: #F7F5F0;
+      --bg-card: #FFFFFF;
+      --bg-card-subtle: #FAF9F6;
+      --border-color: #E2DDD3;
+      --border-focus: #1B4332;
+
+      /* Tipografia escura de alto contraste sem o choque do preto puro */
+      --text-main: #24292E;
+      --text-secondary: #57606A;
+      --text-muted: #6E7781;
+
+      /* Cores de acento e feedback */
+      --primary: #1E4620;
+      --primary-hover: #143216;
+      --primary-light: #EBF3ED;
+      --accent: #B45309;
+
+      --correct-bg: #E8F5E9;
+      --correct-border: #2E7D32;
+      --correct-text: #1B5E20;
+
+      --incorrect-bg: #FFEBEE;
+      --incorrect-border: #C62828;
+      --incorrect-text: #B71C1C;
+
+      --neutral-resolution-bg: #F4F1EA;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-body);
+      color: var(--text-main);
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      line-height: 1.68;
+      font-size: 16.5px;
+      -webkit-font-smoothing: antialiased;
+      padding: 32px 16px 80px;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    /* Cabeçalho Institucional */
+    .header {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 36px 32px;
+      margin-bottom: 28px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+    }
+
+    .header-badge {
+      display: inline-block;
+      background: var(--primary-light);
+      color: var(--primary);
+      font-size: 0.82rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      padding: 4px 12px;
+      border-radius: 6px;
+      margin-bottom: 12px;
+    }
+
+    .header h1 {
+      font-size: 1.85rem;
+      line-height: 1.3;
+      color: var(--primary);
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .header p {
+      color: var(--text-secondary);
+      font-size: 0.98rem;
+    }
+
+    .instructions-box {
+      margin-top: 18px;
+      padding: 14px 18px;
+      background-color: var(--bg-card-subtle);
+      border-left: 4px solid var(--primary);
+      font-size: 0.92rem;
+      color: var(--text-secondary);
+      border-radius: 0 8px 8px 0;
+    }
+
+    /* Barra de Progresso Flutuante / Topo */
+    .status-bar {
+      position: sticky;
+      top: 12px;
+      z-index: 100;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(8px);
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      padding: 12px 20px;
+      margin-bottom: 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+      font-size: 0.92rem;
+      font-weight: 600;
+    }
+
+    .progress-track {
+      flex: 1;
+      height: 8px;
+      background: #EAE6DF;
+      border-radius: 4px;
+      margin: 0 16px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      width: 0%;
+      background: var(--primary);
+      transition: width 0.3s ease;
+    }
+
+    /* Cartão da Questão */
+    .question-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 32px;
+      margin-bottom: 28px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02);
+      transition: border-color 0.2s ease;
+    }
+
+    .question-card:hover {
+      border-color: #D3CCC0;
+    }
+
+    .question-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .question-number {
+      font-size: 0.88rem;
+      font-weight: 700;
+      background: var(--text-main);
+      color: #FFF;
+      padding: 3px 10px;
+      border-radius: 6px;
+    }
+
+    .question-topic {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .question-statement {
+      font-size: 1.05rem;
+      line-height: 1.75;
+      color: var(--text-main);
+      margin-bottom: 24px;
+      text-align: justify;
+    }
+
+    /* Lista de Afirmativas Romanas (se houver) */
+    .roman-list {
+      background: var(--bg-card-subtle);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 18px 20px;
+      margin-bottom: 22px;
+      font-size: 0.98rem;
+      line-height: 1.7;
+    }
+
+    .roman-list p {
+      margin-bottom: 10px;
+    }
+    .roman-list p:last-child {
+      margin-bottom: 0;
+    }
+
+    /* Opções de Resposta */
+    .options-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .option-label {
+      display: flex;
+      align-items: flex-start;
+      padding: 14px 18px;
+      border: 1.5px solid var(--border-color);
+      border-radius: 8px;
+      cursor: pointer;
+      background-color: var(--bg-card);
+      transition: all 0.15s ease-in-out;
+      user-select: none;
+    }
+
+    .option-label:hover {
+      background-color: var(--bg-card-subtle);
+      border-color: #BDB5A7;
+    }
+
+    .option-label input[type="radio"] {
+      margin-top: 4px;
+      margin-right: 14px;
+      accent-color: var(--primary);
+      width: 18px;
+      height: 18px;
+      flex-shrink: 0;
+      cursor: pointer;
+    }
+
+    .option-label.selected {
+      border-color: var(--primary);
+      background-color: var(--primary-light);
+    }
+
+    .option-text {
+      font-size: 0.98rem;
+      line-height: 1.6;
+      color: var(--text-main);
+    }
+
+    /* Estados de Correção Pós-Submissão */
+    .option-label.is-correct {
+      border-color: var(--correct-border) !important;
+      background-color: var(--correct-bg) !important;
+      color: var(--correct-text) !important;
+      font-weight: 500;
+    }
+
+    .option-label.is-wrong {
+      border-color: var(--incorrect-border) !important;
+      background-color: var(--incorrect-bg) !important;
+      color: var(--incorrect-text) !important;
+      opacity: 0.95;
+    }
+
+    .option-feedback-tag {
+      margin-left: auto;
+      font-size: 0.8rem;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 4px;
+      flex-shrink: 0;
+    }
+
+    .option-feedback-tag.tag-correct {
+      background: var(--correct-border);
+      color: #FFF;
+    }
+
+    .option-feedback-tag.tag-wrong {
+      background: var(--incorrect-border);
+      color: #FFF;
+    }
+
+    /* Resolução Integrada por Questão */
+    .question-resolution-box {
+      display: none;
+      margin-top: 24px;
+      padding: 24px;
+      background-color: var(--neutral-resolution-bg);
+      border: 1px solid var(--border-color);
+      border-left: 4px solid var(--primary);
+      border-radius: 8px;
+      font-size: 0.96rem;
+      line-height: 1.7;
+      animation: fadeIn 0.4s ease;
+    }
+
+    .question-resolution-box.active {
+      display: block;
+    }
+
+    .resolution-title {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* Tabelas nas resoluções */
+    .table-wrapper {
+      overflow-x: auto;
+      margin: 18px 0;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      background: #FFF;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.9rem;
+      text-align: left;
+    }
+
+    th, td {
+      padding: 12px 14px;
+      border-bottom: 1px solid #ECE7DE;
+      vertical-align: top;
+    }
+
+    th {
+      background-color: #F1ECE3;
+      color: var(--text-main);
+      font-weight: 700;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    /* Ações Finais */
+    .action-panel {
+      text-align: center;
+      margin: 36px 0;
+    }
+
+    .btn-submit {
+      background-color: var(--primary);
+      color: #FFF;
+      font-size: 1.05rem;
+      font-weight: 700;
+      padding: 16px 36px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      box-shadow: 0 4px 14px rgba(30, 70, 32, 0.25);
+      transition: all 0.2s ease;
+    }
+
+    .btn-submit:hover {
+      background-color: var(--primary-hover);
+      transform: translateY(-1px);
+      box-shadow: 0 6px 18px rgba(30, 70, 32, 0.35);
+    }
+
+    .btn-reset {
+      background: transparent;
+      color: var(--text-secondary);
+      border: 1px solid var(--border-color);
+      font-size: 0.95rem;
+      font-weight: 600;
+      padding: 14px 28px;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-left: 12px;
+      transition: all 0.15s ease;
+    }
+
+    .btn-reset:hover {
+      background: #EAE6DF;
+      color: var(--text-main);
+    }
+
+    /* Painel Geral de Resultados (Final da Página) */
+    .results-summary-card {
+      display: none;
+      background: #FFF;
+      border: 2px solid var(--primary);
+      border-radius: 12px;
+      padding: 36px;
+      margin-top: 40px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+      animation: fadeIn 0.4s ease;
+    }
+
+    .results-summary-card.active {
+      display: block;
+    }
+
+    .results-header {
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 20px;
+      margin-bottom: 24px;
+      text-align: center;
+    }
+
+    .results-score-badge {
+      display: inline-flex;
+      align-items: baseline;
+      gap: 6px;
+      font-size: 3rem;
+      font-weight: 800;
+      color: var(--primary);
+      margin: 10px 0;
+    }
+
+    .results-score-total {
+      font-size: 1.4rem;
+      color: var(--text-secondary);
+      font-weight: 500;
+    }
+
+    .score-percentage {
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: var(--accent);
+      margin-bottom: 6px;
+    }
+
+    .feedback-message {
+      font-size: 1.05rem;
+      color: var(--text-secondary);
+      max-width: 650px;
+      margin: 0 auto;
+    }
+
+    /* Tabela de Gabarito Rápido */
+    .quick-answers-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 12px;
+      margin: 28px 0;
+    }
+
+    .quick-item {
+      padding: 12px;
+      border-radius: 8px;
+      border: 1px solid var(--border-color);
+      text-align: center;
+      background: var(--bg-card-subtle);
+    }
+
+    .quick-item.hit {
+      border-color: var(--correct-border);
+      background: var(--correct-bg);
+      color: var(--correct-text);
+    }
+
+    .quick-item.miss {
+      border-color: var(--incorrect-border);
+      background: var(--incorrect-bg);
+      color: var(--incorrect-text);
+    }
+
+    .quick-qnum {
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+
+    .quick-val {
+      font-size: 1.15rem;
+      font-weight: 800;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Responsividade */
+    @media (max-width: 768px) {
+      body {
+        padding: 16px 10px 60px;
+      }
+      .header {
+        padding: 24px 18px;
+      }
+      .question-card {
+        padding: 20px 16px;
+      }
+      .status-bar {
+        font-size: 0.85rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    
+    <!-- Cabeçalho -->
+    <header class="header">
+      <span class="header-badge">Concurso Público EBTT / IFMG</span>
+      <h1>Climatologia e Dinâmica Atmosférica Geral</h1>
+      <p>Simulado com 10 questões originais completas, formuladas nos padrões da Reitoria do IFMG com resolução comentada aprofundada baseada em Ayoade (2013), Mendonça & Danni-Oliveira (2007) e Ynoue et al. (2017).</p>
+      
+      <div class="instructions-box">
+        <strong>Instruções:</strong> Selecione a alternativa que julgar correta em cada uma das questões. Ao concluir, clique em <em>"Finalizar Simulado e Ver Resoluções"</em> para apurar seus acertos e liberar as resoluções comentadas de cada item diretamente na página.
+      </div>
+    </header>
+
+    <!-- Barra de Progresso Superior -->
+    <div class="status-bar" id="statusBar">
+      <span id="answeredCount">0 de 10 respondidas</span>
+      <div class="progress-track">
+        <div class="progress-fill" id="progressFill"></div>
+      </div>
+      <span id="progressPercentage">0%</span>
+    </div>
+
+    <!-- Formulário do Simulado -->
+    <form id="quizForm">
+      
+      <!-- Questão 1 -->
+      <article class="question-card" id="qcard-1">
+        <div class="question-header">
+          <span class="question-number">Questão 1</span>
+          <span class="question-topic">Estrutura Vertical da Atmosfera</span>
+        </div>
+        <p class="question-statement">
+          A atmosfera terrestre exibe uma compartimentação vertical governada por gradientes térmicos específicos, decorrentes da densidade molecular dos gases e dos processos radioativos e fotoquímicos dominantes em cada estrato. Acerca da estrutura térmica e físico-química da atmosfera, à luz das formulações de Ayoade (2013) e Ynoue et al. (2017), assinale a alternativa correta:
+        </p>
+        <div class="options-list">
+          <label class="option-label" data-q="1" data-opt="A">
+            <input type="radio" name="q1" value="A">
+            <span class="option-text"><strong>A)</strong> A troposfera caracteriza-se por um gradiente térmico vertical positivo homogêneo em toda a sua extensão, elevando a temperatura à medida que a altitude aumenta devido à concentração de ozônio junto à superfície continental.</span>
+          </label>
+          <label class="option-label" data-q="1" data-opt="B">
+            <input type="radio" name="q1" value="B">
+            <span class="option-text"><strong>B)</strong> A estratopausa configura a descontinuidade inferior da estratosfera, marcando a transição com a camada limite planetária e exibindo as menores frações molares de gases do efeito estufa da atmosfera média.</span>
+          </label>
+          <label class="option-label" data-q="1" data-opt="C">
+            <input type="radio" name="q1" value="C">
+            <span class="option-text"><strong>C)</strong> O aquecimento progressivo verificado no interior da estratosfera decorre da absorção fotoquímica da radiação ultravioleta pelo oxigênio molecular e pelo ozônio, estabelecendo uma inversão térmica que confere estabilidade estática e suprime os movimentos convectivos verticais.</span>
+          </label>
+          <label class="option-label" data-q="1" data-opt="D">
+            <input type="radio" name="q1" value="D">
+            <span class="option-text"><strong>D)</strong> A mesosfera apresenta comportamento isotérmico permanente com temperatura invariável de $-100\,^\circ\text{C}$ ao longo de seus limites superior e inferior, haja vista a completa inexistência de moléculas gasosas capazes de emitir energia térmica radiativa.</span>
+          </label>
+          <label class="option-label" data-q="1" data-opt="E">
+            <input type="radio" name="q1" value="E">
+            <span class="option-text"><strong>E)</strong> A turbulência mecânica e a convecção de umidade alcançam sua máxima expressão termodinâmica no topo da estratosfera, onde a expansão adiabática livre do ar rarefeito desencadeia a formação perene de nuvens cumuliformes de tempestade.</span>
+          </label>
+        </div>
+        <div class="question-resolution-box" id="res-1">
+          <div class="resolution-title">
+            <span>🔍 Resolução Comentada — Gabarito Oficial: <strong>Alternativa C</strong></span>
+          </div>
+          <p>
+            O perfil térmico vertical da atmosfera organiza-se com base nas fontes e mecanismos de troca térmica. Enquanto a troposfera é aquecida a partir da superfície basal por fluxos turbulentos e radiativos, na estratosfera ocorre uma inversão de temperatura, cuja média sobe de aproximadamente $-56\,^\circ\text{C}$ na tropopausa até cerca de $0\,^\circ\text{C}$ no topo da estratopausa. Esse comportamento térmico decorre das reações fotoquímicas de absorção da radiação ultravioleta emitida pelo Sol ($\lambda < 240\,\text{nm}$ na fotólise do oxigênio molecular $\text{O}_2$ e comprimentos entre $200$ e $310\,\text{nm}$ na fotodissociação contínua do ozônio $\text{O}_3$), as quais liberam calor sensível na camada gasosa intermediária. A existência de ar mais aquecido sobreposto a ar mais denso e frio estabelece uma estratificação termodinâmica estaticamente estável, suprimindo o empuxo convectivo e impedindo o desenvolvimento de turbulência vertical de grande escala.
+          </p>
+          <p style="margin-top: 10px;">
+            <strong>Análise dos distratores:</strong> A troposfera possui gradiente negativo (esfria com a altitude à razão média de $6,5\,^\circ\text{C/km}$); a estratopausa é o limite <em>superior</em> da estratosfera (~$50\,\text{km}$); a mesosfera não é isotérmica, pois a temperatura decai acentuadamente até $-90\,^\circ\text{C}$ ou $-100\,^\circ\text{C}$ na mesopausa; e as tempestades convectivas são fenômenos tipicamente troposféricos, suprimidos na estratosfera.
+          </p>
+        </div>
+      </article>
+
+      <!-- Questão 2 -->
+      <article class="question-card" id="qcard-2">
+        <div class="question-header">
+          <span class="question-number">Questão 2</span>
+          <span class="question-topic">Balanço de Radiação e Albedo</span>
+        </div>
+        <p class="question-statement">
+          O balanço global de radiação do sistema Terra-Atmosfera representa o motor primário dos fluxos energéticos do planeta, regulando a circulação geral e as compensações térmicas latitudinais. Considerando as equações de balanço radiativo, o albedo superficial e as leis físicas da radiação eletromagnética abordadas por Mendonça e Danni-Oliveira (2007), assinale a alternativa correta:
+        </p>
+        <div class="options-list">
+          <label class="option-label" data-q="2" data-opt="A">
+            <input type="radio" name="q2" value="A">
+            <span class="option-text"><strong>A)</strong> O albedo planetário médio, computado em cerca de 30%, quantifica a fração da radiação térmica de ondas longas terrestres que é rebatida para o espaço pelas nuvens e coberturas de gelo continental.</span>
+          </label>
+          <label class="option-label" data-q="2" data-opt="B">
+            <input type="radio" name="q2" value="B">
+            <span class="option-text"><strong>B)</strong> O saldo de radiação líquida superficial ($R_n$) expressa o balanço de fluxos radiativos integrados, formulado matematicamente por $R_n = (S^{\downarrow} - S^{\uparrow}) + (L^{\downarrow} - L^{\uparrow})$, no qual $S$ representa a radiação solar de ondas curtas e $L$ corresponde à radiação eletromagnética de ondas longas emitida pela superfície e pela atmosfera.</span>
+          </label>
+          <label class="option-label" data-q="2" data-opt="C">
+            <input type="radio" name="q2" value="C">
+            <span class="option-text"><strong>C)</strong> As faixas equatoriais e intertropicais comportam-se como zonas de déficit radiativo contínuo ao longo do ano, enquanto as altas latitudes polares detêm excedente de radiação em virtude da ausência de atenuação solar atmosférica no solstício correspondente.</span>
+          </label>
+          <label class="option-label" data-q="2" data-opt="D">
+            <input type="radio" name="q2" value="D">
+            <span class="option-text"><strong>D)</strong> A radiação difusa consiste na parcela do espectro solar que alcança o solo sem qualquer interação com os constituintes atmosféricos, mantendo magnitude invariável mesmo sob cobertura de nevoeiros ou nuvens estratificadas.</span>
+          </label>
+          <label class="option-label" data-q="2" data-opt="E">
+            <input type="radio" name="q2" value="E">
+            <span class="option-text"><strong>E)</strong> O solo e os oceanos convertem a totalidade da radiação de ondas curtas absorvida em emissão direta na faixa espectral do raio gama e do ultravioleta, ativando as correntes condutivas para a mesosfera superior.</span>
+          </label>
+        </div>
+        <div class="question-resolution-box" id="res-2">
+          <div class="resolution-title">
+            <span>🔍 Resolução Comentada — Gabarito Oficial: <strong>Alternativa B</strong></span>
+          </div>
+          <p>
+            O saldo de radiação superficial ($R_n$) quantifica o montante líquido retido na interface da Terra, disponível para partição nos fluxos de calor sensível ($H$), calor latente ($LE$) e fluxo de calor condutivo no solo ($G$). Integra os fluxos de ondas curtas e longas via:
+            $$R_n = (S^{\downarrow} - S^{\uparrow}) + (L^{\downarrow} - L^{\uparrow})$$
+            onde $S^{\downarrow}$ é a radiação global de ondas curtas incidente (direta + difusa), $S^{\uparrow}$ é a radiação de ondas curtas refletida pelo solo ($S^{\uparrow} = \alpha \cdot S^{\downarrow}$, sendo $\alpha$ o albedo superficial), $L^{\downarrow}$ é a contra-radiação atmosférica de ondas longas e $L^{\uparrow}$ é a emissão termal superficial determinada pela Lei de Stefan-Boltzmann ($L^{\uparrow} = \varepsilon \sigma T^4$).
+          </p>
+          <p style="margin-top: 10px;">
+            <strong>Análise dos distratores:</strong> O albedo mensura a refletividade de <em>ondas curtas</em> (luz solar), e não de ondas longas; os trópicos detêm <em>superávit</em> radiativo anual enquanto os polos operam em <em>déficit</em>; a radiação que atinge o solo sem interação atmosférica chama-se radiação <em>direta</em> (a difusa resulta de espalhamento); e a superfície terrestre reemite energia no espectro infravermelho termal de ondas longas, conforme prescrito pela Lei do Deslocamento de Wien.
+          </p>
+        </div>
+      </article>
+
+      <!-- Questão 3 -->
+      <article class="question-card" id="qcard-3">
+        <div class="question-header">
+          <span class="question-number">Questão 3</span>
+          <span class="question-topic">Elementos versus Fatores do Clima</span>
+        </div>
+        <p class="question-statement">
+          No âmbito da análise climatológica sistemática, a distinção teórica entre elementos do clima e fatores do clima é basilar para a compreensão das diferenciações geográficas na superfície terrestre. Com base nas abordagens de Ayoade (2013) e Mendonça e Danni-Oliveira (2007), assinale a alternativa que correlaciona corretamente o elemento climático ao seu fator causal interveniente:
+        </p>
+        <div class="options-list">
+          <label class="option-label" data-q="3" data-opt="A">
+            <input type="radio" name="q3" value="A">
+            <span class="option-text"><strong>A)</strong> A precipitação constitui um fator estático do relevo cuja variabilidade zonal é governada pela pressão atmosférica, elemento que permanece inalterado por variações orográficas locais.</span>
+          </label>
+          <label class="option-label" data-q="3" data-opt="B">
+            <input type="radio" name="q3" value="B">
+            <span class="option-text"><strong>B)</strong> A altitude atua como elemento dinâmico meteorológico e a temperatura funciona como fator geográfico estático, modulando diretamente as taxas de decaimento cinético das moléculas gasosas na troposfera.</span>
+          </label>
+          <label class="option-label" data-q="3" data-opt="C">
+            <input type="radio" name="q3" value="C">
+            <span class="option-text"><strong>C)</strong> A maritimidade condiciona amplitudes térmicas diárias e sazonais mitigadas em setores litorâneos, em razão do elevado calor específico da massa líquida oceânica, de sua transparência à radiação e da dinâmica de mistura convectiva na coluna de água.</span>
+          </label>
+          <label class="option-label" data-q="3" data-opt="D">
+            <input type="radio" name="q3" value="D">
+            <span class="option-text"><strong>D)</strong> A continentalidade induz estabilidade térmica e estreitamento das oscilações de temperatura nos continentes, dado que o substrato rochoso e o solo seco possuem inércia térmica superior à dos corpos oceânicos.</span>
+          </label>
+          <label class="option-label" data-q="3" data-opt="E">
+            <input type="radio" name="q3" value="E">
+            <span class="option-text"><strong>E)</strong> A latitude determina uma elevação barométrica média contínua no equador térmico, tornando a calha equatorial o principal centro de divergência anticiclônica do globo terrestre.</span>
+          </label>
+        </div>
+        <div class="question-resolution-box" id="res-3">
+          <div class="resolution-title">
+            <span>🔍 Resolução Comentada — Gabarito Oficial: <strong>Alternativa C</strong></span>
+          </div>
+          <p>
+            Os <strong>elementos do clima</strong> são as grandezas físicas mensuráveis do estado atmosférico (temperatura, umidade relativa, pressão atmosférica, precipitação e vento), ao passo que os <strong>fatores do clima</strong> são os condicionantes geográficos (latitude, altitude, maritimidade, continentalidade, relevo, vegetação e correntes oceânicas). A maritimidade reduz as oscilações de temperatura (baixa amplitude térmica) em áreas costeiras devido ao elevado calor específico da água líquida ($c = 1,0\,\text{cal/g}\cdot^\circ\text{C}$), cerca de cinco vezes maior que o do solo e das rochas secas ($c \approx 0,2\,\text{cal/g}\cdot^\circ\text{C}$). A penetração da luz em profundidade e os movimentos de mistura mecânica da água oceânica distribuem o calor em grandes volumes, retardando o aquecimento e o resfriamento.
+          </p>
+          <p style="margin-top: 10px;">
+            <strong>Análise dos distratores:</strong> Precipitação e pressão são elementos (não fatores estáticos); a altitude é um fator geográfico e a temperatura é um elemento dinâmico; a continentalidade <em>aumenta</em> a amplitude térmica devido à menor inércia térmica do solo seco; e o equador térmico comporta-se como um cavado de <em>baixas pressões</em> convergentes, e não anticiclônico.
+          </p>
+        </div>
+      </article>
+
+      <!-- Questão 4 -->
+      <article class="question-card" id="qcard-4">
+        <div class="question-header">
+          <span class="question-number">Questão 4</span>
+          <span class="question-topic">Centros Báricos: Ciclones e Anticiclones</span>
+        </div>
+        <p class="question-statement">
+          Os centros báricos de ação na baixa troposfera organizam-se em sistemas anticiclônicos e ciclônicos, condicionando a divergência do ar, as velocidades do vento e as condições de tempo. A respeito do comportamento cinemático e termodinâmico dos centros de alta pressão e de baixa pressão, assinale a alternativa correta:
+        </p>
+        <div class="options-list">
+          <label class="option-label" data-q="4" data-opt="A">
+            <input type="radio" name="q4" value="A">
+            <span class="option-text"><strong>A)</strong> Os anticiclones funcionam como centros convergentes de ar superficial que induzem fortes movimentos verticais ascendentes, resfriamento adiabático e precipitações torrenciais convectivas generalizadas.</span>
+          </label>
+          <label class="option-label" data-q="4" data-opt="B">
+            <input type="radio" name="q4" value="B">
+            <span class="option-text"><strong>B)</strong> No Hemisfério Sul, um centro de baixa pressão (ciclone) apresenta convergência de vento à superfície com sentido de rotação horário, promovendo movimentos ascendentes do ar, descompressão adiabática, saturação e frequente instabilidade atmosférica.</span>
+          </label>
+          <label class="option-label" data-q="4" data-opt="C">
+            <input type="radio" name="q4" value="C">
+            <span class="option-text"><strong>C)</strong> Os centros de alta pressão atraem e concentram umidade atmosférica em suas áreas nucleares, elevando a saturação relativa do ar por meio da intensificação contínua das correntes de vento ascendentes.</span>
+          </label>
+          <label class="option-label" data-q="4" data-opt="D">
+            <input type="radio" name="q4" value="D">
+            <span class="option-text"><strong>D)</strong> As baixas pressões (depressões barométricas) caracterizam-se por subsidência em larga escala de massas de ar na coluna troposférica, o que causa aquecimento por compressão adiabática e gera tempo firme com céu limpo.</span>
+          </label>
+          <label class="option-label" data-q="4" data-opt="E">
+            <input type="radio" name="q4" value="E">
+            <span class="option-text"><strong>E)</strong> No Hemisfério Norte, os anticiclones manifestam escoamento divergente em sentido anti-horário rente ao solo, derivado do cancelamento total do gradiente de pressão pela força gravitacional.</span>
+          </label>
+        </div>
+        <div class="question-resolution-box" id="res-4">
+          <div class="resolution-title">
+            <span>🔍 Resolução Comentada — Gabarito Oficial: <strong>Alternativa B</strong></span>
+          </div>
+          <p>
+            Os centros de ação atmosféricos obedecem ao equilíbrio entre gradiente barométrico, força de Coriolis e atrito superficial. No Hemisfério Sul, o efeito de Coriolis deflete os ventos para a esquerda de sua trajetória. Assim, nos ciclones (baixa pressão), os ventos convergem para o centro girando no <strong>sentido horário</strong>. Pelo princípio da continuidade de massa, essa convergência horizontal força o ar a subir (movimento vertical ascendente). Ao subir, o ar expande-se sob menor pressão circundante, resfria-se adiabaticamente, atinge o ponto de orvalho e condensa, deflagrando nebulosidade e instabilidade.
+          </p>
+          <div class="table-wrapper">
+            <table>
+              <thead>
+                <tr>
+                  <th>Propriedade Dinâmica</th>
+                  <th>Centro de Baixa Pressão (Ciclone)</th>
+                  <th>Centro de Alta Pressão (Anticiclone)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Escoamento Superficial</strong></td>
+                  <td>Convergente (para o núcleo)</td>
+                  <td>Divergente (para fora do núcleo)</td>
+                </tr>
+                <tr>
+                  <td><strong>Movimento Vertical</strong></td>
+                  <td>Ascendente (empuxo / convecção)</td>
+                  <td>Descendente (subsidência dinâmica)</td>
+                </tr>
+                <tr>
+                  <td><strong>Giro no Hemisfério Sul</strong></td>
+                  <td>Horário</td>
+                  <td>Anti-horário</td>
+                </tr>
+                <tr>
+                  <td><strong>Giro no Hemisfério Norte</strong></td>
+                  <td>Anti-horário</td>
+                  <td>Horário</td>
+                </tr>
+                <tr>
+                  <td><strong>Termodinâmica e Tempo</strong></td>
+                  <td>Descompressão adiabática, nuvens e instabilidade</td>
+                  <td>Aquecimento adiabático, subsidência e tempo estável</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p>
+            <strong>Análise dos distratores:</strong> Anticiclones divergem ar e causam subsidência estável (não convecção chuvosa); altas pressões dispersam ventos e afastam umidade; as baixas pressões provocam ascendência (subsidência ocorre em altas); e no HN os anticiclones giram em sentido horário.
+          </p>
+        </div>
+      </article>
+
+      <!-- Questão 5 -->
+      <article class="question-card" id="qcard-5">
+        <div class="question-header">
+          <span class="question-number">Questão 5</span>
+          <span class="question-topic">Chuvas Orográficas e Efeito Foehn</span>
+        </div>
+        <p class="question-statement">
+          A transposição de barreiras montanhosas por massas de ar atmosféricas deflagra alterações térmicas e higrométricas que diferenciam as vertentes orográficas. Em relação à termodinâmica das taxas adiabáticas seca e saturada e ao desenvolvimento do efeito <em>foehn</em> nas encostas de barlavento e sotavento, assinale a alternativa correta:
+        </p>
+        <div class="options-list">
+          <label class="option-label" data-q="5" data-opt="A">
+            <input type="radio" name="q5" value="A">
+            <span class="option-text"><strong>A)</strong> Na encosta de barlavento, a ascensão do ar provoca resfriamento à Taxa Adiabática Seca até o nível de condensação e, a partir deste, à Taxa Adiabática Saturada com produção de chuvas; ao cruzar a crista e descender pela encosta de sotavento, o ar seco sofre compressão adiabática e aquece-se integralmente à Taxa Adiabática Seca, tornando-se quente e árido.</span>
+          </label>
+          <label class="option-label" data-q="5" data-opt="B">
+            <input type="radio" name="q5" value="B">
+            <span class="option-text"><strong>B)</strong> A vertente de barlavento é marcada por acentuada dessecação do ar decorrente de subsidência forçada, ao passo que a vertente de sotavento retém precipitações abundantes geradas pela condensação do ar descendente.</span>
+          </label>
+          <label class="option-label" data-q="5" data-opt="C">
+            <input type="radio" name="q5" value="C">
+            <span class="option-text"><strong>C)</strong> O efeito <em>foehn</em> caracteriza-se pela expansão adiabática do fluxo de ar ao descer a encosta de sotavento, o que consome calor sensível da superfície e acarreta a queda vertiginosa da temperatura local com orvalho denso.</span>
+          </label>
+          <label class="option-label" data-q="5" data-opt="D">
+            <input type="radio" name="q5" value="D">
+            <span class="option-text"><strong>D)</strong> A Taxa Adiabática Saturada apresenta magnitude quantitativa invariavelmente superior à da Taxa Adiabática Seca, uma vez que a condensação consome energia do ar ascendente e intensifica o resfriamento por unidade de altitude.</span>
+          </label>
+          <label class="option-label" data-q="5" data-opt="E">
+            <input type="radio" name="q5" value="E">
+            <span class="option-text"><strong>E)</strong> A massa de ar que atinge o cume do relevo conserva integralmente seu teor original de umidade específica absoluta, garantindo que a descida pela encosta a sotavento transcorra em estado de supersaturação contínua.</span>
+          </label>
+        </div>
+        <div class="question-resolution-box" id="res-5">
+          <div class="resolution-title">
+            <span>🔍 Resolução Comentada — Gabarito Oficial: <strong>Alternativa A</strong></span>
+          </div>
+          <p>
+            O mecanismo orográfico baseia-se na assimetria termodinâmica provocada pela perda de umidade por precipitação na vertente de barlavento (*windward*). O ar sobe por coerção mecânica e resfria-se inicialmente à <strong>Taxa Adiabática Seca</strong> ($\text{TAS} \approx 10\,^\circ\text{C/km}$ ou $1\,^\circ\text{C}/100\,\text{m}$) até o Nível de Condensação por Levantamento (NCL). A partir da saturação, a condensação contínua libera <em>calor latente</em> ($L_v \approx 2,5 \times 10^6\,\text{J/kg}$), o que atenua a perda de temperatura, fazendo a parcela subir resfriando-se à <strong>Taxa Adiabática Saturada</strong> ($\text{TASat} \approx 5\,^\circ\text{C}$ a $6\,^\circ\text{C/km}$) enquanto produz densas chuvas orográficas. Ao cruzar o topo, a massa de ar perdeu vapor (que se precipitou). Na encosta de sotavento (*leeward*), o ar descende por gravidade, sofrendo compressão barométrica. Como está desidratado e insaturado, ele aquece-se integralmente à taxa seca integral ($10\,^\circ\text{C/km}$) durante toda a descida. Chega à planície de sotavento muito mais quente e com umidade relativa residual extremamente baixa, configurando o efeito <em>foehn</em> e as sombras de chuva (*rain shadows*).
+          </p>
+          <p style="margin-top: 10px;">
+            <strong>Análise dos distratores:</strong> A vertente chuvosa é barlavento, enquanto sotavento é seca; na descida ocorre <em>compressão</em> adiabática (aquecimento), e não expansão; a TASat é <em>menor</em> que a TAS em virtude da liberação de calor latente; e a umidade específica absoluta cai drasticamente devido à chuva em barlavento.
+          </p>
+        </div>
+      </article>
+
+      <!-- Questão 6 -->
+      <article class="question-card" id="qcard-6">
+        <div class="question-header">
+          <span class="question-number">Questão 6</span>
+          <span class="question-topic">Circulação Geral: Hadley, Ferrel e Polar</span>
+        </div>
+        <p class="question-statement">
+          A circulação geral da atmosfera opera como mecanismo planetário de transporte advectivo de calor, configurando um modelo tricelular composto pelas Células de Hadley, Ferrel e Polar. Analise as afirmativas a seguir sobre a gênese desses sistemas e seus respectivos campos báricos e cinturões de vento:
+        </p>
+        <div class="roman-list">
+          <p><strong>I.</strong> A Célula de Hadley possui ramo ascendente termicamente induzido nas baixas pressões equatoriais e ramo descendente por subsidência dinâmica em torno dos $30^\circ$ de latitude em ambos os hemisférios, onde se estabelecem os anticiclones subtropicais.</p>
+          <p><strong>II.</strong> A Célula de Ferrel configura uma célula termicamente direta sustentada pelo aquecimento solar das latitudes subpolares e pelo afundamento térmico passivo do ar nos trópicos secos.</p>
+          <p><strong>III.</strong> Os ventos alísios compõem o escoamento de retorno em baixos níveis da Célula de Hadley, soprando dos centros anticiclônicos subtropicais em direção ao cavado equatorial, com deflexão aparente para oeste decorrente do efeito de Coriolis.</p>
+          <p><strong>IV.</strong> A Célula Polar apoia-se em centros de alta pressão térmica associados ao ar frio descendente sobre os polos, gerando ventos polares de leste que convergem com as massas subtropicais na faixa de baixas pressões subpolares.</p>
+        </div>
+        <p style="margin-bottom: 16px; font-weight: 600;">É correto o que se afirma em:</p>
+        <div class="options-list">
+          <label class="option-label" data-q="6" data-opt="A">
+            <input type="radio" name="q6" value="A">
+            <span class="option-text"><strong>A)</strong> I e II, apenas.</span>
+          </label>
+          <label class="option-label" data-q="6" data-opt="B">
+            <input type="radio" name="q6" value="B">
+            <span class="option-text"><strong>B)</strong> II e III, apenas.</span>
+          </label>
+          <label class="option-label" data-q="6" data-opt="C">
+            <input type="radio" name="q6" value="C">
+            <span class="option-text"><strong>C)</strong> I, III e IV, apenas.</span>
+          </label>
+          <label class="option-label" data-q="6" data-opt="D">
+            <input type="radio" name="q6" value="D">
+            <span class="option-text"><strong>D)</strong> II, III e IV, apenas.</span>
+          </label>
+          <label class="option-label" data-q="6" data-opt="E">
+            <input type="radio" name="q6" value="E">
+            <span class="option-text"><strong>E)</strong> I, II, III e IV.</span>
+          </label>
+        </div>
+        <div class="question-resolution-box" id="res-6">
+          <div class="resolution-title">
+            <span>🔍 Resolução Comentada — Gabarito Oficial: <strong>Alternativa C</strong></span>
+          </div>
+          <p>
+            A dinâmica tricelular do modelo planetário decompõe-se em:
+          </p>
+          <ul style="margin: 10px 0 10px 24px;">
+            <li><strong>Célula de Hadley (Correta - I):</strong> Célula termicamente direta. O ar sobe por forte insolação no Equador e desce dinamicamente aos $30^\circ$ de latitude (crista subtropical de alta pressão).</li>
+            <li><strong>Célula de Ferrel (Incorreta - II):</strong> É uma célula <strong>termicamente indireta</strong> (age como uma engrenagem mecânica intermediária acionada pelo atrito das células vizinhas e pela passagem dos ciclones e anticiclones móveis da frente polar), e não sustentada diretamente pela radiação.</li>
+            <li><strong>Alísios (Correta - III):</strong> Fluem da alta subtropical para o cavado equatorial na base de Hadley, curvados para oeste pela aceleração de Coriolis (alísios de nordeste no HN e de sudeste no HS).</li>
+            <li><strong>Célula Polar (Correta - IV):</strong> Célula termicamente direta acionada pelo resfriamento polar e subsidência de ar gélido, impelindo ventos de leste que encontram os ventos de oeste na frente subpolar.</li>
+          </ul>
+          <p>Portanto, são verdadeiras as afirmações <strong>I, III e IV</strong>.</p>
+        </div>
+      </article>
+
+      <!-- Questão 7 -->
+      <article class="question-card" id="qcard-7">
+        <div class="question-header">
+          <span class="question-number">Questão 7</span>
+          <span class="question-topic">Zona de Convergência Intertropical (ZCIT)</span>
+        </div>
+        <p class="question-statement">
+          A Zona de Convergência Intertropical (ZCIT) representa o mais relevante elemento sinóptico da climatologia equatorial, exercendo influência direta sobre os regimes pluviométricos das regiões Norte e Nordeste do Brasil. No tocante aos processos físicos, confluência de ventos e mobilidade espacial da ZCIT, assinale a alternativa correta:
+        </p>
+        <div class="options-list">
+          <label class="option-label" data-q="7" data-opt="A">
+            <input type="radio" name="q7" value="A">
+            <span class="option-text"><strong>A)</strong> A ZCIT estrutura-se no cinturão de ventos de oeste de médias latitudes, agindo pela penetração periódica de frentes polares continentais sobre os platôs intertropicais.</span>
+          </label>
+          <label class="option-label" data-q="7" data-opt="B">
+            <input type="radio" name="q7" value="B">
+            <span class="option-text"><strong>B)</strong> A confluência dos ventos alísios de nordeste e de sudeste na calha de baixas pressões equatoriais induz convergência horizontal de umidade e intensos movimentos convectivos verticais, formando nuvens de grande porte com precipitações volumosas.</span>
+          </label>
+          <label class="option-label" data-q="7" data-opt="C">
+            <input type="radio" name="q7" value="C">
+            <span class="option-text"><strong>C)</strong> A posição latitudinal da ZCIT mantém-se estática e rigidamente alinhada sobre a linha do Equador geográfico durante todas as estações do ano, imune às oscilações sazonais de temperatura da superfície do mar.</span>
+          </label>
+          <label class="option-label" data-q="7" data-opt="D">
+            <input type="radio" name="q7" value="D">
+            <span class="option-text"><strong>D)</strong> A circulação interna da ZCIT impõe subsidência contínua e divergência de ventos em superfície, o que impede a nucleação de gotículas de nuvens e condiciona estabilidade crônica.</span>
+          </label>
+          <label class="option-label" data-q="7" data-opt="E">
+            <input type="radio" name="q7" value="E">
+            <span class="option-text"><strong>E)</strong> A atuação climatológica da ZCIT no Semiárido brasileiro ocorre preferencialmente nos meses de julho e agosto, período no qual atinge seu deslocamento meridional mais austral do ano hidrológico.</span>
+          </label>
+        </div>
+        <div class="question-resolution-box" id="res-7">
+          <div class="resolution-title">
+            <span>🔍 Resolução Comentada — Gabarito Oficial: <strong>Alternativa B</strong></span>
+          </div>
+          <p>
+            A ZCIT é o cinturão de confluência dos ventos alísios dos dois hemisférios (alísios de nordeste e de sudeste) na calha barométrica equatorial, sustentado por águas oceânicas aquecidas. A convergência em baixos níveis bombeia massas d'água em estado de vapor para a média e alta troposfera, deflagrando megatorres de nuvens cumuliformes (<em>cumulonimbus</em>) que geram chuva contínua e torrencial em escala zonal.
+          </p>
+          <p style="margin-top: 10px;">
+            <strong>Análise dos distratores:</strong> A ZCIT pertence às baixas latitudes (não aos ventos de oeste temperados); oscila sazonalmente no sentido norte-sul acompanhando o equador térmico e a Temperatura da Superfície do Mar (TSM); sua dinâmica basal é <em>convergente ascendente</em> (e não descendente estável); e sua descida mais ao sul (atingindo o semiárido do Nordeste Setentrional) dá-se entre <strong>fevereiro e maio</strong> (a "quadra chuvosa"), e não em julho/agosto.
+          </p>
+        </div>
+      </article>
+
+      <!-- Questão 8 -->
+      <article class="question-card" id="qcard-8">
+        <div class="question-header">
+          <span class="question-number">Questão 8</span>
+          <span class="question-topic">Gênese e Tipos de Precipitação</span>
+        </div>
+        <p class="question-statement">
+          A formação das chuvas decorre de mecanismos dinâmicos de soerguimento do ar que definem padrões temporais, intensidades e coberturas espaciais específicas de precipitação. Na literatura climatológica de Ayoade (2013) e Mendonça e Danni-Oliveira (2007), destacam-se as precipitações convectivas, orográficas e frontais. Assinale a alternativa que conceitua acertadamente as características das chuvas frontais em contraposição às chuvas convectivas:
+        </p>
+        <div class="options-list">
+          <label class="option-label" data-q="8" data-opt="A">
+            <input type="radio" name="q8" value="A">
+            <span class="option-text"><strong>A)</strong> As chuvas convectivas ocorrem na interface baroclínica de massas de ar com contrastes de densidade, originando chuvas contínuas e estratificadas que cobrem bacias hidrográficas inteiras ao longo de vários dias sucessivos.</span>
+          </label>
+          <label class="option-label" data-q="8" data-opt="B">
+            <input type="radio" name="q8" value="B">
+            <span class="option-text"><strong>B)</strong> As chuvas frontais são deflagradas pelo superaquecimento térmico estival do solo continental, manifestando-se na forma de células isoladas com duração efêmera e alta densidade pluviométrica pontual.</span>
+          </label>
+          <label class="option-label" data-q="8" data-opt="C">
+            <input type="radio" name="q8" value="C">
+            <span class="option-text"><strong>C)</strong> As chuvas frontais são desencadeadas na zona de descontinuidade entre massas de ar com propriedades térmicas e higrométricas distintas, onde a massa mais quente e menos densa é forçada a ascender sobre a cunha de ar frio e mais denso.</span>
+          </label>
+          <label class="option-label" data-q="8" data-opt="D">
+            <input type="radio" name="q8" value="D">
+            <span class="option-text"><strong>D)</strong> As chuvas convectivas independem da radiação solar e dependem estritamente da presença de serras e escarpas continentais para que o ar atinja o nível de condensação.</span>
+          </label>
+          <label class="option-label" data-q="8" data-opt="E">
+            <input type="radio" name="q8" value="E">
+            <span class="option-text"><strong>E)</strong> As chuvas frontais desenvolvem-se mediante ausência completa de contrastes barométricos, condicionando processos em que a condensação decorre da condução mecânica de calor sem ascensão de massas fluidas.</span>
+          </label>
+        </div>
+        <div class="question-resolution-box" id="res-8">
+          <div class="resolution-title">
+            <span>🔍 Resolução Comentada — Gabarito Oficial: <strong>Alternativa C</strong></span>
+          </div>
+          <p>
+            As <strong>chuvas frontais</strong> (ou ciclônicas) ocorrem nas superfícies de descontinuidade entre massas de ar de densidades diferentes (determinadas por contrastes de temperatura e umidade). Quando uma massa polar densa encontra uma massa tropical leve, o ar aquecido é forçado a subir suave ou abruptamente sobre a cunha frontal fria, gerando ampla cobertura de nuvens estratiformes (<em>nimbostratus</em>, <em>altostratus</em>) e chuvas homogêneas em escala sinóptica regional.
+          </p>
+          <div class="table-wrapper">
+            <table>
+              <thead>
+                <tr>
+                  <th>Tipo de Precipitação</th>
+                  <th>Forçante Dinâmica Primária</th>
+                  <th>Escala Espacial e Nuvens</th>
+                  <th>Regime de Chuva Típico</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Convectiva</strong></td>
+                  <td>Aquecimento solar superficial e empuxo térmico</td>
+                  <td>Pontual / celular (*Cumulonimbus*)</td>
+                  <td>Chuva intensa, curta duração, trovoadas e rajadas</td>
+                </tr>
+                <tr>
+                  <td><strong>Frontal</strong></td>
+                  <td>Convergência mecânica em cunhas baroclínicas</td>
+                  <td>Extensa / sinóptica (*Nimbostratus*)</td>
+                  <td>Chuva contínua de média a longa duração</td>
+                </tr>
+                <tr>
+                  <td><strong>Orográfica</strong></td>
+                  <td>Ascensão forçada por barreira de relevo</td>
+                  <td>Linear em encostas de barlavento</td>
+                  <td>Persistente enquanto perdurar o vento marítimo</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p>
+            <strong>Análise dos distratores:</strong> As afirmativas A e B trocaram as definições conceituais de chuvas frontais e convectivas; a D confunde convecção térmica com soerguimento orográfico de relevo; e a E desconsidera o fato de que frentes ocorrem sob fortes gradientes de pressão e com efetiva ascensão dinâmica de ar.
+          </p>
+        </div>
+      </article>
+
+      <!-- Questão 9 -->
+      <article class="question-card" id="qcard-9">
+        <div class="question-header">
+          <span class="question-number">Questão 9</span>
+          <span class="question-topic">Desertos Costeiros e Inversão Térmica</span>
+        </div>
+        <p class="question-statement">
+          A gênese das grandes paisagens desérticas e semiáridas costeiras do globo, tais como o Deserto do Atacama na América do Sul e o Deserto da Namíbia na África austral, está vinculada à ação combinada de fatores geográficos e sistemas de circulação da atmosfera. A respeito dos mecanismos de estabilização do ar que determinam a aridez desses litorais, assinale a alternativa correta:
+        </p>
+        <div class="options-list">
+          <label class="option-label" data-q="9" data-opt="A">
+            <input type="radio" name="q9" value="A">
+            <span class="option-text"><strong>A)</strong> A presença de correntes marítimas equatoriais quentes na faixa litorânea deflagra taxas excessivas de evaporação que provocam tempestades contínuas em alto-mar, extinguindo o vapor disponível antes de atingir a costa continental.</span>
+          </label>
+          <label class="option-label" data-q="9" data-opt="B">
+            <input type="radio" name="q9" value="B">
+            <span class="option-text"><strong>B)</strong> A ação de correntes marítimas frias associadas à ressurgência costeira resfria a camada inferior da atmosfera advectada, gerando uma persistente inversão térmica que suprime os movimentos convectivos e consolida condições de tempo estável e seco.</span>
+          </label>
+          <label class="option-label" data-q="9" data-opt="C">
+            <input type="radio" name="q9" value="C">
+            <span class="option-text"><strong>C)</strong> O atrito do escoamento eólico com as águas marinhas frias acelera a convecção profunda, transformando as gotas de chuva em vapor antes de tocarem a superfície costeira por aquecimento adiabático induzido.</span>
+          </label>
+          <label class="option-label" data-q="9" data-opt="D">
+            <input type="radio" name="q9" value="D">
+            <span class="option-text"><strong>D)</strong> Os desertos costeiros das faixas subtropicais são formados pela ação perene de ciclones extratropicais que bloqueiam a circulação local e impedem o transporte da umidade marinha para a terra firme.</span>
+          </label>
+          <label class="option-label" data-q="9" data-opt="E">
+            <input type="radio" name="q9" value="E">
+            <span class="option-text"><strong>E)</strong> A subsidência de ar polar originada na frente subpolar converge diretamente sobre o mar tropical, sobreaquecendo as águas superficiais e mantendo pressões barométricas anômalamente baixas no litoral continental.</span>
+          </label>
+        </div>
+        <div class="question-resolution-box" id="res-9">
+          <div class="resolution-title">
+            <span>🔍 Resolução Comentada — Gabarito Oficial: <strong>Alternativa B</strong></span>
+          </div>
+          <p>
+            A hiperaridez dos desertos litorâneos ocidentais (Atacama no Chile/Peru e Namíbia no sudoeste africano) decorre da conjugação de dois fatores estabilizadores:
+          </p>
+          <ol style="margin: 10px 0 10px 24px;">
+            <li><strong>Subsidência dinâmica de grande escala:</strong> Proveniente do ramo descendente da Célula de Hadley (anticiclones subtropicais do Pacífico e Atlântico Sul).</li>
+            <li><strong>Correntes oceânicas frias com ressurgência:</strong> A Corrente de Humboldt (no Atacama) e a Corrente de Benguela (na Namíbia) transportam águas antárticas e subantárticas em direção aos trópicos, somadas à ressurgência (*upwelling*). Ao passar sobre essa água fria, o ar em contato direto com a superfície resfria-se intensamente.</li>
+          </ol>
+          <p>
+            O ar frio basal fica confinado sob o ar quente subsidente, estabelecendo uma <strong>inversão térmica marítima persistente</strong>. Essa inversão anula completamente qualquer empuxo térmico (convecção), aprisionando a umidade em finos nevoeiros litorâneos (*camanchacas*) incapazes de formar gotas precipitáveis de grande porte.
+          </p>
+          <p style="margin-top: 10px;">
+            <strong>Análise dos distratores:</strong> As correntes são frias (não quentes); o contato com águas frias inibe a convecção (não a acelera); o bloqueio não decorre de ciclones, mas da subsidência anticiclônica subtropical; e os desertos costeiros operam sob altas pressões superficiais.
+          </p>
+        </div>
+      </article>
+
+      <!-- Questão 10 -->
+      <article class="question-card" id="qcard-10">
+        <div class="question-header">
+          <span class="question-number">Questão 10</span>
+          <span class="question-topic">Classificação Climática de Köppen-Geiger</span>
+        </div>
+        <p class="question-statement">
+          O sistema de classificação climática empírica de Köppen-Geiger utiliza letras maiúsculas e minúsculas para designar grandes grupos térmicos, regimes estacionais de precipitação e variações sazonais de temperatura, ancorando seus limites nas fronteiras dos biomas vegetais. Com base nos critérios taxonômicos desse modelo expostos em Mendonça e Danni-Oliveira (2007) e Ayoade (2013), assinale a alternativa correta:
+        </p>
+        <div class="options-list">
+          <label class="option-label" data-q="10" data-opt="A">
+            <input type="radio" name="q10" value="A">
+            <span class="option-text"><strong>A)</strong> A fórmula <strong>Af</strong> expressa os climas temperados continentais de elevada latitude com precipitações niveais no inverno e forte déficit hídrico no trimestre de verão.</span>
+          </label>
+          <label class="option-label" data-q="10" data-opt="B">
+            <input type="radio" name="q10" value="B">
+            <span class="option-text"><strong>B)</strong> O código <strong>BSh</strong> identifica o clima semiárido quente de estepe, no qual o potencial evapotranspirativo anual supera a precipitação média acumulada e a temperatura média anual do ar é igual ou superior a $18\,^\circ\text{C}$.</span>
+          </label>
+          <label class="option-label" data-q="10" data-opt="C">
+            <input type="radio" name="q10" value="C">
+            <span class="option-text"><strong>C)</strong> O tipo <strong>Cfa</strong> representa o clima tropical megatérmico continental com estação seca rigorosa no verão e vegetação adaptada de savana estépica.</span>
+          </label>
+          <label class="option-label" data-q="10" data-opt="D">
+            <input type="radio" name="q10" value="D">
+            <span class="option-text"><strong>D)</strong> A classificação <strong>Aw</strong> demarca o domínio polar de gelos perpétuos com temperatura do mês mais quente inferior a $0\,^\circ\text{C}$, impossibilitando o crescimento biológico da vegetação de tundra.</span>
+          </label>
+          <label class="option-label" data-q="10" data-opt="E">
+            <input type="radio" name="q10" value="E">
+            <span class="option-text"><strong>E)</strong> A fórmula <strong>Cfb</strong> estabelece as características de climas equatoriais superúmidos com totais anuais de precipitação concentrados nos meses mais quentes e médias térmicas invariavelmente superiores a $30\,^\circ\text{C}$.</span>
+          </label>
+        </div>
+        <div class="question-resolution-box" id="res-10">
+          <div class="resolution-title">
+            <span>🔍 Resolução Comentada — Gabarito Oficial: <strong>Alternativa B</strong></span>
+          </div>
+          <p>
+            No sistema taxonômico de Köppen-Geiger:
+          </p>
+          <ul style="margin: 10px 0 10px 24px;">
+            <li><strong>1ª Letra (Grupo Principal):</strong> <strong>B</strong> define climas secos nos quais a evapotranspiração potencial anual excede a precipitação pluviométrica acumulada ($ETP > P$).</li>
+            <li><strong>2ª Letra (Regime de Precipitação):</strong> <strong>S</strong> (*Steppe*) denota o clima semiárido de estepe (em oposição ao <strong>W</strong>, *Wüste*, deserto absoluto).</li>
+            <li><strong>3ª Letra (Critério Térmico):</strong> <strong>h</strong> (*heiss*) qualifica clima seco quente, onde a temperatura média anual é $\ge 18\,^\circ\text{C}$ (em contraposição a <strong>k</strong>, *kalt*, frio).</li>
+          </ul>
+          <p>
+            Portanto, <strong>BSh</strong> é o clima semiárido quente característico do Sertão nordestino brasileiro.
+          </p>
+          <p style="margin-top: 10px;">
+            <strong>Análise dos distratores:</strong> <strong>Af</strong> é clima tropical equatorial chuvoso sem estação seca; <strong>Cfa</strong> é subtropical úmido com verão quente (comum no Sul do Brasil); <strong>Aw</strong> é clima tropical com inverno seco de savana/cerrado (clima polar é <strong>ET/EF</strong>); e <strong>Cfb</strong> define clima temperado oceânico com verão ameno (mês mais quente $< 22\,^\circ\text{C}$).
+          </p>
+        </div>
+      </article>
+
+      <!-- Botões de Ação -->
+      <div class="action-panel">
+        <button type="button" class="btn-submit" id="btnSubmit">Finalizar Simulado e Ver Resoluções</button>
+        <button type="button" class="btn-reset" id="btnReset">Reiniciar Quiz</button>
+      </div>
+
+    </form>
+
+    <!-- Seção de Resultados e Resoluções no Final da Página -->
+    <section class="results-summary-card" id="resultsSection">
+      <div class="results-header">
+        <span class="header-badge">Resultado Final do Simulado</span>
+        <h2>Quadro Geral de Desempenho</h2>
+        <div class="results-score-badge">
+          <span id="finalScore">0</span>
+          <span class="results-score-total">/ 10</span>
+        </div>
+        <div class="score-percentage" id="finalPercent">Aproveitamento: 0%</div>
+        <p class="feedback-message" id="feedbackMessage"></p>
+      </div>
+
+      <h3 style="font-size: 1.15rem; margin-bottom: 12px; color: var(--text-main);">Gabarito Rápido:</h3>
+      <div class="quick-answers-grid" id="quickAnswersGrid">
+        <!-- Itens inseridos dinamicamente por JS -->
+      </div>
+
+      <div style="background: var(--bg-card-subtle); padding: 18px 22px; border-radius: 8px; border-left: 4px solid var(--accent); margin-top: 20px; font-size: 0.95rem;">
+        <strong>Nota de Revisão:</strong> As resoluções comentadas completas de cada questão foram ativadas e exibidas diretamente abaixo de cada uma das 10 questões acima. Você pode rolar a página para reler as justificativas teóricas e tabelas comparativas.
+      </div>
+    </section>
+
+  </div>
+
+  <script>
+    // Gabarito oficial do caderno de questões
+    const OFFICIAL_KEY = {
+      1: "C",
+      2: "B",
+      3: "C",
+      4: "B",
+      5: "A",
+      6: "C",
+      7: "B",
+      8: "C",
+      9: "B",
+      10: "B"
+    };
+
+    const TOTAL_QUESTIONS = 10;
+    const userAnswers = {};
+
+    // Renderização do KaTeX
+    function renderMathInPage() {
+      if (window.renderMathInElement) {
+        renderMathInElement(document.body, {
+          delimiters: [
+            { left: "$$", right: "$$", display: true },
+            { left: "$", right: "$", display: false }
+          ],
+          throwOnError: false
+        });
+      }
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      const labels = document.querySelectorAll(".option-label");
+      const answeredCountEl = document.getElementById("answeredCount");
+      const progressFillEl = document.getElementById("progressFill");
+      const progressPercentageEl = document.getElementById("progressPercentage");
+      const btnSubmit = document.getElementById("btnSubmit");
+      const btnReset = document.getElementById("btnReset");
+      const resultsSection = document.getElementById("resultsSection");
+      const quickAnswersGrid = document.getElementById("quickAnswersGrid");
+
+      // Gerenciar seleção de alternativas
+      labels.forEach(label => {
+        label.addEventListener("click", () => {
+          // Se já submetido, desabilitar alteração
+          if (btnSubmit.disabled) return;
+
+          const qNum = label.getAttribute("data-q");
+          const optVal = label.getAttribute("data-opt");
+
+          // Desmarcar outras opções da mesma questão
+          const siblingLabels = document.querySelectorAll(`.option-label[data-q="${qNum}"]`);
+          siblingLabels.forEach(l => l.classList.remove("selected"));
+
+          // Marcar esta
+          label.classList.add("selected");
+          const radio = label.querySelector('input[type="radio"]');
+          if (radio) radio.checked = true;
+
+          userAnswers[qNum] = optVal;
+          updateProgress();
+        });
+      });
+
+      function updateProgress() {
+        const count = Object.keys(userAnswers).length;
+        const pct = Math.round((count / TOTAL_QUESTIONS) * 100);
+        answeredCountEl.textContent = `${count} de ${TOTAL_QUESTIONS} respondidas`;
+        progressFillEl.style.width = `${pct}%`;
+        progressPercentageEl.textContent = `${pct}%`;
+      }
+
+      // Finalizar Simulado
+      btnSubmit.addEventListener("click", () => {
+        const answeredCount = Object.keys(userAnswers).length;
+        if (answeredCount < TOTAL_QUESTIONS) {
+          const confirmSubmit = confirm(`Você respondeu apenas ${answeredCount} de ${TOTAL_QUESTIONS} questões. Deseja finalizar e ver o gabarito mesmo assim?`);
+          if (!confirmSubmit) return;
+        }
+
+        // Bloquear opções e botão de envio
+        btnSubmit.disabled = true;
+        btnSubmit.style.opacity = "0.6";
+        btnSubmit.style.cursor = "not-allowed";
+
+        let score = 0;
+        quickAnswersGrid.innerHTML = "";
+
+        for (let i = 1; i <= TOTAL_QUESTIONS; i++) {
+          const userChoice = userAnswers[i];
+          const correctChoice = OFFICIAL_KEY[i];
+          const isHit = userChoice === correctChoice;
+
+          if (isHit) score++;
+
+          // Atualizar visual dos botões de opções
+          const optionsOfQ = document.querySelectorAll(`.option-label[data-q="${i}"]`);
+          optionsOfQ.forEach(optLabel => {
+            const optVal = optLabel.getAttribute("data-opt");
+            
+            // Destacar alternativa correta oficial
+            if (optVal === correctChoice) {
+              optLabel.classList.add("is-correct");
+              const tag = document.createElement("span");
+              tag.className = "option-feedback-tag tag-correct";
+              tag.textContent = "Gabarito Correto";
+              optLabel.appendChild(tag);
+            }
+
+            // Se o usuário marcou esta e estava errada
+            if (optVal === userChoice && !isHit) {
+              optLabel.classList.add("is-wrong");
+              const tag = document.createElement("span");
+              tag.className = "option-feedback-tag tag-wrong";
+              tag.textContent = "Sua Escolha";
+              optLabel.appendChild(tag);
+            }
+          });
+
+          // Revelar resolução comentada abaixo da questão
+          const resBox = document.getElementById(`res-${i}`);
+          if (resBox) {
+            resBox.classList.add("active");
+          }
+
+          // Adicionar card no resumo rápido
+          const quickItem = document.createElement("div");
+          quickItem.className = `quick-item ${isHit ? 'hit' : 'miss'}`;
+          quickItem.innerHTML = `
+            <div class="quick-qnum">Questão ${i}</div>
+            <div class="quick-val">${isHit ? '✓ ' + correctChoice : (userChoice ? '✕ ' + userChoice + ' → ' + correctChoice : 'Em branco (' + correctChoice + ')')}</div>
+          `;
+          quickAnswersGrid.appendChild(quickItem);
+        }
+
+        // Preencher Quadro Geral de Desempenho
+        const finalScoreEl = document.getElementById("finalScore");
+        const finalPercentEl = document.getElementById("finalPercent");
+        const feedbackMessageEl = document.getElementById("feedbackMessage");
+
+        finalScoreEl.textContent = score;
+        const percentage = (score / TOTAL_QUESTIONS) * 100;
+        finalPercentEl.textContent = `Aproveitamento: ${percentage.toFixed(0)}%`;
+
+        if (score >= 9) {
+          feedbackMessageEl.textContent = "Excelente desempenho! Domínio aprofundado dos processos termodinâmicos, da circulação geral e da climatologia geográfica para concursos da Carreira EBTT.";
+        } else if (score >= 7) {
+          feedbackMessageEl.textContent = "Muito bom! Você possui sólida base teórica nos elementos e fatores do clima. Revise as sutilezas da estabilidade atmosférica e classificações de Köppen.";
+        } else if (score >= 5) {
+          feedbackMessageEl.textContent = "Desempenho intermediário. Recomendamos atenção redobrada aos tópicos de convecção, taxas adiabáticas e aos centros de alta e baixa pressão.";
+        } else {
+          feedbackMessageEl.textContent = "Recomendamos um estudo sistemático da bibliografia indicada (Ayoade, Mendonça & Danni-Oliveira e Ynoue) focando nos esquemas da dinâmica atmosférica.";
+        }
+
+        // Exibir seção de resultados e rolar suavemente até ela
+        resultsSection.classList.add("active");
+        resultsSection.scrollIntoView({ behavior: "smooth", block: "start" });
+
+        // Re-executar renderizador KaTeX caso haja novas fórmulas nos blocos ativados
+        renderMathInPage();
+      });
+
+      // Reiniciar Simulado
+      btnReset.addEventListener("click", () => {
+        if (confirm("Tem certeza de que deseja reiniciar o simulado? Suas respostas serão limpas.")) {
+          window.location.reload();
+        }
+      });
+    });
+  </script>
+</body>
+</html>

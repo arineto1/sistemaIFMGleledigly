@@ -1,0 +1,931 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Climatologia do Brasil e Fenômenos Extremos - Concurso IFMG Geografia</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Merriweather:ital,wght@0,300;0,400;0,700;1,300&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Merriweather', 'serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#f0fdf4',
+                            100: '#dcfce7',
+                            700: '#15803d',
+                            800: '#166534',
+                            900: '#14532d',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Ajustes tipográficos para máximo conforto visual e leitura prolongada */
+        body {
+            background-color: #ffffff;
+            color: #1e293b;
+            font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+        }
+        
+        /* Grifos e destaques visuais elegantes */
+        mark.grifo {
+            background-color: #fef08a; /* Amarelo suave confortável */
+            color: #0f172a;
+            font-weight: 600;
+            padding: 0.125rem 0.35rem;
+            border-radius: 0.25rem;
+            box-decoration-break: clone;
+            -webkit-box-decoration-break: clone;
+        }
+
+        mark.grifo-alerta {
+            background-color: #fed7aa; /* Laranja pastel para pegadinhas */
+            color: #431407;
+            font-weight: 600;
+            padding: 0.125rem 0.35rem;
+            border-radius: 0.25rem;
+        }
+
+        mark.grifo-verde {
+            background-color: #bbf7d0; /* Verde pastel para acertos */
+            color: #064e3b;
+            font-weight: 600;
+            padding: 0.125rem 0.35rem;
+            border-radius: 0.25rem;
+        }
+
+        /* Impedir quebra forçada de tabela e garantir 100% de largura sem scroll horizontal */
+        table {
+            width: 100% !important;
+            table-layout: fixed;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            hyphens: auto;
+        }
+
+        th, td {
+            overflow-wrap: break-word;
+            word-break: normal;
+        }
+    </style>
+</head>
+<body class="bg-white text-slate-800 antialiased font-sans leading-relaxed selection:bg-amber-200 selection:text-slate-900">
+
+    <!-- BARRA SUPERIOR DE METADADOS -->
+    <header class="border-b border-slate-200 bg-white sticky top-0 z-40 shadow-xs">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 py-3 flex flex-wrap items-center justify-between gap-3">
+            <div class="flex items-center space-x-2">
+                <span class="inline-flex items-center px-2.5 py-0.5 rounded-md text-xs font-bold bg-emerald-100 text-emerald-800 border border-emerald-300">
+                    IFMG • Reitoria
+                </span>
+                <span class="text-xs font-semibold text-slate-500 hidden sm:inline">
+                    Concurso Público para Professor de Geografia
+                </span>
+            </div>
+            <div class="flex items-center gap-2">
+                <a href="#questoes-anchor" class="text-xs font-bold text-emerald-700 hover:text-emerald-900 bg-emerald-50 hover:bg-emerald-100 px-3 py-1.5 rounded-lg border border-emerald-300 transition-colors">
+                    Ir para Questões ↓
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-5xl mx-auto px-4 sm:px-6 py-8">
+
+        <!-- CABEÇALHO PRINCIPAL DA AULA -->
+        <div class="mb-8 border-b border-slate-200 pb-8">
+            <div class="flex items-center gap-2 mb-3">
+                <span class="text-xs uppercase tracking-wider font-bold text-slate-500 bg-slate-100 px-2.5 py-1 rounded">
+                    Caderno Teórico & Diretriz de Prova Objetiva
+                </span>
+            </div>
+            <h1 class="text-2xl sm:text-4xl font-extrabold text-slate-900 tracking-tight leading-tight">
+                Climatologia do Brasil, Dinâmica Atmosférica e Fenômenos Climáticos Extremos
+            </h1>
+            <p class="mt-3 text-base sm:text-lg text-slate-600 font-normal leading-relaxed">
+                Abordagem aprofundada alinhada à matriz de <strong class="text-slate-800">Ayoade (2013)</strong>, <strong class="text-slate-800">Mendonça & Danni-Oliveira (2007)</strong> e <strong class="text-slate-800">Ross (2014)</strong>, com foco na superação de pegadinhas de bancas examinadoras.
+            </p>
+        </div>
+
+        <!-- REPRODUTOR DE ÁUDIO MP3 CONFIGURÁVEL -->
+        <section class="mb-10 p-5 sm:p-6 bg-slate-50 rounded-2xl border border-slate-200 shadow-sm" aria-label="Reprodutor de Áudio">
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-4 pb-4 border-b border-slate-200">
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 rounded-xl bg-emerald-600 flex items-center justify-center text-white shrink-0 shadow-sm">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path>
+                        </svg>
+                    </div>
+                    <div>
+                        <h2 class="text-sm sm:text-base font-bold text-slate-900">Audioaula Sincronizada (MP3)</h2>
+                        <p class="text-xs text-slate-500">Ouça o áudio da aula enquanto acompanha o texto e os tópicos grifados.</p>
+                    </div>
+                </div>
+
+                <!-- Input para o nome do arquivo MP3 -->
+                <div class="w-full md:w-auto flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
+                    <div class="relative grow">
+                        <span class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-slate-400 text-xs font-mono">
+                            📁
+                        </span>
+                        <input type="text" id="audioFileNameInput" value="audio12geo.mp3" placeholder="nome-do-arquivo.mp3"
+                            class="w-full sm:w-64 pl-8 pr-3 py-2 text-xs font-mono bg-white border border-slate-300 rounded-lg text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
+                            title="Digite o nome do arquivo mp3 que está na mesma pasta desta página">
+                    </div>
+                    <button id="updateAudioBtn" type="button"
+                        class="px-4 py-2 bg-slate-800 hover:bg-slate-900 text-white text-xs font-semibold rounded-lg transition-colors shrink-0 shadow-xs">
+                        Carregar MP3
+                    </button>
+                </div>
+            </div>
+
+            <!-- Controle do Áudio -->
+            <div class="space-y-2">
+                <audio id="audioPlayer" controls class="w-full h-11 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500">
+                    <source id="audioSource" src="audio12geo.mp3" type="audio/mpeg">
+                    Seu navegador não suporta a reprodução deste elemento de áudio.
+                </audio>
+                <div class="flex items-center justify-between text-[11px] text-slate-500 px-1">
+                    <span id="currentAudioFileStatus">Arquivo ativo: <code class="font-mono text-slate-700 bg-white px-1.5 py-0.5 rounded border border-slate-200">audio12geo.mp3</code></span>
+                    <span class="text-slate-400">Certifique-se de que o arquivo .mp3 está na mesma pasta deste arquivo HTML.</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- SEÇÃO 1: MASSAS DE AR -->
+        <article class="mb-14 space-y-6">
+            <div class="border-l-4 border-emerald-600 pl-4 py-1">
+                <span class="text-xs font-bold uppercase tracking-wider text-emerald-800">Módulo 01</span>
+                <h2 class="text-xl sm:text-2xl font-bold text-slate-900">
+                    Dinâmica Sinótica e Atuação Sazonal das Massas de Ar no Território Brasileiro
+                </h2>
+            </div>
+
+            <p class="text-justify text-slate-700 leading-relaxed text-sm sm:text-base">
+                A climatologia dinâmica aplicada à análise do território brasileiro fundamenta-se na <mark class="grifo">sucessão rítmica dos tipos de tempo</mark> e na interação mútua entre centros de ação atmosférica tropicais e extratropicais. A compreensão dos padrões climáticos nacionais exige a superação de concepções puramente zonais e estáticas da atmosfera, integrando a termodinâmica das massas de ar aos fatores geográficos do clima, como a extensão longitudinal e latitudinal do relevo, a continentalidade e a cobertura vegetal.
+            </p>
+
+            <p class="text-justify text-slate-700 leading-relaxed text-sm sm:text-base">
+                Uma massa de ar constitui um expressivo volume troposférico caracterizado pela <mark class="grifo">relativa homogeneidade horizontal de temperatura e umidade</mark>, adquiridas por contato prolongado com a superfície subjacente em sua respectiva região manancial. Em razão de sua posição predominantemente intertropical e de sua configuração morfológica desprovida de barreiras orográficas meridianas contínuas no interior, o Brasil converte-se em palco de transição e colisão entre <mark class="grifo">cinco massas de ar principais</mark> ao longo do ano.
+            </p>
+
+            <!-- TABELA 1: MASSAS DE AR (COMPLETA, SEM SCROLL HORIZONTAL) -->
+            <div class="my-6">
+                <div class="mb-2 flex items-center justify-between">
+                    <h3 class="text-xs sm:text-sm font-bold text-slate-900 uppercase tracking-wide">
+                        Quadro Sinótico 1.1: As Cinco Massas de Ar Atuantes no Brasil
+                    </h3>
+                    <span class="text-[11px] text-slate-500 font-medium">Ajustada à largura da tela</span>
+                </div>
+                <div class="border border-slate-200 rounded-xl overflow-hidden bg-white shadow-xs">
+                    <table class="w-full border-collapse text-left text-xs sm:text-sm">
+                        <thead class="bg-slate-100 border-b border-slate-200 text-slate-800 font-bold">
+                            <tr>
+                                <th class="w-[18%] p-2 sm:p-3 border-r border-slate-200 align-top">Massa de Ar</th>
+                                <th class="w-[18%] p-2 sm:p-3 border-r border-slate-200 align-top">Centro Manancial</th>
+                                <th class="w-[20%] p-2 sm:p-3 border-r border-slate-200 align-top">Propriedades</th>
+                                <th class="w-[22%] p-2 sm:p-3 border-r border-slate-200 align-top">Verão Austral</th>
+                                <th class="w-[22%] p-2 sm:p-3 align-top">Inverno Austral</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-200 text-slate-700">
+                            <tr class="hover:bg-slate-50/60">
+                                <td class="p-2 sm:p-3 border-r border-slate-200 font-bold text-slate-900 align-top">
+                                    Equatorial Continental<br>
+                                    <span class="inline-block mt-0.5 px-1.5 py-0.5 bg-emerald-100 text-emerald-800 rounded text-[11px] font-bold">mEc</span>
+                                </td>
+                                <td class="p-2 sm:p-3 border-r border-slate-200 align-top">Porção ocidental da bacia amazônica.</td>
+                                <td class="p-2 sm:p-3 border-r border-slate-200 align-top">
+                                    <mark class="grifo">Quente, extremamente úmida e instável</mark> (exceção à regra das massas continentais).
+                                </td>
+                                <td class="p-2 sm:p-3 border-r border-slate-200 align-top">
+                                    <mark class="grifo">Máxima expansão</mark>; projeta-se sobre Centro-Oeste e Sudeste; alimenta a convecção estival e ZCAS.
+                                </td>
+                                <td class="p-2 sm:p-3 align-top">
+                                    Retração em direção ao noroeste amazônico; menor exportação de vapor d'água ao centro-sul.
+                                </td>
+                            </tr>
+                            <tr class="hover:bg-slate-50/60">
+                                <td class="p-2 sm:p-3 border-r border-slate-200 font-bold text-slate-900 align-top">
+                                    Equatorial Atlântica<br>
+                                    <span class="inline-block mt-0.5 px-1.5 py-0.5 bg-blue-100 text-blue-800 rounded text-[11px] font-bold">mEa</span>
+                                </td>
+                                <td class="p-2 sm:p-3 border-r border-slate-200 align-top">Atlântico Norte / Proximidades de Açores e Cabo Verde.</td>
+                                <td class="p-2 sm:p-3 border-r border-slate-200 align-top">Quente e úmida; estabilizada na base pelas altas pressões oceânicas.</td>
+                                <td class="p-2 sm:p-3 border-r border-slate-200 align-top">
+                                    Atua na faixa litorânea setentrional (Norte e Nordeste); alimenta a banda convergente da <mark class="grifo">ZCIT</mark>.
+                                </td>
+                                <td class="p-2 sm:p-3 align-top">
+                                    Enfraquecida; recua para latitudes mais boreais acompanhando as pressões planetárias.
+                                </td>
+                            </tr>
+                            <tr class="hover:bg-slate-50/60">
+                                <td class="p-2 sm:p-3 border-r border-slate-200 font-bold text-slate-900 align-top">
+                                    Tropical Atlântica<br>
+                                    <span class="inline-block mt-0.5 px-1.5 py-0.5 bg-cyan-100 text-cyan-800 rounded text-[11px] font-bold">mTa</span>
+                                </td>
+                                <td class="p-2 sm:p-3 border-r border-slate-200 align-top">Atlântico Sul (Anticiclone Subtropical - ASAS).</td>
+                                <td class="p-2 sm:p-3 border-r border-slate-200 align-top">Quente e úmida na camada inferior; subsidente e estável no topo.</td>
+                                <td class="p-2 sm:p-3 border-r border-slate-200 align-top">
+                                    Provoca instabilidades convectivas e orográficas na fachada leste e escarpas do planalto atlântico.
+                                </td>
+                                <td class="p-2 sm:p-3 align-top">
+                                    Forma frentes costeiras ao interagir com a mPa; chuvas orográficas persistentes na <mark class="grifo">Serra do Mar</mark>.
+                                </td>
+                            </tr>
+                            <tr class="hover:bg-slate-50/60">
+                                <td class="p-2 sm:p-3 border-r border-slate-200 font-bold text-slate-900 align-top">
+                                    Tropical Continental<br>
+                                    <span class="inline-block mt-0.5 px-1.5 py-0.5 bg-amber-100 text-amber-900 rounded text-[11px] font-bold">mTc</span>
+                                </td>
+                                <td class="p-2 sm:p-3 border-r border-slate-200 align-top">Depressão do Chaco / Pantanal / Gran Chaco.</td>
+                                <td class="p-2 sm:p-3 border-r border-slate-200 align-top">
+                                    <mark class="grifo">Quente e seca</mark>; gerada por forte aquecimento continental e subsidência.
+                                </td>
+                                <td class="p-2 sm:p-3 border-r border-slate-200 align-top">
+                                    Área restrita e nuclear, comprimida pela convergência úmida da mEc e mTa.
+                                </td>
+                                <td class="p-2 sm:p-3 align-top">
+                                    <mark class="grifo">Expansão periódica</mark> para Centro-Oeste, oeste de SP e PR; gera bloqueios secos e veranicos.
+                                </td>
+                            </tr>
+                            <tr class="hover:bg-slate-50/60">
+                                <td class="p-2 sm:p-3 border-r border-slate-200 font-bold text-slate-900 align-top">
+                                    Polar Atlântica<br>
+                                    <span class="inline-block mt-0.5 px-1.5 py-0.5 bg-indigo-100 text-indigo-800 rounded text-[11px] font-bold">mPa</span>
+                                </td>
+                                <td class="p-2 sm:p-3 border-r border-slate-200 align-top">Oceano Atlântico Sul / Águas subpolares e patagônicas.</td>
+                                <td class="p-2 sm:p-3 border-r border-slate-200 align-top">
+                                    Fria e úmida na gênese; torna-se gradativamente <mark class="grifo">estável e fria/seca</mark> no continente.
+                                </td>
+                                <td class="p-2 sm:p-3 border-r border-slate-200 align-top">
+                                    Atuação periférica e restrita ao litoral meridional; rápido enfraquecimento e frontólise oceânica.
+                                </td>
+                                <td class="p-2 sm:p-3 align-top">
+                                    <mark class="grifo">Máxima atividade dinâmica</mark>; trifurca-se no continente: frentes frias, geadas e a <mark class="grifo">friagem</mark>.
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- SUBSEÇÃO: mEc e Rios Voadores -->
+            <div class="space-y-3 pt-2">
+                <h3 class="text-lg font-bold text-slate-900 flex items-center gap-2">
+                    <span class="w-2 h-2 rounded-full bg-emerald-600"></span>
+                    A Massa Equatorial Continental e os Vetores de Umidade dos Rios Voadores
+                </h3>
+                <p class="text-justify text-slate-700 leading-relaxed text-sm sm:text-base">
+                    A Massa Equatorial Continental (mEc) encerra uma peculiaridade na climatologia clássica: contrariando o princípio geral de que massas de ar formadas no interior dos continentes se mostram secas, a <mark class="grifo">mEc apresenta elevadíssimo grau de saturação higrométrica e forte instabilidade convectiva</mark>. Essa termodinâmica decorre da conjunção de dois condicionantes ambientais: a convecção térmica profunda associada à baixa latitude e a extraordinária taxa de evapotranspiração da Floresta Amazônica, que recicla a umidade advectada pelos ventos alísios de nordeste e sudeste.
+                </p>
+                <p class="text-justify text-slate-700 leading-relaxed text-sm sm:text-base">
+                    A umidade gerada na bacia amazônica é transportada em baixos níveis troposféricos pela circulação atmosférica regional. Ao encontrar a imponente barreira geomorfológica da <mark class="grifo">Cordilheira dos Andes a oeste</mark>, esse escoamento úmido é desviado para o quadrante meridional, configurando os denominados <mark class="grifo">Jatos de Baixos Níveis (JBN)</mark> a leste da cadeia andina.
+                </p>
+                <p class="text-justify text-slate-700 leading-relaxed text-sm sm:text-base">
+                    Esse mecanismo dinâmico, consagrado na literatura contemporânea sob a denominação de <mark class="grifo">"rios voadores"</mark>, funciona como um corredor aéreo contínuo de redistribuição hídrica em direção às regiões Centro-Oeste, Sudeste e Sul do Brasil, bem como à bacia platina. Durante a estação estival, a intensificação termodinâmica da mEc projeta o fluxo de vapor d'água sobre o Brasil central, integrando-se diretamente à precipitação regional e à organização de grandes sistemas convergentes.
+                </p>
+            </div>
+
+            <!-- SUBSEÇÃO: mPa e Dinâmica Frontal -->
+            <div class="space-y-3 pt-2">
+                <h3 class="text-lg font-bold text-slate-900 flex items-center gap-2">
+                    <span class="w-2 h-2 rounded-full bg-indigo-600"></span>
+                    A Massa Polar Atlântica e a Dinâmica Frontal de Inverno
+                </h3>
+                <p class="text-justify text-slate-700 leading-relaxed text-sm sm:text-base">
+                    A Massa Polar Atlântica (mPa) origina-se em latitudes subpolares no sul do oceano Atlântico e ingressa na América do Sul impulsionada por fortes gradientes báricos gerados pela passagem de ciclones extratropicais. Ao atingir o estuário da Bacia do Rio da Prata durante o período de outono-inverno, a mPa avança sobre a morfologia do continente e <mark class="grifo">trifurca-se em três ramificações distintas</mark>:
+                </p>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-3 my-4">
+                    <div class="p-4 bg-slate-50 border border-slate-200 rounded-xl">
+                        <div class="text-xs font-bold text-indigo-700 uppercase tracking-wider mb-1">Ramo 01</div>
+                        <h4 class="font-bold text-slate-900 text-sm mb-2">Litorâneo ou Costeiro</h4>
+                        <p class="text-xs text-slate-600 leading-relaxed text-justify">
+                            Desloca-se pela fachada oceânica oriental. Ao colidir com o ar quente e úmido da <mark class="grifo">mTa</mark>, estrutura <mark class="grifo">frentes frias ativas</mark>, provocando chuvas contínuas, declínio térmico acentuado, nebulosidade estratificada e ressacas marinhas desde o litoral do RS até o sul da Bahia.
+                        </p>
+                    </div>
+
+                    <div class="p-4 bg-slate-50 border border-slate-200 rounded-xl">
+                        <div class="text-xs font-bold text-indigo-700 uppercase tracking-wider mb-1">Ramo 02</div>
+                        <h4 class="font-bold text-slate-900 text-sm mb-2">Continental (Calha Platina)</h4>
+                        <p class="text-xs text-slate-600 leading-relaxed text-justify">
+                            O ar denso e frio aproveita a calha topográfica das bacias do Paraná, Paraguai e Pantanal, avançando sem barreiras orográficas até a <mark class="grifo">Amazônia Ocidental</mark> (Acre, Rondônia e sul do Amazonas), gerando o fenômeno da <mark class="grifo">friagem</mark>, derrubando termômetros para marcas inferiores a 12 °C a 15 °C.
+                        </p>
+                    </div>
+
+                    <div class="p-4 bg-slate-50 border border-slate-200 rounded-xl">
+                        <div class="text-xs font-bold text-indigo-700 uppercase tracking-wider mb-1">Ramo 03</div>
+                        <h4 class="font-bold text-slate-900 text-sm mb-2">Planalto Sul-Brasileiro</h4>
+                        <p class="text-xs text-slate-600 leading-relaxed text-justify">
+                            Ocupa os relevos tabulares elevados do RS, SC e PR. Como massa fria e seca pós-frontal em noites de céu límpido, provoca intensa perda radiativa de onda longa pela superfície, ocasionando <mark class="grifo">geadas severas de irradiação</mark> e episódios de precipitação sólida (neve) nas serras.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- BOX DE MEMORIZAÇÃO: SEÇÃO 1 -->
+            <div class="p-4 sm:p-5 bg-amber-50/60 border border-amber-200 rounded-xl">
+                <div class="flex items-center gap-2 mb-2">
+                    <span class="text-amber-800 text-sm font-bold uppercase tracking-wide">🧠 Tópicos de Fixação para Prova Objetiva • Massas de Ar</span>
+                </div>
+                <ul class="text-xs sm:text-sm text-slate-700 space-y-1.5 list-disc list-inside">
+                    <li><strong class="text-slate-900">mEc e Hiperumidade Continental:</strong> Única massa continental quente e úmida do planeta, alimentada pela evapotranspiração florestal amazônica e ventos alísios.</li>
+                    <li><strong class="text-slate-900">Rios Voadores:</strong> Canais de vapor d'água represados a oeste pelos Andes e conduzidos pelos Jatos de Baixos Níveis (JBN) ao Centro-Oeste e Sudeste.</li>
+                    <li><strong class="text-slate-900">Trifurcação da mPa:</strong> Costeiro (frentes frias); Continental/Pantanal (friagem na Amazônia); Planalto Sul (geadas e neve eventual).</li>
+                    <li><strong class="text-slate-900">Conceito de Friagem:</strong> Queda térmica brusca na Amazônia Ocidental decorrente da invasão advectiva de ar polar canalizado pelas planícies do interior.</li>
+                    <li><strong class="text-slate-900">mTc e Bloqueio:</strong> Nasce no Chaco, é quente e seca; induz veranicos e derruba a umidade no Centro-Oeste e Sudeste no inverno.</li>
+                </ul>
+            </div>
+        </article>
+
+        <!-- SEÇÃO 2: ZCAS -->
+        <article class="mb-14 space-y-6">
+            <div class="border-l-4 border-emerald-600 pl-4 py-1">
+                <span class="text-xs font-bold uppercase tracking-wider text-emerald-800">Módulo 02</span>
+                <h2 class="text-xl sm:text-2xl font-bold text-slate-900">
+                    Zona de Convergência do Atlântico Sul (ZCAS) e a Dinâmica Pluviométrica de Verão
+                </h2>
+            </div>
+
+            <p class="text-justify text-slate-700 leading-relaxed text-sm sm:text-base">
+                A Zona de Convergência do Atlântico Sul (ZCAS) constitui o mais expressivo sistema sinótico articulador dos regimes pluviométricos de verão nas macrorregiões Centro-Oeste e Sudeste do Brasil. Configura-se operacionalmente como uma <mark class="grifo">banda persistente de nebulosidade e convecção orientada na direção Noroeste-Sudeste (NW-SE)</mark>, que se estende continuamente desde o sul e sudeste da bacia amazônica, transpassando o interior brasileiro até alcançar o setor subtropical do oceano Atlântico Sul.
+            </p>
+
+            <div class="p-3.5 bg-emerald-50 border-l-4 border-emerald-600 rounded-r-xl">
+                <p class="text-xs sm:text-sm text-emerald-950 font-semibold">
+                    ⚠️ Regra de Ouro em Provas: Nos referenciais do INPE/CPTEC e na literatura clássica, o critério sinótico estrito para a configuração de um episódio de ZCAS exige que a faixa de nebulosidade permaneça ativa e estacionária por, no mínimo, <mark class="grifo-verde">4 dias consecutivos</mark>.
+                </p>
+            </div>
+
+            <p class="text-justify text-slate-700 leading-relaxed text-sm sm:text-base">
+                A gênese e a sustentação dinâmica da ZCAS resultam do acoplamento sinérgico de múltiplos fatores oceânico-atmosféricos atuando simultaneamente em diferentes níveis troposféricos:
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-3 my-3">
+                <div class="p-4 bg-slate-50 border border-slate-200 rounded-xl">
+                    <span class="text-xs font-bold text-slate-500 uppercase">Fator 1 (Baixa Troposfera)</span>
+                    <h4 class="font-bold text-slate-900 text-sm mt-1 mb-1">Aporte de Vapor Amazônico</h4>
+                    <p class="text-xs text-slate-600 text-justify">
+                        Transporte vigoroso e contínuo de ar quente e saturado da <mark class="grifo">mEc</mark> canalizado pelos Jatos de Baixos Níveis (JBN) para o Sudeste.
+                    </p>
+                </div>
+
+                <div class="p-4 bg-slate-50 border border-slate-200 rounded-xl">
+                    <span class="text-xs font-bold text-slate-500 uppercase">Fator 2 (Superfície)</span>
+                    <h4 class="font-bold text-slate-900 text-sm mt-1 mb-1">Ancoragem Frontal Litorânea</h4>
+                    <p class="text-xs text-slate-600 text-justify">
+                        Incursão de uma frente fria (mPa) que se torna <mark class="grifo">estacionária no litoral do Sudeste</mark> (SP, RJ, ES), fixando a convergência de umidade.
+                    </p>
+                </div>
+
+                <div class="p-4 bg-slate-50 border border-slate-200 rounded-xl">
+                    <span class="text-xs font-bold text-slate-500 uppercase">Fator 3 (Alta Troposfera)</span>
+                    <h4 class="font-bold text-slate-900 text-sm mt-1 mb-1">Alta da Bolívia (200 hPa)</h4>
+                    <p class="text-xs text-slate-600 text-justify">
+                        Anticiclone térmico em altitude cuja borda oriental gera forte <mark class="grifo">divergência de ventos</mark>, promovendo ascensão de ar contínua.
+                    </p>
+                </div>
+            </div>
+
+            <p class="text-justify text-slate-700 leading-relaxed text-sm sm:text-base">
+                A persistência do alinhamento convectivo da ZCAS sobre as cabeceiras das grandes bacias do Sudeste (rios Grande, Paranaíba, Doce, Paraíba do Sul e São Francisco) induz a saturação progressiva dos horizontes pedológicos e sobrecarga os sistemas de drenagem fluvial. O fenômeno responde pelos episódios críticos de <mark class="grifo">movimentos de massa gravitacionais (deslizamentos)</mark> nas escarpas cristalinas da Serra do Mar e da Mantiqueira, além de inundações ribeirinhas urbanas severas.
+            </p>
+
+            <p class="text-justify text-slate-700 leading-relaxed text-sm sm:text-base">
+                Em contrapartida, anomalias no posicionamento do Anticiclone Subtropical do Atlântico Sul (ASAS), quando este migra para o interior continental configurando um <mark class="grifo-alerta">bloqueio atmosférico prolongado</mark> no verão, impedem a organização da ZCAS. Esse bloqueio desvia frentes frias prematuramente para o oceano aberto e estanca o corredor amazônico, deflagrando estiagens severas e crises hídricas estivais, como a registrada em 2014 no Sudeste.
+            </p>
+
+            <!-- BOX DE MEMORIZAÇÃO: SEÇÃO 2 -->
+            <div class="p-4 sm:p-5 bg-amber-50/60 border border-amber-200 rounded-xl">
+                <div class="flex items-center gap-2 mb-2">
+                    <span class="text-amber-800 text-sm font-bold uppercase tracking-wide">🧠 Tópicos de Fixação para Prova Objetiva • ZCAS</span>
+                </div>
+                <ul class="text-xs sm:text-sm text-slate-700 space-y-1.5 list-disc list-inside">
+                    <li><strong class="text-slate-900">Eixo Geográfico:</strong> Sentido rigoroso <mark class="grifo">Noroeste-Sudeste (NW-SE)</mark>, conectando a Amazônia ao Atlântico Sul subtropical.</li>
+                    <li><strong class="text-slate-900">Tempo Mínimo:</strong> Critério meteorológico oficial de <mark class="grifo">ao menos 4 dias consecutivos</mark> de atividade estacionária.</li>
+                    <li><strong class="text-slate-900">Sazonalidade:</strong> Fenômeno exclusivamente do <mark class="grifo">verão austral</mark> (dezembro a março).</li>
+                    <li><strong class="text-slate-900">Tríade de Formação:</strong> Umidade amazônica (JBN) + Frente fria semiestacionária na costa + Divergência da Alta da Bolívia em altitude.</li>
+                    <li><strong class="text-slate-900">Impacto Geomorfológico:</strong> Desencadeamento de movimentos gravitacionais de massa na Serra do Mar e Serra da Mantiqueira decorrente da saturação do manto de intemperismo.</li>
+                </ul>
+            </div>
+        </article>
+
+        <!-- SEÇÃO 3: TIPOS DE CLIMA -->
+        <article class="mb-14 space-y-6">
+            <div class="border-l-4 border-emerald-600 pl-4 py-1">
+                <span class="text-xs font-bold uppercase tracking-wider text-emerald-800">Módulo 03</span>
+                <h2 class="text-xl sm:text-2xl font-bold text-slate-900">
+                    Tipologias Climáticas do Brasil: Classificação, Dinâmica e Ritmos Regionais
+                </h2>
+            </div>
+
+            <p class="text-justify text-slate-700 leading-relaxed text-sm sm:text-base">
+                As classificações geográficas dos climas do Brasil, conforme estruturadas por Ross (2014) e Mendonça e Danni-Oliveira (2007), organizam as diferentes regiões brasileiras a partir da interação dinâmica entre as massas de ar, o relevo, a continentalidade e a latitude zonal. A tipologia climática nacional divide-se em <mark class="grifo">seis domínios fundamentais</mark>:
+            </p>
+
+            <!-- TABELA 2: CLIMAS DO BRASIL (COMPLETA, SEM SCROLL HORIZONTAL) -->
+            <div class="my-6">
+                <div class="mb-2 flex items-center justify-between">
+                    <h3 class="text-xs sm:text-sm font-bold text-slate-900 uppercase tracking-wide">
+                        Quadro Comparativo 3.1: Domínios Climáticos Brasileiros
+                    </h3>
+                    <span class="text-[11px] text-slate-500 font-medium">Ajustada à largura da tela</span>
+                </div>
+                <div class="border border-slate-200 rounded-xl overflow-hidden bg-white shadow-xs">
+                    <table class="w-full border-collapse text-left text-xs sm:text-sm">
+                        <thead class="bg-slate-100 border-b border-slate-200 text-slate-800 font-bold">
+                            <tr>
+                                <th class="w-[18%] p-2 sm:p-3 border-r border-slate-200 align-top">Tipo Climático</th>
+                                <th class="w-[20%] p-2 sm:p-3 border-r border-slate-200 align-top">Domínio Geográfico</th>
+                                <th class="w-[20%] p-2 sm:p-3 border-r border-slate-200 align-top">Pluviosidade</th>
+                                <th class="w-[17%] p-2 sm:p-3 border-r border-slate-200 align-top">Amplitude Térmica</th>
+                                <th class="w-[25%] p-2 sm:p-3 align-top">Dinâmica e Fatores</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-200 text-slate-700">
+                            <tr class="hover:bg-slate-50/60">
+                                <td class="p-2 sm:p-3 border-r border-slate-200 font-bold text-slate-900 align-top">
+                                    Equatorial
+                                </td>
+                                <td class="p-2 sm:p-3 border-r border-slate-200 align-top">Amazônia Legal (Norte, noroeste de MT e oeste do MA).</td>
+                                <td class="p-2 sm:p-3 border-r border-slate-200 align-top">Superúmido a úmido (&gt; 2000 mm/ano); chuvas o ano todo; estiagem curta ou nula.</td>
+                                <td class="p-2 sm:p-3 border-r border-slate-200 align-top"><mark class="grifo">Muito Baixa (&lt; 3 °C)</mark>; isotermia acentuada.</td>
+                                <td class="p-2 sm:p-3 align-top">Domínio quase perene da <mark class="grifo">mEc</mark>, ação da ZCIT e forte convecção termodinâmica diurna.</td>
+                            </tr>
+                            <tr class="hover:bg-slate-50/60">
+                                <td class="p-2 sm:p-3 border-r border-slate-200 font-bold text-slate-900 align-top">
+                                    Tropical Típico<br>(Continental)
+                                </td>
+                                <td class="p-2 sm:p-3 border-r border-slate-200 align-top">Brasil Central (Cerrado): GO, TO, MT, MS, oeste de MG, interior do NE.</td>
+                                <td class="p-2 sm:p-3 border-r border-slate-200 align-top"><mark class="grifo">Sazonalidade nítida</mark> (1000-1500 mm); verões chuvosos e invernos secos (4-6 meses secos).</td>
+                                <td class="p-2 sm:p-3 border-r border-slate-200 align-top">Média (3 °C a 7 °C); contrastes térmicos dia/noite no inverno.</td>
+                                <td class="p-2 sm:p-3 align-top">Ritmo alternante: avanço da mEc no verão e domínio de alta pressão subsidente e mTc no inverno.</td>
+                            </tr>
+                            <tr class="hover:bg-slate-50/60">
+                                <td class="p-2 sm:p-3 border-r border-slate-200 font-bold text-slate-900 align-top">
+                                    Tropical Semiárido
+                                </td>
+                                <td class="p-2 sm:p-3 border-r border-slate-200 align-top">Depressão Sertaneja e Vale Médio do Rio São Francisco.</td>
+                                <td class="p-2 sm:p-3 border-r border-slate-200 align-top">Escasso e irregular (300-800 mm); chuvas concentradas em 2-3 meses; forte déficit hídrico.</td>
+                                <td class="p-2 sm:p-3 border-r border-slate-200 align-top">Moderada (4 °C a 6 °C); médias anuais elevadas (&gt; 26 °C).</td>
+                                <td class="p-2 sm:p-3 align-top"><mark class="grifo">Subsidência dinâmica de ar</mark> (Hadley/Walker) e divergência dos ventos alísios.</td>
+                            </tr>
+                            <tr class="hover:bg-slate-50/60">
+                                <td class="p-2 sm:p-3 border-r border-slate-200 font-bold text-slate-900 align-top">
+                                    Tropical de Altitude
+                                </td>
+                                <td class="p-2 sm:p-3 border-r border-slate-200 align-top">Serras e planaltos do Sudeste acima de 800 m (MG, SP, RJ, ES).</td>
+                                <td class="p-2 sm:p-3 border-r border-slate-200 align-top">Moderado a alto (1200-1600 mm); verões chuvosos (ZCAS) e invernos secos.</td>
+                                <td class="p-2 sm:p-3 border-r border-slate-200 align-top">Moderada (5 °C a 8 °C); médias do mês mais frio &lt; 18 °C.</td>
+                                <td class="p-2 sm:p-3 align-top">Gradiente adiabático vertical (altitude arrefece o ar); orografia e geadas de inversão no inverno.</td>
+                            </tr>
+                            <tr class="hover:bg-slate-50/60">
+                                <td class="p-2 sm:p-3 border-r border-slate-200 font-bold text-slate-900 align-top">
+                                    Tropical Litorâneo<br>(Atlântico)
+                                </td>
+                                <td class="p-2 sm:p-3 border-r border-slate-200 align-top">Faixa costeira oriental (do Rio Grande do Norte ao litoral de SP).</td>
+                                <td class="p-2 sm:p-3 border-r border-slate-200 align-top">Elevado (1500-2000 mm); <mark class="grifo">no Nordeste chove no outono/inverno</mark>; no Sudeste, no verão.</td>
+                                <td class="p-2 sm:p-3 border-r border-slate-200 align-top">Baixa a atenuada pela maritimidade oceânica contínua.</td>
+                                <td class="p-2 sm:p-3 align-top">Domínio da mTa, brisas marítimas, perturbações frontais da mPa e <mark class="grifo">Ondas de Leste</mark>.</td>
+                            </tr>
+                            <tr class="hover:bg-slate-50/60">
+                                <td class="p-2 sm:p-3 border-r border-slate-200 font-bold text-slate-900 align-top">
+                                    Subtropical
+                                </td>
+                                <td class="p-2 sm:p-3 border-r border-slate-200 align-top">Região Sul (abaixo do Trópico de Capricórnio) e sul de SP/MS.</td>
+                                <td class="p-2 sm:p-3 border-r border-slate-200 align-top">Regular e bem distribuído (1200-2000 mm); <mark class="grifo">sem estação seca definida</mark>.</td>
+                                <td class="p-2 sm:p-3 border-r border-slate-200 align-top"><mark class="grifo">Maior do Brasil (&gt; 10 °C)</mark>; quatro estações bem delimitadas.</td>
+                                <td class="p-2 sm:p-3 align-top">Área de transição extratropical; passagem cíclica de frentes da mPa e sistemas ciclogenéticos.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="space-y-3">
+                <h3 class="text-base sm:text-lg font-bold text-slate-900">Particularidades Regionais de Alta Relevância</h3>
+                <p class="text-justify text-slate-700 leading-relaxed text-sm sm:text-base">
+                    No <strong class="text-slate-900">Tropical Típico</strong>, a alternância temporal define a fenologia do Cerrado: nos meses de maio a setembro instala-se uma estiagem severa provocada por alta pressão e ar seco da mTc, registrando umidade relativa abaixo de 20%.
+                </p>
+                <p class="text-justify text-slate-700 leading-relaxed text-sm sm:text-base">
+                    No <strong class="text-slate-900">Tropical Litorâneo Nordestino</strong>, o pico de precipitação ocorre na contramão do restante do país: concentra-se no <mark class="grifo">outono e inverno (maio a julho)</mark>. Isso se deve ao avanço do ramo costeiro da mPa e à atuação das <mark class="grifo">Ondas de Leste (Perturbações Ondulatórias dos Alísios)</mark>, instabilidades que se deslocam pelo Atlântico Tropical gerando convecção profunda na costa.
+                </p>
+                <p class="text-justify text-slate-700 leading-relaxed text-sm sm:text-base">
+                    No clima <strong class="text-slate-900">Subtropical</strong>, registra-se a <mark class="grifo">maior amplitude térmica do país</mark>, dada a posição latitudinal extratropical. Os invernos registram marcas negativas e geadas por perda radiativa noturna da mPa, enquanto verões registram temperaturas elevadas, sem qualquer período regular de seca ao longo do ano civil.
+                </p>
+            </div>
+        </article>
+
+        <!-- SEÇÃO 4: SEMIARIDEZ -->
+        <article class="mb-14 space-y-6">
+            <div class="border-l-4 border-emerald-600 pl-4 py-1">
+                <span class="text-xs font-bold uppercase tracking-wider text-emerald-800">Módulo 04</span>
+                <h2 class="text-xl sm:text-2xl font-bold text-slate-900">
+                    Gênese da Semiaridez Sertaneja: O Mito Orográfico versus a Subsidência Dinâmica
+                </h2>
+            </div>
+
+            <p class="text-justify text-slate-700 leading-relaxed text-sm sm:text-base">
+                A explicação causal da semiaridez do Sertão nordestino constitui um dos temas teóricos mais disputados em certames de Geografia. As análises contemporâneas de Ayoade (2013), Ross (2014) e Mendonça e Danni-Oliveira (2007) superam definitivamente o <mark class="grifo-alerta">determinismo geográfico simplista</mark> que atribui ao relevo o papel exclusivo ou primordial da seca regional.
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 my-4">
+                <div class="p-4 sm:p-5 bg-slate-50 border border-slate-200 rounded-xl space-y-2">
+                    <span class="text-xs font-bold text-amber-800 uppercase tracking-wide">Mesoescala / Topoclima Local</span>
+                    <h3 class="text-base font-bold text-slate-900">O Papel Real do Planalto da Borborema</h3>
+                    <ul class="text-xs sm:text-sm text-slate-700 space-y-2 text-justify">
+                        <li>
+                            • Possui cotas modestas (600 a 1000 m) e relevo descontínuo com amplos vales que facilitam o trânsito das massas de ar.
+                        </li>
+                        <li>
+                            • <strong class="text-slate-900">Barlavento (encosta oriental):</strong> O ar oceânico ascende, resfria adiabaticamente e chove, formando brejos de altitude.
+                        </li>
+                        <li>
+                            • <strong class="text-slate-900">Sotavento (encosta ocidental):</strong> O ar desce aquecendo por compressão adiabática, reduzindo a umidade e criando <mark class="grifo">sombra de chuva local</mark>.
+                        </li>
+                        <li>
+                            • <strong class="text-slate-900">Prova da não-exclusividade:</strong> O semiárido estende-se por mais de 1 milhão de km² e atinge o litoral no RN e CE, onde não existe nenhuma serra ou planalto intermediário!
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="p-4 sm:p-5 bg-slate-50 border border-slate-200 rounded-xl space-y-2">
+                    <span class="text-xs font-bold text-emerald-800 uppercase tracking-wide">Macroescala Atmosférica</span>
+                    <h3 class="text-base font-bold text-slate-900">A Causa Primária: Subsidência do Ar</h3>
+                    <ul class="text-xs sm:text-sm text-slate-700 space-y-2 text-justify">
+                        <li>
+                            • <strong class="text-slate-900">Célula de Hadley:</strong> O Sertão situa-se em latitude de ar descendente (subsidente) em grande escala, estabilizando a atmosfera.
+                        </li>
+                        <li>
+                            • <strong class="text-slate-900">Célula de Walker e Amazônia:</strong> A ascensão contínua de ar úmido na Amazônia gera correntes compensatórias que afundam (subsidem) sobre o Nordeste, secando a troposfera.
+                        </li>
+                        <li>
+                            • <strong class="text-slate-900">Aquecimento Adiabático:</strong> O ar que afunda sofre compressão, afasta-se do ponto de saturação e impede a formação de nuvens de chuva vertical.
+                        </li>
+                        <li>
+                            • <strong class="text-slate-900">Oscilação da ZCIT:</strong> A estação chuvosa do semiárido setentrional depende do recuo da ZCIT ao sul do Equador; caso não ocorra, a seca se agrava.
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- BOX DE MEMORIZAÇÃO: SEÇÃO 4 -->
+            <div class="p-4 sm:p-5 bg-amber-50/60 border border-amber-200 rounded-xl">
+                <div class="flex items-center gap-2 mb-2">
+                    <span class="text-amber-800 text-sm font-bold uppercase tracking-wide">🧠 Tópicos de Fixação para Prova Objetiva • Semiaridez</span>
+                </div>
+                <ul class="text-xs sm:text-sm text-slate-700 space-y-1.5 list-disc list-inside">
+                    <li><strong class="text-slate-900">A Borborema NÃO é a causa geral:</strong> O relevo é apenas condicionante local (barlavento úmido / sotavento seco). O semiárido chega à costa do Ceará e RN sem barreira orográfica.</li>
+                    <li><strong class="text-slate-900">Causa Primária Real:</strong> <mark class="grifo">Subsidência dinâmica de ar em macroescala</mark> associada aos ramos descendentes de Hadley e Walker (compensação amazônica).</li>
+                    <li><strong class="text-slate-900">Processo Físico:</strong> Ar descendente sofre compressão adiabática, aquece, diminui a umidade relativa e impede a condensação (convecção inibida).</li>
+                    <li><strong class="text-slate-900">Balanço Hídrico:</strong> Déficit perpétuo decorrente da evapotranspiração potencial muito superior ao volume pluviométrico anual.</li>
+                </ul>
+            </div>
+        </article>
+
+        <!-- SEÇÃO 5: ENOS (EL NIÑO E LA NIÑA) -->
+        <article class="mb-14 space-y-6">
+            <div class="border-l-4 border-emerald-600 pl-4 py-1">
+                <span class="text-xs font-bold uppercase tracking-wider text-emerald-800">Módulo 05</span>
+                <h2 class="text-xl sm:text-2xl font-bold text-slate-900">
+                    Anomalias Oceano-Atmosféricas Globais: ENOS e Impactos Regionais no Brasil
+                </h2>
+            </div>
+
+            <p class="text-justify text-slate-700 leading-relaxed text-sm sm:text-base">
+                O fenômeno El Niño-Oscilação Sul (ENOS) designa um sistema acoplado de flutuação oceânico-atmosférica caracterizado por variações na Temperatura da Superfície do Mar (TSM) no Oceano Pacífico Tropical Central e Oriental, associadas a variações na pressão em superfície expressas pela Oscilação Sul. 
+            </p>
+
+            <p class="text-justify text-slate-700 leading-relaxed text-sm sm:text-base">
+                Em anos neutros, a <mark class="grifo">Circulação de Walker</mark> mantém ventos alísios soprando de leste para oeste, represando águas quentes na bacia ocidental (Indonésia) e favorecendo ressurgência fria no litoral peruano. A quebra periódica desse equilíbrio gera duas fases extremas que desencadeiam severas <mark class="grifo">teleconexões climáticas no território brasileiro</mark>.
+            </p>
+
+            <!-- TABELA 3: IMPACTOS DO ENOS (COMPLETA, SEM SCROLL HORIZONTAL) -->
+            <div class="my-6">
+                <div class="mb-2 flex items-center justify-between">
+                    <h3 class="text-xs sm:text-sm font-bold text-slate-900 uppercase tracking-wide">
+                        Quadro Comparativo 5.1: Teleconexões do ENOS no Território Brasileiro
+                    </h3>
+                    <span class="text-[11px] text-slate-500 font-medium">Ajustada à largura da tela</span>
+                </div>
+                <div class="border border-slate-200 rounded-xl overflow-hidden bg-white shadow-xs">
+                    <table class="w-full border-collapse text-left text-xs sm:text-sm">
+                        <thead class="bg-slate-100 border-b border-slate-200 text-slate-800 font-bold">
+                            <tr>
+                                <th class="w-[20%] p-2 sm:p-3 border-r border-slate-200 align-top">Região do Brasil</th>
+                                <th class="w-[26%] p-2 sm:p-3 border-r border-slate-200 align-top">El Niño (Fase Quente)</th>
+                                <th class="w-[26%] p-2 sm:p-3 border-r border-slate-200 align-top">La Niña (Fase Fria)</th>
+                                <th class="w-[28%] p-2 sm:p-3 align-top">Mecanismo Sinótico Condicionante</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-200 text-slate-700">
+                            <tr class="hover:bg-slate-50/60">
+                                <td class="p-2 sm:p-3 border-r border-slate-200 font-bold text-slate-900 align-top">
+                                    Norte (Amazônia)
+                                </td>
+                                <td class="p-2 sm:p-3 border-r border-slate-200 align-top">
+                                    <mark class="grifo-alerta">Secas severas</mark>, vazante recorde de rios e proliferação de focos de queimada.
+                                </td>
+                                <td class="p-2 sm:p-3 border-r border-slate-200 align-top">
+                                    <mark class="grifo-verde">Intensificação das chuvas</mark> e enchentes ribeirinhas prolongadas.
+                                </td>
+                                <td class="p-2 sm:p-3 align-top">
+                                    No El Niño, instala-se um <mark class="grifo">ramo descendente de Walker</mark> sobre a bacia; na La Niña, intensificam-se correntes ascendentes.
+                                </td>
+                            </tr>
+                            <tr class="hover:bg-slate-50/60">
+                                <td class="p-2 sm:p-3 border-r border-slate-200 font-bold text-slate-900 align-top">
+                                    Nordeste (Semiárido)
+                                </td>
+                                <td class="p-2 sm:p-3 border-r border-slate-200 align-top">
+                                    <mark class="grifo-alerta">Secas crônicas</mark>; atraso no período chuvoso e falência da recarga de açudes.
+                                </td>
+                                <td class="p-2 sm:p-3 border-r border-slate-200 align-top">
+                                    <mark class="grifo-verde">Aumento pluviométrico</mark>, sangria de açudes e boa safra agrícola de sequeiro.
+                                </td>
+                                <td class="p-2 sm:p-3 align-top">
+                                    El Niño inibe a descida austral da ZCIT e reforça a subsidência de ar; La Niña induz migração favorável da ZCIT ao sul.
+                                </td>
+                            </tr>
+                            <tr class="hover:bg-slate-50/60">
+                                <td class="p-2 sm:p-3 border-r border-slate-200 font-bold text-slate-900 align-top">
+                                    Sul
+                                </td>
+                                <td class="p-2 sm:p-3 border-r border-slate-200 align-top">
+                                    <mark class="grifo-alerta">Chuvas torrenciais contínuas</mark>, cheias catastróficas, enxurradas e granizo.
+                                </td>
+                                <td class="p-2 sm:p-3 border-r border-slate-200 align-top">
+                                    <mark class="grifo">Estiagens prolongadas</mark>, quebras graves na safra e geadas hibernais mais rigorosas.
+                                </td>
+                                <td class="p-2 sm:p-3 align-top">
+                                    No El Niño, o <mark class="grifo">Jato Subtropical é acelerado</mark> e bloqueia frentes frias no Sul; na La Niña, as frentes passam velozmente.
+                                </td>
+                            </tr>
+                            <tr class="hover:bg-slate-50/60">
+                                <td class="p-2 sm:p-3 border-r border-slate-200 font-bold text-slate-900 align-top">
+                                    Centro-Oeste / Sudeste
+                                </td>
+                                <td class="p-2 sm:p-3 border-r border-slate-200 align-top">
+                                    Invernos com temperaturas mais amenas e irregularidade na distribuição estival das chuvas.
+                                </td>
+                                <td class="p-2 sm:p-3 border-r border-slate-200 align-top">
+                                    Incursões polares mais frequentes (mPa) e favorecimento de precipitação no norte do Sudeste.
+                                </td>
+                                <td class="p-2 sm:p-3 align-top">
+                                    Mudanças de trajetória dos trens frontais e flutuações na faixa de ancoragem da ZCAS estival.
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="space-y-3">
+                <h3 class="text-base sm:text-lg font-bold text-slate-900">Mecanismo do Jato Subtropical no Sul durante o El Niño</h3>
+                <p class="text-justify text-slate-700 leading-relaxed text-sm sm:text-base">
+                    A anomalia positiva de temperatura no Pacífico Tropical altera o gradiente térmico da alta troposfera, forçando a aceleração do <mark class="grifo">Jato Subtropical</mark>. Esse cinturão de ventos velozes em altitude funciona como uma verdadeira barreira dinâmica que aprisiona as frentes frias da mPa e sistemas convectivos sobre os estados do Rio Grande do Sul, Santa Catarina e Paraná, impedindo seu avanço normal para o norte e acumulando totais pluviométricos devastadores.
+                </p>
+            </div>
+
+            <!-- BOX DE MEMORIZAÇÃO: SEÇÃO 5 -->
+            <div class="p-4 sm:p-5 bg-amber-50/60 border border-amber-200 rounded-xl">
+                <div class="flex items-center gap-2 mb-2">
+                    <span class="text-amber-800 text-sm font-bold uppercase tracking-wide">🧠 Tópicos de Fixação para Prova Objetiva • ENOS</span>
+                </div>
+                <ul class="text-xs sm:text-sm text-slate-700 space-y-1.5 list-disc list-inside">
+                    <li><strong class="text-slate-900">Regra Mnemônica do El Niño:</strong> <mark class="grifo-alerta">Norte e Nordeste SECOS</mark> | <mark class="grifo-alerta">Região Sul ENCHARCADA / INUNDADA</mark>.</li>
+                    <li><strong class="text-slate-900">Regra Mnemônica da La Niña:</strong> <mark class="grifo-verde">Norte e Nordeste CHUVOSOS</mark> | <mark class="grifo">Região Sul sob ESTIAGEM E GEADAS</mark>.</li>
+                    <li><strong class="text-slate-900">Causa no Sul (El Niño):</strong> Aceleração e bloqueio pelo Jato Subtropical em altos níveis troposféricos.</li>
+                    <li><strong class="text-slate-900">Causa no N/NE (El Niño):</strong> Ramo descendente anômalo da Célula de Walker (subsidência) inibindo convecção e travando a ZCIT.</li>
+                </ul>
+            </div>
+        </article>
+
+        <!-- SEÇÃO 6: SÍNTESE PRAGMÁTICA E BLINDAGEM DE PEGADINHAS -->
+        <article class="mb-14 space-y-6">
+            <div class="border-l-4 border-emerald-600 pl-4 py-1">
+                <span class="text-xs font-bold uppercase tracking-wider text-emerald-800">Módulo 06</span>
+                <h2 class="text-xl sm:text-2xl font-bold text-slate-900">
+                    Síntese Pragmática e Blindagem Conceitual para a Prova Objetiva
+                </h2>
+            </div>
+
+            <p class="text-justify text-slate-700 leading-relaxed text-sm sm:text-base">
+                As bancas examinadoras de concursos docentes utilizam armadilhas conceituais bem arquitetadas baseadas no senso comum para induzir o candidato ao erro. A tabela a seguir confronta diretamente o equívoco recorrente com o <mark class="grifo">gabarito oficial respaldado cientificamente</mark>:
+            </p>
+
+            <!-- TABELA 4: PEGADINHAS DE PROVA (COMPLETA, SEM SCROLL HORIZONTAL) -->
+            <div class="my-6">
+                <div class="mb-2 flex items-center justify-between">
+                    <h3 class="text-xs sm:text-sm font-bold text-slate-900 uppercase tracking-wide">
+                        Quadro Antiterror 6.1: Senso Comum vs. Gabarito Universitário
+                    </h3>
+                    <span class="text-[11px] text-slate-500 font-medium">Ajustada à largura da tela</span>
+                </div>
+                <div class="border border-slate-200 rounded-xl overflow-hidden bg-white shadow-xs">
+                    <table class="w-full border-collapse text-left text-xs sm:text-sm">
+                        <thead class="bg-slate-100 border-b border-slate-200 text-slate-800 font-bold">
+                            <tr>
+                                <th class="w-[20%] p-2 sm:p-3 border-r border-slate-200 align-top">Tema da Questão</th>
+                                <th class="w-[38%] p-2 sm:p-3 border-r border-slate-200 align-top text-red-900">Pegadinha / Erro Típico da Banca</th>
+                                <th class="w-[42%] p-2 sm:p-3 align-top text-emerald-900">Respaldo Científico / Gabarito Oficial</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-200 text-slate-700">
+                            <tr class="hover:bg-slate-50/60">
+                                <td class="p-2 sm:p-3 border-r border-slate-200 font-bold text-slate-900 align-top">
+                                    Termodinâmica da mEc
+                                </td>
+                                <td class="p-2 sm:p-3 border-r border-slate-200 align-top text-slate-700">
+                                    <span class="text-red-700 font-bold">✕ Erro:</span> Afirmar que a mEc é quente e seca pelo fato de sua gênese ser puramente continental.
+                                </td>
+                                <td class="p-2 sm:p-3 align-top">
+                                    <span class="text-emerald-700 font-bold">✓ Correto:</span> A mEc é <mark class="grifo">quente e extremamente úmida</mark>, devido à imensa taxa de evapotranspiração da Floresta Amazônica e alísios.
+                                </td>
+                            </tr>
+                            <tr class="hover:bg-slate-50/60">
+                                <td class="p-2 sm:p-3 border-r border-slate-200 font-bold text-slate-900 align-top">
+                                    Gênese da Friagem
+                                </td>
+                                <td class="p-2 sm:p-3 border-r border-slate-200 align-top text-slate-700">
+                                    <span class="text-red-700 font-bold">✕ Erro:</span> Explicar a friagem como resfriamento noturno da copa das árvores ou ar catabático que desce dos Andes.
+                                </td>
+                                <td class="p-2 sm:p-3 align-top">
+                                    <span class="text-emerald-700 font-bold">✓ Correto:</span> Decorre da <mark class="grifo">advecção mecânica e penetração do ramo continental da mPa</mark> pela calha do Pantanal até o Acre/Rondônia.
+                                </td>
+                            </tr>
+                            <tr class="hover:bg-slate-50/60">
+                                <td class="p-2 sm:p-3 border-r border-slate-200 font-bold text-slate-900 align-top">
+                                    Causa da Semiaridez
+                                </td>
+                                <td class="p-2 sm:p-3 border-r border-slate-200 align-top text-slate-700">
+                                    <span class="text-red-700 font-bold">✕ Erro:</span> Considerar o Planalto da Borborema a causa primordial ou exclusiva que impede a entrada da umidade.
+                                </td>
+                                <td class="p-2 sm:p-3 align-top">
+                                    <span class="text-emerald-700 font-bold">✓ Correto:</span> A Borborema atua apenas na mesoescala local. A aridez regional decorre da <mark class="grifo">subsidência dinâmica de ar</mark> das células de Hadley e Walker.
+                                </td>
+                            </tr>
+                            <tr class="hover:bg-slate-50/60">
+                                <td class="p-2 sm:p-3 border-r border-slate-200 font-bold text-slate-900 align-top">
+                                    Eixo e Época da ZCAS
+                                </td>
+                                <td class="p-2 sm:p-3 border-r border-slate-200 align-top text-slate-700">
+                                    <span class="text-red-700 font-bold">✕ Erro:</span> Afirmar que a ZCAS atua no inverno com orientação Sudoeste-Nordeste.
+                                </td>
+                                <td class="p-2 sm:p-3 align-top">
+                                    <span class="text-emerald-700 font-bold">✓ Correto:</span> A ZCAS é um sistema estritamente de <mark class="grifo">verão</mark>, alinhado no sentido <mark class="grifo">Noroeste-Sudeste (NW-SE)</mark>, com duração mínima de 4 dias.
+                                </td>
+                            </tr>
+                            <tr class="hover:bg-slate-50/60">
+                                <td class="p-2 sm:p-3 border-r border-slate-200 font-bold text-slate-900 align-top">
+                                    Assimetria do ENOS
+                                </td>
+                                <td class="p-2 sm:p-3 border-r border-slate-200 align-top text-slate-700">
+                                    <span class="text-red-700 font-bold">✕ Erro:</span> Inverter as consequências, atribuindo chuvas torrenciais ao Ceará e estiagem ao Sul no El Niño.
+                                </td>
+                                <td class="p-2 sm:p-3 align-top">
+                                    <span class="text-emerald-700 font-bold">✓ Correto:</span> O El Niño causa <mark class="grifo">seca crônica no Norte/Nordeste</mark> e <mark class="grifo">enchentes volumosas no Sul</mark>.
+                                </td>
+                            </tr>
+                            <tr class="hover:bg-slate-50/60">
+                                <td class="p-2 sm:p-3 border-r border-slate-200 font-bold text-slate-900 align-top">
+                                    Amplitude Térmica
+                                </td>
+                                <td class="p-2 sm:p-3 border-r border-slate-200 align-top text-slate-700">
+                                    <span class="text-red-700 font-bold">✕ Erro:</span> Apontar o Semiárido ou o clima Equatorial como detentor da maior amplitude térmica do Brasil.
+                                </td>
+                                <td class="p-2 sm:p-3 align-top">
+                                    <span class="text-emerald-700 font-bold">✓ Correto:</span> A maior amplitude térmica anual pertence exclusivamente ao <mark class="grifo">clima Subtropical</mark> (extratropical).
+                                </td>
+                            </tr>
+                            <tr class="hover:bg-slate-50/60">
+                                <td class="p-2 sm:p-3 border-r border-slate-200 font-bold text-slate-900 align-top">
+                                    Pluviometria do Leste NE
+                                </td>
+                                <td class="p-2 sm:p-3 border-r border-slate-200 align-top text-slate-700">
+                                    <span class="text-red-700 font-bold">✕ Erro:</span> Generalizar que toda a costa brasileira concentra suas chuvas no verão, como no Sudeste.
+                                </td>
+                                <td class="p-2 sm:p-3 align-top">
+                                    <span class="text-emerald-700 font-bold">✓ Correto:</span> No litoral leste do Nordeste, a máxima pluvial ocorre no <mark class="grifo">outono-inverno</mark> (mPa costeira e Ondas de Leste).
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- SÍNTESE FINAL DE MEMORIZAÇÃO -->
+            <div class="p-5 sm:p-6 bg-slate-50 border border-slate-200 rounded-2xl space-y-3">
+                <h3 class="text-base font-bold text-slate-900 flex items-center gap-2">
+                    <span class="text-emerald-700 font-extrabold">📌</span>
+                    Checklist de Revisão Rápida para a Prova Objetiva
+                </h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs sm:text-sm text-slate-700">
+                    <div class="p-3 bg-white rounded-xl border border-slate-200">
+                        <strong class="text-slate-900 block mb-1">1. Massas de Ar & Dinâmica</strong>
+                        A <mark class="grifo">mEc</mark> é a grande fornecedora de umidade estival via rios voadores (JBN). A <mark class="grifo">mPa</mark> atua no inverno com 3 ramos (litoral com chuva, planalto com geada e interior com <mark class="grifo">friagem</mark> na Amazônia).
+                    </div>
+                    <div class="p-3 bg-white rounded-xl border border-slate-200">
+                        <strong class="text-slate-900 block mb-1">2. ZCAS & Desastres de Verão</strong>
+                        Sistema estival no sentido <mark class="grifo">NW-SE</mark>, ativo por no mínimo 4 dias. Satura regolito na Mantiqueira e Serra do Mar gerando movimentos de massa gravitacionais.
+                    </div>
+                    <div class="p-3 bg-white rounded-xl border border-slate-200">
+                        <strong class="text-slate-900 block mb-1">3. Semiaridez Real</strong>
+                        Fenômeno de escala planetária: <mark class="grifo">ar descendente subsidente</mark> (Hadley + Walker) que aquece e seca. A Borborema é apenas efeito topoclimático local.
+                    </div>
+                    <div class="p-3 bg-white rounded-xl border border-slate-200">
+                        <strong class="text-slate-900 block mb-1">4. Teleconexões ENOS</strong>
+                        <mark class="grifo-alerta">El Niño:</mark> Norte/Nordeste secos, Sul com enchente (Jato Subtropical acelerado). <mark class="grifo-verde">La Niña:</mark> Norte/Nordeste com chuvas abundantes, Sul sob estiagem severa.
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <!-- SEÇÃO FINAL: BOTÃO DE REDIRECIONAMENTO PARA QUESTÕES -->
+        <section id="questoes-anchor" class="pt-8 pb-16 border-t border-slate-200 text-center">
+            <div class="max-w-xl mx-auto space-y-4">
+                <div class="inline-flex items-center justify-center w-12 h-12 rounded-full bg-emerald-100 text-emerald-800 text-xl font-bold mb-1">
+                    ✓
+                </div>
+                <h3 class="text-xl sm:text-2xl font-extrabold text-slate-900">
+                    Conteúdo Teórico Concluído!
+                </h3>
+                <p class="text-sm text-slate-600 leading-relaxed">
+                    Agora é hora de fixar a teoria na prática e testar a blindagem contra as pegadinhas da banca examinadora do IFMG.
+                </p>
+
+                <div class="pt-2">
+                    <a href="questoes12geo.html" 
+                       class="inline-flex items-center justify-center gap-3 w-full sm:w-auto px-8 py-4 bg-emerald-700 hover:bg-emerald-800 text-white font-bold text-base rounded-xl shadow-md hover:shadow-lg transition-all duration-200 focus:outline-none focus:ring-4 focus:ring-emerald-300">
+                        <span>Acessar Banco de Questões</span>
+                        <svg class="w-5 h-5 transition-transform duration-200 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                        </svg>
+                    </a>
+                    <p class="text-xs text-slate-400 mt-2">
+                        Redireciona para o arquivo <code class="font-mono bg-slate-100 px-1 py-0.5 rounded text-slate-600">questoes12geo.html</code>
+                    </p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER SIMPLES E NEUTRO -->
+    <footer class="border-t border-slate-200 bg-white py-6 text-center text-xs text-slate-500">
+        <div class="max-w-5xl mx-auto px-4">
+            <p>Material de Estudos Didático e Avançado • Climatologia do Brasil • Concurso Professor IFMG</p>
+            <p class="mt-1 text-slate-400">Desenvolvido com foco em pontuação máxima e eliminação de distratores de prova objetiva.</p>
+        </div>
+    </footer>
+
+    <!-- SCRIPT DO REPRODUTOR DE ÁUDIO -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const audioInput = document.getElementById('audioFileNameInput');
+            const updateBtn = document.getElementById('updateAudioBtn');
+            const audioPlayer = document.getElementById('audioPlayer');
+            const audioSource = document.getElementById('audioSource');
+            const statusLabel = document.getElementById('currentAudioFileStatus');
+
+            function atualizarArquivoAudio() {
+                let nomeArquivo = audioInput.value.trim();
+                if (!nomeArquivo) {
+                    nomeArquivo = 'audio12geo.mp3';
+                    audioInput.value = nomeArquivo;
+                }
+                
+                // Atualiza a fonte do player
+                audioSource.src = nomeArquivo;
+                audioPlayer.load();
+                
+                // Atualiza o rótulo visual
+                statusLabel.innerHTML = 'Arquivo ativo: <code class="font-mono text-slate-700 bg-white px-1.5 py-0.5 rounded border border-slate-200">' + nomeArquivo + '</code>';
+            }
+
+            updateBtn.addEventListener('click', atualizarArquivoAudio);
+
+            // Permite atualizar apertando 'Enter' no campo de texto
+            audioInput.addEventListener('keydown', function(event) {
+                if (event.key === 'Enter') {
+                    event.preventDefault();
+                    atualizarArquivoAudio();
+                }
+            });
+        });
+    </script>
+</body>
+</html>

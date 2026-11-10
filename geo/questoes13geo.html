@@ -1,0 +1,1432 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simulado Interativo: Hidrogeografia I – Fundamentos Hidrológicos e Dinâmica Fluvial</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <style>
+    /* Configurações Globais & Variáveis Ergonômicas */
+    :root {
+      --bg-page: #f9fafb;
+      --bg-card: #ffffff;
+      --bg-subtle: #f3f4f6;
+      --border-color: #e5e7eb;
+      --border-focus: #0d9488;
+      --text-main: #1f2937;
+      --text-muted: #4b5563;
+      --text-light: #6b7280;
+      --accent: #0f766e;
+      --accent-hover: #115e59;
+      --success: #15803d;
+      --success-bg: #f0fdf4;
+      --success-border: #86efac;
+      --danger: #b91c1c;
+      --danger-bg: #fef2f2;
+      --danger-border: #fca5a5;
+      --info-bg: #f8fafc;
+      --info-border: #38bdf8;
+      --font-body: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      --font-reading: 'Crimson Pro', Georgia, serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-page);
+      color: var(--text-main);
+      font-family: var(--font-body);
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+      padding-bottom: 80px;
+    }
+
+    /* Barra Superior Fixa de Progresso */
+    .top-bar {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(255, 255, 255, 0.96);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border-color);
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+      padding: 12px 20px;
+    }
+
+    .top-bar-content {
+      max-width: 900px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .progress-track {
+      flex: 1;
+      min-width: 180px;
+      height: 8px;
+      background-color: #e5e7eb;
+      border-radius: 999px;
+      overflow: hidden;
+      margin-right: 15px;
+    }
+
+    .progress-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #0d9488, #0f766e);
+      transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .progress-status {
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--accent);
+      white-space: nowrap;
+    }
+
+    /* Container Principal */
+    .container {
+      max-width: 880px;
+      margin: 30px auto;
+      padding: 0 20px;
+    }
+
+    /* Cabeçalho Institucional */
+    .exam-header {
+      background-color: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 32px 28px;
+      margin-bottom: 30px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+    }
+
+    .exam-badge {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      background-color: #ccfbf1;
+      color: #0f766e;
+      padding: 4px 10px;
+      border-radius: 6px;
+      margin-bottom: 12px;
+    }
+
+    .exam-title {
+      font-family: var(--font-reading);
+      font-size: 2.1rem;
+      font-weight: 700;
+      line-height: 1.25;
+      color: #111827;
+      margin-bottom: 12px;
+    }
+
+    .exam-meta {
+      font-size: 0.925rem;
+      color: var(--text-muted);
+      border-top: 1px solid var(--border-color);
+      padding-top: 14px;
+      margin-top: 14px;
+      line-height: 1.6;
+    }
+
+    .exam-meta strong {
+      color: var(--text-main);
+    }
+
+    /* Cartão de Questão */
+    .question-card {
+      background-color: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 30px 28px;
+      margin-bottom: 28px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .question-card:focus-within {
+      border-color: #cbd5e1;
+    }
+
+    .question-card.answered {
+      border-left: 4px solid var(--accent);
+    }
+
+    .question-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 18px;
+      border-bottom: 1px solid #f1f5f9;
+      padding-bottom: 12px;
+    }
+
+    .question-num {
+      font-family: var(--font-reading);
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: var(--accent);
+    }
+
+    .status-tag {
+      font-size: 0.8rem;
+      font-weight: 600;
+      padding: 3px 10px;
+      border-radius: 999px;
+      display: none;
+    }
+
+    .question-statement {
+      font-family: var(--font-reading);
+      font-size: 1.15rem;
+      line-height: 1.78;
+      color: #1f2937;
+      margin-bottom: 22px;
+      text-align: justify;
+    }
+
+    /* Tabelas Inclusas no Enunciado */
+    .table-container {
+      margin: 18px 0 24px 0;
+      overflow-x: auto;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      background-color: #ffffff;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.95rem;
+      text-align: left;
+    }
+
+    th, td {
+      padding: 12px 16px;
+      border-bottom: 1px solid #e2e8f0;
+      vertical-align: top;
+    }
+
+    th {
+      background-color: #f8fafc;
+      font-weight: 600;
+      color: #334155;
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    /* Blocos de Equações */
+    .equation-box {
+      background-color: #f8fafc;
+      border-left: 3px solid #64748b;
+      padding: 12px 18px;
+      margin: 16px 0;
+      border-radius: 0 6px 6px 0;
+      font-family: 'Times New Roman', Times, serif;
+      font-size: 1.15rem;
+      color: #0f172a;
+    }
+
+    /* Alternativas */
+    .options-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+
+    .option-label {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      padding: 14px 16px;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      cursor: pointer;
+      background-color: #fafbfc;
+      transition: all 0.15s ease-in-out;
+      user-select: none;
+    }
+
+    .option-label:hover {
+      background-color: #f1f5f9;
+      border-color: #cbd5e1;
+    }
+
+    .option-label input[type="radio"] {
+      margin-top: 5px;
+      appearance: none;
+      -webkit-appearance: none;
+      width: 18px;
+      height: 18px;
+      border: 2px solid #94a3b8;
+      border-radius: 50%;
+      outline: none;
+      display: grid;
+      place-content: center;
+      cursor: pointer;
+      flex-shrink: 0;
+      background-color: #ffffff;
+      transition: border-color 0.15s ease;
+    }
+
+    .option-label input[type="radio"]::before {
+      content: "";
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      transform: scale(0);
+      transition: 120ms transform ease-in-out;
+      background-color: var(--accent);
+    }
+
+    .option-label input[type="radio"]:checked {
+      border-color: var(--accent);
+    }
+
+    .option-label input[type="radio"]:checked::before {
+      transform: scale(1);
+    }
+
+    .option-text {
+      font-family: var(--font-body);
+      font-size: 0.975rem;
+      line-height: 1.62;
+      color: #374151;
+      flex: 1;
+    }
+
+    .option-letter {
+      font-weight: 700;
+      color: #111827;
+      margin-right: 4px;
+    }
+
+    /* Estados Pós-Correção (Feedback Visual) */
+    .evaluated .option-label {
+      cursor: default;
+    }
+
+    .option-label.is-correct {
+      background-color: var(--success-bg) !important;
+      border-color: var(--success-border) !important;
+      color: #14532d;
+    }
+
+    .option-label.is-correct .option-letter,
+    .option-label.is-correct .option-text {
+      color: #14532d;
+      font-weight: 500;
+    }
+
+    .option-label.is-wrong-selection {
+      background-color: var(--danger-bg) !important;
+      border-color: var(--danger-border) !important;
+    }
+
+    .option-label.is-wrong-selection .option-letter,
+    .option-label.is-wrong-selection .option-text {
+      color: #7f1d1d;
+    }
+
+    /* Caixa de Resolução Comentada */
+    .resolution-box {
+      display: none;
+      margin-top: 24px;
+      padding: 22px 24px;
+      background-color: var(--info-bg);
+      border-left: 4px solid #0284c7;
+      border-radius: 0 10px 10px 0;
+      animation: fadeIn 0.4s ease;
+    }
+
+    .resolution-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 1rem;
+      font-weight: 700;
+      color: #0369a1;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      margin-bottom: 12px;
+    }
+
+    .resolution-content {
+      font-family: var(--font-reading);
+      font-size: 1.08rem;
+      line-height: 1.76;
+      color: #1e293b;
+      text-align: justify;
+    }
+
+    .resolution-content p {
+      margin-bottom: 12px;
+    }
+
+    .resolution-content p:last-child {
+      margin-bottom: 0;
+    }
+
+    /* Painel Inferior de Ação & Finalização */
+    .action-panel {
+      text-align: center;
+      margin: 40px 0;
+    }
+
+    .btn-submit {
+      background-color: var(--accent);
+      color: #ffffff;
+      font-family: var(--font-body);
+      font-size: 1.1rem;
+      font-weight: 600;
+      padding: 16px 36px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      box-shadow: 0 4px 6px -1px rgba(15, 118, 110, 0.2);
+      transition: all 0.2s ease;
+    }
+
+    .btn-submit:hover {
+      background-color: var(--accent-hover);
+      transform: translateY(-1px);
+      box-shadow: 0 6px 10px -1px rgba(15, 118, 110, 0.3);
+    }
+
+    .btn-reset {
+      background-color: #ffffff;
+      color: #475569;
+      font-family: var(--font-body);
+      font-size: 0.95rem;
+      font-weight: 600;
+      padding: 12px 24px;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      cursor: pointer;
+      margin-left: 12px;
+      transition: background-color 0.15s ease;
+    }
+
+    .btn-reset:hover {
+      background-color: #f1f5f9;
+      color: #1e293b;
+    }
+
+    /* Mensagem Inline de Aviso (Sem uso de alert) */
+    .warning-banner {
+      display: none;
+      background-color: #fffbeb;
+      border: 1px solid #fef3c7;
+      border-left: 4px solid #f59e0b;
+      padding: 14px 18px;
+      border-radius: 6px;
+      color: #92400e;
+      font-size: 0.95rem;
+      margin-bottom: 20px;
+      text-align: left;
+    }
+
+    /* Seção de Resultados */
+    .results-section {
+      display: none;
+      background-color: #ffffff;
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 32px 28px;
+      margin-bottom: 35px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      animation: fadeIn 0.4s ease;
+    }
+
+    .results-title {
+      font-family: var(--font-reading);
+      font-size: 1.8rem;
+      color: #111827;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .score-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .score-card {
+      background-color: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 18px;
+      text-align: center;
+    }
+
+    .score-number {
+      font-size: 2.2rem;
+      font-weight: 700;
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+
+    .score-card.total .score-number { color: var(--accent); }
+    .score-card.correct .score-number { color: var(--success); }
+    .score-card.wrong .score-number { color: var(--danger); }
+
+    .score-label {
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-light);
+    }
+
+    /* Filtro de Visualização */
+    .filter-container {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 20px;
+      flex-wrap: wrap;
+    }
+
+    .filter-btn {
+      background-color: #f1f5f9;
+      border: 1px solid #e2e8f0;
+      padding: 8px 16px;
+      border-radius: 6px;
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: #475569;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .filter-btn.active {
+      background-color: var(--accent);
+      color: #ffffff;
+      border-color: var(--accent);
+    }
+
+    /* Tabela de Gabarito Síntese */
+    .answer-key-box {
+      margin-top: 30px;
+      border-top: 1px solid var(--border-color);
+      padding-top: 25px;
+    }
+
+    .answer-key-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(70px, 1fr));
+      gap: 8px;
+      margin-top: 14px;
+    }
+
+    .key-badge {
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-radius: 6px;
+      padding: 8px 4px;
+      text-align: center;
+      font-size: 0.9rem;
+    }
+
+    .key-badge strong {
+      display: block;
+      color: var(--accent);
+      font-size: 1.1rem;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 640px) {
+      .exam-title { font-size: 1.6rem; }
+      .question-card { padding: 20px 16px; }
+      .exam-header { padding: 22px 18px; }
+      .question-statement { font-size: 1.05rem; }
+      .option-text { font-size: 0.925rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Barra Fixa de Progresso Superior -->
+  <header class="top-bar">
+    <div class="top-bar-content">
+      <div class="progress-track" aria-label="Progresso do Simulado">
+        <div class="progress-fill" id="progressFill"></div>
+      </div>
+      <div class="progress-status" id="progressStatus">0 de 10 respondidas</div>
+    </div>
+  </header>
+
+  <main class="container">
+
+    <!-- Cabeçalho Informativo do Simulado -->
+    <section class="exam-header">
+      <span class="exam-badge">Concurso Público Docente • IFMG</span>
+      <h1 class="exam-title">Hidrogeografia I – Fundamentos Hidrológicos e Dinâmica Fluvial</h1>
+      <div class="exam-meta">
+        <p><strong>Banca Examinadora:</strong> Comissão Central de Concurso Público – Reitoria IFMG</p>
+        <p><strong>Foco de Conteúdo:</strong> Ciclo e balanço hídrico; anatomia e compartimentação de bacias; morfometria e ordenamento de Strahler; controles litoestruturais de drenagem (treliça, radial, centrípeto); leitura de hidrogramas e tempo de concentração; regimes fluviais e aquíferos.</p>
+        <p><strong>Bibliografia Referencial:</strong> MACHADO &amp; TORRES (2017); CHRISTOPHERSON &amp; BIRKELAND (2017).</p>
+      </div>
+    </section>
+
+    <!-- Banner de Notificação (substituto seguro para alert) -->
+    <div class="warning-banner" id="warningBanner" role="alert">
+      Atenção: Você ainda não respondeu a todas as questões. Verifique as perguntas pendentes assinaladas antes de finalizar ou confirme o envio para pontuar as preenchidas.
+    </div>
+
+    <!-- Seção de Resultados (Exibida dinamicamente após a conclusão) -->
+    <section class="results-section" id="resultsSection" aria-live="polite">
+      <h2 class="results-title">Desempenho Geral no Simulado</h2>
+      
+      <div class="score-grid">
+        <div class="score-card total">
+          <div class="score-number" id="scoreAccuracy">0%</div>
+          <div class="score-label">Aproveitamento</div>
+        </div>
+        <div class="score-card correct">
+          <div class="score-number" id="scoreCorrect">0</div>
+          <div class="score-label">Acertos (de 10)</div>
+        </div>
+        <div class="score-card wrong">
+          <div class="score-number" id="scoreWrong">0</div>
+          <div class="score-label">Erros / Em Branco</div>
+        </div>
+      </div>
+
+      <p style="text-align: center; color: var(--text-muted); font-size: 0.95rem;">
+        Todas as resoluções técnicas completas e o gabarito oficial comentado foram liberados diretamente abaixo de cada uma das questões a seguir.
+      </p>
+
+      <div class="filter-container">
+        <button class="filter-btn active" onclick="filterQuestions('all')">Ver Todas (10)</button>
+        <button class="filter-btn" onclick="filterQuestions('correct')">Apenas Acertos</button>
+        <button class="filter-btn" onclick="filterQuestions('wrong')">Apenas Incorretas</button>
+      </div>
+
+      <div class="answer-key-box">
+        <h3 style="font-size: 1rem; color: #334155; margin-bottom: 8px;">Gabarito Oficial Rápido:</h3>
+        <div class="answer-key-grid">
+          <div class="key-badge">Q01 <strong>C</strong></div>
+          <div class="key-badge">Q02 <strong>C</strong></div>
+          <div class="key-badge">Q03 <strong>B</strong></div>
+          <div class="key-badge">Q04 <strong>B</strong></div>
+          <div class="key-badge">Q05 <strong>D</strong></div>
+          <div class="key-badge">Q06 <strong>A</strong></div>
+          <div class="key-badge">Q07 <strong>B</strong></div>
+          <div class="key-badge">Q08 <strong>B</strong></div>
+          <div class="key-badge">Q09 <strong>B</strong></div>
+          <div class="key-badge">Q10 <strong>A</strong></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Formulário das 10 Questões -->
+    <form id="quizForm">
+
+      <!-- Questão 01 -->
+      <article class="question-card" id="qcard-1" data-qid="1">
+        <div class="question-header">
+          <span class="question-num">Questão 01</span>
+          <span class="status-tag" id="tag-1"></span>
+        </div>
+        <div class="question-statement">
+          No âmbito da hidrologia física e do balanço hídrico climatológico regional proposto originalmente por Thornthwaite e Mather, a partição do influxo pluviométrico depende diretamente das relações termodinâmicas entre a disponibilidade de água no perfil do solo e a demanda energética da atmosfera circundante. Acerca dos componentes do ciclo hidrológico continental e do balanço hídrico regional (precipitação, evapotranspiração real e potencial, infiltração e escoamento), assinale a alternativa correta:
+        </div>
+        <div class="options-list">
+          <label class="option-label" id="opt-1-A">
+            <input type="radio" name="q1" value="A" onchange="handleAnswerChange(1)">
+            <span class="option-text"><span class="option-letter">A)</span> A Evapotranspiração Potencial (ETP) expressa a quantidade de vapor d'água devolvida à atmosfera sob as condições restritivas de umidade pedológica observadas em campo, enquanto a Evapotranspiração Real (ETR) mensura a demanda evaporativa limite que ocorreria caso houvesse disponibilidade hídrica contínua e irrestrita.</span>
+          </label>
+          <label class="option-label" id="opt-1-B">
+            <input type="radio" name="q1" value="B" onchange="handleAnswerChange(1)">
+            <span class="option-text"><span class="option-letter">B)</span> O excedente hídrico anual de uma bacia hidrográfica é desencadeado imediatamente no primeiro mês em que o total precipitado supera numericamente o valor mensal da evapotranspiração potencial, dispensando a recomposição prévia da capacidade de campo do horizonte pedológico.</span>
+          </label>
+          <label class="option-label" id="opt-1-C">
+            <input type="radio" name="q1" value="C" onchange="handleAnswerChange(1)">
+            <span class="option-text"><span class="option-letter">C)</span> Quando a precipitação atmosférica for inferior à evapotranspiração potencial e as reservas de água facilmente assimilável do solo (armazenamento) tiverem sido exauridas, a evapotranspiração real passa a equivaler numericamente ao total precipitado no período, consolidando-se a condição de déficit hídrico regional.</span>
+          </label>
+          <label class="option-label" id="opt-1-D">
+            <input type="radio" name="q1" value="D" onchange="handleAnswerChange(1)">
+            <span class="option-text"><span class="option-letter">D)</span> A capacidade de infiltração inicial de um perfil de solo não saturado e ressecado é tipicamente inferior à sua capacidade de infiltração final ou constante, pois a tensão mátrica dos horizontes superficiais atua retendo a água e impedindo sua drenagem gravitacional pelos macroporos.</span>
+          </label>
+          <label class="option-label" id="opt-1-E">
+            <input type="radio" name="q1" value="E" onchange="handleAnswerChange(1)">
+            <span class="option-text"><span class="option-letter">E)</span> O deflúvio superficial direto por mecanismo hortoniano configura-se exclusivamente quando a superfície freática ascende até interceptar a superfície topográfica do terreno, transformando a bacia hidrográfica em um compartimento plenamente saturado, independentemente da intensidade instantânea da precipitação.</span>
+          </label>
+        </div>
+
+        <div class="resolution-box" id="res-1">
+          <div class="resolution-title">
+            <span>✓ Resolução Comentada – Gabarito: C</span>
+          </div>
+          <div class="resolution-content">
+            <p><strong>Análise da assertiva C (Correta):</strong> A alternativa apresenta a correta interpretação da dinâmica do balanço hídrico climatológico de Thornthwaite-Mather. Em períodos nos quais a demanda evaporativa do ar supera a reposição por chuva e as reservas de água livremente acessível armazenadas na zona vadosa do solo atingem o ponto de murcha permanente, o sistema vegetação-solo não tem como suprir a evapotranspiração potencial. Em consequência física direta, a taxa real de água devolvida para a atmosfera circunscreve-se compulsoriamente ao montante hídrico que precipita em tempo real no local, definindo-se a evapotranspiração real como numericamente idêntica à precipitação e caracterizando-se o déficit hídrico regional.</p>
+            <p><strong>Por que as demais estão incorretas?</strong><br>
+            • <em>A incorreta:</em> Inverteu os conceitos fundamentais. A Evapotranspiração Potencial representa a demanda puramente atmosférica sob ilimitado suprimento hídrico, ao passo que a Evapotranspiração Real expressa a transferência observada sob as condições físicas efetivas de umidade pedológica.<br>
+            • <em>B incorreta:</em> O excedente hídrico só tem início após o pleno preenchimento da capacidade de água disponível do solo (capacidade de campo), etapa que exige a reposição prévia do armazenamento.<br>
+            • <em>D incorreta:</em> Contraria a física da infiltração descrita por Horton: a taxa inicial de infiltração em solo seco é substancialmente alta devido ao gradiente de sucção mátrica somado à gravidade, decrescendo progressivamente com o tempo até atingir a capacidade estável de infiltração.<br>
+            • <em>E incorreta:</em> Confunde os mecanismos de escoamento. O modelo hortoniano ocorre estritamente pela incapacidade física de absorção da superfície quando a intensidade da chuva suplanta a taxa de infiltração superficial ($I > C_i$), sem exigir a saturação prévia de todo o perfil freático (que caracteriza o mecanismo de Dunne).</p>
+          </div>
+        </div>
+      </article>
+
+      <!-- Questão 02 -->
+      <article class="question-card" id="qcard-2" data-qid="2">
+        <div class="question-header">
+          <span class="question-num">Questão 02</span>
+          <span class="status-tag" id="tag-2"></span>
+        </div>
+        <div class="question-statement">
+          A bacia hidrográfica é compreendida como a unidade física fundamental para o estudo hidrogeomorfológico, congregando a captação pluvial, a transferência de sedimentos e o escoamento hídrico superficial e subsuperficial organizado por talvegues, vertentes e divisores. No que diz respeito à anatomia, à compartimentação e aos padrões de desembocadura de bacias hidrográficas, assinale a alternativa correta:
+        </div>
+        <div class="options-list">
+          <label class="option-label" id="opt-2-A">
+            <input type="radio" name="q2" value="A" onchange="handleAnswerChange(2)">
+            <span class="option-text"><span class="option-letter">A)</span> O talvegue representa a linha orográfica contínua que une os vértices de maior altitude de uma serra ou espigão, funcionando como o divisor de drenagem primário entre duas bacias adjacentes.</span>
+          </label>
+          <label class="option-label" id="opt-2-B">
+            <input type="radio" name="q2" value="B" onchange="handleAnswerChange(2)">
+            <span class="option-text"><span class="option-letter">B)</span> Os divisores topográficos superficiais, delimitados a partir das linhas de cumeada e curvas de nível convergentes, coincidem invariavelmente com os divisores hidrogeológicos subterrâneos, impossibilitando a recarga freática interbacias.</span>
+          </label>
+          <label class="option-label" id="opt-2-C">
+            <input type="radio" name="q2" value="C" onchange="handleAnswerChange(2)">
+            <span class="option-text"><span class="option-letter">C)</span> Os estuários configuram-se como corpos d’água costeiros semifechados que mantêm comunicação desimpedida com o mar aberto, nos quais o influxo de água doce continental se mistura e dilui gradativamente a salinidade marinha, desenvolvendo-se comumente em litorais de submersão e vales fluviais afogados.</span>
+          </label>
+          <label class="option-label" id="opt-2-D">
+            <input type="radio" name="q2" value="D" onchange="handleAnswerChange(2)">
+            <span class="option-text"><span class="option-letter">D)</span> As desembocaduras do tipo delta originam-se em ambientes costeiros onde as forças hidrodinâmicas de macromarés e a arrebentação de ondas de tempestade dispersam prontamente a carga clástica, impedindo a ramificação de canais distributários e favorecendo a formação de um canal único afunilado.</span>
+          </label>
+          <label class="option-label" id="opt-2-E">
+            <input type="radio" name="q2" value="E" onchange="handleAnswerChange(2)">
+            <span class="option-text"><span class="option-letter">E)</span> A delimitação morfométrica de uma bacia hidrográfica fundamenta-se na traçagem de linhas ortogonais aos canais fluviais de menor ordem, prescindindo da consideração da morfologia das encostas e das curvas de nível do terreno.</span>
+          </label>
+        </div>
+
+        <div class="resolution-box" id="res-2">
+          <div class="resolution-title">
+            <span>✓ Resolução Comentada – Gabarito: C</span>
+          </div>
+          <div class="resolution-content">
+            <p><strong>Análise da assertiva C (Correta):</strong> A alternativa formula com precisão hidrológica e morfológica o conceito de estuário, caracterizando-o como um corpo d'água costeiro semifechado onde a água marinha é diluída continuamente pela descarga fluvial continental, correspondendo frequentemente a vales fluviais afogados na transgressão marinha pós-glacial holocênica. A hidrodinâmica de marés é suficientemente ativa para dispersar sedimentos e impedir o fechamento da foz.</p>
+            <p><strong>Por que as demais estão incorretas?</strong><br>
+            • <em>A incorreta:</em> A linha orográfica mais alta define a linha de cumeada (divisor de águas), enquanto o talvegue define-se geometricamente como a linha longitudinal que conecta os pontos de maior cota negativa ou maior profundidade no leito fluvial.<br>
+            • <em>B incorreta:</em> Divisores topográficos nem sempre coincidem com os divisores freáticos ou hidrogeológicos. O mergulho de estratos sedimentares, falhamentos e condutos cársticos pode transportar água subterrânea para além das linhas de cumeada superficiais.<br>
+            • <em>D incorreta:</em> Os deltas exigem aporte sedimentar fluvial superior à capacidade de remoção e dispersão pelas ondas e marés marinhas, propiciando sedimentação e canais distributários ramificados, e não canais únicos afunilados.<br>
+            • <em>E incorreta:</em> A delimitação correta de bacias baseia-se na identificação das linhas de cumeada, cortando ortogonalmente as curvas de nível nos pontos de máxima convexidade da vertente.</p>
+          </div>
+        </div>
+      </article>
+
+      <!-- Questão 03 -->
+      <article class="question-card" id="qcard-3" data-qid="3">
+        <div class="question-header">
+          <span class="question-num">Questão 03</span>
+          <span class="status-tag" id="tag-3"></span>
+        </div>
+        <div class="question-statement">
+          A hierarquização da rede de drenagem baseada no método topológico de Arthur Strahler constitui um instrumental básico na análise morfométrica de bacias hidrográficas, estruturando a magnitude dos canais sem que a extensão linear altere isoladamente a classe hierárquica. Considere a bacia hidrográfica delimitada no quadro a seguir:
+        </div>
+
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Configuração dos Segmentos Fluviais da Bacia</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>• Quatro canais sem tributários unem-se dois a dois, formando dois canais distintos.</td>
+              </tr>
+              <tr>
+                <td>• Esses dois canais resultantes confluem diretamente um com o outro, estruturando um novo segmento fluvial coletor.</td>
+              </tr>
+              <tr>
+                <td>• Mais a jusante, esse canal coletor recebe, pela margem esquerda, um tributário formado pela junção de dois canais sem afluentes.</td>
+              </tr>
+              <tr>
+                <td>• Pouco antes do exutório, o canal coletor recebe sucessivamente, ao longo da margem direita, dois canais fluviais primários (sem afluentes).</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="question-statement">
+          Com fundamento nas normas topológicas do método de hierarquização de Strahler, assinale a alternativa que indica a ordem final do rio principal no exutório da referida bacia:
+        </div>
+
+        <div class="options-list">
+          <label class="option-label" id="opt-3-A">
+            <input type="radio" name="q3" value="A" onchange="handleAnswerChange(3)">
+            <span class="option-text"><span class="option-letter">A)</span> Ordem 2, pois os aportes laterais de menor magnitude descaracterizam a continuidade da ordem fluvial atingida a montante.</span>
+          </label>
+          <label class="option-label" id="opt-3-B">
+            <input type="radio" name="q3" value="B" onchange="handleAnswerChange(3)">
+            <span class="option-text"><span class="option-letter">B)</span> Ordem 3, visto que a junção de dois cursos de 2ª ordem deu origem a um canal de 3ª ordem, e os afluentes subsequentes de magnitudes menores não modificam essa hierarquia.</span>
+          </label>
+          <label class="option-label" id="opt-3-C">
+            <input type="radio" name="q3" value="C" onchange="handleAnswerChange(3)">
+            <span class="option-text"><span class="option-letter">C)</span> Ordem 4, em virtude de cada nova confluência tributária ao longo do perfil longitudinal somar uma unidade à ordem prévia do canal troncal.</span>
+          </label>
+          <label class="option-label" id="opt-3-D">
+            <input type="radio" name="q3" value="D" onchange="handleAnswerChange(3)">
+            <span class="option-text"><span class="option-letter">D)</span> Ordem 5, por se somarem linearmente todos os nós fluviais e canais de primeira ordem tributários diretos até o exutório.</span>
+          </label>
+          <label class="option-label" id="opt-3-E">
+            <input type="radio" name="q3" value="E" onchange="handleAnswerChange(3)">
+            <span class="option-text"><span class="option-letter">E)</span> Ordem 6, tendo em vista que a entrada sucessiva de canais sem tributários duplica a ordem previamente estabelecida a montante.</span>
+          </label>
+        </div>
+
+        <div class="resolution-box" id="res-3">
+          <div class="resolution-title">
+            <span>✓ Resolução Comentada – Gabarito: B</span>
+          </div>
+          <div class="resolution-content">
+            <p><strong>Análise da assertiva B (Correta):</strong> De acordo com as regras de ordenação topológica de Arthur Strahler:
+            <br>1. Canais sem afluentes (nascentes) são de <strong>1ª ordem</strong>.
+            <br>2. A junção de dois canais de mesma ordem ($u$) dá origem a um canal de ordem imediatamente superior ($u + 1$).
+            <br>3. A confluência de canais de ordens distintas mantém inalterada a ordem do canal de maior hierarquia.</p>
+            <p><strong>Aplicação passo a passo ao caso:</strong><br>
+            • Quatro canais de 1ª ordem unem-se dois a dois: $(1+1) \rightarrow 2$ e $(1+1) \rightarrow 2$. Obtemos dois canais de 2ª ordem.<br>
+            • Esses dois canais de 2ª ordem confluem: $(2+2) \rightarrow 3$. Surge um canal de 3ª ordem.<br>
+            • O afluente da margem esquerda é formado por dois canais sem afluentes: $(1+1) \rightarrow$ afluente de 2ª ordem. Quando esse afluente de 2ª ordem deságua no canal coletor de 3ª ordem: $\max(3, 2) \rightarrow 3$. A ordem permanece 3.<br>
+            • Dois canais primários (1ª ordem) deságuam sucessivamente pela margem direita: $\max(3, 1) \rightarrow 3$. A ordem final no exutório continua rigorosamente <strong>Ordem 3</strong>.</p>
+            <p>As alternativas A, C, D e E transgridem o modelo de Strahler (Shreve soma magnitudes, mas Strahler só incrementa na confluência de ordens idênticas).</p>
+          </div>
+        </div>
+      </article>
+
+      <!-- Questão 04 -->
+      <article class="question-card" id="qcard-4" data-qid="4">
+        <div class="question-header">
+          <span class="question-num">Questão 04</span>
+          <span class="status-tag" id="tag-4"></span>
+        </div>
+        <div class="question-statement">
+          A geometria dos sistemas de drenagem fluvial espelha os arranjos morfoestruturais da crosta terrestre, decorrendo do contraste de resistência litológica ao intemperismo e da presença de alinhamentos tectônicos regionais. Em terrenos sedimentares caracterizados por dobramentos sistemáticos com sequências de sinclinais e anticlinais alinhados, nos quais camadas de rochas competentes (como arenitos e quartzitos) alternam-se com rochas friáveis e facilmente erodíveis (como siltitos e folhelhos), o padrão de drenagem observado de modo recorrente é denominado:
+        </div>
+        <div class="options-list">
+          <label class="option-label" id="opt-4-A">
+            <input type="radio" name="q4" value="A" onchange="handleAnswerChange(4)">
+            <span class="option-text"><span class="option-letter">A)</span> Dendrítico, em que a rede de canais se ramifica livremente em todas as direções, atestando a presença de isotropia estrutural e horizontalidade deposicional do embasamento.</span>
+          </label>
+          <label class="option-label" id="opt-4-B">
+            <input type="radio" name="q4" value="B" onchange="handleAnswerChange(4)">
+            <span class="option-text"><span class="option-letter">B)</span> Treliça (<em>trellis</em>), em virtude de os coletores principais (subsequentes) percorrerem vales paralelos às linhas de charneira das dobras escavados em rochas friáveis, enquanto tributários curtos descem as encostas estruturais e desembocam em ângulos retos ou sub-retos.</span>
+          </label>
+          <label class="option-label" id="opt-4-C">
+            <input type="radio" name="q4" value="C" onchange="handleAnswerChange(4)">
+            <span class="option-text"><span class="option-letter">C)</span> Centrípeto, em razão da convergência de todos os canais para uma depressão fechada central sem escoamento superficial para o mar.</span>
+          </label>
+          <label class="option-label" id="opt-4-D">
+            <input type="radio" name="q4" value="D" onchange="handleAnswerChange(4)">
+            <span class="option-text"><span class="option-letter">D)</span> Radial, uma vez que a água escoa centrifugamente a partir das cristas anticlinais em todas as direções azimutais, sem formar cursos de água paralelos nos vales sinclinais.</span>
+          </label>
+          <label class="option-label" id="opt-4-E">
+            <input type="radio" name="q4" value="E" onchange="handleAnswerChange(4)">
+            <span class="option-text"><span class="option-letter">E)</span> Paralelo, formado unicamente pela presença de falhas transcorrentes ortogonais que fragmentam blocos litológicos cristalinos em planícies de baixa declividade.</span>
+          </label>
+        </div>
+
+        <div class="resolution-box" id="res-4">
+          <div class="resolution-title">
+            <span>✓ Resolução Comentada – Gabarito: B</span>
+          </div>
+          <div class="resolution-content">
+            <p><strong>Análise da assertiva B (Correta):</strong> O padrão em treliça (<em>trellis</em>) é a feição lito-geomorfológica típica de relevos apalachianos ou cinturões dobrados com alternância de rochas duras e brandas. Os rios principais (subsequentes) instalam-se nos eixos de sinclinais ou flancos erodidos constituídos de litologias frágeis (folhelhos/argilitos), enquanto tributários curtos descem as escarpas das cristas de rochas resistentes (arenitos/quartzitos), desaguando em ângulos retos ou quase retos no coletor principal.</p>
+            <p><strong>Por que as demais estão incorretas?</strong><br>
+            • <em>A incorreta:</em> O padrão dendrítico denota homogeneidade litológica e ausência de controle estrutural tectônico preferencial (isotropia).<br>
+            • <em>C incorreta:</em> Drenagem centrípeta converge para o fundo de depressões fechadas (bacias endorreicas ou dolinas cársticas).<br>
+            • <em>D incorreta:</em> Padrão radial irradia a partir de elevações centrais pontuais isoladas (vulcões, domos).<br>
+            • <em>E incorreta:</em> Drenagem paralela desenvolve-se em vertentes íngremes de inclinação uniforme ou sistemas de falhas paralelas.</p>
+          </div>
+        </div>
+      </article>
+
+      <!-- Questão 05 -->
+      <article class="question-card" id="qcard-5" data-qid="5">
+        <div class="question-header">
+          <span class="question-num">Questão 05</span>
+          <span class="status-tag" id="tag-5"></span>
+        </div>
+        <div class="question-statement">
+          A leitura de padrões de drenagem permite a dedução de feições geomorfológicas e estruturas geológicas subjacentes em fotografias aéreas e imagens orbitais. Analise a correlação entre os tipos de arranjo e seus respectivos condicionantes lito-geomorfológicos:
+        </div>
+
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th style="width: 35%;">Padrão de Drenagem</th>
+                <th>Condicionante Lito-Geomorfológico Típico</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>I. Radial centrífugo</strong></td>
+                <td>Dispersão divergente do deflúvio a partir de ápices isolados, cones vulcânicos ou domos estruturais.</td>
+              </tr>
+              <tr>
+                <td><strong>II. Centrípeto</strong></td>
+                <td>Convergência dos canais fluviais em direção ao centro de bacias endorreicas, caldeiras vulcânicas ou dolinas cársticas.</td>
+              </tr>
+              <tr>
+                <td><strong>III. Anelar</strong></td>
+                <td>Orientação circular e concêntrica dos tributários ao longo de fraturas e cinturões litológicos de fraqueza ao redor de domos soerguidos e dissecados.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="question-statement">
+          A respeito dos padrões e seus respectivos controles morfoestruturais, assinale a alternativa correta:
+        </div>
+
+        <div class="options-list">
+          <label class="option-label" id="opt-5-A">
+            <input type="radio" name="q5" value="A" onchange="handleAnswerChange(5)">
+            <span class="option-text"><span class="option-letter">A)</span> Apenas a associação I está correta.</span>
+          </label>
+          <label class="option-label" id="opt-5-B">
+            <input type="radio" name="q5" value="B" onchange="handleAnswerChange(5)">
+            <span class="option-text"><span class="option-letter">B)</span> Apenas as associações I e II estão corretas.</span>
+          </label>
+          <label class="option-label" id="opt-5-C">
+            <input type="radio" name="q5" value="C" onchange="handleAnswerChange(5)">
+            <span class="option-text"><span class="option-letter">C)</span> Apenas as associações II e III estão corretas.</span>
+          </label>
+          <label class="option-label" id="opt-5-D">
+            <input type="radio" name="q5" value="D" onchange="handleAnswerChange(5)">
+            <span class="option-text"><span class="option-letter">D)</span> As associações I, II e III estão corretas.</span>
+          </label>
+          <label class="option-label" id="opt-5-E">
+            <input type="radio" name="q5" value="E" onchange="handleAnswerChange(5)">
+            <span class="option-text"><span class="option-letter">E)</span> Nenhuma das associações está correta.</span>
+          </label>
+        </div>
+
+        <div class="resolution-box" id="res-5">
+          <div class="resolution-title">
+            <span>✓ Resolução Comentada – Gabarito: D</span>
+          </div>
+          <div class="resolution-content">
+            <p><strong>Análise da assertiva D (Correta):</strong> Todas as três proposições associativas correlacionam fidedignamente o arranjo planimétrico da drenagem ao substrato geomorfológico:</p>
+            <p>• <strong>Item I (Verdadeiro):</strong> O arranjo radial centrífugo manifesta-se tipicamente pelo escoamento divergente em formato de raio a partir de relevos elevados e cônicos isolados, tais como edifícios vulcânicos, picos pontiagudos ou domos diapíricos.<br>
+            • <strong>Item II (Verdadeiro):</strong> A drenagem centrípeta constitui a convergência em direção a um nível de base interno, como o assoalho de bacias interiores sem drenagem para o oceano (endorreicas), depressões estruturais colapsadas (caldeiras vulcânicas) e sumidouros de dolinas em carstes.<br>
+            • <strong>Item III (Verdadeiro):</strong> O arranjo anelar expressa o traçado curvo e concêntrico guiado por zonas de fraqueza litoestruturais dispostas circularmente ao redor de intrusões plutônicas ou domos soerguidos e submetidos à erosão diferencial.</p>
+          </div>
+        </div>
+      </article>
+
+      <!-- Questão 06 -->
+      <article class="question-card" id="qcard-6" data-qid="6">
+        <div class="question-header">
+          <span class="question-num">Questão 06</span>
+          <span class="status-tag" id="tag-6"></span>
+        </div>
+        <div class="question-statement">
+          O tempo de concentração ($t_c$) constitui um parâmetro morfodinâmico indispensável no dimensionamento hidráulico e na compreensão dos picos de cheia nas bacias hidrográficas. Sobre o conceito físico de tempo de concentração e sua influência na modelação do hidrograma de cheia, assinale a alternativa correta:
+        </div>
+        <div class="options-list">
+          <label class="option-label" id="opt-6-A">
+            <input type="radio" name="q6" value="A" onchange="handleAnswerChange(6)">
+            <span class="option-text"><span class="option-letter">A)</span> O tempo de concentração representa o tempo hidrológico necessário para que a gota precipitada no ponto hidraulicamente mais afastado da bacia atinja o exutório, momento a partir do qual toda a área da bacia passa a contribuir simultaneamente para a vazão na foz.</span>
+          </label>
+          <label class="option-label" id="opt-6-B">
+            <input type="radio" name="q6" value="B" onchange="handleAnswerChange(6)">
+            <span class="option-text"><span class="option-letter">B)</span> Bacias hidrográficas com formas muito arredondadas exibem tempos de concentração sensivelmente maiores do que bacias estreitas e alongadas de mesma área, diminuindo sua suscetibilidade a eventos de enxurrada torrencial.</span>
+          </label>
+          <label class="option-label" id="opt-6-C">
+            <input type="radio" name="q6" value="C" onchange="handleAnswerChange(6)">
+            <span class="option-text"><span class="option-letter">C)</span> O $t_c$ é computado como o período decorrido unicamente entre o cessamento completo da precipitação atmosférica e o esgotamento do escoamento de base na seção de controle.</span>
+          </label>
+          <label class="option-label" id="opt-6-D">
+            <input type="radio" name="q6" value="D" onchange="handleAnswerChange(6)">
+            <span class="option-text"><span class="option-letter">D)</span> A expansão de superfícies impermeabilizadas e de galerias pluviais retilíneas em uma bacia urbana eleva a rugosidade hidráulica superficial, provocando a dilatação do tempo de concentração e a mitigação dos picos de descarga.</span>
+          </label>
+          <label class="option-label" id="opt-6-E">
+            <input type="radio" name="q6" value="E" onchange="handleAnswerChange(6)">
+            <span class="option-text"><span class="option-letter">E)</span> O tempo de concentração independe do comprimento do canal principal e da declividade média da bacia, sendo condicionado exclusivamente pela espessura do horizonte orgânico do solo.</span>
+          </label>
+        </div>
+
+        <div class="resolution-box" id="res-6">
+          <div class="resolution-title">
+            <span>✓ Resolução Comentada – Gabarito: A</span>
+          </div>
+          <div class="resolution-content">
+            <p><strong>Análise da assertiva A (Correta):</strong> O tempo de concentração ($t_c$) é conceituado fisicamente como o tempo requerido para que o escoamento superficial gerado na partícula pluvial precipitada no ponto hidraulicamente mais remoto (em tempo de viagem, associando distância e atrito) alcance o exutório. Atingido esse tempo sob chuva uniforme de duração $t \ge t_c$, 100% da área da bacia verte simultaneamente para a foz, viabilizando o alcance da vazão máxima (pico do hidrograma).</p>
+            <p><strong>Por que as demais estão incorretas?</strong><br>
+            • <em>B incorreta:</em> Bacias arredondadas possuem tempos de concentração menores e concentram o fluxo simultaneamente de diversas frentes, gerando picos de cheia muito elevados e maior torrencialidade.<br>
+            • <em>C incorreta:</em> Essa definição refere-se ao tempo de recessão/depleção de base da onda de cheia, e não ao tempo de concentração.<br>
+            • <em>D incorreta:</em> A impermeabilização urbana reduz drasticamente a rugosidade superficial (concreto e asfalto com coeficiente de Manning muito baixo), encurtando o tempo de concentração e amplificando os picos de inundação.<br>
+            • <em>E incorreta:</em> O $t_c$ é condicionado de forma primária pelo comprimento do leito e pela declividade da bacia (vide fórmulas empíricas clássicas como Kirpich, Giandotti e California Culverts).</p>
+          </div>
+        </div>
+      </article>
+
+      <!-- Questão 07 -->
+      <article class="question-card" id="qcard-7" data-qid="7">
+        <div class="question-header">
+          <span class="question-num">Questão 07</span>
+          <span class="status-tag" id="tag-7"></span>
+        </div>
+        <div class="question-statement">
+          A modificação da dinâmica hidrológica decorrente da conversão do uso do solo manifesta-se diretamente na geometria e nos parâmetros temporais dos hidrogramas de cheia. Considere a tabela comparativa a seguir, que retrata a resposta hidrológica de uma bacia hidrográfica a uma mesma precipitação de projeto antes e após severas modificações ambientais:
+        </div>
+
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Variável do Hidrograma</th>
+                <th>Cenário 1 (Condição Anterior)</th>
+                <th>Cenário 2 (Condição Posterior)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Tempo ao pico ($t_p$)</strong></td>
+                <td>4 horas e 30 minutos</td>
+                <td>1 hora e 15 minutos</td>
+              </tr>
+              <tr>
+                <td><strong>Vazão de pico ($Q_{pico}$)</strong></td>
+                <td>45 m³/s</td>
+                <td>160 m³/s</td>
+              </tr>
+              <tr>
+                <td><strong>Tempo de base da onda ($t_b$)</strong></td>
+                <td>Estendido (18 horas)</td>
+                <td>Comprimido (6 horas)</td>
+              </tr>
+              <tr>
+                <td><strong>Escoamento de base na estiagem</strong></td>
+                <td>Perene (8 m³/s)</td>
+                <td>Efêmero / Depauperado (1 m³/s)</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="question-statement">
+          A alteração hidrológica observada entre o Cenário 1 e o Cenário 2 fundamenta-se tecnicamente em:
+        </div>
+
+        <div class="options-list">
+          <label class="option-label" id="opt-7-A">
+            <input type="radio" name="q7" value="A" onchange="handleAnswerChange(7)">
+            <span class="option-text"><span class="option-letter">A)</span> Ampliação maciça de áreas florestadas e instalação de bacias de retenção com terraceamento, o que favoreceu a infiltração profunda e reduziu o escoamento superficial.</span>
+          </label>
+          <label class="option-label" id="opt-7-B">
+            <input type="radio" name="q7" value="B" onchange="handleAnswerChange(7)">
+            <span class="option-text"><span class="option-letter">B)</span> Desmatamento das encostas, retificação dos cursos de água e expressiva impermeabilização das superfícies, o que acarretou a redução do tempo de concentração, a aceleração da transferência de fluxos e o déficit de recarga aquífera.</span>
+          </label>
+          <label class="option-label" id="opt-7-C">
+            <input type="radio" name="q7" value="C" onchange="handleAnswerChange(7)">
+            <span class="option-text"><span class="option-letter">C)</span> Intensificação de processos pedogenéticos de alteração química que elevaram a macroporosidade do solo, garantindo a rápida condutividade hidráulica para as zonas profundas do aquífero freático.</span>
+          </label>
+          <label class="option-label" id="opt-7-D">
+            <input type="radio" name="q7" value="D" onchange="handleAnswerChange(7)">
+            <span class="option-text"><span class="option-letter">D)</span> Transição climática regional com atenuação das precipitações convectivas estivais e predomínio absoluto de sistemas frontais contínuos de baixa intensidade pluviométrica.</span>
+          </label>
+          <label class="option-label" id="opt-7-E">
+            <input type="radio" name="q7" value="E" onchange="handleAnswerChange(7)">
+            <span class="option-text"><span class="option-letter">E)</span> Elevação artificial do nível de base regional por meio de barramentos sucessivos, gerando remanso generalizado e expansão da área das várzeas inundáveis a montante do posto fluviométrico.</span>
+          </label>
+        </div>
+
+        <div class="resolution-box" id="res-7">
+          <div class="resolution-title">
+            <span>✓ Resolução Comentada – Gabarito: B</span>
+          </div>
+          <div class="resolution-content">
+            <p><strong>Análise da assertiva B (Correta):</strong> As alterações métricas expostas na tabela retratam o impacto antrópico típico da urbanização e supressão da vegetação nativa:
+            <br>1. <strong>Redução do tempo ao pico (de 4h30 para 1h15):</strong> A impermeabilização do solo associada a canais retificados acelera a velocidade hidrodinâmica superficial.
+            <br>2. <strong>Aumento brutal da vazão de pico (de 45 m³/s para 160 m³/s):</strong> A água pluvial deixa de infiltrar e converte-se quase integralmente em enxurrada superficial direta.
+            <br>3. <strong>Compressão do tempo de base (de 18h para 6h):</strong> A onda de cheia passa com violência rápida em leito afunilado.
+            <br>4. <strong>Declínio do escoamento de base na estiagem (de 8 m³/s para 1 m³/s):</strong> Ao diminuir a infiltração pedológica, anula-se a recarga freática subsuperficial, depauperando o suprimento que sustentava o rio nos períodos secos.</p>
+            <p>As demais alternativas descrevem práticas conservacionistas de recarga (A) ou alterações incompatíveis com o hidrograma pontiagudo e a redução da vazão de base (C, D, E).</p>
+          </div>
+        </div>
+      </article>
+
+      <!-- Questão 08 -->
+      <article class="question-card" id="qcard-8" data-qid="8">
+        <div class="question-header">
+          <span class="question-num">Questão 08</span>
+          <span class="status-tag" id="tag-8"></span>
+        </div>
+        <div class="question-statement">
+          O regime hidrográfico espelha as variações temporais da vazão fluvial ao longo dos meses do ano, mantendo estreita relação com o tipo de alimentação do canal, a temperatura atmosférica regional e a sazonalidade pluviométrica. No que se refere à classificação e dinâmica dos regimes fluviais, assinale a alternativa correta:
+        </div>
+        <div class="options-list">
+          <label class="option-label" id="opt-8-A">
+            <input type="radio" name="q8" value="A" onchange="handleAnswerChange(8)">
+            <span class="option-text"><span class="option-letter">A)</span> Os rios de regime pluvial tropical típico do território brasileiro apresentam períodos de águas altas (cheias) concentrados nos meses de inverno e início da primavera, período em que ocorrem as maiores taxas de condensação de umidade do ar.</span>
+          </label>
+          <label class="option-label" id="opt-8-B">
+            <input type="radio" name="q8" value="B" onchange="handleAnswerChange(8)">
+            <span class="option-text"><span class="option-letter">B)</span> O regime nival é condicionado pela fusão primaveril e estival da neve acumulada nas porções mais elevadas do relevo durante o inverno, resultando em descargas fluviais máximas nessa época de aquecimento térmico sazonal.</span>
+          </label>
+          <label class="option-label" id="opt-8-C">
+            <input type="radio" name="q8" value="C" onchange="handleAnswerChange(8)">
+            <span class="option-text"><span class="option-letter">C)</span> Rios dotados de regime puramente glacial atingem suas descargas anuais mais expressivas no auge do inverno, fase do ano em que a compressão física da neve fresca sobre o gelo expulsa volumes extraordinários de água subterrânea nos leitos.</span>
+          </label>
+          <label class="option-label" id="opt-8-D">
+            <input type="radio" name="q8" value="D" onchange="handleAnswerChange(8)">
+            <span class="option-text"><span class="option-letter">D)</span> Um curso d’água sob regime misto (pluvio-nival) independe de cotas altitudinais ou variações zonais do clima, desenvolvendo-se com exclusividade em planícies estuarinas influenciadas por ondas de maré oceânica.</span>
+          </label>
+          <label class="option-label" id="opt-8-E">
+            <input type="radio" name="q8" value="E" onchange="handleAnswerChange(8)">
+            <span class="option-text"><span class="option-letter">E)</span> A dinâmica hidrológica do regime tropical semiárido difere do regime pluvial tropical úmido exclusivamente pela ausência de talvegues estruturados, mantendo regimes vazão-tempo idênticos e hidrogramas sem estio acentuado.</span>
+          </label>
+        </div>
+
+        <div class="resolution-box" id="res-8">
+          <div class="resolution-title">
+            <span>✓ Resolução Comentada – Gabarito: B</span>
+          </div>
+          <div class="resolution-content">
+            <p><strong>Análise da assertiva B (Correta):</strong> No regime nival, a precipitação invernal acumula-se sob a forma sólida de neve na bacia sem gerar escoamento imediato. O aporte fluvial máximo ocorre com o aquecimento radiativo da primavera e verão, quando a fusão do manto nival (<em>snowmelt</em>) libera grandes vazões hídricas para a rede hidrográfica.</p>
+            <p><strong>Por que as demais estão incorretas?</strong><br>
+            • <em>A incorreta:</em> No regime pluvial tropical do Brasil, as vazões de cheia concentram-se no verão e início do outono (novembro a março), correspondendo o inverno ao estio hidrológico.<br>
+            • <em>C incorreta:</em> No regime glacial, as vazões são mínimas no inverno (período de congelamento máximo) e atingem seus picos no auge do verão boreal ou austral, em decorrência da fusão das geleiras continentais.<br>
+            • <em>D incorreta:</em> Regimes pluvio-nivais dependem diretamente de cotas altitudinais e sazonalidade climática (como na Bacia do Rio Amazonas com nascentes andinas), nada tendo a ver com marés estuarinas litorâneas.<br>
+            • <em>E incorreta:</em> O regime semiárido é marcado por rios intermitentes ou efêmeros, com secas prolongadas no leito e hidrogramas pontiagudos de enxurrada torrencial rápida, distinguindo-se fundamentalmente do regime perene tropical úmido.</p>
+          </div>
+        </div>
+      </article>
+
+      <!-- Questão 09 -->
+      <article class="question-card" id="qcard-9" data-qid="9">
+        <div class="question-header">
+          <span class="question-num">Questão 09</span>
+          <span class="status-tag" id="tag-9"></span>
+        </div>
+        <div class="question-statement">
+          A hidrogeologia avalia o armazenamento e a movimentação da água subterrânea nos interstícios do solo e nas fraturas das rochas, estabelecendo tipologias quanto ao estado de confinamento hidroestratigráfico das formações geológicas. A respeito dos aquíferos confinados e não confinados, assinale a alternativa correta:
+        </div>
+        <div class="options-list">
+          <label class="option-label" id="opt-9-A">
+            <input type="radio" name="q9" value="A" onchange="handleAnswerChange(9)">
+            <span class="option-text"><span class="option-letter">A)</span> Em um aquífero freático ou livre, o topo da zona de saturação coincide com a superfície freática, encontrando-se essa interface sob pressão hidrostática estritamente superior à pressão atmosférica local.</span>
+          </label>
+          <label class="option-label" id="opt-9-B">
+            <input type="radio" name="q9" value="B" onchange="handleAnswerChange(9)">
+            <span class="option-text"><span class="option-letter">B)</span> Os aquíferos confinados acham-se capeados superior e inferiormente por camadas rochosas ou litologias de permeabilidade desprezível (como argilitos e folhelhos), o que mantém a água sob pressões superiores à pressão atmosférica.</span>
+          </label>
+          <label class="option-label" id="opt-9-C">
+            <input type="radio" name="q9" value="C" onchange="handleAnswerChange(9)">
+            <span class="option-text"><span class="option-letter">C)</span> A perfuração de um poço tubular que penetre em um aquífero artesiano promove o rebaixamento definitivo da pressão intersticial e impede que o nível da água se eleve acima do teto do aquífero confinado.</span>
+          </label>
+          <label class="option-label" id="opt-9-D">
+            <input type="radio" name="q9" value="D" onchange="handleAnswerChange(9)">
+            <span class="option-text"><span class="option-letter">D)</span> Aquíferos não confinados mostram-se completamente blindados contra episódios de contaminação antrópica superficial, em razão de sua espessa cobertura litológica confinante.</span>
+          </label>
+          <label class="option-label" id="opt-9-E">
+            <input type="radio" name="q9" value="E" onchange="handleAnswerChange(9)">
+            <span class="option-text"><span class="option-letter">E)</span> Denomina-se poço artesiano jorrante aquele poço tubular cuja superfície potenciométrica se posiciona em cota altimétrica inferior à cota do terreno, exigindo bombas centrífugas de alta pressão para a extração do recurso hídrico.</span>
+          </label>
+        </div>
+
+        <div class="resolution-box" id="res-9">
+          <div class="resolution-title">
+            <span>✓ Resolução Comentada – Gabarito: B</span>
+          </div>
+          <div class="resolution-content">
+            <p><strong>Análise da assertiva B (Correta):</strong> Os aquíferos confinados (ou artesianos) situam-se entre camadas litológicas impermeáveis ou semipermeáveis (aquitardos ou aquicludes). Essa compartimentação física isola o meio poroso ou fraturado, confinando a água sob pressão confinante hidrostática que supera a pressão atmosférica do ar livre.</p>
+            <p><strong>Por que as demais estão incorretas?</strong><br>
+            • <em>A incorreta:</em> No aquífero livre (freático), a superfície freática encontra-se sob pressão estritamente igual à pressão atmosférica local.<br>
+            • <em>C incorreta:</em> Ao perfurar um aquífero confinado, a água se eleva espontaneamente acima do topo da formação aquífera até alcançar o nível piezométrico (superfície potenciométrica).<br>
+            • <em>D incorreta:</em> Os aquíferos livres (não confinados) são os mais vulneráveis à poluição superficial decorrente de agrotóxicos e chorumes, pela inexistência de camadas impermeáveis de teto.<br>
+            • <em>E incorreta:</em> O poço é dito "artesiano jorrante" quando a linha potenciométrica se situa <em>acima</em> da cota do terreno na boca do poço, de modo que a água transborda naturalmente sem a necessidade de bombeamento motorizado.</p>
+          </div>
+        </div>
+      </article>
+
+      <!-- Questão 10 -->
+      <article class="question-card" id="qcard-10" data-qid="10">
+        <div class="question-header">
+          <span class="question-num">Questão 10</span>
+          <span class="status-tag" id="tag-10"></span>
+        </div>
+        <div class="question-statement">
+          Na parametrização morfométrica de bacias hidrográficas, a geometria do contorno da bacia é comumente mensurada por índices adimensionais, tais como o Coeficiente de Compacidade ($K_c$, índice de Gravelius) e o Fator de Forma ($K_f$).
+        </div>
+
+        <div class="equation-box">
+          $$K_c \approx 0{,}28 \cdot \frac{P}{\sqrt{A}}$$
+          <div style="font-size: 0.9rem; font-family: var(--font-body); color: var(--text-muted); margin-top: 4px;">
+            Onde <em>P</em> é o perímetro da bacia em km e <em>A</em> é a sua área em km²
+          </div>
+        </div>
+
+        <div class="equation-box">
+          $$K_f = \frac{A}{L^2}$$
+          <div style="font-size: 0.9rem; font-family: var(--font-body); color: var(--text-muted); margin-top: 4px;">
+            Onde <em>L</em> é o comprimento do eixo axial principal da bacia da foz à cabeceira mais distante em km
+          </div>
+        </div>
+
+        <div class="question-statement">
+          A partir do comportamento hidrodinâmico associado a essas métricas, assinale a alternativa correta:
+        </div>
+        <div class="options-list">
+          <label class="option-label" id="opt-10-A">
+            <input type="radio" name="q10" value="A" onchange="handleAnswerChange(10)">
+            <span class="option-text"><span class="option-letter">A)</span> Bacias com contorno estritamente circular possuem Coeficiente de Compacidade igual a 1,00, formato geométrico que favorece a concentração rápida do deflúvio e amplifica o risco de inundações volumosas na foz.</span>
+          </label>
+          <label class="option-label" id="opt-10-B">
+            <input type="radio" name="q10" value="B" onchange="handleAnswerChange(10)">
+            <span class="option-text"><span class="option-letter">B)</span> Quanto maior for o Coeficiente de Compacidade ($K_c \gg 2{,}0$), maior é a aproximação da bacia com a forma circular perfeita, aumentando consideravelmente os picos de descarga máxima no exutório.</span>
+          </label>
+          <label class="option-label" id="opt-10-C">
+            <input type="radio" name="q10" value="C" onchange="handleAnswerChange(10)">
+            <span class="option-text"><span class="option-letter">C)</span> Valores diminutos de Fator de Forma ($K_f \ll 1$) atestam bacias quadradas ou circulares, acelerando a superposição de cristas de cheia provenientes dos afluentes principais.</span>
+          </label>
+          <label class="option-label" id="opt-10-D">
+            <input type="radio" name="q10" value="D" onchange="handleAnswerChange(10)">
+            <span class="option-text"><span class="option-letter">D)</span> O Coeficiente de Compacidade é inversamente proporcional ao perímetro da bacia, possibilitando a ocorrência de índices de Gravelius sistematicamente menores que 0,50 em relevos muito escarpados.</span>
+          </label>
+          <label class="option-label" id="opt-10-E">
+            <input type="radio" name="q10" value="E" onchange="handleAnswerChange(10)">
+            <span class="option-text"><span class="option-letter">E)</span> Bacias marcadamente alongadas, caracterizadas por baixos valores de $K_f$ e elevados valores de $K_c$, exibem grande suscetibilidade a enchentes violentas, visto que a confluência das ondas de cheia secundárias ocorre simultaneamente na foz.</span>
+          </label>
+        </div>
+
+        <div class="resolution-box" id="res-10">
+          <div class="resolution-title">
+            <span>✓ Resolução Comentada – Gabarito: A</span>
+          </div>
+          <div class="resolution-content">
+            <p><strong>Análise da assertiva A (Correta):</strong> O Coeficiente de Compacidade ($K_c$ ou índice de Gravelius) expressa a razão entre o perímetro da bacia e a circunferência de um círculo de mesma área. Como o círculo é a forma geométrica de perímetro mínimo para dada área, o valor mínimo teórico do índice é exatamente $K_c = 1{,}00$. Bacias com $K_c$ próximo a $1{,}00$ têm formato quase circular, onde os afluentes possuem percursos de extensão similar até o exutório, provocando convergência simultânea das ondas de cheia e picos hidrológicos intensificados.</p>
+            <p><strong>Por que as demais estão incorretas?</strong><br>
+            • <em>B incorreta:</em> Valores elevados ($K_c \gg 1{,}5$ a $2{,}0$) indicam bacias muito alongadas, acidentadas e recortadas, que atenuam os picos de cheia.<br>
+            • <em>C incorreta:</em> Valores baixos de $K_f$ denotam bacias compridas e delgadas, enquanto valores próximos a $1{,}0$ indicam bacias quadradas ou compactas.<br>
+            • <em>D incorreta:</em> $K_c$ é diretamente proporcional ao perímetro ($P$ no numerador); sendo $1{,}00$ o mínimo teórico para um círculo, valores inferiores a $1{,}00$ são matematicamente impossíveis.<br>
+            • <em>E incorreta:</em> Bacias alongadas possuem baixa propensão a inundações bruscas coletivas, pois os afluentes deságuam em tempos cronológicos defasados ao longo do rio principal.</p>
+          </div>
+        </div>
+      </article>
+
+      <!-- Painel de Controle e Botões -->
+      <div class="action-panel">
+        <button type="button" class="btn-submit" id="btnSubmit" onclick="submitExam()">
+          Finalizar e Corrigir Simulado
+        </button>
+        <button type="button" class="btn-reset" id="btnReset" onclick="resetExam()" style="display: none;">
+          Refazer Simulado
+        </button>
+      </div>
+
+    </form>
+  </main>
+
+  <script>
+    // Gabarito Oficial Estruturado
+    const ANSWER_KEY = {
+      1: 'C',
+      2: 'C',
+      3: 'B',
+      4: 'B',
+      5: 'D',
+      6: 'A',
+      7: 'B',
+      8: 'B',
+      9: 'B',
+      10: 'A'
+    };
+
+    const TOTAL_QUESTIONS = 10;
+    let isEvaluated = false;
+
+    // Atualiza a barra superior de progresso enquanto o usuário responde
+    function handleAnswerChange(qid) {
+      const card = document.getElementById(`qcard-${qid}`);
+      if (card) {
+        card.classList.add('answered');
+      }
+      updateProgressBar();
+      hideWarning();
+    }
+
+    function updateProgressBar() {
+      let answeredCount = 0;
+      for (let i = 1; i <= TOTAL_QUESTIONS; i++) {
+        const selected = document.querySelector(`input[name="q${i}"]:checked`);
+        if (selected) answeredCount++;
+      }
+      const percent = (answeredCount / TOTAL_QUESTIONS) * 100;
+      document.getElementById('progressFill').style.width = `${percent}%`;
+      document.getElementById('progressStatus').textContent = `${answeredCount} de ${TOTAL_QUESTIONS} respondidas`;
+    }
+
+    function showWarning(message) {
+      const banner = document.getElementById('warningBanner');
+      banner.textContent = message;
+      banner.style.display = 'block';
+      banner.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+
+    function hideWarning() {
+      const banner = document.getElementById('warningBanner');
+      banner.style.display = 'none';
+    }
+
+    // Processamento e Correção do Simulado
+    function submitExam() {
+      let answeredCount = 0;
+      const userAnswers = {};
+
+      for (let i = 1; i <= TOTAL_QUESTIONS; i++) {
+        const selected = document.querySelector(`input[name="q${i}"]:checked`);
+        if (selected) {
+          answeredCount++;
+          userAnswers[i] = selected.value;
+        } else {
+          userAnswers[i] = null;
+        }
+      }
+
+      // Se não respondeu tudo, emite aviso na página
+      if (answeredCount < TOTAL_QUESTIONS && !isEvaluated) {
+        showWarning(`Você respondeu ${answeredCount} de ${TOTAL_QUESTIONS} questões. Preencha todas para conferir o resultado ou clique novamente no botão abaixo para forçar o fechamento com as questões em branco.`);
+        isEvaluated = true; // Permite segundo clique para forçar se o usuário quiser
+        return;
+      }
+
+      hideWarning();
+      isEvaluated = true;
+
+      let correctCount = 0;
+
+      // Percorre cada questão comparando e aplicando o feedback visual
+      for (let i = 1; i <= TOTAL_QUESTIONS; i++) {
+        const correctLetter = ANSWER_KEY[i];
+        const userChoice = userAnswers[i];
+        const card = document.getElementById(`qcard-${i}`);
+        const tag = document.getElementById(`tag-${i}`);
+        const resBox = document.getElementById(`res-${i}`);
+
+        card.classList.add('evaluated');
+
+        // Desabilita os inputs para travar respostas
+        const inputs = card.querySelectorAll('input[type="radio"]');
+        inputs.forEach(input => input.disabled = true);
+
+        // Destaca a alternativa correta oficial com contorno e fundo verde
+        const correctLabel = document.getElementById(`opt-${i}-${correctLetter}`);
+        if (correctLabel) {
+          correctLabel.classList.add('is-correct');
+        }
+
+        // Verifica acerto ou erro
+        if (userChoice === correctLetter) {
+          correctCount++;
+          tag.style.display = 'inline-block';
+          tag.style.backgroundColor = '#dcfce7';
+          tag.style.color = '#15803d';
+          tag.textContent = '✓ Resposta Correta';
+          card.setAttribute('data-result', 'correct');
+        } else {
+          tag.style.display = 'inline-block';
+          tag.style.backgroundColor = '#fee2e2';
+          tag.style.color = '#b91c1c';
+          tag.textContent = userChoice ? '✗ Resposta Incorreta' : '⚠ Não Respondida';
+          card.setAttribute('data-result', 'wrong');
+
+          // Se marcou opção errada, marca em vermelho
+          if (userChoice) {
+            const wrongLabel = document.getElementById(`opt-${i}-${userChoice}`);
+            if (wrongLabel) {
+              wrongLabel.classList.add('is-wrong-selection');
+            }
+          }
+        }
+
+        // Revela a caixa de resolução comentada completa na mesma página
+        if (resBox) {
+          resBox.style.display = 'block';
+        }
+      }
+
+      // Atualiza o painel consolidado de notas
+      const wrongCount = TOTAL_QUESTIONS - correctCount;
+      const accuracy = Math.round((correctCount / TOTAL_QUESTIONS) * 100);
+
+      document.getElementById('scoreAccuracy').textContent = `${accuracy}%`;
+      document.getElementById('scoreCorrect').textContent = correctCount;
+      document.getElementById('scoreWrong').textContent = wrongCount;
+
+      // Exibe painel de resultado e altera os botões
+      const resultsSection = document.getElementById('resultsSection');
+      resultsSection.style.display = 'block';
+
+      document.getElementById('btnSubmit').style.display = 'none';
+      document.getElementById('btnReset').style.display = 'inline-block';
+
+      // Rola suavemente até o resumo dos resultados
+      resultsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    // Filtro dinâmico pós-correção: Ver todas, Apenas Acertos, Apenas Erros
+    function filterQuestions(filterType) {
+      const buttons = document.querySelectorAll('.filter-btn');
+      buttons.forEach(btn => btn.classList.remove('active'));
+
+      const activeBtn = Array.from(buttons).find(b => {
+        if (filterType === 'all' && b.textContent.includes('Todas')) return true;
+        if (filterType === 'correct' && b.textContent.includes('Acertos')) return true;
+        if (filterType === 'wrong' && b.textContent.includes('Incorretas')) return true;
+        return false;
+      });
+      if (activeBtn) activeBtn.classList.add('active');
+
+      for (let i = 1; i <= TOTAL_QUESTIONS; i++) {
+        const card = document.getElementById(`qcard-${i}`);
+        const result = card.getAttribute('data-result');
+
+        if (filterType === 'all') {
+          card.style.display = 'block';
+        } else if (filterType === 'correct') {
+          card.style.display = (result === 'correct') ? 'block' : 'none';
+        } else if (filterType === 'wrong') {
+          card.style.display = (result === 'wrong') ? 'block' : 'none';
+        }
+      }
+    }
+
+    // Reinicia o simulado para novo treino
+    function resetExam() {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      setTimeout(() => {
+        location.reload();
+      }, 350);
+    }
+  </script>
+</body>
+</html>

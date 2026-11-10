@@ -1,0 +1,902 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hidrogeografia I: Fundamentos Hidrológicos e Dinâmica Fluvial - Concurso IFMG</title>
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Fontes Google: Inter e JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  
+  <!-- KaTeX para Fórmulas Matemáticas Claras -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body);"></script>
+
+  <style>
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: #ffffff;
+      color: #1e293b; /* Slate 800 - leitura confortável */
+    }
+    
+    /* Grifo amarelo suave clássico de concurseiro */
+    mark.highlight-yellow {
+      background-color: #fef08a; /* amber-200 */
+      color: #0f172a;
+      padding: 0.12rem 0.35rem;
+      border-radius: 0.25rem;
+      font-weight: 600;
+    }
+    
+    /* Grifo azul sutil para termos conceituais */
+    mark.highlight-blue {
+      background-color: #e0f2fe; /* sky-100 */
+      color: #0369a1;
+      padding: 0.12rem 0.35rem;
+      border-radius: 0.25rem;
+      font-weight: 600;
+    }
+
+    /* Grifo verde sutil para regras numéricas e fórmulas */
+    mark.highlight-green {
+      background-color: #dcfce7; /* emerald-100 */
+      color: #15803d;
+      padding: 0.12rem 0.35rem;
+      border-radius: 0.25rem;
+      font-weight: 600;
+    }
+
+    /* Tabelas fluidas sem barra de scroll horizontal */
+    .table-fixed-wrap {
+      width: 100%;
+      border-collapse: collapse;
+      table-layout: fixed;
+      word-wrap: break-word;
+      overflow-wrap: break-word;
+    }
+
+    .table-fixed-wrap th, 
+    .table-fixed-wrap td {
+      white-space: normal;
+      overflow: hidden;
+      vertical-align: top;
+    }
+
+    /* Impressão limpa */
+    @media print {
+      #audio-section, #nav-shortcuts, #btn-questoes-container {
+        display: none !important;
+      }
+      body {
+        font-size: 11pt;
+        color: #000;
+      }
+    }
+  </style>
+</head>
+<body class="bg-white text-slate-800 antialiased selection:bg-amber-200 selection:text-slate-900">
+
+  <!-- TOPO: Barra de Contexto do Concurso -->
+  <header class="border-b border-slate-200 bg-white sticky top-0 z-30 shadow-xs">
+    <div class="max-w-5xl mx-auto px-4 py-3 flex flex-wrap items-center justify-between gap-3">
+      <div class="flex items-center gap-2">
+        <span class="px-2.5 py-1 bg-slate-100 text-slate-700 text-xs font-semibold rounded-md border border-slate-300 uppercase tracking-wider">
+          IFMG • Magistério EBTT
+        </span>
+        <span class="text-xs text-slate-500 font-medium hidden sm:inline">
+          Geografia • Edital Reitoria
+        </span>
+      </div>
+      <div class="flex items-center gap-2 text-xs text-slate-600 font-medium">
+        <span class="flex items-center gap-1">
+          <svg class="w-4 h-4 text-emerald-600" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+          </svg>
+          Machado & Torres (2017) | Christopherson & Birkeland (2017)
+        </span>
+      </div>
+    </div>
+  </header>
+
+  <!-- REPRODUTOR DE ÁUDIO MP3 CONFIGURÁVEL -->
+  <section id="audio-section" class="max-w-5xl mx-auto px-4 pt-6">
+    <div class="border-2 border-slate-200 rounded-xl p-4 sm:p-5 bg-white shadow-xs">
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+        
+        <!-- Info e Título do Áudio -->
+        <div class="flex items-start gap-3">
+          <div class="w-10 h-10 rounded-lg bg-slate-100 border border-slate-300 flex items-center justify-center shrink-0 text-slate-700">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 100-6 3 3 0 000 6z"></path>
+            </svg>
+          </div>
+          <div>
+            <h3 class="font-bold text-slate-900 text-sm sm:text-base flex items-center gap-2">
+              Áudio de Estudo da Aula
+              <span id="audio-status-badge" class="text-xs px-2 py-0.5 rounded font-normal bg-slate-100 text-slate-600 border border-slate-200">
+                Aguardando arquivo
+              </span>
+            </h3>
+            <p class="text-xs text-slate-500 mt-0.5">
+              Coloque o arquivo MP3 na mesma pasta desta página ou altere o nome no campo abaixo:
+            </p>
+          </div>
+        </div>
+
+        <!-- Campo para Nome do Arquivo MP3 -->
+        <div class="flex items-center gap-2 w-full md:w-auto">
+          <div class="relative flex-1 md:w-64">
+            <input 
+              type="text" 
+              id="audioFileNameInput" 
+              value="audio13geo.mp3" 
+              placeholder="ex: audio_aula.mp3" 
+              class="w-full text-xs font-mono px-3 py-2 border border-slate-300 rounded-lg text-slate-800 focus:outline-none focus:ring-2 focus:ring-slate-400 bg-white"
+            >
+          </div>
+          <button 
+            type="button" 
+            id="btnCarregarAudio" 
+            class="px-3.5 py-2 text-xs font-semibold bg-slate-800 hover:bg-slate-900 text-white rounded-lg transition-colors shrink-0"
+          >
+            Carregar
+          </button>
+        </div>
+
+      </div>
+
+      <!-- Barra e Controles Nativos do Player -->
+      <div class="mt-4 pt-4 border-t border-slate-200 flex flex-col sm:flex-row items-center gap-3">
+        <audio id="audioPlayer" controls class="w-full h-10 rounded-lg">
+          <source id="audioSource" src="audio13geo.mp3" type="audio/mpeg">
+          Seu navegador não suporta a reprodução de áudio HTML5.
+        </audio>
+        
+        <!-- Velocidade de Reprodução para Estudo Acelerado -->
+        <div class="flex items-center gap-1 shrink-0 self-end sm:self-center">
+          <span class="text-xs text-slate-500 mr-1 font-medium">Velocidade:</span>
+          <button type="button" onclick="setAudioSpeed(1.0)" class="speed-btn px-2 py-1 text-xs font-medium rounded border border-slate-300 bg-slate-100 text-slate-800 hover:bg-slate-200">1x</button>
+          <button type="button" onclick="setAudioSpeed(1.25)" class="speed-btn px-2 py-1 text-xs font-medium rounded border border-slate-300 bg-white text-slate-700 hover:bg-slate-100">1.25x</button>
+          <button type="button" onclick="setAudioSpeed(1.5)" class="speed-btn px-2 py-1 text-xs font-medium rounded border border-slate-300 bg-white text-slate-700 hover:bg-slate-100">1.5x</button>
+          <button type="button" onclick="setAudioSpeed(2.0)" class="speed-btn px-2 py-1 text-xs font-medium rounded border border-slate-300 bg-white text-slate-700 hover:bg-slate-100">2x</button>
+        </div>
+      </div>
+      <p id="audioErrorMsg" class="text-xs text-rose-600 mt-2 font-medium hidden">
+        ⚠️ Não foi possível carregar o arquivo especificado. Verifique se o arquivo está na mesma pasta e com o nome correto.
+      </p>
+    </div>
+  </section>
+
+  <!-- CONTEÚDO PRINCIPAL DO DOCUMENTO -->
+  <main class="max-w-5xl mx-auto px-4 py-8">
+
+    <!-- CABEÇALHO DO TEMA -->
+    <div class="border-b-2 border-slate-300 pb-6 mb-8">
+      <div class="inline-block px-3 py-1 bg-slate-100 border border-slate-300 text-slate-700 text-xs font-bold uppercase rounded mb-3">
+        Tópico de Edital • Eixo Físico-Natural
+      </div>
+      <h1 class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight leading-tight">
+        Hidrogeografia I: Fundamentos Hidrológicos, Morfometria de Bacias e Dinâmica Fluvial
+      </h1>
+      <p class="text-sm sm:text-base text-slate-600 mt-3 leading-relaxed">
+        A hidrogeografia analisa a circulação, a distribuição espacial e o comportamento dinâmico das águas continentais em estreita conexão com a <mark class="highlight-yellow">evolução geomorfológica</mark>, os <mark class="highlight-yellow">controles tectono-estruturais</mark>, os regimes climáticos e os padrões de uso da terra. Para as provas do IFMG, a ênfase recai na modelagem quantitativa de bacias, nos padrões morfológicos de canais e nas assinaturas hidrogeológicas.
+      </p>
+    </div>
+
+    <!-- SEÇÃO 1: CICLO HIDROLÓGICO E BALANÇO HÍDRICO REGIONAL -->
+    <section class="mb-12">
+      <div class="flex items-center gap-3 mb-4">
+        <span class="w-8 h-8 rounded-full bg-slate-800 text-white flex items-center justify-center font-bold text-sm">1</span>
+        <h2 class="text-xl sm:text-2xl font-bold text-slate-900">
+          O Ciclo Hidrológico e o Balanço Hídrico Regional
+        </h2>
+      </div>
+
+      <div class="space-y-4 text-slate-700 leading-relaxed text-sm sm:text-base">
+        <p>
+          O ciclo hidrológico atua como um <mark class="highlight-yellow">sistema fechado em escala global</mark> (a massa total de água da Terra permanece constante), impulsionado pela radiação solar e pela gravidade. Em escala de bacia hidrográfica ou regional, opera como um <mark class="highlight-blue">sistema aberto</mark>, com trocas contínuas de massa e energia entre a atmosfera, a litosfera e a biosfera.
+        </p>
+
+        <!-- Processos Elementares em Tópicos Didáticos -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 my-4">
+          <div class="p-4 border border-slate-200 rounded-lg bg-white">
+            <h4 class="font-bold text-slate-900 mb-1 flex items-center gap-2">
+              <span class="w-2 h-2 rounded-full bg-slate-800"></span> Precipitação ($P$) e Interceptação
+            </h4>
+            <p class="text-xs sm:text-sm text-slate-600">
+              Entrada primária de água doce. A <mark class="highlight-yellow">interceptação vegetal</mark> dissipa a energia cinética das gotas de chuva, reduz a erosão por salpicamento (<em>splash</em>) e retarda o fluxo de chegada ao solo por gotejamento foliar e escoamento fustal.
+            </p>
+          </div>
+
+          <div class="p-4 border border-slate-200 rounded-lg bg-white">
+            <h4 class="font-bold text-slate-900 mb-1 flex items-center gap-2">
+              <span class="w-2 h-2 rounded-full bg-slate-800"></span> Infiltração vs. Escoamento Superficial
+            </h4>
+            <p class="text-xs sm:text-sm text-slate-600">
+              A água que atinge o solo infiltra na zona vadosa. Se a intensidade da chuva superar a <mark class="highlight-yellow">capacidade de infiltração</mark> ou se o solo estiver saturado, deflagra-se o <mark class="highlight-yellow">escoamento superficial hortoniano</mark> (alimentador de cheias).
+            </p>
+          </div>
+        </div>
+
+        <!-- Equação Fundamental do Balanço Hídrico -->
+        <div class="p-4 border-2 border-slate-300 rounded-xl bg-white text-center my-4">
+          <span class="text-xs font-bold text-slate-500 uppercase tracking-wider block mb-1">
+            Equação Fundamental de Conservação de Massas (Balanço Hídrico)
+          </span>
+          <div class="text-lg sm:text-xl font-mono font-bold text-slate-900 py-2">
+            $$P = ETR + Q \pm \Delta S$$
+          </div>
+          <p class="text-xs text-slate-600 mt-1 max-w-2xl mx-auto">
+            Onde: <strong>$P$</strong> = Precipitação total; <strong>$ETR$</strong> = Evapotranspiração Real; <strong>$Q$</strong> = Escoamento fluvial total (superficial + subterrâneo de base); <strong>$\Delta S$</strong> = Variação do armazenamento de água no perfil pedológico e aquíferos.
+          </p>
+        </div>
+
+        <!-- Modelo Climatológico de Thornthwaite & Mather -->
+        <div class="border border-slate-200 rounded-xl p-5 bg-white space-y-3">
+          <h3 class="text-base font-bold text-slate-900 border-b border-slate-200 pb-2">
+            Dinâmica Climatológica de Thornthwaite & Mather (Para a Prova)
+          </h3>
+          <ul class="space-y-2.5 text-xs sm:text-sm text-slate-700">
+            <li class="flex items-start gap-2">
+              <span class="font-bold text-slate-900 min-w-[200px]">• Evapotranspiração Potencial ($ETP$):</span>
+              <span>Demanda puramente teórica da atmosfera sob condições térmicas vigentes e com <mark class="highlight-yellow">suprimento contínuo e ilimitado de água</mark> no solo. Determinada exclusivamente pela energia solar e temperatura do ar.</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="font-bold text-slate-900 min-w-[200px]">• Evapotranspiração Real ($ETR$):</span>
+              <span>Volume de água que <mark class="highlight-yellow">efetivamente retorna</mark> à atmosfera, limitado pela umidade real do solo. Regra prática: <mark class="highlight-green">$ETR \le ETP$</mark> (só se igualam quando não falta água na capacidade de campo).</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="font-bold text-slate-900 min-w-[200px]">• Déficit Hídrico ($DEF$):</span>
+              <span>Período em que a precipitação e as reservas do solo são insuficientes para suprir a demanda atmosférica (<mark class="highlight-green">$DEF = ETP - ETR$</mark>).</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="font-bold text-slate-900 min-w-[200px]">• Excedente Hídrico ($EXC$):</span>
+              <span>Ocorre quando a precipitação supera a $ETP$ e a Capacidade de Água Disponível no solo ($CAD$) está <mark class="highlight-yellow">completamente saturada</mark>, deflagrando recarga freática e aumento abrupto de vazão nos rios.</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- SEÇÃO 2: ANATOMIA E COMPARTIMENTAÇÃO DE BACIAS -->
+    <section class="mb-12">
+      <div class="flex items-center gap-3 mb-4">
+        <span class="w-8 h-8 rounded-full bg-slate-800 text-white flex items-center justify-center font-bold text-sm">2</span>
+        <h2 class="text-xl sm:text-2xl font-bold text-slate-900">
+          Anatomia, Compartimentação de Bacias e Tipologias de Foz
+        </h2>
+      </div>
+
+      <div class="space-y-4 text-slate-700 leading-relaxed text-sm sm:text-base">
+        <p>
+          A bacia hidrográfica é a unidade fisiográfica delimitada por divisores topográficos, na qual as águas superficiais e subterrâneas fluem ordenadamente em direção a uma saída comum denominada <strong>exutório</strong>.
+        </p>
+
+        <!-- Componentes Anatômicos -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div class="p-4 border border-slate-200 rounded-lg bg-white">
+            <h4 class="font-bold text-slate-900 text-sm mb-1">Divisor Topográfico (Interflúvio / Linha de Cumeada)</h4>
+            <p class="text-xs sm:text-sm text-slate-600">
+              Linha que une os pontos de cota altimétrica máxima do relevo, definindo os limites perimetrais e a partição do escoamento pluvial entre bacias contíguas. <mark class="highlight-yellow">Atenção em prova:</mark> o divisor topográfico (superficial) não coincide obrigatoriamente com o divisor hidrogeológico (subterrâneo).
+            </p>
+          </div>
+
+          <div class="p-4 border border-slate-200 rounded-lg bg-white">
+            <h4 class="font-bold text-slate-900 text-sm mb-1">Talvegue (<em>Thalweg</em>)</h4>
+            <p class="text-xs sm:text-sm text-slate-600">
+              Linha sinuosa que conecta os <mark class="highlight-yellow">pontos mais profundos da calha fluvial</mark>, correspondendo ao eixo de máxima velocidade hidrodinâmica e maior concentração de fluxo da corrente.
+            </p>
+          </div>
+        </div>
+
+        <!-- Compartimentação Longitudinal -->
+        <div class="border border-slate-200 rounded-xl p-4 bg-white">
+          <h3 class="text-sm font-bold text-slate-900 uppercase tracking-wider mb-3">
+            Compartimentação Longitudinal do Perfil de Equilíbrio
+          </h3>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs sm:text-sm">
+            <div class="p-3 border border-slate-200 rounded-md">
+              <span class="font-bold text-slate-900 block mb-1">1. Alto Curso (Cabeceiras)</span>
+              <p class="text-slate-600">Gradientes altimétricos íngremes, perfil transversal do vale em formato de <strong>"V" estreito</strong>, alta competência hidráulica de transporte de blocos e forte <mark class="highlight-yellow">erosão vertical e remontante</mark>.</p>
+            </div>
+            <div class="p-3 border border-slate-200 rounded-md">
+              <span class="font-bold text-slate-900 block mb-1">2. Médio Curso</span>
+              <p class="text-slate-600">Declividades intermediárias, alargamento gradual do assoalho do vale, equilíbrio dinâmico entre erosão na margem externa e deposição na margem interna de meandros.</p>
+            </div>
+            <div class="p-3 border border-slate-200 rounded-md">
+              <span class="font-bold text-slate-900 block mb-1">3. Baixo Curso</span>
+              <p class="text-slate-600">Próximo ao nível de base geral. Declividade suave, amplas planícies de inundação aluviais e franca <mark class="highlight-yellow">predominância dos processos de sedimentação</mark> de frações finas (siltes e argilas).</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- TABELA SEM SCROLL: ESTUÁRIO VS DELTA -->
+        <div class="my-6">
+          <h3 class="text-base font-bold text-slate-900 mb-2">
+            Morfologia de Desembocadura: Estuário versus Delta
+          </h3>
+          <p class="text-xs text-slate-500 mb-3">
+            Critério decisivo de prova: balanço entre aporte de carga sedimentar fluvial versus capacidade dispersora das correntes marítimas e marés.
+          </p>
+
+          <table class="table-fixed-wrap border border-slate-300 rounded-lg text-xs sm:text-sm">
+            <thead class="bg-slate-100 border-b border-slate-300">
+              <tr>
+                <th class="w-1/4 p-3 text-left font-bold text-slate-900 border-r border-slate-300">Parâmetro Morfogenético</th>
+                <th class="w-3/8 p-3 text-left font-bold text-slate-900 border-r border-slate-300">Desembocadura em Estuário</th>
+                <th class="w-3/8 p-3 text-left font-bold text-slate-900">Desembocadura em Delta</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-200 bg-white">
+              <tr>
+                <td class="p-3 font-semibold text-slate-800 border-r border-slate-200">Configuração Espacial</td>
+                <td class="p-3 text-slate-700 border-r border-slate-200"><mark class="highlight-blue">Canal único afunilado</mark> e aberto, desobstruído por depósitos no canal central.</td>
+                <td class="p-3 text-slate-700">Múltiplos <mark class="highlight-yellow">canais distributários divergentes</mark> ramificados em leque triangular.</td>
+              </tr>
+              <tr>
+                <td class="p-3 font-semibold text-slate-800 border-r border-slate-200">Balanço Hidrodinâmico</td>
+                <td class="p-3 text-slate-700 border-r border-slate-200"><strong>Força marinha preponderante:</strong> as correntes e marés removem os sedimentos mais rápido do que o rio aporta.</td>
+                <td class="p-3 text-slate-700"><strong>Aporte fluvial preponderante:</strong> o rio despeja mais sedimentos do que a hidrodinâmica marinha consegue dispersar.</td>
+              </tr>
+              <tr>
+                <td class="p-3 font-semibold text-slate-800 border-r border-slate-200">Contexto Litorâneo</td>
+                <td class="p-3 text-slate-700 border-r border-slate-200">Costas de macromaré, vales afogados por transgressões eustáticas e forte hidrodinâmica.</td>
+                <td class="p-3 text-slate-700">Costas de micromaré, mares interiores ou zonas abrigadas onde prevalece a calmaria.</td>
+              </tr>
+              <tr>
+                <td class="p-3 font-semibold text-slate-800 border-r border-slate-200">Exemplos Recorrentes</td>
+                <td class="p-3 text-slate-700 border-r border-slate-200">Rio da Prata, Rio São Francisco (predomínio estuarino), Rio Sena.</td>
+                <td class="p-3 text-slate-700">Delta do Rio Nilo, Rio Mississipi, <mark class="highlight-yellow">Delta do Parnaíba (Brasil)</mark>.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SEÇÃO 3: MORFOMETRIA DE BACIAS E HIERARQUIZAÇÃO FLUVIAL -->
+    <section class="mb-12">
+      <div class="flex items-center gap-3 mb-4">
+        <span class="w-8 h-8 rounded-full bg-slate-800 text-white flex items-center justify-center font-bold text-sm">3</span>
+        <h2 class="text-xl sm:text-2xl font-bold text-slate-900">
+          Morfometria de Bacias e Hierarquização Fluvial (Método de Strahler)
+        </h2>
+      </div>
+
+      <div class="space-y-4 text-slate-700 leading-relaxed text-sm sm:text-base">
+        
+        <!-- Método de Strahler em Destaque -->
+        <div class="p-5 border-2 border-slate-300 rounded-xl bg-white">
+          <h3 class="text-base font-bold text-slate-900 mb-2 flex items-center gap-2">
+            <span>Regras Topológicas do Método de Arthur Strahler (1952)</span>
+          </h3>
+          <p class="text-xs sm:text-sm text-slate-600 mb-4">
+            Diferente de Horton, o método de Strahler não retroage o rio principal à sua nascente remota. Ele classifica os canais da cabeceira até o exutório de forma estritamente aditiva:
+          </p>
+
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            <div class="p-3 border border-slate-200 rounded-lg text-center bg-white">
+              <span class="text-xs font-bold text-slate-500 uppercase block mb-1">Canais Iniciais</span>
+              <p class="text-base font-bold text-slate-900">1ª Ordem</p>
+              <p class="text-xs text-slate-600 mt-1">Canais terminais sem nenhum afluente (cabeceiras puras).</p>
+            </div>
+            <div class="p-3 border border-slate-200 rounded-lg text-center bg-white">
+              <span class="text-xs font-bold text-slate-500 uppercase block mb-1">Ordens Iguais</span>
+              <p class="text-base font-bold text-slate-900"><mark class="highlight-green">u + u = u + 1</mark></p>
+              <p class="text-xs text-slate-600 mt-1">Confluência de $1 + 1 = 2$; $2 + 2 = 3$; $3 + 3 = 4$.</p>
+            </div>
+            <div class="p-3 border border-slate-200 rounded-lg text-center bg-white">
+              <span class="text-xs font-bold text-slate-500 uppercase block mb-1">Ordens Diferentes</span>
+              <p class="text-base font-bold text-slate-900"><mark class="highlight-yellow">Mantém a Maior</mark></p>
+              <p class="text-xs text-slate-600 mt-1">Confluência de $1 + 2 = 2$; $2 + 3 = 3$; $1 + 4 = 4$.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Índices Morfométricos de Forma e Drenagem -->
+        <h3 class="text-base font-bold text-slate-900 mt-6 mb-3">
+          Índices Morfométricos Decisivos para a Resposta Hidrológica
+        </h3>
+
+        <div class="space-y-4">
+          
+          <!-- Densidade de Drenagem -->
+          <div class="p-4 border border-slate-200 rounded-lg bg-white">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-100 pb-2 mb-2">
+              <h4 class="font-bold text-slate-900 text-sm">1. Densidade de Drenagem ($D_d$)</h4>
+              <span class="text-xs font-mono font-bold text-slate-800 bg-slate-100 px-2 py-0.5 rounded">
+                $$D_d = \frac{L_t}{A}$$
+              </span>
+            </div>
+            <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+              Expressa a relação entre o comprimento total de todos os canais ($L_t$, em km) e a área superficial da bacia ($A$, em $\text{km}^2$). 
+              <br>• <mark class="highlight-yellow">Alta densidade ($> 2{,}0\text{ km/km}^2$):</mark> Substratos argilosos ou impermeáveis, relevos muito dissecados, baixa infiltração e escoamento rápido.
+              <br>• <mark class="highlight-blue">Baixa densidade ($< 0{,}5\text{ km/km}^2$):</mark> Rochas permeáveis (arenitos, carstes calcários), vegetação densa e alta taxa de infiltração.
+            </p>
+          </div>
+
+          <!-- Coeficiente de Compacidade de Gravélius -->
+          <div class="p-4 border border-slate-200 rounded-lg bg-white">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-100 pb-2 mb-2">
+              <h4 class="font-bold text-slate-900 text-sm">2. Coeficiente de Compacidade de Gravélius ($K_c$)</h4>
+              <span class="text-xs font-mono font-bold text-slate-800 bg-slate-100 px-2 py-0.5 rounded">
+                $$K_c = 0{,}28 \cdot \frac{P}{\sqrt{A}}$$
+              </span>
+            </div>
+            <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+              Compara o perímetro real da bacia ($P$, em km) com a circunferência de um círculo de mesma área ($A$, em $\text{km}^2$). 
+              <br>• <mark class="highlight-yellow">$K_c$ próximo a $1{,}0$:</mark> Formato circular. As vertentes confluem ao mesmo tempo para a calha principal, <mark class="highlight-yellow">potencializando picos de cheia violentos</mark>.
+              <br>• <mark class="highlight-blue">$K_c > 1{,}5$:</mark> Formato acentuadamente alongado. Os afluentes chegam desfasados no tempo ao leito central, <mark class="highlight-blue">amortecendo os picos de inundação</mark>.
+            </p>
+          </div>
+
+          <!-- Fator de Forma -->
+          <div class="p-4 border border-slate-200 rounded-lg bg-white">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-100 pb-2 mb-2">
+              <h4 class="font-bold text-slate-900 text-sm">3. Fator de Forma ($K_f$)</h4>
+              <span class="text-xs font-mono font-bold text-slate-800 bg-slate-100 px-2 py-0.5 rounded">
+                $$K_f = \frac{A}{L^2}$$
+              </span>
+            </div>
+            <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+              Razão entre a área da bacia ($A$) e o quadrado do comprimento do curso d'água principal ($L$). Valores altos indicam bacias largas e propensas a inundações; valores baixos caracterizam bacias esticadas e protegidas de picos abruptos.
+            </p>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SEÇÃO 4: PADRÕES DE DRENAGEM E CONTROLE LITO-GEOMORFOLÓGICO -->
+    <section class="mb-12">
+      <div class="flex items-center gap-3 mb-4">
+        <span class="w-8 h-8 rounded-full bg-slate-800 text-white flex items-center justify-center font-bold text-sm">4</span>
+        <h2 class="text-xl sm:text-2xl font-bold text-slate-900">
+          Padrões de Drenagem e Controles Lito-Geomorfológicos
+        </h2>
+      </div>
+
+      <p class="text-slate-700 text-sm sm:text-base leading-relaxed mb-4">
+        O traçado visual dos cursos d'água em planta reflete diretamente a <mark class="highlight-yellow">resistência diferencial das rochas</mark>, a inclinação das encostas e as deformações tectônicas (juntas, falhas e dobramentos).
+      </p>
+
+      <!-- TABELA SEM SCROLL: PADRÕES DE DRENAGEM -->
+      <table class="table-fixed-wrap border border-slate-300 rounded-lg text-xs sm:text-sm">
+        <thead class="bg-slate-100 border-b border-slate-300">
+          <tr>
+            <th class="w-1/4 p-3 text-left font-bold text-slate-900 border-r border-slate-300">Padrão de Drenagem</th>
+            <th class="w-3/8 p-3 text-left font-bold text-slate-900 border-r border-slate-300">Morfologia Visual da Rede</th>
+            <th class="w-3/8 p-3 text-left font-bold text-slate-900">Controle Lito-Geomorfológico (Gabarito)</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-slate-200 bg-white">
+          <tr>
+            <td class="p-3 font-bold text-slate-900 border-r border-slate-200">Dendrítico</td>
+            <td class="p-3 text-slate-700 border-r border-slate-200">Ramificado em forma de árvore; afluentes chegam em ângulos agudos sem direção fixa.</td>
+            <td class="p-3 text-slate-700"><mark class="highlight-yellow">Substrato isotrópico e uniforme:</mark> rochas sedimentares horizontais não dobradas, maciços graníticos homogêneos ou mantos profundos de intemperismo.</td>
+          </tr>
+          <tr>
+            <td class="p-3 font-bold text-slate-900 border-r border-slate-200">Paralelo</td>
+            <td class="p-3 text-slate-700 border-r border-slate-200">Rios retilíneos e paralelos correndo na mesma direção geral.</td>
+            <td class="p-3 text-slate-700"><mark class="highlight-blue">Encostas com forte declive regional,</mark> escarpas de falha íngremes ou cordões arenosos litorâneos orientados.</td>
+          </tr>
+          <tr>
+            <td class="p-3 font-bold text-slate-900 border-r border-slate-200">Treliça</td>
+            <td class="p-3 text-slate-700 border-r border-slate-200">Canais principais paralelos interceptados por afluentes curtos que chegam em <mark class="highlight-yellow">ângulos estritamente retos (90°)</mark>.</td>
+            <td class="p-3 text-slate-700"><mark class="highlight-yellow">Rochas dobradas ou falhadas com camadas alternadas de resistências diferentes</mark> (relevos apalacheanos e jurassianos com anticlinais e sinclinais).</td>
+          </tr>
+          <tr>
+            <td class="p-3 font-bold text-slate-900 border-r border-slate-200">Retangular</td>
+            <td class="p-3 text-slate-700 border-r border-slate-200">Quebras bruscas em 90° tanto nos afluentes quanto no curso dos próprios rios principais.</td>
+            <td class="p-3 text-slate-700"><mark class="highlight-blue">Sistemas de juntas, diáclases e falhas tectônicas ortogonais</mark> (cruzadas em ângulo reto) em rochas cristalinas ou estratificadas.</td>
+          </tr>
+          <tr>
+            <td class="p-3 font-bold text-slate-900 border-r border-slate-200">Radial</td>
+            <td class="p-3 text-slate-700 border-r border-slate-200">Rios divergem do centro culminante para fora em todas as direções (centrífuga).</td>
+            <td class="p-3 text-slate-700"><mark class="highlight-yellow">Relevos cupuliformes ou cônicos:</mark> cones vulcânicos, domos intrusivos ígneos, montes-ilhas ou maciços alcalinos circulares isolados.</td>
+          </tr>
+          <tr>
+            <td class="p-3 font-bold text-slate-900 border-r border-slate-200">Centrípeto</td>
+            <td class="p-3 text-slate-700 border-r border-slate-200">Rios convergem das bordas elevadas para o interior de uma depressão central.</td>
+            <td class="p-3 text-slate-700"><mark class="highlight-blue">Bacias endorreicas,</mark> caldeiras vulcânicas de colapso ou depressões cársticas fechadas (dolinas gigantes e <em>poljés</em>).</td>
+          </tr>
+          <tr>
+            <td class="p-3 font-bold text-slate-900 border-r border-slate-200">Anelar</td>
+            <td class="p-3 text-slate-700 border-r border-slate-200">Canais fluviais dispostos em círculos concêntricos acompanhando anéis estruturais.</td>
+            <td class="p-3 text-slate-700"><mark class="highlight-yellow">Domos erodidos ou crateras de impacto</mark> com anéis expostos de estratos rochosos duros e brandos alternados.</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- SEÇÃO 5: HIDROGRAMAS DE CHEIA E TEMPO DE CONCENTRAÇÃO -->
+    <section class="mb-12">
+      <div class="flex items-center gap-3 mb-4">
+        <span class="w-8 h-8 rounded-full bg-slate-800 text-white flex items-center justify-center font-bold text-sm">5</span>
+        <h2 class="text-xl sm:text-2xl font-bold text-slate-900">
+          Análise de Hidrogramas de Cheia e Tempo de Concentração
+        </h2>
+      </div>
+
+      <div class="space-y-4 text-slate-700 leading-relaxed text-sm sm:text-base">
+        <p>
+          O hidrograma registra a variação temporal da vazão líquida ($Q$, em $\text{m}^3/\text{s}$) que atravessa uma seção de controle da bacia. Ele decompõe a resposta da bacia frente a uma tormenta pluvial:
+        </p>
+
+        <!-- Componentes do Hidrograma -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div class="p-4 border border-slate-200 rounded-lg bg-white space-y-2">
+            <h4 class="font-bold text-slate-900 text-sm">Componentes Chave do Gráfico</h4>
+            <ul class="text-xs sm:text-sm text-slate-600 space-y-1.5">
+              <li>• <strong>Ramo Ascendente (Concentração):</strong> Subida da vazão provocada pelo escoamento superficial direto.</li>
+              <li>• <strong>Vazão de Pico ($Q_p$):</strong> Volume máximo descarregado durante a passagem da onda de cheia.</li>
+              <li>• <strong>Ramo Descendente (Recessão):</strong> Retorno da água; sua base (curva de depleção) é suprida unicamente pela despressurização das águas subterrâneas.</li>
+              <li>• <strong>Escoamento Básico (Vazão de Base):</strong> Alimentação lenta dos aquíferos freáticos que impede o rio de secar na estiagem.</li>
+            </ul>
+          </div>
+
+          <div class="p-4 border border-slate-200 rounded-lg bg-white space-y-2">
+            <h4 class="font-bold text-slate-900 text-sm">Parâmetros Temporais Críticos</h4>
+            <ul class="text-xs sm:text-sm text-slate-600 space-y-1.5">
+              <li>• <mark class="highlight-yellow">Tempo de Concentração ($t_c$):</mark> Tempo necessário para que a gota precipitada no ponto hidraulicamente mais distante atinja o exutório. Quando o tempo de chuva $\ge t_c$, <mark class="highlight-yellow">100% da bacia contribui simultaneamente</mark>.</li>
+              <li>• <mark class="highlight-blue">Tempo de Retardo (<em>Lag Time</em>):</mark> Intervalo entre o centro de gravidade da chuva máxima e a ocorrência do pico de vazão ($Q_p$).</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- TABELA SEM SCROLL: BACIA NATURAL VS BACIA URBANIZADA -->
+        <div class="my-6">
+          <h3 class="text-base font-bold text-slate-900 mb-2">
+            Comportamento Hidrológico: Bacia Florestada versus Bacia Urbanizada
+          </h3>
+          <p class="text-xs text-slate-500 mb-3">
+            Questão clássica de concurso: impactos do recobrimento asfáltico e da retificação de canais sobre os hidrogramas.
+          </p>
+
+          <table class="table-fixed-wrap border border-slate-300 rounded-lg text-xs sm:text-sm">
+            <thead class="bg-slate-100 border-b border-slate-300">
+              <tr>
+                <th class="w-1/4 p-3 text-left font-bold text-slate-900 border-r border-slate-300">Atributo Hidrológico</th>
+                <th class="w-3/8 p-3 text-left font-bold text-slate-900 border-r border-slate-300">Bacia Natural com Cobertura Florestal</th>
+                <th class="w-3/8 p-3 text-left font-bold text-slate-900">Bacia Urbanizada e Impermeabilizada</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-200 bg-white">
+              <tr>
+                <td class="p-3 font-semibold text-slate-800 border-r border-slate-200">Capacidade de Infiltração</td>
+                <td class="p-3 text-slate-700 border-r border-slate-200"><strong>Elevada:</strong> o horizonte orgânico e as raízes facilitam a infiltração profunda e recarga freática.</td>
+                <td class="p-3 text-slate-700"><mark class="highlight-yellow">Drasticamente reduzida:</mark> asfalto, calçamentos e telhados barram a infiltração vertical.</td>
+              </tr>
+              <tr>
+                <td class="p-3 font-semibold text-slate-800 border-r border-slate-200">Tempo de Concentração ($t_c$)</td>
+                <td class="p-3 text-slate-700 border-r border-slate-200"><mark class="highlight-blue">Longo e desacelerado</mark> pelo atrito mecânico da vegetação e depressões superficiais.</td>
+                <td class="p-3 text-slate-700"><mark class="highlight-yellow">Muito curto:</mark> bueiros e galerias canalizadas aceleram o escoamento hidráulico imediato.</td>
+              </tr>
+              <tr>
+                <td class="p-3 font-semibold text-slate-800 border-r border-slate-200">Tempo até o Pico ($t_p$)</td>
+                <td class="p-3 text-slate-700 border-r border-slate-200"><strong>Retardado:</strong> a onda de cheia sobe de forma lenta e amortecida no tempo.</td>
+                <td class="p-3 text-slate-700"><strong>Antecipado e abrupto:</strong> a enchente atinge a calha quase imediatamente após a chuva.</td>
+              </tr>
+              <tr>
+                <td class="p-3 font-semibold text-slate-800 border-r border-slate-200">Magnitude do Pico ($Q_p$)</td>
+                <td class="p-3 text-slate-700 border-r border-slate-200"><strong>Atenuada:</strong> curva achatada com base larga e vazão máxima contida.</td>
+                <td class="p-3 text-slate-700"><mark class="highlight-yellow">Crítica e elevada:</mark> pico agudo e estreito, provocando transbordamentos da calha menor.</td>
+              </tr>
+              <tr>
+                <td class="p-3 font-semibold text-slate-800 border-r border-slate-200">Vazão de Estiagem (Baseflow)</td>
+                <td class="p-3 text-slate-700 border-r border-slate-200"><mark class="highlight-blue">Perene e volumosa:</mark> a água subterrânea recarregada abastece o rio na seca.</td>
+                <td class="p-3 text-slate-700"><mark class="highlight-yellow">Severamente rebaixada:</mark> ausência de recarga do lençol faz o rio secar ou virar esgoto no inverno.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SEÇÃO 6: REGIMES FLUVIAIS -->
+    <section class="mb-12">
+      <div class="flex items-center gap-3 mb-4">
+        <span class="w-8 h-8 rounded-full bg-slate-800 text-white flex items-center justify-center font-bold text-sm">6</span>
+        <h2 class="text-xl sm:text-2xl font-bold text-slate-900">
+          Regimes Fluviais
+        </h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs sm:text-sm">
+        
+        <div class="p-4 border border-slate-200 rounded-lg bg-white">
+          <h4 class="font-bold text-slate-900 mb-1 flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-slate-700"></span> 1. Regime Pluvial (Tropical)
+          </h4>
+          <p class="text-slate-600">
+            Alimentado diretamente pela chuva. No Brasil Tropical Típico, exibe sazonalidade evidente: <mark class="highlight-yellow">cheias no verão austral (dez-mar)</mark> e estiagens pronunciadas no inverno (jun-set).
+          </p>
+        </div>
+
+        <div class="p-4 border border-slate-200 rounded-lg bg-white">
+          <h4 class="font-bold text-slate-900 mb-1 flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-slate-700"></span> 2. Regime Nival
+          </h4>
+          <p class="text-slate-600">
+            Alimentado pelo derretimento da neve precipitada no inverno. Os picos de vazão ocorrem na <mark class="highlight-blue">primavera e início do verão</mark>, quando o aumento térmico derrete o manto nival.
+          </p>
+        </div>
+
+        <div class="p-4 border border-slate-200 rounded-lg bg-white">
+          <h4 class="font-bold text-slate-900 mb-1 flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-slate-700"></span> 3. Regime Glacial
+          </h4>
+          <p class="text-slate-600">
+            Abastecido pela ablação (fusão) de geleiras de alta montanha ou polares. O pico hidrológico coincide rigorosamente com o <mark class="highlight-yellow">auge do verão</mark>, época de máxima radiação e temperatura.
+          </p>
+        </div>
+
+        <div class="p-4 border border-slate-200 rounded-lg bg-white">
+          <h4 class="font-bold text-slate-900 mb-1 flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-slate-700"></span> 4. Regime Misto ou Complexo
+          </h4>
+          <p class="text-slate-600">
+            Bacias extensas alimentadas por múltiplos regimes climáticos. <mark class="highlight-yellow">Exemplo clássico de prova: Rio Amazonas</mark>, cujas cabeceiras andinas (rios Marañón e Ucayali) recebem aporte glacial/nival, e a planície equatorial recebe chuvas equatoriais alternadas nos hemisférios norte e sul, assegurando descargas contínuas e volumosas o ano inteiro.
+          </p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SEÇÃO 7: HIDROGEOLOGIA FUNDAMENTAL -->
+    <section class="mb-12">
+      <div class="flex items-center gap-3 mb-4">
+        <span class="w-8 h-8 rounded-full bg-slate-800 text-white flex items-center justify-center font-bold text-sm">7</span>
+        <h2 class="text-xl sm:text-2xl font-bold text-slate-900">
+          Hidrogeologia Fundamental: Águas Subterrâneas e Aquíferos
+        </h2>
+      </div>
+
+      <div class="space-y-4 text-slate-700 leading-relaxed text-sm sm:text-base">
+        
+        <!-- Perfil Vertical de Água Subterrânea -->
+        <div class="border border-slate-200 rounded-xl p-5 bg-white">
+          <h3 class="text-base font-bold text-slate-900 mb-3">
+            Compartimentação Vertical do Perfil Subterrâneo
+          </h3>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs sm:text-sm">
+            <div class="p-3 border border-slate-200 rounded-md">
+              <span class="font-bold text-slate-900 block mb-1">Zona Vadosa (Não Saturada)</span>
+              <p class="text-slate-600">Poros ocupados por ar e água retida por capilaridade e adsorção. Estende-se do solo até o nível freático.</p>
+            </div>
+            <div class="p-3 border border-slate-200 rounded-md">
+              <span class="font-bold text-slate-900 block mb-1">Nível Freático (Water Table)</span>
+              <p class="text-slate-600">Superfície teórica que delimita o topo da saturação, onde <mark class="highlight-yellow">a pressão da água equivale exatamente à pressão atmosférica local</mark>.</p>
+            </div>
+            <div class="p-3 border border-slate-200 rounded-md">
+              <span class="font-bold text-slate-900 block mb-1">Zona Saturada</span>
+              <p class="text-slate-600">Todos os poros e fraturas da rocha encontram-se 100% preenchidos por água líquida móvel sob pressão hidrostática contínua.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- TABELA SEM SCROLL: AQUÍFEROS LIVRES VS CONFINADOS -->
+        <div class="my-6">
+          <h3 class="text-base font-bold text-slate-900 mb-2">
+            Tipologias de Aquíferos: Livre (Freático) versus Confinado (Artesiano)
+          </h3>
+          <p class="text-xs text-slate-500 mb-3">
+            Conceitos hidrodinâmicos mais cobrados em concursos técnicos e acadêmicos.
+          </p>
+
+          <table class="table-fixed-wrap border border-slate-300 rounded-lg text-xs sm:text-sm">
+            <thead class="bg-slate-100 border-b border-slate-300">
+              <tr>
+                <th class="w-1/4 p-3 text-left font-bold text-slate-900 border-r border-slate-300">Critério Hidráulico</th>
+                <th class="w-3/8 p-3 text-left font-bold text-slate-900 border-r border-slate-300">Aquífero Livre (Não Confinado / Freático)</th>
+                <th class="w-3/8 p-3 text-left font-bold text-slate-900">Aquífero Confinado (Sob Pressão / Artesiano)</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-200 bg-white">
+              <tr>
+                <td class="p-3 font-semibold text-slate-800 border-r border-slate-200">Enquadramento Geológico</td>
+                <td class="p-3 text-slate-700 border-r border-slate-200">Base apoiada em estrato impermeável, mas o <mark class="highlight-blue">teto é livre e permeável</mark>.</td>
+                <td class="p-3 text-slate-700">Aprisionado tanto na base quanto no topo por <mark class="highlight-yellow">camadas impermeáveis (aquicludes ou aquitardos)</mark>.</td>
+              </tr>
+              <tr>
+                <td class="p-3 font-semibold text-slate-800 border-r border-slate-200">Condição de Pressão</td>
+                <td class="p-3 text-slate-700 border-r border-slate-200">A superfície freática está sob pressão <mark class="highlight-blue">igual à atmosférica</mark>.</td>
+                <td class="p-3 text-slate-700">A água acha-se retida sob <mark class="highlight-yellow">pressão superior à pressão atmosférica</mark>.</td>
+              </tr>
+              <tr>
+                <td class="p-3 font-semibold text-slate-800 border-r border-slate-200">Área de Recarga</td>
+                <td class="p-3 text-slate-700 border-r border-slate-200"><strong>Direta e difusa:</strong> ocorre ao longo de toda a superfície da bacia por infiltração das chuvas.</td>
+                <td class="p-3 text-slate-700"><strong>Restrita e remota:</strong> restringe-se às faixas onde os estratos aquíferos afloram na superfície.</td>
+              </tr>
+              <tr>
+                <td class="p-3 font-semibold text-slate-800 border-r border-slate-200">Resposta em Poços</td>
+                <td class="p-3 text-slate-700 border-r border-slate-200">O nível da água estabiliza-se rigorosamente no nível freático local. Exige bombeamento.</td>
+                <td class="p-3 text-slate-700">A água sobe até a <mark class="highlight-yellow">superfície piezométrica (potenciométrica)</mark>. Se esta superar a cota do terreno, torna-se um <strong>poço artesiano jorrante</strong>.</td>
+              </tr>
+              <tr>
+                <td class="p-3 font-semibold text-slate-800 border-r border-slate-200">Vulnerabilidade a Poluição</td>
+                <td class="p-3 text-slate-700 border-r border-slate-200"><mark class="highlight-yellow">Alta vulnerabilidade:</mark> contaminantes infiltrados na superfície atingem o lençol rapidamente.</td>
+                <td class="p-3 text-slate-700"><strong>Baixa vulnerabilidade natural:</strong> protegido pelas camadas impermeáveis de teto.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SEÇÃO 8: SÍNTESE DE FIXAÇÃO PARA PROVA OBJETIVA -->
+    <section class="mb-12">
+      <div class="flex items-center gap-3 mb-4">
+        <span class="w-8 h-8 rounded-full bg-slate-800 text-white flex items-center justify-center font-bold text-sm">8</span>
+        <h2 class="text-xl sm:text-2xl font-bold text-slate-900">
+          Síntese de Fixação: Tópicos de Memorização Rápida para o IFMG
+        </h2>
+      </div>
+
+      <div class="space-y-4">
+
+        <!-- Bloco 1 -->
+        <div class="p-4 border-l-4 border-slate-800 bg-white border border-slate-200 rounded-r-lg">
+          <h4 class="font-bold text-slate-900 text-sm mb-1">1. Padrões de Drenagem e Controles Estruturais (Gabaritos Batidos)</h4>
+          <ul class="text-xs sm:text-sm text-slate-700 space-y-1">
+            <li>• <strong>Padrão Treliça:</strong> Confluência em <mark class="highlight-yellow">ângulos de 90°</mark> em vales paralelos $\rightarrow$ controle por <mark class="highlight-yellow">rochas dobradas ou falhadas</mark> com camadas duras e moles alternadas.</li>
+            <li>• <strong>Padrão Radial:</strong> Rede centrífuga $\rightarrow$ relevos cupuliformes, <mark class="highlight-yellow">cones vulcânicos ou domos ígneos</mark>.</li>
+            <li>• <strong>Padrão Dendrítico:</strong> Forma arborescente sem rumo preferencial $\rightarrow$ substrato <mark class="highlight-blue">homogêneo e isotrópico</mark> (rochas sedimentares horizontais ou granitos maciços).</li>
+            <li>• <strong>Padrão Centrípeto:</strong> Rios fluindo para uma depressão fechada $\rightarrow$ <mark class="highlight-blue">bacias endorreicas</mark>, caldeiras de colapso ou depressões cársticas.</li>
+            <li>• <strong>Padrão Retangular:</strong> Ângulos retos causados por fraturamento tectônico $\rightarrow$ <mark class="highlight-yellow">juntas ou fraturas ortogonais</mark>.</li>
+          </ul>
+        </div>
+
+        <!-- Bloco 2 -->
+        <div class="p-4 border-l-4 border-slate-800 bg-white border border-slate-200 rounded-r-lg">
+          <h4 class="font-bold text-slate-900 text-sm mb-1">2. Hierarquização de Arthur Strahler</h4>
+          <ul class="text-xs sm:text-sm text-slate-700 space-y-1">
+            <li>• Afluentes sem tributários = <strong>1ª ordem</strong>.</li>
+            <li>• Mesma ordem soma uma unidade: <mark class="highlight-green">$1 + 1 = 2$</mark>; <mark class="highlight-green">$2 + 2 = 3$</mark>; <mark class="highlight-green">$3 + 3 = 4$</mark>.</li>
+            <li>• Ordens distintas mantêm a maior: <mark class="highlight-yellow">$1 + 2 = 2$</mark>; <mark class="highlight-yellow">$2 + 3 = 3$</mark>; <mark class="highlight-yellow">$1 + 4 = 4$</mark>.</li>
+            <li>• A ordem geral da bacia é dada pela ordem observada no exutório final.</li>
+          </ul>
+        </div>
+
+        <!-- Bloco 3 -->
+        <div class="p-4 border-l-4 border-slate-800 bg-white border border-slate-200 rounded-r-lg">
+          <h4 class="font-bold text-slate-900 text-sm mb-1">3. Morfometria e Risco de Enchentes</h4>
+          <ul class="text-xs sm:text-sm text-slate-700 space-y-1">
+            <li>• <strong>$K_c$ (Gravélius) próximo a 1,0:</strong> Bacia <mark class="highlight-yellow">circular</mark> $\rightarrow$ confluência quase simultânea $\rightarrow$ <mark class="highlight-yellow">picos de cheia violentos</mark>.</li>
+            <li>• <strong>$K_c$ elevado ($> 1{,}5$):</strong> Bacia <mark class="highlight-blue">alongada</mark> $\rightarrow$ escoamentos descompassados no tempo $\rightarrow$ <mark class="highlight-blue">ondas de cheia amortecidas</mark>.</li>
+            <li>• <strong>Densidade de Drenagem Alta ($D_d$):</strong> Substrato impermeável/argiloso e escoamento rápido.</li>
+          </ul>
+        </div>
+
+        <!-- Bloco 4 -->
+        <div class="p-4 border-l-4 border-slate-800 bg-white border border-slate-200 rounded-r-lg">
+          <h4 class="font-bold text-slate-900 text-sm mb-1">4. Hidrogramas e Efeito da Urbanização</h4>
+          <ul class="text-xs sm:text-sm text-slate-700 space-y-1">
+            <li>• <strong>Tempo de Concentração ($t_c$):</strong> Atingido quando toda a bacia hidrográfica contribui ativamente para a vazão na foz.</li>
+            <li>• <strong>Efeitos da Urbanização / Impermeabilização:</strong>
+              <br>&nbsp;&nbsp;→ <mark class="highlight-yellow">Reduz</mark> a infiltração pedológica e o tempo de concentração ($t_c$).
+              <br>&nbsp;&nbsp;→ <mark class="highlight-yellow">Aumenta</mark> drasticamente a vazão de pico ($Q_p$), gerando curvas pontiagudas e inundações rápidas.
+              <br>&nbsp;&nbsp;→ <mark class="highlight-yellow">Rebaixa</mark> o escoamento subterrâneo de base nas secas.</li>
+          </ul>
+        </div>
+
+        <!-- Bloco 5 -->
+        <div class="p-4 border-l-4 border-slate-800 bg-white border border-slate-200 rounded-r-lg">
+          <h4 class="font-bold text-slate-900 text-sm mb-1">5. Balanço Hídrico e Hidrogeologia</h4>
+          <ul class="text-xs sm:text-sm text-slate-700 space-y-1">
+            <li>• <strong>$ETP$:</strong> Demanda energética/atmosférica teórica (temperatura e sol).</li>
+            <li>• <strong>$ETR$:</strong> Evaporação real sob restrição de umidade do solo (<mark class="highlight-green">$ETR \le ETP$</mark>).</li>
+            <li>• <strong>Déficit Hídrico:</strong> Ocorre quando $ETP > ETR$.</li>
+            <li>• <strong>Nível Freático:</strong> Topo da zona de saturação onde a pressão hidrostática é <mark class="highlight-yellow">igual à pressão atmosférica</mark>.</li>
+            <li>• <strong>Aquífero Confinado (Artesiano):</strong> Aprisionado entre rochas impermeáveis sob <mark class="highlight-yellow">pressão superior à atmosférica</mark>. Poço artesiano é jorrante quando a linha piezométrica ultrapassa a superfície do terreno.</li>
+          </ul>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- CONTAINER DO BOTÃO PARA QUESTÕES -->
+    <div id="btn-questoes-container" class="mt-12 pt-8 border-t-2 border-slate-200 text-center">
+      <div class="max-w-xl mx-auto p-6 border border-slate-200 rounded-2xl bg-white shadow-xs">
+        <h3 class="text-lg font-bold text-slate-900 mb-2">
+          Finalizou a Revisão Teórica?
+        </h3>
+        <p class="text-xs sm:text-sm text-slate-600 mb-6 leading-relaxed">
+          Fixe estes conceitos respondendo às questões de concurso objetivas comentadas e montadas no padrão da banca.
+        </p>
+        
+        <a 
+          href="questoes13geo.html" 
+          class="inline-flex items-center justify-center gap-2.5 px-8 py-3.5 bg-slate-900 hover:bg-slate-800 text-white font-bold text-sm sm:text-base rounded-xl transition-all duration-200 shadow hover:shadow-md active:scale-[0.98]"
+        >
+          <span>Ir para Questões de Fixação</span>
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+          </svg>
+        </a>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- RODAPÉ DISCRETO -->
+  <footer class="border-t border-slate-200 bg-white py-6 mt-12 text-center text-xs text-slate-500">
+    <p>Material de Preparação para Professor EBTT de Geografia • Banca IFMG</p>
+    <p class="mt-1">Referências: Machado & Torres (2017) | Christopherson & Birkeland (2017)</p>
+  </footer>
+
+  <!-- SCRIPT DO REPRODUTOR DE ÁUDIO -->
+  <script>
+    // Gerenciamento dinâmico do reprodutor de áudio
+    const audioPlayer = document.getElementById('audioPlayer');
+    const audioSource = document.getElementById('audioSource');
+    const audioInput = document.getElementById('audioFileNameInput');
+    const btnCarregar = document.getElementById('btnCarregarAudio');
+    const statusBadge = document.getElementById('audio-status-badge');
+    const errorMsg = document.getElementById('audioErrorMsg');
+
+    function updateAudioFile() {
+      const fileName = audioInput.value.trim();
+      if (!fileName) return;
+
+      errorMsg.classList.add('hidden');
+      statusBadge.textContent = 'Carregando...';
+      statusBadge.className = 'text-xs px-2 py-0.5 rounded font-normal bg-amber-100 text-amber-800 border border-amber-300';
+
+      audioSource.src = fileName;
+      audioPlayer.load();
+
+      audioPlayer.oncanplay = function() {
+        statusBadge.textContent = 'Áudio pronto: ' + fileName;
+        statusBadge.className = 'text-xs px-2 py-0.5 rounded font-normal bg-emerald-100 text-emerald-800 border border-emerald-300';
+      };
+
+      audioPlayer.onerror = function() {
+        statusBadge.textContent = 'Não encontrado';
+        statusBadge.className = 'text-xs px-2 py-0.5 rounded font-normal bg-rose-100 text-rose-800 border border-rose-300';
+        errorMsg.classList.remove('hidden');
+      };
+    }
+
+    btnCarregar.addEventListener('click', updateAudioFile);
+
+    audioInput.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') {
+        updateAudioFile();
+      }
+    });
+
+    // Controle de velocidade do áudio
+    function setAudioSpeed(speed) {
+      if (audioPlayer) {
+        audioPlayer.playbackRate = speed;
+      }
+      const buttons = document.querySelectorAll('.speed-btn');
+      buttons.forEach(btn => {
+        if (btn.textContent.trim() === speed + 'x') {
+          btn.className = 'speed-btn px-2 py-1 text-xs font-semibold rounded border border-slate-400 bg-slate-200 text-slate-900';
+        } else {
+          btn.className = 'speed-btn px-2 py-1 text-xs font-medium rounded border border-slate-300 bg-white text-slate-700 hover:bg-slate-100';
+        }
+      });
+    }
+
+    // Inicialização ao carregar a página
+    window.addEventListener('DOMContentLoaded', () => {
+      // Tenta verificar se o arquivo padrão existe
+      updateAudioFile();
+    });
+  </script>
+
+</body>
+</html>

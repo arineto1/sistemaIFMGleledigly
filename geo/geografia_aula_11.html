@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Climatologia e Dinâmica Atmosférica Geral - Concurso IFMG</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- MathJax para renderização de fórmulas matemáticas -->
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <style>
+    /* Estilo de grifo suave e legível para memorização */
+    mark.highlight {
+      background-color: #fef08a; /* amarelo suave */
+      color: #713f12; /* castanho escuro para máximo contraste */
+      padding: 0.12rem 0.35rem;
+      border-radius: 0.25rem;
+      font-weight: 600;
+    }
+    mark.highlight-blue {
+      background-color: #e0f2fe; /* azul claro */
+      color: #0369a1;
+      padding: 0.12rem 0.35rem;
+      border-radius: 0.25rem;
+      font-weight: 600;
+    }
+    mark.highlight-green {
+      background-color: #dcfce7; /* verde claro */
+      color: #15803d;
+      padding: 0.12rem 0.35rem;
+      border-radius: 0.25rem;
+      font-weight: 600;
+    }
+    /* Garantia de ausência total de scroll horizontal nas tabelas */
+    table {
+      table-layout: fixed;
+      width: 100%;
+      word-wrap: break-word;
+      overflow-wrap: break-word;
+    }
+    th, td {
+      word-break: break-word;
+      hyphens: auto;
+    }
+  </style>
+</head>
+<body class="bg-white text-slate-800 font-sans antialiased leading-relaxed">
+
+  <!-- Container Principal Centralizado -->
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+
+    <!-- REPRODUTOR DE ÁUDIO NO TOPO -->
+    <header class="mb-10 pb-8 border-b border-slate-200">
+      
+      <!-- Caixa de Áudio MP3 -->
+      <div class="bg-white border-2 border-slate-200 rounded-2xl p-5 sm:p-6 mb-8 shadow-sm">
+        <div class="flex items-center gap-3 mb-3">
+          <svg class="w-6 h-6 text-slate-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
+          </svg>
+          <h2 class="text-lg font-bold text-slate-900 uppercase tracking-wide">Reprodutor da Aula em Áudio</h2>
+        </div>
+        <p class="text-xs sm:text-sm text-slate-600 mb-4">
+          Ouça o conteúdo da aula enquanto revisa. Coloque o arquivo <code>.mp3</code> na mesma pasta desta página ou digite o nome do seu arquivo abaixo:
+        </p>
+
+        <!-- Configuração do Nome do Arquivo MP3 -->
+        <div class="flex flex-col sm:flex-row gap-2 mb-4 items-stretch sm:items-center">
+          <label for="audioFileName" class="text-xs font-semibold text-slate-700 whitespace-nowrap">
+            Nome do arquivo MP3:
+          </label>
+          <input 
+            type="text" 
+            id="audioFileName" 
+            value="audio11geo.mp3" 
+            placeholder="exemplo: audio_aula.mp3"
+            class="flex-1 px-3 py-2 text-sm border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-slate-400 bg-white text-slate-800"
+          >
+          <button 
+            type="button" 
+            id="btnUpdateAudio"
+            class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-white text-xs sm:text-sm font-semibold rounded-lg transition-colors cursor-pointer"
+          >
+            Carregar Áudio
+          </button>
+        </div>
+
+        <!-- Tag de Áudio Nativa -->
+        <div class="w-full bg-slate-50 p-3 rounded-xl border border-slate-200">
+          <audio id="audioPlayer" controls class="w-full focus:outline-none">
+            <source id="audioSource" src="audio11geo.mp3" type="audio/mpeg">
+            Seu navegador não suporta a reprodução deste arquivo de áudio.
+          </audio>
+        </div>
+
+        <!-- Velocidade de Reprodução e Feedback de Status -->
+        <div class="flex flex-wrap items-center justify-between gap-3 mt-3 pt-3 border-t border-slate-100 text-xs text-slate-500">
+          <div class="flex items-center gap-1.5">
+            <span class="font-medium text-slate-600">Velocidade:</span>
+            <button type="button" class="speed-btn px-2 py-0.5 border border-slate-300 rounded hover:bg-slate-100 font-medium" data-speed="1.0">1.0x</button>
+            <button type="button" class="speed-btn px-2 py-0.5 border border-slate-300 rounded hover:bg-slate-100 font-medium" data-speed="1.25">1.25x</button>
+            <button type="button" class="speed-btn px-2 py-0.5 border border-slate-300 rounded hover:bg-slate-100 font-medium" data-speed="1.5">1.5x</button>
+            <button type="button" class="speed-btn px-2 py-0.5 border border-slate-300 rounded hover:bg-slate-100 font-medium" data-speed="2.0">2.0x</button>
+          </div>
+          <span id="audioStatusMsg" class="text-slate-600 font-medium">Arquivo ativo: <code class="text-slate-800">audio11geo.mp3</code></span>
+        </div>
+      </div>
+
+      <!-- Título Principal da Aula -->
+      <div class="inline-block px-3 py-1 bg-slate-100 text-slate-700 text-xs font-semibold rounded-md uppercase tracking-wider mb-3">
+        Concurso Docente EBTT • Reitoria IFMG • Geografia
+      </div>
+      <h1 class="text-2xl sm:text-4xl font-extrabold text-slate-900 tracking-tight leading-tight mb-4">
+        Climatologia e Dinâmica Atmosférica Geral
+      </h1>
+      <p class="text-sm sm:text-base text-slate-600 font-medium">
+        Fundamentos Teóricos, Matrizes Analíticas e Vetores de Cobrança para a Prova Objetiva do IFMG.
+      </p>
+      <div class="mt-4 flex flex-wrap gap-2 text-xs text-slate-500">
+        <span class="border border-slate-200 px-2 py-1 rounded">Bibliografia: AYOADE (2013)</span>
+        <span class="border border-slate-200 px-2 py-1 rounded">MENDONÇA & DANNI-OLIVEIRA (2007)</span>
+        <span class="border border-slate-200 px-2 py-1 rounded">YNOUE et al. (2017)</span>
+      </div>
+    </header>
+
+    <!-- INTRODUÇÃO EPISTEMOLÓGICA -->
+    <section class="mb-10 text-slate-800 space-y-4">
+      <p class="text-justify text-sm sm:text-base leading-relaxed">
+        A compreensão dos fenômenos climatológicos no âmbito dos concursos para a Carreira do Magistério do Ensino Básico, Técnico e Tecnológico (EBTT) do Instituto Federal de Minas Gerais (IFMG) demanda rigor terminológico, densidade teórica e domínio das interações termodinâmicas da atmosfera. A banca examinadora privilegia abordagens que articulam a <mark class="highlight">física dos processos atmosféricos às suas repercussões geográficas e territoriais</mark>, fundamentando-se nas matrizes consagradas de Ayoade (2013), Mendonça e Danni-Oliveira (2007) e Ynoue et al. (2017).
+      </p>
+    </section>
+
+    <!-- SEÇÃO 1: ESTRUTURA VERTICAL E RADIAÇÃO -->
+    <section class="mb-12">
+      <h2 class="text-xl sm:text-2xl font-bold text-slate-900 border-b-2 border-slate-300 pb-2 mb-5">
+        1. Estrutura Vertical da Atmosfera, Composição Gasosa e Balanço Radiativo
+      </h2>
+      
+      <p class="text-justify text-sm sm:text-base mb-4">
+        A atmosfera terrestre constitui um invólucro gasoso retido pela atração gravitacional do planeta e estruturado em camadas térmicas distintas resultantes da absorção seletiva da radiação solar e terrestre. Em sua composição volumétrica no ar seco, sobressaem o <mark class="highlight">Nitrogênio (\(N_2 \approx 78,08\%\))</mark> e o <mark class="highlight">Oxigênio (\(O_2 \approx 20,95\%\))</mark>, que perfazem mais de \(99\%\) da massa gasosa e respondem pelos processos difusivos da luz. O Argônio (\(Ar \approx 0,93\%\)) compõe a parcela restante dos gases nobres permanentes.
+      </p>
+
+      <p class="text-justify text-sm sm:text-base mb-6">
+        A dinâmica do tempo e do clima, todavia, é controlada pelos chamados gases variáveis ou constituintes traço, com destaque absoluto para o <mark class="highlight">vapor de água (\(H_2O\))</mark> (variando de quase \(0\%\) nas regiões polares e desertos a até \(4\%\) nas regiões equatoriais marítimas) e o <mark class="highlight">dióxido de carbono (\(CO_2 \approx 0,042\%\))</mark>. O vapor de água é o único componente gasoso que experimenta transições de fase nas temperaturas registradas na biosfera, atuando como o principal veículo de transporte de <mark class="highlight-blue">calor latente</mark> do planeta.
+      </p>
+
+      <!-- TABELA 1: ESTRUTURA VERTICAL (SEM SCROLL HORIZONTAL) -->
+      <div class="w-full my-6 border border-slate-300 rounded-xl overflow-hidden bg-white">
+        <div class="bg-slate-100 px-4 py-2 border-b border-slate-300 font-bold text-slate-800 text-xs sm:text-sm">
+          Tabela 1: Estrutura Vertical da Atmosfera e Camadas Térmicas
+        </div>
+        <table class="w-full text-left text-xs sm:text-sm divide-y divide-slate-200">
+          <thead>
+            <tr class="bg-slate-50 text-slate-700">
+              <th class="w-[20%] p-2.5 sm:p-3 font-semibold border-r border-slate-200">Camada</th>
+              <th class="w-[22%] p-2.5 sm:p-3 font-semibold border-r border-slate-200">Limites Altitudinais</th>
+              <th class="w-[28%] p-2.5 sm:p-3 font-semibold border-r border-slate-200">Perfil Térmico</th>
+              <th class="w-[30%] p-2.5 sm:p-3 font-semibold">Processos Determinantes</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-200 text-slate-700">
+            <tr>
+              <td class="p-2.5 sm:p-3 font-bold text-slate-900 border-r border-slate-200">Troposfera</td>
+              <td class="p-2.5 sm:p-3 border-r border-slate-200">0 a 8-9 km (polos); 0 a 16-18 km (equador).</td>
+              <td class="p-2.5 sm:p-3 border-r border-slate-200"><mark class="highlight">Gradiente térmico negativo</mark> médio de -6,5 °C/km (aquecida a partir do solo).</td>
+              <td class="p-2.5 sm:p-3">Concentra ~80% da massa e quase todo vapor d'água; <mark class="highlight">sede exclusiva dos fenômenos meteorológicos</mark>.</td>
+            </tr>
+            <tr>
+              <td class="p-2.5 sm:p-3 font-bold text-slate-900 border-r border-slate-200">Estratosfera</td>
+              <td class="p-2.5 sm:p-3 border-r border-slate-200">Topo da Tropopausa até ~50 km.</td>
+              <td class="p-2.5 sm:p-3 border-r border-slate-200"><mark class="highlight">Gradiente positivo (inversão térmica)</mark> de -60 °C até ~0 °C.</td>
+              <td class="p-2.5 sm:p-3">Sem convecção; abriga a <mark class="highlight-blue">Ozonosfera</mark> (20 a 35 km), que absorve radiação ultravioleta prejudicial (UV-B e UV-C).</td>
+            </tr>
+            <tr>
+              <td class="p-2.5 sm:p-3 font-bold text-slate-900 border-r border-slate-200">Mesosfera</td>
+              <td class="p-2.5 sm:p-3 border-r border-slate-200">Topo da Estratopausa até ~85 km.</td>
+              <td class="p-2.5 sm:p-3 border-r border-slate-200">Queda acentuada da temperatura, alcançando ~ -90 °C na Mesopausa.</td>
+              <td class="p-2.5 sm:p-3">Camada mais fria; ausência de ozônio e vapor d'água; desintegração de meteoroides por atrito.</td>
+            </tr>
+            <tr>
+              <td class="p-2.5 sm:p-3 font-bold text-slate-900 border-r border-slate-200">Termosfera</td>
+              <td class="p-2.5 sm:p-3 border-r border-slate-200">Topo da Mesopausa até ~600 km.</td>
+              <td class="p-2.5 sm:p-3 border-r border-slate-200">Aumento contínuo da temperatura cinética por raios X e UV extremo.</td>
+              <td class="p-2.5 sm:p-3">Engloba a Ionosfera, viabilizadora das telecomunicações por ondas curtas e palco de auroras.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Radiação e Albedo -->
+      <h3 class="text-lg font-bold text-slate-900 mt-6 mb-3">Radiação Solar, Albedo e Balanço de Radiação</h3>
+      <p class="text-justify text-sm sm:text-base mb-4">
+        A energia condutora de todos os mecanismos climáticos é oriunda da radiação solar, propagada pelo vácuo sob a forma de ondas eletromagnéticas. O Sol, operando a uma temperatura superficial de aproximadamente \(6000\text{ K}\), emite predominantemente <mark class="highlight">radiação de onda curta</mark> (comprimentos de onda inferiores a \(4\ \mu\text{m}\), concentrados no visível e ultravioleta). A Terra, por sua vez, com temperatura média global na ordem de \(288\text{ K}\), reemite energia sob a forma de <mark class="highlight">radiação de onda longa</mark> (superiores a \(4\ \mu\text{m}\), no espectro do infravermelho térmico).
+      </p>
+
+      <div class="my-4 p-4 border-l-4 border-slate-700 bg-slate-50 rounded-r-lg space-y-2">
+        <p class="text-sm font-semibold text-slate-900">Definição Operacional de Albedo (\(\alpha\)):</p>
+        <p class="text-xs sm:text-sm text-slate-700">
+          É a fração da radiação solar incidente que atinge a superfície ou as nuvens e retorna ao espaço por reflexão direta, <strong>sem sofrer absorção ou conversão térmica</strong>:
+        </p>
+        <div class="text-center py-1 text-sm font-bold text-slate-900">
+          $$\alpha = \frac{K\uparrow}{K\downarrow}$$
+        </div>
+        <p class="text-xs sm:text-sm text-slate-700">
+          O <mark class="highlight">albedo planetário médio da Terra é de aproximadamente \(30\%\) (\(0,30\))</mark>. Superfícies alvas (neve fresca e geleiras) possuem albedos entre \(80\%\) e \(90\%\). Asfaltos escuros e dosséis de florestas equatoriais úmidas exibem albedos restritos a \(5\%\) a \(15\%\), absorvendo maciçamente energia térmica.
+        </p>
+      </div>
+
+      <p class="text-justify text-sm sm:text-base mb-4">
+        A retenção e transformação de energia expressam-se na equação do Balanço de Radiação Líquida à superfície (\(R_n\)):
+      </p>
+      <div class="text-center my-3 p-3 bg-slate-50 border border-slate-200 rounded-lg text-sm sm:text-base font-bold text-slate-900">
+        $$R_n = (K\downarrow - K\uparrow) + (L\downarrow - L\uparrow)$$
+      </div>
+      <p class="text-justify text-sm sm:text-base mb-4">
+        Onde \(L\downarrow\) representa a contra-radiação atmosférica de onda longa emitida pelos gases de efeito estufa e nuvens em direção ao solo, e \(L\uparrow\) indica a emissão de onda longa da própria superfície terrestre.
+      </p>
+      <p class="text-justify text-sm sm:text-base">
+        Em escala planetária, as latitudes intertropicais (\(0^\circ\) a \(38^\circ\text{ N/S}\)) acumulam um <mark class="highlight">superávit permanente no balanço de radiação líquida (\(R_n > 0\))</mark>. Em oposição, as latitudes médias e polares manifestam <mark class="highlight">déficit radiativo (\(R_n < 0\))</mark>. <strong>É a imperativa redistribuição desse excedente térmico em direção aos polos que engendra a circulação geral da atmosfera e as correntes marítimas.</strong>
+      </p>
+    </section>
+
+    <!-- SEÇÃO 2: ELEMENTOS VERSUS FATORES -->
+    <section class="mb-12">
+      <h2 class="text-xl sm:text-2xl font-bold text-slate-900 border-b-2 border-slate-300 pb-2 mb-5">
+        2. Matriz Epistemológica: Elementos Versus Fatores Climáticos
+      </h2>
+      <p class="text-justify text-sm sm:text-base mb-4">
+        Nas avaliações formuladas pela comissão do IFMG, a clareza epistemológica sobre as variáveis do sistema climático é avaliada de forma rigorosa. O candidato não pode confundir elementos com fatores:
+      </p>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
+        <div class="p-4 border-2 border-slate-200 rounded-xl bg-white">
+          <h4 class="font-bold text-slate-900 text-sm sm:text-base mb-1">Elementos do Clima</h4>
+          <p class="text-xs sm:text-sm text-slate-700">
+            São as <mark class="highlight">propriedades físicas e dinâmicas mensuráveis</mark> que expressam o estado momentâneo ou contínuo da atmosfera com instrumentos diretos (termômetro, barômetro, pluviômetro). <em>Ex: Temperatura, Pressão, Umidade, Chuva.</em>
+          </p>
+        </div>
+        <div class="p-4 border-2 border-slate-200 rounded-xl bg-white">
+          <h4 class="font-bold text-slate-900 text-sm sm:text-base mb-1">Fatores do Clima</h4>
+          <p class="text-xs sm:text-sm text-slate-700">
+            São as <mark class="highlight">condições geográficas, astronômicas e orográficas preexistentes</mark> que modificam, condicionam e moldam os elementos ao longo do espaço geográfico. <em>Ex: Latitude, Altitude, Relevo, Maritimidade.</em>
+          </p>
+        </div>
+      </div>
+
+      <!-- TABELA 2: ELEMENTOS VERSUS FATORES (SEM SCROLL HORIZONTAL) -->
+      <div class="w-full my-6 border border-slate-300 rounded-xl overflow-hidden bg-white">
+        <div class="bg-slate-100 px-4 py-2 border-b border-slate-300 font-bold text-slate-800 text-xs sm:text-sm">
+          Tabela 2: Distinção entre Elementos e Fatores Climáticos
+        </div>
+        <table class="w-full text-left text-xs sm:text-sm divide-y divide-slate-200">
+          <thead>
+            <tr class="bg-slate-50 text-slate-700">
+              <th class="w-[28%] p-2.5 sm:p-3 font-semibold border-r border-slate-200">Categoria</th>
+              <th class="w-[27%] p-2.5 sm:p-3 font-semibold border-r border-slate-200">Variável</th>
+              <th class="w-[45%] p-2.5 sm:p-3 font-semibold">Função Físico-Geográfica no Sistema</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-200 text-slate-700">
+            <tr>
+              <td class="p-2.5 sm:p-3 font-bold text-blue-900 border-r border-slate-200 bg-blue-50/30">Elemento do Clima</td>
+              <td class="p-2.5 sm:p-3 font-semibold text-slate-900 border-r border-slate-200">Temperatura do ar</td>
+              <td class="p-2.5 sm:p-3">Calor sensível da troposfera por reemissão de onda longa da superfície.</td>
+            </tr>
+            <tr>
+              <td class="p-2.5 sm:p-3 font-bold text-blue-900 border-r border-slate-200 bg-blue-50/30">Elemento do Clima</td>
+              <td class="p-2.5 sm:p-3 font-semibold text-slate-900 border-r border-slate-200">Pressão atmosférica</td>
+              <td class="p-2.5 sm:p-3">Força gravitacional do ar por área; inversamente proporcional à altitude.</td>
+            </tr>
+            <tr>
+              <td class="p-2.5 sm:p-3 font-bold text-blue-900 border-r border-slate-200 bg-blue-50/30">Elemento do Clima</td>
+              <td class="p-2.5 sm:p-3 font-semibold text-slate-900 border-r border-slate-200">Umidade relativa do ar</td>
+              <td class="p-2.5 sm:p-3">Razão percentual entre pressão de vapor real e a de saturação na temperatura.</td>
+            </tr>
+            <tr>
+              <td class="p-2.5 sm:p-3 font-bold text-blue-900 border-r border-slate-200 bg-blue-50/30">Elemento do Clima</td>
+              <td class="p-2.5 sm:p-3 font-semibold text-slate-900 border-r border-slate-200">Precipitação</td>
+              <td class="p-2.5 sm:p-3">Retorno líquido ou sólido da água condensada após quebra de flutuabilidade.</td>
+            </tr>
+            <tr>
+              <td class="p-2.5 sm:p-3 font-bold text-emerald-900 border-r border-slate-200 bg-emerald-50/30">Fator do Clima</td>
+              <td class="p-2.5 sm:p-3 font-semibold text-slate-900 border-r border-slate-200">Latitude</td>
+              <td class="p-2.5 sm:p-3">Condiciona o ângulo de incidência solar e a variação sazonal do fotoperíodo.</td>
+            </tr>
+            <tr>
+              <td class="p-2.5 sm:p-3 font-bold text-emerald-900 border-r border-slate-200 bg-emerald-50/30">Fator do Clima</td>
+              <td class="p-2.5 sm:p-3 font-semibold text-slate-900 border-r border-slate-200">Altitude</td>
+              <td class="p-2.5 sm:p-3">Rarefação molecular e menor capacidade da camada de reter radiação térmica.</td>
+            </tr>
+            <tr>
+              <td class="p-2.5 sm:p-3 font-bold text-emerald-900 border-r border-slate-200 bg-emerald-50/30">Fator do Clima</td>
+              <td class="p-2.5 sm:p-3 font-semibold text-slate-900 border-r border-slate-200">Maritimidade / Continentalidade</td>
+              <td class="p-2.5 sm:p-3">Modula a amplitude térmica devido ao calor específico da água (\(1\text{ cal/g}^\circ\text{C}\)) vs solo (\(\approx 0,2\)).</td>
+            </tr>
+            <tr>
+              <td class="p-2.5 sm:p-3 font-bold text-emerald-900 border-r border-slate-200 bg-emerald-50/30">Fator do Clima</td>
+              <td class="p-2.5 sm:p-3 font-semibold text-slate-900 border-r border-slate-200">Correntes marítimas</td>
+              <td class="p-2.5 sm:p-3">Correntes quentes favorecem evaporação e chuvas; frias induzem subsidência e aridez costeira.</td>
+            </tr>
+            <tr>
+              <td class="p-2.5 sm:p-3 font-bold text-emerald-900 border-r border-slate-200 bg-emerald-50/30">Fator do Clima</td>
+              <td class="p-2.5 sm:p-3 font-semibold text-slate-900 border-r border-slate-200">Relevo</td>
+              <td class="p-2.5 sm:p-3">Anteparo físico dinâmico que gera assimetrias pluviais entre vertentes.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- SEÇÃO 3: MECÂNICA BAROMÉTRICA E CIRCULAÇÃO GERAL -->
+    <section class="mb-12">
+      <h2 class="text-xl sm:text-2xl font-bold text-slate-900 border-b-2 border-slate-300 pb-2 mb-5">
+        3. Mecânica Barométrica e Circulação Geral da Atmosfera
+      </h2>
+
+      <p class="text-justify text-sm sm:text-base mb-6">
+        O escoamento das massas de ar resulta primariamente do gradiente horizontal de pressão provocado pelo aquecimento desuniforme da superfície, sendo orientado perpendicularmente das altas para as baixas pressões pela <strong>Força do Gradiente de Pressão (FGP)</strong>. Simultaneamente, o vetor do vento sofre deflexão aparente decorrente da <strong>Força de Coriolis</strong> (para a direita no Hemisfério Norte e para a esquerda no Hemisfério Sul).
+      </p>
+
+      <!-- Comparativo Didático Ciclone vs Anticiclone -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+        <!-- Alta Pressão -->
+        <div class="border-2 border-slate-300 rounded-xl p-5 bg-white space-y-2">
+          <div class="flex items-center gap-2">
+            <span class="inline-block w-3 h-3 rounded-full bg-slate-700"></span>
+            <h3 class="text-base font-bold text-slate-900 uppercase">Centros de Alta Pressão (Anticiclones)</h3>
+          </div>
+          <ul class="text-xs sm:text-sm text-slate-700 space-y-1.5 list-disc list-inside">
+            <li><strong>Em superfície:</strong> <mark class="highlight">Divergentes / Dispersores de vento</mark>.</li>
+            <li><strong>Movimento vertical:</strong> <mark class="highlight">Subsidência (ar desce comprimindo-se)</mark>.</li>
+            <li><strong>Termodinâmica:</strong> Ao descer, o ar aquece adiabaticamente, afastando-se do ponto de orvalho e reduzindo a umidade relativa.</li>
+            <li><strong>Nuvens e tempo:</strong> Inibe convecção, dissipa nebulosidade, assegura <mark class="highlight">tempo estável, seco e ensolarado</mark>.</li>
+            <li><strong>Sentido de rotação:</strong> Horário no Hemisfério Norte e <strong>Anti-horário no Hemisfério Sul</strong>.</li>
+          </ul>
+        </div>
+
+        <!-- Baixa Pressão -->
+        <div class="border-2 border-slate-300 rounded-xl p-5 bg-white space-y-2">
+          <div class="flex items-center gap-2">
+            <span class="inline-block w-3 h-3 rounded-full bg-slate-900"></span>
+            <h3 class="text-base font-bold text-slate-900 uppercase">Centros de Baixa Pressão (Ciclones)</h3>
+          </div>
+          <ul class="text-xs sm:text-sm text-slate-700 space-y-1.5 list-disc list-inside">
+            <li><strong>Em superfície:</strong> <mark class="highlight">Convergentes / Receptores de vento</mark>.</li>
+            <li><strong>Movimento vertical:</strong> <mark class="highlight">Ascendência forçada (ar sobe expandindo-se)</mark>.</li>
+            <li><strong>Termodinâmica:</strong> O ar resfria por expansão adiabática até saturar (\(UR = 100\%\)), gerando condensação ativa.</li>
+            <li><strong>Nuvens e tempo:</strong> Formação de nuvens espessas, ventania e <mark class="highlight">tempo instável com precipitações contínuas</mark>.</li>
+            <li><strong>Sentido de rotação:</strong> Anti-horário no Hemisfério Norte e <strong>Horário no Hemisfério Sul</strong>.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- O Modelo Tricelular -->
+      <h3 class="text-lg font-bold text-slate-900 mb-3">O Modelo Tricelular da Circulação Meridional</h3>
+      <div class="space-y-3 mb-6 text-sm text-slate-700">
+        <p class="text-justify">
+          <strong>1. Célula de Hadley (Termicamente Direta):</strong> Estabelece-se entre o equador e as faixas de \(30^\circ\text{ N/S}\). O ar equatorial ascende por convecção térmica perene. Ao alcançar a alta troposfera, migra em direção aos polos, resfria-se e sofre forçamento dinâmico por convergência em altitude, executando <mark class="highlight">subsidência maciça entre \(25^\circ\text{ e }35^\circ\text{ de latitude}\)</mark>. Esse ramo descendente gera os <strong>cinturões subtropicais de alta pressão e os desertos quentes da Terra</strong> (ex: Anticiclone Subtropical do Atlântico Sul - ASAS).
+        </p>
+        <p class="text-justify">
+          <strong>2. Célula Polar (Termicamente Direta):</strong> Estabelece-se nas altas latitudes (\(60^\circ\text{ a }90^\circ\)). O resfriamento extremo consolida altas pressões térmicas polares com subsidência permanente de ar gelado e denso, divergindo na superfície sob os ventos de leste polar.
+        </p>
+        <p class="text-justify">
+          <strong>3. Célula de Ferrel (Indireta / Engrenagem Mecânica):</strong> Opera nas médias latitudes (\(30^\circ\text{ a }60^\circ\)). Funciona como um rotor tracionado pelas células adjacentes, caracterizado em superfície pelos ventos de oeste (<em>westerlies</em>) e constantes frentes e ciclogêneses extratropicais.
+        </p>
+      </div>
+
+      <!-- Alísios e ZCIT -->
+      <h3 class="text-lg font-bold text-slate-900 mb-3">Ventos Alísios e a Zona de Convergência Intertropical (ZCIT)</h3>
+      <p class="text-justify text-sm sm:text-base mb-3">
+        Na porção inferior da Célula de Hadley, os ventos sopram dos centros de alta pressão subtropicais (\(30^\circ\text{ N/S}\)) em direção à baixa pressão equatorial: são os <mark class="highlight">Ventos Alísios</mark>. Pela ação de Coriolis, desviam para oeste, configurando os <strong>Alísios de Nordeste</strong> no Hemisfério Norte e os <strong>Alísios de Sudeste</strong> no Hemisfério Sul.
+      </p>
+      <div class="p-4 border-l-4 border-slate-700 bg-slate-50 rounded-r-lg space-y-2 mb-4">
+        <p class="text-sm font-bold text-slate-900">ZCIT - Zona de Convergência Intertropical:</p>
+        <p class="text-xs sm:text-sm text-slate-700">
+          É a faixa equatorial onde convergem os ventos Alísios de ambos os hemisférios. Caracteriza-se por calmaria horizontal em superfície (<em>doldrums</em>), violenta ascendência térmica e uma faixa quase contínua de nuvens <em>Cumulonimbus</em> com chuvas diárias intensas.
+        </p>
+        <p class="text-xs sm:text-sm text-slate-700">
+          <mark class="highlight">Ponto de Prova (IFMG):</mark> A ZCIT migra sazonalmente acompanhando o aquecimento solar. Durante o verão do Hemisfério Sul (<strong>fevereiro a abril</strong>), atinge sua posição mais meridional sobre o Atlântico equatorial, sendo a <strong>principal responsável pelo período chuvoso no semiárido do Nordeste e no extremo norte de Minas Gerais</strong>.
+        </p>
+      </div>
+    </section>
+
+    <!-- SEÇÃO 4: GÊNESE DAS CHUVAS E DINÂMICA OROGRÁFICA -->
+    <section class="mb-12">
+      <h2 class="text-xl sm:text-2xl font-bold text-slate-900 border-b-2 border-slate-300 pb-2 mb-5">
+        4. Gênese das Precipitações, Dinâmica Orográfica e o Efeito Foehn
+      </h2>
+
+      <!-- Três Tipologias -->
+      <div class="space-y-4 mb-8">
+        <div class="p-4 border border-slate-300 rounded-xl bg-white">
+          <h4 class="font-bold text-slate-900 text-sm sm:text-base">A) Chuvas Convectivas (Térmicas ou "de Verão")</h4>
+          <p class="text-xs sm:text-sm text-slate-700 mt-1">
+            Deflagradas pelo forte aquecimento diferencial da superfície pelo solo ensolarado. O ar se expande, ascende rapidamente e forma nuvens de grande desenvolvimento vertical (<mark class="highlight">Cumulonimbus</mark>). <strong>Características:</strong> Curta duração temporal, alcance geográfico restrito, altíssima intensidade pluvial, descargas elétricas e rajadas de vento.
+          </p>
+        </div>
+        <div class="p-4 border border-slate-300 rounded-xl bg-white">
+          <h4 class="font-bold text-slate-900 text-sm sm:text-base">B) Chuvas Frontais (Ciclônicas)</h4>
+          <p class="text-xs sm:text-sm text-slate-700 mt-1">
+            Resultam do encontro de massas de ar termicamente distintas. A massa de ar frio e densa atua como uma cunha rígida no solo, forçando a ascensão mecânica suave do ar quente e úmido. Nuvens estratificadas (<mark class="highlight">Nimbostratus</mark>). <strong>Características:</strong> Longa duração (dias), intensidade contínua/moderada e ampla abrangência territorial.
+          </p>
+        </div>
+        <div class="p-4 border border-slate-300 rounded-xl bg-white">
+          <h4 class="font-bold text-slate-900 text-sm sm:text-base">C) Chuvas Orográficas (de Relevo)</h4>
+          <p class="text-xs sm:text-sm text-slate-700 mt-1">
+            Ocorrem quando uma corrente horizontal de ar carregada de umidade encontra um obstáculo geomorfológico imponente (serras costeiras, escarpas, cordilheiras) e é forçada a subir a rampa do terreno.
+          </p>
+        </div>
+      </div>
+
+      <!-- DINÂMICA OROGRÁFICA E EFEITO FOEHN DETALHADO -->
+      <div class="p-5 border-2 border-slate-300 rounded-2xl bg-white space-y-4">
+        <h3 class="text-base sm:text-lg font-bold text-slate-900 uppercase tracking-wide">
+          Termodinâmica Orográfica: Barlavento vs Sotavento e o Efeito Foehn
+        </h3>
+        
+        <div class="space-y-3 text-xs sm:text-sm text-slate-700 leading-relaxed">
+          <p>
+            <strong>1. Vertente de Barlavento (Windward - voltada para o vento):</strong><br>
+            A massa de ar sobe forçada pela encosta montanhosa. Inicialmente resfria-se pela <mark class="highlight">Razão Adiabática Seca (RAS \(\approx -1,0^\circ\text{C}/100\text{ m}\))</mark> até alcançar o Nível de Condensação por Levantamento (NCL). Ao saturar (\(UR = 100\%\)), o vapor condensa, formando nuvens densas e <strong>liberando calor latente</strong>. A partir desse ponto, o ar continua subindo e resfriando em ritmo atenuado pela <mark class="highlight">Razão Adiabática Úmida (RAU \(\approx -0,5^\circ\text{C}\text{ a }-0,6^\circ\text{C}/100\text{ m}\))</mark>. <strong>Resultado no Barlavento: Precipitações abundantes, solos encharcados e florestas viçosas.</strong>
+          </p>
+
+          <p>
+            <strong>2. Vertente de Sotavento (Leeward - protegida do vento):</strong><br>
+            Ao atingir o topo da serra, a massa de ar já verteu a maior parte da sua umidade e transpõe a crista ressecada. Ela agora <strong>desce a encosta oposta</strong>, sofrendo subsidência e compressão adiabática. Como o ar está seco e não ocorrem processos de troca de fase líquida, toda a descida é regida exclusivamente pela <mark class="highlight">Razão Adiabática Seca (RAS \(\approx +1,0^\circ\text{C}/100\text{ m}\))</mark>.
+          </p>
+
+          <div class="p-3 bg-slate-50 border border-slate-200 rounded-lg">
+            <span class="font-bold text-slate-900">O que é o Efeito Foehn?</span>
+            <p class="mt-1">
+              Como o ar aqueceu na descida a uma taxa maior (\(+1,0^\circ\text{C}/100\text{m}\)) do que aquela em que resfriou na subida saturada (\(-0,5^\circ\text{C}/100\text{m}\)), <mark class="highlight">o ar atinge a base de sotavento muito mais QUENTE e mais SECO</mark> do que estava na mesma cota no barlavento.
+            </p>
+          </div>
+
+          <p>
+            <strong>3. Sombra de Chuva (Rain Shadow):</strong> A dissipação perpétua de nuvens na encosta de sotavento produz faixas de aridez continental e vales intermontanos secos. 
+            <em>Exemplos clássicos de prova:</em> O semiárido nordestino a sotavento do Planalto da Borborema; os vales secos mineiros à retaguarda da Serra do Mar e Mantiqueira; o Deserto da Patagônia a sotavento dos Andes.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SEÇÃO 5: CLASSIFICAÇÃO DE KÖPPEN-GEIGER -->
+    <section class="mb-12">
+      <h2 class="text-xl sm:text-2xl font-bold text-slate-900 border-b-2 border-slate-300 pb-2 mb-5">
+        5. Sistema Global de Classificação Climática de Köppen-Geiger
+      </h2>
+      <p class="text-justify text-sm sm:text-base mb-4">
+        O sistema empírico de Köppen-Geiger apoia-se nos registros térmicos e pluviométricos médios mensais e anuais em correlação direta com as coberturas vegetais nativas:
+      </p>
+
+      <!-- Resumo dos 3 Níveis -->
+      <div class="space-y-3 mb-6 text-xs sm:text-sm text-slate-700">
+        <div class="border border-slate-200 p-3 rounded-lg">
+          <strong class="text-slate-900">1º Nível (Grandes Grupos Térmicos Zonais):</strong>
+          <span class="block mt-1"><strong>A:</strong> Tropical Chuvoso (todos os meses com média \(> 18^\circ\text{C}\); sem inverno térmico).</span>
+          <span class="block"><strong>B:</strong> Climas Secos (evapotranspiração potencial anual excede a precipitação anual).</span>
+          <span class="block"><strong>C:</strong> Mesotérmicos / Temperados Quentes (mês mais frio entre \(-3^\circ\text{C}\) e \(+18^\circ\text{C}\); ao menos um mês \(> 10^\circ\text{C}\)).</span>
+          <span class="block"><strong>D:</strong> Microtérmicos / Frios Continentais (mês mais frio \(< -3^\circ\text{C}\); ausente no Brasil).</span>
+          <span class="block"><strong>E:</strong> Polares (mês mais quente \(< 10^\circ\text{C}\); sem árvores).</span>
+        </div>
+
+        <div class="border border-slate-200 p-3 rounded-lg">
+          <strong class="text-slate-900">2º Nível (Regime Pluviométrico e Estação Seca):</strong>
+          <span class="block mt-1"><strong>f:</strong> Sem estação seca (precipitação abundante o ano todo; no grupo A, mês mais seco \(\ge 60\text{ mm}\)).</span>
+          <span class="block"><strong>w:</strong> Seca no inverno (<em>winter dry</em>).</span>
+          <span class="block"><strong>s:</strong> Seca no verão (<em>summer dry</em> - mediterrâneo).</span>
+          <span class="block"><strong>m:</strong> Monçônico (seca breve compensada por chuvas oceânicas colossais).</span>
+          <span class="block"><strong>S:</strong> Estepe / Semiárido (no grupo B).</span>
+          <span class="block"><strong>W:</strong> Deserto / Hiperárido (no grupo B).</span>
+        </div>
+
+        <div class="border border-slate-200 p-3 rounded-lg">
+          <strong class="text-slate-900">3º Nível (Matiz Térmico do Verão):</strong>
+          <span class="block mt-1"><strong>a:</strong> Verão quente (mês mais quente com média \(\ge 22^\circ\text{C}\)).</span>
+          <span class="block"><strong>b:</strong> Verão brando/temperado (mês mais quente \(< 22^\circ\text{C}\) e ao menos 4 meses \(\ge 10^\circ\text{C}\)).</span>
+          <span class="block"><strong>h:</strong> Quente (no grupo B: temperatura média anual \(\ge 18^\circ\text{C}\)).</span>
+          <span class="block"><strong>k:</strong> Frio (no grupo B: temperatura média anual \(< 18^\circ\text{C}\)).</span>
+        </div>
+      </div>
+
+      <!-- TABELA 3: KÖPPEN NO BRASIL E MINAS GERAIS (SEM SCROLL HORIZONTAL) -->
+      <div class="w-full my-6 border border-slate-300 rounded-xl overflow-hidden bg-white">
+        <div class="bg-slate-100 px-4 py-2 border-b border-slate-300 font-bold text-slate-800 text-xs sm:text-sm">
+          Tabela 3: Síntese de Köppen-Geiger com Foco em Minas Gerais e Brasil
+        </div>
+        <table class="w-full text-left text-xs sm:text-sm divide-y divide-slate-200">
+          <thead>
+            <tr class="bg-slate-50 text-slate-700">
+              <th class="w-[14%] p-2.5 sm:p-3 font-semibold border-r border-slate-200">Sigla</th>
+              <th class="w-[28%] p-2.5 sm:p-3 font-semibold border-r border-slate-200">Classificação</th>
+              <th class="w-[30%] p-2.5 sm:p-3 font-semibold border-r border-slate-200">Critério Quantitativo</th>
+              <th class="w-[28%] p-2.5 sm:p-3 font-semibold">Ocorrência em MG e Brasil</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-200 text-slate-700">
+            <tr>
+              <td class="p-2.5 sm:p-3 font-bold text-amber-900 border-r border-slate-200 bg-amber-50/20">Aw</td>
+              <td class="p-2.5 sm:p-3 font-medium text-slate-900 border-r border-slate-200">Tropical com inverno seco</td>
+              <td class="p-2.5 sm:p-3 border-r border-slate-200">Todos meses \(>18^\circ\text{C}\); mês mais seco \(<60\text{ mm}\) no inverno.</td>
+              <td class="p-2.5 sm:p-3">Cerrado do Brasil Central, Triângulo Mineiro, Noroeste e Norte de Minas.</td>
+            </tr>
+            <tr>
+              <td class="p-2.5 sm:p-3 font-bold text-amber-900 border-r border-slate-200 bg-amber-50/20">Cwa</td>
+              <td class="p-2.5 sm:p-3 font-medium text-slate-900 border-r border-slate-200">Tropical de altitude (verão quente)</td>
+              <td class="p-2.5 sm:p-3 border-r border-slate-200">Mesotérmico com seca invernal; mês mais quente \(\ge 22^\circ\text{C}\).</td>
+              <td class="p-2.5 sm:p-3">Planaltos de MG, Região Metropolitana de BH, Zona da Mata.</td>
+            </tr>
+            <tr>
+              <td class="p-2.5 sm:p-3 font-bold text-amber-900 border-r border-slate-200 bg-amber-50/20">Cwb</td>
+              <td class="p-2.5 sm:p-3 font-medium text-slate-900 border-r border-slate-200">Tropical de altitude (verão brando)</td>
+              <td class="p-2.5 sm:p-3 border-r border-slate-200">Mesotérmico com seca invernal; mês mais quente \(< 22^\circ\text{C}\).</td>
+              <td class="p-2.5 sm:p-3">Cumes da Serra da Mantiqueira, Espinhaço e Maciço do Caparaó.</td>
+            </tr>
+            <tr>
+              <td class="p-2.5 sm:p-3 font-bold text-amber-900 border-r border-slate-200 bg-amber-50/20">Cfa</td>
+              <td class="p-2.5 sm:p-3 font-medium text-slate-900 border-r border-slate-200">Subtropical úmido</td>
+              <td class="p-2.5 sm:p-3 border-r border-slate-200">Mesotérmico sem seca definida; chuvas o ano todo; verão quente (\(\ge 22^\circ\text{C}\)).</td>
+              <td class="p-2.5 sm:p-3">Região Sul do país; pontas serranas no extremo sul de Minas Gerais.</td>
+            </tr>
+            <tr>
+              <td class="p-2.5 sm:p-3 font-bold text-amber-900 border-r border-slate-200 bg-amber-50/20">BSh</td>
+              <td class="p-2.5 sm:p-3 font-medium text-slate-900 border-r border-slate-200">Semiárido quente</td>
+              <td class="p-2.5 sm:p-3 border-r border-slate-200">Déficit hídrico (evaporação \(>\) chuva); temperatura média \(\ge 18^\circ\text{C}\).</td>
+              <td class="p-2.5 sm:p-3">Sertão nordestino e calha do Rio São Francisco no norte mineiro.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- SEÇÃO 6: TÓPICOS ESSENCIAIS PARA MEMORIZAÇÃO -->
+    <section class="mb-12">
+      <h2 class="text-xl sm:text-2xl font-bold text-slate-900 border-b-2 border-slate-300 pb-2 mb-5">
+        6. Tópicos Essenciais para Memorização e Pontos de Prova
+      </h2>
+      <div class="space-y-3 text-xs sm:text-sm text-slate-800">
+        <div class="p-3 border border-slate-200 rounded-lg bg-white">
+          • <strong>Composição Gasosa:</strong> Nitrogênio (\(78\%\)) e Oxigênio (\(21\%\)) somam \(99\%\) do ar, mas são inertes ao efeito estufa. O aquecimento troposférico é operado por <mark class="highlight">vapor d'água (\(H_2O\)) e dióxido de carbono (\(CO_2\))</mark>, que absorvem o infravermelho de onda longa emitido pelo solo.
+        </div>
+        <div class="p-3 border border-slate-200 rounded-lg bg-white">
+          • <strong>Inversão Térmica Estratosférica:</strong> Na troposfera a temperatura cai com a altitude (\(-6,5^\circ\text{C}/\text{km}\)); na estratosfera ela <strong>sobe com a altitude</strong> devido à absorção de raios ultravioleta pela camada de ozônio.
+        </div>
+        <div class="p-3 border border-slate-200 rounded-lg bg-white">
+          • <strong>Albedo:</strong> Energia de onda curta refletida diretamente sem aquecimento. <mark class="highlight">Albedo planetário = 30%</mark>. Superfícies claras (gelo) refletem \(80\text{--}90\%\); escuras (floresta/asfalto) absorvem \(85\text{--}95\%\).
+        </div>
+        <div class="p-3 border border-slate-200 rounded-lg bg-white">
+          • <strong>Desbalanço Latitudinal:</strong> A faixa de \(0^\circ\) a \(38^\circ\) acumula <mark class="highlight">superávit (\(R_n > 0\))</mark>; acima de \(38^\circ\) há <mark class="highlight">déficit (\(R_n < 0\))</mark>. A circulação geral atmosférica existe para redistribuir calor tropical aos polos.
+        </div>
+        <div class="p-3 border border-slate-200 rounded-lg bg-white">
+          • <strong>Elementos vs Fatores:</strong> <mark class="highlight">Elementos são grandezas mensuráveis</mark> do ar (temperatura, umidade, pressão, chuva). <mark class="highlight">Fatores são os agentes modeladores</mark> geográficos (latitude, altitude, maritimidade, continentalidade, relevo, correntes marinhas).
+        </div>
+        <div class="p-3 border border-slate-200 rounded-lg bg-white">
+          • <strong>Anticiclones (Alta Pressão):</strong> Ventos <mark class="highlight">divergentes</mark> em superfície, <mark class="highlight">subsidência</mark> vertical descendente (ar aquece adiabaticamente e afasta do orvalho), inibição de nuvens, calmaria e <mark class="highlight">tempo estável/seco</mark>. Giro anti-horário no Hemisfério Sul.
+        </div>
+        <div class="p-3 border border-slate-200 rounded-lg bg-white">
+          • <strong>Ciclones (Baixa Pressão):</strong> Ventos <mark class="highlight">convergentes</mark> em superfície, <mark class="highlight">ascendência</mark> vertical (expansão adiabática, resfriamento e condensação), formação de nuvens e <mark class="highlight">tempo instável/chuvoso</mark>. Giro horário no Hemisfério Sul.
+        </div>
+        <div class="p-3 border border-slate-200 rounded-lg bg-white">
+          • <strong>Alísios e Célula de Hadley:</strong> Os alísios sopram dos \(30^\circ\text{ N/S}\) para o Equador (\(0^\circ\)), desviados para oeste pela Força de Coriolis: Alísios de Nordeste (HN) e Alísios de Sudeste (HS).
+        </div>
+        <div class="p-3 border border-slate-200 rounded-lg bg-white">
+          • <strong>ZCIT:</strong> Confluência equatorial dos alísios, provocando fortes tempestades convectivas. <mark class="highlight">Atinge o ponto mais ao sul entre fevereiro e abril</mark>, trazendo as chuvas do semiárido nordestino e do norte de Minas Gerais.
+        </div>
+        <div class="p-3 border border-slate-200 rounded-lg bg-white">
+          • <strong>Barlavento vs Sotavento (Efeito Foehn):</strong>
+          No <em>Barlavento</em>, o ar sobe, esfria pela RAS até o NCL e pela RAU depois, vertendo chuva torrencial.
+          No <em>Sotavento</em>, o ar desce seco e se comprime pela RAS em todo o percurso (\(+1,0^\circ\text{C}/100\text{m}\)), chegando à planície <mark class="highlight">muito mais aquecido e desidratado (Sombra de Chuva)</mark>.
+        </div>
+        <div class="p-3 border border-slate-200 rounded-lg bg-white">
+          • <strong>Köppen em Minas Gerais:</strong>
+          <strong>Aw</strong> = Cerrado e Triângulo (tropical com inverno seco);
+          <strong>Cwa</strong> = Planaltos centrais e Zona da Mata (tropical de altitude, verão quente);
+          <strong>Cwb</strong> = Picos serranos da Mantiqueira e Espinhaço (tropical de altitude, verão brando);
+          <strong>BSh</strong> = Faixa do São Francisco no norte mineiro (semiárido quente).
+        </div>
+      </div>
+    </section>
+
+    <!-- SEÇÃO 7: SÍNTESE DE CONCEITOS PARA REVISÃO IMEDIATA -->
+    <section class="mb-14">
+      <h2 class="text-xl sm:text-2xl font-bold text-slate-900 border-b-2 border-slate-300 pb-2 mb-5">
+        7. Síntese de Conceitos Básicos para o Dia da Prova
+      </h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs sm:text-sm text-slate-700">
+        <div class="p-3 border border-slate-200 rounded-lg bg-white">
+          <strong class="text-slate-900">Troposfera:</strong> Camada da vida e do tempo meteorológico; decréscimo térmico de \(-6,5^\circ\text{C}/\text{km}\).
+        </div>
+        <div class="p-3 border border-slate-200 rounded-lg bg-white">
+          <strong class="text-slate-900">Estratosfera:</strong> Camada estável e laminar contendo a ozonosfera; aquecimento com o aumento da altitude.
+        </div>
+        <div class="p-3 border border-slate-200 rounded-lg bg-white">
+          <strong class="text-slate-900">Albedo:</strong> Razão percentual entre radiação solar refletida e radiação incidente sem conversão em calor.
+        </div>
+        <div class="p-3 border border-slate-200 rounded-lg bg-white">
+          <strong class="text-slate-900">Balanço Radiativo:</strong> Saldo de onda curta e onda longa (\(R_n\)); superavitário no equador e deficitário nos polos.
+        </div>
+        <div class="p-3 border border-slate-200 rounded-lg bg-white">
+          <strong class="text-slate-900">Pressão Atmosférica:</strong> Peso gravitacional da coluna de ar sobre a superfície; menor em maiores altitudes e em massas muito quentes.
+        </div>
+        <div class="p-3 border border-slate-200 rounded-lg bg-white">
+          <strong class="text-slate-900">Anticiclone:</strong> Alta pressão barométrica, divergência em superfície, subsidência de ar e ausência de nebulosidade.
+        </div>
+        <div class="p-3 border border-slate-200 rounded-lg bg-white">
+          <strong class="text-slate-900">Ciclone:</strong> Baixa pressão barométrica, convergência basal de ventos, forte ascensão mecânica e instabilidade.
+        </div>
+        <div class="p-3 border border-slate-200 rounded-lg bg-white">
+          <strong class="text-slate-900">Ventos Alísios:</strong> Sopram de forma regular dos anticiclones subtropicais (\(30^\circ\)) rumo à depressão equatorial.
+        </div>
+        <div class="p-3 border border-slate-200 rounded-lg bg-white">
+          <strong class="text-slate-900">ZCIT:</strong> Cinturão convergente intertropical de tempestades diárias convectivas e calmaria horizontal.
+        </div>
+        <div class="p-3 border border-slate-200 rounded-lg bg-white">
+          <strong class="text-slate-900">Chuva Convectiva:</strong> Aquecimento rápido do solo produz correntes térmicas ascendentes e <em>Cumulonimbus</em> pontuais.
+        </div>
+        <div class="p-3 border border-slate-200 rounded-lg bg-white">
+          <strong class="text-slate-900">Chuva Frontal:</strong> Ar frio denso suspende ar quente úmido; condensação lenta e pluviosidade contínua e generalizada.
+        </div>
+        <div class="p-3 border border-slate-200 rounded-lg bg-white">
+          <strong class="text-slate-900">Chuva Orográfica:</strong> Massa de ar úmida forçada a superar barreiras montanhosas, despejando água a barlavento.
+        </div>
+        <div class="p-3 border border-slate-200 rounded-lg bg-white">
+          <strong class="text-slate-900">Barlavento:</strong> Flanco da serra que recebe a massa de ar frontal; subida, resfriamento, condensação e abundância de chuva.
+        </div>
+        <div class="p-3 border border-slate-200 rounded-lg bg-white">
+          <strong class="text-slate-900">Sotavento:</strong> Flanco protegido; descida de ar seco, compressão adiabática e estiagem crônica.
+        </div>
+        <div class="p-3 border border-slate-200 rounded-lg bg-white">
+          <strong class="text-slate-900">Efeito Foehn:</strong> Aquecimento e dessecação dinâmica do vento que desce na vertente de sotavento.
+        </div>
+        <div class="p-3 border border-slate-200 rounded-lg bg-white">
+          <strong class="text-slate-900">Köppen Aw / Cwa / Cwb:</strong> O trio mestre do clima de Minas Gerais que diferencia cerrado quente, planaltos e topos de serra.
+        </div>
+      </div>
+    </section>
+
+    <!-- BLOCO FINAL COM O BOTÃO DE QUESTÕES -->
+    <footer class="pt-8 pb-12 border-t-2 border-slate-200 text-center">
+      <p class="text-slate-600 text-sm mb-5">
+        Terminou a leitura dos fundamentos teóricos? Avance para a resolução das questões da banca.
+      </p>
+      
+      <!-- Botão Direcionando para questoes11geo.html -->
+      <a 
+        href="questoes11geo.html" 
+        class="inline-flex items-center justify-center gap-3 px-8 py-4 bg-slate-900 hover:bg-slate-800 text-white font-bold text-base sm:text-lg rounded-xl shadow-md transition-all hover:shadow-lg active:scale-95 text-center cursor-pointer"
+      >
+        <span>Ir para as Questões de Climatologia</span>
+        <svg class="w-5 h-5 text-slate-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+        </svg>
+      </a>
+      
+      <p class="text-xs text-slate-600 mt-3">
+        Arquivo de destino: <code>questoes11geo.html</code>
+      </p>
+    </footer>
+
+  </div>
+
+  <!-- Script Interativo para o Reprodutor de Áudio -->
+  <script>
+    // Gerenciamento dinâmico do áudio mp3
+    const audioPlayer = document.getElementById('audioPlayer');
+    const audioFileNameInput = document.getElementById('audioFileName');
+    const btnUpdateAudio = document.getElementById('btnUpdateAudio');
+    const audioStatusMsg = document.getElementById('audioStatusMsg');
+    const speedButtons = document.querySelectorAll('.speed-btn');
+
+    // Atualizar fonte do áudio
+    function carregarArquivoAudio() {
+      let nomeArquivo = audioFileNameInput.value.trim();
+      if (!nomeArquivo) {
+        nomeArquivo = 'audio11geo.mp3';
+        audioFileNameInput.value = nomeArquivo;
+      }
+      
+      // Atualiza o src do elemento de áudio
+      audioPlayer.src = nomeArquivo;
+      audioPlayer.load();
+      audioStatusMsg.innerHTML = 'Arquivo ativo: <code class="text-slate-800 font-bold">' + nomeArquivo + '</code>';
+    }
+
+    btnUpdateAudio.addEventListener('click', carregarArquivoAudio);
+
+    // Permitir carregar ao pressionar Enter no input
+    audioFileNameInput.addEventListener('keydown', function(event) {
+      if (event.key === 'Enter') {
+        event.preventDefault();
+        carregarArquivoAudio();
+      }
+    });
+
+    // Controle de velocidade de reprodução
+    speedButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        const speed = parseFloat(button.getAttribute('data-speed'));
+        audioPlayer.playbackRate = speed;
+        
+        // Estilizar botão ativo
+        speedButtons.forEach(btn => {
+          btn.classList.remove('bg-slate-800', 'text-white');
+          btn.classList.add('border-slate-300', 'text-slate-700');
+        });
+        button.classList.add('bg-slate-800', 'text-white');
+        button.classList.remove('border-slate-300', 'text-slate-700');
+      });
+    });
+  </script>
+</body>
+</html>
