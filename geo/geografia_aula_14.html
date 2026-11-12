@@ -1,0 +1,912 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hidrogeografia II e Gestão Hídrica — Concurso Professor de Geografia IFMG</title>
+  <!-- Importação da fonte Inter para leitura confortável -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Carregamento do Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    /* Estilos base para garantir fundo 100% branco, leitura suave e ausência de rolagem horizontal */
+    html, body {
+      background-color: #ffffff;
+      color: #292524;
+      overflow-x: hidden;
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    }
+
+    /* Estilo de marca-texto suave (grifo de estudo) que não cansa a visão */
+    mark.grifo {
+      background-color: #fef3c7; /* Amarelo pastel suave */
+      color: #1c1917;
+      padding: 0.08rem 0.3rem;
+      border-radius: 0.25rem;
+      font-weight: 500;
+      box-decoration-break: clone;
+      -webkit-box-decoration-break: clone;
+    }
+
+    /* Grifo secundário em verde-menta muito suave para dados e prazos legais */
+    mark.grifo-verde {
+      background-color: #dcfce7;
+      color: #14532d;
+      padding: 0.08rem 0.3rem;
+      border-radius: 0.25rem;
+      font-weight: 500;
+      box-decoration-break: clone;
+      -webkit-box-decoration-break: clone;
+    }
+
+    /* Garantia de quebra de palavras em tabelas para eliminar qualquer scroll horizontal */
+    table {
+      width: 100%;
+      table-layout: fixed;
+      border-collapse: collapse;
+    }
+
+    th, td {
+      word-wrap: break-word;
+      overflow-wrap: break-word;
+      hyphens: auto;
+    }
+
+    /* Barra de progresso customizada clara do reprodutor de áudio */
+    input[type="range"] {
+      accent-color: #44403c;
+    }
+  </style>
+</head>
+<body class="bg-white text-stone-800 antialiased selection:bg-amber-100 selection:text-stone-900">
+
+  <!-- Container Principal -->
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-10 bg-white">
+
+    <!-- ===================================================================== -->
+    <!-- REPRODUTOR DE ÁUDIO MP3 NO TOPO DA PÁGINA                             -->
+    <!-- ===================================================================== -->
+    <!-- INSTRUÇÃO RÁPIDA: Você pode digitar o nome do arquivo .mp3 diretamente -->
+    <!-- no campo abaixo na página OU alterar o atributo value="audio14geo.mp3" no   -->
+    <!-- input id="mp3FileInput" e o src="audio14geo.mp3" na tag <audio>.            -->
+    <section aria-label="Reprodutor de Áudio da Aula" class="mb-8 bg-white border border-stone-200 rounded-2xl p-4 sm:p-6 shadow-sm">
+      <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 pb-4 border-b border-stone-200">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-stone-100 border border-stone-200 flex items-center justify-center text-stone-700 shrink-0">
+            <!-- Ícone SVG de fone/áudio -->
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3" />
+            </svg>
+          </div>
+          <div>
+            <h2 class="text-sm sm:text-base font-semibold text-stone-900">Áudio-Aula em MP3</h2>
+            <p id="audioStatusText" class="text-xs text-stone-600">Informe abaixo o nome do arquivo MP3 na mesma pasta desta página.</p>
+          </div>
+        </div>
+
+        <!-- Campo para definir o nome do arquivo MP3 na mesma pasta -->
+        <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 w-full md:w-auto">
+          <label for="mp3FileInput" class="sr-only">Nome do arquivo MP3</label>
+          <input
+            type="text"
+            id="mp3FileInput"
+            value="audio14geo.mp3"
+            placeholder="Ex: aula_hidrogeografia.mp3"
+            class="w-full sm:w-64 px-3 py-2 text-sm bg-white text-stone-900 border border-stone-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-stone-400 focus:border-stone-400"
+            title="Digite o nome exato do arquivo .mp3 localizado na mesma pasta deste HTML"
+          >
+          <button
+            type="button"
+            id="loadMp3Btn"
+            class="px-4 py-2 text-sm font-medium text-stone-800 bg-stone-100 hover:bg-stone-200 border border-stone-300 rounded-xl transition-colors cursor-pointer shrink-0"
+          >
+            Carregar MP3
+          </button>
+        </div>
+      </div>
+
+      <!-- Elemento HTML5 Audio oculto controlado pela interface limpa abaixo -->
+      <audio id="audioElement" src="audio14geo.mp3" preload="metadata"></audio>
+
+      <!-- Controles do Reprodutor -->
+      <div class="pt-4 flex flex-col gap-3">
+        <!-- Barra de progresso e tempos -->
+        <div class="flex items-center gap-3">
+          <span id="currentTimeLabel" class="text-xs font-mono text-stone-600 w-11 text-right">00:00</span>
+          <input
+            type="range"
+            id="progressBar"
+            value="0"
+            min="0"
+            max="100"
+            step="0.1"
+            aria-label="Progresso do áudio"
+            class="w-full h-2 bg-stone-200 rounded-lg cursor-pointer"
+          >
+          <span id="durationLabel" class="text-xs font-mono text-stone-600 w-11">00:00</span>
+        </div>
+
+        <!-- Botões de ação: Retroceder, Play/Pause, Avançar, Velocidade e Volume -->
+        <div class="flex flex-wrap items-center justify-between gap-3">
+          <div class="flex items-center gap-2">
+            <button
+              type="button"
+              id="rewindBtn"
+              class="px-3 py-2 text-xs font-medium text-stone-700 bg-white hover:bg-stone-100 border border-stone-200 rounded-xl transition-colors cursor-pointer"
+              title="Voltar 15 segundos"
+            >
+              -15s
+            </button>
+
+            <button
+              type="button"
+              id="playPauseBtn"
+              class="px-5 py-2 text-sm font-semibold text-stone-900 bg-amber-100 hover:bg-amber-200 border border-amber-300 rounded-xl flex items-center gap-2 transition-colors cursor-pointer"
+            >
+              <span id="playIcon">▶ Reproduzir</span>
+            </button>
+
+            <button
+              type="button"
+              id="forwardBtn"
+              class="px-3 py-2 text-xs font-medium text-stone-700 bg-white hover:bg-stone-100 border border-stone-200 rounded-xl transition-colors cursor-pointer"
+              title="Avançar 15 segundos"
+            >
+              +15s
+            </button>
+          </div>
+
+          <div class="flex items-center gap-3">
+            <!-- Controle de velocidade de estudo -->
+            <div class="flex items-center gap-1.5">
+              <label for="speedSelect" class="text-xs text-stone-600">Velocidade:</label>
+              <select
+                id="speedSelect"
+                class="text-xs font-medium text-stone-800 bg-white border border-stone-300 rounded-lg px-2 py-1.5 focus:outline-none focus:ring-1 focus:ring-stone-400 cursor-pointer"
+              >
+                <option value="0.75">0.75x</option>
+                <option value="1" selected>1.0x</option>
+                <option value="1.25">1.25x</option>
+                <option value="1.5">1.5x</option>
+                <option value="1.75">1.75x</option>
+                <option value="2">2.0x</option>
+              </select>
+            </div>
+
+            <!-- Controle de volume -->
+            <div class="hidden sm:flex items-center gap-1.5">
+              <label for="volumeSlider" class="text-xs text-stone-600">Volume:</label>
+              <input
+                type="range"
+                id="volumeSlider"
+                min="0"
+                max="1"
+                step="0.05"
+                value="1"
+                class="w-20 h-1.5 bg-stone-200 rounded-lg cursor-pointer"
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================================== -->
+    <!-- CABEÇALHO DO MATERIAL DE ESTUDO                                       -->
+    <!-- ===================================================================== -->
+    <header class="mb-8 pb-6 border-b border-stone-200 bg-white">
+      <div class="flex flex-wrap items-center gap-2 mb-3">
+        <span class="text-xs font-semibold uppercase tracking-wider text-stone-700 bg-stone-100 border border-stone-200 px-3 py-1 rounded-full">
+          Concurso IFMG • Professor de Geografia
+        </span>
+        <span class="text-xs font-medium text-stone-600 bg-white border border-stone-200 px-3 py-1 rounded-full">
+          Tópico 8 do Edital • Lei nº 9.433/1997
+        </span>
+      </div>
+
+      <h1 class="text-2xl sm:text-3xl lg:text-4xl font-bold text-stone-900 tracking-tight leading-tight mb-4">
+        Hidrogeografia II para o IFMG: Bacias do Brasil, Gestão Hídrica e Impactos de Uso
+      </h1>
+
+      <div class="space-y-4 text-base text-stone-800 leading-relaxed">
+        <p>
+          Esta aula técnico-didática aborda integralmente o <mark class="grifo">Tópico 8 do concurso para Professor de Geografia do Instituto Federal de Minas Gerais (IFMG)</mark>, estruturado pela <mark class="grifo">Comissão Central de Concurso Público da Reitoria</mark> — banca que adota provas objetivas de múltipla escolha (com 30 ou 50 questões conforme editais recentes da instituição, prevendo-se aplicação em 24 de janeiro de 2027 para o Edital nº 1077/2026 segundo divulgação em portal de concursos). Embora o comando inicial do programa traga a sigla "LDB", a ementa detalhada versa exclusivamente sobre <mark class="grifo">Hidrogeografia II (Bacias do Brasil, Gestão e Impactos de Uso)</mark> e sobre a <mark class="grifo">Lei das Águas (Lei nº 9.433/1997)</mark>, sem contemplar dispositivos da Lei de Diretrizes e Bases da Educação Nacional.
+        </p>
+        <p>
+          Na prova objetiva, a resolução segura das questões depende de <mark class="grifo">quatro núcleos articulados</mark>: a leitura socioambiental da rede fluvial e geomorfológica proposta por <mark class="grifo">Machado &amp; Torres</mark> e <mark class="grifo">Jurandyr Ross</mark>; a divisão oficial das <mark class="grifo">12 Regiões Hidrográficas da Resolução CNRH nº 32/2003</mark>, opondo a liderança hidrelétrica instalada da <mark class="grifo">Região Hidrográfica do Paraná</mark> à liderança em vazão e potencial teórico inexplorado da <mark class="grifo">Região Hidrográfica Amazônica</mark>; os instrumentos operacionais da <mark class="grifo">Lei nº 9.433/1997</mark> (outorga de até 35 anos, cobrança limitada a 7,5% em custeio e enquadramento por metas da Resolução CONAMA nº 357/2005); e os conflitos contemporâneos marcados pela pressão da irrigação (50% da retirada nacional), degradação qualitativa e quantitativa de mananciais e integração da bacia do São Francisco.
+        </p>
+      </div>
+    </header>
+
+    <!-- ===================================================================== -->
+    <!-- ÍNDICE DE NAVEGAÇÃO RÁPIDA                                            -->
+    <!-- ===================================================================== -->
+    <nav aria-label="Sumário das seções" class="mb-10 bg-stone-50/70 border border-stone-200 rounded-2xl p-4 sm:p-5">
+      <p class="text-xs font-semibold uppercase tracking-wider text-stone-600 mb-3">Sumário da Aula</p>
+      <ul class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm">
+        <li><a href="#secao-1" class="text-stone-800 hover:text-stone-950 hover:underline flex items-center gap-2"><span class="text-stone-500 font-semibold">1.</span> Definição do Tema e Características Essenciais</a></li>
+        <li><a href="#secao-2" class="text-stone-800 hover:text-stone-950 hover:underline flex items-center gap-2"><span class="text-stone-500 font-semibold">2.</span> Bibliografia Vinculada: Machado &amp; Torres e Ross</a></li>
+        <li><a href="#secao-3" class="text-stone-800 hover:text-stone-950 hover:underline flex items-center gap-2"><span class="text-stone-500 font-semibold">3.</span> As 12 Regiões Hidrográficas (CNRH nº 32/2003)</a></li>
+        <li><a href="#secao-4" class="text-stone-800 hover:text-stone-950 hover:underline flex items-center gap-2"><span class="text-stone-500 font-semibold">4.</span> Potencial Hidrelétrico vs. Hidroviário Nacional</a></li>
+        <li><a href="#secao-5" class="text-stone-800 hover:text-stone-950 hover:underline flex items-center gap-2"><span class="text-stone-500 font-semibold">5.</span> Política Nacional de Recursos Hídricos (Lei 9.433/97)</a></li>
+        <li><a href="#secao-6" class="text-stone-800 hover:text-stone-950 hover:underline flex items-center gap-2"><span class="text-stone-500 font-semibold">6.</span> Usos da Água, Impactos e Transposição (PISF)</a></li>
+        <li><a href="#secao-7" class="text-stone-800 hover:text-stone-950 hover:underline flex items-center gap-2"><span class="text-stone-500 font-semibold">7.</span> Principais Definições para o Dia da Prova</a></li>
+        <li><a href="#secao-8" class="text-stone-800 hover:text-stone-950 hover:underline flex items-center gap-2"><span class="text-stone-500 font-semibold">8.</span> Pontos de Acerto e Armadilhas da Banca IFMG</a></li>
+      </ul>
+    </nav>
+
+    <!-- ===================================================================== -->
+    <!-- CONTEÚDO INTEGRAL DA AULA                                             -->
+    <!-- ===================================================================== -->
+    <main class="space-y-12 bg-white">
+
+      <!-- SEÇÃO 1 -->
+      <section id="secao-1" class="scroll-mt-6 bg-white border border-stone-200 rounded-2xl p-5 sm:p-8">
+        <h2 class="text-xl sm:text-2xl font-bold text-stone-900 pb-3 mb-5 border-b border-stone-200">
+          1. Definição do Tema e Características Essenciais para Memorização
+        </h2>
+        <p class="text-base text-stone-800 leading-relaxed mb-5">
+          A Hidrogeografia aplicada às bacias brasileiras analisa como a água doce circula, organiza-se em unidades naturais de drenagem e transforma-se em recurso disputado por múltiplos interesses econômicos, energéticos, logísticos e sociais. Para fixação direta, os atributos estruturais do tema resumem-se nos tópicos a seguir:
+        </p>
+        <ul class="space-y-3.5 text-base text-stone-800 leading-relaxed list-disc pl-5">
+          <li>
+            <strong class="text-stone-900">Abundância com desigualdade espacial:</strong> O Brasil reúne cerca de <mark class="grifo">12% a 13% da água doce superficial ou disponível do planeta</mark>, com precipitação média histórica (1961–2007) de 1.761 mm/ano, mas <mark class="grifo">aproximadamente 80% da água superficial concentra-se na Região Hidrográfica Amazônica, onde vive apenas cerca de 5% da população nacional</mark>.
+          </li>
+          <li>
+            <strong class="text-stone-900">Descompasso entre oferta e demanda regional:</strong> De acordo com síntese didática apoiada em estimativas da ANA/IPEA, enquanto a Amazônia concentra perto de 80% das águas superficiais, o Centro-Oeste reúne cerca de 15%, Sul e Sudeste somam aproximadamente 12% e o Nordeste dispõe de cerca de 3%, registrando-se no <mark class="grifo">Atlântico Leste quase 8% da população brasileira com menos de 0,4% das águas</mark>; de forma convergente, dados divulgados pela EBC confirmam que as regiões próximas ao Atlântico detêm menos de 3% dos recursos hídricos do país.
+          </li>
+          <li>
+            <strong class="text-stone-900">Predomínio de rios de planalto, pluviais e perenes:</strong> Assentado sobre estrutura geológica antiga e altitudes predominantemente modestas entre 200 m e 600 m, o país possui majoritariamente <mark class="grifo">rios de planalto (com desníveis e quedas favoráveis à hidreletricidade)</mark>, alimentados por chuvas (<mark class="grifo">regime pluvial</mark>), de fluxo contínuo (<mark class="grifo">perenes, com exceção do semiárido nordestino, onde há rios intermitentes e temporários</mark>) e drenagem majoritariamente <mark class="grifo">exorreica</mark> para o Oceano Atlântico.
+          </li>
+          <li>
+            <strong class="text-stone-900">Cerrado como divisor continental e papel dos aquíferos:</strong> Chapadas centrais como Parecis, Guimarães e Veadeiros, além do Espigão Mestre, separam as maiores bacias sul-americanas e fazem do <mark class="grifo">Cerrado o "berço das águas"</mark> que recarrega rios e sistemas subterrâneos; segundo o resumo do relatório <em>Conjuntura 2013</em>, a reserva subterrânea potencial explotável nacional é de 11.430 m³/s e abastece 39% dos municípios, destacando-se o <mark class="grifo">Aquífero Guarani</mark> (Centro-Sul, profundo) e os sistemas sedimentares amazônicos como <mark class="grifo">Alter do Chão/SAGA</mark>.
+          </li>
+          <li>
+            <strong class="text-stone-900">Bacia natural versus Região Hidrográfica:</strong> A <mark class="grifo">bacia hidrográfica é o recorte natural</mark> que pode cruzar fronteiras internacionais (como a Amazônica e a Platina), ao passo que as <mark class="grifo">12 Regiões Hidrográficas (Resolução CNRH nº 32/2003) restringem-se ao território nacional</mark> para orientar o planejamento estatal.
+          </li>
+          <li>
+            <strong class="text-stone-900">Matriz elétrica e subutilização hidroviária:</strong> A hidreletricidade sustenta historicamente a geração elétrica nacional (<mark class="grifo-verde">112 GW em operação e construção</mark> mapeados pela EPE para 2024), enquanto o transporte fluvial utiliza apenas cerca de <mark class="grifo-verde">20,4 mil km economicamente navegados em 2024</mark> (aproximadamente 11% da matriz de transportes segundo levantamento jurídico sobre infraestrutura).
+          </li>
+          <li>
+            <strong class="text-stone-900">Irrigação como principal uso consuntivo:</strong> Levantamentos recentes da ANA (<em>Conjuntura 2024/2025</em>) registram retirada total de 2.103,6 m³/s em 2023 e de 2.098,7 m³/s em 2024, com a <mark class="grifo">irrigação respondendo por 50% de toda a água captada</mark> (chegando a <mark class="grifo">72% na medição de vazão efetivamente consumida</mark> no balanço de 2010), à frente do abastecimento humano (25%) e da indústria (9,2%).
+          </li>
+          <li>
+            <strong class="text-stone-900">Gestão descentralizada e participativa:</strong> Pela Lei nº 9.433/1997, <mark class="grifo">a água é bem público de valor econômico, gerida na unidade da bacia hidrográfica por Comitês tripartites</mark>, com <mark class="grifo">prioridade legal para consumo humano e dessedentação de animais em situações de escassez</mark>.
+          </li>
+        </ul>
+      </section>
+
+      <!-- SEÇÃO 2 -->
+      <section id="secao-2" class="scroll-mt-6 bg-white border border-stone-200 rounded-2xl p-5 sm:p-8">
+        <h2 class="text-xl sm:text-2xl font-bold text-stone-900 pb-3 mb-5 border-b border-stone-200">
+          2. Bibliografia Vinculada: Machado &amp; Torres e Jurandyr Ross
+        </h2>
+        <div class="space-y-4 text-base text-stone-800 leading-relaxed">
+          <p>
+            A bibliografia indicada no edital articula a leitura socioespacial da rede hídrica à classificação morfoestrutural do território brasileiro. Embora os registros consultados correspondam a edições anteriores ou posteriores às tiragens citadas no programa — especificamente <em>Introdução à Hidrogeografia</em> (2012/2013, citada também na edição de 2017) e <em>Geografia do Brasil</em> (edições de 2003 e 2019) —, os conceitos centrais das duas obras permanecem estáveis e orientam o raciocínio cobrado em provas de magistério.
+          </p>
+          <p>
+            Em <em>Introdução à Hidrogeografia</em>, <strong class="text-stone-900">Pedro José de Oliveira Machado e Fillipe Tamiozzo Pereira Torres</strong> diferenciam a <mark class="grifo">hidrologia</mark> — ciência voltada às propriedades físicas, à ocorrência, à circulação e à distribuição da água na atmosfera, na superfície e no subsolo — da <mark class="grifo">hidrogeografia, compreendida pelos autores como uma evolução acadêmica da hidrografia tradicional</mark>. Para a abordagem hidrogeográfica, a água integra os quatro elementos clássicos (água, terra, fogo e ar) na <mark class="grifo">produção do "espaço da água"</mark>, exigindo analisar simultaneamente os fluxos naturais do ciclo hidrológico e as transformações impostas pela sociedade. Os autores destacam a contradição histórica das cidades brasileiras: a mesma água que viabilizou a urbanização passou a ser inviabilizada por ela ao tornar-se destino final de efluentes e vetor de doenças. No plano técnico, o Capítulo 4 da obra sistematiza a <strong class="text-stone-900">bacia hidrográfica</strong> e sua hierarquização, abordando classificações de cursos d'água, padrões de drenagem, divisores de águas, área, perímetro e parâmetros morfométricos aplicados à gestão de recursos hídricos.
+          </p>
+          <p>
+            Já <em>Geografia do Brasil</em>, organizada por <strong class="text-stone-900">Jurandyr L. Sanches Ross</strong>, fornece o fundamento geomorfológico que explica por que os rios brasileiros apresentam vocações distintas para energia ou navegação. A partir de sínteses anteriores de Aroldo de Azevedo e Aziz Ab'Saber combinadas aos levantamentos do Projeto Radambrasil, Ross propôs na década de 1990 a <mark class="grifo">divisão do relevo nacional em 28 unidades agrupadas em três macroformas: planaltos</mark> (superfícies irregulares, geralmente acima de 300 m, com predomínio erosivo), <mark class="grifo">planícies</mark> (superfícies planas recentes, do Quaternário, marcadas pela deposição fluvial, lacustre ou marinha) e <mark class="grifo">depressões</mark> (formas suaves rebaixadas por erosão prolongada). Como o substrato brasileiro combina escudos cristalinos pré-cambrianos antiquíssimos (cerca de dois bilhões de anos) e bacias sedimentares erodidas, sem dobramentos modernos, predominam altitudes entre 200 m e 600 m.
+          </p>
+          <p>
+            Essa configuração geomorfológica descrita na obra de Ross repercute diretamente sobre a hidrografia: nos <mark class="grifo">extensos planaltos cristalinos e arenito-basálticos do Sudeste, Sul e Nordeste, os rios exibem corredeiras e cachoeiras que restringem a navegação natural, mas criam elevado potencial hidrelétrico</mark>. Em contrapartida, nas <mark class="grifo">grandes planícies</mark> — como a Planície Amazônica, a Planície do Rio Araguaia (onde se situa a Ilha do Bananal, com cerca de 20.000 km²) e a Planície do Pantanal (em torno de 100 m de altitude e em contínua sedimentação) —, <mark class="grifo">os rios apresentam baixa declividade e extensos trechos navegáveis</mark>. Na regionalização física clássica associada a essa tradição bibliográfica, destacam-se a Bacia Amazônica, a do Tocantins-Araguaia, a do São Francisco e a Bacia Platina (cerca de 4 milhões de km² sul-americanos reunindo Paraná, Paraguai e Uruguai), diferindo do recorte administrativo-territorial adotado posteriormente pelo Conselho Nacional de Recursos Hídricos.
+          </p>
+        </div>
+      </section>
+
+      <!-- SEÇÃO 3 -->
+      <section id="secao-3" class="scroll-mt-6 bg-white border border-stone-200 rounded-2xl p-5 sm:p-8">
+        <h2 class="text-xl sm:text-2xl font-bold text-stone-900 pb-3 mb-5 border-b border-stone-200">
+          3. As 12 Regiões Hidrográficas do Brasil na Resolução CNRH nº 32/2003
+        </h2>
+        <div class="space-y-4 text-base text-stone-800 leading-relaxed mb-6">
+          <p>
+            Para viabilizar a governança hídrica em escala nacional, o Conselho Nacional de Recursos Hídricos (CNRH) editou a <mark class="grifo">Resolução nº 32, de 15 de outubro de 2003</mark> (publicada em 17 de dezembro de 2003), instituindo a <mark class="grifo">Divisão Hidrográfica Nacional em 12 Regiões Hidrográficas</mark>. O parágrafo único do Art. 1º conceitua <strong class="text-stone-900">região hidrográfica</strong> como o espaço territorial brasileiro formado por uma bacia, grupo de bacias ou sub-bacias hidrográficas contíguas com características naturais, sociais e econômicas homogêneas ou similares, destinado a orientar e fundamentar o Plano Nacional de Recursos Hídricos (PNRH). Como o escoamento fluvial não respeita fronteiras entre estados ou municípios, a gestão hídrica exige coordenação interfederativa distinta da divisão político-administrativa. No ciclo preparatório do PNRH 2022–2040, a ANA manteve essas <mark class="grifo-verde">12 regiões como macrorregiões</mark> e apresentou o desdobramento técnico em <mark class="grifo-verde">54 mesorregiões e 302 microrregiões hidrográficas</mark>.
+          </p>
+          <p>
+            Embora o texto oficial da Resolução CNRH nº 32/2003 defina integralmente os limites geográficos das 12 regiões e estudos da ANA quantifiquem os maiores sistemas do país, os documentos compilados para esta análise não reúnem uma série padronizada com área exata e vazão média individualizada para todas as regiões menores (como Atlântico Nordeste Ocidental, Atlântico Nordeste Oriental, Atlântico Leste, Atlântico Sudeste, Atlântico Sul, Uruguai e Paraguai). O quadro abaixo consolida a delimitação normativa oficial e as características verificadas de cada região:
+          </p>
+        </div>
+
+        <!-- Tabela 1: 12 Regiões Hidrográficas (100% visível sem scroll horizontal) -->
+        <div class="my-6 border border-stone-300 rounded-xl overflow-hidden bg-white">
+          <table class="w-full text-left border-collapse">
+            <colgroup>
+              <col class="w-[18%]">
+              <col class="w-[25%]">
+              <col class="w-[24%]">
+              <col class="w-[33%]">
+            </colgroup>
+            <thead>
+              <tr class="bg-stone-100 border-b border-stone-300 text-stone-900 text-xs sm:text-sm font-semibold">
+                <th class="p-2 sm:p-3 border-r border-stone-200 align-top">Região Hidrográfica (CNRH nº 32/2003)</th>
+                <th class="p-2 sm:p-3 border-r border-stone-200 align-top">Delimitação Oficial (Anexo II)</th>
+                <th class="p-2 sm:p-3 border-r border-stone-200 align-top">Dados Quantitativos Verificados</th>
+                <th class="p-2 sm:p-3 align-top">Atributos Físicos, Econômicos e Pontos de Prova</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-stone-200 text-xs sm:text-sm text-stone-800 leading-snug">
+              <tr class="bg-white">
+                <td class="p-2 sm:p-3 border-r border-stone-200 font-semibold text-stone-900 align-top">Amazônica</td>
+                <td class="p-2 sm:p-3 border-r border-stone-200 align-top">Bacia do rio Amazonas em território nacional, bacias da Ilha de Marajó e rios do Amapá que deságuam no Atlântico Norte.</td>
+                <td class="p-2 sm:p-3 border-r border-stone-200 align-top">~3,84 a 3,87 milhões de km² no Brasil (~45% do território; bacia internacional de 7.008.370 km² em 7 países); <mark class="grifo">vazão média nacional ~108.982 a 109.000 m³/s</mark> (descarga na foz ~180.000 m³/s).</td>
+                <td class="p-2 sm:p-3 align-top"><mark class="grifo">Maior vazão fluvial do planeta (~18%–20% da água doce fluvial aos oceanos)</mark>; clima equatorial (~2.234 mm/ano); abrange 7 estados (AC, AM, AP, RO, RR, PA, MT); baixa ocupação (2,51 hab/km² em 2010); rios de planície navegáveis e afluentes com <mark class="grifo">maior potencial hidrelétrico inexplorado (Madeira, Tapajós, Xingu)</mark>.</td>
+              </tr>
+              <tr class="bg-stone-50/40">
+                <td class="p-2 sm:p-3 border-r border-stone-200 font-semibold text-stone-900 align-top">Tocantins-Araguaia</td>
+                <td class="p-2 sm:p-3 border-r border-stone-200 align-top">Bacia hidrográfica do rio Tocantins até sua foz no Oceano Atlântico.</td>
+                <td class="p-2 sm:p-3 border-r border-stone-200 align-top">Área de <mark class="grifo-verde">918.273 km² (~10,8% do Brasil)</mark>; Araguaia ~2.600 km e Tocantins ~1.960 km.</td>
+                <td class="p-2 sm:p-3 align-top"><mark class="grifo">Maior região hidrográfica totalmente brasileira</mark>; cobre GO, TO, PA, MA, MT e DF entre Cerrado e Amazônia; abriga a Ilha do Bananal (maior ilha fluvial do mundo) e a <mark class="grifo">UHE Tucuruí (8.370 MW)</mark>; relevante eixo agropecuário e hidroviário.</td>
+              </tr>
+              <tr class="bg-white">
+                <td class="p-2 sm:p-3 border-r border-stone-200 font-semibold text-stone-900 align-top">Atlântico Nordeste Ocidental</td>
+                <td class="p-2 sm:p-3 border-r border-stone-200 align-top">Bacias que deságuam no Atlântico trecho Nordeste, entre a RH Tocantins-Araguaia (exclusive) a oeste e a RH Parnaíba a leste.</td>
+                <td class="p-2 sm:p-3 border-r border-stone-200 align-top text-stone-600">Dados individuais específicos de área e vazão não constam nas fontes compiladas.</td>
+                <td class="p-2 sm:p-3 align-top">Faixa de transição hidroclimática entre a Amazônia Oriental e o Meio-Norte nordestino.</td>
+              </tr>
+              <tr class="bg-stone-50/40">
+                <td class="p-2 sm:p-3 border-r border-stone-200 font-semibold text-stone-900 align-top">Parnaíba</td>
+                <td class="p-2 sm:p-3 border-r border-stone-200 align-top">Bacia hidrográfica do rio Parnaíba.</td>
+                <td class="p-2 sm:p-3 border-r border-stone-200 align-top"><mark class="grifo">Menor vazão média entre as 12 regiões</mark> no estudo <em>Geo Brasil</em>: 753 m³/s.</td>
+                <td class="p-2 sm:p-3 align-top">Bacia nordestina estratégica de transição entre o semiárido e o meio-norte.</td>
+              </tr>
+              <tr class="bg-white">
+                <td class="p-2 sm:p-3 border-r border-stone-200 font-semibold text-stone-900 align-top">Atlântico Nordeste Oriental</td>
+                <td class="p-2 sm:p-3 border-r border-stone-200 align-top">Bacias que deságuam no Atlântico trecho Nordeste, limitada a oeste pela RH Parnaíba e ao sul pela RH São Francisco.</td>
+                <td class="p-2 sm:p-3 border-r border-stone-200 align-top text-stone-600">Dados individuais específicos de área e vazão não constam nas fontes compiladas.</td>
+                <td class="p-2 sm:p-3 align-top"><mark class="grifo">Predomínio de rios intermitentes do semiárido setentrional</mark> (como a bacia do Jaguaribe, no CE); <mark class="grifo">receptora das águas do PISF</mark>; projeção da ANA indica redução superior a 30%–40% nas vazões até 2040.</td>
+              </tr>
+              <tr class="bg-stone-50/40">
+                <td class="p-2 sm:p-3 border-r border-stone-200 font-semibold text-stone-900 align-top">São Francisco</td>
+                <td class="p-2 sm:p-3 border-r border-stone-200 align-top">Bacia hidrográfica do rio São Francisco.</td>
+                <td class="p-2 sm:p-3 border-r border-stone-200 align-top">Área de <mark class="grifo-verde">638.324 km² (8% do país), 100% nacional</mark>; extensão entre ~2.800 e 3.161 km; densidade de 20 hab/km².</td>
+                <td class="p-2 sm:p-3 align-top">Nasce em Minas Gerais; subdivide-se a partir do Alto (17%, até Pirapora/MG) e do Médio (50%, até Remanso/BA), seguindo até o Atlântico; abrange BA (48,2%), MG (36,8%), PE (10,9%), AL (2,3%), SE (1,1%), GO (0,5%) e DF (0,2%); central para irrigação, energia e PISF.</td>
+              </tr>
+              <tr class="bg-white">
+                <td class="p-2 sm:p-3 border-r border-stone-200 font-semibold text-stone-900 align-top">Atlântico Leste</td>
+                <td class="p-2 sm:p-3 border-r border-stone-200 align-top">Bacias que deságuam no Atlântico trecho Leste, limitadas ao norte/oeste pela RH São Francisco e ao sul pelas bacias de Jequitinhonha, Mucuri e São Mateus, inclusive.</td>
+                <td class="p-2 sm:p-3 border-r border-stone-200 align-top">Segundo síntese didática com base na ANA/IPEA, reúne <mark class="grifo">quase 8% da população e menos de 0,4% da água superficial</mark>.</td>
+                <td class="p-2 sm:p-3 align-top">Severo déficit hídrico relativo em áreas densamente povoadas (como Salvador e Aracaju) e zonas semiáridas.</td>
+              </tr>
+              <tr class="bg-stone-50/40">
+                <td class="p-2 sm:p-3 border-r border-stone-200 font-semibold text-stone-900 align-top">Atlântico Sudeste</td>
+                <td class="p-2 sm:p-3 border-r border-stone-200 align-top">Bacias que deságuam no Atlântico trecho Sudeste, da bacia do rio Doce (inclusive, ao norte) até a bacia do rio Ribeira (inclusive, ao sul), limitadas a oeste por São Francisco e Paraná.</td>
+                <td class="p-2 sm:p-3 border-r border-stone-200 align-top text-stone-600">Dados individuais específicos de área e vazão não constam nas fontes compiladas.</td>
+                <td class="p-2 sm:p-3 align-top">Drena áreas altamente urbanizadas e industrializadas do Sudeste; inclui o rio Doce e o <mark class="grifo">Paraíba do Sul, cujo comitê (CEIVAP) foi pioneiro na regulamentação da cobrança</mark> pelo uso da água a partir de 2002.</td>
+              </tr>
+              <tr class="bg-white">
+                <td class="p-2 sm:p-3 border-r border-stone-200 font-semibold text-stone-900 align-top">Paraná</td>
+                <td class="p-2 sm:p-3 border-r border-stone-200 align-top">Bacia hidrográfica do rio Paraná situada no território nacional.</td>
+                <td class="p-2 sm:p-3 border-r border-stone-200 align-top">Cerca de <mark class="grifo-verde">10% do território nacional</mark>, drenando áreas do Sudeste, Sul e Centro-Oeste (com destaque para SP e PR).</td>
+                <td class="p-2 sm:p-3 align-top"><mark class="grifo">Reúne a região mais populosa e industrializada do Brasil; concentra grandes cascatas hidrelétricas (Itaipu, Grande, Paranaíba, Tietê, Paranapanema e Iguaçu)</mark> e a Hidrovia Paraná-Tietê; forte pressão urbana e agrícola.</td>
+              </tr>
+              <tr class="bg-stone-50/40">
+                <td class="p-2 sm:p-3 border-r border-stone-200 font-semibold text-stone-900 align-top">Uruguai</td>
+                <td class="p-2 sm:p-3 border-r border-stone-200 align-top">Bacia do rio Uruguai em território nacional, limitada ao norte pela RH Paraná, a oeste pela Argentina e ao sul pelo Uruguai.</td>
+                <td class="p-2 sm:p-3 border-r border-stone-200 align-top text-stone-600">Dados individuais específicos de área e vazão não constam nas fontes compiladas.</td>
+                <td class="p-2 sm:p-3 align-top">Rios sulinos com forte aproveitamento energético e influência agropecuária; <mark class="grifo">junto ao Atlântico Sul, é uma das únicas duas regiões sem projeção de queda generalizada de vazão Q95 até 2040</mark>.</td>
+              </tr>
+              <tr class="bg-white">
+                <td class="p-2 sm:p-3 border-r border-stone-200 font-semibold text-stone-900 align-top">Atlântico Sul</td>
+                <td class="p-2 sm:p-3 border-r border-stone-200 align-top">Bacias que deságuam no Atlântico trecho Sul, ao sul da RH Atlântico Sudeste, limitadas a oeste por Paraná e Uruguai e ao sul pelo Uruguai.</td>
+                <td class="p-2 sm:p-3 border-r border-stone-200 align-top text-stone-600">Dados individuais específicos de área e vazão não constam nas fontes compiladas.</td>
+                <td class="p-2 sm:p-3 align-top">Abrange rios de direção oeste-leste entre serras e oceano (Itajaí em SC; Jacuí e Camaquã no RS), além da planície costeira e hidrovia das lagoas dos Patos e Mirim; sem tendência de redução de Q95 até 2040 no estudo da ANA.</td>
+              </tr>
+              <tr class="bg-stone-50/40">
+                <td class="p-2 sm:p-3 border-r border-stone-200 font-semibold text-stone-900 align-top">Paraguai</td>
+                <td class="p-2 sm:p-3 border-r border-stone-200 align-top">Bacia hidrográfica do rio Paraguai situada no território nacional.</td>
+                <td class="p-2 sm:p-3 border-r border-stone-200 align-top text-stone-600">Dados individuais de área e vazão não constam nas fontes compiladas (operador privado de referência movimenta quase 6 milhões de t/ano na Hidrovia Paraguai-Paraná).</td>
+                <td class="p-2 sm:p-3 align-top">Localizada no Centro-Oeste (MT e MS); <mark class="grifo">rios de planície que sustentam o pulso sazonal de inundação do Pantanal</mark> e o escoamento de grãos, fertilizantes e minério de ferro; sensível a secas, assoreamento e projetos de dragagem.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p class="text-base text-stone-800 leading-relaxed">
+          Para a prova objetiva, <mark class="grifo">quatro comparações entre regiões</mark> merecem memorização imediata. Em primeiro lugar, não se deve confundir a <strong class="text-stone-900">RH Amazônica</strong> com a <strong class="text-stone-900">RH Tocantins-Araguaia</strong>: a <mark class="grifo">UHE Tucuruí (8.370 MW, no rio Tocantins) pertence à região Tocantins-Araguaia, que é a maior bacia integralmente localizada em território brasileiro, e não à bacia amazônica</mark>. Em segundo lugar, a <strong class="text-stone-900">RH do Paraná</strong> ocupa apenas cerca de 10% do país, mas <mark class="grifo">lidera em aproveitamento hidrelétrico instalado</mark> por localizar-se no eixo urbano-industrial mais demandante, ao passo que a <strong class="text-stone-900">RH Amazônica</strong> detém a <mark class="grifo">maior vazão mundial e a principal reserva potencial não explorada</mark>. Em terceiro lugar, embora na geografia física tradicional Paraná, Paraguai e Uruguai componham a Bacia Platina, na gestão estatal brasileira <mark class="grifo">cada uma constitui uma Região Hidrográfica autônoma</mark>. Por fim, a <strong class="text-stone-900">RH do São Francisco</strong> sofreu redução drástica de disponibilidade na última década, tendo sua vazão de retirada caído três vezes entre 2013 e 2017 (de 1.600 m³/s para 550 m³/s, segundo relatório de gestão da ANA).
+        </p>
+      </section>
+
+      <!-- SEÇÃO 4 -->
+      <section id="secao-4" class="scroll-mt-6 bg-white border border-stone-200 rounded-2xl p-5 sm:p-8">
+        <h2 class="text-xl sm:text-2xl font-bold text-stone-900 pb-3 mb-5 border-b border-stone-200">
+          4. Potencial Hidrelétrico versus Potencial Hidroviário Nacional
+        </h2>
+        <div class="space-y-4 text-base text-stone-800 leading-relaxed mb-6">
+          <p>
+            A <mark class="grifo">relação inversa entre gerar eletricidade e navegar no Brasil decorre diretamente do relevo</mark>. Embora a hidreletricidade forme historicamente a base da matriz elétrica brasileira — chegando a cerca de 76,6% da capacidade instalada em balanço acadêmico de décadas anteriores e somando <mark class="grifo-verde">112 GW em operação e construção</mark> no levantamento da Empresa de Pesquisa Energética (EPE, maio de 2024) —, o aproveitamento intensivo dos rios de planalto do Centro-Sul deslocou a fronteira de expansão para a Amazônia, onde predominam obstáculos logísticos, hidrológicos e socioambientais.
+          </p>
+          <p>
+            Segundo o <em>Caderno de Estudos: Um olhar para as usinas hidrelétricas</em> (EPE, janeiro de 2025), o <mark class="grifo-verde">potencial hidrelétrico mapeado para o Plano Nacional de Energia (PNE 2055) totaliza 178 GW</mark>, divididos entre os 112 GW já em operação ou construção e <mark class="grifo-verde">66 GW de potencial estudado remanescente, dos quais 52 GW correspondem a grandes usinas (acima de 30 MW)</mark> distribuídas em 201 eixos disponíveis para estudos. Desse universo de 52 GW, <mark class="grifo">62% concentram-se na Região Hidrográfica Amazônica</mark> (61% na Região Norte) e 49% pertencem a empreendimentos superiores a 1.000 MW. Contudo, a baixa declividade amazônica impõe projetos a <mark class="grifo">fio d'água</mark> sujeitos a forte queda sazonal na estiagem — em Belo Monte (11.233 MW, no rio Xingu), sílabas didáticas indicam que a geração firme cai para cerca de 40% na seca —, exige longas linhas de transmissão até os centros consumidores e esbarra em restrições territoriais severas: <mark class="grifo">77% dos 52 GW estudados interferem em Unidades de Conservação, Terras Indígenas ou Terras Quilombolas</mark>, razão pela qual apenas 33% dos eixos possuem interessados e, dentre estes, 42% estão com estudos paralisados.
+          </p>
+          <p>
+            Enquanto a energia hidrelétrica já mobilizou a maior parte dos sítios acessíveis no Centro-Sul, o transporte hidroviário brasileiro permanece subutilizado diante do domínio rodoviário. De uma rede fluvial de cerca de 63 mil km no Brasil (com estimativas de trechos potencialmente navegáveis que variam entre 27 mil km e mais de 40 mil km conforme os critérios técnicos adotados), a extensão das <strong class="text-stone-900">Vias Economicamente Navegadas (VEN)</strong> atingiu <mark class="grifo-verde">20,4 mil km em 2024</mark> segundo a ANTAQ, após ampliação modesta de 279 km (+1,39%) em relação a 2022. Em termos de participação logística, estima-se em publicação jurídica especializada que o modal responda por cerca de <mark class="grifo-verde">11% da matriz de transportes nacional</mark>, tendo a navegação interior produzido 42,70 bilhões de toneladas-quilômetros úteis (TKU) em 2025, com crescimento de 23,46% na navegação de longo curso e de 9,64% na cabotagem em vias interiores entre 2024 e 2025.
+          </p>
+        </div>
+
+        <!-- Tabela 2: Potencial Hidrelétrico vs Hidroviário (100% visível sem scroll horizontal) -->
+        <div class="my-6 border border-stone-300 rounded-xl overflow-hidden bg-white">
+          <table class="w-full text-left border-collapse">
+            <colgroup>
+              <col class="w-[22%]">
+              <col class="w-[39%]">
+              <col class="w-[39%]">
+            </colgroup>
+            <thead>
+              <tr class="bg-stone-100 border-b border-stone-300 text-stone-900 text-xs sm:text-sm font-semibold">
+                <th class="p-2 sm:p-3 border-r border-stone-200 align-top">Critério Comparativo</th>
+                <th class="p-2 sm:p-3 border-r border-stone-200 align-top">Potencial Hidrelétrico Nacional</th>
+                <th class="p-2 sm:p-3 align-top">Potencial Hidroviário Nacional</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-stone-200 text-xs sm:text-sm text-stone-800 leading-snug">
+              <tr class="bg-white">
+                <td class="p-2 sm:p-3 border-r border-stone-200 font-semibold text-stone-900 align-top">Condição geomorfológica</td>
+                <td class="p-2 sm:p-3 border-r border-stone-200 align-top"><mark class="grifo">Rios de planalto</mark> com desníveis, corredeiras e cachoeiras que potencializam a queda d'água.</td>
+                <td class="p-2 sm:p-3 align-top"><mark class="grifo">Rios de planície</mark> largos e pouco declivosos, propícios a grandes comboios de carga.</td>
+              </tr>
+              <tr class="bg-stone-50/40">
+                <td class="p-2 sm:p-3 border-r border-stone-200 font-semibold text-stone-900 align-top">Bacia/região de maior uso</td>
+                <td class="p-2 sm:p-3 border-r border-stone-200 align-top"><mark class="grifo">Região Hidrográfica do Paraná</mark> destaca-se na literatura pelo maior aproveitamento instalado (grandes usinas como Itaipu).</td>
+                <td class="p-2 sm:p-3 align-top"><mark class="grifo">Hidrovia Solimões-Amazonas</mark> lidera em cargas brutas (57,5 milhões de t em 2019), seguida pela Tocantins-Araguaia (32,4 milhões de t em 2019).</td>
+              </tr>
+              <tr class="bg-white">
+                <td class="p-2 sm:p-3 border-r border-stone-200 font-semibold text-stone-900 align-top">Fronteira de expansão e entraves</td>
+                <td class="p-2 sm:p-3 border-r border-stone-200 align-top">62% dos 52 GW estudados (&gt;30 MW) estão na RH Amazônica, mas 77% interferem em áreas protegidas e 42% dos estudos ativos pararam.</td>
+                <td class="p-2 sm:p-3 align-top">Apenas 20,4 mil km economicamente navegáveis em 2024 (~11% da matriz); depende de <mark class="grifo">dragagem, derrocamento e eclusas</mark>.</td>
+              </tr>
+              <tr class="bg-stone-50/40">
+                <td class="p-2 sm:p-3 border-r border-stone-200 font-semibold text-stone-900 align-top">Impactos e externalidades</td>
+                <td class="p-2 sm:p-3 border-r border-stone-200 align-top">Deslocamento populacional, alteração de ecossistemas e perdas por evaporação em reservatórios.</td>
+                <td class="p-2 sm:p-3 align-top">Emite 4 a 5 vezes menos poluentes que rodovias e 1,5 vez menos carbono que ferrovias, mas gera debates ambientais sobre dragagens e comunidades tradicionais.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p class="text-base text-stone-800 leading-relaxed">
+          A compatibilização entre energia e navegação depende de obras de transposição de desnível chamadas <mark class="grifo">eclusas</mark>. Sempre que uma barragem hidrelétrica é construída sem eclusa, o rio fica seccionado e inviabilizado como corredor contínuo. O principal exemplo brasileiro de uso múltiplo integrado ocorre na <mark class="grifo">Hidrovia Paraná–Tietê</mark> (aproximadamente 1.035 km de extensão), cujo sistema paulista articula 803 km sob gestão estadual e 230 km sob gestão federal por meio de <mark class="grifo-verde">9 barragens e 10 eclusas</mark>. Para ampliar a malha navegável, o governo federal anunciou em janeiro de 2025 carteira de concessões para as hidrovias do Madeira, Paraguai, Lagoa Mirim, Barra Norte, Tocantins (cerca de 2,4 mil km previstos para licitação até o fim de 2026) e Tapajós (~250 km entre Itaituba e Santarém), assumindo na COP-30 (Belém, 2025) o compromisso de realizar consulta livre, prévia e informada às comunidades tradicionais na Amazônia. Na Hidrovia do Paraguai, por outro lado, entidades socioambientais como o SOS Pantanal (em nota técnica de 2026) alertam que dragagens de aprofundamento podem alterar o pulso natural de inundação do Pantanal, defendendo navegação adaptativa compatível com os ciclos hidrológicos.
+        </p>
+      </section>
+
+      <!-- SEÇÃO 5 -->
+      <section id="secao-5" class="scroll-mt-6 bg-white border border-stone-200 rounded-2xl p-5 sm:p-8">
+        <h2 class="text-xl sm:text-2xl font-bold text-stone-900 pb-3 mb-5 border-b border-stone-200">
+          5. Política Nacional de Recursos Hídricos e Instrumentos da Lei nº 9.433/1997
+        </h2>
+        <div class="space-y-4 text-base text-stone-800 leading-relaxed mb-6">
+          <p>
+            Sancionada em 8 de janeiro de 1997, a <mark class="grifo">Lei nº 9.433 (Lei das Águas)</mark> regulamentou o inciso XIX do art. 21 da Constituição Federal ao instituir a Política Nacional de Recursos Hídricos (PNRH) e criar o Sistema Nacional de Gerenciamento de Recursos Hídricos (SINGREH). Nos fundamentos estabelecidos pelo <strong class="text-stone-900">Art. 1º</strong>, a lei define que: a <mark class="grifo">água é um bem de domínio público</mark> (inalienável, sob titularidade da União ou dos Estados/DF); trata-se de um <mark class="grifo">recurso natural limitado, dotado de valor econômico</mark>; <mark class="grifo">em situações de escassez, o uso prioritário é o consumo humano e a dessedentação de animais</mark>; e a gestão deve sempre assegurar o <mark class="grifo">uso múltiplo das águas</mark>. Além desses incisos literais reproduzidos nos trechos analisados, a implantação da política apoia-se nos princípios basilares da <mark class="grifo">bacia hidrográfica como unidade territorial de gestão</mark> e da <mark class="grifo">gestão descentralizada com participação do Poder Público, dos usuários e das comunidades</mark>. Em atualização legislativa recente, a <mark class="grifo-verde">Lei nº 15.269/2025</mark> inseriu nos capítulos introdutórios da Lei nº 9.433/1997 (imediatamente antes do Capítulo III) o dispositivo voltado a garantir a segurança hídrica e energética mediante incentivo e promoção de obras de acumulação de água.
+          </p>
+          <p>
+            Os instrumentos operacionais da política constam do <strong class="text-stone-900">Art. 5º</strong> da Lei nº 9.433/1997: (I) os Planos de Recursos Hídricos; (II) o <mark class="grifo">enquadramento dos corpos de água em classes</mark>, segundo os usos preponderantes; (III) a <mark class="grifo">outorga dos direitos de uso de recursos hídricos</mark>; (IV) a <mark class="grifo">cobrança pelo uso de recursos hídricos</mark>; (V) a compensação a municípios (cujo capítulo específico na lei original foi vetado); e (VI) o Sistema de Informações sobre Recursos Hídricos, estruturado sob os princípios de descentralização na coleta de dados, coordenação unificada e acesso público garantido à sociedade.
+          </p>
+          <p>
+            No plano institucional, o <strong class="text-stone-900">SINGREH</strong> (Arts. 32 a 44) tem como objetivos coordenar a gestão integrada das águas, <mark class="grifo">arbitrar administrativamente conflitos</mark>, implementar a PNRH, planejar e regular o uso, a preservação e a recuperação hídrica e promover a cobrança. A <strong class="text-stone-900">Agência Nacional de Águas e Saneamento Básico (ANA)</strong>, criada pela Lei nº 9.984/2000 e renomeada pelo Marco do Saneamento de 2020, coordena o sistema em âmbito federal e outorga direitos de uso em corpos d'água de domínio da União. Na escala local ou regional da bacia atuam os <strong class="text-stone-900">Comitês de Bacia Hidrográfica (CBHs)</strong> — cuja área abrange a totalidade de uma bacia, sub-bacia de tributário ou grupo de bacias contíguas —, funcionando como <mark class="grifo">colegiados deliberativos de composição tripartite entre Poder Público (União, Estados/DF e Municípios), usuários e sociedade civil</mark> (Art. 39 da Lei nº 9.433/1997 e Resolução CNRH nº 5/2000). Das deliberações dos Comitês cabe recurso ao CNRH ou aos Conselhos Estaduais de Recursos Hídricos. Já as <strong class="text-stone-900">Agências de Água</strong> atuam como secretaria executiva (mantendo balanço de disponibilidade, cadastro de usuários e executando a cobrança mediante delegação), mas sua criação exige obrigatoriamente <mark class="grifo">dois requisitos cumulativos no Art. 43: existência prévia do(s) respectivo(s) Comitê(s) de Bacia e viabilidade financeira assegurada pela cobrança em sua área de atuação</mark>.
+          </p>
+        </div>
+
+        <!-- Tabela 3: Instrumentos Art. 5º (100% visível sem scroll horizontal) -->
+        <div class="my-6 border border-stone-300 rounded-xl overflow-hidden bg-white">
+          <table class="w-full text-left border-collapse">
+            <colgroup>
+              <col class="w-[20%]">
+              <col class="w-[25%]">
+              <col class="w-[31%]">
+              <col class="w-[24%]">
+            </colgroup>
+            <thead>
+              <tr class="bg-stone-100 border-b border-stone-300 text-stone-900 text-xs sm:text-sm font-semibold">
+                <th class="p-2 sm:p-3 border-r border-stone-200 align-top">Instrumento (Art. 5º)</th>
+                <th class="p-2 sm:p-3 border-r border-stone-200 align-top">Finalidade Legal</th>
+                <th class="p-2 sm:p-3 border-r border-stone-200 align-top">Regras, Prazos e Limites em Prova</th>
+                <th class="p-2 sm:p-3 align-top">Erro Frequente em Questões</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-stone-200 text-xs sm:text-sm text-stone-800 leading-snug">
+              <tr class="bg-white">
+                <td class="p-2 sm:p-3 border-r border-stone-200 font-semibold text-stone-900 align-top">Enquadramento (Art. 9º; CONAMA nº 357/2005)</td>
+                <td class="p-2 sm:p-3 border-r border-stone-200 align-top">Assegurar qualidade compatível com os usos mais exigentes e diminuir custos de combate à poluição por ações preventivas.</td>
+                <td class="p-2 sm:p-3 border-r border-stone-200 align-top"><mark class="grifo">Estabelece meta/objetivo obrigatório futuro (classe)</mark>, equilibrando o "rio que temos" com o "rio que queremos/podemos ter".</td>
+                <td class="p-2 sm:p-3 align-top">Tratar o enquadramento como simples fotografia da qualidade atual do rio, e não como meta a ser alcançada ou mantida.</td>
+              </tr>
+              <tr class="bg-stone-50/40">
+                <td class="p-2 sm:p-3 border-r border-stone-200 font-semibold text-stone-900 align-top">Outorga de direito de uso (Arts. 11–18)</td>
+                <td class="p-2 sm:p-3 border-r border-stone-200 align-top">Controlar quantitativa e qualitativamente os usos e assegurar o efetivo exercício dos direitos de acesso à água.</td>
+                <td class="p-2 sm:p-3 border-r border-stone-200 align-top"><mark class="grifo-verde">Prazo máximo de até 35 anos, renovável (Art. 16)</mark>; <mark class="grifo">não implica alienação das águas (Art. 18)</mark>; suspensão por não uso por 3 anos seguidos, descumprimento, grave degradação ou manutenção da navegabilidade; dispensa para pequenos núcleos rurais e usos/acumulações insignificantes; <mark class="grifo-verde">multa atualizada pela Lei nº 14.066/2020 de R$ 100 a R$ 50 milhões</mark>.</td>
+                <td class="p-2 sm:p-3 align-top">Afirmar que a outorga transfere propriedade privada da água ou tem prazo vitalício, ou ignorar que o lançamento/diluição de efluentes também exige outorga.</td>
+              </tr>
+              <tr class="bg-white">
+                <td class="p-2 sm:p-3 border-r border-stone-200 font-semibold text-stone-900 align-top">Cobrança pelo uso da água (Arts. 19–22)</td>
+                <td class="p-2 sm:p-3 border-r border-stone-200 align-top">Reconhecer a água como bem econômico, incentivar a racionalização do uso e financiar ações dos Planos de Recursos Hídricos.</td>
+                <td class="p-2 sm:p-3 border-r border-stone-200 align-top"><mark class="grifo">Aplicação prioritária dos valores na própria bacia onde foram gerados</mark>; <mark class="grifo-verde">custeio administrativo e implantação dos órgãos do SINGREH limitados a 7,5% do total arrecadado (Art. 22)</mark>.</td>
+                <td class="p-2 sm:p-3 align-top">Confundir a cobrança pelo uso da água bruta (instrumento da bacia) com tarifa de água tratada/esgoto das concessionárias urbanas.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p class="text-base text-stone-800 leading-relaxed mb-6">
+          O enquadramento apoia-se na <mark class="grifo">Resolução CONAMA nº 357/2005</mark>, que classifica os corpos superficiais do território nacional em <mark class="grifo-verde">13 classes de qualidade</mark>, segmentadas por salinidade em águas doces (≤ 0,5 ‰), salobras (&gt; 0,5 ‰ e &lt; 30 ‰) e salinas (≥ 30 ‰). Nas provas objetivas, as <mark class="grifo">cinco classes das águas doces (Art. 4º)</mark> concentram a quase totalidade das questões sobre potabilização e usos múltiplos:
+        </p>
+
+        <!-- Tabela 4: Classes de Água Doce CONAMA 357/2005 (100% visível sem scroll horizontal) -->
+        <div class="border border-stone-300 rounded-xl overflow-hidden bg-white">
+          <table class="w-full text-left border-collapse">
+            <colgroup>
+              <col class="w-[22%]">
+              <col class="w-[28%]">
+              <col class="w-[50%]">
+            </colgroup>
+            <thead>
+              <tr class="bg-stone-100 border-b border-stone-300 text-stone-900 text-xs sm:text-sm font-semibold">
+                <th class="p-2 sm:p-3 border-r border-stone-200 align-top">Classe de Água Doce (CONAMA nº 357/2005, Art. 4º)</th>
+                <th class="p-2 sm:p-3 border-r border-stone-200 align-top">Exigência de Tratamento para Consumo Humano</th>
+                <th class="p-2 sm:p-3 align-top">Usos Preponderantes Permitidos</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-stone-200 text-xs sm:text-sm text-stone-800 leading-snug">
+              <tr class="bg-white">
+                <td class="p-2 sm:p-3 border-r border-stone-200 font-semibold text-stone-900 align-top">Classe Especial</td>
+                <td class="p-2 sm:p-3 border-r border-stone-200 align-top"><mark class="grifo">Apenas desinfecção</mark>.</td>
+                <td class="p-2 sm:p-3 align-top">Preservação do equilíbrio natural das comunidades aquáticas e <mark class="grifo">preservação dos ambientes aquáticos em Unidades de Conservação de Proteção Integral</mark>.</td>
+              </tr>
+              <tr class="bg-stone-50/40">
+                <td class="p-2 sm:p-3 border-r border-stone-200 font-semibold text-stone-900 align-top">Classe 1</td>
+                <td class="p-2 sm:p-3 border-r border-stone-200 align-top"><mark class="grifo">Tratamento simplificado</mark>.</td>
+                <td class="p-2 sm:p-3 align-top">Proteção de comunidades aquáticas (inclusive em Terras Indígenas); recreação de contato primário (natação, esqui, mergulho); irrigação de hortaliças consumidas cruas e frutas rentes ao solo ingeridas sem remoção de película.</td>
+              </tr>
+              <tr class="bg-white">
+                <td class="p-2 sm:p-3 border-r border-stone-200 font-semibold text-stone-900 align-top">Classe 2</td>
+                <td class="p-2 sm:p-3 border-r border-stone-200 align-top"><mark class="grifo">Tratamento convencional</mark>.</td>
+                <td class="p-2 sm:p-3 align-top">Proteção de comunidades aquáticas; recreação de contato primário; irrigação de hortaliças, frutíferas, parques e jardins com contato direto; aquicultura e pesca.</td>
+              </tr>
+              <tr class="bg-stone-50/40">
+                <td class="p-2 sm:p-3 border-r border-stone-200 font-semibold text-stone-900 align-top">Classe 3</td>
+                <td class="p-2 sm:p-3 border-r border-stone-200 align-top"><mark class="grifo">Tratamento convencional ou avançado</mark>.</td>
+                <td class="p-2 sm:p-3 align-top">Irrigação de culturas arbóreas, cerealíferas e forrageiras; pesca amadora; recreação de contato secundário; dessedentação de animais.</td>
+              </tr>
+              <tr class="bg-white">
+                <td class="p-2 sm:p-3 border-r border-stone-200 font-semibold text-stone-900 align-top">Classe 4</td>
+                <td class="p-2 sm:p-3 border-r border-stone-200 align-top"><mark class="grifo">Imprópria para abastecimento humano direto</mark> (uso altamente restrito).</td>
+                <td class="p-2 sm:p-3 align-top"><mark class="grifo">Exclusivamente navegação e harmonia paisagística</mark>.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- SEÇÃO 6 -->
+      <section id="secao-6" class="scroll-mt-6 bg-white border border-stone-200 rounded-2xl p-5 sm:p-8">
+        <h2 class="text-xl sm:text-2xl font-bold text-stone-900 pb-3 mb-5 border-b border-stone-200">
+          6. Usos da Água, Impactos, Conflitos e Transposição do Rio São Francisco
+        </h2>
+        <div class="space-y-4 text-base text-stone-800 leading-relaxed mb-6">
+          <p>
+            A análise dos conflitos hídricos parte da diferença entre <mark class="grifo">usos consuntivos</mark> — quando há retirada e consumo parcial ou total da água por evaporação, transpiração, incorporação a produtos ou seres vivos (sendo o <mark class="grifo">consumo igual à vazão de retirada menos a vazão de retorno</mark>) — e <mark class="grifo">usos não consuntivos</mark>, como hidreletricidade e navegação. Segundo registros compilados da ANA (<em>Conjuntura 2024</em> e <em>Conjuntura 2025</em>), a vazão total de retirada no Brasil alcançou 2.103,6 m³/s em 2023 e 2.098,7 m³/s em 2024, liderada pela <mark class="grifo-verde">irrigação (50% da retirada</mark>, ou 1.052,3 m³/s em 2023), seguida pelo <mark class="grifo-verde">abastecimento humano (25%</mark>, com 491,2 m³/s urbano e 32,7 m³/s rural) e pela <mark class="grifo-verde">indústria (9,2%</mark>, ou 193,9 m³/s), além de uso animal, termelétricas e mineração. Quando se observa exclusivamente a parcela <em>efetivamente consumida</em> (não devolvida ao rio), a participação da <mark class="grifo">irrigação eleva-se ainda mais, atingindo 72%</mark> na série histórica de 2010 sintetizada no relatório de 2013 (contra 11% do uso animal, 9% urbano, 7% industrial e 1% rural).
+          </p>
+          <p>
+            Esse quadro de demanda setorial é agravado pelas mudanças climáticas. Entre 2015 e 2024, o Brasil registrou 13.144 eventos de seca com danos humanos, afetando mais de 108 milhões de pessoas, com intensificação recente também no Sul (2020–2023) e no Norte (a partir de 2023). Projeções da ANA divulgadas no <em>Conjuntura 2025</em> (horizonte 2015–2040) apontam <mark class="grifo">redução de chuvas e das vazões mínimas de referência Q95 em 10 das 12 regiões hidrográficas (com exceção apenas do Uruguai e do Atlântico Sul)</mark>, prevendo quedas superiores a 30%–40% nas regiões Amazônica, Tocantins-Araguaia, Atlântico Nordeste Oriental e São Francisco. Sob essa pressão, 62% das captações da agricultura irrigada e 51% das captações do abastecimento urbano encontram-se em situação crítica ou emergencial de escassez hídrica futura, afetando desproporcionalmente Terras Indígenas e comunidades quilombolas.
+          </p>
+          <p>
+            Os impactos socioambientais sobre as bacias brasileiras combinam degradação física, química e hidrológica. O <mark class="grifo">assoreamento</mark> resulta da remoção da cobertura vegetal e do avanço dos processos erosivos nas vertentes, que carregam sedimentos para os leitos fluviais, reduzem a profundidade das calhas e comprometem tanto o volume de reservatórios quanto a navegação em rios de planície como o Paraguai, no Pantanal. Embora a taxonomia acadêmica "poluição pontual versus difusa" não apareça com esses exatos rótulos nos trechos compilados, os estudos de qualidade hídrica da ANA e de reservatórios paulistas materializam exatamente essa dupla dinâmica. De um lado, <mark class="grifo">descargas concentradas e identificáveis de esgotos domésticos sem tratamento</mark> — o atendimento por esgotamento sanitário restringe-se a cerca de 56% da população brasileira segundo dados da <em>Conjuntura 2024</em> — e efluentes industriais elevam a Demanda Bioquímica de Oxigênio (DBO) e deprimem o oxigênio dissolvido nos trechos urbanos. De outro lado, <mark class="grifo">aportes dispersos ao longo das bacias carreiam nutrientes como fósforo total e nitrato, além de agrotóxicos, desencadeando eutrofização</mark> de reservatórios e florações de cianobactérias. Somada a isso, a <mark class="grifo">desidratação e perda funcional de mananciais</mark> decorre tanto da menor infiltração profunda por impermeabilização e desmatamento — associada ao enfraquecimento dos <mark class="grifo">"rios voadores", pelos quais a evapotranspiração amazônica recicla cerca de 50% das chuvas locais</mark> e exporta umidade ao Centro-Sul — quanto da escassez qualitativa, evidenciada na Região Metropolitana de São Paulo em 2014–2015, quando altos índices de poluição inviabilizaram a potabilização da água disponível em curto prazo.
+          </p>
+          <p>
+            Nesse cenário de disparidade regional situa-se a transposição do São Francisco, oficialmente denominada <mark class="grifo">Projeto de Integração do Rio São Francisco com as Bacias Hidrográficas do Nordeste Setentrional (PISF)</mark>. Tecnicamente, trata-se de uma <mark class="grifo">integração de bacias destinada a elevar a segurança hídrica (e não a "acabar com a seca")</mark>, transferindo água do rio perene para reforçar açudes e rios estaduais intermitentes, tendo o abastecimento humano como prioridade. A <mark class="grifo-verde">captação prevista corresponde a cerca de 1,4% da vazão garantida por Sobradinho</mark>, operando por meio de <mark class="grifo-verde">477 km de canais estruturantes</mark> divididos entre os dois eixos principais, nove estações de bombeamento, 13 aquedutos, quatro túneis, 28 reservatórios, nove subestações elétricas e 270 km de linhas de transmissão. Com ambos os eixos principais em operação — acumulando mais de 1,1 bilhão de m³ transportados até 2024 segundo síntese técnica e 34,68 milhões de m³ entregues apenas em julho de 2026 conforme noticiário de acompanhamento —, a capilarização efetiva da água depende da conclusão dos ramais associados e das adutoras estaduais:
+          </p>
+        </div>
+
+        <!-- Tabela 5: Componentes do PISF (100% visível sem scroll horizontal) -->
+        <div class="my-6 border border-stone-300 rounded-xl overflow-hidden bg-white">
+          <table class="w-full text-left border-collapse">
+            <colgroup>
+              <col class="w-[22%]">
+              <col class="w-[33%]">
+              <col class="w-[45%]">
+            </colgroup>
+            <thead>
+              <tr class="bg-stone-100 border-b border-stone-300 text-stone-900 text-xs sm:text-sm font-semibold">
+                <th class="p-2 sm:p-3 border-r border-stone-200 align-top">Componente do PISF</th>
+                <th class="p-2 sm:p-3 border-r border-stone-200 align-top">Captação e Trajeto</th>
+                <th class="p-2 sm:p-3 align-top">Estados Atendidos e Situação Técnica (até 2026)</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-stone-200 text-xs sm:text-sm text-stone-800 leading-snug">
+              <tr class="bg-white">
+                <td class="p-2 sm:p-3 border-r border-stone-200 font-semibold text-stone-900 align-top">Eixo Norte</td>
+                <td class="p-2 sm:p-3 border-r border-stone-200 align-top"><mark class="grifo-verde">260 km de extensão</mark>; capta água em <mark class="grifo">Cabrobó (PE)</mark>.</td>
+                <td class="p-2 sm:p-3 align-top">Atende <mark class="grifo">PE, CE, PB e RN</mark>; maior extensão e vazão; inclui o túnel Cuncas I; em fase de ampliação da capacidade de bombeamento com aporte previsto de R$ 520 milhões.</td>
+              </tr>
+              <tr class="bg-stone-50/40">
+                <td class="p-2 sm:p-3 border-r border-stone-200 font-semibold text-stone-900 align-top">Eixo Leste</td>
+                <td class="p-2 sm:p-3 border-r border-stone-200 align-top"><mark class="grifo-verde">217 km de extensão</mark>; capta água em <mark class="grifo">Floresta (PE)</mark>.</td>
+                <td class="p-2 sm:p-3 align-top">Atende <mark class="grifo">PE e PB</mark>; foi o primeiro eixo a realizar entregas de água a partir de 2017.</td>
+              </tr>
+              <tr class="bg-white">
+                <td class="p-2 sm:p-3 border-r border-stone-200 font-semibold text-stone-900 align-top">Ramal do Agreste</td>
+                <td class="p-2 sm:p-3 border-r border-stone-200 align-top">71 km em derivação a partir do Eixo Leste.</td>
+                <td class="p-2 sm:p-3 align-top">Pernambuco (interligado à Adutora do Agreste); obras concluídas em outubro de 2021.</td>
+              </tr>
+              <tr class="bg-stone-50/40">
+                <td class="p-2 sm:p-3 border-r border-stone-200 font-semibold text-stone-900 align-top">Ramal do Apodi</td>
+                <td class="p-2 sm:p-3 border-r border-stone-200 align-top">Parte do Reservatório de Caiçara (PB), cruzando áreas de PB e CE até o RN.</td>
+                <td class="p-2 sm:p-3 align-top">Paraíba, Ceará e Rio Grande do Norte; atingiu 95,28% de execução física em agosto de 2026, com escavação do Túnel Major Sales em etapa final.</td>
+              </tr>
+              <tr class="bg-white">
+                <td class="p-2 sm:p-3 border-r border-stone-200 font-semibold text-stone-900 align-top">Ramal do Salgado</td>
+                <td class="p-2 sm:p-3 border-r border-stone-200 align-top">36 km conectando o Eixo Norte/Apodi ao leito do Rio Salgado.</td>
+                <td class="p-2 sm:p-3 align-top">Ceará; evoluiu de 31,66% de execução física em janeiro de 2026 para 61,24% em agosto de 2026.</td>
+              </tr>
+              <tr class="bg-stone-50/40">
+                <td class="p-2 sm:p-3 border-r border-stone-200 font-semibold text-stone-900 align-top">Ramal do Piancó e Entremontes</td>
+                <td class="p-2 sm:p-3 border-r border-stone-200 align-top">Piancó (20 km, de Mauriti/CE ao Açude Condado/PB) e Entremontes (PE).</td>
+                <td class="p-2 sm:p-3 align-top">Paraíba e Pernambuco; Piancó com EIA/RIMA aceito pelo IBAMA em janeiro de 2026 para audiências públicas e Entremontes em fase de estudos.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p class="text-base text-stone-800 leading-relaxed">
+          A avaliação geográfica do PISF envolve benefícios concretos e controvérsias expressivas. De um lado, o sistema elevou a resiliência de reservatórios estratégicos e integrou bacias receptoras ao abastecimento regularizado em cerca de 390 municípios listados pelo MIDR. De outro, permanecem <mark class="grifo">quatro pontos críticos</mark>: o <mark class="grifo">elevado custo operacional</mark> gerado pelo consumo de energia nas nove estações de bombeamento; a <mark class="grifo">defasagem entre os aproximadamente 12 milhões de habitantes potencialmente beneficiáveis e a população efetivamente abastecida</mark>, condicionada às redes estaduais e à capacidade institucional de gestão dos estados receptores; a necessidade de novos arranjos entre comitês de bacias doadoras e receptoras; e os debates sobre impactos na Caatinga, na dinâmica de sedimentos e na urgência de revitalização da bacia do São Francisco diante de suas próprias crises de vazão.
+        </p>
+      </section>
+
+      <!-- SEÇÃO 7 -->
+      <section id="secao-7" class="scroll-mt-6 bg-white border border-stone-200 rounded-2xl p-5 sm:p-8">
+        <h2 class="text-xl sm:text-2xl font-bold text-stone-900 pb-3 mb-5 border-b border-stone-200">
+          7. Principais Definições Básicas para Lembrar no Dia da Prova
+        </h2>
+        <p class="text-base text-stone-800 leading-relaxed mb-5">
+          Para consulta rápida às vésperas do exame, os conceitos fundamentais do Tópico 8 sintetizam-se abaixo em linguagem direta:
+        </p>
+        <ul class="space-y-3 text-base text-stone-800 leading-relaxed list-disc pl-5">
+          <li>
+            <strong class="text-stone-900">Hidrogeografia:</strong> Ramo da Geografia que estuda o <mark class="grifo">"espaço da água"</mark>, integrando o ciclo hidrológico natural (relevo, clima, solo) à apropriação social, urbanização e degradação dos corpos hídricos.
+          </li>
+          <li>
+            <strong class="text-stone-900">Bacia hidrográfica:</strong> Área de drenagem natural composta por um rio principal e seus afluentes, delimitada topograficamente por divisores de águas; é a <mark class="grifo">unidade territorial oficial de planejamento da PNRH</mark>.
+          </li>
+          <li>
+            <strong class="text-stone-900">Região hidrográfica:</strong> Espaço territorial brasileiro definido pela Resolução CNRH nº 32/2003 (uma bacia ou conjunto de bacias contíguas homogêneas), <mark class="grifo">restrito ao território nacional</mark> para fins de gestão hídrica.
+          </li>
+          <li>
+            <strong class="text-stone-900">Rio de planalto versus rio de planície:</strong> O de <mark class="grifo">planalto</mark> percorre terrenos desnivelados com cachoeiras e corredeiras (<mark class="grifo">vocação hidrelétrica</mark>); o de <mark class="grifo">planície</mark> flui com baixa declividade e meandros (<mark class="grifo">vocação hidroviária</mark>).
+          </li>
+          <li>
+            <strong class="text-stone-900">Rio perene versus intermitente versus temporário:</strong> O <mark class="grifo">perene</mark> possui água durante todo o ano; o <mark class="grifo">intermitente</mark> seca parcial ou totalmente na estiagem (típico do semiárido); o <mark class="grifo">temporário</mark> só apresenta fluxo na época chuvosa.
+          </li>
+          <li>
+            <strong class="text-stone-900">Vazão de retirada versus vazão de consumo:</strong> <mark class="grifo">Retirada</mark> é o volume total captado do manancial; <mark class="grifo">consumo</mark> é a parcela não devolvida após o uso (retirada menos vazão de retorno).
+          </li>
+          <li>
+            <strong class="text-stone-900">Outorga de direito de uso:</strong> Autorização administrativa do Poder Público, por <mark class="grifo-verde">até 35 anos renováveis</mark>, que controla quantidade e qualidade dos usos <mark class="grifo">sem transferir a propriedade da água</mark>.
+          </li>
+          <li>
+            <strong class="text-stone-900">Cobrança pelo uso da água:</strong> Instrumento econômico que atribui valor à água bruta para racionalizar o uso e financiar os Planos de Recursos Hídricos <mark class="grifo">prioritariamente na bacia arrecadadora</mark>.
+          </li>
+          <li>
+            <strong class="text-stone-900">Enquadramento dos corpos d'água:</strong> Definição da classe de qualidade que um corpo hídrico deve obrigatoriamente atingir ou manter como <mark class="grifo">meta futura</mark> segundo seus usos preponderantes (CONAMA nº 357/2005).
+          </li>
+          <li>
+            <strong class="text-stone-900">Comitê de Bacia versus Agência de Água:</strong> O <mark class="grifo">Comitê</mark> é o órgão colegiado deliberativo tripartite ("parlamento das águas": Poder Público, usuários e sociedade civil); a <mark class="grifo">Agência</mark> é o órgão executivo técnico-financeiro que só pode ser criado se houver Comitê prévio e cobrança viável.
+          </li>
+          <li>
+            <strong class="text-stone-900">Assoreamento:</strong> Acúmulo de sedimentos erodidos na calha fluvial ou em reservatórios, reduzindo profundidade, navegabilidade e capacidade de armazenamento.
+          </li>
+          <li>
+            <strong class="text-stone-900">Poluição pontual versus difusa:</strong> A <mark class="grifo">pontual</mark> origina-se em despejos concentrados e localizados (como esgotos urbanos sem tratamento e efluentes industriais); a <mark class="grifo">difusa</mark> decorre do carreamento disperso de nutrientes (fósforo, nitrogênio) e agrotóxicos por toda a bacia, favorecendo a eutrofização.
+          </li>
+          <li>
+            <strong class="text-stone-900">Rios voadores:</strong> Correntes atmosféricas de umidade geradas pela evapotranspiração da Floresta Amazônica que alimentam chuvas em outras regiões do país, vulneráveis ao desmatamento.
+          </li>
+        </ul>
+      </section>
+
+      <!-- SEÇÃO 8 -->
+      <section id="secao-8" class="scroll-mt-6 bg-white border border-stone-200 rounded-2xl p-5 sm:p-8">
+        <h2 class="text-xl sm:text-2xl font-bold text-stone-900 pb-3 mb-5 border-b border-stone-200">
+          8. Pontos de Acerto e Armadilhas da Prova Objetiva no IFMG
+        </h2>
+        <p class="text-base text-stone-800 leading-relaxed mb-5">
+          O domínio operacional do conteúdo para a prova objetiva resume-se a dez verificações rápidas contra as armadilhas clássicas de banca:
+        </p>
+        <ol class="space-y-3.5 text-base text-stone-800 leading-relaxed list-decimal pl-5">
+          <li>
+            <strong class="text-stone-900">Paraná versus Amazônica na geração elétrica:</strong> A <mark class="grifo">Região Hidrográfica do Paraná concentra o maior aproveitamento hidrelétrico instalado</mark> do país, enquanto a <mark class="grifo">Região Hidrográfica Amazônica reúne a maior vazão e 62% dos 52 GW de potencial hidrelétrico estudado acima de 30 MW</mark> ainda disponível segundo a EPE.
+          </li>
+          <li>
+            <strong class="text-stone-900">A pegadinha de Tucuruí:</strong> A <mark class="grifo">UHE Tucuruí (8.370 MW, no rio Tocantins) integra a Região Hidrográfica Tocantins-Araguaia</mark> — maior região 100% brasileira —, e não a Região Hidrográfica Amazônica.
+          </li>
+          <li>
+            <strong class="text-stone-900">Bacia Platina versus Divisão da CNRH:</strong> Enquanto a literatura geográfica clássica reúne Paraná, Paraguai e Uruguai na Bacia Platina, a <mark class="grifo">Resolução CNRH nº 32/2003 separa cada uma como Região Hidrográfica independente</mark> em solo brasileiro.
+          </li>
+          <li>
+            <strong class="text-stone-900">Regra de uso normal versus escassez na Lei nº 9.433/1997:</strong> Em condições regulares, a gestão deve proporcionar o <mark class="grifo">uso múltiplo das águas</mark>; <mark class="grifo">apenas em situações de escassez o consumo humano e a dessedentação de animais tornam-se usos prioritários</mark>.
+          </li>
+          <li>
+            <strong class="text-stone-900">Limites e sanções da outorga:</strong> O <mark class="grifo-verde">prazo máximo de outorga é de 35 anos (renovável)</mark>, sem alienação da água; há dispensa para pequenos núcleos rurais e usos insignificantes; e a <mark class="grifo-verde">Lei nº 14.066/2020 elevou o teto da multa por infrações para R$ 50.000.000,00</mark>.
+          </li>
+          <li>
+            <strong class="text-stone-900">Trava dos 7,5% na cobrança:</strong> Os recursos arrecadados com a cobrança pelo uso da água devem ser aplicados prioritariamente na bacia onde foram gerados, <mark class="grifo-verde">limitando-se a 7,5% o gasto com custeio administrativo dos órgãos do SINGREH</mark>.
+          </li>
+          <li>
+            <strong class="text-stone-900">Condições cumulativas da Agência de Água:</strong> Pelo Art. 43 da Lei nº 9.433/1997, toda Agência de Água exige <mark class="grifo">simultaneamente Comitê de Bacia prévio e viabilidade financeira garantida pela cobrança</mark>.
+          </li>
+          <li>
+            <strong class="text-stone-900">Metas e classes da CONAMA nº 357/2005:</strong> <mark class="grifo">Enquadramento define meta futura, não diagnóstico atual</mark>; apenas a <mark class="grifo">Classe Especial</mark> admite consumo humano com simples desinfecção e protege Unidades de Conservação de Proteção Integral, enquanto a <mark class="grifo">Classe 4</mark> restringe-se à navegação e harmonia paisagística.
+          </li>
+          <li>
+            <strong class="text-stone-900">Alteração legal recente (2025):</strong> A <mark class="grifo-verde">Lei nº 15.269/2025</mark> acrescentou aos dispositivos iniciais da Lei nº 9.433/1997 o objetivo de garantir a segurança hídrica e energética por meio do incentivo a obras de acumulação de água.
+          </li>
+          <li>
+            <strong class="text-stone-900">Conceito técnico do PISF:</strong> O Projeto de Integração do Rio São Francisco promove <mark class="grifo">segurança hídrica (e não o "fim da seca") com captação equivalente a cerca de 1,4% da vazão de Sobradinho</mark>, distinguindo a população potencialmente beneficiável (~12 milhões) daquela efetivamente atendida mediante conclusão de ramais (Agreste, Apodi, Salgado, Piancó e Entremontes) e sistemas estaduais.
+          </li>
+        </ol>
+      </section>
+
+    </main>
+
+    <!-- ===================================================================== -->
+    <!-- RODAPÉ COM BOTÃO PARA A PÁGINA DE QUESTÕES (questoes.html)            -->
+    <!-- ===================================================================== -->
+    <footer class="mt-12 pt-8 pb-6 border-t border-stone-200 bg-white flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div class="text-center sm:text-left">
+        <p class="text-sm font-medium text-stone-800">Concluiu a leitura e revisão dos pontos grifados?</p>
+        <p class="text-xs text-stone-600">Pratique agora com a bateria de exercícios direcionada à banca do IFMG.</p>
+      </div>
+
+      <a
+        href="questoes14geo.html"
+        class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3.5 text-base font-semibold text-stone-900 bg-amber-100 hover:bg-amber-200 border border-amber-300 rounded-xl shadow-sm transition-colors"
+      >
+        <span>Ir para Questões</span>
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+        </svg>
+      </a>
+    </footer>
+
+  </div>
+
+  <!-- ===================================================================== -->
+  <!-- SCRIPT DO REPRODUTOR DE ÁUDIO MP3                                     -->
+  <!-- ===================================================================== -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const audio = document.getElementById('audioElement');
+      const mp3FileInput = document.getElementById('mp3FileInput');
+      const loadMp3Btn = document.getElementById('loadMp3Btn');
+      const playPauseBtn = document.getElementById('playPauseBtn');
+      const playIcon = document.getElementById('playIcon');
+      const rewindBtn = document.getElementById('rewindBtn');
+      const forwardBtn = document.getElementById('forwardBtn');
+      const progressBar = document.getElementById('progressBar');
+      const currentTimeLabel = document.getElementById('currentTimeLabel');
+      const durationLabel = document.getElementById('durationLabel');
+      const speedSelect = document.getElementById('speedSelect');
+      const volumeSlider = document.getElementById('volumeSlider');
+      const audioStatusText = document.getElementById('audioStatusText');
+
+      // Formata segundos no padrão MM:SS
+      function formatTime(seconds) {
+        if (isNaN(seconds) || !isFinite(seconds)) return '00:00';
+        const mins = Math.floor(seconds / 60);
+        const secs = Math.floor(seconds % 60);
+        return `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+      }
+
+      // Carrega o arquivo MP3 informado no campo de texto
+      function loadAudioSource() {
+        const fileName = mp3FileInput.value.trim();
+        if (!fileName) {
+          audioStatusText.textContent = 'Digite o nome de um arquivo .mp3 válido (ex: audio14geo.mp3).';
+          return;
+        }
+        audio.pause();
+        playIcon.textContent = '▶ Reproduzir';
+        progressBar.value = 0;
+        currentTimeLabel.textContent = '00:00';
+        durationLabel.textContent = '00:00';
+        audio.src = fileName;
+        audio.load();
+        audioStatusText.textContent = `Arquivo selecionado: "${fileName}". Clique em Reproduzir.`;
+      }
+
+      loadMp3Btn.addEventListener('click', loadAudioSource);
+      mp3FileInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          loadAudioSource();
+        }
+      });
+
+      // Atualiza metadados quando o MP3 é encontrado na pasta
+      audio.addEventListener('loadedmetadata', () => {
+        durationLabel.textContent = formatTime(audio.duration);
+        progressBar.max = audio.duration || 100;
+        audioStatusText.textContent = `Pronto para ouvir: "${mp3FileInput.value.trim()}" (${formatTime(audio.duration)})`;
+      });
+
+      // Informa de forma discreta caso o arquivo ainda não esteja na pasta
+      audio.addEventListener('error', () => {
+        const currentFile = mp3FileInput.value.trim() || 'audio14geo.mp3';
+        audioStatusText.textContent = `Aguardando arquivo "${currentFile}" na mesma pasta deste HTML.`;
+        playIcon.textContent = '▶ Reproduzir';
+      });
+
+      // Alterna entre reproduzir e pausar
+      playPauseBtn.addEventListener('click', () => {
+        if (audio.paused) {
+          audio.play().then(() => {
+            playIcon.textContent = '⏸ Pausar';
+          }).catch(() => {
+            const currentFile = mp3FileInput.value.trim() || 'audio14geo.mp3';
+            audioStatusText.textContent = `Não foi possível iniciar "${currentFile}". Verifique se o MP3 está na mesma pasta.`;
+          });
+        } else {
+          audio.pause();
+          playIcon.textContent = '▶ Reproduzir';
+        }
+      });
+
+      // Atualiza a barra de progresso durante a reprodução
+      audio.addEventListener('timeupdate', () => {
+        currentTimeLabel.textContent = formatTime(audio.currentTime);
+        if (!isNaN(audio.duration)) {
+          progressBar.value = audio.currentTime;
+        }
+      });
+
+      // Reseta o botão ao finalizar o áudio
+      audio.addEventListener('ended', () => {
+        playIcon.textContent = '▶ Reproduzir';
+        progressBar.value = 0;
+      });
+
+      // Permite navegar clicando/arrastando na barra de progresso
+      progressBar.addEventListener('input', () => {
+        if (!isNaN(audio.duration)) {
+          audio.currentTime = Number(progressBar.value);
+        }
+      });
+
+      // Botões de retroceder e avançar 15 segundos
+      rewindBtn.addEventListener('click', () => {
+        audio.currentTime = Math.max(0, audio.currentTime - 15);
+      });
+
+      forwardBtn.addEventListener('click', () => {
+        if (!isNaN(audio.duration)) {
+          audio.currentTime = Math.min(audio.duration, audio.currentTime + 15);
+        }
+      });
+
+      // Controle de velocidade de reprodução
+      speedSelect.addEventListener('change', () => {
+        audio.playbackRate = Number(speedSelect.value);
+      });
+
+      // Controle de volume
+      volumeSlider.addEventListener('input', () => {
+        audio.volume = Number(volumeSlider.value);
+      });
+    });
+  </script>
+</body>
+</html>

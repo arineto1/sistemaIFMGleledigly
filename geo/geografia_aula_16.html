@@ -1,0 +1,1001 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Questões Socioambientais Contemporâneas e Ordenamento Territorial — Concurso IFMG</title>
+  <!-- Fonte Inter para leitura prolongada e confortável -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-white text-slate-800 font-sans antialiased selection:bg-amber-100 selection:text-slate-900">
+
+  <!-- Container Principal Amplo para comportar tabelas inteiras sem rolagem horizontal -->
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+
+    <!-- Cabeçalho Institucional em Fundo Branco e Tons Neutros -->
+    <header class="bg-white border border-slate-200 rounded-2xl p-6 sm:p-8 mb-6 shadow-xs">
+      <div class="flex flex-wrap items-center gap-2 mb-3">
+        <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-slate-100 text-slate-700 border border-slate-200">
+          Concurso Professor EBTT — Geografia (IFMG)
+        </span>
+        <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-white text-slate-600 border border-slate-200">
+          Edital nº 1077/2026 • Prova: 24/01/2027
+        </span>
+      </div>
+      <h1 class="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 tracking-tight leading-tight mb-3">
+        Questões Socioambientais Contemporâneas e Ordenamento Territorial para o Concurso IFMG
+      </h1>
+      <p class="text-sm sm:text-base text-slate-600 leading-relaxed">
+        Material completo de revisão teórica e normativa, estruturado com destaques para memorização e foco na prova objetiva.
+      </p>
+    </header>
+
+    <!-- REPRODUTOR DE ÁUDIO MP3 (NO COMEÇO DA PÁGINA) -->
+    <section aria-label="Reprodutor de Áudio da Aula" class="bg-white border border-slate-200 rounded-2xl p-5 sm:p-6 mb-8 shadow-xs">
+      <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 pb-4 mb-4 border-b border-slate-100">
+        <div>
+          <span class="text-xs font-semibold uppercase tracking-wider text-slate-500">Áudio da Aula (MP3)</span>
+          <h2 class="text-base sm:text-lg font-semibold text-slate-900 mt-0.5">
+            Ouça o resumo enquanto acompanha a leitura
+          </h2>
+        </div>
+
+        <!-- Campo para informar o nome do arquivo MP3 presente na mesma pasta -->
+        <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
+          <label for="mp3-filename-input" class="text-xs font-medium text-slate-600 whitespace-nowrap">
+            Arquivo MP3 na pasta:
+          </label>
+          <div class="flex items-center gap-2">
+            <!-- =====================================================================
+                 INSTRUÇÃO RÁPIDA: Altere o atributo value="" abaixo com o nome exato
+                 do seu arquivo .mp3 (ex: value="resumo-ifmg.mp3") que está na mesma
+                 pasta deste arquivo HTML.
+                 ===================================================================== -->
+            <input
+              id="mp3-filename-input"
+              type="text"
+              value="audio16geo.mp3"
+              placeholder="ex: aula-geografia.mp3"
+              class="w-full sm:w-64 px-3 py-2 text-xs sm:text-sm text-slate-800 bg-white border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-slate-300 focus:border-slate-400"
+            />
+            <button
+              id="btn-load-mp3"
+              type="button"
+              class="px-3.5 py-2 text-xs sm:text-sm font-medium text-slate-800 bg-slate-100 hover:bg-slate-200 border border-slate-300 rounded-xl transition cursor-pointer whitespace-nowrap"
+            >
+              Carregar
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Elemento de áudio nativo oculto controlado pela interface acessível abaixo -->
+      <audio id="audio-player" preload="metadata">
+        <source id="audio-source" src="audio16geo.mp3" type="audio/mpeg">
+        Seu navegador não suporta a reprodução de áudio HTML5.
+      </audio>
+
+      <!-- Controles Principais do Player -->
+      <div class="flex flex-col gap-3">
+        <div class="flex flex-wrap items-center justify-between gap-3">
+          <!-- Botões de Reprodução -->
+          <div class="flex items-center gap-2">
+            <button
+              id="btn-rewind"
+              type="button"
+              title="Voltar 15 segundos"
+              class="p-2.5 text-slate-700 bg-white hover:bg-slate-100 border border-slate-200 rounded-xl transition cursor-pointer text-xs font-semibold"
+            >
+              -15s
+            </button>
+
+            <button
+              id="btn-play-pause"
+              type="button"
+              aria-label="Reproduzir ou Pausar"
+              class="inline-flex items-center gap-2 px-4 py-2.5 text-sm font-semibold text-slate-900 bg-slate-100 hover:bg-slate-200 border border-slate-300 rounded-xl transition cursor-pointer"
+            >
+              <svg id="icon-play" class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+              <svg id="icon-pause" class="w-4 h-4 fill-current hidden" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+              <span id="play-pause-label">Reproduzir</span>
+            </button>
+
+            <button
+              id="btn-forward"
+              type="button"
+              title="Avançar 15 segundos"
+              class="p-2.5 text-slate-700 bg-white hover:bg-slate-100 border border-slate-200 rounded-xl transition cursor-pointer text-xs font-semibold"
+            >
+              +15s
+            </button>
+          </div>
+
+          <!-- Tempo, Velocidade e Volume -->
+          <div class="flex flex-wrap items-center gap-3 text-xs text-slate-600">
+            <div class="font-mono bg-slate-50 px-2.5 py-1.5 rounded-lg border border-slate-200 text-slate-800">
+              <span id="current-time">00:00</span> / <span id="duration-time">00:00</span>
+            </div>
+
+            <button
+              id="btn-speed"
+              type="button"
+              title="Alterar velocidade de reprodução"
+              class="px-2.5 py-1.5 font-semibold text-slate-700 bg-white hover:bg-slate-100 border border-slate-200 rounded-lg transition cursor-pointer"
+            >
+              1.0x
+            </button>
+
+            <div class="flex items-center gap-1.5">
+              <button
+                id="btn-mute"
+                type="button"
+                title="Silenciar / Ativar som"
+                class="p-1.5 text-slate-700 hover:bg-slate-100 rounded-lg border border-slate-200 cursor-pointer"
+              >
+                <span id="mute-label">Som</span>
+              </button>
+              <input
+                id="volume-slider"
+                type="range"
+                min="0"
+                max="1"
+                step="0.05"
+                value="1"
+                aria-label="Volume do áudio"
+                class="w-20 accent-slate-700 cursor-pointer"
+              />
+            </div>
+          </div>
+        </div>
+
+        <!-- Barra de Progresso -->
+        <div class="w-full">
+          <input
+            id="progress-bar"
+            type="range"
+            min="0"
+            max="100"
+            value="0"
+            step="0.1"
+            aria-label="Progresso do áudio"
+            class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-slate-700"
+          />
+        </div>
+
+        <!-- Status discreto do arquivo MP3 -->
+        <p id="audio-status" class="text-xs text-slate-500">
+          Arquivo configurado: <strong id="current-file-display" class="font-semibold text-slate-700">audio16geo.mp3</strong> (coloque o arquivo MP3 com este nome na mesma pasta desta página).
+        </p>
+      </div>
+    </section>
+
+    <!-- Índice Rápido de Navegação -->
+    <nav aria-label="Sumário da Aula" class="bg-white border border-slate-200 rounded-2xl p-5 mb-8">
+      <p class="text-xs font-semibold uppercase tracking-wider text-slate-500 mb-3">Navegação Rápida pelo Conteúdo</p>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 text-xs sm:text-sm">
+        <a href="#introducao" class="px-3 py-2 rounded-xl border border-slate-200 hover:bg-slate-50 text-slate-700 font-medium transition">
+          Introdução e Estrutura do Certame
+        </a>
+        <a href="#bloco-1" class="px-3 py-2 rounded-xl border border-slate-200 hover:bg-slate-50 text-slate-700 font-medium transition">
+          1. Definição e Características Essenciais
+        </a>
+        <a href="#governanca-climatica" class="px-3 py-2 rounded-xl border border-slate-200 hover:bg-slate-50 text-slate-700 font-medium transition">
+          Governança Climática, IPCC e Matrizes
+        </a>
+        <a href="#vulnerabilidade-racismo" class="px-3 py-2 rounded-xl border border-slate-200 hover:bg-slate-50 text-slate-700 font-medium transition">
+          Vulnerabilidade, Racismo Ambiental e Cidades
+        </a>
+        <a href="#bloco-2" class="px-3 py-2 rounded-xl border border-slate-200 hover:bg-slate-50 text-slate-700 font-medium transition">
+          2. Definições Básicas e Foco na Objetiva
+        </a>
+        <a href="#snuc-detalhado" class="px-3 py-2 rounded-xl border border-slate-200 hover:bg-slate-50 text-slate-700 font-medium transition">
+          SNUC (Lei nº 9.985/2000) e ZEE (Decreto 4.297/2002)
+        </a>
+      </div>
+    </nav>
+
+    <!-- CONTEÚDO NA ÍNTEGRA -->
+    <main class="space-y-8">
+
+      <!-- Introdução -->
+      <section id="introducao" class="bg-white border border-slate-200 rounded-2xl p-6 sm:p-8 space-y-4 leading-relaxed">
+        <p>
+          Esta aula estrutura o eixo de <strong>Questões Socioambientais Contemporâneas e Ordenamento Territorial</strong> para a prova objetiva do concurso de Professor do Ensino Básico, Técnico e Tecnológico (EBTT) em Geografia do Instituto Federal de Minas Gerais (<mark class="bg-amber-100 text-slate-900 px-1 rounded font-medium">Edital nº 1077/2026</mark>, conduzido pelo próprio IFMG). O certame prevê a aplicação das <mark class="bg-amber-100 text-slate-900 px-1 rounded font-medium">provas objetiva e dissertativa em 24 de janeiro de 2027</mark>, exigindo na objetiva o <mark class="bg-amber-100 text-slate-900 px-1 rounded font-medium">mínimo de 60 pontos em 100, sem zerar nenhuma área</mark> (10 questões de legislação aplicada ao serviço público e 20 de conhecimentos específicos). Para converter teoria em acertos, é indispensável articular a crítica socioespacial (Porto-Gonçalves, 2006; Mendonça, 2001), a governança climática e energética, a vulnerabilidade urbana (Ministério das Cidades, 2025) e o domínio literal da <mark class="bg-amber-100 text-slate-900 px-1 rounded font-medium">Lei nº 9.985/2000 (SNUC)</mark> e do <mark class="bg-amber-100 text-slate-900 px-1 rounded font-medium">Decreto nº 4.297/2002 (ZEE)</mark>.
+        </p>
+
+        <p>
+          O conteúdo está dividido exatamente nos dois blocos solicitados. Na primeira seção, apresentamos a definição do tema e suas características essenciais em linguagem clara, com quadros comparativos e tópicos curtos de memorização; na segunda seção, consolidamos definições rápidas para a véspera da prova, a classificação jurídica exata das Unidades de Conservação do SNUC, os objetivos e escalas do ZEE e uma matriz de pegadinhas recorrentes.
+        </p>
+
+        <div class="bg-slate-50 border border-slate-200 rounded-xl p-4 text-sm text-slate-700">
+          <strong>Nota de rigor normativo:</strong> Quando alguma fração literal de norma não consta na íntegra nos textos legais de referência disponíveis — caso específico dos <mark class="bg-amber-100 text-slate-900 px-1 rounded font-medium">incisos II e III do art. 6º-A do Decreto nº 4.297/2002</mark> (escalas regionais e estaduais do ZEE) e dos <mark class="bg-amber-100 text-slate-900 px-1 rounded font-medium"><em>caputs</em> dos arts. 15, 16 e 19 da Lei nº 9.985/2000</mark> (APA, ARIE e Reserva de Fauna) —, a lacuna é sinalizada expressamente para evitar extrapolações perigosas em itens de literalidade legal.
+        </div>
+      </section>
+
+      <!-- BLOCO 1 -->
+      <section id="bloco-1" class="bg-white border border-slate-200 rounded-2xl p-6 sm:p-8 space-y-6 leading-relaxed">
+        <div class="border-b border-slate-200 pb-4">
+          <span class="text-xs font-semibold uppercase tracking-wider text-slate-500">Bloco 1</span>
+          <h2 class="text-xl sm:text-2xl font-bold text-slate-900 mt-1">
+            1. Definição do tema e características essenciais para memorização
+          </h2>
+        </div>
+
+        <p>
+          As <mark class="bg-amber-100 text-slate-900 px-1 rounded font-medium">questões socioambientais contemporâneas e o ordenamento territorial</mark> investigam o encontro conflituoso entre a apropriação capitalista dos ecossistemas, a crise climática global e a regulação estatal do uso do território. Na Geografia brasileira atual, esse campo <mark class="bg-amber-100 text-slate-900 px-1 rounded font-medium">supera a divisão rígida entre Geografia Física e Geografia Humana</mark> ao demonstrar que eventos naturais e crises ecológicas são mediados por relações sociais, técnicas e de poder desiguais. O ordenamento territorial atua, nesse contexto, por meio de zoneamentos vinculantes, unidades de conservação e planos urbanos de adaptação climática para restringir usos predatórios e proteger populações vulnerabilizadas.
+        </p>
+
+        <!-- Subseção: Porto-Gonçalves e Mendonça -->
+        <div class="space-y-4 pt-2">
+          <h3 class="text-lg sm:text-xl font-bold text-slate-900">
+            Apropriação capitalista da natureza e Geografia Socioambiental
+          </h3>
+
+          <p>
+            A fundamentação crítica desse eixo apoia-se em <strong>Carlos Walter Porto-Gonçalves</strong> (<em>A globalização da natureza e a natureza da globalização</em>, 2006, e ensaios posteriores vinculados à ecologia política latino-americana). Na obra de 2006, o autor analisa o <mark class="bg-amber-100 text-slate-900 px-1 rounded font-medium">poder fragmentador da globalização diante dos lugares</mark> e demonstra como a racionalidade moderna instituiu uma visão dicotômica do mundo que enxerga a <mark class="bg-amber-100 text-slate-900 px-1 rounded font-medium">natureza como simples recurso a ser apropriado e explorado</mark>. Em textos e desdobramentos teóricos subsequentes, o geógrafo explicita que o próprio conceito de "natureza" não é natural, mas uma instituição cultural histórica, e relaciona essa visão pragmática à <mark class="bg-amber-100 text-slate-900 px-1 rounded font-medium">filosofia cartesiana</mark> (separação entre sujeito e objeto para tornar os humanos "senhores e dominadores da natureza") e a <mark class="bg-amber-100 text-slate-900 px-1 rounded font-medium">Francis Bacon ("saber é poder")</mark>. Esse projeto moderno de dominação ganhou escala planetária com o domínio técnico dos combustíveis fósseis — carvão e petróleo — que moveram a industrialização.
+          </p>
+
+          <p>
+            Desse arcabouço decorrem pontos centrais muito explorados em provas docentes. Em comentário crítico sobre a obra de 2006, destaca-se que <mark class="bg-amber-100 text-slate-900 px-1 rounded font-medium">Porto-Gonçalves rejeita a expressão "desenvolvimento sustentável" por considerá-la contraditória</mark> — pois desenvolvimento pressupõe exploração da natureza e acumulação privada, enquanto sustentabilidade pertence à lógica da vida — e equivocada ao atribuir à pobreza a causa da degradação ambiental. Provas de Geografia baseadas em excertos adaptados do livro de 2006 também costumam contrastar concepções de uso sustentável com a abordagem preservacionista baseada na proibição permanente da exploração da natureza ("natureza intocada"). Nos desdobramentos da ecologia política latino-americana, Porto-Gonçalves aprofunda a crítica à mercantilização e ao controle corporativo na política ambiental, denuncia a <mark class="bg-amber-100 text-slate-900 px-1 rounded font-medium"><strong>etno-biopirataria</strong> — apropriação do conhecimento tradicional de camponeses e povos indígenas associado à mercantilização genética em laboratórios</mark> — e sustenta que o <mark class="bg-amber-100 text-slate-900 px-1 rounded font-medium">limite da relação sociedade-natureza é político, e não técnico</mark>, exigindo a reapropriação social da natureza e a reinvenção dos territórios.
+          </p>
+
+          <p>
+            Complementando essa leitura, <strong>Francisco Mendonça (2001)</strong>, no artigo <em>Geografia socioambiental</em>, sistematiza a consolidação de uma corrente geográfica na qual o <mark class="bg-amber-100 text-slate-900 px-1 rounded font-medium">natural e o social integram um mesmo processo</mark>. O autor ressalta que os termos atuais "ambiente" e "ambientalismo" possuem significados distintos das definições biológicas clássicas do início do século XX e adverte que <mark class="bg-amber-100 text-slate-900 px-1 rounded font-medium">"meio geográfico" não deve ser tomado como sinônimo de "meio ambiente"</mark>. Embora reconheça a contribuição da <mark class="bg-amber-100 text-slate-900 px-1 rounded font-medium">Teoria Geral dos Sistemas (TGS), Mendonça critica o fato de ela ter mantido os estudos ambientais geográficos excessivamente presos a uma perspectiva naturalista</mark>. Apoiado em Enrique Leff, propõe distinguir metodologicamente <mark class="bg-amber-100 text-slate-900 px-1 rounded font-medium">"leis naturais" (dinâmica da natureza) e processos sociais (dinâmica da sociedade)</mark> na gênese da crise ambiental, estabelecendo que uma pesquisa de Geografia Socioambiental deve partir de problemáticas em que situações conflituosas da interação sociedade-natureza explicitem degradação de uma ou de ambas.
+          </p>
+
+          <div class="bg-slate-50 border border-slate-200 rounded-xl p-5">
+            <p class="font-semibold text-slate-900 mb-3">
+              Tópicos essenciais para memorização (Porto-Gonçalves, 2006 e Mendonça, 2001):
+            </p>
+            <ul class="list-disc pl-5 space-y-2 text-sm sm:text-base text-slate-800">
+              <li>A visão moderna cartesiana separa sociedade e natureza, convertendo o mundo natural em <mark class="bg-amber-100 text-slate-900 px-1 rounded font-medium">"natureza como recurso" mercantilizável</mark> e movido pelo domínio dos combustíveis fósseis.</li>
+              <li>Na leitura de Porto-Gonçalves (2006), a globalização fragmenta os lugares e a expressão <mark class="bg-amber-100 text-slate-900 px-1 rounded font-medium">"desenvolvimento sustentável" é criticada</mark> por conciliar termos opostos (acumulação privada versus ecologia) e culpar a pobreza.</li>
+              <li>Em sua ecologia política latino-americana, Porto-Gonçalves denuncia a <mark class="bg-amber-100 text-slate-900 px-1 rounded font-medium"><strong>etno-biopirataria</strong></mark> (apropriação de saberes tradicionais e genes), afirma que o <mark class="bg-amber-100 text-slate-900 px-1 rounded font-medium">limite ambiental é político</mark> e defende a reapropriação social da natureza.</li>
+              <li>Mendonça (2001) integra sociedade e natureza como partes de um mesmo processo, mas distingue <mark class="bg-amber-100 text-slate-900 px-1 rounded font-medium">leis naturais de processos sociais</mark> e recusa confundir "meio geográfico" com "meio ambiente".</li>
+              <li>A <mark class="bg-amber-100 text-slate-900 px-1 rounded font-medium">TGS é criticada por Mendonça (2001) pelo viés excessivamente naturalista</mark>; o ponto de partida da Geografia Socioambiental são conflitos socioespaciais com degradação social, natural ou de ambas.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Subseção: Governança Climática, IPCC e Matrizes -->
+        <div id="governanca-climatica" class="space-y-4 pt-4 border-t border-slate-100">
+          <h3 class="text-lg sm:text-xl font-bold text-slate-900">
+            Governança climática global, relatórios do IPCC e matrizes energéticas
+          </h3>
+
+          <p>
+            A diplomacia ambiental multilateral estruturou-se em conferências da Organização das Nações Unidas (ONU) que evoluíram da agenda de poluição industrial para o regime contemporâneo de metas climáticas nacionais e financiamento. A linha histórica exige saber diferenciar o escopo jurídico de cada marco: da criação institucional na <mark class="bg-amber-100 text-slate-900 px-1 rounded font-medium">Conferência de Estocolmo (1972)</mark> à <mark class="bg-amber-100 text-slate-900 px-1 rounded font-medium">Convenção-Quadro das Nações Unidas sobre Mudança do Clima (UNFCCC) na Rio-92</mark>, passando pelas metas vinculantes seletivas do <mark class="bg-amber-100 text-slate-900 px-1 rounded font-medium">Protocolo de Quioto (1997)</mark> até o modelo universal das <mark class="bg-amber-100 text-slate-900 px-1 rounded font-medium">Contribuições Nacionalmente Determinadas (NDCs) no Acordo de Paris (2015)</mark> e sua fase atual de implementação na COP30 (Belém, 2025) e na COP31 (Antália, Turquia, iniciada em novembro de 2026).
+          </p>
+
+          <!-- Tabela 1: Marcos Internacionais (Sem scroll horizontal) -->
+          <div class="border border-slate-200 rounded-xl overflow-hidden my-4">
+            <table class="w-full table-fixed border-collapse text-left text-xs sm:text-sm">
+              <thead>
+                <tr class="bg-slate-100 text-slate-900 border-b border-slate-200">
+                  <th class="w-[18%] p-2.5 sm:p-3 font-semibold align-top">Marco Internacional</th>
+                  <th class="w-[14%] p-2.5 sm:p-3 font-semibold align-top">Ano e Sede</th>
+                  <th class="w-[22%] p-2.5 sm:p-3 font-semibold align-top">Natureza Jurídica e Foco</th>
+                  <th class="w-[46%] p-2.5 sm:p-3 font-semibold align-top">Principais Resultados e Impasses</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-slate-200 bg-white text-slate-800">
+                <tr>
+                  <td class="p-2.5 sm:p-3 font-semibold text-slate-900 align-top break-words">Conferência de Estocolmo</td>
+                  <td class="p-2.5 sm:p-3 align-top break-words">1972, Suécia</td>
+                  <td class="p-2.5 sm:p-3 align-top break-words">Primeira conferência da ONU sobre Meio Ambiente Humano</td>
+                  <td class="p-2.5 sm:p-3 align-top break-words">Reuniu 113 países e 250 organizações; <mark class="bg-amber-100 text-slate-900 px-1 rounded font-medium">criou o PNUMA</mark> e o Dia Mundial do Meio Ambiente (5 de junho); focou poluição industrial, produtos tóxicos e apoio a países menos desenvolvidos.</td>
+                </tr>
+                <tr>
+                  <td class="p-2.5 sm:p-3 font-semibold text-slate-900 align-top break-words">Protocolo de Montreal</td>
+                  <td class="p-2.5 sm:p-3 align-top break-words">1987</td>
+                  <td class="p-2.5 sm:p-3 align-top break-words">Tratado específico sobre camada de ozônio</td>
+                  <td class="p-2.5 sm:p-3 align-top break-words">Compromisso para <mark class="bg-amber-100 text-slate-900 px-1 rounded font-medium">reduzir a emissão de gases CFC destruidores da camada de ozônio</mark> (não confundir com tratados de gases de efeito estufa).</td>
+                </tr>
+                <tr>
+                  <td class="p-2.5 sm:p-3 font-semibold text-slate-900 align-top break-words">Rio-92 (Eco-92)</td>
+                  <td class="p-2.5 sm:p-3 align-top break-words">1992, Rio de Janeiro</td>
+                  <td class="p-2.5 sm:p-3 align-top break-words">Cúpula da Terra (Meio Ambiente e Desenvolvimento)</td>
+                  <td class="p-2.5 sm:p-3 align-top break-words"><mark class="bg-amber-100 text-slate-900 px-1 rounded font-medium">Aprovou a Agenda 21</mark>, consolidou a pauta do desenvolvimento sustentável e decidiu pela criação da <mark class="bg-amber-100 text-slate-900 px-1 rounded font-medium">UNFCCC</mark> (em vigor a partir de 1994).</td>
+                </tr>
+                <tr>
+                  <td class="p-2.5 sm:p-3 font-semibold text-slate-900 align-top break-words">Protocolo de Quioto</td>
+                  <td class="p-2.5 sm:p-3 align-top break-words">1997 (COP3), Japão</td>
+                  <td class="p-2.5 sm:p-3 align-top break-words"><mark class="bg-amber-100 text-slate-900 px-1 rounded font-medium">Metas vinculantes apenas para países desenvolvidos</mark></td>
+                  <td class="p-2.5 sm:p-3 align-top break-words">Entrou em vigor em 2005 (COP11, Montreal) após ratificação por 55 países com ao menos 55% das emissões globais de CO₂; obrigou 37 países industrializados e a Comunidade Europeia a reduzir emissões em dois períodos (2008–2012 e 2013–2020, com corte de ao menos 18% nesta segunda etapa frente a 1990, segundo sínteses preparatórias); <mark class="bg-amber-100 text-slate-900 px-1 rounded font-medium">EUA ficaram de fora</mark>.</td>
+                </tr>
+                <tr>
+                  <td class="p-2.5 sm:p-3 font-semibold text-slate-900 align-top break-words">Rio+10</td>
+                  <td class="p-2.5 sm:p-3 align-top break-words">2002, Joanesburgo</td>
+                  <td class="p-2.5 sm:p-3 align-top break-words">Avaliação dos avanços da Rio-92</td>
+                  <td class="p-2.5 sm:p-3 align-top break-words">Declaração de Joanesburgo com metas até 2015 para reduzir à metade a parcela sem água potável e abaixo da linha da pobreza.</td>
+                </tr>
+                <tr>
+                  <td class="p-2.5 sm:p-3 font-semibold text-slate-900 align-top break-words">Rio+20</td>
+                  <td class="p-2.5 sm:p-3 align-top break-words">2012, Rio de Janeiro</td>
+                  <td class="p-2.5 sm:p-3 align-top break-words">Conferência sobre Desenvolvimento Sustentável</td>
+                  <td class="p-2.5 sm:p-3 align-top break-words">Documento <mark class="bg-amber-100 text-slate-900 px-1 rounded font-medium">"O Futuro que Queremos"</mark>; destacou o conceito de <mark class="bg-amber-100 text-slate-900 px-1 rounded font-medium">Economia Verde</mark> (crescimento econômico com redução de emissões), energia limpa e agricultura sustentável.</td>
+                </tr>
+                <tr>
+                  <td class="p-2.5 sm:p-3 font-semibold text-slate-900 align-top break-words">Acordo de Paris</td>
+                  <td class="p-2.5 sm:p-3 align-top break-words">2015 (COP21), França</td>
+                  <td class="p-2.5 sm:p-3 align-top break-words"><mark class="bg-amber-100 text-slate-900 px-1 rounded font-medium">Compromisso universal com metas nacionais (NDCs)</mark></td>
+                  <td class="p-2.5 sm:p-3 align-top break-words">Limitar o aquecimento <mark class="bg-amber-100 text-slate-900 px-1 rounded font-medium">bem abaixo de 2 °C (com esforços para 1,5 °C)</mark>; exigiu 55 países e 55% das emissões para vigorar; <mark class="bg-amber-100 text-slate-900 px-1 rounded font-medium">todos os países apresentam NDCs revisadas a cada 5 anos</mark> com progressão de ambição, além de Balanço Global quinquenal desde 2023; saída anunciada pelos EUA em 2017.</td>
+                </tr>
+                <tr>
+                  <td class="p-2.5 sm:p-3 font-semibold text-slate-900 align-top break-words">COP30 e Ciclo Recente</td>
+                  <td class="p-2.5 sm:p-3 align-top break-words">2025, Belém (PA)</td>
+                  <td class="p-2.5 sm:p-3 align-top break-words">Implementação do Acordo de Paris na Amazônia</td>
+                  <td class="p-2.5 sm:p-3 align-top break-words">Pacote de Belém (195 países): Decisão Mutirão, Missão Belém para 1,5 °C, chamado para triplicar financiamento de adaptação até 2035 e Mapas do Caminho (US$ 1,3 trilhão, afastamento dos fósseis e fim/reversão do desmatamento até 2030), com registro jornalístico de ausência de definição final para o mapa do caminho no acordo; na COP31 (Turquia, nov/2026), Brasil defende implementar compromissos de Belém.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <p>
+            No plano científico, o <mark class="bg-amber-100 text-slate-900 px-1 rounded font-medium">Relatório Síntese do Sexto Relatório de Avaliação do IPCC (AR6, 2023)</mark> conclui que a <mark class="bg-amber-100 text-slate-900 px-1 rounded font-medium">temperatura média da superfície global subiu 1,1 °C na década de 2011–2020 em relação a 1850–1900</mark>, sendo esse aquecimento inequivocamente causado pelas emissões antrópicas de gases de efeito estufa (GEE) — dados do serviço europeu Copernicus (C3S) divulgados pela Revista Pesquisa FAPESP em novembro de 2025 já apontavam aquecimento na casa de 1,4 °C. A taxa média de elevação do nível do mar alcançou 3,7 mm/ano entre 2006 e 2018, metade da população mundial enfrenta escassez severa de água por pelo menos um mês ao ano e eventos extremos como inundações e tempestades deslocam mais de 20 milhões de pessoas anualmente desde 2008. Para estabilizar o clima, o IPCC destaca que limitar o aquecimento exige <mark class="bg-amber-100 text-slate-900 px-1 rounded font-medium">emissões líquidas zero (<em>net zero</em>) de CO₂ dentro de um orçamento de carbono pós-2019 de 500 GtCO₂ para 1,5 °C (50% de chance) e de 1.150 GtCO₂ para 2 °C (67%)</mark>, alertando que as emissões projetadas apenas pela infraestrutura fóssil existente, sem abatimento adicional, superam o orçamento disponível para 1,5 °C.
+          </p>
+
+          <p>
+            A comparação entre as emissões e matrizes energéticas do Brasil e do mundo constitui ponto clássico de prova. No planeta, cerca de <mark class="bg-amber-100 text-slate-900 px-1 rounded font-medium">80% das emissões de GEE em 2019 originaram-se de energia, indústria, transportes e edificações</mark>, cabendo o restante à agricultura, florestas e outro uso da terra. <mark class="bg-amber-100 text-slate-900 px-1 rounded font-medium">No Brasil, esse perfil se inverte: cerca de 70% das emissões inventariadas concentram-se em Agropecuária e Uso da Terra, Mudança do Uso da Terra e Florestas (LULUCF)</mark>, enquanto o setor de Energia respondeu por 20,5% do total inventariado em 2022. Essa singularidade decorre da alta renovabilidade registrada nos Balanços Energéticos Nacionais (BEN 2025, ano-base 2024; e BEN 2026, ano-base 2025) da Empresa de Pesquisa Energética (EPE), somada à queda recente do desmatamento medida pelo INPE entre agosto de 2025 e julho de 2026 (-41,8% na Amazônia e -23,8% no Cerrado), que sustenta a <mark class="bg-amber-100 text-slate-900 px-1 rounded font-medium">nova NDC brasileira de corte líquido entre 59% e 67% até 2035</mark> (após metas anteriores de -37% em 2025 e -43% em 2030 sobre 2005).
+          </p>
+
+          <!-- Tabela 2: Indicadores Energéticos e Climáticos (Sem scroll horizontal) -->
+          <div class="border border-slate-200 rounded-xl overflow-hidden my-4">
+            <table class="w-full table-fixed border-collapse text-left text-xs sm:text-sm">
+              <thead>
+                <tr class="bg-slate-100 text-slate-900 border-b border-slate-200">
+                  <th class="w-[25%] p-2.5 sm:p-3 font-semibold align-top">Indicador Energético e Climático</th>
+                  <th class="w-[25%] p-2.5 sm:p-3 font-semibold align-top">Mundo / OCDE</th>
+                  <th class="w-[25%] p-2.5 sm:p-3 font-semibold align-top">Brasil (BEN 2025 — ano-base 2024)</th>
+                  <th class="w-[25%] p-2.5 sm:p-3 font-semibold align-top">Brasil (BEN 2026 — ano-base 2025)</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-slate-200 bg-white text-slate-800">
+                <tr>
+                  <td class="p-2.5 sm:p-3 font-semibold text-slate-900 align-top break-words">Participação de renováveis na <mark class="bg-amber-100 text-slate-900 px-1 rounded font-medium">Matriz Energética (OIE)</mark></td>
+                  <td class="p-2.5 sm:p-3 align-top break-words">14,2% no mundo e 13,0% na OCDE (IEA, ano-base 2023, via MME)</td>
+                  <td class="p-2.5 sm:p-3 align-top break-words"><mark class="bg-amber-100 text-slate-900 px-1 rounded font-medium">50,0%</mark> (marco desde 1990; oferta interna de 322 Mtep)</td>
+                  <td class="p-2.5 sm:p-3 align-top break-words"><mark class="bg-amber-100 text-slate-900 px-1 rounded font-medium">49,5%</mark> (328,5 Mtep no Síntese; 327,9 Mtep em síntese didática EPE)</td>
+                </tr>
+                <tr>
+                  <td class="p-2.5 sm:p-3 font-semibold text-slate-900 align-top break-words">Participação de renováveis na <mark class="bg-amber-100 text-slate-900 px-1 rounded font-medium">Matriz Elétrica</mark></td>
+                  <td class="p-2.5 sm:p-3 align-top break-words">Predomínio de combustíveis fósseis (carvão e gás natural)</td>
+                  <td class="p-2.5 sm:p-3 align-top break-words"><mark class="bg-amber-100 text-slate-900 px-1 rounded font-medium">88,2%</mark></td>
+                  <td class="p-2.5 sm:p-3 align-top break-words"><mark class="bg-amber-100 text-slate-900 px-1 rounded font-medium">86,8%</mark> (redução de 4,8% na geração hidrelétrica e alta de 12,3% na termelétrica)</td>
+                </tr>
+                <tr>
+                  <td class="p-2.5 sm:p-3 font-semibold text-slate-900 align-top break-words">Peso conjunto de Eólica + Solar na eletricidade</td>
+                  <td class="p-2.5 sm:p-3 align-top break-words">Expansão global ainda minoritária frente aos fósseis</td>
+                  <td class="p-2.5 sm:p-3 align-top break-words">23,7% (solar 70,7 TWh; eólica 107,7 TWh)</td>
+                  <td class="p-2.5 sm:p-3 align-top break-words">26,4% (solar 88,1 TWh; eólica 116,5 TWh; micro/minigeração distribuída atingiu 7,0%)</td>
+                </tr>
+                <tr>
+                  <td class="p-2.5 sm:p-3 font-semibold text-slate-900 align-top break-words">Maior emissor dentro da matriz energética</td>
+                  <td class="p-2.5 sm:p-3 align-top break-words">Energia, indústria, transportes e edifícios (~80% das emissões globais)</td>
+                  <td class="p-2.5 sm:p-3 align-top break-words"><mark class="bg-amber-100 text-slate-900 px-1 rounded font-medium">Transportes: 214,3 MtCO₂eq</mark> (de 431,3 MtCO₂eq totais da matriz energética)</td>
+                  <td class="p-2.5 sm:p-3 align-top break-words"><mark class="bg-amber-100 text-slate-900 px-1 rounded font-medium">Transportes: 220,8 MtCO₂eq</mark> (de 442,3 MtCO₂eq totais da matriz energética)</td>
+                </tr>
+                <tr>
+                  <td class="p-2.5 sm:p-3 font-semibold text-slate-900 align-top break-words">Intensidade de carbono do setor elétrico</td>
+                  <td class="p-2.5 sm:p-3 align-top break-words">Elevada na Europa-OCDE, EUA e China</td>
+                  <td class="p-2.5 sm:p-3 align-top break-words">59,9 kg CO₂eq/MWh (23% da Europa-OCDE, 17% dos EUA e 9% da China)</td>
+                  <td class="p-2.5 sm:p-3 align-top break-words">Mantém baixa intensidade de emissões por predominância renovável</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="bg-slate-50 border border-slate-200 rounded-xl p-5">
+            <p class="font-semibold text-slate-900 mb-3">
+              Tópicos essenciais para memorização (Clima, IPCC e Matrizes):
+            </p>
+            <ul class="list-disc pl-5 space-y-2 text-sm sm:text-base text-slate-800">
+              <li><mark class="bg-amber-100 text-slate-900 px-1 rounded font-medium">Quioto (1997)</mark> criou metas obrigatórias apenas para países desenvolvidos (sem os EUA); <mark class="bg-amber-100 text-slate-900 px-1 rounded font-medium">Paris (2015)</mark> universalizou metas nacionais voluntárias (NDCs) com revisão quinquenal progressiva.</li>
+              <li>A NDC brasileira evoluiu de reduções de 37% (2025) e 43% (2030) sobre 2005 para a nova meta de <mark class="bg-amber-100 text-slate-900 px-1 rounded font-medium">corte líquido entre 59% e 67% até 2035</mark>.</li>
+              <li>Pelo IPCC AR6 (2023), o planeta já aqueceu <mark class="bg-amber-100 text-slate-900 px-1 rounded font-medium">1,1 °C (2011–2020)</mark>, e a infraestrutura fóssil atual sem abatimento excede o orçamento de carbono para 1,5 °C (500 GtCO₂ pós-2019).</li>
+              <li>Diferença de prova: <mark class="bg-amber-100 text-slate-900 px-1 rounded font-medium"><strong>Matriz Energética</strong> brasileira (todos os usos) tem 49,5%–50% de renováveis</mark> (ante 14,2% no mundo em 2023); <mark class="bg-amber-100 text-slate-900 px-1 rounded font-medium"><strong>Matriz Elétrica</strong> brasileira (só eletricidade) alcança 86,8%–88,2% de renováveis</mark>.</li>
+              <li>No inventário total brasileiro de GEE, Agropecuária e LULUCF somam ~70% e Energia 20,5%; porém, dentro da matriz energética isolada, o setor de <mark class="bg-amber-100 text-slate-900 px-1 rounded font-medium"><strong>transportes</strong> é o maior emissor</mark>.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Subseção: Vulnerabilidade, Racismo Ambiental e Ministério das Cidades -->
+        <div id="vulnerabilidade-racismo" class="space-y-4 pt-4 border-t border-slate-100">
+          <h3 class="text-lg sm:text-xl font-bold text-slate-900">
+            Vulnerabilidade socioambiental, racismo ambiental e cidades climáticas
+          </h3>
+
+          <p>
+            A corrente da <strong>justiça ambiental</strong> — originada nas lutas pelos direitos civis e contra a contaminação tóxica nos Estados Unidos com <mark class="bg-amber-100 text-slate-900 px-1 rounded font-medium">Benjamin Chavis Jr. e Robert D. Bullard</mark> e consolidada no Brasil por <mark class="bg-amber-100 text-slate-900 px-1 rounded font-medium">Henri Acselrad, Tânia Pacheco e pela Rede Brasileira de Justiça Ambiental (RBJA, criada nos anos 2000)</mark> — demonstra que a <mark class="bg-amber-100 text-slate-900 px-1 rounded font-medium">degradação ambiental não é "democrática"</mark>. A injustiça ambiental ocorre quando grupos sociais sem acesso às esferas de decisão estatal e econômica recebem de forma desproporcional o ônus dos rejeitos tóxicos, da falta de saneamento e da precariedade fundiária, configurando <mark class="bg-amber-100 text-slate-900 px-1 rounded font-medium">"zonas de sacrifício"</mark>. O <mark class="bg-amber-100 text-slate-900 px-1 rounded font-medium"><strong>racismo ambiental</strong></mark> expressa o recorte racializado e institucional dessa injustiça: cunhado por Chavis para designar a imposição desproporcional (intencional ou não) de resíduos perigosos a comunidades não brancas, o conceito foi ampliado por Bullard como manifestação do racismo institucional e adaptado ao contexto brasileiro para evidenciar a vulnerabilização de populações negras periféricas, indígenas, quilombolas, ribeirinhas, pescadoras e vazanteiras diante de grandes empreendimentos minerários, hidrelétricos e da negação de infraestrutura urbana.
+          </p>
+
+          <p>
+            Essa dimensão desigual aparece com nitidez na agenda urbana brasileira sistematizada em 2025 pelo <strong>Ministério das Cidades (MCid)</strong> no âmbito do Plano Clima (horizonte 2025–2035). Conforme o Plano Setorial de Cidades (Mitigação), as <mark class="bg-amber-100 text-slate-900 px-1 rounded font-medium">áreas urbanas ocupam apenas 0,54% do território nacional, mas concentram cerca de 61% da população e responderam em 2022 por aproximadamente 136 MtCO₂e — sendo 74% oriundos de transportes, 22% de edificações e 4% da expansão urbana dispersa e pouco densa</mark>. No catálogo conjunto MCid/GIZ (2025), essas condições definem <mark class="bg-amber-100 text-slate-900 px-1 rounded font-medium">"vulnerabilidades sócio-climáticas"</mark>, determinadas pela atuação simultânea e interdependente de fatores sociais e físico-estruturais.
+          </p>
+
+          <p>
+            No eixo adaptativo, o <em>Plano Clima Adaptação: plano setorial de cidades</em> (MMA/MCTI/MCid, 2025) destaca a indissociabilidade entre o espaço urbano e a mudança do clima, apresentando o <mark class="bg-amber-100 text-slate-900 px-1 rounded font-medium">mapeamento de 1.942 municípios brasileiros mais suscetíveis a deslizamentos, enxurradas e inundações</mark>. O documento identifica <mark class="bg-amber-100 text-slate-900 px-1 rounded font-medium">quatro riscos prioritários</mark> que recaem com maior peso sobre grupos vulnerabilizados: <mark class="bg-amber-100 text-slate-900 px-1 rounded font-medium">fragilização do direito à cidade</mark> e redução da qualidade de vida urbana; <mark class="bg-amber-100 text-slate-900 px-1 rounded font-medium">aumento da precariedade e inadequação habitacional</mark>; <mark class="bg-amber-100 text-slate-900 px-1 rounded font-medium">perda de qualidade e acesso ao saneamento básico</mark>; e <mark class="bg-amber-100 text-slate-900 px-1 rounded font-medium">precarização do transporte e da mobilidade urbana</mark>. Como resposta territorial — frente a dinâmicas sintetizadas em materiais de educação cidadã atribuídos à ONU como <mark class="bg-amber-100 text-slate-900 px-1 rounded font-medium">"apartheid climático"</mark> (impactos climáticos desproporcionais) e <mark class="bg-amber-100 text-slate-900 px-1 rounded font-medium">"gentrificação climática"</mark> (concentração dos grupos mais abastados em áreas mais verdes) —, as políticas de 2025 articulam a revisão de Planos Diretores com lente climática, os Planos Comunitários de Redução de Riscos e Adaptação Climática nas periferias, o adensamento qualificado de áreas degradadas, o transporte público eletrificado e soluções baseadas na natureza (arborização, jardins de chuva e telhados verdes).
+          </p>
+
+          <div class="bg-slate-50 border border-slate-200 rounded-xl p-5">
+            <p class="font-semibold text-slate-900 mb-3">
+              Tópicos essenciais para memorização (Racismo Ambiental e Ministério das Cidades, 2025):
+            </p>
+            <ul class="list-disc pl-5 space-y-2 text-sm sm:text-base text-slate-800">
+              <li>A degradação ambiental não é democrática: o modelo excludente concentra passivos e falta de infraestrutura em <mark class="bg-amber-100 text-slate-900 px-1 rounded font-medium">"zonas de sacrifício"</mark>.</li>
+              <li><mark class="bg-amber-100 text-slate-900 px-1 rounded font-medium">Racismo ambiental</mark> (Benjamin Chavis Jr.; Robert Bullard; Henri Acselrad; Tânia Pacheco) é uma vertente do racismo institucional que no Brasil atinge populações negras urbanas, indígenas, quilombolas, ribeirinhas e pescadoras.</li>
+              <li><mark class="bg-amber-100 text-slate-900 px-1 rounded font-medium">Apartheid climático</mark> indica impactos climáticos desproporcionais sobre vulneráveis; <mark class="bg-amber-100 text-slate-900 px-1 rounded font-medium">gentrificação climática</mark> remete à concentração dos mais abastados em áreas urbanas mais verdes.</li>
+              <li>Ministério das Cidades (2025): áreas urbanas somam <mark class="bg-amber-100 text-slate-900 px-1 rounded font-medium">0,54% do território, concentram ~61% da população e emitiram ~136 MtCO₂e em 2022 (74% transportes, 22% edificações, 4% expansão urbana)</mark>.</li>
+              <li>Plano Clima Adaptação Cidades (2025) mapeou <mark class="bg-amber-100 text-slate-900 px-1 rounded font-medium">1.942 municípios mais suscetíveis a deslizamentos, enxurradas e inundações</mark> e definiu 4 riscos prioritários (direito à cidade, habitação, saneamento e mobilidade).</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- BLOCO 2 -->
+      <section id="bloco-2" class="bg-white border border-slate-200 rounded-2xl p-6 sm:p-8 space-y-6 leading-relaxed">
+        <div class="border-b border-slate-200 pb-4">
+          <span class="text-xs font-semibold uppercase tracking-wider text-slate-500">Bloco 2</span>
+          <h2 class="text-xl sm:text-2xl font-bold text-slate-900 mt-1">
+            2. Principais definições básicas e foco total na prova objetiva
+          </h2>
+        </div>
+
+        <p>
+          Na prova objetiva elaborada pelo IFMG, as questões específicas costumam cobrar a distinção precisa entre conceitos socioambientais e o enquadramento literal de cada categoria territorial prevista na legislação brasileira. Esta segunda parte condensa definições curtas para revisão rápida e aprofunda exatamente os dois focos solicitados: a classificação legal do SNUC e os objetivos e escalas do ZEE.
+        </p>
+
+        <!-- Glossário -->
+        <div class="space-y-3 pt-2">
+          <h3 class="text-lg sm:text-xl font-bold text-slate-900">
+            Glossário de definições rápidas para lembrar no dia da prova
+          </h3>
+
+          <div class="bg-slate-50 border border-slate-200 rounded-xl p-5">
+            <ul class="list-disc pl-5 space-y-2.5 text-sm sm:text-base text-slate-800">
+              <li><mark class="bg-amber-100 text-slate-900 px-1 rounded font-medium"><strong>Natureza como recurso (Porto-Gonçalves, 2006)</strong></mark>: Concepção moderna e capitalista que separa sociedade e natureza para subordinar florestas, águas, solos e conhecimentos tradicionais à exploração e à acumulação econômica.</li>
+              <li><mark class="bg-amber-100 text-slate-900 px-1 rounded font-medium"><strong>Geografia Socioambiental (Mendonça, 2001)</strong></mark>: Abordagem que trata o natural e o social como elementos de um mesmo processo, partindo de conflitos socioambientais com degradação e distinguindo leis naturais de processos sociais.</li>
+              <li><mark class="bg-amber-100 text-slate-900 px-1 rounded font-medium"><strong>Mitigação e Adaptação (IPCC / MCid, 2025)</strong></mark>: Mitigação é a intervenção humana para reduzir emissões ou ampliar sumidouros de GEE; adaptação é o ajuste de sistemas naturais e humanos ao clima atual ou esperado para conter perdas e danos.</li>
+              <li><mark class="bg-amber-100 text-slate-900 px-1 rounded font-medium"><strong>Matriz Energética versus Matriz Elétrica (EPE)</strong></mark>: Matriz energética abrange todas as fontes utilizadas para gerar qualquer forma de energia (transportes, indústria, calor, eletricidade); matriz elétrica refere-se apenas às fontes destinadas à geração de eletricidade.</li>
+              <li><mark class="bg-amber-100 text-slate-900 px-1 rounded font-medium"><strong>Contribuições Nacionalmente Determinadas — NDCs (Acordo de Paris)</strong></mark>: Compromissos climáticos nacionais definidos voluntariamente por cada país signatário e revisados a cada 5 anos com ambição crescente para conter o aquecimento global.</li>
+              <li><mark class="bg-amber-100 text-slate-900 px-1 rounded font-medium"><strong>Injustiça e Racismo Ambiental</strong></mark>: Injustiça ambiental é a imposição desigual dos riscos e danos ecológicos a grupos vulnerabilizados; racismo ambiental é sua face racializada e institucional sobre comunidades negras, indígenas, quilombolas e tradicionais.</li>
+              <li><mark class="bg-amber-100 text-slate-900 px-1 rounded font-medium"><strong>Vulnerabilidade sócio-climática (MCid, 2025)</strong></mark>: Condição de maior exposição a danos climáticos decorrente da interação simultânea e interdependente entre vulnerabilidades sociais e precariedades físico-estruturais do espaço urbano.</li>
+              <li><mark class="bg-amber-100 text-slate-900 px-1 rounded font-medium"><strong>Unidade de Conservação — UC (Lei nº 9.985/2000, art. 2º, I)</strong></mark>: Espaço territorial e seus recursos ambientais, inclusive águas jurisdicionais, com características naturais relevantes, legalmente instituído pelo Poder Público com objetivos de conservação, limites definidos e regime especial de administração.</li>
+              <li><mark class="bg-amber-100 text-slate-900 px-1 rounded font-medium"><strong>Proteção integral versus Uso sustentável (Lei nº 9.985/2000, art. 2º, VI e XI)</strong></mark>: Proteção integral visa manter os ecossistemas livres de alterações por interferência humana, admitindo apenas o <strong>uso indireto</strong> (pesquisa, educação ambiental e turismo controlado conforme a categoria); uso sustentável busca explorar o ambiente garantindo a perenidade dos recursos renováveis e processos ecológicos de modo socialmente justo e economicamente viável, admitindo <strong>uso direto</strong> compatível.</li>
+              <li><mark class="bg-amber-100 text-slate-900 px-1 rounded font-medium"><strong>Plano de Manejo e Zona de Amortecimento (Lei nº 9.985/2000)</strong></mark>: Plano de Manejo é o documento técnico que estabelece o zoneamento e as normas de uso da área e manejo dos recursos da UC; Zona de Amortecimento (ZA) é o entorno da UC sujeito a restrições para conter impactos externos.</li>
+              <li><mark class="bg-amber-100 text-slate-900 px-1 rounded font-medium"><strong>Zoneamento Ecológico-Econômico — ZEE (Decreto nº 4.297/2002)</strong></mark>: Instrumento vinculante e obrigatório da Política Nacional do Meio Ambiente que divide o território em zonas segundo fragilidades ecológicas e potencialidades econômicas, vinculando agentes públicos e privados.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- SNUC Detalhado -->
+        <div id="snuc-detalhado" class="space-y-4 pt-4 border-t border-slate-100">
+          <h3 class="text-lg sm:text-xl font-bold text-slate-900">
+            Classificação legal exata do SNUC na prova objetiva
+          </h3>
+
+          <p>
+            A <mark class="bg-amber-100 text-slate-900 px-1 rounded font-medium">Lei nº 9.985, de 18 de julho de 2000</mark> (regulamentada pelo Decreto nº 4.340/2002), instituiu o Sistema Nacional de Unidades de Conservação da Natureza (SNUC), reunindo as UCs federais, estaduais e municipais, cuja operacionalização federal cabe ao ICMBio, com registro no Cadastro Nacional de Unidades de Conservação (CNUC). Toda UC é criada por ato do Poder Público precedido de estudos técnicos e consulta pública (art. 22, § 2º). O sistema divide exatamente <mark class="bg-amber-100 text-slate-900 px-1 rounded font-medium"><strong>12 categorias</strong> em dois grandes grupos: cinco de <strong>Proteção Integral</strong> (apenas uso indireto dos recursos naturais) e sete de <strong>Uso Sustentável</strong> (compatibilizam conservação e uso direto sustentável)</mark>. Embora o edital destaque dez categorias nominais, apresentar todas as doze garante domínio integral para questões objetivas de exclusão.
+          </p>
+
+          <p>
+            No grupo de <strong>Proteção Integral</strong>, <mark class="bg-amber-100 text-slate-900 px-1 rounded font-medium">nenhuma categoria admite moradia permanente ou extração tradicional de recursos</mark>; quando populações tradicionais residem em área declarada incompatível com sua permanência, o SNUC prevê meios de subsistência alternativos ou justa indenização (art. 5º, X). A diferenciação decisiva para a prova objetiva ocorre em dois critérios internos desse grupo. O primeiro é a <mark class="bg-amber-100 text-slate-900 px-1 rounded font-medium"><strong>visitação pública (turismo controlado)</strong>: é permitida em Parque Nacional, Monumento Natural e Refúgio de Vida Silvestre (segundo o Plano de Manejo), mas é <strong>proibida</strong> na Estação Ecológica e na Reserva Biológica, admitindo-se nestas duas apenas visitação com <strong>objetivo educacional</strong></mark>. O segundo critério é o <mark class="bg-amber-100 text-slate-900 px-1 rounded font-medium"><strong>domínio fundiário</strong>: Estação Ecológica, Reserva Biológica e Parque Nacional são obrigatoriamente de posse e domínio públicos (devendo desapropriar áreas privadas), ao passo que Monumento Natural e Refúgio de Vida Silvestre podem abranger áreas particulares</mark> desde que haja compatibilização com os objetivos da unidade e os limites legais.
+          </p>
+
+          <!-- Tabela 3: Proteção Integral (6 colunas ajustadas sem scroll horizontal) -->
+          <div class="border border-slate-200 rounded-xl overflow-hidden my-4">
+            <table class="w-full table-fixed border-collapse text-left text-xs leading-snug">
+              <thead>
+                <tr class="bg-slate-100 text-slate-900 border-b border-slate-200">
+                  <th class="w-[15%] p-2 sm:p-2.5 font-semibold align-top">Categoria de Proteção Integral</th>
+                  <th class="w-[22%] p-2 sm:p-2.5 font-semibold align-top">Objetivo e Regras Principais (Lei nº 9.985/2000)</th>
+                  <th class="w-[15%] p-2 sm:p-2.5 font-semibold align-top">Posse e Domínio</th>
+                  <th class="w-[16%] p-2 sm:p-2.5 font-semibold align-top">Moradia e Extração Tradicional</th>
+                  <th class="w-[16%] p-2 sm:p-2.5 font-semibold align-top">Visitação Pública / Turismo Controlado</th>
+                  <th class="w-[16%] p-2 sm:p-2.5 font-semibold align-top">Pesquisa Científica</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-slate-200 bg-white text-slate-800">
+                <tr>
+                  <td class="p-2 sm:p-2.5 font-semibold text-slate-900 align-top break-words">Estação Ecológica (ESEC, art. 9º)</td>
+                  <td class="p-2 sm:p-2.5 align-top break-words">Preservação da natureza e realização de pesquisas científicas</td>
+                  <td class="p-2 sm:p-2.5 align-top break-words"><mark class="bg-amber-100 text-slate-900 px-1 rounded font-medium">Públicos</mark> (desapropria particulares)</td>
+                  <td class="p-2 sm:p-2.5 align-top break-words">Proibidas (apenas uso indireto)</td>
+                  <td class="p-2 sm:p-2.5 align-top break-words"><mark class="bg-amber-100 text-slate-900 px-1 rounded font-medium">Proibida, exceto com objetivo educacional</mark> (sem turismo recreativo)</td>
+                  <td class="p-2 sm:p-2.5 align-top break-words">Permitida com autorização prévia; admite alterações por pesquisa de maior impacto em até 3% da unidade e limite de 1.500 ha</td>
+                </tr>
+                <tr>
+                  <td class="p-2 sm:p-2.5 font-semibold text-slate-900 align-top break-words">Reserva Biológica (REBIO, art. 10)</td>
+                  <td class="p-2 sm:p-2.5 align-top break-words">Preservação integral da biota sem interferência humana direta ou modificações ambientais</td>
+                  <td class="p-2 sm:p-2.5 align-top break-words"><mark class="bg-amber-100 text-slate-900 px-1 rounded font-medium">Públicos</mark> (desapropria particulares)</td>
+                  <td class="p-2 sm:p-2.5 align-top break-words">Proibidas (admite apenas recuperação e manejo preservacionista)</td>
+                  <td class="p-2 sm:p-2.5 align-top break-words"><mark class="bg-amber-100 text-slate-900 px-1 rounded font-medium">Proibida, exceto com objetivo educacional</mark></td>
+                  <td class="p-2 sm:p-2.5 align-top break-words">Permitida mediante autorização prévia do órgão gestor</td>
+                </tr>
+                <tr>
+                  <td class="p-2 sm:p-2.5 font-semibold text-slate-900 align-top break-words">Parque Nacional (PARNA, art. 11)</td>
+                  <td class="p-2 sm:p-2.5 align-top break-words">Preservação de ecossistemas naturais (Proteção Integral), pesquisa, educação ambiental, recreação e turismo ecológico</td>
+                  <td class="p-2 sm:p-2.5 align-top break-words"><mark class="bg-amber-100 text-slate-900 px-1 rounded font-medium">Públicos</mark> (desapropria particulares; na esfera estadual/municipal, Parque Estadual ou Municipal)</td>
+                  <td class="p-2 sm:p-2.5 align-top break-words">Proibidas (apenas uso indireto)</td>
+                  <td class="p-2 sm:p-2.5 align-top break-words"><mark class="bg-amber-100 text-slate-900 px-1 rounded font-medium">Permitida</mark> (recreação e turismo ecológico conforme Plano de Manejo)</td>
+                  <td class="p-2 sm:p-2.5 align-top break-words">Permitida mediante autorização prévia do órgão gestor</td>
+                </tr>
+                <tr>
+                  <td class="p-2 sm:p-2.5 font-semibold text-slate-900 align-top break-words">Monumento Natural (MN, art. 12)</td>
+                  <td class="p-2 sm:p-2.5 align-top break-words">Preservar sítios naturais raros, singulares ou de grande beleza cênica</td>
+                  <td class="p-2 sm:p-2.5 align-top break-words"><mark class="bg-amber-100 text-slate-900 px-1 rounded font-medium">Público ou particular</mark> (se compatível; senão desapropria)</td>
+                  <td class="p-2 sm:p-2.5 align-top break-words">Sem extração tradicional; área privada só permanece compatível com uso indireto</td>
+                  <td class="p-2 sm:p-2.5 align-top break-words"><mark class="bg-amber-100 text-slate-900 px-1 rounded font-medium">Permitida</mark> conforme Plano de Manejo e normas do órgão gestor</td>
+                  <td class="p-2 sm:p-2.5 align-top break-words">O art. 12 não traz parágrafo específico sobre pesquisa como os demais artigos, aplicando-se as diretrizes gerais do SNUC (art. 5º)</td>
+                </tr>
+                <tr>
+                  <td class="p-2 sm:p-2.5 font-semibold text-slate-900 align-top break-words">Refúgio de Vida Silvestre (RVS, art. 13)</td>
+                  <td class="p-2 sm:p-2.5 align-top break-words">Proteger ambientes naturais para existência ou reprodução de espécies/comunidades da flora local e fauna residente ou migratória</td>
+                  <td class="p-2 sm:p-2.5 align-top break-words"><mark class="bg-amber-100 text-slate-900 px-1 rounded font-medium">Público ou particular</mark> (se compatível; senão desapropria)</td>
+                  <td class="p-2 sm:p-2.5 align-top break-words">Sem extração tradicional; área privada só permanece compatível com uso indireto</td>
+                  <td class="p-2 sm:p-2.5 align-top break-words"><mark class="bg-amber-100 text-slate-900 px-1 rounded font-medium">Permitida</mark> conforme Plano de Manejo e normas do órgão gestor</td>
+                  <td class="p-2 sm:p-2.5 align-top break-words">Permitida mediante autorização prévia do órgão gestor</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <p>
+            No grupo de <strong>Uso Sustentável</strong>, a chave de acertos está em saber quais categorias foram concebidas para <mark class="bg-amber-100 text-slate-900 px-1 rounded font-medium"><strong>moradia e extração tradicional</strong></mark> e reconhecer a exceção jurídica da <mark class="bg-amber-100 text-slate-900 px-1 rounded font-medium"><strong>RPPN</strong></mark>. As duas categorias voltadas diretamente à permanência de populações tradicionais com concessão contratual (art. 23) e aprovação do Plano de Manejo por um <mark class="bg-amber-100 text-slate-900 px-1 rounded font-medium"><strong>Conselho Deliberativo</strong> são a <strong>Reserva Extrativista (RESEX)</strong> e a <strong>Reserva de Desenvolvimento Sustentável (RDS)</strong></mark>. Na RESEX — voltada a populações extrativistas tradicionais que combinam extrativismo com agricultura de subsistência e criação de animais de pequeno porte —, são expressamente proibidas a exploração de recursos minerais e a caça amadorística ou profissional, sendo a exploração madeireira comercial permitida apenas em situações especiais e complementares. Na RDS — voltada a populações tradicionais com sistemas sustentáveis geracionais —, o uso dos recursos também obedece a contrato, sendo vedado usar espécies localmente ameaçadas ou impedir a regeneração natural.
+          </p>
+
+          <p>
+            A <mark class="bg-amber-100 text-slate-900 px-1 rounded font-medium"><strong>Floresta Nacional (FLONA)</strong></mark>, por sua vez, é de posse e domínio públicos (exigindo desapropriação de áreas privadas) e visa o uso múltiplo sustentável de florestas predominantemente nativas e a pesquisa científica, integrando atores locais e moradores quando presentes nos conselhos gestores. Já para <strong>APA</strong>, <strong>ARIE</strong> e <strong>Reserva de Fauna (RF)</strong>, cabe notar que os <em>caputs</em> literais dos arts. 15, 16 e 19 não constam integralmente nos excertos normativos consultados; porém, os dispositivos e sínteses disponíveis comprovam que APA e ARIE admitem terras privadas e compatibilizam a conservação com ocupação humana ou atividades econômicas (incluindo atividades industriais condicionadas, segundo guias técnicos de licenciamento) sob restrições do zoneamento e do Plano de Manejo, tendo a APA um conselho com poder público, sociedade civil e população residente. Na Reserva de Fauna, os parágrafos disponíveis confirmam a proibição da caça amadorística ou profissional e o controle da comercialização de produtos resultantes de pesquisas.
+          </p>
+
+          <p>
+            Finalmente, a <mark class="bg-amber-100 text-slate-900 px-1 rounded font-medium">maior pegadinha do SNUC recai sobre a <strong>Reserva Particular do Patrimônio Natural (RPPN)</strong></mark>. Embora pertença ao grupo de <strong>Uso Sustentável</strong>, trata-se de imóvel <mark class="bg-amber-100 text-slate-900 px-1 rounded font-medium"><strong>privado gravado com perpetuidade</strong> no Registro Público de Imóveis cujo art. 21, § 2º autoriza <strong>exclusivamente</strong> pesquisa científica e visitação com objetivos turísticos, recreativos e educacionais</mark> (o inciso que trataria de outros usos foi vetado). Logo, a RPPN não admite extração de recursos nem moradia tradicional com fins extrativos, desmontando o erro comum de associar automaticamente todo Uso Sustentável ao extrativismo.
+          </p>
+
+          <!-- Tabela 4: Uso Sustentável (6 colunas ajustadas sem scroll horizontal) -->
+          <div class="border border-slate-200 rounded-xl overflow-hidden my-4">
+            <table class="w-full table-fixed border-collapse text-left text-xs leading-snug">
+              <thead>
+                <tr class="bg-slate-100 text-slate-900 border-b border-slate-200">
+                  <th class="w-[15%] p-2 sm:p-2.5 font-semibold align-top">Categoria de Uso Sustentável</th>
+                  <th class="w-[21%] p-2 sm:p-2.5 font-semibold align-top">Objetivo e Escopo Documentado (Lei nº 9.985/2000)</th>
+                  <th class="w-[14%] p-2 sm:p-2.5 font-semibold align-top">Posse e Domínio</th>
+                  <th class="w-[19%] p-2 sm:p-2.5 font-semibold align-top">Moradia e Extração / Uso Direto</th>
+                  <th class="w-[15%] p-2 sm:p-2.5 font-semibold align-top">Visitação e Pesquisa Científica</th>
+                  <th class="w-[16%] p-2 sm:p-2.5 font-semibold align-top">Conselho e Regras-Chave</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-slate-200 bg-white text-slate-800">
+                <tr>
+                  <td class="p-2 sm:p-2.5 font-semibold text-slate-900 align-top break-words">Área de Proteção Ambiental (APA, art. 15)</td>
+                  <td class="p-2 sm:p-2.5 align-top break-words">Compatibilizar conservação com uso direto sustentável e população residente (caput completo ausente nos excertos)</td>
+                  <td class="p-2 sm:p-2.5 align-top break-words"><mark class="bg-amber-100 text-slate-900 px-1 rounded font-medium">Admite terras privadas e públicas</mark></td>
+                  <td class="p-2 sm:p-2.5 align-top break-words">Admite moradia e atividades produtivas (inclusive industriais condicionadas, segundo guias técnicos) sob regras do Plano de Manejo</td>
+                  <td class="p-2 sm:p-2.5 align-top break-words">Permitidas conforme zoneamento e Plano de Manejo</td>
+                  <td class="p-2 sm:p-2.5 align-top break-words">Conselho presidido pelo órgão gestor com poder público, sociedade civil e população residente (art. 15, § 5º)</td>
+                </tr>
+                <tr>
+                  <td class="p-2 sm:p-2.5 font-semibold text-slate-900 align-top break-words">Área de Relevante Interesse Ecológico (ARIE, art. 16)</td>
+                  <td class="p-2 sm:p-2.5 align-top break-words">Uso Sustentável em áreas públicas ou privadas com restrições de uso (caput completo ausente nos excertos)</td>
+                  <td class="p-2 sm:p-2.5 align-top break-words"><mark class="bg-amber-100 text-slate-900 px-1 rounded font-medium">Terras públicas ou privadas</mark></td>
+                  <td class="p-2 sm:p-2.5 align-top break-words">Admite atividades condicionadas e uso privado sujeito a normas e restrições constitucionais</td>
+                  <td class="p-2 sm:p-2.5 align-top break-words">Permitidas conforme normas e Plano de Manejo</td>
+                  <td class="p-2 sm:p-2.5 align-top break-words">Normas e restrições aplicam-se diretamente às propriedades privadas inseridas em seus limites</td>
+                </tr>
+                <tr>
+                  <td class="p-2 sm:p-2.5 font-semibold text-slate-900 align-top break-words">Floresta Nacional (FLONA, art. 17)</td>
+                  <td class="p-2 sm:p-2.5 align-top break-words">Uso múltiplo sustentável dos recursos florestais (espécies predominantemente nativas) e pesquisa científica</td>
+                  <td class="p-2 sm:p-2.5 align-top break-words"><mark class="bg-amber-100 text-slate-900 px-1 rounded font-medium">Públicos</mark> (áreas particulares devem ser desapropriadas)</td>
+                  <td class="p-2 sm:p-2.5 align-top break-words">Uso múltiplo sustentável florestal; articulação com comunidades locais/extrativistas em conselhos conforme prática documentada</td>
+                  <td class="p-2 sm:p-2.5 align-top break-words">Pesquisa científica é objetivo básico; visitação regulada pelo manejo</td>
+                  <td class="p-2 sm:p-2.5 align-top break-words">Ênfase em métodos de exploração sustentável de florestas nativas</td>
+                </tr>
+                <tr>
+                  <td class="p-2 sm:p-2.5 font-semibold text-slate-900 align-top break-words">Reserva Extrativista (RESEX, art. 18)</td>
+                  <td class="p-2 sm:p-2.5 align-top break-words">Proteger meios de vida e cultura de populações extrativistas tradicionais e assegurar uso sustentável</td>
+                  <td class="p-2 sm:p-2.5 align-top break-words">Domínio público com uso concedido por contrato (art. 23)</td>
+                  <td class="p-2 sm:p-2.5 align-top break-words"><mark class="bg-amber-100 text-slate-900 px-1 rounded font-medium">Permite moradia e extrativismo tradicional</mark> (+ agricultura de subsistência e pequenos animais); proíbe mineração e caça; madeira comercial só excepcionalmente</td>
+                  <td class="p-2 sm:p-2.5 align-top break-words">Pesquisa permitida e incentivada com prévia autorização; visitação regulada</td>
+                  <td class="p-2 sm:p-2.5 align-top break-words">Plano de Manejo aprovado pelo <mark class="bg-amber-100 text-slate-900 px-1 rounded font-medium"><strong>Conselho Deliberativo</strong></mark></td>
+                </tr>
+                <tr>
+                  <td class="p-2 sm:p-2.5 font-semibold text-slate-900 align-top break-words">Reserva de Fauna (RF, art. 19)</td>
+                  <td class="p-2 sm:p-2.5 align-top break-words">Categoria de Uso Sustentável voltada à fauna (caput completo ausente nos excertos)</td>
+                  <td class="p-2 sm:p-2.5 align-top break-words">Previsão de domínio não detalhada nos excertos</td>
+                  <td class="p-2 sm:p-2.5 align-top break-words">Proibida caça amadorística ou profissional; produtos de pesquisas seguem leis de fauna</td>
+                  <td class="p-2 sm:p-2.5 align-top break-words">Comercialização de subprodutos restrita aos resultados de pesquisas reguladas</td>
+                  <td class="p-2 sm:p-2.5 align-top break-words">Controle rigoroso sobre pesquisas faunísticas e proibição de caça</td>
+                </tr>
+                <tr>
+                  <td class="p-2 sm:p-2.5 font-semibold text-slate-900 align-top break-words">Reserva de Desenvolvimento Sustentável (RDS, art. 20)</td>
+                  <td class="p-2 sm:p-2.5 align-top break-words">Abrigar populações tradicionais com sistemas sustentáveis geracionais adaptados ao meio local</td>
+                  <td class="p-2 sm:p-2.5 align-top break-words">Posse e uso de populações tradicionais regulados por contrato (art. 23)</td>
+                  <td class="p-2 sm:p-2.5 align-top break-words"><mark class="bg-amber-100 text-slate-900 px-1 rounded font-medium">Permite moradia e exploração sustentável tradicional</mark>; proíbe usar espécies ameaçadas ou impedir regeneração natural</td>
+                  <td class="p-2 sm:p-2.5 align-top break-words">Visitação pública e pesquisa científica permitidas e incentivadas conforme Plano de Manejo</td>
+                  <td class="p-2 sm:p-2.5 align-top break-words">Plano de Manejo define zonas de proteção integral, uso sustentável, amortecimento e corredores; aprovado por <mark class="bg-amber-100 text-slate-900 px-1 rounded font-medium"><strong>Conselho Deliberativo</strong></mark></td>
+                </tr>
+                <tr>
+                  <td class="p-2 sm:p-2.5 font-semibold text-slate-900 align-top break-words">Reserva Particular do Patrimônio Natural (RPPN, art. 21)</td>
+                  <td class="p-2 sm:p-2.5 align-top break-words">Conservar a diversidade biológica em área privada</td>
+                  <td class="p-2 sm:p-2.5 align-top break-words"><mark class="bg-amber-100 text-slate-900 px-1 rounded font-medium">Privada, gravada com perpetuidade</mark> no Registro de Imóveis</td>
+                  <td class="p-2 sm:p-2.5 align-top break-words"><mark class="bg-amber-100 text-slate-900 px-1 rounded font-medium"><strong>Não permite exploração extrativa</strong></mark> (inciso III vetado)</td>
+                  <td class="p-2 sm:p-2.5 align-top break-words"><mark class="bg-amber-100 text-slate-900 px-1 rounded font-medium"><strong>Só permite</strong> pesquisa científica e visitação turística, recreativa e educacional</mark></td>
+                  <td class="p-2 sm:p-2.5 align-top break-words">Órgãos do SNUC prestam orientação técnica/científica ao proprietário para o Plano de Manejo</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="bg-slate-50 border border-slate-200 rounded-xl p-5">
+            <p class="font-semibold text-slate-900 mb-3">
+              Regras de ouro do SNUC para memorização na prova objetiva:
+            </p>
+            <ul class="list-disc pl-5 space-y-2 text-sm sm:text-base text-slate-800">
+              <li><mark class="bg-amber-100 text-slate-900 px-1 rounded font-medium"><strong>Visitação turística controlada na Proteção Integral</strong></mark>: permitida em Parque Nacional, Monumento Natural e Refúgio de Vida Silvestre; <strong>proibida</strong> na Estação Ecológica e na Reserva Biológica (só entra visitação educacional).</li>
+              <li><mark class="bg-amber-100 text-slate-900 px-1 rounded font-medium"><strong>Área particular na Proteção Integral</strong></mark>: só é admitida (se compatível) em Monumento Natural e Refúgio de Vida Silvestre; ESEC, REBIO e PARNA são exclusivamente públicos.</li>
+              <li><mark class="bg-amber-100 text-slate-900 px-1 rounded font-medium"><strong>Moradia e extração tradicional com contrato e Conselho Deliberativo</strong></mark>: RESEX e RDS são as categorias centrais das populações tradicionais (art. 23).</li>
+              <li><mark class="bg-amber-100 text-slate-900 px-1 rounded font-medium"><strong>Exceção da RPPN</strong></mark>: integra o Uso Sustentável, é privada e perpétua, mas <strong>só admite</strong> pesquisa científica e visitação turística, recreativa e educacional.</li>
+              <li><strong>Agravante penal</strong>: segundo alteração na Lei de Crimes Ambientais (Lei nº 9.605/1998, art. 40, § 2º) inserida pela Lei nº 9.985/2000, dano que afete espécies ameaçadas de extinção no interior de UC de Proteção Integral agrava a pena.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- ZEE Detalhado -->
+        <div class="space-y-4 pt-4 border-t border-slate-100">
+          <h3 class="text-lg sm:text-xl font-bold text-slate-900">
+            Zoneamento Ecológico-Econômico como instrumento de ordenamento territorial
+          </h3>
+
+          <p>
+            Previsto na Política Nacional do Meio Ambiente (Lei nº 6.938/1981, art. 9º, inciso II) e regulamentado pelo <mark class="bg-amber-100 text-slate-900 px-1 rounded font-medium">Decreto nº 4.297, de 10 de julho de 2002</mark> (com alterações do Decreto nº 6.288/2007), o Zoneamento Ecológico-Econômico (ZEE) é o instrumento técnico-jurídico de organização territorial do Brasil. Sua característica mais cobrada em provas é a <mark class="bg-amber-100 text-slate-900 px-1 rounded font-medium"><strong>obrigatoriedade vinculante</strong>: nos termos dos arts. 2º e 3º, o ZEE deve ser obrigatoriamente seguido na implantação de planos, obras e atividades públicas e privadas</mark>.
+          </p>
+
+          <p>
+            O <strong>objetivo geral</strong> do ZEE (art. 3º) é organizar, de forma vinculada, as decisões dos agentes públicos e privados quanto a planos, programas, projetos e atividades que utilizem direta ou indiretamente recursos naturais, assegurando a plena manutenção do capital e dos serviços ambientais dos ecossistemas. Para concretizar esse objetivo, o parágrafo único determina que a distribuição espacial das atividades econômicas leve em conta a importância ecológica, as limitações e as fragilidades dos ecossistemas, estabelecendo vedações, restrições, alternativas de exploração e inclusive a <mark class="bg-amber-100 text-slate-900 px-1 rounded font-medium"><strong>relocalização de atividades incompatíveis</strong></mark>. Sua elaboração orienta-se pela sustentabilidade ecológica, econômica e social, ampla participação democrática entre níveis de governo e sociedade civil, e conhecimento científico multidisciplinar (art. 4º), obedecendo aos princípios da função socioambiental da propriedade, prevenção, precaução, poluidor-pagador, usuário-pagador e participação informada (art. 5º), além de prever divulgação pública em linguagem acessível (art. 17).
+          </p>
+
+          <p>
+            Tecnicamente, o ZEE divide o território em zonas sob os princípios da <mark class="bg-amber-100 text-slate-900 px-1 rounded font-medium"><strong>utilidade e simplicidade</strong></mark> (art. 11). Cada zona exige um conteúdo mínimo (art. 12): <mark class="bg-amber-100 text-slate-900 px-1 rounded font-medium">diagnóstico integrado dos recursos naturais, da socioeconomia e do marco jurídico-institucional; organização em Sistema de Informações Geográficas (SIG); e construção de cenários tendenciais e alternativos</mark>. As diretrizes gerais e específicas (art. 14) vinculam cada zona às atividades adequadas segundo sua fragilidade ecológica, capacidade de suporte ambiental e potencialidades, articulando programas e fontes de recursos dos três entes federativos.
+          </p>
+
+          <p>
+            No tocante às competências e <strong>escalas de aplicação</strong> (arts. 6º a 6º-C, incluídos pelo Decreto nº 6.288/2007), compete ao Poder Público Federal elaborar e executar o ZEE nacional e regional — especialmente em biomas considerados patrimônio nacional ou que não devam ser tratados de forma fragmentária — bem como o ZEE da Amazônia Legal, sob coordenação da Comissão Coordenadora do ZEE do Território Nacional (CCZEE), que também analisa para reconhecimento os ZEEs estaduais, regionais e locais ouvido o Consórcio ZEE Brasil. No art. 6º-A, os fragmentos normativos confirmam literalmente as escalas das duas pontas da hierarquia: o <mark class="bg-amber-100 text-slate-900 px-1 rounded font-medium"><strong>ZEE Nacional</strong> utiliza escala de apresentação <strong>1:5.000.000</strong> e de referência <strong>1:1.000.000</strong> (inciso I), enquanto o <strong>ZEE Local</strong> utiliza escalas de referência de <strong>1:100.000 e maiores</strong> (inciso IV, isto é, maior detalhamento espacial, com denominadores menores ou iguais a 100.000)</mark>. Como a redação literal dos incisos II e III do art. 6º-A (escalas intermediárias para níveis macrorregional/regional e estadual) não consta integralmente nos documentos reunidos, recomenda-se conferir diretamente esses dois incisos no texto oficial do Decreto nº 4.297/2002 antes da prova.
+          </p>
+
+          <!-- Tabela 5: Escalas ZEE (Sem scroll horizontal) -->
+          <div class="border border-slate-200 rounded-xl overflow-hidden my-4">
+            <table class="w-full table-fixed border-collapse text-left text-xs sm:text-sm">
+              <thead>
+                <tr class="bg-slate-100 text-slate-900 border-b border-slate-200">
+                  <th class="w-[24%] p-2.5 sm:p-3 font-semibold align-top">Nível Territorial do ZEE (Art. 6º-A)</th>
+                  <th class="w-[28%] p-2.5 sm:p-3 font-semibold align-top">Escala de Referência / Apresentação</th>
+                  <th class="w-[48%] p-2.5 sm:p-3 font-semibold align-top">Função e Competência no Ordenamento Territorial</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-slate-200 bg-white text-slate-800">
+                <tr>
+                  <td class="p-2.5 sm:p-3 font-semibold text-slate-900 align-top break-words">ZEE Nacional (inciso I)</td>
+                  <td class="p-2.5 sm:p-3 align-top break-words"><mark class="bg-amber-100 text-slate-900 px-1 rounded font-medium">Apresentação: 1:5.000.000; Referência: 1:1.000.000</mark></td>
+                  <td class="p-2.5 sm:p-3 align-top break-words">Síntese macroterritorial executada pelo Poder Público Federal; compatibilização estratégica nacional e padronização via CCZEE.</td>
+                </tr>
+                <tr>
+                  <td class="p-2.5 sm:p-3 font-semibold text-slate-900 align-top break-words">ZEE Macrorregional / Regional e Estadual (incisos II e III)</td>
+                  <td class="p-2.5 sm:p-3 align-top break-words">Redação literal completa das escalas intermediárias ausente nos excertos disponíveis</td>
+                  <td class="p-2.5 sm:p-3 align-top break-words">Integra regiões (partes de um ou mais Estados), biomas patrimônio nacional e territórios estaduais, podendo ser reconhecido pela União via CCZEE ouvido o Consórcio ZEE Brasil.</td>
+                </tr>
+                <tr>
+                  <td class="p-2.5 sm:p-3 font-semibold text-slate-900 align-top break-words">ZEE Local (inciso IV)</td>
+                  <td class="p-2.5 sm:p-3 align-top break-words"><mark class="bg-amber-100 text-slate-900 px-1 rounded font-medium">Referência: 1:100.000 e maiores</mark> (denominador ≤ 100.000, maior detalhe cartográfico)</td>
+                  <td class="p-2.5 sm:p-3 align-top break-words">Nível de maior detalhamento espacial; orienta a gestão territorial local e o ordenamento municipal compatibilizado com as políticas federais.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="bg-slate-50 border border-slate-200 rounded-xl p-5">
+            <p class="font-semibold text-slate-900 mb-3">
+              Tópicos essenciais para memorização (ZEE — Decreto nº 4.297/2002):
+            </p>
+            <ul class="list-disc pl-5 space-y-2 text-sm sm:text-base text-slate-800">
+              <li><mark class="bg-amber-100 text-slate-900 px-1 rounded font-medium"><strong>Obrigatoriedade</strong></mark>: Instrumento da PNMA (Lei nº 6.938/1981) de observância obrigatória e vinculante para planos, obras e atividades públicas e privadas (arts. 2º e 3º).</li>
+              <li><mark class="bg-amber-100 text-slate-900 px-1 rounded font-medium"><strong>Alcance</strong></mark>: Pode impor vedações, restrições, alternativas de uso e a <strong>relocalização de atividades incompatíveis</strong> (art. 3º, parágrafo único).</li>
+              <li><mark class="bg-amber-100 text-slate-900 px-1 rounded font-medium"><strong>Diagnóstico mínimo (art. 12)</strong></mark>: recursos naturais + socioeconomia + marco jurídico-institucional, em SIG, com cenários tendenciais e alternativos.</li>
+              <li><mark class="bg-amber-100 text-slate-900 px-1 rounded font-medium"><strong>Lógica das escalas (art. 6º-A)</strong></mark>: ZEE Nacional na apresentação 1:5.000.000 e referência 1:1.000.000; ZEE Local na referência 1:100.000 e maiores (conferir incisos II e III na norma integral).</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Matriz de Pegadinhas e Checklist Final -->
+        <div class="space-y-4 pt-4 border-t border-slate-100">
+          <h3 class="text-lg sm:text-xl font-bold text-slate-900">
+            Matriz de pegadinhas e checklist final de revisão
+          </h3>
+
+          <p>
+            As questões objetivas de institutos federais costumam explorar pequenas inversões entre categorias do SNUC, o caráter jurídico do ZEE e a diferença entre matriz energética e matriz elétrica. O quadro seguinte sintetiza os erros mais comuns e sua correção direta.
+          </p>
+
+          <!-- Tabela 6: Matriz de Pegadinhas (Sem scroll horizontal) -->
+          <div class="border border-slate-200 rounded-xl overflow-hidden my-4">
+            <table class="w-full table-fixed border-collapse text-left text-xs sm:text-sm">
+              <thead>
+                <tr class="bg-slate-100 text-slate-900 border-b border-slate-200">
+                  <th class="w-[42%] p-2.5 sm:p-3 font-semibold align-top">Pegadinha Clássica de Prova Objetiva</th>
+                  <th class="w-[58%] p-2.5 sm:p-3 font-semibold align-top">Resposta Correta e Fundamento</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-slate-200 bg-white text-slate-800">
+                <tr>
+                  <td class="p-2.5 sm:p-3 align-top break-words">"Todas as UCs de Proteção Integral exigem desapropriação total de terras privadas e liberam turismo ecológico controlado."</td>
+                  <td class="p-2.5 sm:p-3 align-top break-words"><mark class="bg-amber-100 text-slate-900 px-1 rounded font-medium"><strong>Errado.</strong></mark> Monumento Natural e Refúgio de Vida Silvestre admitem áreas particulares compatíveis; Estação Ecológica e Reserva Biológica proíbem visitação turística (só admitem visitação educacional).</td>
+                </tr>
+                <tr>
+                  <td class="p-2.5 sm:p-3 align-top break-words">"Por pertencer ao grupo de Uso Sustentável, a RPPN permite moradia e extração tradicional sustentável."</td>
+                  <td class="p-2.5 sm:p-3 align-top break-words"><mark class="bg-amber-100 text-slate-900 px-1 rounded font-medium"><strong>Errado.</strong></mark> A RPPN é área privada perpétua que <strong>só permite</strong> pesquisa científica e visitação turística, recreativa e educacional (o inciso III foi vetado).</td>
+                </tr>
+                <tr>
+                  <td class="p-2.5 sm:p-3 align-top break-words">"Em todas as UCs, o conselho é meramente consultivo e não aprova o Plano de Manejo."</td>
+                  <td class="p-2.5 sm:p-3 align-top break-words"><mark class="bg-amber-100 text-slate-900 px-1 rounded font-medium"><strong>Errado.</strong></mark> Nas RESEX e nas RDS, o conselho é <strong>Deliberativo</strong> e aprova o Plano de Manejo.</td>
+                </tr>
+                <tr>
+                  <td class="p-2.5 sm:p-3 align-top break-words">"O ZEE é um mapa indicativo opcional para o setor privado e tem escala nacional de 1:100.000."</td>
+                  <td class="p-2.5 sm:p-3 align-top break-words"><mark class="bg-amber-100 text-slate-900 px-1 rounded font-medium"><strong>Errado.</strong></mark> O ZEE vincula obrigatoriamente agentes públicos e privados (arts. 2º e 3º); a escala 1:100.000 e maiores é do ZEE <strong>local</strong>, enquanto o nacional adota 1:5.000.000 (apresentação) e 1:1.000.000 (referência).</td>
+                </tr>
+                <tr>
+                  <td class="p-2.5 sm:p-3 align-top break-words">"O Acordo de Paris manteve metas apenas para países ricos, como no Protocolo de Quioto."</td>
+                  <td class="p-2.5 sm:p-3 align-top break-words"><mark class="bg-amber-100 text-slate-900 px-1 rounded font-medium"><strong>Errado.</strong></mark> Quioto vinculou apenas países industrializados; Paris universalizou a apresentação de NDCs para todos os países signatários com revisões progressivas a cada 5 anos.</td>
+                </tr>
+                <tr>
+                  <td class="p-2.5 sm:p-3 align-top break-words">"A matriz energética brasileira é ~87% renovável e o setor de energia é o maior emissor do inventário total do país."</td>
+                  <td class="p-2.5 sm:p-3 align-top break-words"><mark class="bg-amber-100 text-slate-900 px-1 rounded font-medium"><strong>Errado.</strong></mark> ~86,8%–88,2% é a renovabilidade da matriz <strong>elétrica</strong>; na <strong>energética</strong>, fica em 49,5%–50%; no inventário nacional, Agropecuária e LULUCF somam ~70%, contra 20,5% de Energia.</td>
+                </tr>
+                <tr>
+                  <td class="p-2.5 sm:p-3 align-top break-words">"Para Mendonça (2001), a TGS resolveu o problema metodológico ao integrar plenamente sociedade e natureza."</td>
+                  <td class="p-2.5 sm:p-3 align-top break-words"><mark class="bg-amber-100 text-slate-900 px-1 rounded font-medium"><strong>Errado.</strong></mark> Mendonça critica o viés naturalista da TGS e defende distinguir leis naturais de processos sociais na análise de conflitos socioambientais.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="bg-slate-50 border border-slate-200 rounded-xl p-5">
+            <p class="font-semibold text-slate-900 mb-3">
+              Sequência final de revisão para a prova de 24 de janeiro de 2027:
+            </p>
+            <ol class="list-decimal pl-5 space-y-2 text-sm sm:text-base text-slate-800">
+              <li>Memorizar o quadro das <mark class="bg-amber-100 text-slate-900 px-1 rounded font-medium">12 categorias da Lei nº 9.985/2000</mark> (especialmente ESEC, REBIO, PARNA, MN, RVS, RESEX, RDS e RPPN), cruzando uso direto, visitação e domínio.</li>
+              <li>Conferir no texto integral oficial a redação literal dos <mark class="bg-amber-100 text-slate-900 px-1 rounded font-medium">incisos II e III do art. 6º-A do Decreto nº 4.297/2002</mark> (escalas regionais/estaduais) e dos <mark class="bg-amber-100 text-slate-900 px-1 rounded font-medium"><em>caputs</em> dos arts. 15, 16 e 19 da Lei nº 9.985/2000</mark> (APA, ARIE e Reserva de Fauna).</li>
+              <li>Fixar os contrastes numéricos entre <mark class="bg-amber-100 text-slate-900 px-1 rounded font-medium">BEN 2025/2026</mark> (Brasil ~50% renovável na matriz energética e ~87%–88% na elétrica) e <mark class="bg-amber-100 text-slate-900 px-1 rounded font-medium">IPCC AR6</mark> (1,1 °C observado; 500 GtCO₂ pós-2019 para 1,5 °C).</li>
+              <li>Integrar, também para a <mark class="bg-amber-100 text-slate-900 px-1 rounded font-medium">prova dissertativa de até 90 linhas</mark>, a crítica de Porto-Gonçalves (2006) e Mendonça (2001) à agenda urbana de justiça climática e redução de vulnerabilidades nos 1.942 municípios mapeados pelo Ministério das Cidades (2025).</li>
+            </ol>
+          </div>
+        </div>
+      </section>
+
+      <!-- BOTÃO FINAL PARA questoes16.html -->
+      <footer class="bg-white border border-slate-200 rounded-2xl p-6 sm:p-8 text-center space-y-4">
+        <p class="text-sm sm:text-base text-slate-600 max-w-2xl mx-auto">
+          Concluiu a revisão do conteúdo? Avance agora para o caderno de exercícios e simulados objetivos.
+        </p>
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-3">
+          <a
+            href="questoes16geo.html"
+            class="inline-flex items-center justify-center gap-2 px-7 py-3.5 text-base font-semibold text-slate-900 bg-slate-100 hover:bg-slate-200 border border-slate-300 rounded-xl shadow-xs transition"
+          >
+            <span>Ir para Questões</span>
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+            </svg>
+          </a>
+          <a
+            href="#audio-player"
+            onclick="window.scrollTo({top: 0, behavior: 'smooth'}); return false;"
+            class="inline-flex items-center justify-center px-5 py-3.5 text-sm font-medium text-slate-600 bg-white hover:bg-slate-50 border border-slate-200 rounded-xl transition"
+          >
+            Voltar ao topo
+          </a>
+        </div>
+      </footer>
+
+    </main>
+  </div>
+
+  <!-- Script do Reprodutor de Áudio MP3 -->
+  <script>
+    (function () {
+      // =========================================================================
+      // CONFIGURAÇÃO DO NOME DO ARQUIVO MP3:
+      // Você pode alterar o nome padrão do arquivo MP3 abaixo ou digitar direto
+      // na caixa de texto no topo da página. O arquivo deve estar na mesma pasta.
+      // =========================================================================
+      const ARQUIVO_MP3_PADRAO = "audio16geo.mp3";
+
+      const audio = document.getElementById("audio-player");
+      const audioSource = document.getElementById("audio-source");
+      const filenameInput = document.getElementById("mp3-filename-input");
+      const btnLoadMp3 = document.getElementById("btn-load-mp3");
+      const currentFileDisplay = document.getElementById("current-file-display");
+      const audioStatus = document.getElementById("audio-status");
+
+      const btnPlayPause = document.getElementById("btn-play-pause");
+      const iconPlay = document.getElementById("icon-play");
+      const iconPause = document.getElementById("icon-pause");
+      const playPauseLabel = document.getElementById("play-pause-label");
+
+      const btnRewind = document.getElementById("btn-rewind");
+      const btnForward = document.getElementById("btn-forward");
+      const btnSpeed = document.getElementById("btn-speed");
+      const btnMute = document.getElementById("btn-mute");
+      const muteLabel = document.getElementById("mute-label");
+      const volumeSlider = document.getElementById("volume-slider");
+
+      const progressBar = document.getElementById("progress-bar");
+      const currentTimeEl = document.getElementById("current-time");
+      const durationTimeEl = document.getElementById("duration-time");
+
+      const speeds = [1.0, 1.25, 1.5, 1.75, 2.0];
+      let speedIndex = 0;
+
+      // Formata segundos em MM:SS
+      function formatTime(seconds) {
+        if (!isFinite(seconds) || seconds < 0) return "00:00";
+        const mins = Math.floor(seconds / 60);
+        const secs = Math.floor(seconds % 60);
+        return String(mins).padStart(2, "0") + ":" + String(secs).padStart(2, "0");
+      }
+
+      // Atualiza estado visual do botão Play/Pause
+      function updatePlayState(isPlaying) {
+        if (isPlaying) {
+          iconPlay.classList.add("hidden");
+          iconPause.classList.remove("hidden");
+          playPauseLabel.textContent = "Pausar";
+        } else {
+          iconPlay.classList.remove("hidden");
+          iconPause.classList.add("hidden");
+          playPauseLabel.textContent = "Reproduzir";
+        }
+      }
+
+      // Carrega o nome do arquivo MP3 informado
+      function loadAudioFile(fileName) {
+        const cleanName = (fileName || "").trim() || ARQUIVO_MP3_PADRAO;
+        filenameInput.value = cleanName;
+        currentFileDisplay.textContent = cleanName;
+
+        audio.pause();
+        updatePlayState(false);
+        progressBar.value = 0;
+        currentTimeEl.textContent = "00:00";
+        durationTimeEl.textContent = "00:00";
+
+        audioSource.src = cleanName;
+        audio.src = cleanName;
+        audio.load();
+
+        try {
+          localStorage.setItem("ifmg_aula_mp3_file", cleanName);
+        } catch (e) {
+          // Ignora erro caso localStorage esteja bloqueado
+        }
+
+        audioStatus.innerHTML =
+          'Arquivo carregado: <strong class="font-semibold text-slate-800">' +
+          cleanName.replace(/</g, "&lt;").replace(/>/g, "&gt;") +
+          "</strong>. Clique em Reproduzir para iniciar.";
+      }
+
+      // Recupera nome salvo anteriormente, se houver
+      try {
+        const savedName = localStorage.getItem("ifmg_aula_mp3_file");
+        if (savedName) {
+          loadAudioFile(savedName);
+        }
+      } catch (e) {}
+
+      btnLoadMp3.addEventListener("click", function () {
+        loadAudioFile(filenameInput.value);
+      });
+
+      filenameInput.addEventListener("keydown", function (e) {
+        if (e.key === "Enter") {
+          e.preventDefault();
+          loadAudioFile(filenameInput.value);
+        }
+      });
+
+      btnPlayPause.addEventListener("click", function () {
+        if (audio.paused) {
+          audio.play().then(function () {
+            updatePlayState(true);
+          }).catch(function () {
+            audioStatus.innerHTML =
+              '<span class="text-slate-800 font-medium">Não foi possível reproduzir "' +
+              filenameInput.value.replace(/</g, "&lt;").replace(/>/g, "&gt;") +
+              '". Verifique se o arquivo MP3 está na mesma pasta desta página e com o nome exato.</span>';
+            updatePlayState(false);
+          });
+        } else {
+          audio.pause();
+          updatePlayState(false);
+        }
+      });
+
+      btnRewind.addEventListener("click", function () {
+        audio.currentTime = Math.max(0, audio.currentTime - 15);
+      });
+
+      btnForward.addEventListener("click", function () {
+        if (isFinite(audio.duration)) {
+          audio.currentTime = Math.min(audio.duration, audio.currentTime + 15);
+        }
+      });
+
+      btnSpeed.addEventListener("click", function () {
+        speedIndex = (speedIndex + 1) % speeds.length;
+        const newSpeed = speeds[speedIndex];
+        audio.playbackRate = newSpeed;
+        btnSpeed.textContent = newSpeed.toFixed(2).replace(".00", ".0") + "x";
+      });
+
+      btnMute.addEventListener("click", function () {
+        audio.muted = !audio.muted;
+        muteLabel.textContent = audio.muted ? "Mudo" : "Som";
+      });
+
+      volumeSlider.addEventListener("input", function () {
+        audio.volume = parseFloat(volumeSlider.value);
+        audio.muted = audio.volume === 0;
+        muteLabel.textContent = audio.muted ? "Mudo" : "Som";
+      });
+
+      audio.addEventListener("loadedmetadata", function () {
+        durationTimeEl.textContent = formatTime(audio.duration);
+        audioStatus.innerHTML =
+          'Pronto para reproduzir: <strong class="font-semibold text-slate-800">' +
+          filenameInput.value.replace(/</g, "&lt;").replace(/>/g, "&gt;") +
+          "</strong> (" + formatTime(audio.duration) + ").";
+      });
+
+      audio.addEventListener("timeupdate", function () {
+        currentTimeEl.textContent = formatTime(audio.currentTime);
+        if (isFinite(audio.duration) && audio.duration > 0) {
+          progressBar.value = (audio.currentTime / audio.duration) * 100;
+        }
+      });
+
+      progressBar.addEventListener("input", function () {
+        if (isFinite(audio.duration) && audio.duration > 0) {
+          audio.currentTime = (parseFloat(progressBar.value) / 100) * audio.duration;
+        }
+      });
+
+      audio.addEventListener("ended", function () {
+        updatePlayState(false);
+      });
+
+      audio.addEventListener("error", function () {
+        updatePlayState(false);
+        audioStatus.innerHTML =
+          '<span class="text-slate-700">Aguardando arquivo MP3: certifique-se de que <strong>' +
+          filenameInput.value.replace(/</g, "&lt;").replace(/>/g, "&gt;") +
+          "</strong> esteja na mesma pasta deste arquivo HTML.</span>";
+      });
+    })();
+  </script>
+</body>
+</html>

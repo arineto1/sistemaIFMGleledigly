@@ -1,0 +1,797 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Domínios Morfoclimáticos e Biomas Brasileiros | Concurso Professor IFMG</title>
+  <!-- Carregamento do Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Carregamento da fonte Inter para leitura confortável -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="bg-white text-slate-800 antialiased selection:bg-amber-200 selection:text-slate-900 overflow-x-hidden" style="font-family: 'Inter', sans-serif;">
+
+  <!-- Container principal com largura ampla para acomodar textos e tabelas inteiras sem scroll horizontal -->
+  <div class="max-w-6xl mx-auto px-4 sm:px-8 py-8 sm:py-12 bg-white">
+
+    <!-- Cabeçalho Institucional e Título da Aula -->
+    <header class="bg-white border-b-2 border-slate-200 pb-6 mb-8">
+      <div class="flex flex-wrap items-center gap-2 mb-3">
+        <span class="inline-block bg-white border border-slate-300 text-slate-700 text-xs font-semibold uppercase tracking-wider px-3 py-1 rounded-full">
+          Concurso Professor EBTT • Geografia — IFMG
+        </span>
+        <span class="inline-block bg-white border border-slate-300 text-slate-600 text-xs font-medium px-3 py-1 rounded-full">
+          Edital nº 1077/2026 • Bibliografia: Ab'Sáber (2003) e Ross (2014)
+        </span>
+      </div>
+      <h1 class="text-2xl sm:text-4xl font-bold text-slate-900 tracking-tight leading-tight">
+        Domínios Morfoclimáticos e Biomas Brasileiros para o Concurso de Professor do IFMG
+      </h1>
+      <p class="mt-2 text-sm sm:text-base text-slate-600">
+        Material técnico-didático completo para revisão de alta precisão e resolução de questões objetivas.
+      </p>
+    </header>
+
+    <!-- ===================================================================== -->
+    <!-- REPRODUTOR DE ÁUDIO MP3 NO COMEÇO DA PÁGINA                           -->
+    <!-- INSTRUÇÃO: Para definir o arquivo MP3 padrão que está na mesma pasta, -->
+    <!-- altere o atributo value="aula.mp3" no input abaixo e o src do <audio> -->
+    <!-- ===================================================================== -->
+    <section aria-label="Reprodutor de Áudio da Aula" class="bg-white border border-slate-300 rounded-2xl p-4 sm:p-6 mb-10 shadow-sm">
+      <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 pb-4 border-b border-slate-200">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-white border border-slate-300 flex items-center justify-center text-slate-800 shrink-0">
+            <!-- Ícone de fone/áudio SVG -->
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
+            </svg>
+          </div>
+          <div>
+            <h2 class="text-sm sm:text-base font-semibold text-slate-900">
+              Áudio-Aula em MP3 (Mesma Pasta)
+            </h2>
+            <p class="text-xs text-slate-600">
+              Informe abaixo o nome do arquivo <code class="bg-slate-100 text-slate-800 px-1.5 py-0.5 rounded border border-slate-200">.mp3</code> salvo na mesma pasta desta página ou edite diretamente no código HTML.
+            </p>
+          </div>
+        </div>
+
+        <!-- Campo editável para o nome do arquivo MP3 na mesma página -->
+        <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
+          <label for="mp3-filename" class="text-xs font-medium text-slate-700 whitespace-nowrap">
+            Arquivo MP3:
+          </label>
+          <input
+            type="text"
+            id="mp3-filename"
+            value="aula.mp3"
+            placeholder="ex: resumo-dominios.mp3"
+            class="bg-white border border-slate-300 text-slate-900 text-xs sm:text-sm rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-slate-400 w-full sm:w-56"
+          />
+          <button
+            type="button"
+            id="load-mp3-btn"
+            class="bg-white hover:bg-slate-100 active:bg-slate-200 text-slate-900 border border-slate-300 font-medium text-xs sm:text-sm px-3.5 py-2 rounded-lg transition cursor-pointer whitespace-nowrap"
+          >
+            Carregar MP3
+          </button>
+        </div>
+      </div>
+
+      <!-- Controles do Reprodutor de Áudio -->
+      <div class="pt-4 flex flex-col gap-3">
+        <!-- Elemento nativo de áudio HTML5 controlado pelo painel limpo abaixo -->
+        <audio id="audio-player" preload="metadata" src="aula.mp3"></audio>
+
+        <div class="flex flex-wrap items-center gap-3 sm:gap-4">
+          <!-- Botão Play / Pause -->
+          <button
+            type="button"
+            id="play-pause-btn"
+            class="bg-white hover:bg-slate-100 text-slate-900 border border-slate-400 font-semibold text-xs sm:text-sm px-4 py-2 rounded-xl flex items-center gap-2 transition cursor-pointer"
+          >
+            <svg id="icon-play" xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M6.3 2.841A1.5 1.5 0 004 4.11V15.89a1.5 1.5 0 002.3 1.269l9.344-5.89a1.5 1.5 0 000-2.538L6.3 2.84z" />
+            </svg>
+            <svg id="icon-pause" xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 hidden" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M5.75 3a.75.75 0 00-.75.75v12.5c0 .414.336.75.75.75h1.5a.75.75 0 00.75-.75V3.75A.75.75 0 007.25 3h-1.5zM12.75 3a.75.75 0 00-.75.75v12.5c0 .414.336.75.75.75h1.5a.75.75 0 00.75-.75V3.75a.75.75 0 00-.75-.75h-1.5z" />
+            </svg>
+            <span id="play-pause-text">Reproduzir</span>
+          </button>
+
+          <!-- Barra de progresso e tempos -->
+          <div class="flex-1 min-w-[200px] flex items-center gap-3">
+            <span id="current-time" class="text-xs font-mono text-slate-700 w-10 text-right">00:00</span>
+            <input
+              type="range"
+              id="seek-bar"
+              min="0"
+              max="100"
+              value="0"
+              step="0.1"
+              class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-slate-700"
+            />
+            <span id="duration-time" class="text-xs font-mono text-slate-700 w-10">00:00</span>
+          </div>
+
+          <!-- Controle de velocidade para revisão -->
+          <div class="flex items-center gap-1.5">
+            <label for="playback-rate" class="text-xs text-slate-600">Velocidade:</label>
+            <select
+              id="playback-rate"
+              class="bg-white border border-slate-300 text-slate-800 text-xs rounded-lg px-2 py-1.5 focus:outline-none focus:ring-1 focus:ring-slate-400 cursor-pointer"
+            >
+              <option value="1" selected>1.0x</option>
+              <option value="1.25">1.25x</option>
+              <option value="1.5">1.5x</option>
+              <option value="1.75">1.75x</option>
+              <option value="2">2.0x</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Mensagem de status discreta (sem alert()) -->
+        <p id="audio-status" class="text-xs text-slate-600">
+          Arquivo configurado: <strong class="text-slate-800" id="active-file-label">aula.mp3</strong>. Pronto para reprodução.
+        </p>
+      </div>
+    </section>
+
+    <!-- Índice Rápido de Navegação -->
+    <nav aria-label="Sumário da Aula" class="bg-white border border-slate-200 rounded-2xl p-4 sm:p-5 mb-10">
+      <p class="text-xs font-semibold uppercase tracking-wider text-slate-500 mb-3">Estrutura do Conteúdo</p>
+      <ol class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 text-xs sm:text-sm text-slate-700">
+        <li><a href="#secao-1" class="hover:text-slate-900 hover:underline">1. Definição e Características Essenciais</a></li>
+        <li><a href="#secao-2" class="hover:text-slate-900 hover:underline">2. Teoria de Ab'Sáber e Relevo em Ross</a></li>
+        <li><a href="#secao-3" class="hover:text-slate-900 hover:underline">3. Análise Integrada dos 6 Domínios</a></li>
+        <li><a href="#secao-4" class="hover:text-slate-900 hover:underline">4. Faixas de Transição (Ecótonos)</a></li>
+        <li><a href="#secao-5" class="hover:text-slate-900 hover:underline">5. Ab'Sáber vs. IBGE e Fronteira Agrícola</a></li>
+        <li><a href="#secao-6" class="hover:text-slate-900 hover:underline">6. Definições Básicas para Memorizar</a></li>
+        <li><a href="#secao-7" class="hover:text-slate-900 hover:underline">7. Estratégia de Acerto na Prova Objetiva</a></li>
+      </ol>
+    </nav>
+
+    <!-- Conteúdo Principal da Aula (Na Íntegra) -->
+    <main class="space-y-12 text-slate-800 text-base leading-relaxed">
+
+      <!-- Introdução -->
+      <section class="space-y-4 bg-white border-l-4 border-slate-400 pl-4 sm:pl-6 py-1">
+        <p>
+          Nesta aula técnica e didática sobre <strong class="text-slate-900">Domínios Morfoclimáticos e Biomas Brasileiros</strong>, preparada para o concurso de <strong class="text-slate-900">Professor EBTT de Geografia do Instituto Federal de Educação, Ciência e Tecnologia de Minas Gerais (IFMG)</strong>, a chave para converter conhecimento teórico em pontos na prova objetiva reside na <mark class="bg-amber-100 text-slate-900 px-1.5 py-0.5 rounded font-medium">distinção rigorosa de critérios entre três matrizes analíticas</mark>: a síntese geoecológica dos seis <strong class="text-slate-900">domínios morfoclimáticos</strong> e suas <strong class="text-slate-900">faixas de transição</strong> em <mark class="bg-amber-100 text-slate-900 px-1.5 py-0.5 rounded font-medium">Aziz Nacib Ab'Sáber (2003)</mark>, a compartimentação genética das <mark class="bg-amber-100 text-slate-900 px-1.5 py-0.5 rounded font-medium">28 unidades do relevo brasileiro em Jurandyr Ross (2014)</mark> e a regionalização fitoecológica e faunística dos seis <strong class="text-slate-900">biomas continentais</strong> (além do Sistema Costeiro-Marinho) oficializada pelo <mark class="bg-amber-100 text-slate-900 px-1.5 py-0.5 rounded font-medium">IBGE</mark>. Ao longo deste guia, a teoria paisagística é conectada diretamente às características integradas de relevo, clima, solo, hidrologia e vegetação de cada unidade e aos conflitos socioambientais contemporâneos da fronteira agrícola sobre o Cerrado.
+        </p>
+        <p>
+          No contexto do <strong class="text-slate-900">Edital nº 1077/2026</strong> (conduzido pela Comissão Central de Concurso Público do IFMG), o conteúdo programático vincula expressamente <em>"Domínios morfoclimáticos e conflitos socioambientais"</em> e <em>"O meio técnico-científico-informacional e a produção agropecuária brasileira"</em> à obra <em>Geografia do Brasil</em> (Ross, 2014), com <mark class="bg-amber-100 text-slate-900 px-1.5 py-0.5 rounded font-medium">provas objetiva e dissertativa previstas para 24 de janeiro de 2027</mark>. Segundo portais especializados que repercutem o edital, a Prova Objetiva conta com <strong class="text-slate-900">30 questões de múltipla escolha</strong> (20 de Conhecimentos Específicos e 10 de Legislação) e exige <mark class="bg-amber-100 text-slate-900 px-1.5 py-0.5 rounded font-medium">pontuação mínima de 60 em 100 pontos</mark>, embora os trechos do anexo do edital analisados não detalhem a distribuição de pontos por item.
+        </p>
+        <p>
+          Como ressalva metodológica para o estudo complementar, a definição minuciosa dos processos morfogenéticos clássicos listados na ementa — especificamente a <em>pediplanação</em> no semiárido e a <em>mamelonização</em> em "meias-laranjas" no Sudeste —, bem como o quadro integral das áreas percentuais de todos os biomas no mapeamento do IBGE de 2019 (do qual apenas registros parciais, como a fatia de 2,3% referente a um dos biomas, constam na documentação pública consultada), deve ser revisada diretamente nas obras originais de Ab'Sáber (2003), Ross (2014) e IBGE (2019). Os levantamentos aqui sistematizados concentram-se na arquitetura conceitual dos domínios, na pedologia do Sistema Brasileiro de Classificação de Solos (SiBCS), na dinâmica hidrológica e nos dados oficiais mais recentes de desmatamento do Cerrado até 2026.
+        </p>
+      </section>
+
+      <!-- Seção 1 -->
+      <section id="secao-1" class="pt-4 border-t border-slate-200 space-y-5">
+        <h2 class="text-xl sm:text-2xl font-bold text-slate-900">
+          1. Definição do tema e características essenciais para memorização
+        </h2>
+        <p>
+          Em termos simples, estudar os <strong class="text-slate-900">Domínios Morfoclimáticos e Biomas Brasileiros</strong> significa compreender como o relevo, o clima, os solos, os rios e a vegetação do Brasil se combinam para formar grandes paisagens integradas — e por que diferentes cientistas e instituições classificam essas mesmas paisagens de modos distintos conforme o critério adotado. Para fixação rápida, os pontos essenciais do tema organizam-se nos tópicos abaixo:
+        </p>
+
+        <ul class="space-y-3 bg-white border border-slate-200 rounded-2xl p-5 sm:p-6">
+          <li class="pl-2 border-l-2 border-slate-300">
+            <strong class="text-slate-900">Domínio Morfoclimático (Ab'Sáber):</strong> Grande conjunto espacial (de centenas de milhares a milhões de km²) definido pela <mark class="bg-amber-100 text-slate-900 px-1.5 py-0.5 rounded font-medium">interação integrada entre relevo, clima, solo, hidrologia e vegetação</mark>, tratando a paisagem como <mark class="bg-amber-100 text-slate-900 px-1.5 py-0.5 rounded font-medium">herança de processos paleoclimáticos do Quaternário</mark> (últimos 2,5 milhões de anos).
+          </li>
+          <li class="pl-2 border-l-2 border-slate-300">
+            <strong class="text-slate-900">Arranjo Macroterritorial:</strong> <mark class="bg-amber-100 text-slate-900 px-1.5 py-0.5 rounded font-medium">Quatro domínios intertropicais</mark> (&gt; 7 milhões de km²), <mark class="bg-amber-100 text-slate-900 px-1.5 py-0.5 rounded font-medium">dois domínios subtropicais</mark> na Zona Temperada Sul (~500 mil km² no Brasil, estendendo-se a países vizinhos) e cerca de <mark class="bg-amber-100 text-slate-900 px-1.5 py-0.5 rounded font-medium">1 milhão de km² em faixas de transição</mark>; cinco dos seis domínios exibem arranjo poligonal em suas áreas nucleares (<em>core areas</em>).
+          </li>
+          <li class="pl-2 border-l-2 border-slate-300">
+            <strong class="text-slate-900">Domínio Amazônico:</strong> Terras baixas equatoriais com clima quente e superúmido, a maior bacia hidrográfica e floresta tropical do país, solos predominantemente pobres em nutrientes sob a floresta (com Argissolos, áreas de várzea e Cambissolos férteis no Acre) e relevo composto <mark class="bg-amber-100 text-slate-900 px-1.5 py-0.5 rounded font-medium">não apenas pela Planície do Rio Amazonas, mas principalmente por depressões e planaltos residuais erosivos</mark>.
+          </li>
+          <li class="pl-2 border-l-2 border-slate-300">
+            <strong class="text-slate-900">Domínio do Cerrado:</strong> Segundo maior domínio brasileiro (~2 milhões de km²), marcado por planaltos e chapadões interiores, clima tropical típico (verão chuvoso e inverno seco), papel de <mark class="bg-amber-100 text-slate-900 px-1.5 py-0.5 rounded font-medium">grande divisor de águas com nascentes de bacias estratégicas</mark>, solos lixiviados e ácidos (pH &lt; 6,5) e vegetação savânica com <mark class="bg-amber-100 text-slate-900 px-1.5 py-0.5 rounded font-medium">escleromorfismo oligotrófico adaptado ao fogo</mark>.
+          </li>
+          <li class="pl-2 border-l-2 border-slate-300">
+            <strong class="text-slate-900">Domínio dos Mares de Morros:</strong> Faixa litorânea e interiorana concentrada sobretudo no Sudeste sobre os Planaltos e Serras do Atlântico Leste e Sudeste, sob clima tropical úmido com intensa erosão pluvial, morros arredondados, drenagem densa, solos de decomposição de granito e gnaisse (massapê e salmourão) e Mata Atlântica altamente devastada.
+          </li>
+          <li class="pl-2 border-l-2 border-slate-300">
+            <strong class="text-slate-900">Domínio da Caatinga:</strong> Depressões interplanálticas semiáridas nordestinas (Depressão Sertaneja-São Francisco e entorno do Planalto da Borborema), chuvas irregulares, predomínio de rios temporários, solos rasos e pouco permeáveis — <mark class="bg-amber-100 text-slate-900 px-1.5 py-0.5 rounded font-medium">porém frequentemente férteis</mark> (como Neossolos, Luvissolos, Planossolos e Cambissolos) — e vegetação com <mark class="bg-amber-100 text-slate-900 px-1.5 py-0.5 rounded font-medium">xerofitismo verdadeiro</mark> em três estratos.
+          </li>
+          <li class="pl-2 border-l-2 border-slate-300">
+            <strong class="text-slate-900">Domínio das Araucárias:</strong> Planaltos subtropicais do Sul (Planaltos e Chapadas da Bacia do Paraná), chuvas bem distribuídas o ano todo, bacias estritamente perenes, solos diversificados (terra roxa basáltica e Cambissolos ricos em matéria orgânica e alumínio) e Mata dos Pinhais drasticamente reduzida.
+          </li>
+          <li class="pl-2 border-l-2 border-slate-300">
+            <strong class="text-slate-900">Domínio das Pradarias:</strong> <mark class="bg-amber-100 text-slate-900 px-1.5 py-0.5 rounded font-medium">Exclusivo do Rio Grande do Sul</mark> em território brasileiro, com clima subtropical mais frio, relevo suave-ondulado de coxilhas, solos escuros e férteis da classe dos <strong class="text-slate-900">Chernossolos</strong> (em geral rasos) e campos limpos de vegetação rasteira pressionados por lavouras e pecuária.
+          </li>
+          <li class="pl-2 border-l-2 border-slate-300">
+            <strong class="text-slate-900">Faixas de Transição (Ecótonos):</strong> "Paisagens tampão" instáveis entre as áreas nucleares dos domínios, com floras oportunistas; as três principais são o <mark class="bg-amber-100 text-slate-900 px-1.5 py-0.5 rounded font-medium">Complexo do Pantanal</mark> (Amazônia–Cerrado–Chaco), a <mark class="bg-amber-100 text-slate-900 px-1.5 py-0.5 rounded font-medium">Mata dos Cocais</mark> (Amazônia–Cerrado–Caatinga) e o <mark class="bg-amber-100 text-slate-900 px-1.5 py-0.5 rounded font-medium">Agreste</mark> (Caatinga–Mares de Morros).
+          </li>
+          <li class="pl-2 border-l-2 border-slate-300">
+            <strong class="text-slate-900">Diferença Central na Prova (Ab'Sáber vs. IBGE):</strong> <mark class="bg-amber-100 text-slate-900 px-1.5 py-0.5 rounded font-medium">Ab'Sáber integra relevo, clima e vegetação em 6 domínios + faixas de transição (onde está o Pantanal)</mark>, enquanto o <mark class="bg-amber-100 text-slate-900 px-1.5 py-0.5 rounded font-medium">IBGE (2004/2019) agrupa conjuntos de vida vegetal e animal contíguos em 6 biomas continentais (elevando o Pantanal a bioma e não autonomizando Araucárias)</mark> + Sistema Costeiro-Marinho.
+          </li>
+        </ul>
+      </section>
+
+      <!-- Seção 2 -->
+      <section id="secao-2" class="pt-4 border-t border-slate-200 space-y-4">
+        <h2 class="text-xl sm:text-2xl font-bold text-slate-900">
+          2. A teoria dos Domínios Morfoclimáticos de Ab'Sáber e a compartimentação do relevo em Ross
+        </h2>
+        <p>
+          Consolidada na obra <em>Os domínios de natureza no Brasil: potencialidades paisagísticas</em> (2003) a partir de pesquisas iniciadas na década de 1970, a teoria dos <strong class="text-slate-900">Domínios Morfoclimáticos</strong> (também denominados domínios de natureza ou macrodomínios ecológicos) representa uma síntese da <mark class="bg-amber-100 text-slate-900 px-1.5 py-0.5 rounded font-medium">geoecologia da paisagem</mark>. Ab'Sáber define o domínio morfoclimático como um conjunto espacial de grande dimensão territorial — variando de centenas de milhares a milhões de km² — no qual se verifica uma combinação coerente entre feições de relevo, tipos de solos, formas vegetacionais e condições climático-hidrológicas, estruturada a partir da tríade <mark class="bg-amber-100 text-slate-900 px-1.5 py-0.5 rounded font-medium">clima, relevo e conjuntos fitogeográficos</mark> e seus ecossistemas associados. Cada domínio possui uma <strong class="text-slate-900">área nuclear (<em>core area</em>)</strong>, na qual a integração fisiográfica e biogeográfica alcança máxima homogeneidade e tipicidade, sendo que <mark class="bg-amber-100 text-slate-900 px-1.5 py-0.5 rounded font-medium">cinco dos seis domínios brasileiros desenham um arranjo poligonal em suas áreas centrais</mark>.
+        </p>
+        <p>
+          Um pilar epistemológico indispensável para provas de nível docente é a <mark class="bg-amber-100 text-slate-900 px-1.5 py-0.5 rounded font-medium">historicidade da paisagem em Ab'Sáber</mark>. Para o autor, as paisagens atuais não são produtos estáticos do clima presente, mas <mark class="bg-amber-100 text-slate-900 px-1.5 py-0.5 rounded font-medium">heranças de processos pretéritos e de atuação recente ao longo do Quaternário</mark> (últimos 2,5 milhões de anos). Apoiado na <strong class="text-slate-900">Teoria dos Refúgios e Redutos Biogeográficos</strong> — inspirada na teoria evolutiva de Charles Darwin —, Ab'Sáber demonstra que as oscilações paleoclimáticas quaternárias (como a expansão de climas secos durante períodos glaciares) impulsionaram avanços e recuos das coberturas florestais e abertas na América do Sul. Os <mark class="bg-amber-100 text-slate-900 px-1.5 py-0.5 rounded font-medium">redutos</mark> correspondem a manchas isoladas de vegetação e fauna preservadas como refúgios em condições locais diferenciadas durante essas mudanças climáticas e eventos geológicos, tornando-se áreas prioritárias para a proteção ambiental e a conservação da biodiversidade.
+        </p>
+        <p>
+          Na bibliografia do concurso do IFMG, essa leitura geoecológica articula-se diretamente à obra <em>Geografia do Brasil</em> (organizada por <strong class="text-slate-900">Jurandyr L. S. Ross</strong>, 6ª ed., 2014), que difunde a compartimentação do relevo brasileiro proposta por Ross em 1995 sobre os estudos pioneiros de Aroldo de Azevedo e Aziz Ab'Sáber. Ross identifica <mark class="bg-amber-100 text-slate-900 px-1.5 py-0.5 rounded font-medium">28 macrounidades geomorfológicas</mark> sustentadas por grandes estruturas geológicas anteriores à configuração atual do continente (plataformas ou crátons, bacias sedimentares e cadeias orogênicas). O <mark class="bg-amber-100 text-slate-900 px-1.5 py-0.5 rounded font-medium">critério genético adotado por Ross</mark> divide essas 28 unidades em três grandes grupos: <strong class="text-slate-900">planaltos</strong> (superfícies de topografia irregular, geralmente acima de 300 m, com <mark class="bg-amber-100 text-slate-900 px-1.5 py-0.5 rounded font-medium">predomínio de processos erosivos</mark>), <strong class="text-slate-900">depressões</strong> (superfícies de topografia suave rebaixadas igualmente pelo <mark class="bg-amber-100 text-slate-900 px-1.5 py-0.5 rounded font-medium">predomínio erosivo</mark>) e <strong class="text-slate-900">planícies</strong> (superfícies planas modeladas pelo preenchimento sedimentar e <mark class="bg-amber-100 text-slate-900 px-1.5 py-0.5 rounded font-medium">predomínio de processos deposicionais recentes</mark>).
+        </p>
+      </section>
+
+      <!-- Seção 3 -->
+      <section id="secao-3" class="pt-4 border-t border-slate-200 space-y-5">
+        <h2 class="text-xl sm:text-2xl font-bold text-slate-900">
+          3. Análise integrada dos seis domínios morfoclimáticos brasileiros
+        </h2>
+        <p>
+          O <strong class="text-slate-900">Domínio Amazônico</strong> (terras baixas florestadas equatoriais) constitui o <mark class="bg-amber-100 text-slate-900 px-1.5 py-0.5 rounded font-medium">maior domínio paisagístico do Brasil, abrangendo cerca de 45% do território nacional</mark> segundo sínteses didáticas e estendendo-se pelos países amazônicos da América do Sul. Sob clima equatorial úmido, com elevados índices de chuvas e umidade, abriga floresta de árvores de grande porte, elevada biodiversidade e a maior bacia hidrográfica brasileira, com intensa atividade fluvial. Na compartimentação do relevo de Ross, <mark class="bg-amber-100 text-slate-900 px-1.5 py-0.5 rounded font-medium">desfaz-se a simplificação de uma "planície homogênea"</mark>: embora dominado por terras baixas, o espaço amazônico distribui-se em vastas <strong class="text-slate-900">depressões</strong> erosivas (<em>Amazônia Ocidental</em>, <em>Norte-Amazônica</em> e <em>Sul-Amazônica</em>), <strong class="text-slate-900">planaltos</strong> (<em>Amazônia Oriental</em> e <em>Planaltos Residuais Norte</em> e <em>Sul-Amazônicos</em>) e na <strong class="text-slate-900">Planície do Rio Amazonas</strong>, esta de gênese deposicional. Sob a floresta predominam solos pobres em nutrientes, destacando-se nacionalmente a ampla ocorrência de Argissolos (inclusive em terrenos sedimentares da Amazônia Ocidental) ao lado de solos de várzea nas áreas inundáveis e de Cambissolos de elevada fertilidade natural no Acre.
+        </p>
+        <p>
+          O <strong class="text-slate-900">Domínio do Cerrado</strong> ocupa aproximadamente <mark class="bg-amber-100 text-slate-900 px-1.5 py-0.5 rounded font-medium">2 milhões de km² sobretudo no Planalto Central brasileiro</mark> (Centro-Oeste, Minas Gerais, Tocantins e porções do Nordeste), figurando como o <mark class="bg-amber-100 text-slate-900 px-1.5 py-0.5 rounded font-medium">segundo maior domínio morfoclimático do país</mark>. Desenvolve-se sobre maciços planaltos sedimentares e chapadões desgastados pelo intemperismo — representados em Ross por unidades como <em>Planaltos e Chapadas das Bacias do Paraná</em> e do <em>Parnaíba</em>, <em>Planalto e Chapada dos Parecis</em> e <em>Planaltos e Serras Goiás-Minas</em> —, com depressões em menor extensão. Segundo sínteses didáticas, predomina o clima tropical típico, com duas estações bem marcadas (verão quente e úmido e inverno seco), médias entre 18 ºC e 25 ºC (atingindo 30 ºC) e pluviosidade média próxima a 1.500 mm anuais. Por sua posição central elevada, <mark class="bg-amber-100 text-slate-900 px-1.5 py-0.5 rounded font-medium">abriga nascentes vitais das bacias Amazônica, Tocantins-Araguaia, São Francisco, Paraná e Parnaíba</mark>. Embora a ementa descreva solos profundos e ácidos, a literatura pedológica e fitogeográfica enfatiza sobretudo a <mark class="bg-amber-100 text-slate-900 px-1.5 py-0.5 rounded font-medium">intensa lixiviação, a elevada acidez (pH &lt; 6,5, inibindo bactérias fixadoras de nitrogênio e nitrificantes) e o oligotrofismo (pobreza mineral)</mark>, com presença marcante de Latossolos, Neossolos Quartzarênicos, Plintossolos e Cambissolos. Na cobertura vegetal, Ribeiro e Walter (2008) distinguem <strong class="text-slate-900">11 fitofisionomias</strong> repartidas em formações florestais (Mata Ciliar, Mata de Galeria, Mata Seca e Cerradão, com dossel contínuo), savânicas (como Cerrado Sentido Restrito e Parque de Cerrado, com árvores baixas, troncos retorcidos de casca grossa e folhas ásperas sem dossel contínuo) e áreas campestres. Do ponto de vista ecofisiológico, Karl Arens (1958) e Mário Guimarães Ferri explicam que as folhas rígidas e coriáceas do Cerrado não resultam de falta de água, mas de <mark class="bg-amber-100 text-slate-900 px-1.5 py-0.5 rounded font-medium">escleromorfismo oligotrófico (pseudo-xeromorfismo)</mark>: a escassez de nutrientes minerais limita o crescimento e gera excesso de hidratos de carbono convertidos em tecidos esclerificados, processo reforçado pelo fogo como agente de subclímax.
+        </p>
+        <p>
+          O <strong class="text-slate-900">Domínio dos Mares de Morros</strong> acompanha a faixa atlântica do Nordeste ao Sul, adentrando com maior expressividade na Região Sudeste. Corresponde à unidade dos <mark class="bg-amber-100 text-slate-900 px-1.5 py-0.5 rounded font-medium">Planaltos e Serras do Atlântico Leste e Sudeste</mark> de Ross, reunindo serras (como a Serra do Mar) e morros arredondados esculpidos pela intensa erosão pluvial sob clima tropical úmido. Os processos específicos de <em>mamelonização</em> em "meias-laranjas" destacados na ementa devem ser aprofundados diretamente em Ab'Sáber (2003), uma vez que os registros disponíveis descrevem de modo geral os morros arredondados e as serras erodidas pelas chuvas. O domínio comporta denso sistema de drenagem distribuído por bacias como as do Paraná, Atlântico Leste e Atlântico Sudeste/Sul. Os solos derivam amplamente da decomposição química de rochas cristalinas (granito e gnaisse), originando feições como o <strong class="text-slate-900">massapê</strong> na mata nordestina e o <strong class="text-slate-900">salmourão</strong> no Sudeste — considerados férteis em sínteses didáticas — além de Cambissolos desenvolvidos sobre rochas ácidas no Sudeste e Argissolos de ocorrência ampla. Recoberto originalmente pela Mata Atlântica (floresta tropical apontada como detentora da maior biodiversidade arbórea mundial), o domínio sofreu extrema descaracterização pela ocupação litorânea, industrialização e urbanização, <mark class="bg-amber-100 text-slate-900 px-1.5 py-0.5 rounded font-medium">restando entre 7% e 7,8% da área florestal original</mark> segundo portais educacionais, concentrados em encostas de difícil acesso.
+        </p>
+        <p>
+          O <strong class="text-slate-900">Domínio da Caatinga</strong> abrange as depressões interplanálticas semiáridas do Nordeste brasileiro — cobrindo integralmente o Ceará, o oeste do Rio Grande do Norte e amplas áreas sertanejas —, associando-se na classificação de Ross à <mark class="bg-amber-100 text-slate-900 px-1.5 py-0.5 rounded font-medium">Depressão Sertaneja-São Francisco</mark> em contraste altimétrico com maciços como o <strong class="text-slate-900">Planalto da Borborema</strong>. Enquanto a dinâmica geomorfológica detalhada da <em>pediplanação</em> demanda consulta direta a Ab'Sáber (2003), a resenha de sua obra explicita a subdivisão climática interna em faixas semiáridas acentuadas (ou subdesérticas), semiáridas típicas e semiáridas modernas. Devido às temperaturas elevadas, à irregularidade das chuvas e ao baixo grau de intemperismo químico, formam-se solos rasos e pouco permeáveis — o que intensifica a evaporação e determina a predominância de rios temporários (intermitentes) —, porém frequentemente dotados de <mark class="bg-amber-100 text-slate-900 px-1.5 py-0.5 rounded font-medium">média a alta fertilidade natural</mark>, compatíveis com classes descritas pelo SiBCS para ambientes pouco intemperizados como Neossolos, Luvissolos, Planossolos e Cambissolos (estes últimos comuns no Nordeste). Ao contrário do Cerrado, Ferri (1955) interpreta a vegetação da Caatinga como um <mark class="bg-amber-100 text-slate-900 px-1.5 py-0.5 rounded font-medium">clímax imposto pela aridez climática (xerofitismo verdadeiro)</mark>, limitada na profundidade radicular pelo solo raso e organizada em três estratos fisionômicos: arbóreo (8 a 12 m), arbustivo (2 a 5 m) e herbáceo (abaixo de 2 m).
+        </p>
+        <p>
+          O <strong class="text-slate-900">Domínio das Araucárias</strong> integra os domínios subtropicais da Zona Temperada Sul, ocupando terras planálticas meridionais (associadas aos <mark class="bg-amber-100 text-slate-900 px-1.5 py-0.5 rounded font-medium">Planaltos e Chapadas da Bacia do Paraná</mark> no mapeamento de Ross). Caracteriza-se por clima subtropical de alta pluviosidade, invernos relativamente brandos a frios e <mark class="bg-amber-100 text-slate-900 px-1.5 py-0.5 rounded font-medium">chuvas bem distribuídas ao longo de todo o ano, assegurando regime estritamente perene às suas bacias hidrográficas</mark>. A cobertura pedológica é diversificada, sobressaindo a <strong class="text-slate-900">terra roxa</strong> — solo avermelhado naturalmente fértil derivado da decomposição do basalto vulcânico — e, na porção oriental dos planaltos do Rio Grande do Sul, Santa Catarina e Paraná, Cambissolos com elevados teores de matéria orgânica e alumínio extraível. A formação vegetal típica, a Mata de Araucárias (ou Mata dos Pinhais), foi severamente suprimida pela extração madeireira sem reposição, expansão agropecuária e industrialização, <mark class="bg-amber-100 text-slate-900 px-1.5 py-0.5 rounded font-medium">restando apenas cerca de 3% de sua extensão original</mark> segundo sínteses didáticas.
+        </p>
+        <p>
+          O <strong class="text-slate-900">Domínio das Pradarias</strong> (também chamado de Pampas) constitui o segundo domínio subtropical brasileiro, ocorrendo no território nacional <mark class="bg-amber-100 text-slate-900 px-1.5 py-0.5 rounded font-medium">exclusivamente no Rio Grande do Sul</mark> e prolongando-se para países vizinhos. Desenvolve-se sobre relevo baixo de suaves ondulações conhecidas como <mark class="bg-amber-100 text-slate-900 px-1.5 py-0.5 rounded font-medium">coxilhas</mark>, em um estado onde Ross delimita as unidades do <em>Planalto Sul-Rio-Grandense</em>, da <em>Depressão Periférica Sul-Rio-Grandense</em> e das <em>Planícies das Lagoas dos Patos e Mirim</em>. Sob clima subtropical com média térmica anual mais baixa e marcada sazonalidade, desenvolve-se cobertura de <strong class="text-slate-900">campos limpos</strong> com vegetação herbácea rasteira sobre solos escuros e férteis da classe dos <mark class="bg-amber-100 text-slate-900 px-1.5 py-0.5 rounded font-medium">Chernossolos</mark> (em sua maioria rasos), o que favorece intensa conversão agrícola e pastoril, apontadas como os principais vetores de degradação do domínio.
+        </p>
+
+        <!-- Tabela 1: 100% da largura sem nenhum scroll horizontal -->
+        <div class="pt-2">
+          <table class="w-full table-fixed border-collapse border border-slate-300 bg-white text-xs sm:text-sm">
+            <thead>
+              <tr class="bg-slate-100 text-slate-900 border-b-2 border-slate-300">
+                <th class="w-[15%] border border-slate-300 px-2 py-2.5 text-left font-bold break-words">Domínio Morfoclimático (Ab'Sáber)</th>
+                <th class="w-[22%] border border-slate-300 px-2 py-2.5 text-left font-bold break-words">Relevo e Unidades de Ross (1995/2014)</th>
+                <th class="w-[21%] border border-slate-300 px-2 py-2.5 text-left font-bold break-words">Clima e Hidrologia</th>
+                <th class="w-[21%] border border-slate-300 px-2 py-2.5 text-left font-bold break-words">Solos Dominantes (SiBCS / Sínteses)</th>
+                <th class="w-[21%] border border-slate-300 px-2 py-2.5 text-left font-bold break-words">Vegetação e Conservação</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-200 text-slate-800">
+              <tr class="bg-white">
+                <td class="border border-slate-300 px-2 py-2.5 font-semibold text-slate-900 align-top break-words">Amazônico</td>
+                <td class="border border-slate-300 px-2 py-2.5 align-top break-words">Terras baixas: Depressões (<em>Amazônia Ocidental</em>, <em>Norte</em> e <em>Sul-Amazônica</em>), Planaltos (<em>Amazônia Oriental</em>, <em>Residuais Norte</em> e <em>Sul-Amazônicos</em>) e <em>Planície do Rio Amazonas</em></td>
+                <td class="border border-slate-300 px-2 py-2.5 align-top break-words">Equatorial úmido, chuvas e umidade elevadas; maior bacia hidrográfica do país e alta atividade fluvial</td>
+                <td class="border border-slate-300 px-2 py-2.5 align-top break-words">Predomínio de solos pobres em nutrientes sob floresta; Argissolos amplos, solos de várzea e Cambissolos férteis no Acre</td>
+                <td class="border border-slate-300 px-2 py-2.5 align-top break-words">Floresta Amazônica (árvores de grande porte e elevada biodiversidade); ameaçada por mineração, agropecuária e ocupação desordenada</td>
+              </tr>
+              <tr class="bg-white">
+                <td class="border border-slate-300 px-2 py-2.5 font-semibold text-slate-900 align-top break-words">Cerrado</td>
+                <td class="border border-slate-300 px-2 py-2.5 align-top break-words">Chapadões interiores e planaltos (<em>Bacias do Paraná</em>, <em>Parnaíba</em>, <em>Parecis</em>, <em>Goiás-Minas</em>); depressões menores</td>
+                <td class="border border-slate-300 px-2 py-2.5 align-top break-words">Tropical típico (verão úmido, inverno seco; 18–25 ºC; ~1.500 mm/ano); nascentes das bacias Amazônica, Tocantins-Araguaia, São Francisco, Paraná e Parnaíba</td>
+                <td class="border border-slate-300 px-2 py-2.5 align-top break-words">Solos lixiviados, ácidos (pH &lt; 6,5) e oligotróficos: Latossolos, Neossolos Quartzarênicos, Plintossolos, Cambissolos</td>
+                <td class="border border-slate-300 px-2 py-2.5 align-top break-words">Savana tropófila (11 fitofisionomias: florestais, savânicas, campestres); escleromorfismo oligotrófico adaptado ao fogo; <em>hotspot</em> sob pressão agrícola</td>
+              </tr>
+              <tr class="bg-white">
+                <td class="border border-slate-300 px-2 py-2.5 font-semibold text-slate-900 align-top break-words">Mares de Morros</td>
+                <td class="border border-slate-300 px-2 py-2.5 align-top break-words">Morros arredondados, planaltos e serras (<em>Planaltos e Serras do Atlântico Leste e Sudeste</em>; <em>Serra do Mar</em>)</td>
+                <td class="border border-slate-300 px-2 py-2.5 align-top break-words">Tropical úmido com intensa erosão pluvial; denso sistema de drenagem (Bacias do Paraná, Atlântico Leste e Atlântico Sudeste/Sul)</td>
+                <td class="border border-slate-300 px-2 py-2.5 align-top break-words">Decomposição de granito e gnaisse (massapê no NE, salmourão no SE); Cambissolos de rochas ácidas no SE e Argissolos</td>
+                <td class="border border-slate-300 px-2 py-2.5 align-top break-words">Mata Atlântica (Floresta Tropical Úmida de altíssima biodiversidade arbórea); reduzida a 7%–7,8% da área original</td>
+              </tr>
+              <tr class="bg-white">
+                <td class="border border-slate-300 px-2 py-2.5 font-semibold text-slate-900 align-top break-words">Caatinga</td>
+                <td class="border border-slate-300 px-2 py-2.5 align-top break-words">Depressões interplanálticas (<em>Depressão Sertaneja-São Francisco</em>) e maciços (<em>Planalto da Borborema</em>)</td>
+                <td class="border border-slate-300 px-2 py-2.5 align-top break-words">Semiárido (faixas subdesértica, típica e moderna); chuvas irregulares e predomínio de rios temporários</td>
+                <td class="border border-slate-300 px-2 py-2.5 align-top break-words">Solos rasos e pouco permeáveis pelo baixo intemperismo, mas de média a alta fertilidade (Neossolos, Luvissolos, Planossolos, Cambissolos)</td>
+                <td class="border border-slate-300 px-2 py-2.5 align-top break-words">Xerofitismo verdadeiro (clímax seco) em três estratos: arbóreo (8–12 m), arbustivo (2–5 m) e herbáceo (&lt; 2 m)</td>
+              </tr>
+              <tr class="bg-white">
+                <td class="border border-slate-300 px-2 py-2.5 font-semibold text-slate-900 align-top break-words">Araucárias</td>
+                <td class="border border-slate-300 px-2 py-2.5 align-top break-words">Planaltos subtropicais (<em>Planaltos e Chapadas da Bacia do Paraná</em>)</td>
+                <td class="border border-slate-300 px-2 py-2.5 align-top break-words">Subtropical com invernos brandos a frios e chuvas bem distribuídas o ano todo; bacias perenes</td>
+                <td class="border border-slate-300 px-2 py-2.5 align-top break-words">Solos diversificados: terra roxa (decomposição do basalto) e Cambissolos orientais (RS, SC, PR) ricos em matéria orgânica e alumínio</td>
+                <td class="border border-slate-300 px-2 py-2.5 align-top break-words">Mata de Araucárias (Mata dos Pinhais); reduzida a cerca de 3% da cobertura original</td>
+              </tr>
+              <tr class="bg-white">
+                <td class="border border-slate-300 px-2 py-2.5 font-semibold text-slate-900 align-top break-words">Pradarias</td>
+                <td class="border border-slate-300 px-2 py-2.5 align-top break-words">Relevo baixo de suaves ondulações (<em>coxilhas</em>); no RS há <em>Planalto Sul-Rio-Grandense</em>, <em>Depressão Periférica</em> e <em>Planícies das Lagoas dos Patos e Mirim</em></td>
+                <td class="border border-slate-300 px-2 py-2.5 align-top break-words">Subtropical com média térmica anual mais baixa e estações marcadas</td>
+                <td class="border border-slate-300 px-2 py-2.5 align-top break-words">Solos escuros, férteis e em sua maioria rasos da classe dos Chernossolos</td>
+                <td class="border border-slate-300 px-2 py-2.5 align-top break-words">Campos limpos de vegetação rasteira herbácea, exclusivos do RS no Brasil; degradados por agricultura e pastagem</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Seção 4 -->
+      <section id="secao-4" class="pt-4 border-t border-slate-200 space-y-5">
+        <h2 class="text-xl sm:text-2xl font-bold text-slate-900">
+          4. As faixas de transição ecológica e a dinâmica de ecótonos
+        </h2>
+        <p>
+          Entre as áreas nucleares relativamente homogêneas dos seis grandes domínios morfoclimáticos interpõem-se <mark class="bg-amber-100 text-slate-900 px-1.5 py-0.5 rounded font-medium">faixas de transição e contato (ecótonos) que somam aproximadamente 1 milhão de km²</mark>. Longe de constituírem linhas divisórias nítidas, esses interespaços operam como <mark class="bg-amber-100 text-slate-900 px-1.5 py-0.5 rounded font-medium">"paisagens tampão"</mark> dotadas de combinações sub-regionais singulares de solo, vegetação e relevo. Justamente por sua instabilidade ecológica e ambiental, abrigam subnúcleos paisagísticos e faixas de vegetação concentrada formadas por floras oportunistas, exemplificadas por Ab'Sáber nos cocais, nas matas de cipó e nas matas secas.
+        </p>
+        <p>
+          O <strong class="text-slate-900">Complexo do Pantanal</strong> ocupa a transição entre os domínios <mark class="bg-amber-100 text-slate-900 px-1.5 py-0.5 rounded font-medium">Amazônico e do Cerrado</mark> em território brasileiro, conectando-se também ao <mark class="bg-amber-100 text-slate-900 px-1.5 py-0.5 rounded font-medium">Chaco</mark> na Bolívia, no Paraguai e na Argentina. Corresponde na geomorfologia de Ross à <em>Planície e Pantanal Mato-Grossense</em> e ao <em>Pantanal do Rio Guaporé</em>, formando uma vasta planície aluvial ligada ao rio Paraguai e reconhecida como a maior área alagada/planície de inundação do mundo. Sua dinâmica paisagística é comandada pelos <mark class="bg-amber-100 text-slate-900 px-1.5 py-0.5 rounded font-medium">pulsos e ciclos sazonais de inundação fluvial</mark>, que alternam fases de cheia e vazante e modulam a composição dos ecótonos com o Cerrado e demais formações.
+        </p>
+        <p>
+          A <strong class="text-slate-900">Mata dos Cocais</strong> desenvolve-se no <mark class="bg-amber-100 text-slate-900 px-1.5 py-0.5 rounded font-medium">contato triplo entre os domínios Amazônico, do Cerrado e da Caatinga</mark>, estendendo-se pela sub-região do Meio-Norte principalmente nos estados do Maranhão, Piauí e Tocantins, além de ocorrências no Pará e no Ceará. Trata-se de um subnúcleo paisagístico emblemático na teoria de Ab'Sáber, no qual espécies oportunistas e palmeiras aproveitam a zona climática intermediária entre a superumidade amazônica, a estacionalidade savânica do Cerrado e a semiaridez sertaneja.
+        </p>
+        <p>
+          O <strong class="text-slate-900">Agreste</strong> forma a faixa de transição entre o domínio semiárido da <mark class="bg-amber-100 text-slate-900 px-1.5 py-0.5 rounded font-medium">Caatinga (Sertão) e o domínio úmido dos Mares de Morros (Zona da Mata nordestina)</mark>, sob forte condicionamento espacial do Planalto da Borborema. Nesse gradiente climático do litoral úmido para o interior seco verificam-se inclusive <mark class="bg-amber-100 text-slate-900 px-1.5 py-0.5 rounded font-medium">bolsões florestais úmidos</mark> em meio à paisagem transicional, funcionando como áreas estratégicas para a interpretação biogeográfica e paleoclimática do Nordeste.
+        </p>
+
+        <!-- Tabela 2: 100% da largura sem nenhum scroll horizontal -->
+        <div class="pt-2">
+          <table class="w-full table-fixed border-collapse border border-slate-300 bg-white text-xs sm:text-sm">
+            <thead>
+              <tr class="bg-slate-100 text-slate-900 border-b-2 border-slate-300">
+                <th class="w-[17%] border border-slate-300 px-2 py-2.5 text-left font-bold break-words">Faixa de Transição (Ab'Sáber)</th>
+                <th class="w-[19%] border border-slate-300 px-2 py-2.5 text-left font-bold break-words">Domínios em Contato</th>
+                <th class="w-[20%] border border-slate-300 px-2 py-2.5 text-left font-bold break-words">Localização Principal</th>
+                <th class="w-[24%] border border-slate-300 px-2 py-2.5 text-left font-bold break-words">Dinâmica Geoecológica Distintiva</th>
+                <th class="w-[20%] border border-slate-300 px-2 py-2.5 text-left font-bold break-words">Enquadramento no IBGE</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-200 text-slate-800">
+              <tr class="bg-white">
+                <td class="border border-slate-300 px-2 py-2.5 font-semibold text-slate-900 align-top break-words">Complexo do Pantanal</td>
+                <td class="border border-slate-300 px-2 py-2.5 align-top break-words">Amazônico, Cerrado e Chaco (países vizinhos)</td>
+                <td class="border border-slate-300 px-2 py-2.5 align-top break-words">Planície aluvial do rio Paraguai e Guaporé (MT e MS)</td>
+                <td class="border border-slate-300 px-2 py-2.5 align-top break-words">Maior planície alagada; paisagem controlada por ciclos sazonais de inundação</td>
+                <td class="border border-slate-300 px-2 py-2.5 align-top break-words">Classificado como <strong>bioma próprio</strong> (o menor em área no Brasil)</td>
+              </tr>
+              <tr class="bg-white">
+                <td class="border border-slate-300 px-2 py-2.5 font-semibold text-slate-900 align-top break-words">Mata dos Cocais</td>
+                <td class="border border-slate-300 px-2 py-2.5 align-top break-words">Amazônico, Cerrado e Caatinga</td>
+                <td class="border border-slate-300 px-2 py-2.5 align-top break-words">Meio-Norte (MA, PI, TO e trechos do PA e CE)</td>
+                <td class="border border-slate-300 px-2 py-2.5 align-top break-words">Subnúcleo de transição com floras oportunistas em gradiente úmido-semiárido</td>
+                <td class="border border-slate-300 px-2 py-2.5 align-top break-words">Não constitui bioma próprio na listagem oficial do IBGE</td>
+              </tr>
+              <tr class="bg-white">
+                <td class="border border-slate-300 px-2 py-2.5 font-semibold text-slate-900 align-top break-words">Agreste</td>
+                <td class="border border-slate-300 px-2 py-2.5 align-top break-words">Caatinga e Mares de Morros (Zona da Mata)</td>
+                <td class="border border-slate-300 px-2 py-2.5 align-top break-words">Faixa intermediária nordestina associada à Borborema</td>
+                <td class="border border-slate-300 px-2 py-2.5 align-top break-words">Transição do litoral úmido ao semiárido com ocorrência de bolsões florestais úmidos</td>
+                <td class="border border-slate-300 px-2 py-2.5 align-top break-words">Não constitui bioma próprio na listagem oficial do IBGE</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Seção 5 -->
+      <section id="secao-5" class="pt-4 border-t border-slate-200 space-y-5">
+        <h2 class="text-xl sm:text-2xl font-bold text-slate-900">
+          5. Domínio Morfoclimático (Ab'Sáber) versus Bioma (IBGE) e impactos no Cerrado
+        </h2>
+        <p>
+          A diferenciação conceitual entre <strong class="text-slate-900">Domínio Morfoclimático</strong> e <strong class="text-slate-900">Bioma</strong> constitui o núcleo mais cobrado nas provas objetivas de concursos docentes em Geografia. Na proposição de Ab'Sáber (2003), o recorte nasce da <mark class="bg-amber-100 text-slate-900 px-1.5 py-0.5 rounded font-medium">síntese geomorfológica-climatológica-fitogeográfica</mark>: o objeto central é a paisagem integrada (relevo, clima, solo, água e vegetação), razão pela qual o próprio autor adverte que os domínios Amazônico, do Cerrado e da Caatinga não devem ser confundidos apenas com suas formações vegetais homônimas. Já na cartografia oficial brasileira — inaugurada no <em>Mapa de Biomas do Brasil</em> (IBGE, 2004) e aperfeiçoada em <em>Biomas e Sistema Costeiro-Marinho do Brasil</em> (IBGE, 2019) —, o <strong class="text-slate-900">Bioma</strong> tem foco nas <mark class="bg-amber-100 text-slate-900 px-1.5 py-0.5 rounded font-medium">relações fitoecológicas e faunísticas</mark>, sendo definido macroterritorialmente como um <em>"conjunto de vida (vegetal e animal) constituído pelo agrupamento de"</em> tipos de vegetação adjacentes/contíguos identificáveis em escala regional e submetidos a condições geoclimáticas semelhantes.
+        </p>
+        <p>
+          Enquanto Ab'Sáber estabelece seis domínios separados por extensas faixas de transição, o IBGE recorta todo o espaço continental brasileiro em <mark class="bg-amber-100 text-slate-900 px-1.5 py-0.5 rounded font-medium">seis biomas contíguos — Amazônia, Cerrado, Mata Atlântica, Caatinga, Pampa e Pantanal — acrescidos do Sistema Costeiro-Marinho desde 2019</mark>. Disso decorrem duas divergências clássicas em prova: o <mark class="bg-amber-100 text-slate-900 px-1.5 py-0.5 rounded font-medium">Pantanal é apenas faixa de transição em Ab'Sáber, mas ganha estatuto de bioma autônomo no IBGE (o menor do país)</mark>; inversamente, as <mark class="bg-amber-100 text-slate-900 px-1.5 py-0.5 rounded font-medium">Araucárias formam um domínio morfoclimático próprio em Ab'Sáber, mas não figuram como bioma independente na lista do IBGE</mark>. Soma-se a esses dois conceitos científicos uma terceira categoria de natureza estritamente político-administrativa: a <strong class="text-slate-900">Amazônia Legal</strong>, recorte institucional de planejamento que engloba <mark class="bg-amber-100 text-slate-900 px-1.5 py-0.5 rounded font-medium">9 estados brasileiros</mark> e não coincide com os limites naturais do Bioma Amazônia nem do Domínio Amazônico.
+        </p>
+
+        <!-- Tabela 3: 100% da largura sem nenhum scroll horizontal -->
+        <div class="pt-1">
+          <table class="w-full table-fixed border-collapse border border-slate-300 bg-white text-xs sm:text-sm">
+            <thead>
+              <tr class="bg-slate-100 text-slate-900 border-b-2 border-slate-300">
+                <th class="w-[24%] border border-slate-300 px-2.5 py-2.5 text-left font-bold break-words">Critério Comparativo</th>
+                <th class="w-[38%] border border-slate-300 px-2.5 py-2.5 text-left font-bold break-words">Domínio Morfoclimático (Ab'Sáber, 2003)</th>
+                <th class="w-[38%] border border-slate-300 px-2.5 py-2.5 text-left font-bold break-words">Bioma (IBGE, 2004 / 2019)</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-200 text-slate-800">
+              <tr class="bg-white">
+                <td class="border border-slate-300 px-2.5 py-2.5 font-semibold text-slate-900 align-top break-words">Foco Epistemológico</td>
+                <td class="border border-slate-300 px-2.5 py-2.5 align-top break-words">Síntese geoecológica integrada: relevo, clima, solo, hidrologia e vegetação</td>
+                <td class="border border-slate-300 px-2.5 py-2.5 align-top break-words">Relações fitoecológicas e faunísticas ("conjunto de vida vegetal e animal") em escala regional</td>
+              </tr>
+              <tr class="bg-white">
+                <td class="border border-slate-300 px-2.5 py-2.5 font-semibold text-slate-900 align-top break-words">Unidades Continentais</td>
+                <td class="border border-slate-300 px-2.5 py-2.5 align-top break-words"><strong>6 Domínios</strong> (Amazônico, Cerrado, Mares de Morros, Caatinga, Araucárias, Pradarias)</td>
+                <td class="border border-slate-300 px-2.5 py-2.5 align-top break-words"><strong>6 Biomas</strong> (Amazônia, Cerrado, Mata Atlântica, Caatinga, Pampa, Pantanal) + Sistema Costeiro-Marinho</td>
+              </tr>
+              <tr class="bg-white">
+                <td class="border border-slate-300 px-2.5 py-2.5 font-semibold text-slate-900 align-top break-words">Limites e Transição</td>
+                <td class="border border-slate-300 px-2.5 py-2.5 align-top break-words">Áreas nucleares separadas por extensas <strong>faixas de transição</strong> (~1 milhão de km²)</td>
+                <td class="border border-slate-300 px-2.5 py-2.5 align-top break-words">Agrupamento contínuo de tipos de vegetação adjacentes/contíguos</td>
+              </tr>
+              <tr class="bg-white">
+                <td class="border border-slate-300 px-2.5 py-2.5 font-semibold text-slate-900 align-top break-words">Status do Pantanal</td>
+                <td class="border border-slate-300 px-2.5 py-2.5 align-top break-words"><strong>Faixa de transição</strong> (não é domínio morfoclimático)</td>
+                <td class="border border-slate-300 px-2.5 py-2.5 align-top break-words"><strong>Bioma autônomo</strong> (o menor do Brasil)</td>
+              </tr>
+              <tr class="bg-white">
+                <td class="border border-slate-300 px-2.5 py-2.5 font-semibold text-slate-900 align-top break-words">Status das Araucárias</td>
+                <td class="border border-slate-300 px-2.5 py-2.5 align-top break-words"><strong>Domínio Morfoclimático próprio</strong></td>
+                <td class="border border-slate-300 px-2.5 py-2.5 align-top break-words"><strong>Não forma bioma separado</strong> na listagem do IBGE</td>
+              </tr>
+              <tr class="bg-white">
+                <td class="border border-slate-300 px-2.5 py-2.5 font-semibold text-slate-900 align-top break-words">Nomenclatura Distintiva</td>
+                <td class="border border-slate-300 px-2.5 py-2.5 align-top break-words"><strong>Mares de Morros</strong> (base geomorfológica) e <strong>Pradarias</strong></td>
+                <td class="border border-slate-300 px-2.5 py-2.5 align-top break-words"><strong>Mata Atlântica</strong> (base fitogeográfica) e <strong>Pampa</strong></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p>
+          No campo dos <strong class="text-slate-900">conflitos socioambientais</strong>, o Cerrado concentra hoje a principal tensão entre expansão do agronegócio e segurança hídrica. Historicamente impulsionada pela transferência da capital para Brasília, abertura de infraestrutura rodoviária, queimadas e lavouras comerciais de commodities, a ocupação transformou o Cerrado em um dos <mark class="bg-amber-100 text-slate-900 px-1.5 py-0.5 rounded font-medium"><em>hotspots</em> globais de biodiversidade</mark> (Myers et al., 2000; Klink &amp; Machado, 2005), além de ter provocado contaminação fluvial por mercúrio em áreas de garimpo. Mais recentemente, estudos da Embrapa e do Serviço Geológico do Brasil (SGB) demonstram que a expansão agropecuária e a irrigação com água subterrânea sobre áreas de afloramento de solos arenosos durante regiões com longos períodos de estiagem pressionam a <mark class="bg-amber-100 text-slate-900 px-1.5 py-0.5 rounded font-medium">recarga de aquíferos</mark> que sustentam a vazão mínima dos rios na seca — com destaque para o <mark class="bg-amber-100 text-slate-900 px-1.5 py-0.5 rounded font-medium">Sistema Aquífero Urucuia</mark>. Nas áreas de recarga do <strong class="text-slate-900">Aquífero Guarani</strong> (sistema de ~1.195.000 km², reserva potencial de 37.000 km³, recarga de 160 km³/ano e potencial explotável de 40 km³/ano — 25% da recarga sob média de 1.500 mm/ano de chuva), estudo da Embrapa Meio Ambiente (2008) alertou que a ocupação agrícola sobre solos arenosos frágeis (<em>Neossolo Quartzarênico</em> e <em>Latossolos de textura média</em>) gera <mark class="bg-amber-100 text-slate-900 px-1.5 py-0.5 rounded font-medium">alta vulnerabilidade natural à contaminação por agrotóxicos</mark>, enquanto simulações climáticas dos modelos australiano (CSIRO) e japonês (CCSR/NEIS) para 2050–2100 indicam estação seca mais longa, com atraso de até dois meses no início das chuvas, e cenários para o Centro-Oeste projetam aquecimento de 2–6 ºC com chuvas intensas e irregulares comprometendo o balanço hídrico. Na Bacia Hidrográfica do Paraná, levantamento jornalístico-ambiental indica que a combinação de produção de commodities, manchas urbanas e grandes hidrelétricas (como Itaipu) coincidiu com queda na disponibilidade hídrica, secas mais intensas desde 2014 e <mark class="bg-amber-100 text-slate-900 px-1.5 py-0.5 rounded font-medium">redução de 18% na vazão mínima de segurança (Q90)</mark>.
+        </p>
+        <p>
+          Espacialmente, o avanço contemporâneo dessa fronteira deslocou-se para a região do <mark class="bg-amber-100 text-slate-900 px-1.5 py-0.5 rounded font-medium">MATOPIBA (Maranhão, Tocantins, Piauí e Bahia)</mark>, onde pesquisas agronômicas registram cultivo inclusive em áreas frágeis de Neossolos Quartzarênicos fora de Unidades de Conservação e Terras Indígenas. Os dados oficiais da Nota Técnica do <strong class="text-slate-900">PRODES Cerrado (INPE, outubro de 2026)</strong> apontam uma redução expressiva no ritmo anual: em 2026, a supressão de vegetação nativa no bioma caiu para <mark class="bg-amber-100 text-slate-900 px-1.5 py-0.5 rounded font-medium">5.516,69 km² — menor valor de toda a série histórica monitorada (2001–2026)</mark> — frente aos <strong class="text-slate-900">7.235,27 km²</strong> suprimidos em 2025, uma retração de <strong class="text-slate-900">1.718,58 km² (-23,75%)</strong>. Contudo, embora o documento do INPE apresente os dados por unidade da federação sem mencionar a sigla "MATOPIBA", o somatório dos quatro estados que compõem essa fronteira demonstra forte persistência da concentração espacial: juntos, Maranhão, Tocantins, Piauí e Bahia responderam por <strong class="text-slate-900">5.634,91 km² (77,88%)</strong> da supressão do bioma em 2025 e por <mark class="bg-amber-100 text-slate-900 px-1.5 py-0.5 rounded font-medium">4.096,64 km² (74,26%) em 2026</mark> (queda calculada de <strong class="text-slate-900">27,30%</strong>, obtida pela razão entre a variação de -1.538,27 km² e os 5.634,91 km² de 2025). Em uma prova aplicada em Minas Gerais, vale ainda observar que <mark class="bg-amber-100 text-slate-900 px-1.5 py-0.5 rounded font-medium">Minas Gerais ocupou o 5º lugar nacional em desmatamento no Cerrado em 2026, com 467,34 km² (8,47% do total do bioma)</mark> e redução modesta de apenas 8,73% frente a 2025 (512,02 km²; 7,08% do total), ao passo que unidades de menor área absoluta como Distrito Federal (+42,41%), Rondônia (+30,85%) e São Paulo (+22,29%) apresentaram crescimento relativo.
+        </p>
+
+        <!-- Tabela 4: 100% da largura sem nenhum scroll horizontal -->
+        <div class="pt-1 space-y-2">
+          <table class="w-full table-fixed border-collapse border border-slate-300 bg-white text-xs sm:text-sm">
+            <thead>
+              <tr class="bg-slate-100 text-slate-900 border-b-2 border-slate-300">
+                <th class="w-[34%] border border-slate-300 px-2 py-2.5 text-left font-bold break-words">Unidade da Federação / Recorte</th>
+                <th class="w-[16%] border border-slate-300 px-2 py-2.5 text-center font-bold break-words">PRODES 2025 (km²)</th>
+                <th class="w-[16%] border border-slate-300 px-2 py-2.5 text-center font-bold break-words">PRODES 2026 (km²)</th>
+                <th class="w-[17%] border border-slate-300 px-2 py-2.5 text-center font-bold break-words">Participação no Bioma em 2026 (%)</th>
+                <th class="w-[17%] border border-slate-300 px-2 py-2.5 text-center font-bold break-words">Variação 2025–2026 (%)</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-200 text-slate-800">
+              <tr class="bg-white">
+                <td class="border border-slate-300 px-2 py-2 align-top break-words"><strong>Maranhão</strong> (estado do MATOPIBA)</td>
+                <td class="border border-slate-300 px-2 py-2 text-center align-top break-words">2.006,02</td>
+                <td class="border border-slate-300 px-2 py-2 text-center align-top break-words">1.718,59</td>
+                <td class="border border-slate-300 px-2 py-2 text-center align-top break-words">31,15%</td>
+                <td class="border border-slate-300 px-2 py-2 text-center align-top break-words">-14,33%</td>
+              </tr>
+              <tr class="bg-white">
+                <td class="border border-slate-300 px-2 py-2 align-top break-words"><strong>Tocantins</strong> (estado do MATOPIBA)</td>
+                <td class="border border-slate-300 px-2 py-2 text-center align-top break-words">1.488,68</td>
+                <td class="border border-slate-300 px-2 py-2 text-center align-top break-words">1.263,06</td>
+                <td class="border border-slate-300 px-2 py-2 text-center align-top break-words">22,90%</td>
+                <td class="border border-slate-300 px-2 py-2 text-center align-top break-words">-15,16%</td>
+              </tr>
+              <tr class="bg-white">
+                <td class="border border-slate-300 px-2 py-2 align-top break-words"><strong>Piauí</strong> (estado do MATOPIBA)</td>
+                <td class="border border-slate-300 px-2 py-2 text-center align-top break-words">1.350,45</td>
+                <td class="border border-slate-300 px-2 py-2 text-center align-top break-words">625,24</td>
+                <td class="border border-slate-300 px-2 py-2 text-center align-top break-words">11,33%</td>
+                <td class="border border-slate-300 px-2 py-2 text-center align-top break-words">-53,70%</td>
+              </tr>
+              <tr class="bg-white">
+                <td class="border border-slate-300 px-2 py-2 align-top break-words"><strong>Bahia</strong> (estado do MATOPIBA)</td>
+                <td class="border border-slate-300 px-2 py-2 text-center align-top break-words">789,76</td>
+                <td class="border border-slate-300 px-2 py-2 text-center align-top break-words">489,75</td>
+                <td class="border border-slate-300 px-2 py-2 text-center align-top break-words">8,88%</td>
+                <td class="border border-slate-300 px-2 py-2 text-center align-top break-words">-37,99%</td>
+              </tr>
+              <tr class="bg-amber-50/70 font-semibold text-slate-900">
+                <td class="border border-slate-300 px-2 py-2 align-top break-words">Soma dos 4 Estados do MATOPIBA</td>
+                <td class="border border-slate-300 px-2 py-2 text-center align-top break-words">5.634,91</td>
+                <td class="border border-slate-300 px-2 py-2 text-center align-top break-words">4.096,64</td>
+                <td class="border border-slate-300 px-2 py-2 text-center align-top break-words">74,26%</td>
+                <td class="border border-slate-300 px-2 py-2 text-center align-top break-words">-27,30%</td>
+              </tr>
+              <tr class="bg-white">
+                <td class="border border-slate-300 px-2 py-2 align-top break-words"><strong>Minas Gerais</strong></td>
+                <td class="border border-slate-300 px-2 py-2 text-center align-top break-words">512,02</td>
+                <td class="border border-slate-300 px-2 py-2 text-center align-top break-words">467,34</td>
+                <td class="border border-slate-300 px-2 py-2 text-center align-top break-words">8,47%</td>
+                <td class="border border-slate-300 px-2 py-2 text-center align-top break-words">-8,73%</td>
+              </tr>
+              <tr class="bg-white">
+                <td class="border border-slate-300 px-2 py-2 align-top break-words"><strong>Mato Grosso</strong></td>
+                <td class="border border-slate-300 px-2 py-2 text-center align-top break-words">455,27</td>
+                <td class="border border-slate-300 px-2 py-2 text-center align-top break-words">454,52</td>
+                <td class="border border-slate-300 px-2 py-2 text-center align-top break-words">8,24%</td>
+                <td class="border border-slate-300 px-2 py-2 text-center align-top break-words">-0,16%</td>
+              </tr>
+              <tr class="bg-white">
+                <td class="border border-slate-300 px-2 py-2 align-top break-words"><strong>Goiás</strong></td>
+                <td class="border border-slate-300 px-2 py-2 text-center align-top break-words">231,01</td>
+                <td class="border border-slate-300 px-2 py-2 text-center align-top break-words">210,37</td>
+                <td class="border border-slate-300 px-2 py-2 text-center align-top break-words">3,81%</td>
+                <td class="border border-slate-300 px-2 py-2 text-center align-top break-words">-8,93%</td>
+              </tr>
+              <tr class="bg-white">
+                <td class="border border-slate-300 px-2 py-2 align-top break-words"><strong>Mato Grosso do Sul</strong></td>
+                <td class="border border-slate-300 px-2 py-2 text-center align-top break-words">272,65</td>
+                <td class="border border-slate-300 px-2 py-2 text-center align-top break-words">208,93</td>
+                <td class="border border-slate-300 px-2 py-2 text-center align-top break-words">3,79%</td>
+                <td class="border border-slate-300 px-2 py-2 text-center align-top break-words">-23,37%</td>
+              </tr>
+              <tr class="bg-white">
+                <td class="border border-slate-300 px-2 py-2 align-top break-words"><strong>Demais Estados (PA, RO, DF, SP, PR)</strong></td>
+                <td class="border border-slate-300 px-2 py-2 text-center align-top break-words">129,39</td>
+                <td class="border border-slate-300 px-2 py-2 text-center align-top break-words">78,90</td>
+                <td class="border border-slate-300 px-2 py-2 text-center align-top break-words">1,43%</td>
+                <td class="border border-slate-300 px-2 py-2 text-center align-top break-words">-39,02%</td>
+              </tr>
+              <tr class="bg-slate-100 font-bold text-slate-900">
+                <td class="border border-slate-300 px-2 py-2.5 align-top break-words">Total Oficial Bioma Cerrado (INPE)</td>
+                <td class="border border-slate-300 px-2 py-2.5 text-center align-top break-words">7.235,27</td>
+                <td class="border border-slate-300 px-2 py-2.5 text-center align-top break-words">5.516,69</td>
+                <td class="border border-slate-300 px-2 py-2.5 text-center align-top break-words">100,00%</td>
+                <td class="border border-slate-300 px-2 py-2.5 text-center align-top break-words">-23,75%</td>
+              </tr>
+            </tbody>
+          </table>
+          <p class="text-xs sm:text-sm text-slate-600 italic">
+            (Nota de conferência numérica: a soma aritmética direta das parcelas estaduais arredondadas resulta em 7.235,25 km² para 2025 e 5.516,70 km² para 2026, diferença residual de 0,01 a 0,02 km² por arredondamento frente aos totais oficiais publicados pelo INPE.)
+          </p>
+        </div>
+      </section>
+
+      <!-- Seção 6 -->
+      <section id="secao-6" class="pt-4 border-t border-slate-200 space-y-5">
+        <h2 class="text-xl sm:text-2xl font-bold text-slate-900">
+          6. Principais definições básicas para lembrar no dia da prova
+        </h2>
+        <p>
+          Para revisão rápida na véspera da prova objetiva, memorizar cada conceito em sua definição curta evita confusões entre autores:
+        </p>
+
+        <ul class="space-y-3 bg-white border border-slate-200 rounded-2xl p-5 sm:p-6">
+          <li class="pl-2 border-l-2 border-slate-300">
+            <strong class="text-slate-900">Domínio Morfoclimático (Ab'Sáber):</strong> Grande unidade territorial onde <mark class="bg-amber-100 text-slate-900 px-1.5 py-0.5 rounded font-medium">relevo, clima, solo, hidrologia e vegetação interagem de forma integrada</mark>, compondo uma paisagem relativamente homogênea herdada do Quaternário.
+          </li>
+          <li class="pl-2 border-l-2 border-slate-300">
+            <strong class="text-slate-900">Bioma (IBGE):</strong> <mark class="bg-amber-100 text-slate-900 px-1.5 py-0.5 rounded font-medium">Conjunto de vida vegetal e animal</mark> formado pelo agrupamento de tipos de vegetação contíguos/adjacentes, identificáveis em escala regional e submetidos a condições geoclimáticas semelhantes.
+          </li>
+          <li class="pl-2 border-l-2 border-slate-300">
+            <strong class="text-slate-900">Área Nuclear (<em>Core Area</em>):</strong> Porção central de um domínio morfoclimático na qual a combinação entre relevo, clima e vegetação se apresenta com maior homogeneidade e extensão.
+          </li>
+          <li class="pl-2 border-l-2 border-slate-300">
+            <strong class="text-slate-900">Faixa de Transição (Ecótono):</strong> Espaço intermediário e instável ("paisagem tampão") situado entre áreas nucleares de domínios vizinhos, abrigando floras oportunistas; exemplos principais: <mark class="bg-amber-100 text-slate-900 px-1.5 py-0.5 rounded font-medium">Pantanal, Mata dos Cocais e Agreste</mark>.
+          </li>
+          <li class="pl-2 border-l-2 border-slate-300">
+            <strong class="text-slate-900">Reduto (ou Refúgio Biogeográfico):</strong> Mancha isolada de vegetação e fauna sobrevivente em condições particulares durante mudanças climáticas passadas (como períodos glaciares secos), sendo estratégica para conservação da biodiversidade.
+          </li>
+          <li class="pl-2 border-l-2 border-slate-300">
+            <strong class="text-slate-900">Escleromorfismo Oligotrófico (Cerrado):</strong> Aspecto rígido e aparentemente seco das folhas do Cerrado causado pela <mark class="bg-amber-100 text-slate-900 px-1.5 py-0.5 rounded font-medium">pobreza em nutrientes minerais e acidez do solo</mark> (acentuado pelas queimadas), e não por falta de água.
+          </li>
+          <li class="pl-2 border-l-2 border-slate-300">
+            <strong class="text-slate-900">Xerofitismo Verdadeiro (Caatinga):</strong> Adaptação real das plantas à <mark class="bg-amber-100 text-slate-900 px-1.5 py-0.5 rounded font-medium">escassez hídrica e irregularidade de chuvas</mark> no clima semiárido, compondo um clímax imposto pela aridez.
+          </li>
+          <li class="pl-2 border-l-2 border-slate-300">
+            <strong class="text-slate-900">Planaltos, Depressões e Planícies (Ross):</strong> Macroformas classificadas pela gênese: nos planaltos (topografia irregular, &gt; 300 m) e depressões (topografia suave) predominam <mark class="bg-amber-100 text-slate-900 px-1.5 py-0.5 rounded font-medium">processos erosivos</mark>; nas planícies predominam <mark class="bg-amber-100 text-slate-900 px-1.5 py-0.5 rounded font-medium">processos deposicionais</mark>.
+          </li>
+          <li class="pl-2 border-l-2 border-slate-300">
+            <strong class="text-slate-900">Vazão Mínima de Segurança (Q90) e Recarga:</strong> Disponibilidade hídrica mínima dos rios durante a estiagem, sustentada pela descarga de aquíferos (como <mark class="bg-amber-100 text-slate-900 px-1.5 py-0.5 rounded font-medium">Urucuia e Guarani</mark>) que dependem da infiltração das chuvas em solos bem estruturados.
+          </li>
+          <li class="pl-2 border-l-2 border-slate-300">
+            <strong class="text-slate-900">Amazônia Legal:</strong> <mark class="bg-amber-100 text-slate-900 px-1.5 py-0.5 rounded font-medium">Delimitação político-administrativa abrangendo 9 estados brasileiros</mark> para fins de planejamento estatal, distinta do Bioma Amazônia e do Domínio Amazônico.
+          </li>
+        </ul>
+      </section>
+
+      <!-- Seção 7 -->
+      <section id="secao-7" class="pt-4 border-t border-slate-200 space-y-5">
+        <h2 class="text-xl sm:text-2xl font-bold text-slate-900">
+          7. Estratégia de acerto na prova objetiva
+        </h2>
+        <p>
+          Em bancas de Institutos Federais e concursos de Geografia, os enunciados raramente cobram listas isoladas de espécies vegetais; a estratégia predominante consiste em cruzar classificações (por exemplo, pedir a correspondência simultânea entre biomas do IBGE e domínios de Ab'Sáber em um estado específico, como a Bahia — onde coexistem os Biomas Caatinga, Cerrado e Mata Atlântica e os Domínios Caatinga, Cerrado e Mares de Morros — ou Minas Gerais) ou inserir inversões conceituais sutis entre Ab'Sáber, Ross e IBGE. O quadro abaixo sintetiza as sete armadilhas mais recorrentes e a regra decisória para marcar a alternativa correta:
+        </p>
+
+        <!-- Tabela 5: 100% da largura sem nenhum scroll horizontal -->
+        <div class="pt-1">
+          <table class="w-full table-fixed border-collapse border border-slate-300 bg-white text-xs sm:text-sm">
+            <thead>
+              <tr class="bg-slate-100 text-slate-900 border-b-2 border-slate-300">
+                <th class="w-[31%] border border-slate-300 px-2.5 py-2.5 text-left font-bold break-words">Pegadinha Clássica da Banca</th>
+                <th class="w-[31%] border border-slate-300 px-2.5 py-2.5 text-left font-bold break-words">Erro Conceitual ou Empírico</th>
+                <th class="w-[38%] border border-slate-300 px-2.5 py-2.5 text-left font-bold break-words">Regra de Ouro para Acertar o Gabarito</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-200 text-slate-800">
+              <tr class="bg-white">
+                <td class="border border-slate-300 px-2.5 py-2.5 italic text-slate-900 align-top break-words">"O Pantanal é o menor domínio morfoclimático de Ab'Sáber."</td>
+                <td class="border border-slate-300 px-2.5 py-2.5 align-top break-words">Transpõe indevidamente uma categoria do IBGE para a teoria de Ab'Sáber.</td>
+                <td class="border border-slate-300 px-2.5 py-2.5 align-top break-words">O Pantanal é o <strong>menor bioma</strong> no IBGE, mas em Ab'Sáber é <strong>faixa de transição</strong>.</td>
+              </tr>
+              <tr class="bg-white">
+                <td class="border border-slate-300 px-2.5 py-2.5 italic text-slate-900 align-top break-words">"O IBGE divide o Brasil em 5 biomas (excluindo o Pampa) ou inclui o Bioma Araucárias."</td>
+                <td class="border border-slate-300 px-2.5 py-2.5 align-top break-words">Omite um dos 6 biomas continentais ou confunde domínio com bioma.</td>
+                <td class="border border-slate-300 px-2.5 py-2.5 align-top break-words">O IBGE adota <strong>6 biomas continentais</strong> (Amazônia, Cerrado, Mata Atlântica, Caatinga, Pampa e Pantanal) + Sistema Costeiro-Marinho; <strong>Araucárias</strong> é domínio em Ab'Sáber e não figura como bioma autônomo no IBGE.</td>
+              </tr>
+              <tr class="bg-white">
+                <td class="border border-slate-300 px-2.5 py-2.5 italic text-slate-900 align-top break-words">"O Domínio Amazônico corresponde integralmente a uma imensa planície aluvial de deposição."</td>
+                <td class="border border-slate-300 px-2.5 py-2.5 align-top break-words">Confunde "terras baixas" topográficas com a gênese deposicional de planície.</td>
+                <td class="border border-slate-300 px-2.5 py-2.5 align-top break-words">Na compartimentação de <strong>Ross</strong>, o espaço amazônico divide-se majoritariamente entre <strong>depressões</strong> e <strong>planaltos</strong> erosivos e a <strong>Planície do Rio Amazonas</strong> deposicional.</td>
+              </tr>
+              <tr class="bg-white">
+                <td class="border border-slate-300 px-2.5 py-2.5 italic text-slate-900 align-top break-words">"As folhas rígidas e retorcidas do Cerrado indicam xerofitismo por clima seco o ano inteiro."</td>
+                <td class="border border-slate-300 px-2.5 py-2.5 align-top break-words">Confunde déficit nutricional com aridez climática.</td>
+                <td class="border border-slate-300 px-2.5 py-2.5 align-top break-words">O Cerrado tem verão chuvoso e apresenta <strong>escleromorfismo oligotrófico</strong> (falta de minerais, pH &lt; 6,5 e fogo), enquanto o <strong>xerofitismo verdadeiro</strong> é da <strong>Caatinga</strong>.</td>
+              </tr>
+              <tr class="bg-white">
+                <td class="border border-slate-300 px-2.5 py-2.5 italic text-slate-900 align-top break-words">"O Cerrado é o maior bioma e domínio do Brasil em extensão."</td>
+                <td class="border border-slate-300 px-2.5 py-2.5 align-top break-words">Inverte a hierarquia espacial dos dois maiores conjuntos brasileiros.</td>
+                <td class="border border-slate-300 px-2.5 py-2.5 align-top break-words">A <strong>Amazônia</strong> (~45% do território) é o maior domínio e maior bioma; o <strong>Cerrado</strong> (~2 milhões de km²) é o <strong>segundo maior</strong>.</td>
+              </tr>
+              <tr class="bg-white">
+                <td class="border border-slate-300 px-2.5 py-2.5 italic text-slate-900 align-top break-words">"A fronteira agrícola do Cerrado tem solos naturalmente férteis, e o desmatamento em 2026 atingiu novo recorde."</td>
+                <td class="border border-slate-300 px-2.5 py-2.5 align-top break-words">Desconhece a pedologia original e inverte a tendência do PRODES 2026.</td>
+                <td class="border border-slate-300 px-2.5 py-2.5 align-top break-words">Os solos naturais do Cerrado são <strong>ácidos e oligotróficos</strong> (com áreas arenosas vulneráveis à contaminação de aquíferos); em <strong>2026</strong>, o PRODES caiu <strong>23,75%</strong> para o menor valor da série (5.516,69 km²), mantendo <strong>74,26%</strong> concentrados nos 4 estados do <strong>MATOPIBA</strong>.</td>
+              </tr>
+              <tr class="bg-white">
+                <td class="border border-slate-300 px-2.5 py-2.5 italic text-slate-900 align-top break-words">"Os domínios morfoclimáticos coincidem com os limites políticos da Amazônia Legal ou dos estados."</td>
+                <td class="border border-slate-300 px-2.5 py-2.5 align-top break-words">Mistura critérios geoecológicos com recortes político-administrativos.</td>
+                <td class="border border-slate-300 px-2.5 py-2.5 align-top break-words">Domínios separam-se por <strong>extensas faixas de transição</strong> (~1 milhão de km²), enquanto a <strong>Amazônia Legal</strong> (9 estados) é uma área administrativa.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p>
+          Por fim, ao analisar qualquer item de múltipla escolha da prova objetiva do IFMG, verifique primeiro qual é o <mark class="bg-amber-100 text-slate-900 px-1.5 py-0.5 rounded font-medium">referencial teórico enunciado na questão</mark> — se a síntese geoecológica de <strong class="text-slate-900">Ab'Sáber (2003)</strong>, as unidades genéticas de relevo de <strong class="text-slate-900">Ross (2014)</strong> ou a cartografia de biomas do <strong class="text-slate-900">IBGE (2004/2019)</strong> — e, em seguida, conecte a dinâmica físico-natural (como solos arenosos de recarga ou depressões interplanálticas) aos conflitos socioambientais do uso do território. Esse encadeamento lógico elimina quase a totalidade dos distratores elaborados por bancas de ensino superior e garante regularidade de acertos nas questões específicas de Geografia.
+        </p>
+      </section>
+
+    </main>
+
+    <!-- Rodapé e Botão de Direcionamento para questoes15geo.html -->
+    <footer class="mt-14 pt-8 border-t-2 border-slate-200 bg-white flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div class="text-center sm:text-left">
+        <p class="text-sm font-semibold text-slate-900">Concluiu a leitura e revisão teórica?</p>
+        <p class="text-xs sm:text-sm text-slate-600">Avance agora para a bateria de exercícios da prova objetiva.</p>
+      </div>
+
+      <!-- Botão que redireciona diretamente para questoes15geo.html na mesma pasta -->
+      <a
+        href="questoes15geo.html"
+        class="inline-flex items-center justify-center gap-2.5 bg-white hover:bg-slate-100 active:bg-slate-200 text-slate-900 border-2 border-slate-800 font-bold text-sm sm:text-base px-6 py-3.5 rounded-xl shadow-sm transition"
+      >
+        <span>Ir para Questões</span>
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+        </svg>
+      </a>
+    </footer>
+
+  </div>
+
+  <!-- Script de controle do Reprodutor de Áudio MP3 -->
+  <script>
+    (function () {
+      // =========================================================================
+      // CONFIGURAÇÃO DO ARQUIVO MP3:
+      // Altere o valor abaixo se desejar fixar o nome do arquivo MP3 no código.
+      // =========================================================================
+      const ARQUIVO_MP3_PADRAO = "audio15geo.mp3";
+
+      const audio = document.getElementById("audio-player");
+      const filenameInput = document.getElementById("mp3-filename");
+      const loadBtn = document.getElementById("load-mp3-btn");
+      const playPauseBtn = document.getElementById("play-pause-btn");
+      const playPauseText = document.getElementById("play-pause-text");
+      const iconPlay = document.getElementById("icon-play");
+      const iconPause = document.getElementById("icon-pause");
+      const seekBar = document.getElementById("seek-bar");
+      const currentTimeEl = document.getElementById("current-time");
+      const durationTimeEl = document.getElementById("duration-time");
+      const playbackRateSelect = document.getElementById("playback-rate");
+      const audioStatus = document.getElementById("audio-status");
+
+      // Inicializa o nome do arquivo padrão
+      filenameInput.value = ARQUIVO_MP3_PADRAO;
+      audio.src = ARQUIVO_MP3_PADRAO;
+
+      // Formata segundos em MM:SS
+      function formatTime(seconds) {
+        if (!isFinite(seconds) || seconds < 0) return "00:00";
+        const mins = Math.floor(seconds / 60);
+        const secs = Math.floor(seconds % 60);
+        return String(mins).padStart(2, "0") + ":" + String(secs).padStart(2, "0");
+      }
+
+      // Atualiza visual do botão Play/Pause
+      function updatePlayButton(isPlaying) {
+        if (isPlaying) {
+          iconPlay.classList.add("hidden");
+          iconPause.classList.remove("hidden");
+          playPauseText.textContent = "Pausar";
+        } else {
+          iconPause.classList.add("hidden");
+          iconPlay.classList.remove("hidden");
+          playPauseText.textContent = "Reproduzir";
+        }
+      }
+
+      // Carrega o arquivo MP3 informado no campo
+      function carregarArquivoMP3() {
+        const nomeArquivo = filenameInput.value.trim();
+        if (!nomeArquivo) {
+          audioStatus.innerHTML = '<span class="text-amber-800 font-medium">Digite o nome de um arquivo .mp3 válido na mesma pasta.</span>';
+          return;
+        }
+        audio.pause();
+        updatePlayButton(false);
+        seekBar.value = 0;
+        currentTimeEl.textContent = "00:00";
+        durationTimeEl.textContent = "00:00";
+        audio.src = nomeArquivo;
+        audio.load();
+        audioStatus.innerHTML = 'Arquivo configurado: <strong class="text-slate-800">' + nomeArquivo + '</strong>. Pronto para reprodução.';
+      }
+
+      loadBtn.addEventListener("click", carregarArquivoMP3);
+      filenameInput.addEventListener("keydown", function (e) {
+        if (e.key === "Enter") {
+          carregarArquivoMP3();
+        }
+      });
+
+      // Alterna reprodução e pausa
+      playPauseBtn.addEventListener("click", function () {
+        if (audio.paused) {
+          const playPromise = audio.play();
+          if (playPromise !== undefined) {
+            playPromise
+              .then(function () {
+                updatePlayButton(true);
+              })
+              .catch(function () {
+                updatePlayButton(false);
+                audioStatus.innerHTML = '<span class="text-amber-800 font-medium">Não foi possível reproduzir "' + filenameInput.value.trim() + '". Verifique se o arquivo MP3 está na mesma pasta desta página.</span>';
+              });
+          }
+        } else {
+          audio.pause();
+          updatePlayButton(false);
+        }
+      });
+
+      // Atualiza duração total quando os metadados carregam
+      audio.addEventListener("loadedmetadata", function () {
+        durationTimeEl.textContent = formatTime(audio.duration);
+        audioStatus.innerHTML = 'Arquivo carregado: <strong class="text-slate-800">' + filenameInput.value.trim() + '</strong> (' + formatTime(audio.duration) + ').';
+      });
+
+      // Trata erro caso o arquivo não esteja na pasta ainda
+      audio.addEventListener("error", function () {
+        updatePlayButton(false);
+        audioStatus.innerHTML = 'Aguardando arquivo <strong class="text-slate-800">' + filenameInput.value.trim() + '</strong> na mesma pasta desta página.';
+      });
+
+      // Atualiza barra de progresso durante a reprodução
+      audio.addEventListener("timeupdate", function () {
+        if (isFinite(audio.duration) && audio.duration > 0) {
+          const percent = (audio.currentTime / audio.duration) * 100;
+          seekBar.value = percent;
+          currentTimeEl.textContent = formatTime(audio.currentTime);
+        }
+      });
+
+      // Permite avançar/retroceder pela barra de progresso
+      seekBar.addEventListener("input", function () {
+        if (isFinite(audio.duration) && audio.duration > 0) {
+          audio.currentTime = (seekBar.value / 100) * audio.duration;
+        }
+      });
+
+      // Ao terminar o áudio
+      audio.addEventListener("ended", function () {
+        updatePlayButton(false);
+        seekBar.value = 0;
+        currentTimeEl.textContent = "00:00";
+      });
+
+      // Alteração da velocidade de reprodução
+      playbackRateSelect.addEventListener("change", function () {
+        audio.playbackRate = parseFloat(playbackRateSelect.value);
+      });
+    })();
+  </script>
+</body>
+</html>
