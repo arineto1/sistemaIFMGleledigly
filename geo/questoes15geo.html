@@ -1,0 +1,1603 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Quiz — Domínios Morfoclimáticos e Biomas Brasileiros (Padrão IFMG)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    /* ==========================================================================
+       Variáveis de Design — Paleta clara de baixo cansaço visual (papel suave)
+       ========================================================================== */
+    :root {
+      --bg-page: #f6f4ef;
+      --bg-surface: #fdfcf9;
+      --bg-subtle: #efece4;
+      --bg-hover: #f3f0e8;
+      --border-light: #e2ddd2;
+      --border-medium: #cbc4b6;
+
+      --text-primary: #1f2320;
+      --text-secondary: #4b504c;
+      --text-muted: #6c726d;
+
+      --accent-primary: #245943;
+      --accent-primary-hover: #194231;
+      --accent-soft: #e6f0eb;
+      --accent-border: #8eb7a4;
+
+      --correct-bg: #eaf5ee;
+      --correct-border: #2a784a;
+      --correct-text: #174c2d;
+
+      --wrong-bg: #fceded;
+      --wrong-border: #b83b3b;
+      --wrong-text: #7a2121;
+
+      --unanswered-bg: #f5f2ea;
+      --unanswered-border: #9a8f7a;
+      --unanswered-text: #595143;
+
+      --shadow-sm: 0 1px 3px rgba(31, 35, 32, 0.05);
+      --shadow-md: 0 4px 14px rgba(31, 35, 32, 0.06);
+      --radius-md: 10px;
+      --radius-lg: 14px;
+    }
+
+    /* ==========================================================================
+       Reset e Tipografia Base para Leitura Longa
+       ========================================================================== */
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      font-size: 16px;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background-color: var(--bg-page);
+      color: var(--text-primary);
+      line-height: 1.75;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    /* ==========================================================================
+       Barra Superior Fixa de Progresso e Navegação Rápida
+       ========================================================================== */
+    .top-tracker {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background-color: rgba(253, 252, 249, 0.96);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border-light);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .tracker-inner {
+      max-width: 820px;
+      margin: 0 auto;
+      padding: 0.75rem 1.25rem;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+    }
+
+    .tracker-status {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+    }
+
+    .progress-bar-wrap {
+      width: 110px;
+      height: 8px;
+      background-color: var(--bg-subtle);
+      border-radius: 999px;
+      overflow: hidden;
+      border: 1px solid var(--border-light);
+    }
+
+    .progress-bar-fill {
+      height: 100%;
+      width: 0%;
+      background-color: var(--accent-primary);
+      transition: width 0.25s ease;
+    }
+
+    .nav-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem;
+    }
+
+    .nav-pill {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      border: 1px solid var(--border-medium);
+      background-color: var(--bg-surface);
+      color: var(--text-secondary);
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      transition: all 0.15s ease;
+    }
+
+    .nav-pill:hover {
+      background-color: var(--bg-hover);
+      border-color: var(--accent-primary);
+      color: var(--accent-primary);
+    }
+
+    .nav-pill.answered {
+      background-color: var(--accent-soft);
+      border-color: var(--accent-border);
+      color: var(--accent-primary);
+    }
+
+    .nav-pill.result-correct {
+      background-color: var(--correct-bg);
+      border-color: var(--correct-border);
+      color: var(--correct-text);
+    }
+
+    .nav-pill.result-wrong {
+      background-color: var(--wrong-bg);
+      border-color: var(--wrong-border);
+      color: var(--wrong-text);
+    }
+
+    .nav-pill.result-blank {
+      background-color: var(--unanswered-bg);
+      border-color: var(--unanswered-border);
+      color: var(--unanswered-text);
+    }
+
+    /* ==========================================================================
+       Container Principal e Cabeçalho Editorial
+       ========================================================================== */
+    .container {
+      max-width: 820px;
+      margin: 0 auto;
+      padding: 2rem 1.25rem 4rem;
+    }
+
+    .exam-header {
+      background-color: var(--bg-surface);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-lg);
+      padding: 1.75rem 2rem;
+      margin-bottom: 2rem;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .exam-badge {
+      display: inline-block;
+      background-color: var(--accent-soft);
+      color: var(--accent-primary);
+      border: 1px solid var(--accent-border);
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      padding: 0.25rem 0.75rem;
+      border-radius: 999px;
+      margin-bottom: 0.85rem;
+    }
+
+    .exam-title {
+      margin: 0 0 0.65rem;
+      font-size: clamp(1.35rem, 2.5vw, 1.75rem);
+      font-weight: 700;
+      line-height: 1.3;
+      color: var(--text-primary);
+    }
+
+    .exam-subtitle {
+      margin: 0;
+      font-size: 0.98rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    /* ==========================================================================
+       Cartões das Questões
+       ========================================================================== */
+    .question-card {
+      background-color: var(--bg-surface);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-lg);
+      padding: 1.75rem 2rem;
+      margin-bottom: 1.75rem;
+      box-shadow: var(--shadow-sm);
+      scroll-margin-top: 76px;
+      transition: border-color 0.2s ease;
+    }
+
+    .question-card.card-correct {
+      border-color: var(--correct-border);
+      border-left: 5px solid var(--correct-border);
+    }
+
+    .question-card.card-wrong {
+      border-color: var(--wrong-border);
+      border-left: 5px solid var(--wrong-border);
+    }
+
+    .question-card.card-blank {
+      border-color: var(--unanswered-border);
+      border-left: 5px solid var(--unanswered-border);
+    }
+
+    .question-header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+      padding-bottom: 1rem;
+      margin-bottom: 1.15rem;
+      border-bottom: 1px solid var(--border-light);
+    }
+
+    .question-number {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--accent-primary);
+      margin: 0;
+    }
+
+    .question-status-badge {
+      display: none;
+      font-size: 0.85rem;
+      font-weight: 600;
+      padding: 0.3rem 0.75rem;
+      border-radius: 999px;
+    }
+
+    .question-status-badge.visible {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .status-correct {
+      background-color: var(--correct-bg);
+      color: var(--correct-text);
+      border: 1px solid var(--correct-border);
+    }
+
+    .status-wrong {
+      background-color: var(--wrong-bg);
+      color: var(--wrong-text);
+      border: 1px solid var(--wrong-border);
+    }
+
+    .status-blank {
+      background-color: var(--unanswered-bg);
+      color: var(--unanswered-text);
+      border: 1px solid var(--unanswered-border);
+    }
+
+    .question-stem {
+      font-size: 1.05rem;
+      color: var(--text-primary);
+      margin: 0 0 1.1rem;
+    }
+
+    .statements-list {
+      background-color: var(--bg-subtle);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-md);
+      padding: 1.1rem 1.35rem;
+      margin: 1rem 0 1.25rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+    }
+
+    .statement-item {
+      margin: 0;
+      font-size: 1.02rem;
+      color: var(--text-primary);
+    }
+
+    .question-command {
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin: 0 0 1.15rem;
+    }
+
+    /* ==========================================================================
+       Alternativas Interativas
+       ========================================================================== */
+    .options-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .option-row {
+      display: flex;
+      align-items: stretch;
+      gap: 0.5rem;
+    }
+
+    .option-label {
+      flex: 1;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.85rem;
+      padding: 0.95rem 1.15rem;
+      min-height: 54px;
+      background-color: var(--bg-surface);
+      border: 1.5px solid var(--border-medium);
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      transition: background-color 0.15s ease, border-color 0.15s ease, opacity 0.15s ease;
+      user-select: text;
+    }
+
+    .option-label:hover:not(.locked) {
+      background-color: var(--bg-hover);
+      border-color: var(--accent-primary);
+    }
+
+    .option-label input[type="radio"] {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .option-letter {
+      flex-shrink: 0;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      border: 1.5px solid var(--border-medium);
+      background-color: var(--bg-subtle);
+      color: var(--text-primary);
+      font-size: 0.9rem;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 0.1rem;
+      transition: all 0.15s ease;
+    }
+
+    .option-text {
+      font-size: 1.02rem;
+      color: var(--text-primary);
+      line-height: 1.65;
+    }
+
+    /* Estado Selecionado antes de finalizar */
+    .option-label.selected:not(.locked) {
+      background-color: var(--accent-soft);
+      border-color: var(--accent-primary);
+    }
+
+    .option-label.selected:not(.locked) .option-letter {
+      background-color: var(--accent-primary);
+      border-color: var(--accent-primary);
+      color: #ffffff;
+    }
+
+    /* Riscar alternativa (ferramenta de apoio ao candidato) */
+    .option-label.eliminated:not(.locked) {
+      opacity: 0.52;
+      background-color: var(--bg-subtle);
+    }
+
+    .option-label.eliminated:not(.locked) .option-text {
+      text-decoration: line-through;
+      color: var(--text-muted);
+    }
+
+    .eliminate-btn {
+      flex-shrink: 0;
+      width: 40px;
+      background-color: transparent;
+      border: 1px solid transparent;
+      border-radius: var(--radius-md);
+      color: var(--text-muted);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.95rem;
+      transition: all 0.15s ease;
+    }
+
+    .eliminate-btn:hover {
+      background-color: var(--bg-subtle);
+      border-color: var(--border-light);
+      color: var(--text-primary);
+    }
+
+    .eliminate-btn.active {
+      background-color: var(--bg-subtle);
+      border-color: var(--border-medium);
+      color: var(--text-primary);
+    }
+
+    /* Estados Pós-Finalização */
+    .option-label.locked {
+      cursor: default;
+    }
+
+    .option-label.opt-correct {
+      background-color: var(--correct-bg);
+      border-color: var(--correct-border);
+    }
+
+    .option-label.opt-correct .option-letter {
+      background-color: var(--correct-border);
+      border-color: var(--correct-border);
+      color: #ffffff;
+    }
+
+    .option-label.opt-wrong {
+      background-color: var(--wrong-bg);
+      border-color: var(--wrong-border);
+    }
+
+    .option-label.opt-wrong .option-letter {
+      background-color: var(--wrong-border);
+      border-color: var(--wrong-border);
+      color: #ffffff;
+    }
+
+    .question-footer-link {
+      display: none;
+      margin-top: 1.15rem;
+      padding-top: 0.9rem;
+      border-top: 1px dashed var(--border-light);
+      justify-content: flex-end;
+    }
+
+    .question-footer-link.visible {
+      display: flex;
+    }
+
+    /* ==========================================================================
+       Botões de Ação
+       ========================================================================== */
+    .submit-area {
+      background-color: var(--bg-surface);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-lg);
+      padding: 1.75rem 2rem;
+      margin-top: 2rem;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .submit-hint {
+      margin: 0;
+      font-size: 0.96rem;
+      color: var(--text-secondary);
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      font-family: inherit;
+      font-size: 1rem;
+      font-weight: 600;
+      padding: 0.85rem 1.5rem;
+      min-height: 48px;
+      border-radius: var(--radius-md);
+      border: 1.5px solid transparent;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.15s ease;
+    }
+
+    .btn-primary {
+      background-color: var(--accent-primary);
+      color: #ffffff;
+    }
+
+    .btn-primary:hover {
+      background-color: var(--accent-primary-hover);
+    }
+
+    .btn-secondary {
+      background-color: var(--bg-surface);
+      color: var(--text-primary);
+      border-color: var(--border-medium);
+    }
+
+    .btn-secondary:hover {
+      background-color: var(--bg-hover);
+      border-color: var(--text-secondary);
+    }
+
+    .btn-sm {
+      font-size: 0.88rem;
+      padding: 0.45rem 0.9rem;
+      min-height: 38px;
+    }
+
+    /* ==========================================================================
+       Seção de Resultados e Resoluções Comentadas (Mesma Página)
+       ========================================================================== */
+    .results-section {
+      display: none;
+      margin-top: 3rem;
+      padding-top: 2.5rem;
+      border-top: 2px solid var(--border-medium);
+      scroll-margin-top: 72px;
+    }
+
+    .results-section.visible {
+      display: block;
+    }
+
+    .score-card {
+      background-color: var(--bg-surface);
+      border: 1px solid var(--border-medium);
+      border-radius: var(--radius-lg);
+      padding: 2rem;
+      margin-bottom: 2.25rem;
+      box-shadow: var(--shadow-md);
+    }
+
+    .score-header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.25rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .score-title {
+      margin: 0 0 0.35rem;
+      font-size: 1.45rem;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+
+    .score-message {
+      margin: 0;
+      font-size: 1rem;
+      color: var(--text-secondary);
+    }
+
+    .score-highlight {
+      display: flex;
+      align-items: baseline;
+      gap: 0.5rem;
+      background-color: var(--accent-soft);
+      border: 1.5px solid var(--accent-border);
+      padding: 0.85rem 1.35rem;
+      border-radius: var(--radius-md);
+    }
+
+    .score-number {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--accent-primary);
+      line-height: 1;
+    }
+
+    .score-total {
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+    }
+
+    /* Quadro Resumo do Gabarito */
+    .summary-table-wrap {
+      overflow-x: auto;
+      margin-bottom: 1.5rem;
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-md);
+    }
+
+    .summary-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.92rem;
+      text-align: left;
+    }
+
+    .summary-table th,
+    .summary-table td {
+      padding: 0.7rem 0.9rem;
+      border-bottom: 1px solid var(--border-light);
+    }
+
+    .summary-table th {
+      background-color: var(--bg-subtle);
+      font-weight: 600;
+      color: var(--text-secondary);
+    }
+
+    .summary-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .table-links {
+      display: flex;
+      gap: 0.65rem;
+      flex-wrap: wrap;
+    }
+
+    .inline-link {
+      color: var(--accent-primary);
+      font-weight: 600;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    .inline-link:hover {
+      color: var(--accent-primary-hover);
+    }
+
+    /* Cartões de Resolução Comentada */
+    .resolutions-heading {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin: 0 0 1.25rem;
+    }
+
+    .resolution-card {
+      background-color: var(--bg-surface);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-lg);
+      padding: 1.75rem 2rem;
+      margin-bottom: 1.5rem;
+      box-shadow: var(--shadow-sm);
+      scroll-margin-top: 76px;
+    }
+
+    .resolution-header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+      padding-bottom: 0.9rem;
+      margin-bottom: 1.1rem;
+      border-bottom: 1px solid var(--border-light);
+    }
+
+    .resolution-title-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+
+    .resolution-q-title {
+      margin: 0;
+      font-size: 1.12rem;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+
+    .resolution-topic {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    .resolution-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .res-badge {
+      font-size: 0.84rem;
+      font-weight: 600;
+      padding: 0.28rem 0.7rem;
+      border-radius: 999px;
+      background-color: var(--bg-subtle);
+      color: var(--text-primary);
+      border: 1px solid var(--border-medium);
+    }
+
+    .resolution-body p {
+      margin: 0 0 1rem;
+      font-size: 1.03rem;
+      color: var(--text-primary);
+      line-height: 1.78;
+    }
+
+    .resolution-body p:last-child {
+      margin-bottom: 0;
+    }
+
+    .resolution-footer {
+      margin-top: 1.25rem;
+      padding-top: 0.85rem;
+      border-top: 1px dashed var(--border-light);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+
+    /* ==========================================================================
+       Modal Customizado (Substitui alert/confirm nativos)
+       ========================================================================== */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background-color: rgba(25, 28, 26, 0.45);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 1.25rem;
+      z-index: 100;
+    }
+
+    .modal-backdrop.open {
+      display: flex;
+    }
+
+    .modal-box {
+      background-color: var(--bg-surface);
+      border: 1px solid var(--border-medium);
+      border-radius: var(--radius-lg);
+      max-width: 480px;
+      width: 100%;
+      padding: 1.75rem;
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.16);
+    }
+
+    .modal-title {
+      margin: 0 0 0.65rem;
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+
+    .modal-text {
+      margin: 0 0 1.4rem;
+      font-size: 1rem;
+      color: var(--text-secondary);
+      line-height: 1.65;
+    }
+
+    .modal-actions {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: 0.75rem;
+    }
+
+    /* ==========================================================================
+       Responsividade para Celulares e Tablets
+       ========================================================================== */
+    @media (max-width: 640px) {
+      .container {
+        padding: 1.25rem 0.9rem 3rem;
+      }
+
+      .exam-header,
+      .question-card,
+      .score-card,
+      .resolution-card,
+      .submit-area {
+        padding: 1.25rem 1.15rem;
+      }
+
+      .statements-list {
+        padding: 0.95rem 1rem;
+      }
+
+      .option-label {
+        padding: 0.85rem 0.9rem;
+      }
+
+      .eliminate-btn {
+        width: 36px;
+      }
+
+      .tracker-inner {
+        padding: 0.65rem 0.9rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Barra Superior de Acompanhamento e Navegação Rápida -->
+  <nav class="top-tracker" aria-label="Progresso do Quiz">
+    <div class="tracker-inner">
+      <div class="tracker-status">
+        <span id="tracker-text">Respondidas: 0 de 10</span>
+        <div class="progress-bar-wrap" aria-hidden="true">
+          <div class="progress-bar-fill" id="progress-bar-fill"></div>
+        </div>
+      </div>
+      <div class="nav-pills" id="nav-pills" role="navigation" aria-label="Ir para questão"></div>
+    </div>
+  </nav>
+
+  <main class="container">
+    <!-- Cabeçalho do Caderno -->
+    <header class="exam-header">
+      <span class="exam-badge">Simulado Objetivo • Estilo Banca IFMG</span>
+      <h1 class="exam-title">Domínios Morfoclimáticos e Biomas Brasileiros</h1>
+      <p class="exam-subtitle">
+        10 questões objetivas fundamentadas na teoria geoecológica da paisagem de Aziz Nacib Ab'Sáber (2003) e na compartimentação morfoestrutural de Jurandyr Ross (2014). Selecione uma alternativa em cada questão e clique em <strong>Finalizar Quiz</strong> ao final para conferir sua pontuação e as resoluções comentadas.
+      </p>
+    </header>
+
+    <!-- Formulário com as 10 Questões na Íntegra -->
+    <form id="quiz-form" novalidate>
+      <div id="questions-container"></div>
+
+      <div class="submit-area" id="submit-area">
+        <p class="submit-hint" id="submit-hint">
+          Revise suas marcações antes de concluir. Você também pode riscar alternativas usando o botão ao lado de cada opção.
+        </p>
+        <button type="submit" class="btn btn-primary" id="submit-btn">
+          Finalizar Quiz e Ver Resoluções
+        </button>
+      </div>
+    </form>
+
+    <!-- Seção de Resultados e Resoluções Comentadas (Exibida na mesma página após o término) -->
+    <section class="results-section" id="results-section" aria-live="polite">
+      <div class="score-card">
+        <div class="score-header">
+          <div>
+            <h2 class="score-title">Resultado do Simulado</h2>
+            <p class="score-message" id="score-message"></p>
+          </div>
+          <div class="score-highlight">
+            <span class="score-number" id="score-hits">0</span>
+            <span class="score-total">de 10 acertos (<span id="score-percent">0%</span>)</span>
+          </div>
+        </div>
+
+        <div class="summary-table-wrap">
+          <table class="summary-table">
+            <thead>
+              <tr>
+                <th>Questão</th>
+                <th>Sua Resposta</th>
+                <th>Gabarito</th>
+                <th>Situação</th>
+                <th>Navegação</th>
+              </tr>
+            </thead>
+            <tbody id="summary-table-body"></tbody>
+          </table>
+        </div>
+
+        <div style="display: flex; justify-content: flex-end;">
+          <button type="button" class="btn btn-secondary" id="restart-btn-top">
+            Refazer Quiz
+          </button>
+        </div>
+      </div>
+
+      <h2 class="resolutions-heading">Resoluções Comentadas</h2>
+      <div id="resolutions-container"></div>
+
+      <div style="display: flex; justify-content: center; margin-top: 2rem;">
+        <button type="button" class="btn btn-secondary" id="restart-btn-bottom">
+          Refazer Quiz do Início
+        </button>
+      </div>
+    </section>
+  </main>
+
+  <!-- Modal Customizado para Questões Não Respondidas -->
+  <div class="modal-backdrop" id="confirm-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <div class="modal-box">
+      <h3 class="modal-title" id="modal-title">Questões em branco</h3>
+      <p class="modal-text" id="modal-text"></p>
+      <div class="modal-actions">
+        <button type="button" class="btn btn-secondary" id="modal-goto-btn">
+          Ir para primeira em branco
+        </button>
+        <button type="button" class="btn btn-primary" id="modal-confirm-btn">
+          Finalizar mesmo assim
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    /**
+     * Banco de dados completo das 10 questões, gabarito oficial e resoluções comentadas,
+     * mantendo fielmente o texto integral do documento original.
+     */
+    const QUIZ_DATA = [
+      {
+        number: 1,
+        topic: "Teoria dos Domínios Morfoclimáticos e Geoecologia (Ab'Sáber; Ross)",
+        stem: "Considerando a teoria dos Domínios Morfoclimáticos e Fitogeográficos proposta por Aziz Nacib Ab'Sáber (2003) e a abordagem geoecológica da paisagem discutida na coletânea organizada por Jurandyr Ross (2014), analise as afirmativas a seguir:",
+        statements: [
+          "I - A definição de domínio morfoclimático apoia-se na síntese integrada entre feições do relevo, dinâmica climática, processos pedológicos, padrões hidrológicos e cobertura vegetal, configurando o estudo do que Ab'Sáber denomina \"fisiologia da paisagem\".",
+          "II - As chamadas \"áreas nucleares\" (ou áreas <em>core</em>) correspondem aos setores territoriais nos quais a combinação típica entre substrato geomorfológico, clima e vegetação atinge sua expressão paisagística característica.",
+          "III - Entre as áreas nucleares dos grandes domínios interpostos ocorrem extensas \"faixas de transição\", zonas de contato e ecótonos com paisagens complexas e frequentemente dotadas de individualidade tampão, não configurando meros limites lineares rígidos.",
+          "IV - A \"Teoria dos Redutos e Refúgios\", formulada originalmente pelo IBGE em 2019 sem vínculo com a paleoclimatologia, interpreta os enclaves vegetacionais exclusivamente como efeito recente da expansão agrícola sobre os chapadões do Centro-Oeste."
+        ],
+        command: "Assinale a alternativa CORRETA:",
+        options: [
+          { letter: "A", text: "Apenas as afirmativas I e II estão corretas." },
+          { letter: "B", text: "Apenas as afirmativas II e IV estão corretas." },
+          { letter: "C", text: "Apenas as afirmativas I, II e III estão corretas." },
+          { letter: "D", text: "Apenas as afirmativas I, III e IV estão corretas." },
+          { letter: "E", text: "Todas as afirmativas estão corretas." }
+        ],
+        correct: "C",
+        resolution: [
+          "A alternativa correta é a <strong>C</strong> (apenas I, II e III estão corretas).",
+          "A afirmativa <strong>I</strong> está correta porque a obra <em>Os domínios de natureza no Brasil: potencialidades paisagísticas</em>, de Aziz Nacib Ab'Sáber (2003), bem como a abordagem geoecológica consolidada na coletânea <em>Geografia do Brasil</em>, organizada por Jurandyr Ross (2014) — incluindo o capítulo de José Bueno Conti e Sueli Angelo Furlan sobre geoecologia (clima, solos e biota) —, tratam os domínios morfoclimáticos (ou paisagísticos e macroecológicos) como resultado da interação integrada entre relevo, clima, solos, hidrologia e vegetação, expressando o que Ab'Sáber designou como \"fisiologia da paisagem\".",
+          "A afirmativa <strong>II</strong> está correta porque Ab'Sáber estrutura a compartimentação do espaço brasileiro a partir de \"áreas nucleares\" (ou áreas <em>core</em>), setores nos quais a combinação típica entre relevo, clima e vegetação manifesta sua feição paisagística característica. A afirmativa <strong>III</strong> também está correta: entre as áreas nucleares interpõem-se amplas \"faixas de transição\", que constituem áreas de contato ecológico (ecótonos) e paisagens-tampão de elevada complexidade, e não fronteiras lineares rígidas.",
+          "A afirmativa <strong>IV</strong> está incorreta porque a concepção de <em>relictos, redutos e refúgios</em> pertence à síntese biogeográfica e paleoclimática vinculada a Ab'Sáber (2003) — associando a Teoria dos Redutos à flora e a Teoria dos Refúgios, desenvolvida pelo zoólogo Paulo Emílio Vanzolini e inspirada na teoria evolutiva de Charles Darwin, à fauna e ao avanço e recuo das formações vegetais em resposta a mudanças climáticas globais pretéritas —, não tendo origem no IBGE em 2019 nem relação causal exclusiva com a fronteira agrícola recente."
+        ]
+      },
+      {
+        number: 2,
+        topic: "Distinção Domínio Morfoclimático (Ab'Sáber) vs. Bioma (IBGE, 2019)",
+        stem: "A distinção teórico-metodológica entre o conceito de Domínio Morfoclimático, de Aziz Ab'Sáber (2003), e o conceito de Bioma adotado pelo IBGE no mapeamento <em>Biomas e Sistema Costeiro-Marinho do Brasil</em> (2019, escala 1:250.000) é central para a análise espacial da natureza brasileira. Sobre essa diferenciação conceitual e cartográfica, assinale a alternativa INCORRETA:",
+        statements: [],
+        command: "",
+        options: [
+          { letter: "A", text: "Enquanto o domínio morfoclimático destaca a síntese físico-territorial entre os aspectos geomorfológicos, climáticos, edáficos e vegetacionais, o bioma do IBGE é conceituado como um conjunto de vida (vegetal e animal) constituído pelo agrupamento de tipos de vegetação, enfatizando as relações fitoecológicas e faunísticas." },
+          { letter: "B", text: "Na compartimentação de Ab'Sáber, o domínio das Araucárias constitui uma das seis unidades nucleares autônomas do território brasileiro, ao passo que, na classificação do IBGE, a Floresta Ombrófila Mista integra o bioma Mata Atlântica." },
+          { letter: "C", text: "O Pantanal exemplifica uma divergência clássica entre as duas propostas: tratado por Ab'Sáber como uma faixa de transição, é classificado pelo IBGE como um dos seis biomas continentais brasileiros, ocupando cerca de 1,8% do país." },
+          { letter: "D", text: "Além dos seis biomas continentais — aproximadamente 49,5% na Amazônia, 23,3% no Cerrado, 13% na Mata Atlântica, 10,1% na Caatinga, 2,3% no Pampa e 1,8% no Pantanal —, o mapa de 2019 do IBGE incorporou o Sistema Costeiro-Marinho, combinando análise ponderada multicriterial terrestre e os Grandes Ecossistemas Marinhos (LMEs)." },
+          { letter: "E", text: "No mapeamento oficial do IBGE de 2019, os limites dos biomas continentais coincidem integralmente com os contornos das seis áreas nucleares de Ab'Sáber, razão pela qual o órgão elevou as grandes faixas de transição, como a Mata dos Cocais, à categoria de sétimo bioma continental autônomo." }
+        ],
+        correct: "E",
+        resolution: [
+          "A alternativa incorreta — portanto, o gabarito da questão — é a <strong>E</strong>.",
+          "As alternativas <strong>A</strong>, <strong>B</strong>, <strong>C</strong> e <strong>D</strong> estão corretas e sintetizam com precisão a comparação entre as duas propostas regionais. Ab'Sáber (2003) privilegia a síntese físico-territorial entre os aspectos naturais (relevo, clima, solos e vegetação), enquanto o IBGE define bioma como um conjunto de vida (vegetal e animal) constituído pelo agrupamento de tipos de vegetação, priorizando as relações fitoecológicas e faunísticas. Disso decorrem divergências cartográficas clássicas: as Araucárias formam um domínio nuclear próprio em Ab'Sáber, mas compõem a Floresta Ombrófila Mista dentro do bioma Mata Atlântica no mapeamento do IBGE; já o Pantanal é tratado por Ab'Sáber como faixa de transição — existindo inclusive debate crítico na <em>Revista Brasileira de Geografia</em> do IBGE (1988) contra a aplicação do termo bioma à depressão pantaneira —, ao passo que o IBGE o reconhece como um dos seis biomas continentais brasileiros. No mapa <em>Biomas e Sistema Costeiro-Marinho do Brasil</em> (2019, escala 1:250.000), o IBGE contabiliza seis biomas continentais — com proporções de aproximadamente 49,5% para a Amazônia, 23,3% para o Cerrado, 13% para a Mata Atlântica e 1,8% para o Pantanal segundo documentos oficiais e acadêmicos, completadas por estimativas educacionais de 10,1% para a Caatinga e 2,3% para o Pampa (totalizando os 14% restantes ao lado do Pantanal, frequentemente arredondados no relatório SEEG 12) — além de incorporar o Sistema Costeiro-Marinho, delimitado por análise ponderada multicriterial na porção continental e pelos Grandes Ecossistemas Marinhos (LMEs) no ambiente oceânico.",
+          "A alternativa <strong>E</strong> é incorreta porque os polígonos dos biomas do IBGE dividem continuamente todo o território continental entre seis unidades, não coincidindo integralmente com os contornos das áreas nucleares de Ab'Sáber (que são separadas por extensas faixas de transição); tampouco a Mata dos Cocais foi elevada pelo IBGE à categoria de sétimo bioma continental autônomo."
+        ]
+      },
+      {
+        number: 3,
+        topic: "Domínio Amazônico e compartimentação geomorfológica (Ross)",
+        stem: "No tocante à análise geoecológica do Domínio Amazônico, articulando os estudos de Aziz Ab'Sáber (2003) e a compartimentação morfoestrutural do relevo brasileiro sistematizada por Jurandyr Ross (2014), assinale a alternativa CORRETA:",
+        statements: [],
+        command: "",
+        options: [
+          { letter: "A", text: "A exuberância da Floresta Ombrófila Densa amazônica decorre da elevada fertilidade mineral natural dos solos regionais, independentemente dos processos superficiais de reciclagem da matéria orgânica." },
+          { letter: "B", text: "A classificação do relevo de Jurandyr Ross, apoiada nos dados do Projeto Radambrasil, demonstrou que cerca de 90% das Terras Baixas Amazônicas correspondem, na realidade, a planaltos ou depressões de baixa altitude onde predominam processos erosivos, restringindo-se a planície verdadeira a estreitas faixas marginais aos grandes rios." },
+          { letter: "C", text: "Na estratificação fitoecológica adaptada ao regime hidrológico amazônico, as matas de várzea permanecem continuamente alagadas durante todo o ano, enquanto as matas de igapó sofrem inundações restritas ao período das cheias sazonais." },
+          { letter: "D", text: "Embora registre temperaturas médias em torno de 25 °C, o Domínio Amazônico apresenta acentuado déficit hídrico anual, com precipitações médias inferiores a 300 mm e predomínio absoluto de formações caducifólias deciduais em sua área nuclear." },
+          { letter: "E", text: "As feições planálticas ao sul da calha amazônica, como os Planaltos Residuais Sul-Amazônicos, constituem cadeias de dobramentos modernos cenozoicas resultantes de intensa atividade tectônica recente no centro da Placa Sul-Americana." }
+        ],
+        correct: "B",
+        resolution: [
+          "A alternativa correta é a <strong>B</strong>.",
+          "A opção <strong>B</strong> reproduz com exatidão uma das principais revisões geomorfológicas da classificação do relevo brasileiro proposta por Jurandyr Ross com base no Projeto Radambrasil (conforme sínteses didáticas da classificação): embora o Domínio Amazônico esteja classicamente associado às terras baixas florestadas equatoriais, cerca de 90% das Terras Baixas Amazônicas correspondem, na realidade, a planaltos ou depressões de baixa altitude (como a Depressão Amazônica Ocidental e o Planalto da Amazônia Oriental), onde os processos erosivos se sobrepõem aos de sedimentação, restringindo a planície verdadeira a uma estreita faixa às margens dos grandes rios.",
+          "A alternativa <strong>A</strong> está incorreta porque os solos amazônicos apresentam, em regra, baixa fertilidade natural; a exuberância da floresta decorre da rápida reciclagem da matéria orgânica na superfície. A alternativa <strong>C</strong> inverte os ambientes fluviais: a <em>mata de igapó</em> é permanentemente alagada, ao passo que a <em>mata de várzea</em> sofre inundação apenas no período de cheia sazonal. A alternativa <strong>D</strong> é falsa porque o núcleo amazônico combina temperaturas médias em torno de 25 °C e elevada umidade, com predomínio de Florestas Ombrófilas Densa e Aberta (restritas as Florestas Estacionais Sempre-Verde e Semidecidual às bordas que enfrentam período seco), e nenhuma região brasileira possui pluviosidade média anual inferior a 300 mm. A alternativa <strong>E</strong> é incorreta porque o Brasil situa-se no centro da Placa Sul-Americana, sem cadeias de dobramentos modernos, apresentando substrato cratônico antigo e terrenos sedimentares e cristalinos modelados predominantemente por agentes exógenos (como nos Planaltos Residuais Sul-Amazônicos)."
+        ]
+      },
+      {
+        number: 4,
+        topic: "Domínio do Cerrado: solos, fisionomias, hidrografia e hotspot",
+        stem: "O Domínio dos Cerrados ocupa posição central no território brasileiro e desempenha papel estratégico na dinâmica hidroclimática e ecológica sul-americana. Sobre suas características morfoclimáticas, pedológicas e fitoecológicas, analise as afirmativas a seguir:",
+        statements: [
+          "I - O relevo nuclear é marcado por chapadões interiores associados a solos profundos e ácidos, cuja espessura permite o desenvolvimento de raízes profundas para captação de água nos horizontes subsuperficiais durante a estação seca.",
+          "II - A vegetação savânica tropófila apresenta adaptações ao estresse hídrico sazonal — com períodos de seca que podem atingir seis meses — e às altas temperaturas, manifestadas em folhas cerosas que evitam a perda de água e troncos com casca de textura semelhante à cortiça.",
+          "III - Por apresentar solos naturalmente férteis que dispensam qualquer correção química para a agricultura comercial, o Cerrado permanece excluído da condição de <em>hotspot</em> mundial de biodiversidade devido à ausência de endemismos e de perda expressiva de habitat.",
+          "IV - O Cerrado abriga nascentes de três das maiores bacias hidrográficas da América do Sul (Amazônica/Tocantins, São Francisco e Prata), além de reunir um gradiente vegetacional que vai do campo limpo ao cerradão, com matas de galeria e veredas marcadas pelo buriti nos fundos de vale."
+        ],
+        command: "Assinale a alternativa CORRETA:",
+        options: [
+          { letter: "A", text: "Apenas as afirmativas I e III estão corretas." },
+          { letter: "B", text: "Apenas as afirmativas II e III estão corretas." },
+          { letter: "C", text: "Apenas as afirmativas I, II e III estão corretas." },
+          { letter: "D", text: "Apenas as afirmativas I, II e IV estão corretas." },
+          { letter: "E", text: "Todas as afirmativas estão corretas." }
+        ],
+        correct: "D",
+        resolution: [
+          "A alternativa correta é a <strong>D</strong> (apenas I, II e IV estão corretas).",
+          "A afirmativa <strong>I</strong> está correta: o Domínio do Cerrado assenta-se sobretudo em chapadões interiores (como no Planalto Central), sobre solos profundos e ácidos cujo perfil espesso viabiliza o desenvolvimento de raízes profundas para captação de água durante a estação seca. A afirmativa <strong>II</strong> está correta: adaptada a períodos de estiagem que alcançam até seis meses e a altas temperaturas, a vegetação savânica tropófila desenvolve folhas cerosas (que reduzem a perda hídrica) e troncos com casca de textura semelhante à cortiça. A afirmativa <strong>IV</strong> também está correta: considerado a \"caixa d'água do Brasil\", o Cerrado abriga as três maiores bacias hidrográficas da América do Sul (Amazônica/Tocantins, São Francisco e Prata) e exibe um gradiente fisionômico que vai do campo limpo ao cerradão, com matas de galeria e veredas marcadas pelo buriti nos fundos de vale.",
+          "A afirmativa <strong>III</strong> está incorreta por dupla razão: os solos do Cerrado demandaram correção química (como a calagem) para viabilizar a agricultura comercial, e o Cerrado é reconhecido, ao lado da Mata Atlântica, como um dos dois <em>hotspots</em> de biodiversidade do Brasil por reunir elevada biodiversidade e endemismo associados à perda severa de habitat."
+        ]
+      },
+      {
+        number: 5,
+        topic: "Domínio dos Mares de Morros, riscos geomorfológicos e conservação",
+        stem: "O Domínio dos \"Mares de Morros\", analisado classicamente por Aziz Ab'Sáber (2003) e correlacionado aos Planaltos e Serras do Atlântico Leste e Sudeste por Jurandyr Ross (2014), reúne singularidades geomorfológicas e profundos conflitos socioambientais. Assinale a alternativa CORRETA sobre esse domínio e o bioma a ele associado:",
+        statements: [],
+        command: "",
+        options: [
+          { letter: "A", text: "Apresenta modelado predominantemente tabular, esculpido sobre bacias sedimentares paleozoicas recobertas por estepe gramíneo-lenhosa adaptada a invernos secos e solos rasos de elevada salinidade." },
+          { letter: "B", text: "Caracteriza-se pelo relevo mamelonar, com morros em forma de \"meias-laranjas\" e sucessivas escarpas de planalto modeladas por intemperismo e erosão sobre terrenos predominantemente cristalinos pré-cambrianos sob clima tropical úmido, originalmente recoberto pela floresta tropical atlântica." },
+          { letter: "C", text: "Por apresentar baixa densidade populacional e participação marginal na economia brasileira, a Mata Atlântica mantém quase integralmente sua cobertura vegetal primária, não demandando legislação federal específica de proteção." },
+          { letter: "D", text: "Nos setores serranos de clima úmido, a presença de finas camadas de solo sobre rochas nas encostas íngremes garante plena estabilidade geotécnica frente à ocupação urbana desordenada, restringindo os deslizamentos de terra às planícies estuarinas de manguezais." },
+          { letter: "E", text: "Na classificação do IBGE, a Mata Atlântica restringe-se exclusivamente à Floresta Ombrófila Densa das encostas litorâneas, excluindo formações interioranas estacionais, campos de altitude e ecossistemas costeiros halófilos dotados de raízes escoras e pneumatóforos." }
+        ],
+        correct: "B",
+        resolution: [
+          "A alternativa correta é a <strong>B</strong>.",
+          "A opção <strong>B</strong> sintetiza a geoecologia do Domínio dos \"Mares de Morros\", correspondente na porção oriental do país aos Planaltos e Serras do Atlântico Leste e Sudeste na classificação de Jurandyr Ross: trata-se de uma faixa extensa sobre terrenos predominantemente cristalinos pré-cambrianos, bastante acidentados, com sucessivas escarpas de planalto e morros mamelonares em \"meias-laranjas\" esculpidos por intemperismo e erosão sob clima tropical úmido, originalmente revestidos pela floresta tropical atlântica.",
+          "A alternativa <strong>A</strong> descreve erroneamente o relevo e a cobertura vegetal do domínio cristalino atlântico. A alternativa <strong>C</strong> é falsa: segundo dados do MapBiomas (Coleção 9) citados no relatório SEEG 12, o bioma Mata Atlântica concentra mais de 120 milhões de pessoas e cerca de 70% do PIB nacional, já tendo perdido 67% de sua cobertura natural — o que o torna, conforme sínteses geográficas, o bioma mais devastado em termos relativos, classificado como <em>hotspot</em> e protegido pela Lei da Mata Atlântica (Lei nº 11.428/2006). A alternativa <strong>D</strong> é falsa porque os deslizamentos de terra ocorrem com maior frequência justamente em áreas serranas instáveis (especialmente no Sudeste e no Nordeste), onde uma fina camada de solo recobre as rochas e perde estabilidade quando ocupada de forma desordenada. A alternativa <strong>E</strong> é incorreta porque, segundo o IBGE e sínteses fitoecológicas, a Mata Atlântica engloba não apenas a Floresta Ombrófila Densa, mas também a Floresta Ombrófila Aberta, a Floresta Ombrófila Mista (araucárias), as Florestas Estacionais Semidecidual e Decidual e ecossistemas associados como campos de altitude, restingas e manguezais (vegetação halófila dotada de raízes escoras e pneumatóforos)."
+        ]
+      },
+      {
+        number: 6,
+        topic: "Domínio da Caatinga: depressões, pediplanação e xerofitismo",
+        stem: "Sobre o Domínio das Caatingas e sua organização geoecológica no Nordeste brasileiro, assinale a alternativa INCORRETA:",
+        statements: [],
+        command: "",
+        options: [
+          { letter: "A", text: "O quadro geomorfológico nuclear é composto por extensas depressões interplanálticas semiáridas — marcadas por processos erosivos típicos de ambientes áridos e semiáridos (pediplanação) — e interrompidas por relevos tabulares residuais, como as chapadas do Araripe (PE-CE) e do Apodi (RN)." },
+          { letter: "B", text: "A vegetação exibe acentuado xerofitismo e caducifolia (classificada pelo IBGE como Savana-Estépica), com perda de folhas durante o período seco e modificações morfológicas para armazenamento hídrico, como ocorre nos cactos, sobre solos frequentemente mais rasos." },
+          { letter: "C", text: "Constitui o único bioma exclusivamente brasileiro em toda a sua extensão territorial, abrigando significativa riqueza biológica a despeito das restrições hídricas impostas pelo clima semiárido." },
+          { letter: "D", text: "A dinâmica climática da Caatinga equivale à dos desertos hiperáridos subtropicais, caracterizando-se por médias pluviométricas anuais sistematicamente inferiores a 50 mm e impossibilidade natural de manutenção de extratos arbustivos ou arbóreos nativos." },
+          { letter: "E", text: "A combinação entre remoção da cobertura vegetal nativa, manejo inadequado do solo e condições climáticas semiáridas potencializa processos de desertificação, conceitualmente distintos da arenização observada sob clima úmido no extremo sul do Brasil." }
+        ],
+        correct: "D",
+        resolution: [
+          "A alternativa incorreta — portanto, o gabarito da questão — é a <strong>D</strong>.",
+          "As alternativas <strong>A</strong>, <strong>B</strong>, <strong>C</strong> e <strong>E</strong> estão corretas: o Domínio da Caatinga desenvolve-se em depressões interplanálticas semiáridas submetidas a intenso desgaste erosivo típico de ambientes áridos e semiáridos (pediplanação), interrompidas por chapadas de relevo tabular como as do Araripe (PE-CE) e do Apodi (RN); apresenta solos frequentemente mais rasos e vegetação xerófila e caducifólia (Savana-Estépica segundo o IBGE), com perda de folhas na seca e adaptações para armazenamento de água, como nos cactos; constitui o único bioma exclusivamente brasileiro, possuindo grande riqueza de biodiversidade apesar do clima semiárido (cobrindo cerca de 863 mil km² segundo dados compilados pelo SEEG); e diferencia-se conceitualmente da arenização no Sul porque processos de desertificação ocorrem em terras áridas e semiáridas.",
+          "A alternativa <strong>D</strong> é incorreta porque, segundo manuais geográficos e sínteses didáticas, nenhuma região brasileira registra pluviosidade média anual inferior a 300 mm, e a Caatinga <strong>não é um deserto hiperárido</strong>: nela chove entre 300 e 800 mm/ano, sendo o principal condicionante climático a irregularidade das chuvas, o que permite a ocorrência de estratos arbustivos e arbóreos xerófitos adaptados."
+        ]
+      },
+      {
+        number: 7,
+        topic: "Domínios das Araucárias e Pradarias; arenização vs. desertificação",
+        stem: "Os domínios morfoclimáticos predominantemente meridionais do país — Araucárias e Pradarias — expressam controles climáticos subtropicais e heranças geológicas específicas do Sul brasileiro. Analise as afirmativas a seguir sobre esses dois domínios:",
+        statements: [
+          "I - O Domínio das Araucárias desenvolve-se em planaltos subtropicais elevados, associados aos terrenos arenito-basálticos da Bacia do Paraná, destacando-se a Floresta Ombrófila Mista (mata de pinhais), sobretudo nos estados do Paraná e de Santa Catarina.",
+          "II - Na regionalização oficial do IBGE (2019), a área das Araucárias é classificada como um bioma continental independente denominado \"Bioma Araucária\", totalmente dissociado da Mata Atlântica em termos fitoecológicos.",
+          "III - O bioma Pampa (associado ao Domínio das Pradarias) restringe-se, no Brasil, ao estado do Rio Grande do Sul — onde ocupa cerca de 63% da área estadual — e apresenta o relevo de \"coxilhas\", colinas convexas suavemente onduladas com altitudes inferiores a 450 m sobre predomínio de material pré-cambriano, recobertas por campos limpos (Estepe).",
+          "IV - A formação de areais em setores do Pampa sob clima úmido e chuvas bem distribuídas denomina-se arenização, diferenciando-se tecnicamente da desertificação típica de ambientes áridos e semiáridos."
+        ],
+        command: "Assinale a alternativa CORRETA:",
+        options: [
+          { letter: "A", text: "Apenas as afirmativas I e II estão corretas." },
+          { letter: "B", text: "Apenas as afirmativas II e IV estão corretas." },
+          { letter: "C", text: "Apenas as afirmativas I e III estão corretas." },
+          { letter: "D", text: "Apenas as afirmativas II, III e IV estão corretas." },
+          { letter: "E", text: "Apenas as afirmativas I, III e IV estão corretas." }
+        ],
+        correct: "E",
+        resolution: [
+          "A alternativa correta é a <strong>E</strong> (apenas I, III e IV estão corretas).",
+          "A afirmativa <strong>I</strong> está correta: o Domínio das Araucárias desenvolve-se em planaltos subtropicais elevados associados ao planalto arenito-basáltico da Bacia do Paraná, destacando-se a Floresta Ombrófila Mista (mata de pinhais), principalmente nos estados do Paraná e de Santa Catarina. A afirmativa <strong>III</strong> está correta: no Brasil, o bioma Pampa (correspondente ao Domínio das Pradarias) restringe-se ao Rio Grande do Sul, representando 63% da área estadual segundo o Ministério do Meio Ambiente (MMA, 2013, citado pelo SEEG), com relevo marcado pelas \"coxilhas\" — colinas convexas suavemente onduladas abaixo de 450 m com predomínio de material pré-cambriano — recobertas por vegetação campestre (Estepe / campos limpos). A afirmativa <strong>IV</strong> também está correta: em ambiente úmido e com chuvas bem distribuídas influenciadas por frentes frias, o processo de formação de areais no Pampa denomina-se <em>arenização</em>, distinguindo-se da <em>desertificação</em> própria de regiões áridas e semiáridas.",
+          "A afirmativa <strong>II</strong> está incorreta porque o mapeamento oficial de biomas do IBGE (2019) incorpora a Floresta Ombrófila Mista (Mata de Araucária) ao bioma Mata Atlântica, não reconhecendo um \"Bioma Araucária\" autônomo."
+        ]
+      },
+      {
+        number: 8,
+        topic: "Faixas de transição ecológica (Mata dos Cocais, Pantanal, Agreste) e refúgios",
+        stem: "Na concepção geoecológica de Aziz Ab'Sáber (2003), a organização espacial da natureza brasileira não se limita às seis áreas nucleares, pois entre elas interpõem-se amplas faixas de transição e enclaves paisagísticos resultantes da dinâmica paleoclimática e de contatos ecológicos. Assinale a alternativa CORRETA acerca dessas unidades transicionais:",
+        statements: [],
+        command: "",
+        options: [
+          { letter: "A", text: "A Mata dos Cocais constitui uma paisagem-tampão de significativa individualidade entre os domínios Amazônico e da Caatinga, caracterizada por formações de babaçu que recobrem indiferentemente fundos de vales, vertentes e interflúvios por dezenas de milhares de quilômetros quadrados." },
+          { letter: "B", text: "O Complexo do Pantanal corresponde a um planalto cristalino de alta declividade situado acima de 1.000 metros de altitude, cujas cheias ocorrem rigorosamente sincronizadas com o pico pluviométrico local em razão da elevada permeabilidade de seus solos arenosos antigos." },
+          { letter: "C", text: "O Agreste designa a faixa de transição meridional situada exclusivamente na campanha gaúcha, promovendo o contato direto entre as coxilhas das Pradarias e as terras baixas florestadas da Amazônia Ocidental." },
+          { letter: "D", text: "A ocorrência de relictos, redutos e refúgios no interior de diferentes domínios comprova que os climas e as fronteiras vegetacionais sul-americanas mantiveram-se imutáveis ao longo de toda a história geológica quaternária." },
+          { letter: "E", text: "Na cartografia oficial do IBGE (2019), tanto o Agreste quanto a Mata dos Cocais são representados como biomas continentais autônomos de primeira ordem, somando conjuntamente mais de 15% do território brasileiro." }
+        ],
+        correct: "A",
+        resolution: [
+          "A alternativa correta é a <strong>A</strong>.",
+          "A opção <strong>A</strong> reproduz com fidelidade a caracterização clássica de Aziz Ab'Sáber (exposta originalmente em 1966 e retomada na literatura sobre seus domínios) acerca do contato entre os domínios Amazônico e da Caatinga: os cocais maranhenses (Mata dos Cocais) configuram uma paisagem-tampão de significativa individualidade e expressão paisagística, na qual a floresta de babaçu recobre indiferentemente fundos de vales, vertentes e interflúvios por dezenas de milhares de quilômetros quadrados.",
+          "A alternativa <strong>B</strong> está incorreta porque o Pantanal Mato-grossense constitui a mais típica planície brasileira, de formação geológica recente (Período Quaternário), com altitudes modestas em torno de 100 m e constante sedimentação, apresentando solos mal drenados e cheias que ocorrem fora da estação chuvosa local. A alternativa <strong>C</strong> é falsa porque as coxilhas das Pradarias situam-se no Rio Grande do Sul e o Domínio Amazônico no norte do país, não havendo contato direto entre ambos, enquanto o Agreste corresponde à faixa de transição nordestina entre a zona florestal úmida costeira e o semiárido da Caatinga (tópico previsto na ementa, sem detalhamento empírico específico nos levantamentos consultados). A alternativa <strong>D</strong> é incorreta porque a presença de <em>relictos, redutos e refúgios</em> evidencia justamente o avanço e o recuo das paisagens vegetais diante de mudanças climáticas globais pretéritas. A alternativa <strong>E</strong> é falsa porque nem o Agreste nem a Mata dos Cocais figuram como biomas continentais no mapa oficial do IBGE de 2019, que reconhece apenas seis biomas continentais além do Sistema Costeiro-Marinho."
+        ]
+      },
+      {
+        number: 9,
+        topic: "Fronteira agrícola no Cerrado, MATOPIBA e Lei nº 12.651/2012",
+        stem: "A expansão da fronteira agrícola sobre os chapadões do Cerrado, analisada na coletânea organizada por Jurandyr Ross (2014) e acompanhada por levantamentos técnicos e ambientais recentes, promoveu intensas transformações socioambientais no interior brasileiro. Analise as afirmativas a seguir sobre esse processo:",
+        statements: [
+          "I - O avanço inicial da agropecuária moderna sobre o Cerrado no Centro-Oeste, com destaque para Goiás e Mato Grosso, apoiou-se na correção da acidez dos solos regionais, especialmente por meio da prática da calagem.",
+          "II - A mais recente fronteira agrícola do Cerrado, denominada MATOPIBA (Maranhão, Tocantins, Piauí e Bahia), abrange 337 municípios e aproximadamente 73 milhões de hectares conforme delimitação técnica atribuída à Embrapa (2014).",
+          "III - Segundo o Código Florestal brasileiro (Lei nº 12.651/2012), o percentual mínimo de Reserva Legal exigido para imóveis rurais localizados em áreas de Cerrado é uniforme em todo o território nacional, sendo fixado em 50% tanto dentro quanto fora da Amazônia Legal.",
+          "IV - Levantamentos ambientais contemporâneos apontam o Cerrado como uma das principais fronteiras do desmatamento no Brasil, com divulgação baseada em dados do MapBiomas indicando aumento de 19 vezes no desmatamento associado ao plantio de soja."
+        ],
+        command: "Assinale a alternativa CORRETA:",
+        options: [
+          { letter: "A", text: "Apenas as afirmativas I e III estão corretas." },
+          { letter: "B", text: "Apenas as afirmativas II e III estão corretas." },
+          { letter: "C", text: "Apenas as afirmativas I, II e IV estão corretas." },
+          { letter: "D", text: "Apenas as afirmativas I, II e III estão corretas." },
+          { letter: "E", text: "Todas as afirmativas estão corretas." }
+        ],
+        correct: "C",
+        resolution: [
+          "A alternativa correta é a <strong>C</strong> (apenas I, II e IV estão corretas).",
+          "A afirmativa <strong>I</strong> está correta: conforme abordado na coletânea <em>Geografia do Brasil</em> organizada por Jurandyr Ross, a expansão inicial da fronteira agrícola sobre áreas de Cerrado — sobretudo em estados como Goiás e Mato Grosso — apoiou-se na correção da acidez dos solos regionais mediante a prática da calagem. A afirmativa <strong>II</strong> está correta: a mais recente fronteira agrícola do Cerrado é o MATOPIBA (Maranhão, Tocantins, Piauí e Bahia), abrangendo, segundo fonte secundária que sintetiza a delimitação da Embrapa (2014), 337 municípios e cerca de 73 milhões de hectares. A afirmativa <strong>IV</strong> também está correta: análises ambientais apontam o Cerrado como a fronteira contemporânea do desmatamento no Brasil, monitorada especialmente no MATOPIBA pelo projeto MapBiomas, com reportagem investigativa baseada em dados do MapBiomas registrando um aumento de 19 vezes no desmatamento associado ao plantio de soja.",
+          "A afirmativa <strong>III</strong> está incorreta porque o Código Florestal brasileiro (Lei nº 12.651/2012) <strong>não</strong> estabelece percentual uniforme de 50%: conforme publicações técnicas da Embrapa, para imóveis situados em áreas de Cerrado a lei exige conservação de <strong>35%</strong> a título de Reserva Legal dentro da Amazônia Legal e de apenas <strong>20%</strong> fora da Amazônia Legal."
+        ]
+      },
+      {
+        number: 10,
+        topic: "Impactos hidroambientais nos chapadões do Cerrado e Aquífero Urucuia",
+        stem: "A conversão acelerada da cobertura vegetal nativa nos chapadões do Cerrado, em especial na região do MATOPIBA, desencadeia impactos geoecológicos diretos sobre a dinâmica hidrográfica e os aquíferos regionais. Considerando a interação entre uso da terra, relevo e águas subterrâneas nessa fronteira agrícola, assinale a alternativa CORRETA:",
+        statements: [],
+        command: "",
+        options: [
+          { letter: "A", text: "O desmatamento nas superfícies dos chapadões — que constituem áreas de recarga do Aquífero Urucuia —, somado à exploração das águas e ao avanço agropecuário, tem sido associado ao rebaixamento do nível do aquífero superior a 7 metros em algumas regiões e a disputas pelo uso da água." },
+          { letter: "B", text: "O Aquífero Urucuia constitui um reservatório confinado e hidraulicamente desconectado dos cursos fluviais de superfície, de modo que sua superexploração não interfere no regime de vazão das bacias hidrográficas conectadas, como a do Rio Grande ou a do Rio Itapecuru." },
+          { letter: "C", text: "Os chapadões do oeste baiano atuam exclusivamente como barreiras impermeáveis de escoamento superficial rápido, impedindo processos de infiltração pluvial voltados à recarga do Aquífero Urucuia." },
+          { letter: "D", text: "A detecção de água na camada superficial do solo equivale integralmente à recarga efetiva do Aquífero Urucuia, razão pela qual os órgãos gestores já dispõem de estudos conclusivos de recarga segura para orientar plenamente a exploração hídrica regional." },
+          { letter: "E", text: "Localizado integralmente sob o domínio das Pradarias no sul do país, o Aquífero Urucuia apresenta vulnerabilidade associada apenas à arenização campestre e às lagoas costeiras do Rio Grande do Sul." }
+        ],
+        correct: "A",
+        resolution: [
+          "A alternativa correta é a <strong>A</strong>.",
+          "A opção <strong>A</strong> reflete as evidências técnicas reunidas sobre os impactos hidroambientais da fronteira agrícola no Cerrado e no MATOPIBA: os chapadões constituem áreas diretas de recarga do Aquífero Urucuia, e o desmatamento dessas superfícies — combinado à dinâmica de ocupação e exploração das águas na fronteira do MATOPIBA — está associado ao rebaixamento do nível do aquífero superior a 7 metros em algumas regiões (segundo diagnóstico da 4ª fase do PPCerrado, MMA/Ibama, 2023) e a conflitos hídricos regionais, a exemplo do município de Correntina, na Bahia.",
+          "A alternativa <strong>B</strong> está incorreta porque pesquisas hidrológicas demonstram forte conexão hidráulica entre o Aquífero Urucuia e os corpos d'água superficiais, impactando bacias conectadas como a do Rio Grande e o alto e médio curso do Rio Itapecuru (além de o Cerrado baiano, que recobre 21,4% da Bahia sobre área de recarga do aquífero, abrigar três bacias hidrográficas). A alternativa <strong>C</strong> é falsa justamente porque os chapadões atuam como zonas estratégicas de recarga do aquífero. A alternativa <strong>D</strong> é incorreta porque levantamentos técnicos recentes ressaltam que a presença de água no solo não equivale à recarga efetiva do Aquífero Urucuia e que a ausência de estudos detalhados de recarga segura dificulta o estabelecimento de orientações para a exploração sustentável das águas. A alternativa <strong>E</strong> é falsa porque o Aquífero Urucuia localiza-se sob o Cerrado (com destaque para o oeste baiano e o MATOPIBA), e não sob as Pradarias gaúchas."
+        ]
+      }
+    ];
+
+    // Estado da aplicação em memória
+    const state = {
+      answers: {},       // { [questionNumber]: "A" | "B" | "C" | "D" | "E" }
+      eliminated: {},    // { ["q1_A"]: true }
+      submitted: false
+    };
+
+    // Referências do DOM
+    const navPillsEl = document.getElementById("nav-pills");
+    const questionsContainerEl = document.getElementById("questions-container");
+    const resolutionsContainerEl = document.getElementById("resolutions-container");
+    const trackerTextEl = document.getElementById("tracker-text");
+    const progressBarFillEl = document.getElementById("progress-bar-fill");
+    const quizFormEl = document.getElementById("quiz-form");
+    const submitAreaEl = document.getElementById("submit-area");
+    const resultsSectionEl = document.getElementById("results-section");
+    const scoreHitsEl = document.getElementById("score-hits");
+    const scorePercentEl = document.getElementById("score-percent");
+    const scoreMessageEl = document.getElementById("score-message");
+    const summaryTableBodyEl = document.getElementById("summary-table-body");
+
+    // Modal elements
+    const confirmModalEl = document.getElementById("confirm-modal");
+    const modalTextEl = document.getElementById("modal-text");
+    const modalGotoBtn = document.getElementById("modal-goto-btn");
+    const modalConfirmBtn = document.getElementById("modal-confirm-btn");
+    let firstUnansweredNum = null;
+
+    /**
+     * Destaca visualmente as palavras-chave CORRETA ou INCORRETA no enunciado/comando.
+     */
+    function formatCommandText(text) {
+      return text.replace(/\b(CORRETA|INCORRETA)\b/g, "<strong>$1</strong>");
+    }
+
+    /**
+     * Renderiza as pílulas de navegação rápida na barra superior.
+     */
+    function renderNavPills() {
+      navPillsEl.innerHTML = "";
+      QUIZ_DATA.forEach((q) => {
+        const pill = document.createElement("a");
+        pill.href = `#questao-${q.number}`;
+        pill.className = "nav-pill";
+        pill.id = `nav-pill-${q.number}`;
+        pill.textContent = q.number;
+        pill.title = `Ir para a Questão ${q.number}`;
+        navPillsEl.appendChild(pill);
+      });
+    }
+
+    /**
+     * Renderiza todas as 10 questões na íntegra.
+     */
+    function renderQuestions() {
+      questionsContainerEl.innerHTML = "";
+
+      QUIZ_DATA.forEach((q) => {
+        const article = document.createElement("article");
+        article.className = "question-card";
+        article.id = `questao-${q.number}`;
+
+        // Cabeçalho da questão
+        const header = document.createElement("div");
+        header.className = "question-header";
+        header.innerHTML = `
+          <h2 class="question-number">Questão ${q.number}</h2>
+          <span class="question-status-badge" id="status-badge-${q.number}"></span>
+        `;
+        article.appendChild(header);
+
+        // Enunciado
+        const stem = document.createElement("p");
+        stem.className = "question-stem";
+        stem.innerHTML = formatCommandText(q.stem);
+        article.appendChild(stem);
+
+        // Afirmativas numeradas (quando existirem)
+        if (q.statements && q.statements.length > 0) {
+          const statementsBox = document.createElement("div");
+          statementsBox.className = "statements-list";
+          q.statements.forEach((st) => {
+            const p = document.createElement("p");
+            p.className = "statement-item";
+            p.innerHTML = st;
+            statementsBox.appendChild(p);
+          });
+          article.appendChild(statementsBox);
+        }
+
+        // Comando final (quando existir)
+        if (q.command) {
+          const cmd = document.createElement("p");
+          cmd.className = "question-command";
+          cmd.innerHTML = formatCommandText(q.command);
+          article.appendChild(cmd);
+        }
+
+        // Lista de alternativas (A a E)
+        const optionsList = document.createElement("div");
+        optionsList.className = "options-list";
+        optionsList.setAttribute("role", "radiogroup");
+        optionsList.setAttribute("aria-label", `Alternativas da Questão ${q.number}`);
+
+        q.options.forEach((opt) => {
+          const row = document.createElement("div");
+          row.className = "option-row";
+
+          const optKey = `q${q.number}_${opt.letter}`;
+          const label = document.createElement("label");
+          label.className = "option-label";
+          label.id = `label-${optKey}`;
+
+          const input = document.createElement("input");
+          input.type = "radio";
+          input.name = `question_${q.number}`;
+          input.value = opt.letter;
+          input.addEventListener("change", () => handleSelectOption(q.number, opt.letter));
+
+          const letterSpan = document.createElement("span");
+          letterSpan.className = "option-letter";
+          letterSpan.textContent = opt.letter;
+
+          const textSpan = document.createElement("span");
+          textSpan.className = "option-text";
+          textSpan.innerHTML = opt.text;
+
+          label.appendChild(input);
+          label.appendChild(letterSpan);
+          label.appendChild(textSpan);
+
+          // Botão discreto para riscar/eliminar alternativa
+          const elimBtn = document.createElement("button");
+          elimBtn.type = "button";
+          elimBtn.className = "eliminate-btn";
+          elimBtn.id = `elim-${optKey}`;
+          elimBtn.title = `Riscar ou restaurar alternativa ${opt.letter}`;
+          elimBtn.setAttribute("aria-label", `Riscar alternativa ${opt.letter}`);
+          elimBtn.innerHTML = "&#9986;";
+          elimBtn.addEventListener("click", () => handleToggleEliminate(q.number, opt.letter));
+
+          row.appendChild(label);
+          row.appendChild(elimBtn);
+          optionsList.appendChild(row);
+        });
+
+        article.appendChild(optionsList);
+
+        // Link rápido para a resolução (visível após finalizar)
+        const footerLink = document.createElement("div");
+        footerLink.className = "question-footer-link";
+        footerLink.id = `q-footer-${q.number}`;
+        footerLink.innerHTML = `
+          <a href="#resolucao-${q.number}" class="btn btn-secondary btn-sm">
+            Ver resolução comentada &darr;
+          </a>
+        `;
+        article.appendChild(footerLink);
+
+        questionsContainerEl.appendChild(article);
+      });
+    }
+
+    /**
+     * Atualiza o estado quando o usuário escolhe uma alternativa.
+     */
+    function handleSelectOption(questionNumber, letter) {
+      if (state.submitted) return;
+
+      state.answers[questionNumber] = letter;
+
+      // Remove marcação de eliminada caso o usuário selecione a opção
+      const optKey = `q${questionNumber}_${letter}`;
+      if (state.eliminated[optKey]) {
+        delete state.eliminated[optKey];
+        document.getElementById(`label-${optKey}`).classList.remove("eliminated");
+        document.getElementById(`elim-${optKey}`).classList.remove("active");
+      }
+
+      // Atualiza visual das opções da questão
+      ["A", "B", "C", "D", "E"].forEach((ltr) => {
+        const lbl = document.getElementById(`label-q${questionNumber}_${ltr}`);
+        if (ltr === letter) {
+          lbl.classList.add("selected");
+        } else {
+          lbl.classList.remove("selected");
+        }
+      });
+
+      // Atualiza pílula e barra de progresso
+      document.getElementById(`nav-pill-${questionNumber}`).classList.add("answered");
+      updateProgressUI();
+    }
+
+    /**
+     * Alterna o risco visual (eliminação) de uma alternativa antes da entrega.
+     */
+    function handleToggleEliminate(questionNumber, letter) {
+      if (state.submitted) return;
+
+      const optKey = `q${questionNumber}_${letter}`;
+      const lbl = document.getElementById(`label-${optKey}`);
+      const btn = document.getElementById(`elim-${optKey}`);
+
+      if (state.eliminated[optKey]) {
+        delete state.eliminated[optKey];
+        lbl.classList.remove("eliminated");
+        btn.classList.remove("active");
+      } else {
+        state.eliminated[optKey] = true;
+        lbl.classList.add("eliminated");
+        btn.classList.add("active");
+      }
+    }
+
+    /**
+     * Atualiza contador e barra de progresso no topo.
+     */
+    function updateProgressUI() {
+      const count = Object.keys(state.answers).length;
+      const total = QUIZ_DATA.length;
+      trackerTextEl.textContent = `Respondidas: ${count} de ${total}`;
+      progressBarFillEl.style.width = `${(count / total) * 100}%`;
+    }
+
+    /**
+     * Valida o envio do formulário e abre modal caso haja questões em branco.
+     */
+    quizFormEl.addEventListener("submit", (e) => {
+      e.preventDefault();
+      if (state.submitted) return;
+
+      const unanswered = QUIZ_DATA.filter((q) => !state.answers[q.number]).map((q) => q.number);
+
+      if (unanswered.length > 0) {
+        firstUnansweredNum = unanswered[0];
+        const lista = unanswered.join(", ");
+        modalTextEl.textContent =
+          unanswered.length === 1
+            ? `Você ainda não respondeu à Questão ${lista}. Deseja finalizar o simulado mesmo assim ou ir até ela para responder?`
+            : `Você ainda não respondeu a ${unanswered.length} questões (Questões ${lista}). Deseja finalizar o simulado mesmo assim ou voltar para responder?`;
+        confirmModalEl.classList.add("open");
+        modalGotoBtn.focus();
+      } else {
+        finalizeQuiz();
+      }
+    });
+
+    modalGotoBtn.addEventListener("click", () => {
+      confirmModalEl.classList.remove("open");
+      if (firstUnansweredNum) {
+        const target = document.getElementById(`questao-${firstUnansweredNum}`);
+        if (target) target.scrollIntoView({ behavior: "smooth" });
+      }
+    });
+
+    modalConfirmBtn.addEventListener("click", () => {
+      confirmModalEl.classList.remove("open");
+      finalizeQuiz();
+    });
+
+    confirmModalEl.addEventListener("click", (e) => {
+      if (e.target === confirmModalEl) {
+        confirmModalEl.classList.remove("open");
+      }
+    });
+
+    /**
+     * Corrige todas as questões, destaca acertos/erros nos próprios cartões das questões
+     * e exibe abaixo, na mesma página, a pontuação e as resoluções comentadas completas.
+     */
+    function finalizeQuiz() {
+      state.submitted = true;
+      let hits = 0;
+
+      summaryTableBodyEl.innerHTML = "";
+      resolutionsContainerEl.innerHTML = "";
+
+      QUIZ_DATA.forEach((q) => {
+        const userAns = state.answers[q.number] || null;
+        const isCorrect = userAns === q.correct;
+        if (isCorrect) hits++;
+
+        // 1. Atualiza cartão da questão (mantido na página)
+        const card = document.getElementById(`questao-${q.number}`);
+        const badge = document.getElementById(`status-badge-${q.number}`);
+        const pill = document.getElementById(`nav-pill-${q.number}`);
+        const footerLink = document.getElementById(`q-footer-${q.number}`);
+
+        pill.classList.remove("answered");
+        badge.classList.add("visible");
+        footerLink.classList.add("visible");
+
+        if (isCorrect) {
+          card.classList.add("card-correct");
+          badge.classList.add("status-correct");
+          badge.textContent = `✓ Você acertou (${q.correct})`;
+          pill.classList.add("result-correct");
+        } else if (userAns) {
+          card.classList.add("card-wrong");
+          badge.classList.add("status-wrong");
+          badge.textContent = `✕ Você marcou ${userAns} • Gabarito: ${q.correct}`;
+          pill.classList.add("result-wrong");
+        } else {
+          card.classList.add("card-blank");
+          badge.classList.add("status-blank");
+          badge.textContent = `• Em branco • Gabarito: ${q.correct}`;
+          pill.classList.add("result-blank");
+        }
+
+        // Bloqueia inputs e destaca alternativa correta e incorreta
+        ["A", "B", "C", "D", "E"].forEach((ltr) => {
+          const optKey = `q${q.number}_${ltr}`;
+          const lbl = document.getElementById(`label-${optKey}`);
+          const elimBtn = document.getElementById(`elim-${optKey}`);
+          const radio = lbl.querySelector("input");
+
+          radio.disabled = true;
+          lbl.classList.add("locked");
+          lbl.classList.remove("eliminated", "selected");
+          elimBtn.style.display = "none";
+
+          if (ltr === q.correct) {
+            lbl.classList.add("opt-correct");
+          } else if (ltr === userAns && !isCorrect) {
+            lbl.classList.add("opt-wrong");
+          }
+        });
+
+        // 2. Preenche linha da tabela resumo do gabarito
+        const tr = document.createElement("tr");
+        const statusLabel = isCorrect
+          ? `<span style="color: var(--correct-text); font-weight: 600;">Acerto</span>`
+          : userAns
+          ? `<span style="color: var(--wrong-text); font-weight: 600;">Erro</span>`
+          : `<span style="color: var(--unanswered-text); font-weight: 600;">Em branco</span>`;
+
+        tr.innerHTML = `
+          <td><strong>Questão ${q.number}</strong></td>
+          <td>${userAns ? userAns : "—"}</td>
+          <td><strong>${q.correct}</strong></td>
+          <td>${statusLabel}</td>
+          <td>
+            <div class="table-links">
+              <a href="#questao-${q.number}" class="inline-link">Questão</a>
+              <span>•</span>
+              <a href="#resolucao-${q.number}" class="inline-link">Resolução</a>
+            </div>
+          </td>
+        `;
+        summaryTableBodyEl.appendChild(tr);
+
+        // 3. Cria o cartão da Resolução Comentada na seção inferior
+        const resCard = document.createElement("article");
+        resCard.className = "resolution-card";
+        resCard.id = `resolucao-${q.number}`;
+
+        const userBadgeHtml = isCorrect
+          ? `<span class="res-badge status-correct">Sua resposta: ${userAns} (Correta)</span>`
+          : userAns
+          ? `<span class="res-badge status-wrong">Sua resposta: ${userAns} (Incorreta)</span>`
+          : `<span class="res-badge status-blank">Sua resposta: Em branco</span>`;
+
+        const paragraphsHtml = q.resolution.map((p) => `<p>${p}</p>`).join("");
+
+        resCard.innerHTML = `
+          <div class="resolution-header">
+            <div class="resolution-title-group">
+              <h3 class="resolution-q-title">Questão ${q.number} — Resolução Comentada</h3>
+              <span class="resolution-topic">${q.topic}</span>
+            </div>
+            <div class="resolution-badges">
+              <span class="res-badge">Gabarito: <strong>${q.correct}</strong></span>
+              ${userBadgeHtml}
+            </div>
+          </div>
+          <div class="resolution-body">
+            ${paragraphsHtml}
+          </div>
+          <div class="resolution-footer">
+            <span style="font-size: 0.85rem; color: var(--text-muted);">Referência: Ab'Sáber (2003); Ross (2014)</span>
+            <a href="#questao-${q.number}" class="btn btn-secondary btn-sm">
+              &uarr; Voltar à Questão ${q.number}
+            </a>
+          </div>
+        `;
+        resolutionsContainerEl.appendChild(resCard);
+      });
+
+      // Atualiza painel de pontuação e barra superior
+      const percent = Math.round((hits / QUIZ_DATA.length) * 100);
+      scoreHitsEl.textContent = hits;
+      scorePercentEl.textContent = `${percent}%`;
+      trackerTextEl.textContent = `Resultado: ${hits} de 10 acertos`;
+      progressBarFillEl.style.width = "100%";
+
+      if (hits >= 8) {
+        scoreMessageEl.textContent = "Excelente desempenho! Domínio sólido da geoecologia da paisagem e da bibliografia.";
+      } else if (hits >= 5) {
+        scoreMessageEl.textContent = "Bom resultado! Revise abaixo os comentários das questões erradas para consolidar os detalhes conceituais.";
+      } else {
+        scoreMessageEl.textContent = "Continue praticando! Leia atentamente cada resolução comentada abaixo e compare com o enunciado das questões.";
+      }
+
+      // Oculta botão de envio e revela a seção de resultados e resoluções na mesma página
+      submitAreaEl.style.display = "none";
+      resultsSectionEl.classList.add("visible");
+      resultsSectionEl.scrollIntoView({ behavior: "smooth" });
+    }
+
+    /**
+     * Reinicia o quiz para uma nova tentativa.
+     */
+    function restartQuiz() {
+      state.answers = {};
+      state.eliminated = {};
+      state.submitted = false;
+
+      resultsSectionEl.classList.remove("visible");
+      submitAreaEl.style.display = "flex";
+
+      renderNavPills();
+      renderQuestions();
+      updateProgressUI();
+
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    document.getElementById("restart-btn-top").addEventListener("click", restartQuiz);
+    document.getElementById("restart-btn-bottom").addEventListener("click", restartQuiz);
+
+    // Inicialização
+    renderNavPills();
+    renderQuestions();
+    updateProgressUI();
+  </script>
+</body>
+</html>

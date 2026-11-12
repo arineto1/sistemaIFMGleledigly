@@ -1,0 +1,1424 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Simulado IFMG — Questões Socioambientais Contemporâneas e Ordenamento Territorial</title>
+  <style>
+    :root {
+      /* Paleta clara estilo papel fosco para leitura prolongada sem cansaço visual */
+      --bg-page: #f7f5f0;
+      --bg-card: #fffefb;
+      --bg-subtle: #f0ede6;
+      --bg-option: #faf9f6;
+      --bg-option-hover: #f1efe9;
+      --bg-option-selected: #eaf3ef;
+
+      --text-primary: #1f2421;
+      --text-secondary: #49524d;
+      --text-muted: #6c7570;
+
+      --border-light: #e2dfd7;
+      --border-medium: #cbc6bc;
+
+      --accent-primary: #1e5c45;
+      --accent-primary-hover: #164634;
+      --accent-border: #2b7a5d;
+
+      --correct-bg: #ebf7f1;
+      --correct-border: #2e8b66;
+      --correct-text: #14533b;
+
+      --wrong-bg: #fdf0ef;
+      --wrong-border: #c94a4a;
+      --wrong-text: #7f1d1d;
+
+      --warn-bg: #fef8eb;
+      --warn-border: #d99b26;
+      --warn-text: #784f08;
+
+      --shadow-sm: 0 2px 8px rgba(31, 36, 33, 0.04);
+      --shadow-md: 0 6px 20px rgba(31, 36, 33, 0.06);
+      --radius-md: 10px;
+      --radius-lg: 14px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      font-size: 17px;
+    }
+
+    body {
+      background-color: var(--bg-page);
+      color: var(--text-primary);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      line-height: 1.72;
+      -webkit-font-smoothing: antialiased;
+      padding-bottom: 4.5rem;
+    }
+
+    /* Barra superior discreta de acompanhamento */
+    .top-bar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background-color: rgba(247, 245, 240, 0.94);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border-light);
+      padding: 0.75rem 1.25rem;
+    }
+
+    .top-bar-inner {
+      max-width: 840px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .top-bar-title {
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+      letter-spacing: 0.01em;
+    }
+
+    .progress-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .progress-text {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--accent-primary);
+      white-space: nowrap;
+    }
+
+    .progress-track {
+      width: 140px;
+      height: 8px;
+      background-color: var(--border-light);
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      width: 0%;
+      background-color: var(--accent-primary);
+      border-radius: 999px;
+      transition: width 0.25s ease;
+    }
+
+    /* Contêiner principal com largura ideal para leitura longa */
+    .container {
+      max-width: 840px;
+      margin: 0 auto;
+      padding: 2rem 1.25rem 0;
+    }
+
+    /* Cabeçalho da prova */
+    .exam-header {
+      background-color: var(--bg-card);
+      border: 1px solid var(--border-light);
+      border-top: 5px solid var(--accent-primary);
+      border-radius: var(--radius-lg);
+      padding: 2rem 2.25rem;
+      margin-bottom: 2rem;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .exam-badge {
+      display: inline-block;
+      background-color: var(--bg-option-selected);
+      color: var(--accent-primary);
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 0.3rem 0.75rem;
+      border-radius: 6px;
+      margin-bottom: 0.9rem;
+    }
+
+    .exam-header h1 {
+      font-size: 1.55rem;
+      line-height: 1.35;
+      color: var(--text-primary);
+      margin-bottom: 0.75rem;
+      font-weight: 700;
+    }
+
+    .exam-subtitle {
+      font-size: 0.98rem;
+      color: var(--text-secondary);
+      margin-bottom: 1.1rem;
+    }
+
+    .exam-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem 1.5rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--border-light);
+      font-size: 0.86rem;
+      color: var(--text-muted);
+    }
+
+    .exam-meta span strong {
+      color: var(--text-secondary);
+    }
+
+    /* Cartão de questão */
+    .question-card {
+      background-color: var(--bg-card);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-lg);
+      padding: 2rem 2.25rem;
+      margin-bottom: 1.75rem;
+      box-shadow: var(--shadow-sm);
+      transition: border-color 0.2s ease;
+    }
+
+    .question-card.is-correct {
+      border-color: var(--correct-border);
+    }
+
+    .question-card.is-wrong {
+      border-color: var(--wrong-border);
+    }
+
+    .question-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+      margin-bottom: 1.15rem;
+      padding-bottom: 0.8rem;
+      border-bottom: 1px solid var(--border-light);
+      flex-wrap: wrap;
+    }
+
+    .question-number {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--accent-primary);
+      letter-spacing: 0.01em;
+    }
+
+    .question-status-badge {
+      display: none;
+      font-size: 0.8rem;
+      font-weight: 700;
+      padding: 0.25rem 0.7rem;
+      border-radius: 999px;
+    }
+
+    .question-card.is-correct .question-status-badge {
+      display: inline-block;
+      background-color: var(--correct-bg);
+      color: var(--correct-text);
+      border: 1px solid var(--correct-border);
+    }
+
+    .question-card.is-wrong .question-status-badge {
+      display: inline-block;
+      background-color: var(--wrong-bg);
+      color: var(--wrong-text);
+      border: 1px solid var(--wrong-border);
+    }
+
+    .question-stem {
+      font-size: 1rem;
+      color: var(--text-primary);
+      margin-bottom: 1.15rem;
+      text-align: left;
+    }
+
+    .roman-items {
+      list-style: none;
+      margin: 1.1rem 0 1.25rem;
+      padding: 1rem 1.25rem;
+      background-color: var(--bg-subtle);
+      border-left: 3px solid var(--border-medium);
+      border-radius: 0 var(--radius-md) var(--radius-md) 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+    }
+
+    .roman-items li {
+      font-size: 0.97rem;
+      line-height: 1.68;
+      color: var(--text-primary);
+    }
+
+    .question-command {
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 1.1rem;
+    }
+
+    /* Opções A a E */
+    .options-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .option-label {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.9rem;
+      padding: 0.95rem 1.15rem;
+      background-color: var(--bg-option);
+      border: 1.5px solid var(--border-light);
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      transition: background-color 0.16s ease, border-color 0.16s ease, transform 0.1s ease;
+      user-select: none;
+    }
+
+    .option-label:hover {
+      background-color: var(--bg-option-hover);
+      border-color: var(--border-medium);
+    }
+
+    .option-label input[type="radio"] {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .option-letter {
+      flex-shrink: 0;
+      width: 2rem;
+      height: 2rem;
+      border-radius: 50%;
+      border: 1.5px solid var(--border-medium);
+      background-color: var(--bg-card);
+      color: var(--text-secondary);
+      font-weight: 700;
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 0.08rem;
+      transition: all 0.16s ease;
+    }
+
+    .option-text {
+      font-size: 0.98rem;
+      line-height: 1.65;
+      color: var(--text-primary);
+      flex: 1;
+    }
+
+    /* Estado selecionado antes da correção */
+    .option-label.selected {
+      background-color: var(--bg-option-selected);
+      border-color: var(--accent-border);
+    }
+
+    .option-label.selected .option-letter {
+      background-color: var(--accent-primary);
+      border-color: var(--accent-primary);
+      color: #ffffff;
+    }
+
+    /* Estados após finalizar o simulado */
+    .quiz-finished .option-label {
+      cursor: default;
+    }
+
+    .quiz-finished .option-label:hover {
+      background-color: var(--bg-option);
+      border-color: var(--border-light);
+    }
+
+    .quiz-finished .option-label.option-correct {
+      background-color: var(--correct-bg) !important;
+      border-color: var(--correct-border) !important;
+    }
+
+    .quiz-finished .option-label.option-correct .option-letter {
+      background-color: var(--correct-border);
+      border-color: var(--correct-border);
+      color: #ffffff;
+    }
+
+    .quiz-finished .option-label.option-wrong {
+      background-color: var(--wrong-bg) !important;
+      border-color: var(--wrong-border) !important;
+    }
+
+    .quiz-finished .option-label.option-wrong .option-letter {
+      background-color: var(--wrong-border);
+      border-color: var(--wrong-border);
+      color: #ffffff;
+    }
+
+    .option-tag {
+      display: inline-block;
+      margin-top: 0.45rem;
+      font-size: 0.78rem;
+      font-weight: 700;
+      padding: 0.15rem 0.55rem;
+      border-radius: 5px;
+    }
+
+    .option-tag.tag-correct {
+      background-color: rgba(46, 139, 102, 0.15);
+      color: var(--correct-text);
+    }
+
+    .option-tag.tag-wrong {
+      background-color: rgba(201, 74, 74, 0.15);
+      color: var(--wrong-text);
+    }
+
+    .jump-resolution-link {
+      display: none;
+      margin-top: 1.1rem;
+      padding-top: 0.85rem;
+      border-top: 1px dashed var(--border-light);
+      text-align: right;
+    }
+
+    .quiz-finished .jump-resolution-link {
+      display: block;
+    }
+
+    .jump-resolution-link a {
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--accent-primary);
+      text-decoration: none;
+    }
+
+    .jump-resolution-link a:hover {
+      text-decoration: underline;
+    }
+
+    /* Área de finalização */
+    .submit-panel {
+      background-color: var(--bg-card);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-lg);
+      padding: 1.75rem 2rem;
+      margin-top: 2rem;
+      box-shadow: var(--shadow-sm);
+      text-align: center;
+    }
+
+    .validation-alert {
+      display: none;
+      background-color: var(--warn-bg);
+      border: 1px solid var(--warn-border);
+      color: var(--warn-text);
+      border-radius: var(--radius-md);
+      padding: 1rem 1.25rem;
+      margin-bottom: 1.25rem;
+      text-align: left;
+      font-size: 0.93rem;
+    }
+
+    .validation-alert.visible {
+      display: block;
+    }
+
+    .missing-links {
+      margin-top: 0.5rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+    }
+
+    .missing-links a {
+      display: inline-block;
+      background-color: #ffffff;
+      border: 1px solid var(--warn-border);
+      color: var(--warn-text);
+      font-weight: 600;
+      font-size: 0.82rem;
+      padding: 0.2rem 0.6rem;
+      border-radius: 6px;
+      text-decoration: none;
+    }
+
+    .missing-links a:hover {
+      background-color: var(--warn-border);
+      color: #ffffff;
+    }
+
+    .btn-row {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      font-family: inherit;
+      font-size: 1rem;
+      font-weight: 600;
+      padding: 0.85rem 1.85rem;
+      border-radius: var(--radius-md);
+      border: none;
+      cursor: pointer;
+      transition: background-color 0.18s ease, transform 0.1s ease;
+    }
+
+    .btn:active {
+      transform: translateY(1px);
+    }
+
+    .btn-primary {
+      background-color: var(--accent-primary);
+      color: #ffffff;
+    }
+
+    .btn-primary:hover {
+      background-color: var(--accent-primary-hover);
+    }
+
+    .btn-secondary {
+      background-color: var(--bg-subtle);
+      color: var(--text-primary);
+      border: 1px solid var(--border-medium);
+    }
+
+    .btn-secondary:hover {
+      background-color: var(--border-light);
+    }
+
+    /* Seção de Resultados e Resoluções Comentadas (na mesma página, abaixo das questões) */
+    #results-section {
+      display: none;
+      margin-top: 3rem;
+      padding-top: 2.5rem;
+      border-top: 2px solid var(--border-medium);
+      animation: fadeIn 0.35s ease;
+    }
+
+    #results-section.visible {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .score-summary-card {
+      background-color: var(--bg-card);
+      border: 1px solid var(--border-light);
+      border-top: 5px solid var(--accent-primary);
+      border-radius: var(--radius-lg);
+      padding: 2rem 2.25rem;
+      margin-bottom: 2rem;
+      box-shadow: var(--shadow-md);
+    }
+
+    .score-summary-card h2 {
+      font-size: 1.45rem;
+      color: var(--text-primary);
+      margin-bottom: 0.4rem;
+    }
+
+    .score-subtitle {
+      font-size: 0.95rem;
+      color: var(--text-secondary);
+      margin-bottom: 1.5rem;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin-bottom: 1.75rem;
+    }
+
+    .stat-box {
+      background-color: var(--bg-subtle);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-md);
+      padding: 1.1rem;
+      text-align: center;
+    }
+
+    .stat-box.stat-correct {
+      background-color: var(--correct-bg);
+      border-color: var(--correct-border);
+    }
+
+    .stat-box.stat-wrong {
+      background-color: var(--wrong-bg);
+      border-color: var(--wrong-border);
+    }
+
+    .stat-value {
+      display: block;
+      font-size: 1.85rem;
+      font-weight: 800;
+      line-height: 1.2;
+      color: var(--text-primary);
+    }
+
+    .stat-box.stat-correct .stat-value {
+      color: var(--correct-text);
+    }
+
+    .stat-box.stat-wrong .stat-value {
+      color: var(--wrong-text);
+    }
+
+    .stat-label {
+      font-size: 0.84rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+      margin-top: 0.25rem;
+      display: block;
+    }
+
+    /* Mapa rápido de questões */
+    .quick-map-title {
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: var(--text-secondary);
+      margin-bottom: 0.65rem;
+    }
+
+    .quick-map {
+      display: grid;
+      grid-template-columns: repeat(10, 1fr);
+      gap: 0.5rem;
+      margin-bottom: 1.75rem;
+    }
+
+    .map-pill {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 0.5rem 0.25rem;
+      border-radius: 8px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      text-decoration: none;
+      border: 1px solid var(--border-medium);
+      transition: transform 0.12s ease;
+    }
+
+    .map-pill:hover {
+      transform: translateY(-2px);
+    }
+
+    .map-pill.pill-ok {
+      background-color: var(--correct-bg);
+      border-color: var(--correct-border);
+      color: var(--correct-text);
+    }
+
+    .map-pill.pill-err {
+      background-color: var(--wrong-bg);
+      border-color: var(--wrong-border);
+      color: var(--wrong-text);
+    }
+
+    /* Tabela de Gabarito Oficial */
+    .gabarito-table-wrapper {
+      overflow-x: auto;
+      margin-top: 1.25rem;
+    }
+
+    .gabarito-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.9rem;
+    }
+
+    .gabarito-table th,
+    .gabarito-table td {
+      padding: 0.7rem 0.9rem;
+      border: 1px solid var(--border-light);
+      text-align: left;
+    }
+
+    .gabarito-table th {
+      background-color: var(--bg-subtle);
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+
+    .gabarito-table td.center,
+    .gabarito-table th.center {
+      text-align: center;
+    }
+
+    /* Resoluções Comentadas */
+    .resolutions-heading {
+      font-size: 1.4rem;
+      color: var(--text-primary);
+      margin: 2.25rem 0 1.25rem;
+      font-weight: 700;
+    }
+
+    .resolution-card {
+      background-color: var(--bg-card);
+      border: 1px solid var(--border-light);
+      border-left: 5px solid var(--accent-primary);
+      border-radius: var(--radius-lg);
+      padding: 1.85rem 2.25rem;
+      margin-bottom: 1.5rem;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .resolution-card.res-wrong {
+      border-left-color: var(--wrong-border);
+    }
+
+    .resolution-card.res-correct {
+      border-left-color: var(--correct-border);
+    }
+
+    .resolution-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+      margin-bottom: 1rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid var(--border-light);
+    }
+
+    .resolution-header h3 {
+      font-size: 1.1rem;
+      color: var(--text-primary);
+      font-weight: 700;
+    }
+
+    .resolution-meta-badges {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .res-badge {
+      font-size: 0.8rem;
+      font-weight: 700;
+      padding: 0.22rem 0.65rem;
+      border-radius: 6px;
+    }
+
+    .res-badge.gabarito {
+      background-color: var(--bg-option-selected);
+      color: var(--accent-primary);
+      border: 1px solid var(--accent-border);
+    }
+
+    .res-badge.user-ok {
+      background-color: var(--correct-bg);
+      color: var(--correct-text);
+      border: 1px solid var(--correct-border);
+    }
+
+    .res-badge.user-err {
+      background-color: var(--wrong-bg);
+      color: var(--wrong-text);
+      border: 1px solid var(--wrong-border);
+    }
+
+    .resolution-body p {
+      font-size: 0.98rem;
+      line-height: 1.75;
+      color: var(--text-primary);
+      margin-bottom: 1rem;
+    }
+
+    .resolution-body p:last-child {
+      margin-bottom: 0;
+    }
+
+    .back-to-question {
+      margin-top: 1.1rem;
+      padding-top: 0.75rem;
+      border-top: 1px dashed var(--border-light);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .back-to-question span {
+      font-size: 0.83rem;
+      color: var(--text-muted);
+    }
+
+    .back-to-question a {
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--accent-primary);
+      text-decoration: none;
+    }
+
+    .back-to-question a:hover {
+      text-decoration: underline;
+    }
+
+    @media (max-width: 640px) {
+      html {
+        font-size: 16px;
+      }
+
+      .exam-header,
+      .question-card,
+      .score-summary-card,
+      .resolution-card {
+        padding: 1.35rem 1.2rem;
+      }
+
+      .stats-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .quick-map {
+        grid-template-columns: repeat(5, 1fr);
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="top-bar">
+    <div class="top-bar-inner">
+      <div class="top-bar-title">Simulado Objetivo • Estilo Banca IFMG</div>
+      <div class="progress-wrapper">
+        <span class="progress-text" id="progress-text">0 de 10 respondidas</span>
+        <div class="progress-track" aria-hidden="true">
+          <div class="progress-fill" id="progress-fill"></div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="container" id="quiz-root">
+    <section class="exam-header">
+      <div class="exam-badge">Caderno de Questões Objetivas</div>
+      <h1>Questões Socioambientais Contemporâneas e Ordenamento Territorial</h1>
+      <p class="exam-subtitle">
+        Simulado no formato adotado pela Comissão Central de Concurso Público da Reitoria do Instituto Federal de Educação, Ciência e Tecnologia de Minas Gerais (IFMG). Responda às 10 questões abaixo e finalize o simulado para conferir sua pontuação, o gabarito e as resoluções comentadas na mesma página.
+      </p>
+      <div class="exam-meta">
+        <span><strong>Total:</strong> 10 questões (A a E)</span>
+        <span><strong>Tópicos:</strong> SNUC, ZEE, Matrizes Energéticas, Adaptação Urbana e Racismo Ambiental</span>
+        <span><strong>Bibliografia:</strong> Porto-Gonçalves (2006); Mendonça (2001); Ministério das Cidades (2025)</span>
+      </div>
+    </section>
+
+    <form id="quiz-form" novalidate>
+      <div id="questions-container"></div>
+
+      <div class="submit-panel" id="submit-panel">
+        <div class="validation-alert" id="validation-alert" role="alert">
+          <div id="validation-message"></div>
+          <div class="missing-links" id="missing-links"></div>
+          <div style="margin-top: 0.85rem;">
+            <button type="button" class="btn btn-secondary" id="force-submit-btn" style="padding: 0.5rem 1rem; font-size: 0.88rem;">
+              Finalizar mesmo com questões em branco
+            </button>
+          </div>
+        </div>
+
+        <div class="btn-row">
+          <button type="submit" class="btn btn-primary" id="submit-btn">
+            Finalizar Simulado e Ver Resoluções
+          </button>
+          <button type="button" class="btn btn-secondary" id="reset-btn" style="display: none;">
+            Refazer Simulado
+          </button>
+        </div>
+      </div>
+    </form>
+
+    <!-- Seção exibida abaixo na mesma página após o término do quiz -->
+    <section id="results-section" aria-live="polite">
+      <div class="score-summary-card">
+        <h2>Resultado do Simulado e Gabarito Oficial</h2>
+        <p class="score-subtitle" id="score-feedback-text"></p>
+
+        <div class="stats-grid">
+          <div class="stat-box stat-correct">
+            <span class="stat-value" id="stat-hits">0 / 10</span>
+            <span class="stat-label">Acertos</span>
+          </div>
+          <div class="stat-box stat-wrong">
+            <span class="stat-value" id="stat-errors">0</span>
+            <span class="stat-label">Erros / Em branco</span>
+          </div>
+          <div class="stat-box">
+            <span class="stat-value" id="stat-percent">0%</span>
+            <span class="stat-label">Aproveitamento</span>
+          </div>
+        </div>
+
+        <div class="quick-map-title">Desempenho por questão (clique para ir à resolução):</div>
+        <div class="quick-map" id="quick-map"></div>
+
+        <div class="gabarito-table-wrapper">
+          <table class="gabarito-table">
+            <thead>
+              <tr>
+                <th>Questão</th>
+                <th>Eixo Temático Principal</th>
+                <th class="center">Sua Resposta</th>
+                <th class="center">Gabarito</th>
+                <th class="center">Situação</th>
+              </tr>
+            </thead>
+            <tbody id="gabarito-tbody"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <h2 class="resolutions-heading">Resoluções Comentadas</h2>
+      <div id="resolutions-container"></div>
+    </section>
+  </main>
+
+  <script>
+    const quizData = [
+      {
+        number: 1,
+        code: "01",
+        topic: "SNUC: classificação legal, posse/domínio, moradia e visitação",
+        stem: "Considerando a classificação legal das Unidades de Conservação (UCs) instituída pela Lei nº 9.985/2000 (SNUC), especialmente quanto a posse, domínio, permanência de populações tradicionais, pesquisa científica e visitação pública, analise as afirmativas a seguir:",
+        items: [
+          "I. Na Estação Ecológica, categoria de Proteção Integral de posse e domínio públicos, a visitação pública é proibida, exceto aquela com objetivo educacional, de acordo com o que dispuser o Plano de Manejo da unidade ou regulamento específico, dependendo a pesquisa científica de autorização prévia do órgão responsável por sua administração.",
+          "II. O Monumento Natural e o Refúgio de Vida Silvestre integram o grupo das Unidades de Proteção Integral e admitem áreas particulares em seus limites, compatibilizando-se os objetivos conservacionistas da unidade com os usos das propriedades e dos recursos naturais locais pelos proprietários.",
+          "III. A Reserva Particular do Patrimônio Natural (RPPN), embora enquadrada no grupo de Uso Sustentável, possui domínio público e tem como objetivo básico proteger os meios de vida e a cultura de populações extrativistas tradicionais.",
+          "IV. A Floresta Nacional é uma unidade de Uso Sustentável de posse e domínio públicos na qual é vedada a permanência de populações tradicionais que a habitavam quando de sua criação, impondo-se sua realocação compulsória para fora dos limites da unidade."
+        ],
+        command: "Assinale a alternativa correta:",
+        options: [
+          { letter: "A", text: "Apenas a afirmativa I está correta." },
+          { letter: "B", text: "Apenas as afirmativas I e II estão corretas." },
+          { letter: "C", text: "Apenas as afirmativas II e III estão corretas." },
+          { letter: "D", text: "Apenas as afirmativas I, III e IV estão corretas." },
+          { letter: "E", text: "Todas as afirmativas estão corretas." }
+        ],
+        correct: "B",
+        resolution: [
+          "A resposta correta é a alternativa B, pois apenas as afirmativas I e II estão de acordo com a Lei nº 9.985/2000. A afirmativa I é verdadeira: a Estação Ecológica (ESEC) integra o grupo de Proteção Integral, é de posse e domínio públicos (art. 9º, § 1º), proíbe a visitação pública — admitindo-a somente com objetivo educacional nos termos do Plano de Manejo ou de regulamento específico — e condiciona a pesquisa científica à autorização prévia do órgão administrador. A afirmativa II também é verdadeira: tanto o Monumento Natural (MONA) quanto o Refúgio de Vida Silvestre (REVIS) pertencem ao grupo das Unidades de Proteção Integral; no MONA, admite-se posse e domínio público e privado desde que compatível com os objetivos da unidade e a utilização da terra pelos proprietários, ao passo que o Decreto nº 12.492/2025, ao instituir um Refúgio de Vida Silvestre com base no art. 13 da Lei nº 9.985/2000, prevê expressamente a compatibilização dos usos das propriedades particulares com a conservação ambiental.",
+          "A afirmativa III é incorreta porque a Reserva Particular do Patrimônio Natural (RPPN), embora pertencente ao grupo de Uso Sustentável, é de posse e domínio privados (gravada com perpetuidade), tendo como objetivo conservar a diversidade biológica e admitindo pesquisa científica e visitação com objetivos turísticos, recreativos e educacionais. A definição atribuída na assertiva — domínio público voltado a proteger meios de vida e cultura de populações extrativistas tradicionais — corresponde à Reserva Extrativista. A afirmativa IV é igualmente incorreta, pois na Floresta Nacional, unidade de Uso Sustentável de posse e domínio públicos, admite-se a permanência das populações tradicionais que a habitavam quando de sua criação, em conformidade com regulamento e com o Plano de Manejo."
+        ]
+      },
+      {
+        number: 2,
+        code: "02",
+        topic: "SNUC e Lei nº 15.180/2025: gestão, conselhos e normas territoriais",
+        stem: "Com fundamento na Lei nº 9.985/2000 (SNUC) e na Lei nº 15.180/2025 (Política Nacional de Incentivo à Visitação a Unidades de Conservação), acerca da governança, do regime territorial e da visitação nas Unidades de Conservação, assinale a alternativa INCORRETA:",
+        items: [],
+        command: "",
+        options: [
+          { letter: "A", text: "O Conselho Nacional do Meio Ambiente (CONAMA) integra a estrutura do SNUC como órgão consultivo e deliberativo, devendo as unidades de conservação dispor de um Plano de Manejo que abranja sua área, sua zona de amortecimento e os corredores ecológicos." },
+          { letter: "B", text: "As populações tradicionais residentes em Unidades de Conservação nas quais sua permanência não seja permitida serão indenizadas ou compensadas pelas benfeitorias existentes e devidamente realocadas pelo Poder Público, em local e condições acordados entre as partes." },
+          { letter: "C", text: "A área de uma Unidade de Conservação do grupo de Proteção Integral é considerada zona rural, para os efeitos legais, e sua zona de amortecimento, uma vez definida formalmente, não pode ser transformada em zona urbana." },
+          { letter: "D", text: "A Reserva Extrativista e a Reserva de Desenvolvimento Sustentável são geridas por um Conselho Consultivo, cabendo exclusivamente ao órgão gestor federal aprovar unilateralmente o Plano de Manejo sem submissão à deliberação colegiada." },
+          { letter: "E", text: "Nos parques nacionais, estaduais e municipais, as áreas com restrição permanente à visitação pública não poderão ultrapassar 50% da área total da unidade de conservação, podendo os serviços de apoio à visitação ser explorados pelo órgão gestor ou pela iniciativa privada mediante concessão, permissão ou autorização." }
+        ],
+        correct: "D",
+        resolution: [
+          "A resposta correta é a alternativa D, por apresentar afirmação incorreta diante da legislação do SNUC. A Lei nº 9.985/2000 determina que tanto a Reserva Extrativista quanto a Reserva de Desenvolvimento Sustentável são geridas por um Conselho Deliberativo (e não meramente consultivo), presidido pelo órgão gestor, estabelecendo expressamente o § 5º relativo à Reserva Extrativista que o Plano de Manejo da unidade será aprovado pelo seu Conselho Deliberativo.",
+          "As demais alternativas estão corretas: a alternativa A reflete o art. 6º, inciso I, e o art. 27, § 1º, da Lei nº 9.985/2000, que atribuem ao CONAMA o papel de órgão consultivo e deliberativo do SNUC e determinam que o Plano de Manejo abranja a unidade, sua zona de amortecimento e os corredores ecológicos; a alternativa B reproduz literalmente o art. 42 da mesma lei sobre indenização ou compensação por benfeitorias e realocação acordada de populações tradicionais cuja permanência não seja permitida; a alternativa C corresponde à norma do SNUC que considera zona rural, para efeitos legais, a área de UC do grupo de Proteção Integral e proíbe a transformação de sua zona de amortecimento formalmente definida em zona urbana; e a alternativa E sintetiza os arts. 7º e 9º da Lei nº 15.180/2025, que limitam a 50% a área de restrição permanente à visitação nos parques e permitem a exploração de serviços de apoio pelo órgão gestor ou pela iniciativa privada mediante concessão, permissão ou autorização."
+        ]
+      },
+      {
+        number: 3,
+        code: "03",
+        topic: "SNUC: categorias de Uso Sustentável e Proteção Integral",
+        stem: "Conforme levantamento citado no <em>Plano Clima Adaptação: Plano Temático de Igualdade Racial e Combate ao Racismo</em> (2025), terras indígenas, territórios quilombolas e unidades de conservação com presença de povos indígenas e populações tradicionais protegem cerca de 30,5% das florestas no Brasil (OVIEDO; DOBLAS, 2022). À luz da Lei nº 9.985/2000 (SNUC), assinale a alternativa que caracteriza corretamente o regime jurídico das categorias de Unidades de Conservação:",
+        items: [],
+        command: "",
+        options: [
+          { letter: "A", text: "A Reserva Extrativista é de domínio público, com uso concedido às populações extrativistas tradicionais cuja subsistência baseia-se no extrativismo e, complementarmente, na agricultura de subsistência e na criação de animais de pequeno porte, sendo proibidas a exploração de recursos minerais e a caça amadorística ou profissional." },
+          { letter: "B", text: "A Reserva de Desenvolvimento Sustentável veda a visitação pública e desestimula a pesquisa científica, com vistas a impedir qualquer contato entre populações tradicionais residentes e visitantes ou pesquisadores externos." },
+          { letter: "C", text: "A Reserva Biológica e a Estação Ecológica autorizam a exploração comercial sustentável de recursos florestais madeireiros por comunidades locais, desde que o Plano de Manejo discipline o corte seletivo e o monitoramento ecológico." },
+          { letter: "D", text: "A Área de Proteção Ambiental (APA) e a Área de Relevante Interesse Ecológico (ARIE) exigem a desapropriação integral das propriedades privadas situadas em seu perímetro, proibindo atividades produtivas privadas em seu interior." },
+          { letter: "E", text: "A Reserva de Fauna integra o grupo de Proteção Integral e destina-se exclusivamente a terras privadas gravadas com perpetuidade, proibindo estudos técnico-científicos sobre o manejo econômico sustentável de recursos faunísticos." }
+        ],
+        correct: "A",
+        resolution: [
+          "A resposta correta é a alternativa A, que descreve fielmente o regime legal da Reserva Extrativista na Lei nº 9.985/2000: unidade de Uso Sustentável de domínio público, com uso concedido às populações extrativistas tradicionais cuja subsistência apoia-se no extrativismo e, complementarmente, na agricultura de subsistência e na criação de animais de pequeno porte, proibindo-se a exploração de recursos minerais e a caça amadorística ou profissional. A contextualização inicial do enunciado baseia-se nos dados de Oviedo e Doblas (2022) citados no <em>Plano Temático de Igualdade Racial e Combate ao Racismo</em> (2025), segundo os quais terras indígenas, territórios quilombolas e UCs com presença de povos indígenas e populações tradicionais protegem 30,5% das florestas brasileiras.",
+          "As demais opções são falsas: na alternativa B, a Reserva de Desenvolvimento Sustentável permite e incentiva a visitação pública e a pesquisa científica, conforme o § 5º do dispositivo legal que a rege; na alternativa C, a Reserva Biológica e a Estação Ecológica pertencem ao grupo de Proteção Integral, que visa à preservação da biota e à manutenção dos ecossistemas livres de alterações humanas, admitindo apenas uso indireto e vedando exploração comercial madeireira; na alternativa D, a Área de Proteção Ambiental e a Área de Relevante Interesse Ecológico admitem terras públicas e privadas sem exigir desapropriação integral; e na alternativa E, a Reserva de Fauna pertence ao grupo de Uso Sustentável, possui posse e domínio públicos e fomenta estudos técnico-científicos sobre o manejo econômico sustentável de recursos faunísticos."
+        ]
+      },
+      {
+        number: 4,
+        code: "04",
+        topic: "ZEE: objetivos, caráter vinculante e conteúdo",
+        stem: "O Zoneamento Ecológico-Econômico do Brasil (ZEE), previsto na Política Nacional do Meio Ambiente (Lei nº 6.938/1981) e regulamentado pelo Decreto nº 4.297/2002, constitui instrumento central de ordenamento territorial. Considerando seus objetivos, caráter vinculante e diretrizes normativas, assinale a alternativa correta:",
+        items: [],
+        command: "",
+        options: [
+          { letter: "A", text: "O ZEE possui caráter meramente indicativo e não vinculante para agentes privados, aplicando-se de modo obrigatório exclusivamente a obras públicas federais em biomas amazônicos." },
+          { letter: "B", text: "A delimitação das zonas territoriais no âmbito do ZEE deve basear-se unicamente em parâmetros biofísicos e geomorfológicos, excluindo diagnósticos socioeconômicos e o marco jurídico-institucional." },
+          { letter: "C", text: "O ZEE pode condicionar novos empreendimentos futuros, mas a legislação veda que o instrumento determine a relocalização de atividades econômicas já existentes que sejam incompatíveis com suas diretrizes gerais." },
+          { letter: "D", text: "A instituição de zonas no ZEE deve observar os princípios da complexidade metodológica restrita e do sigilo técnico, dispensando mecanismos de divulgação acessível dos mapas e conteúdos à sociedade civil." },
+          { letter: "E", text: "O ZEE tem por objetivo geral organizar, de forma vinculada, as decisões dos agentes públicos e privados quanto a planos, programas, projetos e atividades que, direta ou indiretamente, utilizem recursos naturais, assegurando a plena manutenção do capital e dos serviços ambientais dos ecossistemas." }
+        ],
+        correct: "E",
+        resolution: [
+          "A resposta correta é a alternativa E, pois reproduz o art. 3º do Decreto nº 4.297/2002, que define o objetivo geral do Zoneamento Ecológico-Econômico: organizar, de forma vinculada, as decisões dos agentes públicos e privados quanto a planos, programas, projetos e atividades que direta ou indiretamente utilizem recursos naturais, garantindo a plena manutenção do capital e dos serviços ambientais dos ecossistemas.",
+          "A alternativa A está incorreta porque o art. 2º do mesmo decreto estabelece o ZEE como instrumento de organização do território a ser obrigatoriamente seguido na implantação de planos, obras e atividades públicas e privadas. A alternativa B erra ao excluir os diagnósticos socioeconômicos e o marco jurídico-institucional, componentes mínimos exigidos pelo art. 12, inciso I, na definição de cada zona. A alternativa C contraria o parágrafo único do art. 3º, o qual prevê que o ZEE pode determinar, quando for o caso, inclusive a relocalização de atividades incompatíveis com suas diretrizes. A alternativa D contradiz o parágrafo único do art. 11 (princípios da utilidade e da simplicidade) e o art. 17, que impõe ao Poder Público divulgar junto à sociedade o conteúdo do ZEE e de sua implementação em linguagem e formato acessíveis."
+        ]
+      },
+      {
+        number: 5,
+        code: "05",
+        topic: "ZEE: escalas de aplicação e reconhecimento federativo",
+        stem: "No que concerne às escalas de aplicação, à governança federativa e aos requisitos de reconhecimento do Zoneamento Ecológico-Econômico (ZEE), nos termos do Decreto nº 4.297/2002 (com redação dada pelo Decreto nº 6.288/2007) e da documentação técnica do sistema nacional de zoneamento, analise as afirmativas a seguir:",
+        items: [
+          "I. O ZEE nacional, para fins de reconhecimento pelo Poder Público Federal, deverá gerar produtos e informações na escala de apresentação 1:5.000.000 e na escala de referência 1:1.000.000.",
+          "II. Os ZEE macrorregionais adotam a escala de referência de 1:1.000.000 ou maiores, verificando-se em âmbitos estaduais e sub-regionais o uso de escalas de 1:1.000.000 a 1:250.000 ou maiores.",
+          "III. O reconhecimento pela União dos ZEE regionais e locais, realizado pela Comissão Coordenadora do ZEE do Território Nacional ouvido o Consórcio ZEE Brasil, requer, entre outros critérios, a compatibilização com o respectivo ZEE estadual.",
+          "IV. A elaboração do ZEE da Amazônia Legal compete exclusivamente ao órgão ambiental federal, prescindindo da participação de Estados, Municípios, Comissões Estaduais do ZEE e representações da sociedade civil."
+        ],
+        command: "Assinale a alternativa correta:",
+        options: [
+          { letter: "A", text: "Apenas as afirmativas I e II estão corretas." },
+          { letter: "B", text: "Apenas as afirmativas II e IV estão corretas." },
+          { letter: "C", text: "Apenas as afirmativas I, II e III estão corretas." },
+          { letter: "D", text: "Apenas as afirmativas I, III e IV estão corretas." },
+          { letter: "E", text: "Todas as afirmativas estão corretas." }
+        ],
+        correct: "C",
+        resolution: [
+          "A resposta correta é a alternativa C, pois as afirmativas I, II e III estão corretas. A afirmativa I reproduz o art. 6º-A, inciso I, do Decreto nº 4.297/2002 (incluído pelo Decreto nº 6.288/2007), determinando que o ZEE nacional gere produtos e informações na escala de apresentação 1:5.000.000 e na de referência 1:1.000.000. A afirmativa II reflete o inciso II do art. 6º-A (ZEE macrorregionais em escala de referência de 1:1.000.000 ou maiores) e a aplicação de escalas de 1:1.000.000 a 1:250.000 ou maiores em recortes estaduais e sub-regionais. A afirmativa III corresponde ao art. 6º-B, inciso III e parágrafo único, segundo o qual o reconhecimento pela União dos ZEE regionais e locais cabe à Comissão Coordenadora do ZEE do Território Nacional, ouvido o Consórcio ZEE Brasil, mediante compatibilização com o ZEE estadual.",
+          "A afirmativa IV é incorreta porque o parágrafo único do art. 6º-C do Decreto nº 4.297/2002 estabelece expressamente que o processo de elaboração do ZEE da Amazônia Legal contará com a participação de Estados e Municípios, das Comissões Estaduais do ZEE e de representações da sociedade."
+        ]
+      },
+      {
+        number: 6,
+        code: "06",
+        topic: "Porto-Gonçalves (2006): apropriação da natureza e \"natureza como recurso\"",
+        stem: "Na perspectiva teórica de Carlos Walter Porto-Gonçalves — central em <em>A globalização da natureza e a natureza da globalização</em> (2006) e aprofundada na literatura geográfica que dialoga com sua obra — acerca da apropriação capitalista da natureza e do conceito de \"natureza como recurso\", assinale a alternativa correta:",
+        items: [],
+        command: "",
+        options: [
+          { letter: "A", text: "O conceito de natureza expressa uma essência a-histórica e puramente biológica, razão pela qual todas as sociedades e culturas instituem exatamente a mesma representação sobre o mundo natural." },
+          { letter: "B", text: "A filosofia cartesiana dissolveu a separação entre sujeito e objeto, espírito e matéria, formulando uma ética biocêntrica que rejeitava a subordinação técnica da natureza aos desígnios humanos." },
+          { letter: "C", text: "A formulação baconiana de \"saber é poder\" opôs-se frontalmente ao projeto de dominação da natureza, defendendo que a ciência deveria abster-se de intervir nos processos físicos e orgânicos." },
+          { letter: "D", text: "A redução da natureza à condição de \"recurso\" articula-se à cisão moderna entre sociedade e natureza e, sob o modo de produção capitalista, subordina o trabalho e os ecossistemas a uma lógica mercantil hegemônica comandada por grandes corporações empresariais, aprofundando processos de alienação." },
+          { letter: "E", text: "O avanço da globalização neoliberal superou o antropocentrismo e as contradições ambientais ao retirar das corporações empresariais a capacidade de decisão sobre o acesso e o controle dos bens naturais." }
+        ],
+        correct: "D",
+        resolution: [
+          "A resposta correta é a alternativa D, que sintetiza a crítica à concepção pragmática de \"natureza como recurso\" presente em Porto-Gonçalves (2006) e detalhada na literatura acadêmica que examina sua obra. Conforme analisado em estudo publicado no periódico <em>Observatorium</em> (UFU) com apoio em obras de Porto-Gonçalves (2015, 2016) e na economia política crítica, a cisão moderna entre homem e natureza sustenta a visão antropocêntrica de apropriação pragmática do mundo natural como recurso, enquanto o capitalismo intensifica a exploração do trabalho e da natureza, ampliando a alienação e consolidando uma lógica mercantil hegemônica na qual grandes corporações empresariais detêm o comando das decisões ambientais.",
+          "As demais alternativas invertem os argumentos examinados nessa vertente teórica: Porto-Gonçalves (2016) sustenta justamente que \"o conceito de natureza não é natural\", pois cada sociedade e cultura inventa e institui sua própria ideia de natureza (invalidando A); a matriz cartesiana instituiu a oposição sujeito-objeto e o ideal de tornar os humanos \"senhores e dominadores da natureza\" (invalidando B); Francis Bacon, ao afirmar que \"saber é poder\", utilizou até a metáfora da tortura para indicar como extrair a verdade da natureza (invalidando C); e o texto destaca que grandes corporações empresariais continuam dando as cartas na esfera ambiental mercantilizada (invalidando E)."
+        ]
+      },
+      {
+        number: 7,
+        code: "07",
+        topic: "Porto-Gonçalves (2006) e matrizes energéticas fósseis vs. renováveis",
+        stem: "A transição energética e os discursos globais sobre o desenvolvimento constituem campos de intensa disputa geopolítica e socioambiental, conforme discutido por Carlos Walter Porto-Gonçalves (2006) e por estudos empíricos sobre a expansão da matriz eólica no Brasil. A respeito desse debate, analise as afirmativas abaixo:",
+        items: [
+          "I. Ao problematizar o percurso entre as propostas de ecodesenvolvimento e de desenvolvimento sustentável, Porto-Gonçalves (2006) argumenta que a ideia de desenvolvimento permanece vinculada à modernidade, a qual é incompreensível sem a colonialidade.",
+          "II. Os combustíveis fósseis respondem historicamente por parcela majoritária da matriz energética e por alterações biogeoquímicas na atmosfera, funcionando o controle sobre a matriz energética como instrumento estratégico de manutenção de poder no sistema mundial.",
+          "III. A substituição de termelétricas a carvão e gás por grandes complexos eólicos no Nordeste brasileiro garante neutralidade socioespacial plena, eliminando conflitos fundiários e impactos locais sobre comunidades vulneráveis.",
+          "IV. A simples adoção de fontes alternativas de energia mostra-se suficiente, por si só, para extinguir as desigualdades históricas de acesso energético e as práticas de expropriação territorial associadas a grandes projetos de investimento."
+        ],
+        command: "Assinale a alternativa correta:",
+        options: [
+          { letter: "A", text: "Apenas a afirmativa I está correta." },
+          { letter: "B", text: "Apenas as afirmativas I e II estão corretas." },
+          { letter: "C", text: "Apenas as afirmativas II e III estão corretas." },
+          { letter: "D", text: "Apenas as afirmativas I, III e IV estão corretas." },
+          { letter: "E", text: "Apenas as afirmativas III e IV estão corretas." }
+        ],
+        correct: "B",
+        resolution: [
+          "A resposta correta é a alternativa B, visto que apenas as afirmativas I e II estão corretas. A afirmativa I reproduz com precisão a crítica de Porto-Gonçalves (2006) ao percurso conceitual entre o ecodesenvolvimento (Ignacy Sachs) e o desenvolvimento sustentável (Relatório Brundtland), assinalando que a noção de desenvolvimento permanece ligada à modernidade, a qual é \"incompreensível sem a colonialidade\". A afirmativa II coaduna-se com as análises de Porto-Gonçalves (2006) e de estudos sobre energia citados na bibliografia: o controle sobre a matriz energética atua como instrumento de manutenção de poder, os combustíveis fósseis respondem por cerca de 60% da matriz energética em referência citada sobre o autor e a queima de fósseis provoca mudanças biogeoquímicas na atmosfera que ameaçam o planeta.",
+          "As afirmativas III e IV são falsas. Embora a geração eólica reduza emissões de gases de efeito estufa e consumo hídrico em comparação com termelétricas a gás e carvão mineral, pesquisa de doutorado publicada pela EDUECE (Lima, 2019, com dados da ANEEL-SIGEL de 2021 registrando 417.516,71 hectares apropriados em 15 anos) demonstra que os grandes complexos eólicos no Nordeste produzem enclaves territoriais, forte questão fundiária, expropriação territorial e impactos ecológicos, socioeconômicos e culturais conflitantes com comunidades locais vulneráveis. Assim, os benefícios ambientais globais dessas fontes alternativas não garantem neutralidade socioespacial nem eliminam conflitos e desigualdades no território."
+        ]
+      },
+      {
+        number: 8,
+        code: "08",
+        topic: "Mendonça (2001): geografia socioambiental e método",
+        stem: "Em <em>Geografia e meio ambiente</em> (2001) e em suas reflexões sobre a geografia socioambiental, Francisco Mendonça analisa o estatuto epistemológico da Geografia como saber de interface e critica abordagens dicotômicas na leitura da crise ambiental contemporânea. Assinale a alternativa que traduz corretamente a perspectiva teórico-metodológica do autor:",
+        items: [],
+        command: "",
+        options: [
+          { letter: "A", text: "Um estudo em geografia socioambiental deve emanar de situações conflituosas resultantes da interação entre sociedade e natureza que explicitem degradação de uma ou de ambas, preservando a necessária distinção entre as leis naturais e os processos sociais envolvidos na gênese da problemática ambiental." },
+          { letter: "B", text: "Os termos \"meio geográfico\" e \"meio ambiente\" constituem sinônimos conceituais absolutos, devendo a análise geográfica subordinar a dinâmica social exclusivamente aos métodos das ciências naturais e da Teoria Geral dos Sistemas (TGS)." },
+          { letter: "C", text: "A superação da dicotomia entre natureza e sociedade exige que a sociedade humana seja interpretada como mero organismo biológico submetido às leis da ecologia clássica, anulando a especificidade das relações de produção." },
+          { letter: "D", text: "Uma abordagem marxista da questão ambiental afasta-se do campo socioambiental por desconsiderar os processos sociais mediante os quais determinada sociedade organiza o acesso e o uso dos recursos naturais." },
+          { letter: "E", text: "A crise ecológica atual tem origem exclusivamente pontual no início do século XXI, desvinculada dos fundamentos históricos da modernidade e das contradições civilizatórias do século XX." }
+        ],
+        correct: "A",
+        resolution: [
+          "A resposta correta é a alternativa A, que reproduz diretamente as diretrizes metodológicas de Francisco Mendonça em sua formulação da geografia socioambiental. Em artigo publicado na revista <em>Terra Livre</em> (AGB), em linha com a discussão de <em>Geografia e meio ambiente</em> (2001), o autor define que os estudos em geografia socioambiental devem emanar de situações conflituosas decorrentes da interação entre sociedade e natureza que explicitem degradação de uma ou de ambas, preservando a necessária distinção entre as \"leis naturais\" (dinâmica da natureza) e os \"processos sociais\" (dinâmica da sociedade) envolvidos na gênese da problemática ambiental.",
+          "As demais alternativas opõem-se ao texto de Mendonça: na alternativa B, o autor adverte que o conceito de meio geográfico não deve ser tratado como sinônimo de ambiente ou meio ambiente e critica a vinculação das propostas baseadas na Teoria Geral dos Sistemas (TGS) a uma perspectiva muito mais naturalista que social; na alternativa C, ele rejeita interpretar a sociedade mediante métodos das ciências naturais; na alternativa D, afirma expressamente que uma abordagem marxista da questão ambiental a compreende como manifestação de processos sociais de organização do acesso e uso dos recursos; e na alternativa E, situa as origens da crise ecológica na modernidade (referenciando White Jr., 1968), configurando uma crise profunda da humanidade e de civilização na passagem do século XX ao XXI."
+        ]
+      },
+      {
+        number: 9,
+        code: "09",
+        topic: "Ministério das Cidades (2025): adaptação urbana, Plano Clima e PCRA",
+        stem: "Em 2025, no contexto da agenda urbana e das discussões da COP30, o Ministério das Cidades lançou a cartilha <em>Cidades e Adaptação Climática</em> (em parceria com o WRI Brasil) e estruturou instrumentos voltados ao planejamento urbano resiliente. Considerando essas políticas e diretrizes federais recentes (BRASIL/Ministério das Cidades, 2025), assinale a alternativa correta:",
+        items: [],
+        command: "",
+        options: [
+          { letter: "A", text: "O Plano Setorial de Cidades - Adaptação, vinculado ao Plano Clima e à Política Nacional sobre Mudança do Clima (PNMC), possui horizonte temporal limitado ao ano de 2027 e dispensa o mapeamento de riscos e vulnerabilidades urbanas." },
+          { letter: "B", text: "A estratégia federal de adaptação urbana rejeita a adoção de Soluções Baseadas na Natureza (SbN) e de infraestrutura verde, como os jardins de chuva, concentrando os investimentos exclusivamente em canalizações rígidas de concreto." },
+          { letter: "C", text: "Os Planos Comunitários de Redução de Riscos e Adaptação Climática (PCRA) destinam-se exclusivamente à escala macrorregional interestadual, prescindindo do protagonismo dos moradores de periferias urbanas." },
+          { letter: "D", text: "A agenda de adaptação climática das cidades desvincula-se dos instrumentos da política urbana municipal, vedando a incorporação de critérios climáticos na revisão dos Planos Diretores." },
+          { letter: "E", text: "Os Planos Comunitários de Redução de Riscos e Adaptação Climática (PCRA), ligados à Secretaria Nacional de Periferias, são estratégicos para planejar ações preventivas e de adaptação em escala microlocal — como bairros, núcleos e favelas nas periferias urbanas —, valendo-se de caminhadas diagnósticas e mapas colaborativos frente a deslizamentos, inundações, enxurradas, alagamentos e erosões." }
+        ],
+        correct: "E",
+        resolution: [
+          "A resposta correta é a alternativa E, pois descreve com exatidão os Planos Comunitários de Redução de Riscos e Adaptação Climática (PCRA) publicados em 2025 pela Secretaria Nacional de Periferias do Ministério das Cidades. De acordo com o repositório oficial Capacidades do Ministério das Cidades, os PCRAs são estratégicos para planejar ações preventivas e medidas de adaptação em escala microlocal — bairros, núcleos e favelas nas periferias urbanas —, incorporando caminhadas diagnósticas e mapas colaborativos para enfrentar deslizamentos, inundações, enxurradas, alagamentos e erosões.",
+          "As demais opções contêm incorreções factuais: o Plano Setorial de Cidades - Adaptação, instrumento da PNMC coordenado pelo Ministério das Cidades, orienta a adaptação climática urbana até 2035 (e não 2027), abrangendo o mapeamento de riscos e vulnerabilidades, três objetivos setoriais e 18 ações estratégicas (invalidando A); as diretrizes do Ministério das Cidades e do WRI Brasil — incluindo a cartilha <em>Cidades e Adaptação Climática</em> (2025) e projetos de infraestrutura verde e jardins de chuva — priorizam exatamente Soluções Baseadas na Natureza (invalidando B); os PCRAs têm escopo microlocal e comunitário, não macrorregional (invalidando C); e a política federal busca integrar a adaptação climática aos instrumentos da política urbana e ao Plano Diretor municipal (invalidando D)."
+        ]
+      },
+      {
+        number: 10,
+        code: "10",
+        topic: "Vulnerabilidade e racismo ambiental no espaço urbano brasileiro",
+        stem: "O debate sobre vulnerabilidade e racismo ambiental ganhou centralidade nas políticas federais de adaptação climática formuladas em 2025, articulando ações do Ministério das Cidades sobre assentamentos informais e periferias urbanas às diretrizes do <em>Plano Clima Adaptação: Plano Temático de Igualdade Racial e Combate ao Racismo</em>. A respeito dessa relação entre desigualdade racial, território e emergência climática no Brasil, assinale a alternativa correta:",
+        items: [],
+        command: "",
+        options: [
+          { letter: "A", text: "Os impactos dos eventos climáticos extremos distribuem-se de forma homogênea entre os grupos raciais e socioeconômicos no espaço urbano brasileiro, inexistindo associação entre perfil racial e ocupação de áreas suscetíveis a riscos." },
+          { letter: "B", text: "A análise do evento climático extremo ocorrido em 2023 na região da Barra do Sahy / Vila Sahy, em São Sebastião (SP), evidenciou que a vulnerabilidade a deslizamentos atingiu apenas bairros de alta renda dotados de ampla infraestrutura urbana." },
+          { letter: "C", text: "Documentos oficiais do Plano Clima Adaptação (2025) apontam que pessoas não brancas são maioria entre aquelas sem acesso à moradia adequada e habitantes de áreas suscetíveis a riscos ambientais, enquanto o estudo do Instituto Alana e MapBiomas (2024) revelou que 64% das escolas das capitais brasileiras situam-se em territórios a pelo menos 1 °C acima da média de temperatura do perímetro urbano." },
+          { letter: "D", text: "O enfrentamento ao racismo ambiental preconizado pelos órgãos federais consiste na desregulamentação do uso do solo periférico e na transferência da responsabilidade adaptativa exclusivamente aos moradores de assentamentos informais." },
+          { letter: "E", text: "A desigualdade térmica e o déficit de acesso ao verde em periferias urbanas decorrem unicamente de variações astronômicas globais, não guardando correlação com a segregação socioespacial nem com a ausência de planejamento urbano inclusivo." }
+        ],
+        correct: "C",
+        resolution: [
+          "A resposta correta é a alternativa C, que reúne dados oficiais do <em>Plano Clima Adaptação: Plano Temático de Igualdade Racial e Combate ao Racismo</em> (2025), publicado pelos Ministérios do Meio Ambiente e Mudança do Clima, da Ciência, Tecnologia e Inovação e da Igualdade Racial. O documento afirma explicitamente que pessoas não brancas são maioria entre aquelas sem acesso à moradia adequada e habitantes de áreas suscetíveis a riscos ambientais, além de reproduzir achado do estudo <em>O acesso ao verde e a resiliência climática nas escolas das capitais brasileiras</em> (Instituto Alana e MapBiomas, 2024), segundo o qual 64% das escolas estão em territórios pelo menos 1 °C acima da média de temperatura do perímetro urbano.",
+          "As demais alternativas contrariam as evidências oficiais: a exposição aos eventos extremos é racial e territorialmente desigual (invalidando A); a análise do evento de 2023 na Vila Sahy / Barra do Sahy, em São Sebastião (SP), pelo Instituto de Referência Negra Peregum é citada no Plano Temático como exemplo representativo da vulnerabilização climática da população negra no país (invalidando B); o Ministério das Cidades promove encontros e instrumentos públicos — como o PCRA e programas habitacionais atentos à responsabilidade ambiental — voltados a assentamentos informais e periferias resilientes contra o racismo ambiental (invalidando D); e a desigualdade térmica e o déficit de áreas verdes nas cidades decorrem da configuração socioespacial desigual e demandam políticas urbanas de adaptação e redução de desigualdades (invalidando E)."
+        ]
+      }
+    ];
+
+    const userAnswers = {};
+    let isFinished = false;
+
+    const quizRoot = document.getElementById("quiz-root");
+    const questionsContainer = document.getElementById("questions-container");
+    const quizForm = document.getElementById("quiz-form");
+    const progressText = document.getElementById("progress-text");
+    const progressFill = document.getElementById("progress-fill");
+    const validationAlert = document.getElementById("validation-alert");
+    const validationMessage = document.getElementById("validation-message");
+    const missingLinks = document.getElementById("missing-links");
+    const forceSubmitBtn = document.getElementById("force-submit-btn");
+    const submitBtn = document.getElementById("submit-btn");
+    const resetBtn = document.getElementById("reset-btn");
+    const resultsSection = document.getElementById("results-section");
+
+    function renderQuestions() {
+      questionsContainer.innerHTML = "";
+
+      quizData.forEach((q) => {
+        const card = document.createElement("article");
+        card.className = "question-card";
+        card.id = `questao-${q.number}`;
+
+        const itemsHtml = q.items.length
+          ? `<ul class="roman-items">${q.items.map((item) => `<li>${item}</li>`).join("")}</ul>`
+          : "";
+
+        const commandHtml = q.command
+          ? `<p class="question-command">${q.command}</p>`
+          : "";
+
+        const optionsHtml = q.options
+          .map(
+            (opt) => `
+            <label class="option-label" id="opt-${q.number}-${opt.letter}">
+              <input type="radio" name="q${q.number}" value="${opt.letter}" />
+              <span class="option-letter">${opt.letter}</span>
+              <span class="option-text" id="opt-text-${q.number}-${opt.letter}">${opt.text}</span>
+            </label>
+          `
+          )
+          .join("");
+
+        card.innerHTML = `
+          <div class="question-header">
+            <span class="question-number">Questão ${q.code}</span>
+            <span class="question-status-badge" id="status-badge-${q.number}"></span>
+          </div>
+          <p class="question-stem">${q.stem}</p>
+          ${itemsHtml}
+          ${commandHtml}
+          <div class="options-list" role="radiogroup" aria-label="Alternativas da Questão ${q.code}">
+            ${optionsHtml}
+          </div>
+          <div class="jump-resolution-link">
+            <a href="#resolucao-${q.number}">Ver resolução comentada da Questão ${q.code} ↓</a>
+          </div>
+        `;
+
+        questionsContainer.appendChild(card);
+      });
+
+      attachOptionListeners();
+    }
+
+    function attachOptionListeners() {
+      const radios = questionsContainer.querySelectorAll('input[type="radio"]');
+      radios.forEach((radio) => {
+        radio.addEventListener("change", (e) => {
+          if (isFinished) return;
+          const qNum = Number(e.target.name.replace("q", ""));
+          const chosen = e.target.value;
+          userAnswers[qNum] = chosen;
+
+          const card = document.getElementById(`questao-${qNum}`);
+          card.querySelectorAll(".option-label").forEach((lbl) => {
+            lbl.classList.remove("selected");
+          });
+          const selectedLabel = document.getElementById(`opt-${qNum}-${chosen}`);
+          if (selectedLabel) {
+            selectedLabel.classList.add("selected");
+          }
+
+          updateProgress();
+          if (validationAlert.classList.contains("visible")) {
+            checkMissingQuestions();
+          }
+        });
+      });
+    }
+
+    function updateProgress() {
+      const answeredCount = Object.keys(userAnswers).length;
+      const total = quizData.length;
+      progressText.textContent = `${answeredCount} de ${total} respondidas`;
+      progressFill.style.width = `${(answeredCount / total) * 100}%`;
+    }
+
+    function checkMissingQuestions() {
+      const missing = quizData.filter((q) => !userAnswers[q.number]);
+      if (missing.length === 0) {
+        validationAlert.classList.remove("visible");
+        return [];
+      }
+
+      validationMessage.textContent =
+        missing.length === 1
+          ? "Você ainda não respondeu 1 questão. Clique abaixo para ir até ela ou finalize mesmo assim:"
+          : `Você ainda não respondeu ${missing.length} questões. Clique abaixo para ir até elas ou finalize mesmo assim:`;
+
+      missingLinks.innerHTML = missing
+        .map((q) => `<a href="#questao-${q.number}">Questão ${q.code}</a>`)
+        .join("");
+
+      validationAlert.classList.add("visible");
+      return missing;
+    }
+
+    function finalizeQuiz() {
+      if (isFinished) return;
+      isFinished = true;
+      validationAlert.classList.remove("visible");
+      quizRoot.classList.add("quiz-finished");
+
+      // Desabilita os radios para preservar as respostas marcadas
+      questionsContainer.querySelectorAll('input[type="radio"]').forEach((input) => {
+        input.disabled = true;
+      });
+
+      let hits = 0;
+
+      quizData.forEach((q) => {
+        const chosen = userAnswers[q.number] || null;
+        const isCorrect = chosen === q.correct;
+        if (isCorrect) hits++;
+
+        const card = document.getElementById(`questao-${q.number}`);
+        const badge = document.getElementById(`status-badge-${q.number}`);
+
+        card.classList.add(isCorrect ? "is-correct" : "is-wrong");
+        if (isCorrect) {
+          badge.textContent = "Acertou";
+        } else if (chosen) {
+          badge.textContent = `Errou (Gabarito: ${q.correct})`;
+        } else {
+          badge.textContent = `Em branco (Gabarito: ${q.correct})`;
+        }
+
+        // Destaca a alternativa correta e a eventual incorreta marcada
+        const correctLabel = document.getElementById(`opt-${q.number}-${q.correct}`);
+        const correctTextEl = document.getElementById(`opt-text-${q.number}-${q.correct}`);
+        correctLabel.classList.add("option-correct");
+
+        const correctTag = document.createElement("div");
+        correctTag.innerHTML = `<span class="option-tag tag-correct">${
+          isCorrect ? "Sua resposta • Gabarito oficial" : "Gabarito oficial"
+        }</span>`;
+        correctTextEl.appendChild(correctTag);
+
+        if (chosen && !isCorrect) {
+          const wrongLabel = document.getElementById(`opt-${q.number}-${chosen}`);
+          const wrongTextEl = document.getElementById(`opt-text-${q.number}-${chosen}`);
+          wrongLabel.classList.add("option-wrong");
+
+          const wrongTag = document.createElement("div");
+          wrongTag.innerHTML = `<span class="option-tag tag-wrong">Sua resposta</span>`;
+          wrongTextEl.appendChild(wrongTag);
+        }
+      });
+
+      renderResults(hits);
+
+      submitBtn.style.display = "none";
+      resetBtn.style.display = "inline-block";
+      resultsSection.classList.add("visible");
+      resultsSection.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+
+    function renderResults(hits) {
+      const total = quizData.length;
+      const errors = total - hits;
+      const percent = Math.round((hits / total) * 100);
+
+      document.getElementById("stat-hits").textContent = `${hits} / ${total}`;
+      document.getElementById("stat-errors").textContent = `${errors}`;
+      document.getElementById("stat-percent").textContent = `${percent}%`;
+
+      let feedback = "";
+      if (hits === 10) {
+        feedback = "Excelente desempenho! Você acertou todas as questões do simulado.";
+      } else if (hits >= 7) {
+        feedback = "Ótimo resultado! Confira abaixo o gabarito e as resoluções comentadas para consolidar os detalhes normativos e teóricos.";
+      } else if (hits >= 5) {
+        feedback = "Bom progresso! Revise abaixo as resoluções comentadas de cada questão para reforçar os pontos cobrados pela banca.";
+      } else {
+        feedback = "Simulado concluído. Leia atentamente as resoluções comentadas abaixo para revisar a legislação e a bibliografia indicada.";
+      }
+      document.getElementById("score-feedback-text").textContent = feedback;
+
+      // Mapa rápido
+      const quickMap = document.getElementById("quick-map");
+      quickMap.innerHTML = quizData
+        .map((q) => {
+          const chosen = userAnswers[q.number] || null;
+          const ok = chosen === q.correct;
+          return `
+            <a href="#resolucao-${q.number}" class="map-pill ${ok ? "pill-ok" : "pill-err"}" title="Ir para resolução da Questão ${q.code}">
+              <span>Q${q.code}</span>
+              <span>${ok ? "✓" : "✕"} ${q.correct}</span>
+            </a>
+          `;
+        })
+        .join("");
+
+      // Tabela de Gabarito
+      const tbody = document.getElementById("gabarito-tbody");
+      tbody.innerHTML = quizData
+        .map((q) => {
+          const chosen = userAnswers[q.number] || "—";
+          const ok = chosen === q.correct;
+          return `
+            <tr>
+              <td><a href="#resolucao-${q.number}" style="color: var(--accent-primary); font-weight: 600; text-decoration: none;">Questão ${q.code}</a></td>
+              <td>${q.topic}</td>
+              <td class="center"><strong>${chosen}</strong></td>
+              <td class="center"><strong>${q.correct}</strong></td>
+              <td class="center" style="font-weight: 700; color: ${ok ? "var(--correct-text)" : "var(--wrong-text)"};">
+                ${ok ? "Acerto" : chosen === "—" ? "Em branco" : "Erro"}
+              </td>
+            </tr>
+          `;
+        })
+        .join("");
+
+      // Resoluções Comentadas na íntegra
+      const resolutionsContainer = document.getElementById("resolutions-container");
+      resolutionsContainer.innerHTML = quizData
+        .map((q) => {
+          const chosen = userAnswers[q.number] || null;
+          const ok = chosen === q.correct;
+          const userStatusHtml = ok
+            ? `<span class="res-badge user-ok">Você marcou ${chosen} • Acertou</span>`
+            : chosen
+            ? `<span class="res-badge user-err">Você marcou ${chosen} • Errou</span>`
+            : `<span class="res-badge user-err">Não respondida</span>`;
+
+          const paragraphsHtml = q.resolution.map((p) => `<p>${p}</p>`).join("");
+
+          return `
+            <article class="resolution-card ${ok ? "res-correct" : "res-wrong"}" id="resolucao-${q.number}">
+              <div class="resolution-header">
+                <h3>Resolução da Questão ${q.code}</h3>
+                <div class="resolution-meta-badges">
+                  <span class="res-badge gabarito">Gabarito: ${q.correct}</span>
+                  ${userStatusHtml}
+                </div>
+              </div>
+              <div class="resolution-body">
+                ${paragraphsHtml}
+              </div>
+              <div class="back-to-question">
+                <span>Eixo: ${q.topic}</span>
+                <a href="#questao-${q.number}">↑ Voltar ao enunciado da Questão ${q.code}</a>
+              </div>
+            </article>
+          `;
+        })
+        .join("");
+    }
+
+    quizForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      if (isFinished) return;
+      const missing = checkMissingQuestions();
+      if (missing.length > 0) {
+        validationAlert.scrollIntoView({ behavior: "smooth", block: "center" });
+        return;
+      }
+      finalizeQuiz();
+    });
+
+    forceSubmitBtn.addEventListener("click", () => {
+      finalizeQuiz();
+    });
+
+    resetBtn.addEventListener("click", () => {
+      Object.keys(userAnswers).forEach((k) => delete userAnswers[k]);
+      isFinished = false;
+      quizRoot.classList.remove("quiz-finished");
+      resultsSection.classList.remove("visible");
+      validationAlert.classList.remove("visible");
+      submitBtn.style.display = "inline-block";
+      resetBtn.style.display = "none";
+      updateProgress();
+      renderQuestions();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+
+    // Inicialização
+    renderQuestions();
+    updateProgress();
+  </script>
+</body>
+</html>

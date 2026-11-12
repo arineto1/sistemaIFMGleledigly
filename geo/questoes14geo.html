@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulado de Hidrogeografia e Recursos Hídricos - IFMG</title>
+    <!-- Tailwind CSS for modern layout styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            background-color: #f8fafc;
+            color: #1e293b;
+            font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            line-height: 1.75;
+        }
+        .readable-container {
+            max-width: 840px;
+        }
+    </style>
+</head>
+<body class="py-10 px-4">
+    <div class="readable-container mx-auto bg-white p-6 md:p-12 rounded-2xl shadow-sm border border-slate-200">
+        
+        <!-- Header -->
+        <header class="border-b border-slate-200 pb-6 mb-8 text-center">
+            <span class="text-xs font-semibold tracking-wider uppercase text-emerald-700 bg-emerald-50 px-3 py-1 rounded-full">Simulado Oficial • IFMG</span>
+            <h1 class="text-2xl md:text-3xl font-bold text-slate-900 mt-3">Hidrogeografia II – Bacias do Brasil, Gestão e Impactos de Uso</h1>
+            <p class="text-slate-600 mt-2 text-sm">Responda às 10 questões objetivas abaixo e clique em "Finalizar Simulado e Ver Gabarito" para visualizar seu desempenho e as resoluções comentadas na íntegra.</p>
+        </header>
+
+        <!-- Quiz Form -->
+        <form id="quizForm" class="space-y-10">
+            <div id="questionsContainer"></div>
+
+            <div class="pt-6 border-t border-slate-200 text-center">
+                <button type="button" onclick="evaluateQuiz()" class="bg-emerald-700 hover:bg-emerald-800 text-white font-semibold px-8 py-3.5 rounded-xl transition duration-200 shadow-md">
+                    Finalizar Simulado e Ver Gabarito
+                </button>
+            </div>
+        </form>
+
+        <!-- Results Section (Hidden by default) -->
+        <div id="resultsSection" class="hidden mt-12 pt-8 border-t-2 border-slate-200">
+            <div id="scoreCard" class="bg-emerald-50 border border-emerald-200 p-6 rounded-xl text-center mb-10">
+                <h2 class="text-xl font-bold text-emerald-900">Resultado do Simulado</h2>
+                <p id="scoreText" class="text-lg font-medium text-emerald-700 mt-2"></p>
+            </div>
+
+            <h2 class="text-2xl font-bold text-slate-900 mb-6 border-b pb-3">Resoluções Comentadas</h2>
+            <div id="resolutionsContainer" class="space-y-8"></div>
+        </div>
+
+    </div>
+
+    <script>
+        const quizData = [
+            {
+                id: 1,
+                title: "QUESTÃO 01",
+                text: "Com o objetivo de estabelecer uma base organizacional que contemple as bacias hidrográficas como unidade de gerenciamento para a Política Nacional de Recursos Hídricos, o Conselho Nacional de Recursos Hídricos (CNRH) instituiu, por meio da Resolução nº 32/2003, a Divisão Hidrográfica Nacional em 12 Regiões Hidrográficas. Considerando as definições normativas dessa Resolução e a caracterização dessas regiões divulgada com base em dados da Agência Nacional de Águas e Saneamento Básico (ANA), analise as afirmativas a seguir:<br><br><strong>I.</strong> A Região Hidrográfica Amazônica abrange, em território nacional, não apenas a bacia do rio Amazonas, mas também as bacias hidrográficas dos rios existentes na Ilha de Marajó e as dos rios situados no estado do Amapá que deságuam no Atlântico Norte.<br><br><strong>II.</strong> Na divisão do CNRH, os cursos d'água tradicionalmente associados à vertente atlântica do Nordeste distribuem-se por três regiões hidrográficas distintas — Atlântico Nordeste Ocidental, Parnaíba e Atlântico Nordeste Oriental —, destacando-se esta última por contemplar cinco importantes capitais nordestinas e um parque industrial significativo.<br><br><strong>III.</strong> A Região Hidrográfica Atlântico Sudeste é delimitada ao norte pela bacia do rio São Francisco e ao sul pelo arroio Chuí, destacando-se nacionalmente por combinar a maior extensão territorial dentre as regiões costeiras com a maior disponibilidade hídrica relativa por habitante do país.<br><br><strong>IV.</strong> A Região Hidrográfica do Paraná, com área de aproximadamente 879.873 km², abrange sete unidades federativas (incluindo o Distrito Federal) e concentrava, segundo dados demográficos de 2010 atribuídos ao MMA e à ANA, cerca de 32% da população brasileira.<br><br>Assinale a alternativa que indica as afirmações CORRETAS:",
+                options: [
+                    "A) Apenas I e III.",
+                    "B) Apenas II e IV.",
+                    "C) Apenas I, II e IV.",
+                    "D) Apenas I, III e IV.",
+                    "E) I, II, III e IV."
+                ],
+                correctIndex: 2,
+                resolution: "O gabarito é a alternativa <strong>C</strong>. A Resolução CNRH nº 32/2003 instituiu a Divisão Hidrográfica Nacional em 12 Regiões Hidrográficas (RHs) — Amazônica, Tocantins-Araguaia, Atlântico Nordeste Ocidental, Parnaíba, Atlântico Nordeste Oriental, São Francisco, Atlântico Leste, Atlântico Sudeste, Paraná, Uruguai, Atlântico Sul e Paraguai — com o propósito de orientar, fundamentar e implementar o Plano Nacional de Recursos Hídricos, superando divisões anteriores como a de oito grandes bacias do antigo Departamento Nacional de Águas e Energia Elétrica. A afirmativa <strong>I</strong> está correta porque o Anexo II da Resolução CNRH nº 32/2003 define expressamente que a RH Amazônica inclui a bacia do rio Amazonas em território brasileiro, as bacias da Ilha de Marajó e as bacias dos rios do Amapá que deságuam no Atlântico Norte. A afirmativa <strong>II</strong> está correta, pois os rios historicamente agrupados na Bacia do Nordeste distribuem-se nas RHs Atlântico Nordeste Ocidental (predominantemente no Maranhão e porção do Pará), Parnaíba e Atlântico Nordeste Oriental, destacando-se esta última por abrigar cinco capitais nordestinas, regiões metropolitanas e expressivo parque industrial. A afirmativa <strong>IV</strong> também está correta, reproduzindo os parâmetros divulgados com base em informações do MMA e da ANA para a RH do Paraná: área de 879.873 km², abrangência em sete unidades federativas (São Paulo, Paraná, Mato Grosso do Sul, Minas Gerais, Goiás, Santa Catarina e Distrito Federal) e população aproximada de 61,3 milhões de habitantes em 2010, equivalente a 32% da população brasileira.<br><br>Por outro lado, a afirmativa <strong>III</strong> está incorreta por acumular três erros geográficos e hidrológicos: a RH Atlântico Sudeste limita-se ao norte pela bacia do rio Doce (inclusive), a oeste pelas RHs do São Francisco e do Paraná e ao sul pela bacia do rio Ribeira (inclusive) — sendo a RH Atlântico Leste a que limita-se ao norte e a oeste com o São Francisco, e a RH Atlântico Sul a que alcança o arroio Chuí ao sul; sua área total de 229.972 km² (2,7% do território brasileiro) é inferior à da RH Atlântico Leste (388.160 km², 4,5% do país); e, longe de apresentar a maior disponibilidade relativa por habitante, a RH Atlântico Sudeste possui uma das menores disponibilidades hídricas relativas do país, pois reunia cerca de 28,2 milhões de habitantes frente a apenas 1,3% da disponibilidade hídrica média nacional (1.012 m³/s de um total de 77.361 m³/s)."
+            },
+            {
+                id: 2,
+                title: "QUESTÃO 02",
+                text: "Analise as duas asserções a seguir e a relação proposta entre elas:<br><br><strong>I.</strong> Embora a Região Hidrográfica Amazônica detenha a maior vazão fluvial e concentre o maior potencial hidrelétrico ainda inexplorado do Brasil — respondendo por 62% dos 52 GW em usinas hidrelétricas acima de 30 MW disponíveis para estudos de longo prazo visando ao Plano Nacional de Energia (PNE 2055), segundo a Empresa de Pesquisa Energética (EPE, 2025) —, é a Região Hidrográfica do Paraná que concentra a maior capacidade instalada de geração hidrelétrica do país.<br><br>PORQUE<br><br><strong>II.</strong> Segundo o mesmo levantamento da EPE (2025), 77% daquele potencial nacional de 52 GW disponível para estudos interfere em áreas protegidas (Unidades de Conservação, Terras Indígenas ou Terras Quilombolas), somando-se a entraves econômicos e regulatórios que dificultam a expansão na Amazônia, ao passo que a bacia do Paraná combina rios de planalto com aproveitamento intensivo e grandes empreendimentos junto ao eixo mais populoso do Centro-Sul.<br><br>A respeito dessas asserções, assinale a alternativa correta:",
+                options: [
+                    "A) As duas asserções são verdadeiras e a segunda justifica a primeira.",
+                    "B) As duas asserções são verdadeiras e a segunda não justifica a primeira.",
+                    "C) A primeira asserção é verdadeira e a segunda é falsa.",
+                    "D) A primeira asserção é falsa e a segunda é verdadeira.",
+                    "E) As duas asserções são falsas."
+                ],
+                correctIndex: 0,
+                resolution: "O gabarito é a alternativa <strong>A</strong>, estruturada no formato de asserção-razão. A primeira asserção é verdadeira: a RH Amazônica concentra a maior descarga hídrica continental e o maior potencial hidrelétrico do país. De acordo com o caderno de estudos da EPE publicado em janeiro de 2025 visando ao PNE 2055, o potencial hidrelétrico brasileiro estudado para o longo prazo compreende 178 GW (112 GW em operação ou construção e 66 GW estudados), dos quais 52 GW correspondem a usinas hidrelétricas acima de 30 MW disponíveis para estudos — estando 62% desses 52 GW localizados na RH Amazônica. Apesar dessa concentração de potencial teórico a explorar na Amazônia, é a RH do Paraná que detém a maior capacidade instalada de geração hidrelétrica do país, reunindo grandes usinas como Itaipu e expressiva fração do potencial hidráulico nacional.<br><br>A segunda asserção é igualmente verdadeira e justifica diretamente a primeira. O levantamento da EPE (2025) aponta que, dos 52 GW em UHEs acima de 30 MW disponíveis para estudos, 77% interferem em áreas protegidas (Unidades de Conservação, Terras Indígenas ou Terras Quilombolas), enquanto apenas 23% (12 GW) não interferem. Essa complexidade socioambiental soma-se a aspectos regulatórios e de viabilidade econômica que resultam em estudos parados ou desistências, ao passo que a bacia do Paraná consolidou sua liderança em potência instalada ao combinar rios de planalto e aproveitamentos de grande porte próximos ao maior contingente populacional e econômico do Centro-Sul."
+            },
+            {
+                id: 3,
+                title: "QUESTÃO 03",
+                text: "A configuração geomorfológica do território brasileiro — analisada na compartimentação do relevo de Jurandyr Ross em unidades como planaltos, depressões e áreas associadas às grandes bacias sedimentares, a exemplo da Bacia do Paraná — condiciona diretamente o aproveitamento energético e as possibilidades de navegação interior. Enquanto rios de planalto favorecem o aproveitamento hidrelétrico, o transporte aquaviário comercial em tais cursos depende de obras de transposição de desnível ou enfrenta severas restrições físicas.<br><br>Considerando o confronto entre o potencial hidrelétrico e o potencial hidroviário nas regiões hidrográficas brasileiras, assinale a alternativa correta:",
+                options: [
+                    "A) A Região Hidrográfica Atlântico Sudeste, apesar do relevo serrano, concentra uma das maiores extensões de hidrovias comerciais do país em virtude da interligação contínua de seus reservatórios por sistemas de eclusas ao longo dos rios Doce e Paraíba do Sul.",
+                    "B) O transporte fluvial comercial na Região Hidrográfica do São Francisco supera atualmente o da Região Hidrográfica Amazônica em extensão economicamente navegada, impulsionado pela regularização de vazão promovida pela barragem de Sobradinho.",
+                    "C) Os rios de planalto da Região Hidrográfica do Paraná são naturalmente navegáveis em toda a sua extensão sem necessidade de obras de transposição de desnível, razão pela qual a hidrovia Tietê-Paraná dispensa eclusas junto às usinas hidrelétricas.",
+                    "D) Na Região Hidrográfica do Tocantins-Araguaia, o potencial hidroviário restringe-se integralmente ao período de estiagem devido à sedimentação das cheias, sendo o rio Tocantins navegável apenas entre a estiagem e o inverno austral.",
+                    "E) A Região Hidrográfica Amazônica concentra cerca de 81% das vias economicamente navegadas registradas para o país, ao passo que em bacias planálticas e costeiras — como a do Paraná (por meio do sistema Tietê-Paraná) e a do Atlântico Sudeste — a navegação ou depende de obras associadas a barramentos ou é severamente restringida por topografia acidentada, barragens sem eclusas, baixa vazão e assoreamento."
+                ],
+                correctIndex: 4,
+                resolution: "O gabarito é a alternativa <strong>E</strong>. A compartimentação do relevo brasileiro analisada por Jurandyr Ross — contemplando unidades de planalto, depressões e feições associadas a grandes bacias sedimentares como a do Paraná — repercute diretamente sobre o uso múltiplo das águas. Em levantamento compilado sobre vias economicamente navegadas no Brasil, a RH Amazônica concentra 80,98% da extensão registrada (15.522 km), favorecida pela vasta rede hidrográfica e por uma vazão média de longo período estimada em 108.982 m³/s (68% do total do país). Em contrapartida, em bacias planálticas e costeiras a navegabilidade enfrenta condicionantes físicos e estruturais distintos: na RH do Paraná, a operação da hidrovia Tietê-Paraná integra-se a barramentos hidrelétricos em rios de planalto, enquanto na RH Atlântico Sudeste a navegação fluvial praticamente inexiste devido a topografia acidentada, baixa vazão, assoreamento, reduzida extensão dos rios e barragens sem eclusas.<br><br>As demais alternativas apresentam incorreções factuais claras: a alternativa <strong>A</strong> erra ao atribuir grandes hidrovias contínuas com eclusas à RH Atlântico Sudeste; a alternativa <strong>B</strong> inverte o peso das bacias ao afirmar que o São Francisco supera a Amazônica em extensão economicamente navegada; a alternativa <strong>C</strong> é falsa porque o aproveitamento hidrelétrico dos rios planálticos da bacia do Paraná exige obras de transposição junto aos barramentos; e a alternativa <strong>D</strong> é falsa porque, na RH Tocantins-Araguaia, a navegabilidade do rio Tocantins estende-se justamente durante a época de inundação (cheias)."
+            },
+            {
+                id: 4,
+                title: "QUESTÃO 04",
+                text: "A Lei Federal nº 9.433, de 8 de janeiro de 1997 — conhecida como Lei das Águas — instituiu a Política Nacional de Recursos Hídricos (PNRH) e superou o modelo setorial do Código de Águas de 1934, que centralizava as decisões de gestão no setor elétrico. Com base nos fundamentos previstos no Art. 1º da Lei nº 9.433/1997 e em seu marco conceitual, assinale a alternativa INCORRETA:",
+                options: [
+                    "A) A água é um bem de domínio público.",
+                    "B) Em situações de escassez hídrica, deve-se assegurar prioridade equitativa entre o consumo humano, a dessedentação de animais, a geração hidrelétrica e a irrigação agrícola, de modo a compatibilizar a segurança energética e a produção de alimentos.",
+                    "C) A água é um recurso natural limitado, dotado de valor econômico, devendo sua gestão sempre proporcionar o uso múltiplo das águas.",
+                    "D) A bacia hidrográfica constitui a unidade físico-territorial de planejamento, gerenciamento e implementação da Política Nacional de Recursos Hídricos.",
+                    "E) A Lei nº 9.433/1997 deu maior abrangência ao Código de Águas de 1934, passando a contemplar os usos múltiplos e a proteção da qualidade das águas, aspectos antes marginalizados pela concentração decisória no setor elétrico."
+                ],
+                correctIndex: 1,
+                resolution: "O gabarito é a alternativa <strong>B</strong>, pois o enunciado solicita a alternativa <strong>INCORRETA</strong>. Conforme o Art. 1º, inciso III, da Lei Federal nº 9.433/1997, \"em situações de escassez, o uso prioritário dos recursos hídricos é o consumo humano e a dessedentação de animais\". A legislação não estabelece prioridade equitativa entre o abastecimento humano/animal e usos setoriais como geração hidrelétrica e irrigação em cenários críticos; ainda que o inciso IV preveja que a gestão proporcione o uso múltiplo em condições regulares, situações de escassez impõem precedência legal ao consumo humano e à dessedentação animal.<br><br>Todas as demais alternativas refletem fielmente os fundamentos da Lei das Águas e o histórico institucional documentado pela ANA: a alternativa <strong>A</strong> reproduz o Art. 1º, inciso I (domínio público da água); a alternativa <strong>C</strong> sintetiza os incisos II e IV do Art. 1º; a alternativa <strong>D</strong> reflete o princípio da bacia hidrográfica como unidade físico-territorial de planejamento; e a alternativa <strong>E</strong> registra o avanço da Lei nº 9.433/1997 em relação ao Código de Águas de 1934."
+            },
+            {
+                id: 5,
+                title: "QUESTÃO 05",
+                text: "Sobre o instrumento da outorga de direito de uso de recursos hídricos, disciplinado pela Lei nº 9.433/1997 e regulamentado no âmbito do Sistema Nacional de Gerenciamento de Recursos Hídricos, analise as afirmativas a seguir:<br><br><strong>I.</strong> O regime de outorga tem como objetivos assegurar o controle quantitativo e qualitativo dos usos da água e o efetivo exercício dos direitos de acesso à água.<br><br><strong>II.</strong> Toda outorga de direitos de uso far-se-á por prazo não excedente a trinta e cinco anos, renovável, podendo ser suspensa, parcial ou totalmente, em casos como ausência de uso por três anos consecutivos ou necessidade de prevenir ou reverter grave degradação ambiental.<br><br><strong>III.</strong> A concessão da outorga implica a alienação parcial das águas públicas ao outorgado durante a vigência do ato administrativo, conferindo-lhe direito real de propriedade sobre o volume captado.<br><br><strong>IV.</strong> Captações, derivações, lançamentos de efluentes e acumulações de volumes de água considerados insignificantes independem de outorga, e o Poder Executivo Federal pode delegar aos Estados e ao Distrito Federal a competência para conceder outorga de recurso hídrico de domínio da União.<br><br>Quantas dessas afirmativas estão CORRETAS?",
+                options: [
+                    "A) nenhuma",
+                    "B) uma",
+                    "C) duas",
+                    "D) três",
+                    "E) todas"
+                ],
+                correctIndex: 3,
+                resolution: "O gabarito é a alternativa <strong>D</strong> (três afirmativas corretas: I, II e IV). A afirmativa <strong>I</strong> reproduz literalmente o Art. 11 da Lei nº 9.433/1997, segundo o qual o regime de outorga objetiva assegurar o controle quantitativo e qualitativo dos usos da água e o efetivo exercício dos direitos de acesso à água. A afirmativa <strong>II</strong> está correta com base nos Arts. 15 e 16 da mesma lei: toda outorga far-se-á por prazo não excedente a 35 anos, renovável, podendo ser suspensa parcial ou totalmente em razão de descumprimentos, ausência de uso por três anos, calamidade ou prevenção de grave degradação ambiental. A afirmativa <strong>IV</strong> também está correta: usos considerados insignificantes independem de outorga segundo diretrizes do CNRH e resoluções da ANA, e o Art. 14, § 1º da Lei nº 9.433/1997 autoriza a delegação de competência aos Estados e ao Distrito Federal para outorgar águas de domínio da União.<br><br>A afirmativa <strong>III</strong> é a única incorreta, pois contraria frontalmente o Art. 18 da Lei nº 9.433/1997: \"A outorga não implica a alienação parcial das águas, que são inalienáveis, mas o simples direito de seu uso\". Por se tratar de bem público e inalienável, a outorga confere apenas o direito de uso, jamais o direito de propriedade."
+            },
+            {
+                id: 6,
+                title: "QUESTÃO 06",
+                text: "No rol dos instrumentos da Política Nacional de Recursos Hídricos (Art. 5º da Lei nº 9.433/1997), a cobrança pelo uso da água e o enquadramento dos corpos d'água em classes operam de modo articulado para integrar quantidade, qualidade e racionalidade econômica na gestão por bacia hidrográfica. A respeito das diretrizes normativas desses dois instrumentos, assinale a alternativa correta:",
+                options: [
+                    "A) O enquadramento estabelece metas progressivas de qualidade a serem mantidas ou alcançadas no médio e longo prazo segundo os usos preponderantes — servindo de referência para a outorga, a cobrança e o licenciamento ambiental —, enquanto a cobrança incide sobre os usos sujeitos a outorga e tem seus valores arrecadados aplicados prioritariamente na bacia hidrográfica em que foram gerados.",
+                    "B) Os recursos financeiros arrecadados com a cobrança pelo uso de recursos hídricos devem ser aplicados exclusivamente na sub-bacia onde ocorreu a captação, sendo vedada sua destinação ao financiamento de estudos, programas, projetos e obras incluídos nos Planos de Recursos Hídricos.",
+                    "C) A cobrança pelo uso de recursos hídricos possui natureza estritamente punitivo-fiscal e incide de maneira uniforme sobre todos os usuários da bacia, inclusive sobre captações e lançamentos insignificantes dispensados de outorga.",
+                    "D) O enquadramento dos corpos d'água limita-se ao retrato instantâneo da qualidade atual de um rio no momento do monitoramento, desvinculado de vazões de referência e restrito às classes 1 e 2 da Resolução CONAMA nº 357/2005.",
+                    "E) Conforme o sistema de classes da Resolução CONAMA nº 357/2005 vinculado ao enquadramento, a Classe 4 destina-se ao abastecimento para consumo humano após tratamento convencional e à recreação de contato primário, ao passo que a Classe Especial limita-se à navegação e à harmonia paisagística."
+                ],
+                correctIndex: 0,
+                resolution: "O gabarito é a alternativa <strong>A</strong>. Conforme o documento <em>Panorama do Enquadramento dos Corpos d'Água do Brasil</em> (ANA), o enquadramento estabelece metas progressivas de qualidade a serem alcançadas ou mantidas no médio e longo prazo em função dos usos preponderantes, em regime de vazão de referência. Por integrar quantidade e qualidade, o enquadramento serve de referência para os demais instrumentos da PNRH e para o licenciamento ambiental. Quanto à cobrança pelo uso de recursos hídricos, o Art. 20 da Lei nº 9.433/1997 estabelece sua incidência sobre os usos sujeitos a outorga, enquanto o Art. 22 determina que os valores arrecadados sejam aplicados <em>prioritariamente</em> na bacia hidrográfica em que foram gerados para financiar os Planos de Recursos Hídricos.<br><br>As demais alternativas incorrem em erros normativos recorrentes: a alternativa <strong>B</strong> substitui indevidamente o termo legal <em>prioritariamente</em> por <em>exclusivamente</em> e nega a destinação a obras; a alternativa <strong>C</strong> desvirtua os objetivos do Art. 19; a alternativa <strong>D</strong> reduz o enquadramento a um diagnóstico estático; e a alternativa <strong>E</strong> inverte os usos da Resolução CONAMA nº 357/2005."
+            },
+            {
+                id: 7,
+                title: "QUESTÃO 07",
+                text: "O Sistema Nacional de Gerenciamento de Recursos Hídricos (SINGREH) estrutura a governança descentralizada da água no Brasil por meio de colegiados deliberativos e entidades executivas em escala de bacia. Com base nos dispositivos da Lei nº 9.433/1997 referentes aos Comitês de Bacia Hidrográfica e às Agências de Água, avalie as afirmações abaixo:<br><br><strong>I.</strong> Os Comitês de Bacia Hidrográfica terão como área de atuação a totalidade de uma bacia hidrográfica, a sub-bacia hidrográfica de tributário do curso de água principal (ou de tributário desse tributário) ou um grupo de bacias ou sub-bacias hidrográficas contíguas.<br><br><strong>II.</strong> Compete aos Comitês de Bacia Hidrográfica arbitrar, em primeira instância administrativa, os conflitos relacionados aos recursos hídricos, cabendo recurso de suas decisões ao Conselho Nacional ou aos Conselhos Estaduais de Recursos Hídricos, conforme sua esfera de competência.<br><br><strong>III.</strong> A criação de uma Agência de Água prescinde da existência prévia de Comitê de Bacia Hidrográfica, devendo ser instituída antecipadamente para assegurar a cobrança pelo uso da água e expedir outorgas de forma autônoma.<br><br><strong>IV.</strong> Compete às Agências de Água, no âmbito de sua área de atuação, manter balanço atualizado da disponibilidade de recursos hídricos, manter o cadastro de usuários e efetuar, mediante delegação do outorgante, a cobrança pelo uso de recursos hídricos.<br><br>Assinale a alternativa que indica todas as afirmações CORRETAS:",
+                options: [
+                    "A) Apenas I e III.",
+                    "B) Apenas I, II e IV.",
+                    "C) Apenas II e IV.",
+                    "D) Apenas I, II e III.",
+                    "E) I, II, III e IV."
+                ],
+                correctIndex: 1,
+                resolution: "O gabarito é a alternativa <strong>B</strong> (afirmativas I, II e IV corretas). A afirmativa <strong>I</strong> reproduz o Art. 37 da Lei nº 9.433/1997, permitindo a atuação dos Comitês na totalidade de uma bacia, em sub-bacia ou grupo de bacias contíguas. A afirmativa <strong>II</strong> fundamenta-se no Art. 38, inciso II e Parágrafo único, atribuindo aos Comitês competência para arbitrar em primeira instância administrativa os conflitos hídricos. A afirmativa <strong>IV</strong> corresponde aos incisos I, II e III do Art. 44, definindo competências das Agências de Água como manter balanço da disponibilidade, cadastro e cobrança delegada.<br><br>A afirmativa <strong>III</strong> está incorreta porque contraria o Art. 43 da Lei nº 9.433/1997, o qual condiciona a criação de uma Agência de Água a dois requisitos cumulativos: a prévia existência do respectivo Comitê de Bacia e a viabilidade financeira assegurada pela cobrança. Além disso, a Agência de Água não detém competência autônoma para expedir outorgas."
+            },
+            {
+                id: 8,
+                title: "QUESTÃO 08",
+                text: "Na obra <em>Introdução à Hidrogeografia</em>, Pedro José de Oliveira Machado e Fillipe Tamiozzo Pereira Torres discutem os fundamentos conceituais da água, a bacia hidrográfica como unidade de análise e as implicações socioambientais da urbanização e do uso do solo sobre os recursos hídricos. Assinale a alternativa que NÃO condiz com a abordagem desenvolvida por esses autores:",
+                options: [
+                    "A) A hidrogeografia apresenta-se como uma evolução acadêmica da hidrografia, articulando os estudos físicos do ciclo hidrológico e da morfometria de bacias às transformações no uso da terra, às políticas públicas e à gestão dos recursos hídricos.",
+                    "B) Embora a água constitua elemento natural vital presente na natureza em diferentes estados físicos, sua apropriação enquanto bem dotado de valor econômico — como estabelecido na Lei nº 9.433/1997 — permite diferenciá-la conceitualmente como recurso hídrico.",
+                    "C) As relações históricas entre urbanização e águas superficiais evidenciam um paradoxo: os rios viabilizaram a fixação e o crescimento das cidades, mas têm sido progressivamente inviabilizados pelo próprio modelo urbano, ao servirem de destino final para os mais variados tipos de efluentes.",
+                    "D) Alterações antrópicas na cobertura vegetal e nos padrões de ocupação do solo influenciam diretamente os processos de interceptação, infiltração e escoamento, reduzindo a proteção dos solos e comprometendo a formação de aquíferos, a qualidade e a disponibilidade da água.",
+                    "E) O adensamento urbano e a compactação superficial dos solos tendem a ampliar a taxa de infiltração profunda e a regularizar naturalmente as vazões de estiagem, restringindo o agravamento da poluição hídrica exclusivamente às áreas rurais."
+                ],
+                correctIndex: 4,
+                resolution: "O gabarito é a alternativa <strong>E</strong>, pois a questão solicita a proposição que <strong>NÃO condiz</strong> com a obra de Machado e Torres. Na perspectiva hidrogeográfica apresentada por esses autores, o processo de urbanização — acompanhado por alterações no uso e ocupação do solo e pela compactação superficial — produz o efeito oposto ao descrito: reduz a proteção do solo e a infiltração responsável pela recarga dos aquíferos, intensificando o escoamento superficial, o agravamento da poluição hídrica urbana e os prejuízos à disponibilidade das águas.<br><br>As alternativas <strong>A</strong>, <strong>B</strong>, <strong>C</strong> e <strong>D</strong> refletem fielmente os eixos centrais de <em>Introdução à Hidrogeografia</em>, abordando a hidrogeografia como evolução acadêmica da hidrografia, a distinção conceitual entre água e recurso hídrico, o paradoxo histórico da relação entre cidades e rios, e o impacto da supressão da cobertura vegetal sobre os ciclos hidrológicos locais."
+            },
+            {
+                id: 9,
+                title: "QUESTÃO 09",
+                text: "Conforme dados do relatório <em>Conjuntura dos Recursos Hídricos no Brasil 2025</em> (ANA) divulgados pelo Instituto Água e Saneamento (IAS), a retirada total estimada de água no país alcançou 2.098,7 m³/s em 2024, com destaque para a irrigação (50,3%), seguida pelo abastecimento humano (22,3%) e pela indústria (9,9%). A intensificação das demandas setoriais e das alterações na cobertura e uso da terra agrava impactos como o assoreamento, a poluição pontual e difusa e o comprometimento (desidratação) de mananciais.<br><br>Considerando os mecanismos hidrogeográficos desses processos de degradação, assinale a alternativa correta:",
+                options: [
+                    "A) A poluição difusa caracteriza-se pelo lançamento concentrado e facilmente identificável de esgotos sanitários ou efluentes industriais por emissários únicos, apresentando maior simplicidade de controle regulatório do que a poluição pontual.",
+                    "B) O assoreamento dos canais fluviais resulta exclusivamente da variabilidade climática natural em bacias semiáridas, sem relação com a supressão de vegetação ciliar, a erosão de encostas ou a dinâmica de sedimentação em áreas urbanas e rurais.",
+                    "C) A supressão da cobertura vegetal associada à compactação e impermeabilização do solo reduz a infiltração e a formação de reservas subterrâneas — comprometendo a alimentação dos mananciais na estiagem —, enquanto intensifica o escoamento superficial, o carreamento de sedimentos (assoreamento) e o agravamento da poluição das águas pluviais e difusa.",
+                    "D) Nas áreas metropolitanas brasileiras, como as da Região Hidrográfica Atlântico Sudeste, a demanda urbana e industrial supera a irrigação no total nacional de retiradas hídricas, eliminando conflitos qualitativos em bacias agropecuárias.",
+                    "E) O lançamento de efluentes domésticos sem tratamento altera apenas aspectos estéticos da coloração da água, sem acarretar riscos sanitários à população ou comprometer as metas de qualidade do enquadramento dos corpos hídricos."
+                ],
+                correctIndex: 2,
+                resolution: "O gabarito é a alternativa <strong>C</strong>. Os dados do relatório <em>Conjuntura dos Recursos Hídricos no Brasil 2025</em> (ANA, referência de 2024) repercutidos pelo IAS confirmam o predomínio da irrigação (50,3%) nas retiradas totais (2.098,7 m³/s), seguida pelo abastecimento humano (22,3%) e pela indústria (9,9%). Do ponto de vista hidrogeográfico, a supressão da cobertura vegetal e a compactação ou impermeabilização dos solos comprometem seu papel protetor e reduzem a infiltração responsável pela recarga dos aquíferos. Esse desequilíbrio diminui a sustentação subterrânea dos cursos d'água na estiagem (desidratação de mananciais) e amplia o escoamento superficial, favorecendo o carreamento de sedimentos (assoreamento) e o agravamento da poluição difusa.<br><br>As demais alternativas apresentam falhas conceituais e empíricas: a alternativa <strong>A</strong> inverte os conceitos de poluição pontual e difusa; a alternativa <strong>B</strong> desconsidera os vetores antrópicos do assoreamento; a alternativa <strong>D</strong> contraria os dados nacionais da ANA sobre retiradas totais; e a alternativa <strong>E</strong> ignora os riscos sanitários e de enquadramento decorrentes do lançamento de efluentes sem tratamento."
+            },
+            {
+                id: 10,
+                title: "QUESTÃO 10",
+                text: "Com uma bacia de cerca de 640 mil km² cuja nascente principal situa-se na Serra da Canastra (MG), o rio São Francisco é o manancial exportador do Projeto de Integração do Rio São Francisco com Bacias Hidrográficas do Nordeste Setentrional (PISF), popularmente denominado Transposição do Rio São Francisco. A respeito da concepção técnica, da estrutura espacial e dos conflitos associados ao projeto, analise as afirmativas a seguir:<br><br><strong>I.</strong> Concebido tecnicamente como uma integração de bacias voltada à ampliação da segurança hídrica, o PISF busca reforçar açudes e rios intermitentes do Nordeste Setentrional para reduzir a vulnerabilidade às estiagens prolongadas, sem a pretensão climática de \"acabar com a seca\".<br><br><strong>II.</strong> O projeto organiza-se em dois eixos estruturantes com captação em Pernambuco: o Eixo Norte (260 km), a partir de Cabrobó (PE), atendendo Pernambuco, Ceará, Paraíba e Rio Grande do Norte; e o Eixo Leste (217 km), a partir do reservatório de Itaparica, em Floresta (PE), atendendo Pernambuco e Paraíba.<br><br><strong>III.</strong> Em razão da declividade natural favorável entre o vale do São Francisco e as bacias receptoras, todo o traçado dos dois eixos opera exclusivamente por gravidade, dispensando estações de bombeamento, túneis e custos energéticos operacionais, além de eliminar perdas evaporativas nos canais.<br><br><strong>IV.</strong> Análises técnicas e estudos socioambientais sobre o PISF destacam debates e conflitos em torno dos custos operacionais do bombeamento, das perdas por evaporação em canais abertos, das lacunas quanto aos impactos nas bacias doadora e receptoras e da repartição das águas frente à prioridade legal do consumo humano e da dessedentação animal.<br><br>Assinale a alternativa que indica as afirmações CORRETAS:",
+                options: [
+                    "A) Apenas I e II.",
+                    "B) Apenas II e III.",
+                    "C) Apenas I, III e IV.",
+                    "D) Apenas I, II e IV.",
+                    "E) I, II, III e IV."
+                ],
+                correctIndex: 3,
+                resolution: "O gabarito é a alternativa <strong>D</strong> (afirmativas I, II e IV corretas). A afirmativa <strong>I</strong> acerta ao distinguir o conceito técnico de <em>integração de bacias</em> — voltado a reforçar a disponibilidade de açudes e rios intermitentes no Nordeste Setentrional para elevar a segurança hídrica — da ideia imprecisa de encerrar o fenômeno climático da seca. A afirmativa <strong>II</strong> descreve com exatidão os dois eixos estruturantes do PISF, ambos captando água no trecho pernambucano do São Francisco: o Eixo Norte (260 km) a partir de Cabrobó (PE), e o Eixo Leste (cerca de 217 km) a partir da barragem de Itaparica, em Floresta (PE). A afirmativa <strong>IV</strong> sintetiza controvérsias recorrentes na literatura técnica sobre o projeto, tais como os debates sobre perdas evaporativas nos canais, custos de bombeamento, lacunas de impactos nas bacias doadora/receptoras e repartição da vazão.<br><br>A afirmativa <strong>III</strong> está incorreta porque a topografia entre o vale do São Francisco e as bacias receptoras impede o escoamento exclusivamente por gravidade: a infraestrutura contempla nove estações de bombeamento alimentadas por linhas de transmissão e quatro túneis (incluindo o Túnel Cuncas I, com 15 km), acarretando expressivos custos energéticos e operacionais."
+            }
+        ];
+
+        function renderQuiz() {
+            const container = document.getElementById('questionsContainer');
+            let html = '';
+
+            quizData.forEach((q) => {
+                html += `
+                    <div class="p-6 bg-slate-50/70 border border-slate-200 rounded-xl mb-6">
+                        <span class="text-xs font-bold text-emerald-800 uppercase tracking-wide">${q.title}</span>
+                        <div class="text-slate-800 font-medium mt-2 mb-4">${q.text}</div>
+                        <div class="space-y-2">
+                `;
+
+                q.options.forEach((opt, optIndex) => {
+                    html += `
+                        <label class="flex items-start p-3 bg-white border border-slate-200 rounded-lg cursor-pointer hover:bg-emerald-50/40 transition">
+                            <input type="radio" name="q${q.id}" value="${optIndex}" class="mt-1.5 text-emerald-600 focus:ring-emerald-500">
+                            <span class="ml-3 text-sm text-slate-700">${opt}</span>
+                        </label>
+                    `;
+                });
+
+                html += `
+                        </div>
+                    </div>
+                `;
+            });
+
+            container.innerHTML = html;
+        }
+
+        function evaluateQuiz() {
+            let score = 0;
+            let answeredAll = true;
+
+            quizData.forEach((q) => {
+                const selected = document.querySelector(`input[name="q${q.id}"]:checked`);
+                if (!selected) {
+                    answeredAll = false;
+                }
+            });
+
+            if (!answeredAll) {
+                alert("Por favor, responda a todas as questões antes de finalizar o simulado.");
+                return;
+            }
+
+            quizData.forEach((q) => {
+                const selected = document.querySelector(`input[name="q${q.id}"]:checked`);
+                if (selected && parseInt(selected.value) === q.correctIndex) {
+                    score++;
+                }
+            });
+
+            // Display Score
+            const scoreText = document.getElementById('scoreText');
+            scoreText.innerHTML = `Você acertou <strong>${score}</strong> de <strong>${quizData.length}</strong> questões (${((score / quizData.length) * 100).toFixed(0)}%).`;
+
+            // Render Resolutions
+            const resContainer = document.getElementById('resolutionsContainer');
+            let resHtml = '';
+
+            quizData.forEach((q) => {
+                const selected = document.querySelector(`input[name="q${q.id}"]:checked`);
+                const userChoice = selected ? parseInt(selected.value) : -1;
+                const isCorrect = userChoice === q.correctIndex;
+
+                resHtml += `
+                    <div class="p-6 border rounded-xl ${isCorrect ? 'bg-emerald-50/30 border-emerald-200' : 'bg-rose-50/30 border-rose-200'}">
+                        <div class="flex justify-between items-center mb-2">
+                            <h3 class="font-bold text-slate-900">${q.title}</h3>
+                            <span class="text-xs font-semibold px-2.5 py-1 rounded-full ${isCorrect ? 'bg-emerald-100 text-emerald-800' : 'bg-rose-100 text-rose-800'}">
+                                ${isCorrect ? 'Acertou' : 'Errou'}
+                            </span>
+                        </div>
+                        <p class="text-sm text-slate-600 mb-4"><strong>Sua resposta:</strong> ${userChoice !== -1 ? q.options[userChoice] : 'Não respondida'} <br><strong>Gabarito oficial:</strong> <span class="text-emerald-700 font-semibold">${q.options[q.correctIndex]}</span></p>
+                        <div class="text-sm text-slate-700 leading-relaxed border-t border-slate-200/60 pt-3">
+                            <strong class="text-slate-900">Resolução Comentada:</strong> ${q.resolution}
+                        </div>
+                    </div>
+                `;
+            });
+
+            resContainer.innerHTML = resHtml;
+
+            // Show Results Section
+            const resultsSection = document.getElementById('resultsSection');
+            resultsSection.classList.remove('hidden');
+            resultsSection.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        window.onload = renderQuiz;
+    </script>
+</body>
+</html>
+```eof
+
+### Resumo da Geração
+* **Arquivo Único:** Desenvolvido integralmente em um arquivo HTML contendo marcação semântica, estilos de leitura otimizados em tons claros e scripts dinâmicos de avaliação.
+* **Questões na Íntegra:** Inclui todas as 10 questões completas do simulado elaborado para o IFMG, mantendo rigorosamente o enunciado original e as alternativas (A a E).
+* **Seção de Resultados e Resoluções:** Ao finalizar, o sistema exibe a pontuação obtida e apresenta as resoluções comentadas detalhadas para cada questão logo abaixo na mesma página.
