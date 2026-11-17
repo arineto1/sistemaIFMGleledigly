@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz: Modo de Produção Capitalista, Modelos Produtivos e Divisão do Trabalho - IFMG</title>
+    <!-- Tailwind CSS for modern responsive styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            background-color: #f8fafc;
+            color: #1e293b;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.75;
+        }
+        .option-label:hover {
+            background-color: #f1f5f9;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+        }
+        th, td {
+            border: 1px solid #cbd5e1;
+            padding: 0.75rem;
+            text-align: left;
+        }
+        th {
+            background-color: #e2e8f0;
+            color: #0f172a;
+        }
+    </style>
+</head>
+<body class="min-h-screen py-10 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-4xl mx-auto">
+        <!-- Header Section -->
+        <header class="bg-white shadow-md rounded-2xl p-8 mb-8 border border-slate-200">
+            <h1 class="text-3xl font-bold text-slate-900 mb-2">Simulado Oficial: Modelos Produtivos e DIT</h1>
+            <p class="text-slate-600 text-lg mb-4">Modo de Produção Capitalista, Modelos Produtivos e Divisão do Trabalho (Padrão Banca IFMG)</p>
+            <div class="flex flex-wrap gap-4 text-sm text-slate-500 border-t pt-4">
+                <span>📚 Bibliografia: HARVEY (2005); SANTOS (2012)</span>
+                <span>📋 Total de Questões: 10</span>
+            </div>
+        </header>
+
+        <!-- Quiz Form -->
+        <form id="quizForm" class="space-y-8">
+            <div id="questionsContainer" class="space-y-8"></div>
+
+            <div class="flex justify-center pt-6">
+                <button type="button" id="submitBtn" class="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold text-lg px-8 py-4 rounded-xl shadow-lg transition duration-200 cursor-pointer">
+                    Finalizar Simulado e Ver Gabarito & Resoluções
+                </button>
+            </div>
+        </form>
+
+        <!-- Results & Resolutions Section (Hidden by default) -->
+        <section id="resultsSection" class="hidden mt-12 space-y-8">
+            <div id="scoreCard" class="bg-white shadow-xl rounded-2xl p-8 border-2 border-indigo-500 text-center"></div>
+
+            <div class="bg-white shadow-md rounded-2xl p-8 border border-slate-200">
+                <h2 class="text-2xl font-bold text-slate-900 mb-6 border-b pb-4">Gabarito Oficial e Resoluções Detalhadas</h2>
+                <div id="resolutionsContainer" class="space-y-8"></div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        const quizData = [
+            {
+                number: 1,
+                question: "O geógrafo Milton Santos, ao analisar a evolução histórica do modo de produção capitalista e sua materialização no espaço, propõe uma periodização fundamentada na relação entre sociedade, técnica e território. Sobre o estágio atual do capitalismo, a referida análise estabelece que o sistema de técnicas atual é caracterizado pela emergência da informação, da cibernética e da eletrônica, elementos que desempenham um papel determinante sobre o uso do tempo, assegurando a simultaneidade das ações em escala global.<br><br>Considerando a evolução histórica do capitalismo e a formulação teórica de Milton Santos sobre o espaço geográfico, é CORRETO afirmar que a fase informacional do capitalismo se materializa espacialmente através do:",
+                options: [
+                    { letter: "A", text: "Meio natural, caracterizado pela subordinação absoluta do tempo histórico aos ritmos biológicos e à dispersão das corporações financeiras que buscam isolamento geográfico." },
+                    { letter: "B", text: "Meio técnico, oriundo da Primeira Revolução Industrial, onde a fluidez das mercadorias supera a importância da informação e do setor de serviços especializado." },
+                    { letter: "C", text: "Meio técnico-científico-informacional, que dota o território de intencionalidades mercantis globais, criando \"espaços luminosos\" altamente conectados e \"espaços opacos\" marginalizados, o que aprofunda o desenvolvimento geográfico desigual." },
+                    { letter: "D", text: "Modelo agroexportador clássico, no qual a ciência e a técnica são aplicadas exclusivamente nos países centrais, impossibilitando qualquer forma de inserção tecnológica nas formações socioespaciais periféricas." },
+                    { letter: "E", text: "Capitalismo concorrencial homogêneo, em que a globalização dissolveu as fronteiras nacionais e equalizou a distribuição de infraestruturas cibernéticas em todos os continentes, eliminando as assimetrias regionais." }
+                ],
+                correct: "C",
+                resolution: `O pensamento geográfico sistematizado por Milton Santos estabelece que a periodização da história da humanidade pode ser analisada em função da relação dialética entre o homem, a técnica e o espaço. Nessa formulação, a construção teórica desdobra-se em três etapas magnas: o meio natural, o meio técnico e, a partir da segunda metade do século XX, o meio técnico-científico-informacional.<br><br>
+                Historicamente, o estágio do meio natural correspondeu à época em que a ação humana e os sistemas produtivos estavam inteiramente subordinados às intempéries da natureza e aos tempos biológicos. Em seguida, o advento da Primeira Revolução Industrial consolidou o meio técnico, momento no qual a inserção de máquinas e da mecanização superou antigas barreiras de produção. O desdobramento subjacente ao final do século XX, no entanto, forja aquilo que Santos identifica como a mais nova e complexa manifestação geográfica da organização do capital: o meio técnico-científico-informacional.<br><br>
+                Neste meio atual, a ciência passa a atuar de forma simbiótica com a técnica, sendo que a informação torna-se a base imperativa e estruturante do território e do mercado. De acordo com a teoria exposta em <em>Por uma outra globalização</em> (2000/2012), a informação penetra nos objetos e nos sistemas de ações que animam o espaço. Contudo, esse adensamento tecnológico e as vantagens dele oriundas não ocorrem de maneira democrática ou perfeitamente espraiada.<br><br>
+                É a partir da distribuição irregular das infraestruturas de telecomunicação, da rede bancária informacionalizada e das plataformas logísticas de escoamento rápido que se estabelece a cisão territorial apresentada por Santos. Existem, portanto, os <strong>espaços luminosos</strong>, dotados de espessa racionalidade corporativa e técnica, que atraem capitais, conectam-se imediatamente com o mundo globalizado e respondem pelas funções de comando. Em contraste, os <strong>espaços opacos</strong> representam as áreas desprovidas de fortes sistemas de engenharia e tecnologia, onde predominam as condições da pobreza estrutural, da lentidão técnica e do subdesenvolvimento.<br><br>
+                <table>
+                    <thead><tr><th>Evolução do Espaço Geográfico</th><th>Características Centrais (Milton Santos)</th></tr></thead>
+                    <tbody>
+                        <tr><td><strong>Meio Natural</strong></td><td>O tempo histórico responde aos desígnios e ritmos da natureza; as técnicas empregadas derivam da relação de subsistência imediata com o ambiente.</td></tr>
+                        <tr><td><strong>Meio Técnico</strong></td><td>Substituição sistemática de ferramentas manuais por máquinas (Revolução Industrial); mecanização e aceleração inicial dos transportes.</td></tr>
+                        <tr><td><strong>Meio Técnico-Científico-Informacional</strong></td><td>Integração total entre ciência, técnica e informação. A cibernética impõe um tempo único em escala global. Formação excludente de <em>espaços luminosos</em> (densos de capital) e <em>espaços opacos</em> (desassistidos tecnologicamente).</td></tr>
+                    </tbody>
+                </table><br>
+                Portanto, a alternativa C está rigorosamente alinhada à teoria miltoniana.`
+            },
+            {
+                number: 2,
+                question: "A organização territorial do trabalho fabril sofreu profundas transformações ao longo do século XX. O padrão de acumulação que se consolidou após a Segunda Guerra Mundial baseou-se na separação rigorosa entre concepção e execução, no controle rigoroso dos tempos e movimentos e na esteira rolante, atrelando a produção em massa ao consumo de massa.<br><br>Diante das diferenças constitutivas dos modelos produtivos, assinale a alternativa que apresenta EXCLUSIVAMENTE características estruturais do modelo Fordista-Taylorista:",
+                options: [
+                    { letter: "A", text: "Operário polivalente, produção sob demanda (<em>just-in-time</em>), descentralização produtiva e forte regulação estatal das taxas de câmbio voltadas à flexibilização." },
+                    { letter: "B", text: "Operário ultraespecializado, linha de montagem, estoque rígido e volumoso (<em>just-in-case</em>), produção seriada em massa e alinhamento histórico aos pressupostos de regulação do Estado de Bem-Estar Social." },
+                    { letter: "C", text: "Terceirização sistêmica, horizontalização corporativa, flexibilização dos contratos de trabalho e foco estratégico em pequenos nichos de mercado hipersegmentados." },
+                    { letter: "D", text: "Trabalho artesanal, controle operário sobre o ritmo da produção fabril, ausência estrutural de estoques intermediários e articulação com sindicatos globais desregulamentados." },
+                    { letter: "E", text: "Produção enxuta, controle de qualidade transferido diretamente ao trabalhador no chão de fábrica por meio de círculos de controle de qualidade, alta flexibilidade e defesa do Estado mínimo." }
+                ],
+                correct: "B",
+                resolution: `As metamorfoses do modo de produção capitalista durante o século XX forjaram métodos rigorosos de controle sobre a mão de obra com o intuito de garantir a elevação máxima da mais-valia extraída na base fabril. A organização científica do trabalho (o Taylorismo) representou a ofensiva do capital para retirar do operário o domínio cognitivo do processo de trabalho, instituindo a separação formal entre a concepção e a execução das tarefas através de cronômetros e controle absoluto de tempos e movimentos.<br><br>
+                Henry Ford levou essa racionalização a um limite organizacional sem precedentes na indústria automotiva (a partir de 1913/1914) ao associá-la à esteira rolante (linha de montagem). O operário fordista tornou-se ultraespecializado, alienado do produto final e restrito ao desempenho exaustivo de um movimento único. O modelo amparou-se em três pilares analíticos vitais:<br>
+                1. <strong>Produção Seriada e Padronizada em Massa</strong>.<br>
+                2. <strong>Altos e Rígidos Estoques (<em>Just-in-case</em>)</strong>.<br>
+                3. <strong>Associação ao Pacto de Regulação Social</strong> (Estado de Bem-Estar Social / <em>Welfare State</em>).<br><br>
+                <table>
+                    <thead><tr><th>Variável</th><th>Regime Fordista</th><th>Regime Toyotista (Acumulação Flexível)</th></tr></thead>
+                    <tbody>
+                        <tr><td><strong>Natureza da Produção</strong></td><td>Padronizada, impulsionada por estoques abundantes (<em>just-in-case</em>).</td><td>Diversificada, impulsionada e puxada pela demanda momentânea do mercado (<em>just-in-time</em>).</td></tr>
+                        <tr><td><strong>Perfil Operário</strong></td><td>Ultraespecializado, executa trabalhos repetitivos condicionados à velocidade rígida da esteira rolante.</td><td>Polivalente (multifuncional), realiza várias tarefas em células de produção e participa do controle de qualidade.</td></tr>
+                        <tr><td><strong>Mecanismo Institucional</strong></td><td>Associado à estrutura regulatória do Estado de Bem-Estar Social; sindicatos atuantes nas megaindústrias.</td><td>Associado às práticas do Estado Neoliberal; alta precarização laboral e terceirização agressiva.</td></tr>
+                    </tbody>
+                </table><br>
+                A alternativa B apresenta perfeitamente a essência que moldou o arranjo socioterritorial na era do capitalismo de monopólio fordista.`
+            },
+            {
+                number: 3,
+                question: "A obra <em>Condição Pós-Moderna</em> (HARVEY, 2005) constitui um marco analítico sobre as transformações inerentes ao capitalismo contemporâneo. O autor argumenta que o longo período de expansão econômica do pós-guerra, sustentado pelo regime de acumulação fordista e pelo pacto keynesiano, entrou em um colapso estrutural no início da década de 1970, deflagrando uma profunda crise de superacumulação.<br><br>Segundo a teoria de David Harvey sobre a crise dos anos 1970, o esgotamento do fordismo ocorreu fundamentalmente devido à sua:",
+                options: [
+                    { letter: "A", text: "Maleabilidade institucional excessiva, que impedia o controle da classe trabalhadora pelos sindicatos operários, gerando uma espiral de inflação de demanda e queda vertiginosa dos juros no mercado financeiro internacional." },
+                    { letter: "B", text: "Extrema rigidez, manifestada historicamente na imobilidade dos investimentos de capital fixo de longo prazo, nos mercados e contratos de trabalho engessados e nos compromissos inelásticos assumidos pelo Estado de Bem-Estar Social diante de um cenário de estagflação." },
+                    { letter: "C", text: "Transição prematura para o sistema de fornecimento <em>just-in-time</em>, que causou desabastecimento global de matérias-primas essenciais, como o petróleo, inviabilizando de forma perene as linhas de montagem do centro do sistema capitalista." },
+                    { letter: "D", text: "Dependência exclusiva e irrestrita do mercado externo asiático, que, ao adotar medidas protecionistas contra as exportações norte-americanas, provocou uma imediata superacumulação de capital circulante nas economias periféricas." },
+                    { letter: "E", text: "Desregulamentação financeira internacional estabelecida pelos acordos de Bretton Woods, que fragmentou precocemente os grandes capitais monopolistas antes mesmo da informatização integral da base de produção material." }
+                ],
+                correct: "B",
+                resolution: `Em sua obra referencial, <em>A Condição Pós-Moderna</em> (2005), o geógrafo crítico David Harvey submete a história e a geografia do capitalismo de meados do século XX a um minucioso exame fundamentado na identificação de crises periódicas de superacumulação. O longo e virtuoso período de expansão econômica do pós-guerra esgotou sua vitalidade devido às contradições internas que o alimentavam.<br><br>
+                Para Harvey, a crise estrutural e recessiva deflagrada a partir de 1973-1974 tem na <strong>rigidez</strong> o seu elemento causador principal. A base do fordismo era pesada, imóvel e inelástica frente à flutuação das taxas de lucratividade. A rigidez manifestava-se através de diversas dimensões:<br>
+                - <strong>Rigidez nos Investimentos de Capital Fixo:</strong> Plantas industriais gigantescas constituíam um imobilizado irreversível, exigindo mercados previsíveis de longo prazo.<br>
+                - <strong>Rigidez nos Mercados e Contratos de Trabalho:</strong> Conquistas laborais tornaram o custo e os direitos da força de trabalho compromissos permanentes e engessados.<br>
+                - <strong>Rigidez do Estado de Bem-Estar:</strong> O arcabouço do <em>Welfare State</em> implicava arranjos orçamentários inflexíveis diante da estagflação.<br><br>
+                A alternativa B sintetiza exatamente a tese fulcral de Harvey, rechaçando a premissa de que o modelo padecesse de uma "maleabilidade" ou que a introdução precoce do <em>just-in-time</em> tenha causado o colapso estrutural setenta.`
+            },
+            {
+                number: 4,
+                question: "A superação da crise de acumulação da década de 1970 exigiu do capital uma reestruturação produtiva severa. Nesse ínterim, o capital retomou sua margem de manobra e seu controle sobre o processo de trabalho por meio de um novo regime produtivo e organizacional.<br><br>No que tange às diferenças constitutivas entre o regime de acumulação fordista e o regime de acumulação flexível (Toyotismo), analise as afirmativas a seguir:<br>I. No Fordismo, o trabalhador é submetido a uma ultraespecialização, realizando tarefas fragmentadas e repetitivas ditadas pelo ritmo imposto pela esteira rolante; no Toyotismo, a base técnica requer um operário polivalente e multifuncional, capacitado a operar diversas máquinas simultaneamente e atuar de forma colaborativa em células de produção.<br>II. O modelo fordista opera estritamente com a lógica orgânica da \"produção enxuta\" (<em>lean production</em>), enquanto o modelo toyotista exige a manutenção de altos volumes de estoque para garantir a estabilidade do pacto social inerente ao Estado de Bem-Estar Social.<br>III. O Toyotismo rompe de maneira frontal com a rigidez fordista ao adotar o método <em>just-in-time</em>, um sistema de racionalização no qual a produção é desencadeada e puxada pela demanda exata do mercado consumidor, visando a redução drástica ou a \"zeragem\" dos estoques intermediários e finais.<br><br>Está(ão) CORRETA(S) a(s) afirmativa(s):",
+                options: [
+                    { letter: "A", text: "I, apenas." },
+                    { letter: "B", text: "III, apenas." },
+                    { letter: "C", text: "I e II, apenas." },
+                    { letter: "D", text: "I e III, apenas." },
+                    { letter: "E", text: "I, II e III." }
+                ],
+                correct: "D",
+                resolution: `A transição para o Toyotismo introduziu o sistema de "produção enxuta" atacando a rigidez da produção em massa fordista. Analisando as afirmativas:<br>
+                - <strong>Afirmativa I (Correta):</strong> O Fordismo utilizava operários ultraespecializados em tarefas repetitivas ditadas pela esteira rolante. Já o Toyotismo requer o operário polivalente, multifuncional e colaborativo em células produtivas.<br>
+                - <strong>Afirmativa II (Incorreta):</strong> A "produção enxuta" (<em>lean production</em>) é característica exclusiva do Toyotismo, e não do Fordismo. Estoques altos e volumosos pertencem ao fordismo (<em>just-in-case</em>).<br>
+                - <strong>Afirmativa III (Correta):</strong> O Toyotismo rompe com a rigidez fordista adotando o método <em>just-in-time</em>, puxado pela demanda e visando a zeragem de estoques intermediários e finais.<br><br>
+                Portanto, apenas as afirmativas I e III estão corretas (Alternativa D).`
+            },
+            {
+                number: 5,
+                question: "Na análise empreendida em <em>Condição Pós-Moderna</em>, David Harvey (2005) discute de maneira exaustiva as implicações sistêmicas da transição do regime fordista para o paradigma da acumulação flexível no mundo do trabalho. Segundo o autor, a reestruturação produtiva não apenas modificou a dinâmica no chão de fábrica, mas redefiniu as relações laborais em escala global, alterando as formas de contratação e subordinação.<br><br>No contexto da Acumulação Flexível descrita por Harvey, qual das alternativas a seguir representa uma consequência estrutural direta para a organização social do trabalho?",
+                options: [
+                    { letter: "A", text: "O fortalecimento político dos sindicatos de classe e a expansão equânime dos contratos por tempo indeterminado e garantias laborais para a totalidade dos trabalhadores inseridos nas cadeias globais de valor." },
+                    { letter: "B", text: "A consolidação de um grupo central (<em>core</em>) de trabalhadores estáveis em contraposição à expansão de grupos periféricos submetidos à intensa precarização, à terceirização, à subcontratação e à desregulamentação progressiva dos direitos trabalhistas." },
+                    { letter: "C", text: "A eliminação definitiva do desemprego estrutural por meio da absorção total da mão de obra expulsa do setor industrial pelo maquinário, sendo realocada no setor de serviços altamente regulamentado e protegido pelo Estado." },
+                    { letter: "D", text: "A redução da taxa de mais-valia extraída do trabalhador produtivo, uma vez que a automação e a robótica transferiram a geração de valor exclusivamente para o maquinário industrial, extinguindo a necessidade histórica da jornada de trabalho suplementar." },
+                    { letter: "E", text: "A unificação padronizada do mercado de trabalho global em torno de remunerações altas e equânimes, independentemente do país ou da região de origem do trabalhador, superando em definitivo as antigas assimetrias da divisão internacional." }
+                ],
+                correct: "B",
+                resolution: `Em <em>A Condição Pós-Moderna</em>, David Harvey constata que a Acumulação Flexível fragmentou estruturalmente as relações de trabalho, substituindo as garantias do fordismo por uma rede precarizada e desregulamentada.<br><br>
+                Para descrever essa morfologia socioeconômica, Harvey aponta a divisão da força laboral em círculos:<br>
+                1. <strong>O Grupo Central (O <em>Core</em>):</strong> Pequeno núcleo de empregados estabilizados e qualificados.<br>
+                2. <strong>O Primeiro Grupo Periférico:</strong> Trabalhadores com jornadas flexíveis e parciais.<br>
+                3. <strong>O Segundo Grupo Periférico:</strong> Altamente submetido à terceirização (<em>outsourcing</em>) e subcontratação sem proteções.<br><br>
+                A alternativa B traduz fielmente essa consequência estrutural direta, refutando as demais assertivas que sugerem falsas melhorias universais ou fortalecimento sindical inexistente.`
+            },
+            {
+                number: 6,
+                question: "A Divisão Internacional do Trabalho (DIT) sofreu sucessivas metamorfoses que acompanharam as fases de desenvolvimento do modo de produção capitalista. Da DIT Clássica (de raízes coloniais e imperialistas) à Nova DIT (marcadamente contemporânea), o papel econômico desempenhado pelas nações centrais e periféricas foi reconfigurado, em especial a partir da difusão tecnológica global.<br><br>Com relação à evolução histórica da Divisão Internacional do Trabalho, assinale a alternativa CORRETA:",
+                options: [
+                    { letter: "A", text: "Na DIT Clássica, os países periféricos e subdesenvolvidos já exportavam regularmente produtos industrializados de alto valor agregado, enquanto as metrópoles europeias dedicavam-se a fornecer commodities minerais em estado bruto." },
+                    { letter: "B", text: "Na DIT do Pós-Guerra, a integração da economia global sob o comando das corporações tornou a especialização territorial irrelevante, visto que todos os países atingiram simultaneamente o mesmo grau de desenvolvimento avançado do setor terciário." },
+                    { letter: "C", text: "Na Nova DIT, a descentralização produtiva permitiu que determinados países periféricos passassem a exportar bens manufaturados e industrializados, abrigando filiais de grandes transnacionais, enquanto os países centrais asseguraram para si o monopólio do capital financeiro, da gestão corporativa e do controle tecnológico e científico (P&D)." },
+                    { letter: "D", text: "A Nova DIT erradicou as hierarquias econômicas precedentes, permitindo que a totalidade das etapas da cadeia produtiva de alto valor — desde a concepção de patentes até a montagem final — ocorra estritamente dentro das fronteiras geográficas dos países periféricos." },
+                    { letter: "E", text: "A atual configuração da Divisão Internacional do Trabalho reverteu a lógica capitalista tradicional: os países de capitalismo central tornaram-se dependentes absolutos da importação de alta tecnologia desenvolvida por laboratórios e centros de inovação situados exclusivamente no Sul Global." }
+                ],
+                correct: "C",
+                resolution: `A evolução da Divisão Internacional do Trabalho (DIT) acompanhou as fases capitalistas:<br>
+                - <strong>DIT Clássica:</strong> Metrópoles industriais europeias exportavam manufaturas e as colônias/periferias forneciam matérias-primas e gêneros tropicais.<br>
+                - <strong>DIT Pós-Guerra:</strong> Expansão das transnacionais com os primeiros processos de industrialização periférica por substituição de importações.<br>
+                - <strong>Nova DIT:</strong> A revolução nos transportes (contêiner) e telecomunicações descentralizou a produção fabril. Determinados países periféricos tornaram-se exportadores de manufaturados (filiais de transnacionais), enquanto os países centrais retêm o monopólio financeiro, de gestão e de Pesquisa e Desenvolvimento (P&D).<br><br>
+                Portanto, a alternativa C está plenamente correta.`
+            },
+            {
+                number: 7,
+                question: "Um dos fenômenos geográficos mais marcantes atrelados à Nova Divisão Internacional do Trabalho (Nova DIT) é a intensa mobilidade do capital industrial em busca do que David Harvey (2005) denomina de \"ajuste espacial\" (<em>spatial fix</em>). Esse processo histórico tem gerado novas e complexas dinâmicas de territorialização em países periféricos e semiperiféricos.<br><br>Neste contexto de reestruturação do capital em escala global, o conceito socioeconômico de \"plataformas de exportação industrial\" refere-se:",
+                options: [
+                    { letter: "A", text: "Aos polos tecnológicos hegemônicos situados em países centrais, que se especializaram em exportar patentes e <em>softwares</em> para o restante do mundo a partir de uma base operária altamente sindicalizada." },
+                    { letter: "B", text: "Aos enclaves produtivos estrategicamente instalados em países periféricos (como as <em>maquiladoras</em> mexicanas ou as Zonas Econômicas Especiais asiáticas), que importam componentes, utilizam mão de obra local de baixo custo para processos de montagem e exportam o produto final de volta para o mercado global." },
+                    { letter: "C", text: "À estratégia protecionista adotada de forma coercitiva por países centrais, visando proibir a saída de instalações industriais de seus territórios para garantir a plena ocupação da mão de obra de extração fordista remanescente." },
+                    { letter: "D", text: "Às vastas áreas agrícolas da América Latina, estritamente focadas na expansão do agronegócio de exportação baseada no latifúndio, sem nenhuma relação orgânica com as cadeias globais de manufatura ou serviços." },
+                    { letter: "E", text: "Ao modelo clássico de desenvolvimento autocentrado adotado por nações periféricas para promover a substituição de importações através do fechamento rígido de suas fronteiras à penetração do capital financeiro estrangeiro." }
+                ],
+                correct: "B",
+                resolution: `Para David Harvey, o "ajuste espacial" (<em>spatial fix</em>) ocorre quando o capital busca novos territórios periféricos para escapar da estagnação, rebaixar custos e reestabelecer lucros.<br><br>
+                As <strong>plataformas de exportação industrial</strong> exemplificam perfeitamente essa dinâmica através de enclaves produtivos como as <em>maquiladoras</em> na fronteira do México e as Zonas Econômicas Especiais (ZEEs) na Ásia. Nesses locais, as empresas importam insumos, utilizam mão de obra barata local para montagem e reexportam o produto final para os países desenvolvidos. A alternativa B é a correta.`
+            },
+            {
+                number: 8,
+                question: "Apesar do expressivo movimento de desconcentração industrial que caracteriza a Nova Divisão Internacional do Trabalho, uma parcela significativa dos países periféricos, com destaque para vastas regiões na América Latina e na África, consolidou sua inserção subalterna no mercado global sob uma dinâmica econômica diferente daquela ditada pelas plataformas industriais de exportação.<br><br>Considerando a organização territorial do trabalho contemporânea imposta pela Nova DIT, qual é o papel predominante desses países periféricos?",
+                options: [
+                    { letter: "A", text: "Eles se destacam historicamente como os maiores detentores de patentes tecnológicas de ponta na área da microeletrônica, controlando os fluxos imateriais e os nós diretivos da Acumulação Flexível." },
+                    { letter: "B", text: "Atuam, no sistema global, quase exclusivamente como financiadores diretos da dívida pública norte-americana e europeia, utilizando, para isso, os fundos soberanos gerados pela venda de produtos de altíssimo valor tecnológico agregado." },
+                    { letter: "C", text: "Assumem a função de grandes fornecedores globais de <em>commodities</em> (produtos agropecuários e minerais com cotação padronizada no mercado internacional), vivenciando, com frequência, severos processos de desindustrialização precoce ou de reprimarização estrutural de suas bases econômicas." },
+                    { letter: "D", text: "São os principais importadores de matérias-primas em estado bruto em escala global, as quais são posteriormente transformadas em bens de capital pesado através da operação de megaindústrias estatais monopolistas herdadas integralmente do período de apogeu fordista." },
+                    { letter: "E", text: "Funcionam como os autênticos polos irradiadores do modelo regulatório do Estado de Bem-Estar Social, exportando políticas públicas de seguridade laboral rígida com a finalidade de reverter o processo de desregulamentação verificado nos países centrais." }
+                ],
+                correct: "C",
+                resolution: `Enquanto parte da Ásia converteu-se em plataforma de exportação industrial, países da América Latina e África inseriram-se na Nova DIT como grandes fornecedores globais de <strong>commodities</strong> (agrícolas e minerais).<br><br>
+                Essa especialização primário-exportadora gera um intenso processo de <strong>desindustrialização precoce</strong> e <em>reprimarização</em> da pauta de exportações, consolidando a inserção subalterna dessas regiões no sistema-mundo. A alternativa C está correta.`
+            },
+            {
+                number: 9,
+                question: "Os intelectuais David Harvey e Milton Santos discutem, sob perspectivas analíticas distintas, porém complementares no âmbito da economia política e da geografia crítica, o processo de globalização e a atual organização espacial do capitalismo. Para Harvey, o capital recorre recorrentemente a \"ajustes espaciais\" para equacionar crises sistêmicas de superacumulação. Por sua vez, para Santos, as grandes corporações transnacionais realizam um intenso \"uso corporativo do território\", ditando as regras da globalização que ele adjetiva conceitualmente como \"perversa\".<br><br>Com base na articulação teórica estabelecida entre as categorias analíticas desses autores a respeito dos modelos produtivos, da Nova DIT e da reorganização territorial contemporânea, é CORRETO afirmar que:",
+                options: [
+                    { letter: "A", text: "O processo de \"ajuste espacial\" resulta inevitavelmente numa distribuição de renda equitativa em escala global, eliminando paulatinamente os chamados \"espaços opacos\", uma vez que a irradiação do meio técnico-científico-informacional beneficia de forma homogênea e democrática todas as classes sociais." },
+                    { letter: "B", text: "O uso corporativo do território implica que grandes empresas transnacionais escolhem estrategicamente se instalar em \"espaços luminosos\" (territórios altamente dotados de infraestrutura fluida e densidade de informação) para maximizar a acumulação flexível, exacerbando, por conseguinte, as desigualdades socioespaciais preexistentes e promovendo a fragmentação contínua do território nacional." },
+                    { letter: "C", text: "A globalização classificada como \"perversa\" por Milton Santos refere-se pura e exclusivamente à incapacidade técnica do modelo toyotista de produzir mercadorias em escala suficiente para suprir a demanda dos países periféricos, obrigando o sistema mundial a um retorno compulsório ao modelo fordista massificado." },
+                    { letter: "D", text: "A busca incessante por \"ajuste espacial\" restringe-se historicamente ao setor primário da agricultura; a indústria maquiladora e a alta tecnologia de informação, por sua vez, permanecem estáticas e cristalizadas nas grandes metrópoles dos países centrais, ignorando deliberadamente os atributos locais do território usado." },
+                    { letter: "E", text: "As formulações teóricas de Harvey e Santos convergem para a tese de que a desregulamentação dos contratos de trabalho e a adoção da produção <em>just-in-time</em> minaram fatalmente o poder diretivo das empresas multinacionais, devolvendo em definitivo aos Estados nacionais periféricos o controle absoluto sobre as redes e cadeias globais de valor." }
+                ],
+                correct: "C",
+                resolution: `A articulação entre o "ajuste espacial" de David Harvey e o "uso corporativo do território" de Milton Santos evidencia que as transnacionais operam de forma seletiva no espaço global.<br><br>
+                Elas se instalam estrategicamente nos chamados <strong>espaços luminosos</strong> (altamente dotados de infraestrutura e redes informacionais) para maximizar a acumulação flexível, aprofundando as assimetrias e as desigualdades socioespaciais em relação aos espaços opacos marginalizados. A alternativa B é a correta.`
+            },
+            {
+                number: 10,
+                question: "A categoria analítica da compressão tempo-espaço, consagrada por David Harvey, e o conceito de unicidade do tempo e da técnica, formulado por Milton Santos, são fenômenos históricos indissociáveis das revoluções nos setores de transportes e telecomunicações. Estas transformações tecnológicas forjaram as bases materiais da Nova DIT e viabilizaram a implantação hegemônica do Toyotismo em escala planetária.<br><br>Nesse sentido estrutural, como a compressão tempo-espaço e a consolidação do meio técnico-científico-informacional operam de modo dialético para assegurar o funcionamento pleno do modelo de Acumulação Flexível?",
+                options: [
+                    { letter: "A", text: "Ambas as dinâmicas aniquilam sumariamente as diferenças e singularidades geográficas, tornando absolutamente irrelevante para o capital transnacional o custo da força de trabalho ou as vantagens fiscais locais, uma vez que a velocidade de escoamento logístico tornou-se exatamente igual em todos os lugares do globo." },
+                    { letter: "B", text: "Essas dinâmicas estruturais impedem objetivamente o funcionamento do sistema produtivo <em>just-in-time</em>, visto que a aceleração desmedida dos fluxos de dados virtuais sobrecarrega a infraestrutura logística material, forçando as indústrias globalizadas a manterem grandes estoques como medida insuperável de precaução." },
+                    { letter: "C", text: "Tais fenômenos fornecem a base técnica e informacional que permite ao grande capital atuar simultaneamente e em tempo real à escala global, orquestrando cadeias produtivas territorialmente fragmentadas, explorando as vantagens comparativas locais (tais como mão de obra barata e flexibilizada e leniência ambiental) em diferentes regiões e respondendo, de forma imediata e descentralizada, à extrema volatilidade da demanda do mercado consumidor." },
+                    { letter: "D", text: "A compressão do tempo e do espaço fortalece de maneira inquestionável as estruturas organizacionais rígidas e burocráticas características do Fordismo clássico, limitando severamente a mobilidade geográfica especulativa do capital financeiro, o que garante a permanência ininterrupta das plantas industriais nas antigas regiões de industrialização tradicional." },
+                    { letter: "E", text: "A unicidade do tempo restringe a atividade produtiva de ponta unicamente aos chamados \"espaços opacos\", uma vez que as grandes corporações buscan sistematicamente evitar o excesso de informação e de auditoria presente nos \"espaços luminosos\", com o intuito de fugir da moderna fiscalização tributária operada por organismos internacionais de governança global." }
+                ],
+                correct: "C",
+                resolution: `A compressão tempo-espaço (Harvey) e a unicidade do tempo e da técnica (Milton Santos) são fenômenos fundamentados nas revoluções logísticas e informacionais.<br><br>
+                Esses fatores fornecem a sustentação material que permite ao capital atuar em tempo real globalmente, fragmentando cadeias produtivas por meio do sistema <em>just-in-time</em>, explorando vantagens comparativas geográficas (mão de obra barata, incentivos e leniência) e respondendo instantaneamente à volatilidade da demanda. A alternativa C está correta.`
+            }
+        ];
+
+        // Render Questions
+        const container = document.getElementById('questionsContainer');
+        quizData.forEach((q) => {
+            const card = document.createElement('div');
+            card.className = 'bg-white shadow-md rounded-2xl p-6 sm:p-8 border border-slate-200';
+            
+            let optionsHtml = '';
+            q.options.forEach(opt => {
+                optionsHtml += `
+                    <label class="option-label flex items-start p-3 rounded-lg border border-slate-200 cursor-pointer transition duration-150">
+                        <input type="radio" name="q${q.number}" value="${opt.letter}" class="mt-1 h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-slate-300">
+                        <span class="ml-3 text-slate-700 text-base"><strong>${opt.letter})</strong> ${opt.text}</span>
+                    </label>
+                `;
+            });
+
+            card.innerHTML = `
+                <div class="mb-4 text-indigo-600 font-semibold text-sm uppercase tracking-wider">Questão ${q.number}</div>
+                <div class="text-slate-800 text-lg font-medium mb-6">${q.question}</div>
+                <div class="space-y-3" id="options-q${q.number}">
+                    ${optionsHtml}
+                </div>
+            `;
+            container.appendChild(card);
+        });
+
+        // Handle Submission & Scoring
+        document.getElementById('submitBtn').addEventListener('click', function() {
+            let score = 0;
+            let unanswered = false;
+
+            quizData.forEach(q => {
+                const selected = document.querySelector(`input[name="q${q.number}"]:checked`);
+                if (!selected) {
+                    unanswered = true;
+                }
+            });
+
+            if (unanswered) {
+                if (!confirm("Existem questões sem resposta. Deseja finalizar mesmo assim?")) {
+                    return;
+                }
+            }
+
+            // Calculate Score & Color Options
+            quizData.forEach(q => {
+                const selected = document.querySelector(`input[name="q${q.number}"]:checked`);
+                const optionsContainer = document.getElementById(`options-q${q.number}`);
+                const labels = optionsContainer.querySelectorAll('.option-label');
+
+                labels.forEach(label => {
+                    const input = label.querySelector('input');
+                    const letter = input.value;
+
+                    input.disabled = true;
+                    label.classList.remove('cursor-pointer', 'hover:bg-slate-50');
+
+                    if (letter === q.correct) {
+                        label.classList.add('bg-emerald-50', 'border-emerald-300', 'font-medium');
+                    }
+
+                    if (selected && selected.value === letter && letter !== q.correct) {
+                        label.classList.add('bg-rose-50', 'border-rose-300');
+                    }
+                });
+
+                if (selected && selected.value === q.correct) {
+                    score++;
+                }
+            });
+
+            // Display Score Card
+            const scoreCard = document.getElementById('scoreCard');
+            let percentage = ((score / quizData.length) * 100).toFixed(0);
+            let message = percentage >= 70 ? "Excelente desempenho! Você domina o conteúdo." : "Bom esforço! Reveja as resoluções detalhadas para fixar os conceitos.";
+            
+            scoreCard.innerHTML = `
+                <h2 class="text-3xl font-bold text-slate-900 mb-2">Resultado Final</h2>
+                <div class="text-5xl font-extrabold text-indigo-600 my-4">${score} / ${quizData.length}</div>
+                <p class="text-xl text-slate-700 font-medium mb-2">Você acertou ${score} de ${quizData.length} questões (${percentage}%).</p>
+                <p class="text-slate-600">${message}</p>
+            `;
+
+            // Display Resolutions
+            const resContainer = document.getElementById('resolutionsContainer');
+            resContainer.innerHTML = '';
+
+            quizData.forEach(q => {
+                const resDiv = document.createElement('div');
+                resDiv.className = 'p-6 bg-slate-50 rounded-xl border border-slate-200';
+                resDiv.innerHTML = `
+                    <div class="flex items-center justify-between mb-3 border-b pb-2">
+                        <span class="font-bold text-slate-900 text-lg">Questão ${q.number}</span>
+                        <span class="bg-indigo-100 text-indigo-800 text-sm font-semibold px-3 py-1 rounded-full">Gabarito: ${q.correct}</span>
+                    </div>
+                    <div class="text-slate-700 text-base leading-relaxed">${q.resolution}</div>
+                `;
+                resContainer.appendChild(resDiv);
+            });
+
+            // Show Results Section
+            document.getElementById('resultsSection').classList.remove('hidden');
+            document.getElementById('submitBtn').style.display = 'none';
+            
+            document.getElementById('resultsSection').scrollIntoView({ behavior: 'smooth' });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz: Globalização e a Teoria do Meio Técnico-Científico-Informacional (IFMG)</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+            color: #1e293b;
+        }
+        /* Custom scrollbar and aesthetics for long reading */
+        ::selection {
+            background-color: #cbd5e1;
+            color: #0f172a;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased selection:bg-slate-200">
+
+    <!-- Header / Banner -->
+    <header class="bg-white border-b border-slate-200 shadow-sm sticky top-0 z-50">
+        <div class="max-w-4xl mx-auto px-4 py-4 flex flex-col sm:flex-row justify-between items-center gap-2">
+            <div>
+                <h1 class="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight">Simulado IFMG: Milton Santos</h1>
+                <p class="text-xs sm:text-sm text-slate-500">Geografia • Globalização e o Meio Técnico-Científico-Informacional</p>
+            </div>
+            <div id="score-indicator" class="hidden bg-indigo-50 border border-indigo-200 px-4 py-2 rounded-xl text-indigo-700 font-semibold text-sm shadow-sm transition-all">
+                Pontuação: <span id="current-score">0</span> / 10
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="max-w-4xl mx-auto px-4 py-8 sm:py-12">
+        
+        <!-- Intro Card -->
+        <section class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 sm:p-8 mb-8">
+            <h2 class="text-lg sm:text-xl font-bold text-slate-900 mb-2">Instruções da Prova Objetiva</h2>
+            <p class="text-slate-600 text-sm sm:text-base leading-relaxed">
+                Responda às 10 questões abaixo fundamentadas na teoria espacial de Milton Santos e na bibliografia vinculada. Ao finalizar, clique no botão de correção para verificar sua nota e analisar detalhadamente o gabarito e as resoluções mantidas nesta mesma página.
+            </p>
+        </section>
+
+        <!-- Quiz Form -->
+        <form id="quiz-form" class="space-y-8">
+            
+            <!-- Question 1 -->
+            <article class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 sm:p-8 transition-all hover:border-slate-300" data-question="1" data-answer="B">
+                <div class="flex items-center justify-between mb-4">
+                    <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-slate-100 text-slate-700">Questão 01</span>
+                    <span class="status-icon text-sm font-medium hidden"></span>
+                </div>
+                <h3 class="text-base sm:text-lg font-medium text-slate-900 mb-4 leading-relaxed">
+                    Considerando a teoria espacial de Milton Santos acerca da evolução do meio geográfico, compreende-se que a sucessão de períodos históricos no espaço pode ser analisada através das categorias de Meio Natural, Meio Técnico e Meio Técnico-Científico-Informacional (MTCI). Sobre a estruturação e consolidação do atual período geográfico, assinale a alternativa correta:
+                </h3>
+                <div class="space-y-3">
+                    <label class="flex items-start gap-3 p-3.5 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="radio" name="q1" value="A" class="mt-1 text-indigo-600 focus:ring-indigo-500">
+                        <span class="text-sm text-slate-700 leading-normal"><strong class="font-semibold">A)</strong> O Meio Técnico-Científico-Informacional caracteriza-se pela separação estrita entre a produção da ciência e a aplicação da técnica, de modo que a informação atua apenas como um elemento superestrutural e secundário na organização material do espaço geográfico global.</span>
+                    </label>
+                    <label class="flex items-start gap-3 p-3.5 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="radio" name="q1" value="B" class="mt-1 text-indigo-600 focus:ring-indigo-500">
+                        <span class="text-sm text-slate-700 leading-normal"><strong class="font-semibold">B)</strong> No atual período, a ciência e a técnica fundem-se à informação, constituindo a base técnica indissociável da vida social e orientando a produção do espaço. Essa profunda artificialização do território é governada por intencionalidades hegemônicas que impõem uma nova racionalidade técnica e operacional aos lugares.</span>
+                    </label>
+                    <label class="flex items-start gap-3 p-3.5 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="radio" name="q1" value="C" class="mt-1 text-indigo-600 focus:ring-indigo-500">
+                        <span class="text-sm text-slate-700 leading-normal"><strong class="font-semibold">C)</strong> A difusão global do Meio Técnico-Científico-Informacional promoveu a homogeneização do espaço geográfico planetário, extinguindo o princípio da seletividade espacial, uma vez que as infraestruturas de telecomunicações distribuíram igualitariamente o capital e a tecnologia entre as nações.</span>
+                    </label>
+                    <label class="flex items-start gap-3 p-3.5 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="radio" name="q1" value="D" class="mt-1 text-indigo-600 focus:ring-indigo-500">
+                        <span class="text-sm text-slate-700 leading-normal"><strong class="font-semibold">D)</strong> O atual meio geográfico é definido epistemologicamente e puramente por sua "tecnosfera", isto é, pela aglomeração de aparatos tecnológicos e infraestruturas físicas, descartando o papel das crenças, das ideologias e da regulação simbólica no ordenamento e no uso do território.</span>
+                    </label>
+                </div>
+            </article>
+
+            <!-- Question 2 -->
+            <article class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 sm:p-8 transition-all hover:border-slate-300" data-question="2" data-answer="B">
+                <div class="flex items-center justify-between mb-4">
+                    <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-slate-100 text-slate-700">Questão 02</span>
+                    <span class="status-icon text-sm font-medium hidden"></span>
+                </div>
+                <h3 class="text-base sm:text-lg font-medium text-slate-900 mb-4 leading-relaxed">
+                    Em sua obra "Por uma outra globalização: do pensamento único à consciência universal" (2000), o geógrafo Milton Santos propõe uma tríplice perspectiva conceitual para a análise crítica do fenômeno da globalização contemporânea, categorizando-a como fábula, perversidade e possibilidade. Diante dessa estruturação teórica, é correto afirmar que:
+                </h3>
+                <div class="space-y-3">
+                    <label class="flex items-start gap-3 p-3.5 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="radio" name="q2" value="A" class="mt-1 text-indigo-600 focus:ring-indigo-500">
+                        <span class="text-sm text-slate-700 leading-normal"><strong class="font-semibold">A)</strong> O "mundo como fábula" refere-se à interpretação estritamente marxista do capitalismo global, que reconhece o caráter ilusório do mercado financeiro e propõe o retorno a economias de subsistência de caráter local e desconectadas das redes telemáticas.</span>
+                    </label>
+                    <label class="flex items-start gap-3 p-3.5 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="radio" name="q2" value="B" class="mt-1 text-indigo-600 focus:ring-indigo-500">
+                        <span class="text-sm text-slate-700 leading-normal"><strong class="font-semibold">B)</strong> O "mundo como perversidade" retrata a realidade concreta da globalização vivenciada pela maior parte da humanidade, evidenciada pelo desemprego crônico, pelo aumento da pobreza estrutural e pela tirania exercida pela violência da informação e pela violência do dinheiro.</span>
+                    </label>
+                    <label class="flex items-start gap-3 p-3.5 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="radio" name="q2" value="C" class="mt-1 text-indigo-600 focus:ring-indigo-500">
+                        <span class="text-sm text-slate-700 leading-normal"><strong class="font-semibold">C)</strong> O "mundo como possibilidade" consiste na constatação de que, devido à atual convergência tecnológica e à fluidez global, o sistema capitalista neoliberal inevitavelmente alcançará uma distribuição equitativa das riquezas, culminando na formação de uma aldeia global plenamente unificada e pacífica.</span>
+                    </label>
+                    <label class="flex items-start gap-3 p-3.5 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="radio" name="q2" value="D" class="mt-1 text-indigo-600 focus:ring-indigo-500">
+                        <span class="text-sm text-slate-700 leading-normal"><strong class="font-semibold">D)</strong> A globalização atual opera simultaneamente de forma exclusiva como "fábula e possibilidade", pois, embora o discurso de interconexão planetária seja ilusório, a universalização do consumo de bens duráveis permitiu a consolidação imediata de uma cidadania universal sem assimetrias territoriais.</span>
+                    </label>
+                </div>
+            </article>
+
+            <!-- Question 3 -->
+            <article class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 sm:p-8 transition-all hover:border-slate-300" data-question="3" data-answer="A">
+                <div class="flex items-center justify-between mb-4">
+                    <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-slate-100 text-slate-700">Questão 03</span>
+                    <span class="status-icon text-sm font-medium hidden"></span>
+                </div>
+                <h3 class="text-base sm:text-lg font-medium text-slate-900 mb-4 leading-relaxed">
+                    Para Milton Santos, a arquitetura produtiva e social da globalização atual apoia-se em características estruturantes que são inéditas na história humana. Entre esses alicerces estruturais, destacam-se a "unicidade das técnicas", a "convergência dos momentos", a "cognoscibilidade do planeta" e a presença de um "motor único". A respeito dessas chaves analíticas, assinale a alternativa correta:
+                </h3>
+                <div class="space-y-3">
+                    <label class="flex items-start gap-3 p-3.5 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="radio" name="q3" value="A" class="mt-1 text-indigo-600 focus:ring-indigo-500">
+                        <span class="text-sm text-slate-700 leading-normal"><strong class="font-semibold">A)</strong> A "convergência dos momentos" diz respeito à possibilidade de experimentarmos, de forma simultânea, relacional e em escala planetária, a unicidade do tempo empírico, permitindo ações e decisões globais conjuntas devido à instantaneidade possibilitada pela técnica da informação.</span>
+                    </label>
+                    <label class="flex items-start gap-3 p-3.5 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="radio" name="q3" value="B" class="mt-1 text-indigo-600 focus:ring-indigo-500">
+                        <span class="text-sm text-slate-700 leading-normal"><strong class="font-semibold">B)</strong> A "unicidade das técnicas" significa que todos os lugares e formações socioespaciais do globo compartilham exata e equitativamente do mesmo nível tecnológico, resultando na padronização absoluta das forças produtivas e na completa erradicação dos sistemas técnicos herdados do passado.</span>
+                    </label>
+                    <label class="flex items-start gap-3 p-3.5 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="radio" name="q3" value="C" class="mt-1 text-indigo-600 focus:ring-indigo-500">
+                        <span class="text-sm text-slate-700 leading-normal"><strong class="font-semibold">C)</strong> A "cognoscibilidade do planeta" atua como um freio ao avanço das empresas multinacionais, pois o excesso de informações desordenadas geradas pelas redes globais cria barreiras cognitivas opacas que dificultam o cálculo de lucro e inviabilizan a expansão dos mercados corporativos.</span>
+                    </label>
+                    <label class="flex items-start gap-3 p-3.5 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="radio" name="q3" value="D" class="mt-1 text-indigo-600 focus:ring-indigo-500">
+                        <span class="text-sm text-slate-700 leading-normal"><strong class="font-semibold">D)</strong> O "motor único" da história contemporânea, na concepção do autor, é impulsionado por arranjos políticos estatais totalmente independentes da esfera técnica ou econômica, confirmando a premissa de que a história espacial se explica pela política desconectada do modo de produção.</span>
+                    </label>
+                </div>
+            </article>
+
+            <!-- Question 4 -->
+            <article class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 sm:p-8 transition-all hover:border-slate-300" data-question="4" data-answer="C">
+                <div class="flex items-center justify-between mb-4">
+                    <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-slate-100 text-slate-700">Questão 04</span>
+                    <span class="status-icon text-sm font-medium hidden"></span>
+                </div>
+                <h3 class="text-base sm:text-lg font-medium text-slate-900 mb-4 leading-relaxed">
+                    Na formulação ontológica da teoria espacial de Milton Santos, notadamente desenvolvida em "A Natureza do Espaço" (1996), o espaço geográfico é conceituado como um conjunto indissociável, solidário e contraditório de sistemas de objetos e sistemas de ações. No contexto da atual divisão territorial do trabalho, essa relação dialética pressupõe que:
+                </h3>
+                <div class="space-y-3">
+                    <label class="flex items-start gap-3 p-3.5 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="radio" name="q4" value="A" class="mt-1 text-indigo-600 focus:ring-indigo-500">
+                        <span class="text-sm text-slate-700 leading-normal"><strong class="font-semibold">A)</strong> Os sistemas de objetos referem-se de maneira restrita aos elementos da natureza intocada (primeira natureza), enquanto os sistemas de ações são as intervenções do mercado globalizado, sendo o espaço a simples anulação do meio biótico pelo meio artificial.</span>
+                    </label>
+                    <label class="flex items-start gap-3 p-3.5 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="radio" name="q4" value="B" class="mt-1 text-indigo-600 focus:ring-indigo-500">
+                        <span class="text-sm text-slate-700 leading-normal"><strong class="font-semibold">B)</strong> Os objetos geográficos do meio atual, cada vez mais artificiais e técnicos, possuem valor de uso e significado totalmente autônomos, determinando os processos históricos de forma mecânica, independentemente das intenções sociais ou do planejamento político que os animam.</span>
+                    </label>
+                    <label class="flex items-start gap-3 p-3.5 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="radio" name="q4" value="C" class="mt-1 text-indigo-600 focus:ring-indigo-500">
+                        <span class="text-sm text-slate-700 leading-normal"><strong class="font-semibold">C)</strong> Os sistemas de ações condicionam a criação de novos objetos ou a ressignificação funcional dos preexistentes, enquanto os sistemas de objetos (as formas espaseis fixas) condicionam e balizam a maneira como as ações humanas e econômicas podem se realizar, revelando o espaço como uma verdadeira forma-conteúdo.</span>
+                    </label>
+                    <label class="flex items-start gap-3 p-3.5 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="radio" name="q4" value="D" class="mt-1 text-indigo-600 focus:ring-indigo-500">
+                        <span class="text-sm text-slate-700 leading-normal"><strong class="font-semibold">D)</strong> A separação metodológica e estanque entre sistemas de objetos (materialidade) e sistemas de ações (processos) é a premissa maior da renovação da geografia crítica, visto que apenas as ações sociais importam para a compreensão do território, devendo a geografia ignorar as infraestruturas fixas.</span>
+                    </label>
+                </div>
+            </article>
+
+            <!-- Question 5 -->
+            <article class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 sm:p-8 transition-all hover:border-slate-300" data-question="5" data-answer="B">
+                <div class="flex items-center justify-between mb-4">
+                    <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-slate-100 text-slate-700">Questão 05</span>
+                    <span class="status-icon text-sm font-medium hidden"></span>
+                </div>
+                <h3 class="text-base sm:text-lg font-medium text-slate-900 mb-4 leading-relaxed">
+                    Com base nos fundamentos apresentados no livro "O Brasil: Território e sociedade no início do século XXI" (SANTOS & SILVEIRA, 2001), os autores propõem a distinção e o reconhecimento de "espaços luminosos" e "espaços opacos" para a compreensão da seletividade do território brasileiro no período contemporâneo. Considerando essas instâncias geográficas, assinale a assertiva que as descreve adequadamente:
+                </h3>
+                <div class="space-y-3">
+                    <label class="flex items-start gap-3 p-3.5 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="radio" name="q5" value="A" class="mt-1 text-indigo-600 focus:ring-indigo-500">
+                        <span class="text-sm text-slate-700 leading-normal"><strong class="font-semibold">A)</strong> Os espaços opacos são as áreas de maior atração e fixação do capital internacional flexível, caracterizados pela altíssima velocidade da circulação financeira e por extensa densidade técnico-científica, representados majoritariamente pelas grandes metrópoles corporativas globais.</span>
+                    </label>
+                    <label class="flex items-start gap-3 p-3.5 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="radio" name="q5" value="B" class="mt-1 text-indigo-600 focus:ring-indigo-500">
+                        <span class="text-sm text-slate-700 leading-normal"><strong class="font-semibold">B)</strong> Os espaços luminosos caracterizam-se pelo espesso acúmulo de densidades técnicas, científicas e informacionais, operando no escopo do tempo rápido e atendendo à racionalidade dos grandes atores globais; enquanto os espaços opacos, de infraestrutura rarefeita, são frequentemente marcados por tempos mais lentos e lógicas atreladas à sobrevivência cotidiana.</span>
+                    </label>
+                    <label class="flex items-start gap-3 p-3.5 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="radio" name="q5" value="C" class="mt-1 text-indigo-600 focus:ring-indigo-500">
+                        <span class="text-sm text-slate-700 leading-normal"><strong class="font-semibold">C)</strong> A desigualdade instalada entre espaços luminosos e espaços opacos no Brasil é um fenômeno puramente natural e geomorfológico, não guardando qualquer relação histórica com as dinâmicas de estruturação dos circuitos da economia urbana, das políticas de Estado ou da divisão territorial do trabalho.</span>
+                    </label>
+                    <label class="flex items-start gap-3 p-3.5 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="radio" name="q5" value="D" class="mt-1 text-indigo-600 focus:ring-indigo-500">
+                        <span class="text-sm text-slate-700 leading-normal"><strong class="font-semibold">D)</strong> Os espaços opacos, por concentrarem as manifestações de "contra-racionalidades" populares, estão perfeitamente isolados das redes da globalização, não sofrendo nenhum tipo de impacto, rebatimento ou influência do meio técnico-científico-informacional hegemônico.</span>
+                    </label>
+                </div>
+            </article>
+
+            <!-- Question 6 -->
+            <article class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 sm:p-8 transition-all hover:border-slate-300" data-question="6" data-answer="B">
+                <div class="flex items-center justify-between mb-4">
+                    <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-slate-100 text-slate-700">Questão 06</span>
+                    <span class="status-icon text-sm font-medium hidden"></span>
+                </div>
+                <h3 class="text-base sm:text-lg font-medium text-slate-900 mb-4 leading-relaxed">
+                    A respeito da dialética estabelecida entre o "espaço de fluxos" e o "espaço de fixos" na dinâmica de configuração do território na globalização, avalie as proposições à luz do referencial santiano e assinale a opção correta:
+                </h3>
+                <div class="space-y-3">
+                    <label class="flex items-start gap-3 p-3.5 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="radio" name="q6" value="A" class="mt-1 text-indigo-600 focus:ring-indigo-500">
+                        <span class="text-sm text-slate-700 leading-normal"><strong class="font-semibold">A)</strong> Os fixos geográficos perderam a sua relevância estrutural na contemporaneidade, haja vista que a virtualização absoluta das relações sociais e o advento da cibernética permitiram que os fluxos de capital, ordens e informações dispensassem a base material para se territorializarem.</span>
+                    </label>
+                    <label class="flex items-start gap-3 p-3.5 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="radio" name="q6" value="B" class="mt-1 text-indigo-600 focus:ring-indigo-500">
+                        <span class="text-sm text-slate-700 leading-normal"><strong class="font-semibold">B)</strong> O processo de globalização capitalista impõe que os fixos geográficos (a exemplo de infraestruturas portuárias, nós aeroviários e cabeamentos de fibra óptica) sejam cada vez mais artificiais, volumosos e densos, com o objetivo central de garantir e otimizar a fluidez, a rapidez e a extensão dos fluxos hegemônicos.</span>
+                    </label>
+                    <label class="flex items-start gap-3 p-3.5 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="radio" name="q6" value="C" class="mt-1 text-indigo-600 focus:ring-indigo-500">
+                        <span class="text-sm text-slate-700 leading-normal"><strong class="font-semibold">C)</strong> Existe uma oposição mecanicista e excludente entre a materialidade e o movimento: regiões que se especializam em concentrar grandes infraestruturas fixas são, necessariamente, as regiões periféricas onde os fluxos materiais, financeiros e informacionais são escassos.</span>
+                    </label>
+                    <label class="flex items-start gap-3 p-3.5 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="radio" name="q6" value="D" class="mt-1 text-indigo-600 focus:ring-indigo-500">
+                        <span class="text-sm text-slate-700 leading-normal"><strong class="font-semibold">D)</strong> A ordem global atua prioritariamente para desarticular e desmontar os fixos técnicos preexistentes (rugosidades) em favor de fluxos estritamente locais, restringindo a circulação da mais-valia global ao âmbito da economia solidária de pequena escala.</span>
+                    </label>
+                </div>
+            </article>
+
+            <!-- Question 7 -->
+            <article class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 sm:p-8 transition-all hover:border-slate-300" data-question="7" data-answer="C">
+                <div class="flex items-center justify-between mb-4">
+                    <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-slate-100 text-slate-700">Questão 07</span>
+                    <span class="status-icon text-sm font-medium hidden"></span>
+                </div>
+                <h3 class="text-base sm:text-lg font-medium text-slate-900 mb-4 leading-relaxed">
+                    Em sua crítica rigorosa ao período contemporâneo, Milton Santos alerta que o mundo é estruturado por uma profunda "perversidade sistêmica", por meio da qual a atual globalização impacta brutalmente as formações socioespaciais periféricas. Segundo o geógrafo baiano, essa perversidade apoia-se e é instrumentalizada por dois pilares fundamentais de coerção que orientam a ordem vigente. Quais são esses pilares?
+                </h3>
+                <div class="space-y-3">
+                    <label class="flex items-start gap-3 p-3.5 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="radio" name="q7" value="A" class="mt-1 text-indigo-600 focus:ring-indigo-500">
+                        <span class="text-sm text-slate-700 leading-normal"><strong class="font-semibold">A)</strong> A estatização ampla dos meios de produção (planificação econômica estrita) e a descentralização tecnológica (difusão solidária e irrestrita de patentes industriais aos países do Sul).</span>
+                    </label>
+                    <label class="flex items-start gap-3 p-3.5 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="radio" name="q7" value="B" class="mt-1 text-indigo-600 focus:ring-indigo-500">
+                        <span class="text-sm text-slate-700 leading-normal"><strong class="font-semibold">B)</strong> A fragmentação orgânica dos sistemas técnicos (perda da unidade temporal) e a erradicação dos circuitos da economia urbana em favor de uma homogeneização do mercado formal.</span>
+                    </label>
+                    <label class="flex items-start gap-3 p-3.5 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="radio" name="q7" value="C" class="mt-1 text-indigo-600 focus:ring-indigo-500">
+                        <span class="text-sm text-slate-700 leading-normal"><strong class="font-semibold">C)</strong> A violência do dinheiro (representada pela financeirização global que tiraniza as relações de produção e o Estado) e a violência da informação (que atua como um discurso ideológico e fabulatório do mercado corporativo, confundindo e manipulando consciências).</span>
+                    </label>
+                    <label class="flex items-start gap-3 p-3.5 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="radio" name="q7" value="D" class="mt-1 text-indigo-600 focus:ring-indigo-500">
+                        <span class="text-sm text-slate-700 leading-normal"><strong class="font-semibold">D)</strong> A expansão irrestrita de uma cidadania universal (materializada na garantia dos direitos humanos constitucionais) e o fortalecimento pleno da soberania econômica e política dos Estados-Nação subdesenvolvidos.</span>
+                    </label>
+                </div>
+            </article>
+
+            <!-- Question 8 -->
+            <article class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 sm:p-8 transition-all hover:border-slate-300" data-question="8" data-answer="A">
+                <div class="flex items-center justify-between mb-4">
+                    <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-slate-100 text-slate-700">Questão 08</span>
+                    <span class="status-icon text-sm font-medium hidden"></span>
+                </div>
+                <h3 class="text-base sm:text-lg font-medium text-slate-900 mb-4 leading-relaxed">
+                    O conceito de "urbanização corporativa" é largamente mobilizado por Milton Santos e María Laura Silveira para descrever a natureza perversa da produção do espaço urbano no bojo do Meio Técnico-Científico-Informacional. Sobre a lógica estruturante da urbanização corporativa, assinale a assertiva correta:
+                </h3>
+                <div class="space-y-3">
+                    <label class="flex items-start gap-3 p-3.5 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="radio" name="q8" value="A" class="mt-1 text-indigo-600 focus:ring-indigo-500">
+                        <span class="text-sm text-slate-700 leading-normal"><strong class="font-semibold">A)</strong> Trata-se de um modelo socioespacial em que a cidade passa a ser produzida, regulada e equipada primordialmente para atender às demandas de expansão das grandes corporações, frequentemente capturando fundos e ações públicas para criar fixos que otimizem os fluxos do capital privado e aprofundem a pobreza estrutural.</span>
+                    </label>
+                    <label class="flex items-start gap-3 p-3.5 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="radio" name="q8" value="B" class="mt-1 text-indigo-600 focus:ring-indigo-500">
+                        <span class="text-sm text-slate-700 leading-normal"><strong class="font-semibold">B)</strong> A urbanização corporativa caracteriza-se pela gestão social e democrática do espaço urbano, na qual a implantação de redes técnicas e infraestruturas visa atender às necessidades da psicosfera coletiva, priorizando os agentes e trabalhadores que compõem o circuito inferior da economia.</span>
+                    </label>
+                    <label class="flex items-start gap-3 p-3.5 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="radio" name="q8" value="C" class="mt-1 text-indigo-600 focus:ring-indigo-500">
+                        <span class="text-sm text-slate-700 leading-normal"><strong class="font-semibold">C)</strong> É um fenômeno demográfico restrito exclusivamente às megacidades dos países de capitalismo central, posto que, no Brasil, o arcabouço do planejamento urbano conseguiu isolar o território nacional das lógicas de acumulação mercantilistas ditadas pelas transnacionais.</span>
+                    </label>
+                    <label class="flex items-start gap-3 p-3.5 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="radio" name="q8" value="D" class="mt-1 text-indigo-600 focus:ring-indigo-500">
+                        <span class="text-sm text-slate-700 leading-normal"><strong class="font-semibold">D)</strong> Este processo se instaura quando as redes de corporações globais abandonam, de forma definitiva, os antigos espaços metropolitanos, transferindo todos os seus sistemas de ações de maneira exclusiva para a zona rural (agronegócio), acarretando no declínio imediato da economia urbana.</span>
+                    </label>
+                </div>
+            </article>
+
+            <!-- Question 9 -->
+            <article class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 sm:p-8 transition-all hover:border-slate-300" data-question="9" data-answer="C">
+                <div class="flex items-center justify-between mb-4">
+                    <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-slate-100 text-slate-700">Questão 09</span>
+                    <span class="status-icon text-sm font-medium hidden"></span>
+                </div>
+                <h3 class="text-base sm:text-lg font-medium text-slate-900 mb-4 leading-relaxed">
+                    Nas suas reflexões metodológicas acerca dos feixes de relações no espaço geográfico contemporâneo, Milton Santos formula o decisivo embate entre as forças das "horizontalidades" e as forças das "verticalidades". Compreendendo esses conceitos espaciais sob o enfoque crítico da globalização, é correto afirmar que:
+                </h3>
+                <div class="space-y-3">
+                    <label class="flex items-start gap-3 p-3.5 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="radio" name="q9" value="A" class="mt-1 text-indigo-600 focus:ring-indigo-500">
+                        <span class="text-sm text-slate-700 leading-normal"><strong class="font-semibold">A)</strong> As horizontalidades configuram as redes globais fechadas e hierárquicas que integram pontos desconexos e distantes do território para o atendimento exclusivo de interesses externos e corporativos, sendo os vetores principais do fluxo de comando do capital hegemônico.</span>
+                    </label>
+                    <label class="flex items-start gap-3 p-3.5 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="radio" name="q9" value="B" class="mt-1 text-indigo-600 focus:ring-indigo-500">
+                        <span class="text-sm text-slate-700 leading-normal"><strong class="font-semibold">B)</strong> As verticalidades compõem, eminentemente, o domínio da solidariedade orgânica, da contiguidade e do cotidiano, onde os atores locais subalternizados exercem suas redes de resistência e constroem suas relações horizontais de vizinhança.</span>
+                    </label>
+                    <label class="flex items-start gap-3 p-3.5 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="radio" name="q9" value="C" class="mt-1 text-indigo-600 focus:ring-indigo-500">
+                        <span class="text-sm text-slate-700 leading-normal"><strong class="font-semibold">C)</strong> As verticalidades são os vetores reticulares e hierárquicos da ordem global, unindo de forma seletiva pontos distantes do território para a extração veloz de mais-valia mundial, ao passo que as horizontalidades representam os arranjos contíguos do território, o espaço vivido do cotidiano e a solidariedade local forjada pela co-presença.</span>
+                    </label>
+                    <label class="flex items-start gap-3 p-3.5 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="radio" name="q9" value="D" class="mt-1 text-indigo-600 focus:ring-indigo-500">
+                        <span class="text-sm text-slate-700 leading-normal"><strong class="font-semibold">D)</strong> Ambas as instâncias representam exatamente a mesma métrica espacial de análise, operando de forma harmônica e pacífica sob a tutela e racionalidade normativa exclusiva dos governos municipais, que gerenciam indistintamente o capital transnacional e a vivência popular.</span>
+                    </label>
+                </div>
+            </article>
+
+            <!-- Question 10 -->
+            <article class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 sm:p-8 transition-all hover:border-slate-300" data-question="10" data-answer="D">
+                <div class="flex items-center justify-between mb-4">
+                    <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-slate-100 text-slate-700">Questão 10</span>
+                    <span class="status-icon text-sm font-medium hidden"></span>
+                </div>
+                <h3 class="text-base sm:text-lg font-medium text-slate-900 mb-4 leading-relaxed">
+                    Na geografia santiana, o "Meio Técnico-Científico-Informacional" engloba uma dupla dimensão em sua materialização perante o território e a sociedade, consubstanciada no vigor teórico dos conceitos de "Tecnosfera" e "Psicosfera". Sobre o modo como essas duas esferas atuam na produção espacial, avalie a alternativa correta:
+                </h3>
+                <div class="space-y-3">
+                    <label class="flex items-start gap-3 p-3.5 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="radio" name="q10" value="A" class="mt-1 text-indigo-600 focus:ring-indigo-500">
+                        <span class="text-sm text-slate-700 leading-normal"><strong class="font-semibold">A)</strong> A Tecnosfera restringe-se às ideias, às formulações dogmáticas e aos valores de uma sociedade histórica, enquanto a Psicosfera diz respeito de modo exclusivo ao conjunto de objetos artificiais, duros e palpables (como os satélites, rodovias e laboratórios) cravados na paisagem.</span>
+                    </label>
+                    <label class="flex items-start gap-3 p-3.5 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="radio" name="q10" value="B" class="mt-1 text-indigo-600 focus:ring-indigo-500">
+                        <span class="text-sm text-slate-700 leading-normal"><strong class="font-semibold">B)</strong> A Psicosfera é um conceito epistemológico obsoleto no interior da obra de Santos, já que, com o advento totalizante da rede de computadores e da inteligência artificial, apenas a Tecnosfera (a máquina) passou a determinar, isoladamente, o comportamento humano, expurgando a subjetividade e as normas.</span>
+                    </label>
+                    <label class="flex items-start gap-3 p-3.5 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="radio" name="q10" value="C" class="mt-1 text-indigo-600 focus:ring-indigo-500">
+                        <span class="text-sm text-slate-700 leading-normal"><strong class="font-semibold">C)</strong> A Tecnosfera atua puramente na escala do capital global (vinculada ao "mundo como fábula"), enquanto a Psicosfera existe apenas nos rincões e "espaços opacos" do circuito inferior, tornando impossível a identificação da psicosfera nos centros financeiros modernizados.</span>
+                    </label>
+                    <label class="flex items-start gap-3 p-3.5 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="radio" name="q10" value="D" class="mt-1 text-indigo-600 focus:ring-indigo-500">
+                        <span class="text-sm text-slate-700 leading-normal"><strong class="font-semibold">D)</strong> A Tecnosfera é compreendida como o resultado direto da crescente artificialização do meio físico, correspondendo à base material dos objetos técnicos; a Psicosfera constitui o universo imbricado de crenças, ideologias, discursos fabulatórios, hábitos e regras normativas que justificam e dão sentido político ao uso dessa materialidade. Ambas agem de forma unitária e indissociável na consolidação do território contemporâneo.</span>
+                    </label>
+                </div>
+            </article>
+
+            <!-- Submit Button Section -->
+            <div class="text-center pt-4 pb-12">
+                <button type="button" id="submit-btn" class="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold px-8 py-4 rounded-2xl shadow-md transition-all transform hover:-translate-y-0.5 active:translate-y-0 text-base sm:text-lg cursor-pointer">
+                    Finalizar Simulado e Ver Gabarito
+                </button>
+            </div>
+
+        </form>
+
+        <!-- Solutions & Gabarito Section (Initially Hidden) -->
+        <section id="solutions-section" class="hidden space-y-8 pt-6 border-t-2 border-slate-200">
+            
+            <div class="bg-indigo-900 text-white p-6 sm:p-8 rounded-2xl shadow-md">
+                <h2 class="text-xl sm:text-2xl font-bold mb-2">Gabarito e Resoluções Detalhadas</h2>
+                <p class="text-indigo-200 text-sm sm:text-base">Confira abaixo o desempenho global e as explicações analíticas completas para cada questão da prova.</p>
+                <div class="mt-4 inline-flex items-center gap-2 bg-indigo-800 px-4 py-2 rounded-xl text-sm font-medium">
+                    <span>Acertos Totais:</span>
+                    <span id="final-score-text" class="text-white font-bold text-lg">0 / 10</span>
+                </div>
+            </div>
+
+            <!-- Resolution 1 -->
+            <article id="res-1" class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 sm:p-8">
+                <div class="flex items-center justify-between mb-3 pb-3 border-b border-slate-100">
+                    <span class="font-bold text-slate-900 text-base">Questão 1</span>
+                    <span class="px-3 py-1 rounded-full text-xs font-bold bg-slate-100 text-slate-800">Gabarito: B</span>
+                </div>
+                <div class="prose max-w-none text-slate-700 text-sm sm:text-base leading-relaxed space-y-4">
+                    <p class="font-semibold text-slate-900">Resolução e Análise Metodológica:</p>
+                    <p>Para apreendermos a concepção santiana das etapas de artificialização do meio geográfico, faz-se necessário resgatar a periodização evolutiva descrita rigorosamente na obra <em>A Natureza do Espaço: Técnica e Tempo, Razão e Emoção</em>. Milton Santos periodiza a história espacial a partir da variável técnica, compreendendo três fases primordiais: o <em>Meio Natural</em>, em que o homem extraía sua sobrevivência de uma natureza não domesticada e a técnica operava de forma adaptativa; o <em>Meio Técnico</em>, correspondente à mecanização e à emergência da Revolução Industrial, no qual os objetos geográficos começam a sofrer profunda modificação artificial para maximizar a produtividade material, consolidando as primeiras redes logísticas (estradas de ferro, portos, etc.); e, por fim, o estágio atual, o <em>Meio Técnico-Científico-Informacional (MTCI)</em>.</p>
+                    <p>A alternativa correta é a <strong>B</strong> porque elucida precisamente a essência do MTCI: na fase atual do capitalismo globalizado, existe uma indissociabilidade orgânica entre as esferas da <em>ciência</em> (a produção sistemática do conhecimento), da <em>tecnologia</em> (a técnica objetiva e aplicada) e da <em>informação</em> (o motor sistêmico que interliga os sistemas e comanda os processos em tempo real). Para Santos, a informação assume o papel de vetor de integração hegemônico, convertendo a totalidade da paisagem numa "tecnosfera" artificializada que só opera eficientemente por meio da racionalidade imposta pelas grandes corporações e Estados a elas aliados.</p>
+                    <div class="overflow-x-auto my-4">
+                        <table class="w-full text-left border-collapse text-xs sm:text-sm">
+                            <thead>
+                                <tr class="bg-slate-100 text-slate-800 border-b border-slate-200">
+                                    <th class="p-3 font-semibold">Período Geográfico</th>
+                                    <th class="p-3 font-semibold">Racionalidade e Relação Natureza-Sociedade</th>
+                                    <th class="p-3 font-semibold">Características do Sistema Técnico</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-slate-100">
+                                <tr>
+                                    <td class="p-3 font-medium">Meio Natural</td>
+                                    <td class="p-3">Tempo da Natureza; técnica local e pouco artificializada.</td>
+                                    <td class="p-3">Técnicas isoladas, adaptação aos ciclos naturais, pouca fixidez de sistemas globais.</td>
+                                </tr>
+                                <tr>
+                                    <td class="p-3 font-medium">Meio Técnico</td>
+                                    <td class="p-3">Tempo da Máquina; Revolução Industrial, mecanização do espaço.</td>
+                                    <td class="p-3">Criação de grandes infraestruturas (ferrovias, indústrias). A técnica subordina parcialmente a natureza.</td>
+                                </tr>
+                                <tr>
+                                    <td class="p-3 font-medium">Meio Técnico-Científico-Informacional</td>
+                                    <td class="p-3">Tempo Rápido; Informação como principal força produtiva e organizadora (Globalização).</td>
+                                    <td class="p-3">Indissociabilidade entre Ciência, Técnica e Informação. Alta artificialização (tecnosfera) e racionalidade sistêmica, interconexão em redes globais.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p>As demais opções são incorretas devido aos seguintes erros epistemológicos no entendimento da obra do autor: a alternativa <strong>A</strong> está incorreta pois postula uma "separação" da ciência e técnica, enquanto o período exige a sua total <em>fusão</em>; a alternativa <strong>C</strong> é incorreta porque a emergência do MTCI não erradicou a seletividade espacial. Pelo contrário, a globalização atual opera aprofundando assimetrias, escolhendo lugares específicos ("espaços luminosos") para investir infraestrutura em detrimento de outros ("espaços opacos"); a alternativa <strong>D</strong> equivoca-se por ignorar que a <em>Psicosfera</em> (universo de ideias, ideologias, representações, normas e emoções) é tão constituinte e estruturante do território atual quanto a própria materialidade física da <em>Tecnosfera</em>.</p>
+                </div>
+            </article>
+
+            <!-- Resolution 2 -->
+            <article id="res-2" class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 sm:p-8">
+                <div class="flex items-center justify-between mb-3 pb-3 border-b border-slate-100">
+                    <span class="font-bold text-slate-900 text-base">Questão 2</span>
+                    <span class="px-3 py-1 rounded-full text-xs font-bold bg-slate-100 text-slate-800">Gabarito: B</span>
+                </div>
+                <div class="prose max-w-none text-slate-700 text-sm sm:text-base leading-relaxed space-y-4">
+                    <p class="font-semibold text-slate-900">Resolução e Análise Metodológica:</p>
+                    <p>A tríplice leitura analítica do fenômeno da globalização, elaborada na obra-síntese <em>Por uma outra globalização: do pensamento único à consciência universal</em> (2000), é uma das contribuições mais notáveis do geógrafo Milton Santos ao escrutínio do sistema-mundo contemporâneo. Em lugar de compreender a globalização como uma fatalidade técnica homogênea, o autor delineia três vieses de apreensão.</p>
+                    <p>A alternativa correta é a <strong>B</strong>, posto que descreve o "mundo como perversidade", ou seja, a materialidade efetiva de um processo sistêmico de exploração e exclusão. Em vez de união harmônica, o que as populações de países periféricos experimentam é a globalização como uma verdadeira "fábrica de perversidades": o aprofundamento das desigualdades, a precarização do trabalho (desemprego estrutural e crônico), a fome endêmica ressurgindo, a negação sistêmica de meios de consumo coletivo e a instalação de enfermidades dadas como extintas. Todo esse maquinário perverso é legitimado pelas ideologias hegemônicas por meio daquilo que Santos batizou de "violência do dinheiro" (a tirania do capital financeiro) e "violência da informação" (o monopólio discursivo do mercado).</p>
+                    <div class="overflow-x-auto my-4">
+                        <table class="w-full text-left border-collapse text-xs sm:text-sm">
+                            <thead>
+                                <tr class="bg-slate-100 text-slate-800 border-b border-slate-200">
+                                    <th class="p-3 font-semibold">Dimensão da Globalização</th>
+                                    <th class="p-3 font-semibold">Conceito em Milton Santos</th>
+                                    <th class="p-3 font-semibold">Manifestações Práticas e Teóricas</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-slate-100">
+                                <tr>
+                                    <td class="p-3 font-medium">Globalização como Fábula</td>
+                                    <td class="p-3">O mundo como <em>nos fazem crer</em>.</td>
+                                    <td class="p-3">O discurso ideológico hegemônico, a falácia da "aldeia global", a promessa de acesso irrestrito, a desinformação em prol do "pensamento único".</td>
+                                </tr>
+                                <tr>
+                                    <td class="p-3 font-medium">Globalização como Perversidade</td>
+                                    <td class="p-3">O mundo <em>como ele é</em> na prática.</td>
+                                    <td class="p-3">Pobreza estrutural, "violência do dinheiro", "violência da informação", desemprego crônico, "cidadania mutilada", exclusão socioespacial sistêmica.</td>
+                                </tr>
+                                <tr>
+                                    <td class="p-3 font-medium">Globalização como Possibilidade</td>
+                                    <td class="p-3">O mundo <em>como ele pode ser</em>.</td>
+                                    <td class="p-3">Uma outra globalização, baseada nas "contra-racionalidades", na força do "lugar", na valorização da cultura popular, na solidariedade e na formulação de uma nova consciência e cidadania universal.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p>Ao analisar os distratores, vemos falhas marcantes na interpretação das categorias: a alternativa <strong>A</strong> é errônea porque a "fábula" não alude a uma utopia de economia de subsistência de viés marxista, mas sim à narrativa alienante impulsionada pelas agências internacionais de mercado (o mito de que o mundo se tornou instantaneamente sem fronteiras e pleno de oportunidades para todos); a alternativa <strong>C</strong> equivoca-se violentamente ao atribuir o conceito de "possibilidade" a uma natural progressão do sistema capitalista rumo à igualdade. Para Santos, uma globalização humana só será construída a partir das resistências, de novos sujeitos sociais e do embate das forças vindas "de baixo", do cotidiano e do lugar, quebrando a racionalidade corporativa; a alternativa <strong>D</strong> contém duplo erro: o processo não pode atuar apenas como fábula e possibilidade (ignorando a perversidade) e a cidadania contemporânea descrita por Santos é uma <em>cidadania mutilada</em>, e não plena.</p>
+                </div>
+            </article>
+
+            <!-- Resolution 3 -->
+            <article id="res-3" class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 sm:p-8">
+                <div class="flex items-center justify-between mb-3 pb-3 border-b border-slate-100">
+                    <span class="font-bold text-slate-900 text-base">Questão 3</span>
+                    <span class="px-3 py-1 rounded-full text-xs font-bold bg-slate-100 text-slate-800">Gabarito: A</span>
+                </div>
+                <div class="prose max-w-none text-slate-700 text-sm sm:text-base leading-relaxed space-y-4">
+                    <p class="font-semibold text-slate-900">Resolução e Análise Metodológica:</p>
+                    <p>Ao examinar os alicerces sistêmicos e técnicos que possibilitaram o advento da globalização atual, Milton Santos argumenta que estamos defronte de bases estruturantes radicais, nunca antes verificadas com tamanha abrangência no transcorrer da história da humanidade. Para a existência do espaço de fluxos hegemônicos no MTCI, o autor, no livro <em>Por uma outra globalização</em>, elenca quatro pilares estruturais indissociáveis: a unicidade das técnicas, a convergência dos momentos, a cognoscibilidade do planeta e a consolidação de um motor único.</p>
+                    <p>A alternativa correta é a <strong>A</strong>, pois a "convergência dos momentos" consiste no fenômeno advindo da rapidez informacional, permitindo que diversos atores ao redor do planeta interajam em um espaço de "tempo real" (sincronicidade). Tal fenômeno cria uma unicidade do tempo empírico: pela primeira vez, uma cotação na Bolsa de Tóquio, uma decisão gerencial em Nova York e o fechamento de uma fábrica em São Paulo convergem no mesmo instante relógio e histórico, desencadeando ações integradas.</p>
+                    <div class="overflow-x-auto my-4">
+                        <table class="w-full text-left border-collapse text-xs sm:text-sm">
+                            <thead>
+                                <tr class="bg-slate-100 text-slate-800 border-b border-slate-200">
+                                    <th class="p-3 font-semibold">Características da Globalização</th>
+                                    <th class="p-3 font-semibold">Explicação Conceitual (Milton Santos)</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-slate-100">
+                                <tr>
+                                    <td class="p-3 font-medium">Unicidade das Técnicas</td>
+                                    <td class="p-3">A técnica da informação (telemática, informática) alcança escala planetária. Há um único sistema técnico atuando de modo invasor e hierárquico, subordinando todas as demais famílias de técnicas precedentes.</td>
+                                </tr>
+                                <tr>
+                                    <td class="p-3 font-medium">Convergência dos Momentos</td>
+                                    <td class="p-3">A aceleração da história e o "tempo real". Interligação dos tempos vivenciais que permitem a sincronização instantânea de ações distantes ao redor do globo.</td>
+                                </tr>
+                                <tr>
+                                    <td class="p-3 font-medium">Cognoscibilidade do Planeta</td>
+                                    <td class="p-3">O conhecimento científico minucioso de cada fração do território (por satélites, dados empíricos). As corporações mapeiam todo o globo para identificar vantagens comparativas e praticar uma violenta seletividade espacial.</td>
+                                </tr>
+                                <tr>
+                                    <td class="p-3 font-medium">Motor Único</td>
+                                    <td class="p-3">A <em>mais-valia globalizada</em>. A lógica irrefreável da acumulação, financeirização e competitividade que coordena as empresas e submete os territórios em escala mundial.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p>Ao investigar o erro das demais alternativas: a alternativa <strong>B</strong> é equivocada pois a "unicidade das técnicas" não implica que as desigualdades tecnológicas cessem ou que o passado espacial (as rugosidades) seja eliminado. Ela apenas aponta que a rede telemática se tornou a referência universal para todos; contudo, ela interage – quase sempre predatando – sobre infraestruturas pretéritas. A alternativa <strong>C</strong> erra redondamente: a "cognoscibilidade do planeta" é exatamente o conhecimento aguçado e minucioso de todos os lugares do globo, permitindo que a grande corporação transnacional execute sua operação predatória (seletividade dos lugares) com altíssima segurança e eficiência, não se tratando de um fator de obstrução, mas de potencialização do capital. A alternativa <strong>D</strong> é falsa porque o "motor único", como pontua o geógrafo, trata-se fundamentalmente da extração de uma <em>mais-valia globalizada</em>, regida pela tirania das finanças corporativas e corporificando a insociável e destrutiva união entre técnica e política no estágio neoliberal.</p>
+                </div>
+            </article>
+
+            <!-- Resolution 4 -->
+            <article id="res-4" class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 sm:p-8">
+                <div class="flex items-center justify-between mb-3 pb-3 border-b border-slate-100">
+                    <span class="font-bold text-slate-900 text-base">Questão 4</span>
+                    <span class="px-3 py-1 rounded-full text-xs font-bold bg-slate-100 text-slate-800">Gabarito: C</span>
+                </div>
+                <div class="prose max-w-none text-slate-700 text-sm sm:text-base leading-relaxed space-y-4">
+                    <p class="font-semibold text-slate-900">Resolução e Análise Metodológica:</p>
+                    <p>O entendimento do espaço geográfico como algo para além de um simples palco onde as dinâmicas sociais se desenrolam é o ápice do arcabouço epistemológico miltoniano. De acordo com os fundamentos assentados em <em>A Natureza do Espaço</em>, o espaço deve ser conceituado intrinsecamente como um "conjunto indissociável, solidário e também contraditório, de sistemas de objetos e sistemas de ações, não considerados isoladamente, mas como o quadro único no qual a história se dá".</p>
+                    <p>A alternativa correta é a <strong>C</strong>. Dentro da apreensão dialética do território, a geografia crítica necessita avaliar a constituição do meio enquanto forma e enquanto processo (a forma-conteúdo). Os <em>sistemas de ações</em> (que correspondem às lógicas, intenções, ordens políticas e operações financeiras formuladas pelas classes hegemônicas e também pelo agir do cotidiano popular) precisam de uma materialidade para ganharem concretude e eficácia territorial; portanto, a ação induz a criação, mutação ou obsolescência de infraestruturas, redes, lavouras e prédios (os objetos). Simultaneamente, os <em>sistemas de objetos</em> formados pelas heranças, rugosidades e pelas grandes vias instaladas, balizam o escopo das ações possíveis: a presença ou falta de um duto ou rodovia de alto nível condiciona diretamente se o território será apropriado pelo tempo rápido da globalização corporativa ou deixado ao tempo lento das exclusões.</p>
+                    <div class="overflow-x-auto my-4">
+                        <table class="w-full text-left border-collapse text-xs sm:text-sm">
+                            <thead>
+                                <tr class="bg-slate-100 text-slate-800 border-b border-slate-200">
+                                    <th class="p-3 font-semibold">Componentes do Espaço Geográfico</th>
+                                    <th class="p-3 font-semibold">Definição Santiana</th>
+                                    <th class="p-3 font-semibold">Implicações Territoriais</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-slate-100">
+                                <tr>
+                                    <td class="p-3 font-medium">Sistema de Objetos</td>
+                                    <td class="p-3">As formas espaciais físicas, artificiais, técnicas ou as "rugosidades" de tempos pretéritos.</td>
+                                    <td class="p-3">Oferecem os limites e as potencialidades materiais, operando como condicionantes fixos da reprodução do capital e do acontecer social.</td>
+                                </tr>
+                                <tr>
+                                    <td class="p-3 font-medium">Sistema de Ações</td>
+                                    <td class="p-3">As ordens de comando, a intencionalidade política, a estratégia corporativa e a dinâmica da convivência cotidiana.</td>
+                                    <td class="p-3">Imprimem sentido, valor, fluxo e função aos objetos; renovam ou descartam a materialidade em função de interesses historicamente datados.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p>Comentário dos distratores: a alternativa <strong>A</strong> é errônea porque, na contemporaneidade, os sistemas de objetos perderam quase inteiramente seu caráter puramente "natural", comportando níveis densos de artificialidade proveniente do trabalho social e da técnica aplicada (segunda natureza artificializada). A alternativa <strong>B</strong> peca ao atribuir às máquinas e infraestruturas técnicas uma intencionalidade ou "significado autônomo" apartado da política social. Objetos não agem por si mesmos ou conduzem a história mecanicamente; eles só cumprem funções porque as sociedades, movidas por lógicas de regulação e capital (intencionalidade política), impulsionam essas engrenagens. A alternativa <strong>D</strong> colide violentamente com o escopo basilar do autor. Na contramão do equívoco apresentado, Milton Santos repudia a separação analítica estanque entre processos materiais e sociais: o espaço, compreendido geograficamente, requer a observação da inseparabilidade absoluta dos fixos (materialidades duráveis) interconectados aos fluxos (movimentos fluidos e sociais) que os perfazem.</p>
+                </div>
+            </article>
+
+            <!-- Resolution 5 -->
+            <article id="res-5" class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 sm:p-8">
+                <div class="flex items-center justify-between mb-3 pb-3 border-b border-slate-100">
+                    <span class="font-bold text-slate-900 text-base">Questão 5</span>
+                    <span class="px-3 py-1 rounded-full text-xs font-bold bg-slate-100 text-slate-800">Gabarito: B</span>
+                </div>
+                <div class="prose max-w-none text-slate-700 text-sm sm:text-base leading-relaxed space-y-4">
+                    <p class="font-semibold text-slate-900">Resolução e Análise Metodológica:</p>
+                    <p>Para analisar a seletividade profunda que molda a inserção geográfica do território brasileiro perante a nova fase técnica do capitalismo, a obra <em>O Brasil: Território e sociedade no início do século XXI</em> (2001), co-escrita por Milton Santos e María Laura Silveira, introduz a dualidade territorial composta pelos "espaços luminosos" e "espaços opacos".</p>
+                    <p>A alternativa correta é a <strong>B</strong>, por espelhar adequadamente o antagonismo estabelecido pelos teóricos. Os <em>espaços luminosos</em> (amplamente encontrados, por exemplo, na Região Concentrada brasileira formada pelo eixo Sudeste/Sul e nos nós da expansão do agronegócio de ponta) são recortes espaciais que lograram cumular uma expressiva densidade do Meio Técnico-Científico-Informacional. São "luminosos" em razão de agregarem telecomunicações robustas, logística de ponta, circulação fluida do tempo rápido e a presença massiva das ações da racionalidade financeira e corporativa mundial. Em detrimento, os <em>espaços opacos</em> constituem grandes fatias do território abandonadas ou preteridas pelas infraestruturas hegemônicas. Nesses lugares de densidade técnica e informacional rarefeita, prevalecem ações voltadas ao "circuito inferior da economia urbana", formas residuais de solidariedade, ritmos regidos por lógicas não diretamente financeirizadas e, de maneira expressiva, a chamada "lentidão" temporal vinculada aos despossuídos do mercado e da modernização excludente.</p>
+                    <div class="overflow-x-auto my-4">
+                        <table class="w-full text-left border-collapse text-xs sm:text-sm">
+                            <thead>
+                                <tr class="bg-slate-100 text-slate-800 border-b border-slate-200">
+                                    <th class="p-3 font-semibold">Tipologia Espacial</th>
+                                    <th class="p-3 font-semibold">Densidade Técnica e Informacional</th>
+                                    <th class="p-3 font-semibold">Atores e Lógicas Hegemônicas</th>
+                                    <th class="p-3 font-semibold">Temporalidade Dominante</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-slate-100">
+                                <tr>
+                                    <td class="p-3 font-medium">Espaços Luminosos</td>
+                                    <td class="p-3">Altíssima (presença densa do MTCI, infraestruturas de precisão, nós e redes de telecomunicação).</td>
+                                    <td class="p-3">Agentes corporativos multinacionais, capitais financeiros, comando (regiões que "mandam"), circuito superior.</td>
+                                    <td class="p-3">Tempo rápido, instantaneidade, imperativo da fluidez absoluta e da competitividade.</td>
+                                </tr>
+                                <tr>
+                                    <td class="p-3 font-medium">Espaços Opacos</td>
+                                    <td class="p-3">Baixa ou rarefeita (obsolescência relativa, "rugosidades" não modernizadas pelas finanças, ausência de sistemas informacionais).</td>
+                                    <td class="p-3">Pequenos produtores locais, atores excluídos da modernização, circuito inferior da economia urbana, lógicas de sobrevivência.</td>
+                                    <td class="p-3">Tempo lento, tempo do espaço vivido, co-presença interativa e ritmo do dia a dia popular.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p>A avaliação das alternativas incorretas explicita falhas no referencial adotado: a alternativa <strong>A</strong> está perfeitamente invertida em relação à definição teórica – atribuiu as propriedades e o brilho reticular e corporativo aos "espaços opacos", quando estes pertencem, de fato, aos "espaços luminosos". A alternativa <strong>C</strong> é absolutamente equivocada por evocar que a produção dessas assimetrias luminosas seria obra passiva de fatores fisiográficos ou geomorfológicos. Pelo contrário, as desigualdades entre luminosidades e opacidades territoriais originam-se em processos agressivos da divisão interurbana e territorial do trabalho, nos subsídios do planejamento político corporativista, na guerra fiscal e nos ciclos da acumulação do capital central. A alternativa <strong>D</strong> encerra um erro metodológico clássico na apreensão de Santos: os espaços opacos, ainda que sejam palcos de dinâmicas não hegemônicas (tempo lento, contra-racionalidades), não estão desconectados do sistema-mundo. A globalização atualiza perversamente a exclusão ali vivida, extraindo mais-valia mesmo da escassez; os lugares opacos atuam de maneira reativa e dialética com os vetores informacionais que por ali perpassam ou os circundam, estando estruturalmente subordinados à ordem global.</p>
+                </div>
+            </article>
+
+            <!-- Resolution 6 -->
+            <article id="res-6" class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 sm:p-8">
+                <div class="flex items-center justify-between mb-3 pb-3 border-b border-slate-100">
+                    <span class="font-bold text-slate-900 text-base">Questão 6</span>
+                    <span class="px-3 py-1 rounded-full text-xs font-bold bg-slate-100 text-slate-800">Gabarito: B</span>
+                </div>
+                <div class="prose max-w-none text-slate-700 text-sm sm:text-base leading-relaxed space-y-4">
+                    <p class="font-semibold text-slate-900">Resolução e Análise Metodológica:</p>
+                    <p>A concepção da configuração territorial vigente passa necessariamente pela observação rigorosa do jogo dialético entre os "fixos" e os "fluxos", formulação basilar para compreender o dinamismo do espaço geográfico contemporâneo na concepção de Santos. Para que o período atual ocorra materialmente, a existência de fluxos imateriais e velozes (informação instantânea, algoritmos de negociação financeira, circulação de ordens em escala global) requisita ancoragem em materialidades estáticas e rígidas extremamente custosas.</p>
+                    <p>A alternativa correta é a <strong>B</strong>, dado que sublinha de forma contundente uma característica peculiar da fase técnico-científico-informacional. A ordem financeira impõe um imperativo central: a "fluidez". No entanto, a fluidez do capital global (os <em>fluxos</em>) demanda aportes astronômicos na construção e aprimoramento de sistemas de infraestrutura profundamente fixados ao solo (<em>fixos</em>), como parques de antenas repetidoras, terminais logísticos super-automatizados, rodovias de eixo central e data centers para armazenamento em nuvem. Em outras palavras, na modernidade atual, "os fixos são cada vez mais artificiais e mais fixos, fixados ao solo; os fluxos são cada vez mais diversos, mais amplos, mais numerosos, mais rápidos".</p>
+                    <div class="overflow-x-auto my-4">
+                        <table class="w-full text-left border-collapse text-xs sm:text-sm">
+                            <thead>
+                                <tr class="bg-slate-100 text-slate-800 border-b border-slate-200">
+                                    <th class="p-3 font-semibold">Componente Dialético</th>
+                                    <th class="p-3 font-semibold">Definição na Era Global (MTCI)</th>
+                                    <th class="p-3 font-semibold">Função no Processo de Acumulação</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-slate-100">
+                                <tr>
+                                    <td class="p-3 font-medium">Espaço de Fixos</td>
+                                    <td class="p-3">Infraestruturas instaladas, objetos geográficos rígidos, base técnico-científica fixada no solo (portos, torres, vias de transmissão).</td>
+                                    <td class="p-3">Atuam como instrumentos que suportam, viabilizam, atraem e aceleram o movimento corporativo hegemônico, demandando vasto aporte de capital material.</td>
+                                </tr>
+                                <tr>
+                                    <td class="p-3 font-medium">Espaço de Fluxos</td>
+                                    <td class="p-3">Movimento de matérias (bens, produtos físicos) e de imateriais (dados, ações na bolsa, ordens, ideias).</td>
+                                    <td class="p-3">São os agentes propulsores diretos do valor e da "mais-valia universal"; atravessam ou instalam-se nos fixos, alterando seu uso, sua obsolescência ou seu peso estratégico.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p>As demais assertivas transgridem severamente os marcos conceituais santianos: a alternativa <strong>A</strong> repete a ideologia comum (e falsa) da "desmaterialização" total do espaço. Para Milton Santos, a virtualização das trocas financeiras não decreta a morte da geografia material, pois todo impulso cibernético depende inexoravelmente do avanço hipertecnológico dos fixos da rede telemática terrestre. A alternativa <strong>C</strong> padece de uma miopia frente à dialética territorial: não existe exclusão mecânica, mas sim <em>solidariedade</em> funcional entre os dois. Historicamente, as áreas dotadas de altíssima complexidade e densidade de objetos e fixos geográficos são precisamente aquelas destinadas a coordenar e receber os maiores jorros de fluxos circulantes (concentração de poder em "espaços luminosos"). A alternativa <strong>D</strong> reflete um equívoco absoluto: a ordem de mercado transnacional atua sobre o espaço objetivando substituir as heranças pretéritas de pouco rendimento por fixos artificiais, hiperdimensionados e adaptados à circulação da mais-valia num patamar <em>global</em> e agressivamente extravertido, muito distante da proteção de lógicas ecológicas originárias e das ações solidárias locais.</p>
+                </div>
+            </article>
+
+            <!-- Resolution 7 -->
+            <article id="res-7" class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 sm:p-8">
+                <div class="flex items-center justify-between mb-3 pb-3 border-b border-slate-100">
+                    <span class="font-bold text-slate-900 text-base">Questão 7</span>
+                    <span class="px-3 py-1 rounded-full text-xs font-bold bg-slate-100 text-slate-800">Gabarito: C</span>
+                </div>
+                <div class="prose max-w-none text-slate-700 text-sm sm:text-base leading-relaxed space-y-4">
+                    <p class="font-semibold text-slate-900">Resolução e Análise Metodológica:</p>
+                    <p>O rigor crítico e militante do geógrafo baiano encontra seu ponto de fervura na obra <em>Por uma outra globalização</em>, ao cunhar a premissa dolorosa, mas analiticamente central, de que vivenciamos uma <em>perversidade sistêmica</em> imposta pela fase informacional do capitalismo. Para investigar as engrenagens brutais que operam desde a esfera material da pobreza até o escopo das subjetividades subalternizadas, Santos decifra dois potentes vetores coercitivos empregados pelas megacorporações.</p>
+                    <p>A alternativa correta é a <strong>C</strong>, vez que assinala exatamente a "violência do dinheiro" e a "violência da informação" como as alavancas duplas da tirania mundial. A <em>violência do dinheiro</em> traduz-se pelo predomínio incontrastável da fração financeira e especulativa do capital sobre as políticas estatais. Esse imperativo cego do lucro flutuante submete as finanças de governos do Sul global, precariza o trabalho formal, privatiza infraestruturas básicas, amplia o desemprego estrutural e anula a dimensão assistencial do Estado a serviço do bem comum. Por sua vez, essa dominação pecuniária esbarraria em resistências colossais se não operasse em conluio indissociável com a <em>violência da informação</em>. Por meio desta última, a mídia, aparelhada pelos conglomerados capitalistas, molda imaginários, cria necessidades ilusórias (o despotismo do consumo artificial), dissimula a brutalidade social da acumulação de renda e força a crença numa integração totalitária de progresso e liberdade que, no plano factual, não ocorre, resultando no bloqueio da formação crítica.</p>
+                    <div class="overflow-x-auto my-4">
+                        <table class="w-full text-left border-collapse text-xs sm:text-sm">
+                            <thead>
+                                <tr class="bg-slate-100 text-slate-800 border-b border-slate-200">
+                                    <th class="p-3 font-semibold">Matrizes da Perversidade Sistêmica</th>
+                                    <th class="p-3 font-semibold"><em>Modus Operandi</em></th>
+                                    <th class="p-3 font-semibold">Efeitos no Espaço Geográfico Periférico</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-slate-100">
+                                <tr>
+                                    <td class="p-3 font-medium">Violência do Dinheiro</td>
+                                    <td class="p-3">Subordinação da vida humana à lógica estrita das finanças hegemônicas, das taxas de juros, dívida e investimentos voláteis.</td>
+                                    <td class="p-3">Privatização dos espaços públicos, sucateamento de infraestruturas sociais e aumento exponencial das desigualdades intraurbanas.</td>
+                                </tr>
+                                <tr>
+                                    <td class="p-3 font-medium">Violência da Informação</td>
+                                    <td class="p-3">O oligopólio da mídia e o uso corporativo dos discursos, impondo o consumismo e a conformidade política ("Pensamento Único").</td>
+                                    <td class="p-3">Desorientação ética, alienação de cidadãos reduzidos a meros consumidores, encobrimento ideológico da precarização.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p>O fracasso das alternativas restantes é flagrante ante as contradições expostas por Santos no tocante à globalização neoliberal: a alternativa <strong>A</strong> descreve características opostas às políticas prevalentes no sistema capitalista contemporâneo (baseado em patentes duras e reestruturação com Estado mínimo para o social e máximo para o mercado corporativo); a alternativa <strong>B</strong> acusa o período técnico de fragmentação quando a principal força é sua "unicidade" estrutural sob as técnicas telemáticas e ratifica uma suposta extinção dos "circuitos", quando a informalidade do <em>circuito inferior</em> segue pulsando como resistência da base da pirâmide; e a alternativa <strong>D</strong> constitui o polo inverso do panorama delineado na obra do autor, que acusa, de forma amarga e incisiva, a consolidação de "cidadanias mutiladas" perante o esvaziamento das políticas de bem-estar social, aliada ao aviltamento da soberania das nações subdesenvolvidas na geopolítica.</p>
+                </div>
+            </article>
+
+            <!-- Resolution 8 -->
+            <article id="res-8" class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 sm:p-8">
+                <div class="flex items-center justify-between mb-3 pb-3 border-b border-slate-100">
+                    <span class="font-bold text-slate-900 text-base">Questão 8</span>
+                    <span class="px-3 py-1 rounded-full text-xs font-bold bg-slate-100 text-slate-800">Gabarito: A</span>
+                </div>
+                <div class="prose max-w-none text-slate-700 text-sm sm:text-base leading-relaxed space-y-4">
+                    <p class="font-semibold text-slate-900">Resolução e Análise Metodológica:</p>
+                    <p>Os desdobramentos da globalização na arquitetura produtiva dos lugares impulsionaram novos modelos de gestão e expansão citadina. Milton Santos avança ao adotar o conceito de <em>urbanização corporativa</em> para classificar as dinâmicas segregadoras, mercantilistas e hierárquicas assumidas pelas grandes metrópoles dentro da economia política atual.</p>
+                    <p>A alternativa correta é a <strong>A</strong>, pois reflete perfeitamente a perversidade descrita nas análises das lógicas territoriais corporativas do autor. Na urbanização corporativa, a máquina governamental (seja pela captação de recursos públicos via renúncia fiscal, endividamentos para obras de grande envergadura ou regulamentações que facilitam e isentam o fluxo de mercadorias) é cooptada pelos interesses diretos de megacorporações transnacionais. Os espaços da cidade passam a ser fragmentados, produzindo fixos hiperdimensionados (rodoanéis logísticos, avenidas privatizadas para fluidez comercial, sedes financeiras supermodernas equipadas telematicamente) desenhados unicamente para conectar o grande capital às redes globais. O resultado inevitável dessa distorção de verbas e planejamento público na constituição de "cidades para negócios" é o acirramento grotesco da pobreza estrutural e da deficiência no provimento de serviços sociais para a maioria da população, que sobrevive espremida e relegada ao <em>circuito inferior da economia urbana</em>.</p>
+                    <div class="overflow-x-auto my-4">
+                        <table class="w-full text-left border-collapse text-xs sm:text-sm">
+                            <thead>
+                                <tr class="bg-slate-100 text-slate-800 border-b border-slate-200">
+                                    <th class="p-3 font-semibold">Dinâmica da Economia Urbana</th>
+                                    <th class="p-3 font-semibold">Circuitos Santianos</th>
+                                    <th class="p-3 font-semibold">Inserção Frente à Urbanização Corporativa</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-slate-100">
+                                <tr>
+                                    <td class="p-3 font-medium">Racionalidade Hegemônica</td>
+                                    <td class="p-3"><em>Circuito Superior</em> (bancos, transnacionais, serviços avançados, tecnologias de ponta, comando).</td>
+                                    <td class="p-3">É o eixo que dita e se beneficia ativamente da urbanização corporativa, extraindo altíssima mais-valia mediante captura da máquina pública.</td>
+                                </tr>
+                                <tr>
+                                    <td class="p-3 font-medium">Racionalidade de Sobrevivência</td>
+                                    <td class="p-3"><em>Circuito Inferior</em> (pequeno comércio informal, serviços manuais precários, desempregados).</td>
+                                    <td class="p-3">É penalizado e precarizado pelas lógicas mercantilistas urbanas. Sobrevive da resiliência territorial e adapta-se consumindo sobras da modernização.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p>Quanto às alternativas distratoras, os equívocos se acumulam da seguinte forma: a alternativa <strong>B</strong> utiliza ironicamente o léxico da gestão coletiva (que remete ao ideário do urbanismo crítico social) para nomear a ação predatória corporativista, negando que a urbanização corporativa exclua propositalmente o circuito inferior; a alternativa <strong>C</strong> peca ao sugerir que a periferia do sistema capitalista mundial (o Sul Global e o Brasil) esteja blindada e alheia à invasão de interesses de conglomerados internacionais, quando é sabido, sob os prismas miltonianos e da geografia econômica crítica contemporânea, que as cidades da periferia são agudamente submetidas à dependência e exploração exógenas; a alternativa <strong>D</strong> aponta que as metrópoles seriam abandonadas pelas ações multinacionais devido ao foco no agronegócio; contudo, por mais que a base de extração transite para o campo (o que efetivamente amplia o fosso fundiário e de subordinação do interior), a corporação demanda com vital necessidade o centro terciário direcional das metrópoles para controlar dados financeiros, fechar acordos de <em>commodities</em> e irradiar as infraestruturas, garantindo a prevalência dos nós urbanos como centralidades incontornáveis.</p>
+                </div>
+            </article>
+
+            <!-- Resolution 9 -->
+            <article id="res-9" class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 sm:p-8">
+                <div class="flex items-center justify-between mb-3 pb-3 border-b border-slate-100">
+                    <span class="font-bold text-slate-900 text-base">Questão 9</span>
+                    <span class="px-3 py-1 rounded-full text-xs font-bold bg-slate-100 text-slate-800">Gabarito: C</span>
+                </div>
+                <div class="prose max-w-none text-slate-700 text-sm sm:text-base leading-relaxed space-y-4">
+                    <p class="font-semibold text-slate-900">Resolução e Análise Metodológica:</p>
+                    <p>Como um contraponto crítico que propicia compreender as chaves de articulação dos fenômenos geográficos em escalas heterogêneas, as ferramentas dialéticas de "horizontalidades" e "verticalidades" fornecem o aparato metodológico no tocante às solidariedades que perpassam as fronteiras do espaço vivido na globalização. O espaço relacional é cindido e, simultaneamente, cruzado por essas duas vetorialidades.</p>
+                    <p>A alternativa correta é a <strong>C</strong>, ao distinguir perfeitamente as forças de coesão espacial na era técnico-científica-informacional. As <em>verticalidades</em> consistem na expressão despótica do espaço de fluxos globais e alienígenas: são os vetores do capital corporativo, constituindo arranjos sob a forma de redes hierárquicas altamente centralizadoras que, saltando sobre o chão contíguo como verdadeiros "arquipélagos luminosos", interconectam frações apartadas de territórios distantes e submetem essas ilhas de valor às ordens emanadas por grandes empresas multinacionais sediadas remotamente. Por outro lado, as <em>horizontalidades</em> caracterizam-se pelo domínio do espaço cotidiano vivido conjuntamente e de maneira orgânica; é o território percebido em sua face contígua (a união dos vizinhos, do comércio em bairros, da vida associada), regido pelo compartilhamento relacional de pessoas e atividades no embate do dia a dia, onde as populações elaboram lógicas táticas de resistência (o "tempo lento") à imposição veloz das redes transnacionais – é, segundo Santos, no arranjo popular solidário enraizado no chão da cidade que operam ativamente as "contra-racionalidades" de rebeldia perante a ordem corporativa.</p>
+                    <div class="overflow-x-auto my-4">
+                        <table class="w-full text-left border-collapse text-xs sm:text-sm">
+                            <thead>
+                                <tr class="bg-slate-100 text-slate-800 border-b border-slate-200">
+                                    <th class="p-3 font-semibold">Vetorialidade Espacial (Globalização)</th>
+                                    <th class="p-3 font-semibold">Natureza Relacional</th>
+                                    <th class="p-3 font-semibold">Atores e Lógicas Correspondentes</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-slate-100">
+                                <tr>
+                                    <td class="p-3 font-medium">Verticalidades</td>
+                                    <td class="p-3">Conexões distantes, redes informacionais articuladas, obediência extravertida, hierarquia, alienação local.</td>
+                                    <td class="p-3">Megaempresas globais, bancos, fluxos sistêmicos de commodities em <em>tempo rápido</em>, lógica da mais-valia.</td>
+                                </tr>
+                                <tr>
+                                    <td class="p-3 font-medium">Horizontalidades</td>
+                                    <td class="p-3">Território contíguo, interações locais conjuntas, solidariedade orgânica, vizinhança cotidiana.</td>
+                                    <td class="p-3">População enraizada, economia local e informal, circuitos inferiores da vivência, resistência ativa em <em>tempo lento</em>.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p>Examinando criticamente as incorreções constantes nas outras alternativas: as alternativas <strong>A</strong> e <strong>B</strong> foram invertidas de maneira espelhada: a primeira atribuiu as lógicas da opressão financeira alienígena e fluxos hierárquicos ao termo horizontalidades, ao passo que a segunda conferiu às verticalidades o status de espaço vivido das resistências orgânicas; enquanto os papéis teóricos descritos são perfeitamente antípodas nas concepções ontológicas postuladas por Santos. A alternativa <strong>D</strong> revela desconhecimento elementar sobre a conflituosa arquitetura administrativa contemporânea: as vetorialidades citadas operam invariavelmente sob profundas clivagens e assimetrias de poder — a ordem de comando dos fluxos globais atua numa escala que constantemente violenta as soberanias políticas locais e regionais governamentais de prefeituras, anulando as noções de gestão harmônica ou unificada da sociedade e do capital.</p>
+                </div>
+            </article>
+
+            <!-- Resolution 10 -->
+            <article id="res-10" class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 sm:p-8">
+                <div class="flex items-center justify-between mb-3 pb-3 border-b border-slate-100">
+                    <span class="font-bold text-slate-900 text-base">Questão 10</span>
+                    <span class="px-3 py-1 rounded-full text-xs font-bold bg-slate-100 text-slate-800">Gabarito: D</span>
+                </div>
+                <div class="prose max-w-none text-slate-700 text-sm sm:text-base leading-relaxed space-y-4">
+                    <p class="font-semibold text-slate-900">Resolução e Análise Metodológica:</p>
+                    <p>A renovação ontológica de Milton Santos no entendimento do atual <em>Meio Técnico-Científico-Informacional (MTCI)</em> culmina na constatação de que a produção e o consumo contemporâneos impõem, indissociavelmente, uma regulação tanto da base física dos lugares quanto das representações mentais de seus habitantes. É para desvelar essa arquitetura dicotômica (porém interdependente) que o autor resgata e sofistica a dupla conceptual de <em>Tecnosfera</em> e <em>Psicosfera</em>.</p>
+                    <p>A alternativa correta é a <strong>D</strong>. A <em>Tecnosfera</em> corresponde inequivocamente ao subproduto material e duro da modernização: a maciça e generalizada artificialização do espaço por meio da multiplicação acentuada de objetos técnicos, redes telemáticas de alta densidade, fixos logísticos colossais e insumos de ciência aplicada inseridos na natureza. No entanto, a técnica, por si só, é um arcabouço inerte de engrenagens sem direcionamento ou moral. Para que essa hipertrofia infraestrutural hegemônica seja ativada, orientada à acumulação veloz de capitais e perfeitamente legitimada ante a opressão infligida à cidadania desvalida, os grandes atores invocam a <em>Psicosfera</em>. Este pilar imaterial diz respeito ao âmbito espiritual do território: a rede de intenções políticas, a elaboração das normas jurídicas que protegem os bens, o discurso alienante massificado pela mídia corporativa, as necessidades induzidas pela publicidade, além dos hábitos de conformidade, do universo das paixões de consumo prefabricadas e das crenças ideológicas. Portanto, a Psicosfera dita o sentido hegemônico que governará a base operacional técnica; ambas integram e operam juntas na consolidação da "racionalidade técnico-científica" invasora.</p>
+                    <div class="overflow-x-auto my-4">
+                        <table class="w-full text-left border-collapse text-xs sm:text-sm">
+                            <thead>
+                                <tr class="bg-slate-100 text-slate-800 border-b border-slate-200">
+                                    <th class="p-3 font-semibold">Categorias do Meio (MTCI)</th>
+                                    <th class="p-3 font-semibold">Escopo de Atuação e Materialidade</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-slate-100">
+                                <tr>
+                                    <td class="p-3 font-medium">Tecnosfera</td>
+                                    <td class="p-3">Objetos de engenharia (satélites, fábricas, infraestruturas cibernéticas e redes). A <em>materialidade</em> do meio artificial, a técnica em sua dimensão física.</td>
+                                </tr>
+                                <tr>
+                                    <td class="p-3 font-medium">Psicosfera</td>
+                                    <td class="p-3">As ideologias do consumismo corporativo, a "violência da informação", a criação de necessidades, a legislação, e as emoções de conformidade social. O <em>espiríto</em> instrumental e o direcionamento político que opera e normaliza a técnica.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p>Análise técnica das falsas alternativas: a alternativa <strong>A</strong> está invertida na definição básica: credita o corpo conceitual da Psicosfera ao escopo dos bens duráveis e das obras fixas (Tecnosfera), e, inversamente, joga no colo da Tecnosfera o universo difuso de valores da sociedade. A alternativa <strong>B</strong> colide drasticamente com o vigor crítico do autor: longe de ter o seu papel epistemológico anulado e silenciado pelas inovações das engrenagens físicas (as máquinas), a <em>Psicosfera</em> adquire um poder coercitivo totalitário na cibernética — as redes virtuais e o mundo informacional são exímios colonizadores da subjetividade humana e massificadores das fábulas globais, radicalizando a dependência psicológica das multidões ao ideário das transnacionais. A alternativa <strong>C</strong> erra ao propor uma segregação estanque da incidência dessas categorias em diferentes territórios. Santos é categórico ao ressaltar que não há ilhas puras: nos espaços mais elitizados e nos "luminosos" redutos financeiros onde se aglomera a Tecnosfera de ponta, opera densamente a mais contundente Psicosfera hegemônica da financeirização (a ganância regulamentada e o <em>lobby</em> corporativo); sob o mesmo viés analítico, as precariedades e as lutas enraizadas nos arrabaldes e "espaços opacos" do cotidiano também desenvolvem sua trama relacional, sua submissão moral ou resistências ativas mediante as engrenagens conjuntas entre tecnoesferas degradadas e sua respectiva matriz de psicosfera de sobrevivência popular.</p>
+                </div>
+            </article>
+
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-slate-200 mt-16 py-6 text-center text-xs text-slate-500">
+        <p>Simulado Oficial adaptado para estudo da banca IFMG • Teoria de Milton Santos</p>
+    </footer>
+
+    <!-- JavaScript for Quiz Submission and Scoring -->
+    <script>
+        document.getElementById('submit-btn').addEventListener('click', function() {
+            const articles = document.querySelectorAll('article[data-question]');
+            let score = 0;
+            let allAnswered = true;
+
+            articles.forEach(article => {
+                const qNum = article.getAttribute('data-question');
+                const correctAnswer = article.getAttribute('data-answer');
+                const selected = article.querySelector('input[type="radio"]:checked');
+                const statusIcon = article.querySelector('.status-icon');
+
+                // Remove previous styles on labels
+                const labels = article.querySelectorAll('label');
+                labels.forEach(l => {
+                    l.classList.remove('bg-emerald-50', 'border-emerald-300', 'bg-rose-50', 'border-rose-300');
+                });
+
+                if (!selected) {
+                    allAnswered = false;
+                }
+            });
+
+            if (!allAnswered) {
+                // Custom non-intrusive notification instead of alert()
+                let alertBox = document.getElementById('warning-banner');
+                if (!alertBox) {
+                    alertBox = document.createElement('div');
+                    alertBox.id = 'warning-banner';
+                    alertBox.className = 'fixed bottom-4 right-4 bg-amber-600 text-white px-6 py-3 rounded-xl shadow-lg z-50 text-sm font-medium transition-all';
+                    alertBox.innerText = 'Por favor, responda a todas as 10 questões antes de enviar!';
+                    document.body.appendChild(alertBox);
+                    setTimeout(() => {
+                        alertBox.remove();
+                    }, 4000);
+                }
+                return;
+            }
+
+            // Calculate score
+            articles.forEach(article => {
+                const qNum = article.getAttribute('data-question');
+                const correctAnswer = article.getAttribute('data-answer');
+                const selected = article.querySelector('input[type="radio"]:checked');
+                const statusIcon = article.querySelector('.status-icon');
+                const labels = article.querySelectorAll('label');
+
+                statusIcon.classList.remove('hidden');
+
+                labels.forEach(l => {
+                    const input = l.querySelector('input');
+                    if (input.value === correctAnswer) {
+                        l.classList.add('bg-emerald-50', 'border-emerald-300');
+                    }
+                });
+
+                if (selected.value === correctAnswer) {
+                    score++;
+                    statusIcon.innerHTML = '<span class="text-emerald-600 font-bold bg-emerald-50 px-2.5 py-1 rounded-full border border-emerald-200">Correto ✓</span>';
+                } else {
+                    selected.closest('label').classList.remove('bg-emerald-50', 'border-emerald-300');
+                    selected.closest('label').classList.add('bg-rose-50', 'border-rose-300');
+                    statusIcon.innerHTML = '<span class="text-rose-600 font-bold bg-rose-50 px-2.5 py-1 rounded-full border border-rose-200">Incorreto ✗</span>';
+                }
+            });
+
+            // Update scores in UI
+            document.getElementById('current-score').innerText = score;
+            document.getElementById('final-score-text').innerText = score + ' / 10';
+            document.getElementById('score-indicator').classList.remove('hidden');
+
+            // Reveal solutions section smoothly
+            const solutionsSection = document.getElementById('solutions-section');
+            solutionsSection.classList.remove('hidden');
+
+            // Scroll smoothly to the solutions section
+            solutionsSection.scrollIntoView({ behavior: 'smooth' });
+        });
+    </script>
+</body>
+</html>
